@@ -1,0 +1,1714 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apache Spark Lab - Distributed Data Processing</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <style>
+        :root {
+            --orange: #E8792F;
+            --dark-blue: #1B3A5C;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+
+        .navbar {
+            background: var(--dark-blue);
+            color: white;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .hero-section {
+            background: linear-gradient(135deg, var(--dark-blue) 0%, #2d5a8c 100%);
+            color: white;
+        }
+
+        .accent-orange {
+            color: var(--orange);
+        }
+
+        .border-orange {
+            border-color: var(--orange);
+        }
+
+        .bg-orange {
+            background-color: var(--orange);
+        }
+
+        .code-block {
+            position: relative;
+            background: #1e1e1e;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: var(--orange);
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: background 0.3s;
+        }
+
+        .copy-btn:hover {
+            background: #d66a1f;
+        }
+
+        .sidebar {
+            max-height: calc(100vh - 80px);
+            overflow-y: auto;
+        }
+
+        .nav-link {
+            color: var(--dark-blue);
+            padding: 10px 16px;
+            border-left: 3px solid transparent;
+            transition: all 0.3s;
+            display: block;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            background: #f3f4f6;
+            border-left-color: var(--orange);
+            color: var(--orange);
+            font-weight: 600;
+        }
+
+        .tab-buttons button {
+            background: #f3f4f6;
+            color: var(--dark-blue);
+            border: none;
+            padding: 8px 16px;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .tab-buttons button.active {
+            background: var(--dark-blue);
+            color: white;
+            border-bottom-color: var(--orange);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        [dir="rtl"] .nav-link {
+            border-left: none;
+            border-right: 3px solid transparent;
+            padding-left: 0;
+            padding-right: 16px;
+        }
+
+        [dir="rtl"] .nav-link:hover,
+        [dir="rtl"] .nav-link.active {
+            border-right-color: var(--orange);
+        }
+
+        [dir="rtl"] .copy-btn {
+            right: auto;
+            left: 12px;
+        }
+
+        .badge-difficulty {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .badge-advanced {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .learning-goal {
+            background: #f0f9ff;
+            border-left: 4px solid var(--orange);
+            padding: 16px;
+            margin: 12px 0;
+            border-radius: 4px;
+        }
+
+        [dir="rtl"] .learning-goal {
+            border-left: none;
+            border-right: 4px solid var(--orange);
+        }
+    </style>
+</head>
+<body dir="ltr" class="bg-gray-50">
+    <!-- Sticky Navigation Bar -->
+    <nav class="navbar">
+        <div class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
+            <button onclick="goBack()" class="flex items-center gap-2 text-white hover:text-gray-200 transition">
+                <span>←</span>
+                <span id="backText">Back to Overview</span>
+            </button>
+            <h1 class="text-xl font-bold">Apache Spark Lab</h1>
+            <select id="langSelect" onchange="changeLanguage(this.value)" class="bg-gray-700 text-white px-3 py-2 rounded border-gray-600">
+                <option value="de">Deutsch</option>
+                <option value="en">English</option>
+                <option value="ar">العربية</option>
+                <option value="uk">Українська</option>
+                <option value="es">Español</option>
+                <option value="tr">Türkçe</option>
+            </select>
+        </div>
+    </nav>
+
+    <div class="flex max-w-7xl mx-auto">
+        <!-- Sidebar -->
+        <aside class="w-64 bg-white border-r border-gray-200 sidebar hidden lg:block">
+            <div class="sticky top-20">
+                <nav class="p-4 space-y-1">
+                    <a href="#hero" class="nav-link active">Hero</a>
+                    <a href="#lernziele" class="nav-link">Lernziele</a>
+                    <a href="#setup" class="nav-link">Setup & Installation</a>
+                    <a href="#theorie" class="nav-link">Theorie</a>
+                    <a href="#pipeline" class="nav-link">MegaStore Pipeline</a>
+                    <a href="#ubung1" class="nav-link">Übung 1</a>
+                    <a href="#ubung2" class="nav-link">Übung 2</a>
+                    <a href="#ubung3" class="nav-link">Übung 3</a>
+                    <a href="#ubung4" class="nav-link">Übung 4</a>
+                    <a href="#ubung5" class="nav-link">Übung 5</a>
+                    <a href="#bonus" class="nav-link">Bonusaufgaben</a>
+                    <a href="#summary" class="nav-link">Zusammenfassung</a>
+                </nav>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 lg:ml-0">
+            <!-- Hero Section -->
+            <section id="hero" class="hero-section py-16 px-4">
+                <div class="max-w-4xl mx-auto text-center">
+                    <h1 class="text-5xl font-bold mb-4" id="heroTitle">Apache Spark Lab - Verteilte Datenverarbeitung</h1>
+                    <p class="text-xl mb-8 text-gray-100" id="heroSubtitle">Kapitel 7: Hadoop, MapReduce & Spark</p>
+                    <div class="flex justify-center gap-4 flex-wrap">
+                        <span class="badge-difficulty badge-advanced" id="diffLabel">Difficulty: Advanced</span>
+                        <span class="text-white" id="timeLabel">⏱️ Time: 3-4 hours</span>
+                    </div>
+                    <p class="text-gray-200 mt-8 text-lg" id="heroDesc">Learn distributed computing with Apache Spark and process the MegaStore e-commerce dataset</p>
+                </div>
+            </section>
+
+            <!-- Content Wrapper with Padding -->
+            <div class="px-4 py-12 max-w-4xl mx-auto">
+                <!-- Lernziele Section -->
+                <section id="lernziele" class="mb-16">
+                    <h2 class="text-4xl font-bold mb-8" id="lernzieleTitle">Learning Objectives</h2>
+                    <div class="space-y-4">
+                        <div class="learning-goal" id="goal1">
+                            <h3 class="font-bold text-lg mb-2 accent-orange">Distributed Computing Concepts</h3>
+                            <p id="goal1Desc">Understand how Spark distributes computation across multiple nodes and processes large datasets in parallel</p>
+                        </div>
+                        <div class="learning-goal" id="goal2">
+                            <h3 class="font-bold text-lg mb-2 accent-orange">MapReduce Paradigm</h3>
+                            <p id="goal2Desc">Learn the map-reduce pattern and how it applies to data processing problems</p>
+                        </div>
+                        <div class="learning-goal" id="goal3">
+                            <h3 class="font-bold text-lg mb-2 accent-orange">Spark RDDs & DataFrames</h3>
+                            <p id="goal3Desc">Master Resilient Distributed Datasets (RDDs) and the optimized DataFrame API</p>
+                        </div>
+                        <div class="learning-goal" id="goal4">
+                            <h3 class="font-bold text-lg mb-2 accent-orange">SparkSQL</h3>
+                            <p id="goal4Desc">Write SQL queries on distributed data and perform complex analytical operations</p>
+                        </div>
+                        <div class="learning-goal" id="goal5">
+                            <h3 class="font-bold text-lg mb-2 accent-orange">ETL Pipelines</h3>
+                            <p id="goal5Desc">Build end-to-end extract, transform, and load pipelines for data processing</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Setup & Installation Section -->
+                <section id="setup" class="mb-16">
+                    <h2 class="text-4xl font-bold mb-8" id="setupTitle">Setup & Installation</h2>
+
+                    <h3 class="text-2xl font-bold mb-4 mt-8" id="dockerSetupTitle">Docker Setup</h3>
+                    <p class="mb-4" id="dockerSetupDesc">We'll use the official Jupyter PySpark notebook image for this lab:</p>
+
+                    <div class="code-block mb-6">
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        <pre><code class="language-bash">docker run --name spark-lab \
+  -p 8888:8888 \
+  -p 4040:4040 \
+  -v $(pwd)/data:/home/jovyan/data \
+  jupyter/pyspark-notebook:latest</code></pre>
+                    </div>
+
+                    <p class="mb-4" id="dockerDescDetail">The command exposes:</p>
+                    <ul class="list-disc list-inside mb-6 space-y-2">
+                        <li id="port8888">Port 8888: Jupyter notebook interface</li>
+                        <li id="port4040">Port 4040: Spark UI for monitoring jobs</li>
+                        <li id="portData">/data: Volume for accessing your data files</li>
+                    </ul>
+
+                    <h3 class="text-2xl font-bold mb-4 mt-8" id="verifyTitle">Verify Installation</h3>
+                    <p class="mb-4" id="verifyDesc">Create a new notebook cell and run:</p>
+
+                    <div class="code-block mb-6">
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        <pre><code class="language-python">from pyspark.sql import SparkSession
+
+spark = SparkSession.builder \
+    .appName("SparkLab") \
+    .getOrCreate()
+
+print(f"Spark version: {spark.version}")
+print(f"Python version: {spark._jsc.sc().version()}")
+
+# Access Spark UI at http://localhost:4040
+spark.sparkContext.setLogLevel("WARN")</code></pre>
+                    </div>
+
+                    <p class="text-green-700 bg-green-50 p-4 rounded" id="verifySuccess">✓ If you see the Spark version printed, your setup is complete!</p>
+                </section>
+
+                <!-- Theory Section -->
+                <section id="theorie" class="mb-16">
+                    <h2 class="text-4xl font-bold mb-8" id="theorieTitle">Theory: Apache Spark Fundamentals</h2>
+
+                    <h3 class="text-2xl font-bold mb-4 mt-8" id="whatIsSparkTitle">What is Apache Spark?</h3>
+                    <p class="mb-4" id="whatIsSparkDesc">Apache Spark is a unified analytics engine for large-scale data processing. Unlike Hadoop MapReduce which writes to disk between stages, Spark keeps data in memory, making it 10-100x faster for iterative algorithms.</p>
+
+                    <h3 class="text-2xl font-bold mb-4 mt-8" id="rddTitle">Resilient Distributed Datasets (RDDs)</h3>
+                    <p class="mb-4" id="rddDesc">RDDs are immutable, distributed collections of objects that can be processed in parallel. They provide fault tolerance through lineage tracking.</p>
+
+                    <div class="bg-blue-50 border-l-4 border-orange p-4 rounded mb-6" id="rddNote">
+                        <strong id="rddNoteLabel">Note:</strong> <span id="rddNoteText">While RDDs are the foundation, DataFrames are now preferred for most use cases due to better optimization.</span>
+                    </div>
+
+                    <h3 class="text-2xl font-bold mb-4 mt-8" id="lazyEvalTitle">Lazy Evaluation & DAGs</h3>
+                    <p class="mb-4" id="lazyEvalDesc">Spark doesn't compute results immediately. Instead, it builds a Directed Acyclic Graph (DAG) of transformations. Only when you call an action (like collect(), write(), or show()) does Spark execute the computation.</p>
+
+                    <h3 class="text-2xl font-bold mb-4 mt-8" id="sparkEcosystemTitle">Spark Ecosystem</h3>
+                    <ul class="list-disc list-inside space-y-2 mb-6">
+                        <li id="sparkSQL"><strong>Spark SQL:</strong> SQL queries on distributed data</li>
+                        <li id="sparkMLlib"><strong>MLlib:</strong> Machine learning library</li>
+                        <li id="sparkStreaming"><strong>Spark Streaming:</strong> Real-time data processing</li>
+                        <li id="sparkGraphX"><strong>GraphX:</strong> Graph processing</li>
+                    </ul>
+                </section>
+
+                <!-- MegaStore Pipeline Section -->
+                <section id="pipeline" class="mb-16">
+                    <h2 class="text-4xl font-bold mb-8" id="pipelineTitle">MegaStore Spark Pipeline</h2>
+
+                    <p class="mb-6" id="pipelineDesc">In this lab, we'll process MegaStore transaction data through a typical batch pipeline:</p>
+
+                    <div class="bg-gradient-to-r from-blue-50 to-blue-100 p-6 rounded-lg mb-6 border-l-4 border-orange">
+                        <div class="space-y-4">
+                            <div class="flex items-start gap-4">
+                                <div class="flex-shrink-0 w-8 h-8 bg-orange text-white rounded-full flex items-center justify-center font-bold">1</div>
+                                <div>
+                                    <h4 class="font-bold" id="step1Title">Load Raw Data</h4>
+                                    <p id="step1Desc">Read orders.parquet, order_items.parquet, clickstream.parquet</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-4">
+                                <div class="flex-shrink-0 w-8 h-8 bg-orange text-white rounded-full flex items-center justify-center font-bold">2</div>
+                                <div>
+                                    <h4 class="font-bold" id="step2Title">Clean Data</h4>
+                                    <p id="step2Desc">Remove duplicates, handle nulls, filter invalid records</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-4">
+                                <div class="flex-shrink-0 w-8 h-8 bg-orange text-white rounded-full flex items-center justify-center font-bold">3</div>
+                                <div>
+                                    <h4 class="font-bold" id="step3Title">Transform</h4>
+                                    <p id="step3Desc">Join with products and customers, create derived fields</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-4">
+                                <div class="flex-shrink-0 w-8 h-8 bg-orange text-white rounded-full flex items-center justify-center font-bold">4</div>
+                                <div>
+                                    <h4 class="font-bold" id="step4Title">Aggregate</h4>
+                                    <p id="step4Desc">Group by category, region, time; calculate KPIs</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-4">
+                                <div class="flex-shrink-0 w-8 h-8 bg-orange text-white rounded-full flex items-center justify-center font-bold">5</div>
+                                <div>
+                                    <h4 class="font-bold" id="step5Title">Output</h4>
+                                    <p id="step5Desc">Save results as Parquet for downstream consumption</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Übung 1 -->
+                <section id="ubung1" class="mb-16">
+                    <h2 class="text-4xl font-bold mb-8" id="ubung1Title">Exercise 1: First Steps with PySpark</h2>
+                    <p class="mb-6" id="ubung1Intro">In this exercise, you'll create a SparkSession, load data, and explore its structure.</p>
+
+                    <h3 class="text-2xl font-bold mb-4" id="ubung1TaskTitle">Task</h3>
+                    <ol class="list-decimal list-inside space-y-2 mb-6">
+                        <li id="ubung1Task1">Create a SparkSession</li>
+                        <li id="ubung1Task2">Load orders.parquet</li>
+                        <li id="ubung1Task3">Display the schema</li>
+                        <li id="ubung1Task4">Show first 5 rows</li>
+                        <li id="ubung1Task5">Get basic statistics (count, describe)</li>
+                    </ol>
+
+                    <div class="code-block mb-6">
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        <pre><code class="language-python">from pyspark.sql import SparkSession
+
+# Create SparkSession
+spark = SparkSession.builder \
+    .appName("Ubung1-FirstSteps") \
+    .getOrCreate()
+
+# Load orders data
+orders_df = spark.read.parquet("/home/jovyan/data/orders.parquet")
+
+# Display schema
+orders_df.printSchema()
+
+# Show first 5 rows
+orders_df.show(5)
+
+# Get count
+print(f"Total orders: {orders_df.count()}")
+
+# Display statistics
+orders_df.describe().show()</code></pre>
+                    </div>
+
+                    <h3 class="text-2xl font-bold mb-4" id="ubung1ExerciseTitle">Additional Exercises</h3>
+                    <p class="mb-4" id="ubung1ExerciseDesc">Try these operations:</p>
+
+                    <div class="code-block mb-6">
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        <pre><code class="language-python"># Select specific columns
+orders_df.select("order_id", "customer_id", "order_total").show(10)
+
+# Filter for orders > 100
+high_value_orders = orders_df.filter(orders_df.order_total > 100)
+print(f"Orders over 100: {high_value_orders.count()}")
+
+# Group by customer and count
+by_customer = orders_df.groupBy("customer_id").count()
+by_customer.show(10)
+
+# SQL alternative
+orders_df.createOrReplaceTempView("orders")
+spark.sql("SELECT customer_id, COUNT(*) as num_orders FROM orders GROUP BY customer_id LIMIT 10").show()</code></pre>
+                    </div>
+
+                    <div class="bg-yellow-50 border-l-4 border-orange p-4 rounded" id="ubung1Tips">
+                        <strong id="ubung1TipsLabel">Tips:</strong>
+                        <ul class="list-disc list-inside mt-2">
+                            <li id="ubung1Tip1">Use .show() to preview data, .count() triggers execution</li>
+                            <li id="ubung1Tip2">Parquet is columnar, faster than CSV for large files</li>
+                            <li id="ubung1Tip3">Check Spark UI at http://localhost:4040 to see job execution</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- Übung 2 -->
+                <section id="ubung2" class="mb-16">
+                    <h2 class="text-4xl font-bold mb-8" id="ubung2Title">Exercise 2: MapReduce Concepts</h2>
+                    <p class="mb-6" id="ubung2Intro">Learn the map-reduce pattern and apply it to MegaStore data.</p>
+
+                    <h3 class="text-2xl font-bold mb-4" id="ubung2Task1Title">Part A: Classic Word Count</h3>
+                    <p class="mb-4" id="ubung2Task1Desc">First, implement word count using RDD operations:</p>
+
+                    <div class="code-block mb-6">
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        <pre><code class="language-python"># Word Count MapReduce Example
+from pyspark.sql import SparkSession
+
+spark = SparkSession.builder.appName("WordCount").getOrCreate()
+
+# Sample text
+text = """spark is fast spark is fun spark is powerful
+hadoop is slow hadoop is old hadoop is legacy"""
+
+# Create RDD
+rdd = spark.sparkContext.parallelize([text])
+
+# Map: split into words
+words = rdd.flatMap(lambda line: line.split())
+
+# Map: create (word, 1) pairs
+pairs = words.map(lambda word: (word, 1))
+
+# Reduce: sum by key
+word_counts = pairs.reduceByKey(lambda a, b: a + b)
+
+# Sort by count descending
+result = word_counts.sortByKey().collect()
+for word, count in result:
+    print(f"{word}: {count}")</code></pre>
+                    </div>
+
+                    <h3 class="text-2xl font-bold mb-4 mt-8" id="ubung2Task2Title">Part B: MegaStore Order Analysis</h3>
+                    <p class="mb-4" id="ubung2Task2Desc">Apply MapReduce to count orders by category:</p>
+
+                    <div class="code-block mb-6">
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        <pre><code class="language-python"># Load data
+orders_df = spark.read.parquet("/home/jovyan/data/orders.parquet")
+order_items_df = spark.read.parquet("/home/jovyan/data/order_items.parquet")
+products_df = spark.read.csv("/home/jovyan/data/products.csv", header=True)
+
+# Convert to RDD and apply MapReduce
+# Map: emit (category, 1) for each order
+orders_rdd = order_items_df.rdd \
+    .map(lambda row: (row.category, 1))
+
+# Reduce: sum by category
+category_counts = orders_rdd.reduceByKey(lambda a, b: a + b)
+
+# Collect and display
+for category, count in category_counts.collect():
+    print(f"{category}: {count} items")</code></pre>
+                    </div>
+                </section>
+
+                <!-- Übung 3 -->
+                <section id="ubung3" class="mb-16">
+                    <h2 class="text-4xl font-bold mb-8" id="ubung3Title">Exercise 3: SparkSQL</h2>
+                    <p class="mb-6" id="ubung3Intro">Write SQL queries on MegaStore data using SparkSQL.</p>
+
+                    <h3 class="text-2xl font-bold mb-4" id="ubung3Task1Title">Register DataFrames as Tables</h3>
+
+                    <div class="code-block mb-6">
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        <pre><code class="language-python"># Load all data
+orders_df = spark.read.parquet("/home/jovyan/data/orders.parquet")
+order_items_df = spark.read.parquet("/home/jovyan/data/order_items.parquet")
+products_df = spark.read.csv("/home/jovyan/data/products.csv", header=True)
+customers_df = spark.read.csv("/home/jovyan/data/customers.csv", header=True)
+
+# Register as temp views
+orders_df.createOrReplaceTempView("orders")
+order_items_df.createOrReplaceTempView("order_items")
+products_df.createOrReplaceTempView("products")
+customers_df.createOrReplaceTempView("customers")
+
+# Verify registration
+spark.sql("SHOW TABLES").show()</code></pre>
+                    </div>
+
+                    <h3 class="text-2xl font-bold mb-4 mt-8" id="ubung3Task2Title">Complex Queries</h3>
+
+                    <div class="code-block mb-6">
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        <pre><code class="language-python"># Query 1: Top 10 customers by revenue
+spark.sql("""
+    SELECT
+        c.customer_name,
+        COUNT(o.order_id) as num_orders,
+        SUM(oi.quantity * oi.unit_price) as total_revenue
+    FROM orders o
+    JOIN customers c ON o.customer_id = c.customer_id
+    JOIN order_items oi ON o.order_id = oi.order_id
+    GROUP BY c.customer_name
+    ORDER BY total_revenue DESC
+    LIMIT 10
+""").show()
+
+# Query 2: Revenue by product category
+spark.sql("""
+    SELECT
+        p.category,
+        COUNT(DISTINCT o.order_id) as num_orders,
+        SUM(oi.quantity) as total_items,
+        ROUND(SUM(oi.quantity * oi.unit_price), 2) as total_revenue
+    FROM order_items oi
+    JOIN products p ON oi.product_id = p.product_id
+    JOIN orders o ON oi.order_id = o.order_id
+    GROUP BY p.category
+    ORDER BY total_revenue DESC
+""").show()
+
+# Query 3: Orders per month
+spark.sql("""
+    SELECT
+        DATE_TRUNC('month', o.order_date) as month,
+        COUNT(*) as num_orders,
+        AVG(o.order_total) as avg_order_value
+    FROM orders o
+    GROUP BY DATE_TRUNC('month', o.order_date)
+    ORDER BY month DESC
+""").show()</code></pre>
+                    </div>
+                </section>
+
+                <!-- Übung 4 -->
+                <section id="ubung4" class="mb-16">
+                    <h2 class="text-4xl font-bold mb-8" id="ubung4Title">Exercise 4: Complete ETL Pipeline</h2>
+                    <p class="mb-6" id="ubung4Intro">Build an end-to-end pipeline: Load → Clean → Transform → Aggregate → Save.</p>
+
+                    <div class="code-block mb-6">
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        <pre><code class="language-python">from pyspark.sql.functions import *
+from pyspark.sql.types import *
+
+spark = SparkSession.builder.appName("ETLPipeline").getOrCreate()
+
+# 1. LOAD
+print("Step 1: Loading raw data...")
+clickstream_df = spark.read.parquet("/home/jovyan/data/clickstream.parquet")
+products_df = spark.read.csv("/home/jovyan/data/products.csv", header=True)
+
+# 2. CLEAN
+print("Step 2: Cleaning data...")
+# Remove bots (identified by bot_id field)
+clean_df = clickstream_df.filter(~col("bot_flag"))
+# Remove nulls in critical fields
+clean_df = clean_df.dropna(subset=["user_id", "session_id"])
+# Remove duplicates
+clean_df = clean_df.dropDuplicates(["user_id", "session_id", "timestamp"])
+
+print(f"After cleaning: {clean_df.count()} records")
+
+# 3. TRANSFORM
+print("Step 3: Transforming data...")
+# Calculate session duration
+transformed_df = clean_df \
+    .groupBy("user_id", "session_id") \
+    .agg(
+        min("timestamp").alias("session_start"),
+        max("timestamp").alias("session_end"),
+        count("*").alias("num_events"),
+        countDistinct("page").alias("num_pages")
+    ) \
+    .withColumn(
+        "session_duration_seconds",
+        (unix_timestamp(col("session_end")) - unix_timestamp(col("session_start")))
+    )
+
+# 4. AGGREGATE
+print("Step 4: Aggregating metrics...")
+metrics_df = transformed_df \
+    .withColumn("avg_session_duration", avg("session_duration_seconds").over()) \
+    .groupBy(window("session_start", "1 day").alias("day")) \
+    .agg(
+        count("session_id").alias("num_sessions"),
+        avg("session_duration_seconds").alias("avg_duration"),
+        avg("num_events").alias("avg_events_per_session"),
+        percentile_approx("session_duration_seconds", 0.5).alias("median_duration")
+    )
+
+# 5. OUTPUT
+print("Step 5: Saving results...")
+metrics_df.write.mode("overwrite").parquet("/home/jovyan/data/output/etl_metrics")
+print("ETL pipeline completed successfully!")</code></pre>
+                    </div>
+                </section>
+
+                <!-- Übung 5 -->
+                <section id="ubung5" class="mb-16">
+                    <h2 class="text-4xl font-bold mb-8" id="ubung5Title">Exercise 5: Performance & Optimization</h2>
+                    <p class="mb-6" id="ubung5Intro">Understand Spark performance and optimization techniques.</p>
+
+                    <h3 class="text-2xl font-bold mb-4" id="ubung5Task1Title">Part A: Parquet vs CSV Performance</h3>
+
+                    <div class="code-block mb-6">
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        <pre><code class="language-python">import time
+from pyspark.sql import SparkSession
+
+spark = SparkSession.builder.appName("PerfTest").getOrCreate()
+
+# Test 1: CSV Loading
+print("=== CSV Performance ===")
+start = time.time()
+csv_df = spark.read.csv("/home/jovyan/data/orders.csv", header=True)
+csv_count = csv_df.count()
+csv_time = time.time() - start
+print(f"CSV: {csv_time:.2f}s to load and count {csv_count} rows")
+
+# Test 2: Parquet Loading
+print("\n=== Parquet Performance ===")
+start = time.time()
+parquet_df = spark.read.parquet("/home/jovyan/data/orders.parquet")
+parquet_count = parquet_df.count()
+parquet_time = time.time() - start
+print(f"Parquet: {parquet_time:.2f}s to load and count {parquet_count} rows")
+
+print(f"\nParquet is {csv_time/parquet_time:.1f}x faster!")
+</code></pre>
+                    </div>
+
+                    <h3 class="text-2xl font-bold mb-4 mt-8" id="ubung5Task2Title">Part B: Catalyst Optimizer & Caching</h3>
+
+                    <div class="code-block mb-6">
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        <pre><code class="language-python">from pyspark.sql.functions import *
+
+# Load data
+orders_df = spark.read.parquet("/home/jovyan/data/orders.parquet")
+
+# Explore logical plan (without caching)
+print("=== Logical Plan (Before Cache) ===")
+filtered_df = orders_df.filter(col("order_total") > 100)
+filtered_df.explain(True)
+
+# Apply caching for repeated access
+print("\n=== After Caching ===")
+filtered_df.cache()
+filtered_df.count()  # Force evaluation
+filtered_df.explain(True)
+
+# Multiple operations on cached data
+high_value = filtered_df.filter(col("order_total") > 500).count()
+print(f"Orders > 500: {high_value}")
+
+# Clean up cache
+filtered_df.unpersist()
+</code></pre>
+                    </div>
+
+                    <h3 class="text-2xl font-bold mb-4 mt-8" id="ubung5Task3Title">Part C: Partitioning Strategy</h3>
+
+                    <div class="code-block mb-6">
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        <pre><code class="language-python"># Write with partitioning
+orders_df = spark.read.parquet("/home/jovyan/data/orders.parquet")
+
+# Partition by order date for efficient time-range queries
+orders_df.write \
+    .mode("overwrite") \
+    .partitionBy("order_date") \
+    .parquet("/home/jovyan/data/orders_partitioned")
+
+# Reading partitioned data is much faster for date filters
+fast_query = spark.read.parquet("/home/jovyan/data/orders_partitioned") \
+    .filter(col("order_date") >= "2023-01-01") \
+    .filter(col("order_date") <= "2023-12-31")
+
+print(f"Filtered records: {fast_query.count()}")
+
+# Check partitioning
+print("\nPartition structure:")
+spark.read.parquet("/home/jovyan/data/orders_partitioned").explain()
+</code></pre>
+                    </div>
+                </section>
+
+                <!-- Bonusaufgaben -->
+                <section id="bonus" class="mb-16">
+                    <h2 class="text-4xl font-bold mb-8" id="bonusTitle">Bonus Tasks</h2>
+
+                    <h3 class="text-2xl font-bold mb-4" id="bonus1Title">Task 1: Simple ML with MLlib</h3>
+                    <p class="mb-4" id="bonus1Desc">Build a product recommendation system using collaborative filtering:</p>
+
+                    <div class="code-block mb-6">
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        <pre><code class="language-python">from pyspark.ml.recommendation import ALS
+from pyspark.sql.functions import *
+
+# Load and prepare data
+order_items_df = spark.read.parquet("/home/jovyan/data/order_items.parquet")
+
+# Create user-product ratings (using quantity as implicit rating)
+ratings_df = order_items_df.select(
+    col("customer_id").cast("int").alias("userId"),
+    col("product_id").cast("int").alias("productId"),
+    col("quantity").cast("float").alias("rating")
+)
+
+# Split data
+train, test = ratings_df.randomSplit([0.8, 0.2])
+
+# Train ALS model
+als = ALS(maxIter=10, regParam=0.01, userCol="userId", itemCol="productId", ratingCol="rating")
+model = als.fit(train)
+
+# Generate predictions
+predictions = model.transform(test)
+predictions.show()
+
+# Get top 5 product recommendations for user 1
+user_recs = model.recommendForUserSubset(spark.createDataFrame([(1,)], ["userId"]), 5)
+user_recs.show()
+</code></pre>
+                    </div>
+
+                    <h3 class="text-2xl font-bold mb-4 mt-8" id="bonus2Title">Task 2: Spark Streaming Concepts</h3>
+                    <p class="mb-4" id="bonus2Desc">Understanding Spark Streaming for real-time processing:</p>
+
+                    <div class="code-block mb-6">
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        <pre><code class="language-python"># Example: Real-time word count from socket
+from pyspark.sql.streaming import *
+
+spark = SparkSession.builder \
+    .appName("SparkStreamingExample") \
+    .getOrCreate()
+
+# Read from socket (requires netcat or similar)
+lines = spark.readStream \
+    .format("socket") \
+    .option("host", "localhost") \
+    .option("port", 9999) \
+    .load()
+
+# Process: split words and count
+from pyspark.sql.functions import explode, split, col
+words = lines.select(explode(split(col("value"), " ")).alias("word"))
+word_counts = words.groupBy("word").count()
+
+# Start streaming query
+query = word_counts \
+    .writeStream \
+    .format("console") \
+    .option("checkpointLocation", "/tmp/checkpoint") \
+    .start()
+
+query.awaitTermination()
+</code></pre>
+                    </div>
+
+                    <h3 class="text-2xl font-bold mb-4 mt-8" id="bonus3Title">Task 3: User Defined Functions (UDFs)</h3>
+
+                    <div class="code-block mb-6">
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        <pre><code class="language-python">from pyspark.sql.functions import udf
+from pyspark.sql.types import DoubleType, StringType
+
+# Define a Python function
+def calculate_discount(order_total):
+    if order_total > 1000:
+        return 0.2  # 20% discount
+    elif order_total > 500:
+        return 0.1  # 10% discount
+    else:
+        return 0.0  # No discount
+
+# Convert to UDF
+discount_udf = udf(calculate_discount, DoubleType())
+
+# Apply to DataFrame
+orders_df = spark.read.parquet("/home/jovyan/data/orders.parquet")
+discounted = orders_df.withColumn(
+    "discount",
+    discount_udf(col("order_total"))
+).withColumn(
+    "final_price",
+    col("order_total") * (1 - col("discount"))
+)
+
+discounted.select("order_id", "order_total", "discount", "final_price").show()
+
+# String UDF example
+def categorize_order(total):
+    if total < 50:
+        return "small"
+    elif total < 200:
+        return "medium"
+    else:
+        return "large"
+
+category_udf = udf(categorize_order, StringType())
+categorized = orders_df.withColumn("order_category", category_udf(col("order_total")))
+categorized.select("order_id", "order_total", "order_category").show()
+</code></pre>
+                    </div>
+                </section>
+
+                <!-- Zusammenfassung -->
+                <section id="summary" class="mb-16">
+                    <h2 class="text-4xl font-bold mb-8" id="summaryTitle">Summary & Troubleshooting</h2>
+
+                    <h3 class="text-2xl font-bold mb-4 mt-8" id="keyTakeawaysTitle">Key Takeaways</h3>
+                    <div class="space-y-4">
+                        <div class="learning-goal">
+                            <h4 class="font-bold accent-orange" id="takeaway1">Distributed Processing</h4>
+                            <p id="takeaway1Desc">Spark distributes data and computation across clusters, enabling processing of datasets larger than single-machine memory</p>
+                        </div>
+                        <div class="learning-goal">
+                            <h4 class="font-bold accent-orange" id="takeaway2">Lazy Evaluation</h4>
+                            <p id="takeaway2Desc">Spark builds execution plans (DAGs) before running; this enables optimization and only materializes data when needed</p>
+                        </div>
+                        <div class="learning-goal">
+                            <h4 class="font-bold accent-orange" id="takeaway3">DataFrame API</h4>
+                            <p id="takeaway3Desc">DataFrames are more efficient than RDDs for most operations; they enable SQL queries and Catalyst optimization</p>
+                        </div>
+                        <div class="learning-goal">
+                            <h4 class="font-bold accent-orange" id="takeaway4">ETL Pipelines</h4>
+                            <p id="takeaway4Desc">Structure data processing as Extract-Transform-Load pipelines for maintainability, reusability, and fault tolerance</p>
+                        </div>
+                        <div class="learning-goal">
+                            <h4 class="font-bold accent-orange" id="takeaway5">Performance Matters</h4>
+                            <p id="takeaway5Desc">Choose the right file format (Parquet), partition wisely, cache intermediate results, and monitor with Spark UI</p>
+                        </div>
+                    </div>
+
+                    <h3 class="text-2xl font-bold mb-4 mt-8" id="commonIssuesTitle">Common Issues & Solutions</h3>
+
+                    <div class="space-y-4">
+                        <div class="bg-red-50 border-l-4 border-orange p-4 rounded">
+                            <h4 class="font-bold mb-2" id="issue1Title">Out of Memory (OOM) Errors</h4>
+                            <p id="issue1Desc"><strong>Solution:</strong> Increase executor memory with --executor-memory flag, use partitioning, or cache selectively</p>
+                        </div>
+
+                        <div class="bg-red-50 border-l-4 border-orange p-4 rounded">
+                            <h4 class="font-bold mb-2" id="issue2Title">Slow Performance</h4>
+                            <p id="issue2Desc"><strong>Solution:</strong> Check Spark UI (port 4040) for bottlenecks, use Parquet instead of CSV, enable caching for reused DataFrames</p>
+                        </div>
+
+                        <div class="bg-red-50 border-l-4 border-orange p-4 rounded">
+                            <h4 class="font-bold mb-2" id="issue3Title">Data Skew</h4>
+                            <p id="issue3Desc"><strong>Solution:</strong> Repartition data before joins/groupBys, use salting techniques for highly skewed keys</p>
+                        </div>
+
+                        <div class="bg-red-50 border-l-4 border-orange p-4 rounded">
+                            <h4 class="font-bold mb-2" id="issue4Title">Connection Issues</h4>
+                            <p id="issue4Desc"><strong>Solution:</strong> Verify Docker container is running, check port forwarding (8888, 4040), inspect logs with docker logs &lt;container_id&gt;</p>
+                        </div>
+                    </div>
+
+                    <h3 class="text-2xl font-bold mb-4 mt-8" id="resourcesTitle">Resources & Further Learning</h3>
+                    <ul class="list-disc list-inside space-y-2 mb-6">
+                        <li id="resource1"><a href="https://spark.apache.org/docs/latest/" class="text-orange hover:underline" target="_blank">Apache Spark Official Documentation</a></li>
+                        <li id="resource2"><a href="https://spark.apache.org/docs/latest/api/python/" class="text-orange hover:underline" target="_blank">PySpark API Reference</a></li>
+                        <li id="resource3"><a href="https://databricks.com/blog" class="text-orange hover:underline" target="_blank">Databricks Blog - Spark Tips & Tricks</a></li>
+                        <li id="resource4">Prof. Dr. Robert Butscher's Big Data course materials</li>
+                        <li id="resource5">MegaStore dataset documentation in the lab folder</li>
+                    </ul>
+
+                    <div class="bg-blue-50 border-l-4 border-orange p-4 rounded mt-8">
+                        <h4 class="font-bold mb-2" id="nextStepsTitle">Next Steps</h4>
+                        <p id="nextStepsDesc">After completing this lab, explore advanced topics like:</p>
+                        <ul class="list-disc list-inside mt-2 ml-2">
+                            <li id="nextStep1">Advanced MLlib models (gradient boosting, deep learning)</li>
+                            <li id="nextStep2">Real-time streaming pipelines with Kafka integration</li>
+                            <li id="nextStep3">Distributed graph processing with GraphX</li>
+                            <li id="nextStep4">Production deployment and cluster management</li>
+                        </ul>
+                    </div>
+                </section>
+
+            </div>
+        </main>
+    </div>
+
+    <script>
+        const translations = {
+            de: {
+                heroTitle: "Apache Spark Lab - Verteilte Datenverarbeitung",
+                heroSubtitle: "Kapitel 7: Hadoop, MapReduce & Spark",
+                diffLabel: "Schwierigkeit: Fortgeschritten",
+                timeLabel: "⏱️ Zeit: 3-4 Stunden",
+                heroDesc: "Lernen Sie verteiltes Computing mit Apache Spark und verarbeiten Sie den MegaStore E-Commerce-Datensatz",
+                backText: "← Zurück zur Übersicht",
+                lernzieleTitle: "Lernziele",
+                goal1: "Konzepte des verteilten Computing",
+                goal1Desc: "Verstehen Sie, wie Spark Berechnungen auf mehrere Knoten verteilt und große Datensätze parallel verarbeitet",
+                goal2: "MapReduce-Paradigma",
+                goal2Desc: "Lernen Sie das Map-Reduce-Muster und seine Anwendung auf Datenverarbeitungsprobleme",
+                goal3: "Spark RDDs & DataFrames",
+                goal3Desc: "Meistern Sie Resilient Distributed Datasets (RDDs) und die optimierte DataFrame-API",
+                goal4: "SparkSQL",
+                goal4Desc: "Schreiben Sie SQL-Abfragen auf verteilten Daten und führen Sie komplexe analytische Operationen durch",
+                goal5: "ETL-Pipelines",
+                goal5Desc: "Erstellen Sie End-to-End-Extract-, Transform- und Load-Pipelines für die Datenverarbeitung",
+                setupTitle: "Setup & Installation",
+                dockerSetupTitle: "Docker-Setup",
+                dockerSetupDesc: "Wir verwenden das offizielle Jupyter PySpark-Notebook-Image für dieses Lab:",
+                dockerDescDetail: "Der Befehl stellt folgende Ports bereit:",
+                port8888: "Port 8888: Jupyter-Notebook-Schnittstelle",
+                port4040: "Port 4040: Spark-UI zur Überwachung von Jobs",
+                portData: "/data: Volume für den Zugriff auf Ihre Datendateien",
+                verifyTitle: "Installation überprüfen",
+                verifyDesc: "Erstellen Sie eine neue Notebook-Zelle und führen Sie aus:",
+                verifySuccess: "✓ Wenn Sie die Spark-Version gedruckt sehen, ist Ihre Einrichtung abgeschlossen!",
+                theorieTitle: "Theorie: Apache Spark Grundlagen",
+                whatIsSparkTitle: "Was ist Apache Spark?",
+                whatIsSparkDesc: "Apache Spark ist eine einheitliche Analyse-Engine für die Verarbeitung großer Datenmengen. Im Gegensatz zu Hadoop MapReduce, das zwischen den Stufen auf die Festplatte schreibt, behält Spark Daten im Speicher, was ihn für iterative Algorithmen 10-100x schneller macht.",
+                rddTitle: "Resilient Distributed Datasets (RDDs)",
+                rddDesc: "RDDs sind unveränderliche, verteilte Sammlungen von Objekten, die parallel verarbeitet werden können. Sie bieten Fehlertoleranz durch Lineage-Tracking.",
+                rddNoteLabel: "Hinweis:",
+                rddNoteText: "Obwohl RDDs die Grundlage sind, werden DataFrames jetzt für die meisten Anwendungsfälle bevorzugt, da sie besser optimiert sind.",
+                lazyEvalTitle: "Lazy Evaluation & DAGs",
+                lazyEvalDesc: "Spark berechnet Ergebnisse nicht sofort. Stattdessen erstellt es einen Directed Acyclic Graph (DAG) von Transformationen. Nur wenn Sie eine Aktion aufrufen (wie collect(), write() oder show()), führt Spark die Berechnung aus.",
+                sparkEcosystemTitle: "Spark-Ökosystem",
+                sparkSQL: "Spark SQL: SQL-Abfragen auf verteilten Daten",
+                sparkMLlib: "MLlib: Machine-Learning-Bibliothek",
+                sparkStreaming: "Spark Streaming: Echtzeit-Datenverarbeitung",
+                sparkGraphX: "GraphX: Graphenverarbeitung",
+                pipelineTitle: "MegaStore Spark Pipeline",
+                pipelineDesc: "In diesem Lab werden wir MegaStore-Transaktionsdaten durch eine typische Batch-Pipeline verarbeiten:",
+                step1Title: "Rohdaten laden",
+                step1Desc: "Lesen Sie orders.parquet, order_items.parquet, clickstream.parquet",
+                step2Title: "Daten bereinigen",
+                step2Desc: "Entfernen Sie Duplikate, behandeln Sie Nulls, filtern Sie ungültige Datensätze",
+                step3Title: "Transformieren",
+                step3Desc: "Mit Produkten und Kunden verbinden, abgeleitete Felder erstellen",
+                step4Title: "Aggregieren",
+                step4Desc: "Gruppieren nach Kategorie, Region, Zeit; KPIs berechnen",
+                step5Title: "Ausgabe",
+                step5Desc: "Speichern Sie die Ergebnisse als Parquet für die nachgelagerte Nutzung",
+                ubung1Title: "Übung 1: Erste Schritte mit PySpark",
+                ubung1Intro: "In dieser Übung erstellen Sie eine SparkSession, laden Daten und erkunden deren Struktur.",
+                ubung1TaskTitle: "Aufgabe",
+                ubung1Task1: "Erstellen Sie eine SparkSession",
+                ubung1Task2: "Laden Sie orders.parquet",
+                ubung1Task3: "Zeigen Sie das Schema an",
+                ubung1Task4: "Zeigen Sie die ersten 5 Zeilen an",
+                ubung1Task5: "Erhalten Sie grundlegende Statistiken (count, describe)",
+                ubung1ExerciseTitle: "Zusätzliche Übungen",
+                ubung1ExerciseDesc: "Versuchen Sie diese Operationen:",
+                ubung1TipsLabel: "Tipps:",
+                ubung1Tip1: "Verwenden Sie .show() um Daten in der Vorschau zu zeigen, .count() triggert die Ausführung",
+                ubung1Tip2: "Parquet ist spaltenorientiert, schneller als CSV für große Dateien",
+                ubung1Tip3: "Überprüfen Sie die Spark-UI unter http://localhost:4040 um die Job-Ausführung zu sehen",
+                ubung2Title: "Übung 2: MapReduce-Konzepte",
+                ubung2Intro: "Lernen Sie das Map-Reduce-Muster und wenden Sie es auf MegaStore-Daten an.",
+                ubung2Task1Title: "Teil A: Klassisches Word Count",
+                ubung2Task1Desc: "Implementieren Sie zunächst das Word Count mit RDD-Operationen:",
+                ubung2Task2Title: "Teil B: MegaStore-Bestellungsanalyse",
+                ubung2Task2Desc: "Wenden Sie MapReduce an, um Bestellungen nach Kategorie zu zählen:",
+                ubung3Title: "Übung 3: SparkSQL",
+                ubung3Intro: "Schreiben Sie SQL-Abfragen auf MegaStore-Daten mit SparkSQL.",
+                ubung3Task1Title: "DataFrames als Tabellen registrieren",
+                ubung3Task2Title: "Komplexe Abfragen",
+                ubung4Title: "Übung 4: Komplette ETL-Pipeline",
+                ubung4Intro: "Erstellen Sie eine End-to-End-Pipeline: Laden → Bereinigen → Transformieren → Aggregieren → Speichern.",
+                ubung5Title: "Übung 5: Performance & Optimierung",
+                ubung5Intro: "Verstehen Sie Spark-Performance und Optimierungstechniken.",
+                ubung5Task1Title: "Teil A: Parquet vs CSV Performance",
+                ubung5Task2Title: "Teil B: Catalyst Optimizer & Caching",
+                ubung5Task3Title: "Teil C: Partitionierungsstrategie",
+                bonusTitle: "Bonusaufgaben",
+                bonus1Title: "Aufgabe 1: Einfaches ML mit MLlib",
+                bonus1Desc: "Erstellen Sie ein Produktempfehlungssystem mit kollaborativem Filtering:",
+                bonus2Title: "Aufgabe 2: Spark Streaming Konzepte",
+                bonus2Desc: "Verständnis von Spark Streaming für Echtzeit-Verarbeitung:",
+                bonus3Title: "Aufgabe 3: Benutzerdefinierten Funktionen (UDFs)",
+                summaryTitle: "Zusammenfassung & Fehlerbehebung",
+                keyTakeawaysTitle: "Wichtigste Erkenntnisse",
+                takeaway1: "Verteilte Verarbeitung",
+                takeaway1Desc: "Spark verteilt Daten und Berechnungen auf Cluster und ermöglicht so die Verarbeitung von Datensätzen, die größer als der Speicher einer einzelnen Maschine sind",
+                takeaway2: "Lazy Evaluation",
+                takeaway2Desc: "Spark erstellt Ausführungspläne (DAGs) vor der Ausführung; dies ermöglicht Optimierungen und materialisiert Daten nur bei Bedarf",
+                takeaway3: "DataFrame API",
+                takeaway3Desc: "DataFrames sind effizienter als RDDs für die meisten Operationen; sie ermöglichen SQL-Abfragen und Catalyst-Optimierung",
+                takeaway4: "ETL-Pipelines",
+                takeaway4Desc: "Strukturieren Sie die Datenverarbeitung als Extract-Transform-Load-Pipelines für Wartbarkeit, Wiederverwendbarkeit und Fehlertoleranz",
+                takeaway5: "Performance zählt",
+                takeaway5Desc: "Wählen Sie das richtige Dateiformat (Parquet), partitionieren Sie weise, cachen Sie Zwischenergebnisse und überwachen Sie mit der Spark-UI",
+                commonIssuesTitle: "Häufige Probleme & Lösungen",
+                issue1Title: "Out of Memory (OOM) Fehler",
+                issue1Desc: "Lösung: Erhöhen Sie den Executor-Speicher mit dem Flag --executor-memory, verwenden Sie Partitionierung oder cachen Sie selektiv",
+                issue2Title: "Langsame Performance",
+                issue2Desc: "Lösung: Überprüfen Sie die Spark-UI (Port 4040) auf Engpässe, verwenden Sie Parquet statt CSV, aktivieren Sie das Caching für wiederverwendete DataFrames",
+                issue3Title: "Data Skew",
+                issue3Desc: "Lösung: Repartitionieren Sie Daten vor Joins/GroupBys, verwenden Sie Salting-Techniken für stark verteilte Schlüssel",
+                issue4Title: "Verbindungsprobleme",
+                issue4Desc: "Lösung: Überprüfen Sie, ob der Docker-Container läuft, überprüfen Sie die Port-Weiterleitung (8888, 4040), überprüfen Sie die Protokolle mit docker logs <container_id>",
+                resourcesTitle: "Ressourcen & Weiterführendes Lernen",
+                resource1: "Apache Spark Offizielle Dokumentation",
+                resource2: "PySpark API Referenz",
+                resource3: "Databricks Blog - Spark Tipps & Tricks",
+                resource4: "Prof. Dr. Robert Butschers Big-Data-Kursmaterialien",
+                resource5: "MegaStore-Dokumentation im Lab-Ordner",
+                nextStepsTitle: "Nächste Schritte",
+                nextStepsDesc: "Nach Abschluss dieses Labs erkunden Sie fortgeschrittene Themen wie:",
+                nextStep1: "Erweiterte MLlib-Modelle (Gradient Boosting, Deep Learning)",
+                nextStep2: "Real-Time-Streaming-Pipelines mit Kafka-Integration",
+                nextStep3: "Verteilte Graphenverarbeitung mit GraphX",
+                nextStep4: "Produktionsbereitstellung und Cluster-Verwaltung",
+            },
+            en: {
+                heroTitle: "Apache Spark Lab - Distributed Data Processing",
+                heroSubtitle: "Chapter 7: Hadoop, MapReduce & Spark",
+                diffLabel: "Difficulty: Advanced",
+                timeLabel: "⏱️ Time: 3-4 hours",
+                heroDesc: "Learn distributed computing with Apache Spark and process the MegaStore e-commerce dataset",
+                backText: "← Back to Overview",
+                lernzieleTitle: "Learning Objectives",
+                goal1: "Distributed Computing Concepts",
+                goal1Desc: "Understand how Spark distributes computation across multiple nodes and processes large datasets in parallel",
+                goal2: "MapReduce Paradigm",
+                goal2Desc: "Learn the map-reduce pattern and how it applies to data processing problems",
+                goal3: "Spark RDDs & DataFrames",
+                goal3Desc: "Master Resilient Distributed Datasets (RDDs) and the optimized DataFrame API",
+                goal4: "SparkSQL",
+                goal4Desc: "Write SQL queries on distributed data and perform complex analytical operations",
+                goal5: "ETL Pipelines",
+                goal5Desc: "Build end-to-end extract, transform, and load pipelines for data processing",
+                setupTitle: "Setup & Installation",
+                dockerSetupTitle: "Docker Setup",
+                dockerSetupDesc: "We'll use the official Jupyter PySpark notebook image for this lab:",
+                dockerDescDetail: "The command exposes:",
+                port8888: "Port 8888: Jupyter notebook interface",
+                port4040: "Port 4040: Spark UI for monitoring jobs",
+                portData: "/data: Volume for accessing your data files",
+                verifyTitle: "Verify Installation",
+                verifyDesc: "Create a new notebook cell and run:",
+                verifySuccess: "✓ If you see the Spark version printed, your setup is complete!",
+                theorieTitle: "Theory: Apache Spark Fundamentals",
+                whatIsSparkTitle: "What is Apache Spark?",
+                whatIsSparkDesc: "Apache Spark is a unified analytics engine for large-scale data processing. Unlike Hadoop MapReduce which writes to disk between stages, Spark keeps data in memory, making it 10-100x faster for iterative algorithms.",
+                rddTitle: "Resilient Distributed Datasets (RDDs)",
+                rddDesc: "RDDs are immutable, distributed collections of objects that can be processed in parallel. They provide fault tolerance through lineage tracking.",
+                rddNoteLabel: "Note:",
+                rddNoteText: "While RDDs are the foundation, DataFrames are now preferred for most use cases due to better optimization.",
+                lazyEvalTitle: "Lazy Evaluation & DAGs",
+                lazyEvalDesc: "Spark doesn't compute results immediately. Instead, it builds a Directed Acyclic Graph (DAG) of transformations. Only when you call an action (like collect(), write(), or show()) does Spark execute the computation.",
+                sparkEcosystemTitle: "Spark Ecosystem",
+                sparkSQL: "Spark SQL: SQL queries on distributed data",
+                sparkMLlib: "MLlib: Machine learning library",
+                sparkStreaming: "Spark Streaming: Real-time data processing",
+                sparkGraphX: "GraphX: Graph processing",
+                pipelineTitle: "MegaStore Spark Pipeline",
+                pipelineDesc: "In this lab, we'll process MegaStore transaction data through a typical batch pipeline:",
+                step1Title: "Load Raw Data",
+                step1Desc: "Read orders.parquet, order_items.parquet, clickstream.parquet",
+                step2Title: "Clean Data",
+                step2Desc: "Remove duplicates, handle nulls, filter invalid records",
+                step3Title: "Transform",
+                step3Desc: "Join with products and customers, create derived fields",
+                step4Title: "Aggregate",
+                step4Desc: "Group by category, region, time; calculate KPIs",
+                step5Title: "Output",
+                step5Desc: "Save results as Parquet for downstream consumption",
+                ubung1Title: "Exercise 1: First Steps with PySpark",
+                ubung1Intro: "In this exercise, you'll create a SparkSession, load data, and explore its structure.",
+                ubung1TaskTitle: "Task",
+                ubung1Task1: "Create a SparkSession",
+                ubung1Task2: "Load orders.parquet",
+                ubung1Task3: "Display the schema",
+                ubung1Task4: "Show first 5 rows",
+                ubung1Task5: "Get basic statistics (count, describe)",
+                ubung1ExerciseTitle: "Additional Exercises",
+                ubung1ExerciseDesc: "Try these operations:",
+                ubung1TipsLabel: "Tips:",
+                ubung1Tip1: "Use .show() to preview data, .count() triggers execution",
+                ubung1Tip2: "Parquet is columnar, faster than CSV for large files",
+                ubung1Tip3: "Check Spark UI at http://localhost:4040 to see job execution",
+                ubung2Title: "Exercise 2: MapReduce Concepts",
+                ubung2Intro: "Learn the map-reduce pattern and apply it to MegaStore data.",
+                ubung2Task1Title: "Part A: Classic Word Count",
+                ubung2Task1Desc: "First, implement word count using RDD operations:",
+                ubung2Task2Title: "Part B: MegaStore Order Analysis",
+                ubung2Task2Desc: "Apply MapReduce to count orders by category:",
+                ubung3Title: "Exercise 3: SparkSQL",
+                ubung3Intro: "Write SQL queries on MegaStore data using SparkSQL.",
+                ubung3Task1Title: "Register DataFrames as Tables",
+                ubung3Task2Title: "Complex Queries",
+                ubung4Title: "Exercise 4: Complete ETL Pipeline",
+                ubung4Intro: "Build an end-to-end pipeline: Load → Clean → Transform → Aggregate → Save.",
+                ubung5Title: "Exercise 5: Performance & Optimization",
+                ubung5Intro: "Understand Spark performance and optimization techniques.",
+                ubung5Task1Title: "Part A: Parquet vs CSV Performance",
+                ubung5Task2Title: "Part B: Catalyst Optimizer & Caching",
+                ubung5Task3Title: "Part C: Partitioning Strategy",
+                bonusTitle: "Bonus Tasks",
+                bonus1Title: "Task 1: Simple ML with MLlib",
+                bonus1Desc: "Build a product recommendation system using collaborative filtering:",
+                bonus2Title: "Task 2: Spark Streaming Concepts",
+                bonus2Desc: "Understanding Spark Streaming for real-time processing:",
+                bonus3Title: "Task 3: User Defined Functions (UDFs)",
+                summaryTitle: "Summary & Troubleshooting",
+                keyTakeawaysTitle: "Key Takeaways",
+                takeaway1: "Distributed Processing",
+                takeaway1Desc: "Spark distributes data and computation across clusters, enabling processing of datasets larger than single-machine memory",
+                takeaway2: "Lazy Evaluation",
+                takeaway2Desc: "Spark builds execution plans (DAGs) before running; this enables optimization and only materializes data when needed",
+                takeaway3: "DataFrame API",
+                takeaway3Desc: "DataFrames are more efficient than RDDs for most operations; they enable SQL queries and Catalyst optimization",
+                takeaway4: "ETL Pipelines",
+                takeaway4Desc: "Structure data processing as Extract-Transform-Load pipelines for maintainability, reusability, and fault tolerance",
+                takeaway5: "Performance Matters",
+                takeaway5Desc: "Choose the right file format (Parquet), partition wisely, cache intermediate results, and monitor with Spark UI",
+                commonIssuesTitle: "Common Issues & Solutions",
+                issue1Title: "Out of Memory (OOM) Errors",
+                issue1Desc: "Solution: Increase executor memory with --executor-memory flag, use partitioning, or cache selectively",
+                issue2Title: "Slow Performance",
+                issue2Desc: "Solution: Check Spark UI (port 4040) for bottlenecks, use Parquet instead of CSV, enable caching for reused DataFrames",
+                issue3Title: "Data Skew",
+                issue3Desc: "Solution: Repartition data before joins/groupBys, use salting techniques for highly skewed keys",
+                issue4Title: "Connection Issues",
+                issue4Desc: "Solution: Verify Docker container is running, check port forwarding (8888, 4040), inspect logs with docker logs <container_id>",
+                resourcesTitle: "Resources & Further Learning",
+                resource1: "Apache Spark Official Documentation",
+                resource2: "PySpark API Reference",
+                resource3: "Databricks Blog - Spark Tips & Tricks",
+                resource4: "Prof. Dr. Robert Butscher's Big Data course materials",
+                resource5: "MegaStore dataset documentation in the lab folder",
+                nextStepsTitle: "Next Steps",
+                nextStepsDesc: "After completing this lab, explore advanced topics like:",
+                nextStep1: "Advanced MLlib models (gradient boosting, deep learning)",
+                nextStep2: "Real-time streaming pipelines with Kafka integration",
+                nextStep3: "Distributed graph processing with GraphX",
+                nextStep4: "Production deployment and cluster management",
+            },
+            ar: {
+                heroTitle: "معمل Apache Spark - معالجة البيانات الموزعة",
+                heroSubtitle: "الفصل 7: Hadoop و MapReduce و Spark",
+                diffLabel: "المستوى: متقدم",
+                timeLabel: "⏱️ الوقت: 3-4 ساعات",
+                heroDesc: "تعلم الحوسبة الموزعة مع Apache Spark ومعالجة مجموعة بيانات MegaStore للتجارة الإلكترونية",
+                backText: "← العودة إلى النظرة العامة",
+                lernzieleTitle: "أهداف التعلم",
+                goal1: "مفاهيم الحوسبة الموزعة",
+                goal1Desc: "فهم كيفية توزيع Spark للحسابات عبر عقد متعددة ومعالجة مجموعات البيانات الكبيرة بالتوازي",
+                goal2: "نمط MapReduce",
+                goal2Desc: "تعلم نمط map-reduce وكيفية تطبيقه على مشاكل معالجة البيانات",
+                goal3: "Spark RDDs و DataFrames",
+                goal3Desc: "إتقان مجموعات البيانات الموزعة المرنة (RDDs) وواجهة برمجة التطبيقات المحسنة للإطار",
+                goal4: "SparkSQL",
+                goal4Desc: "كتابة استعلامات SQL على البيانات الموزعة وإجراء عمليات تحليلية معقدة",
+                goal5: "خطوط أنابيب ETL",
+                goal5Desc: "بناء خطوط أنابيب استخراج وتحويل وتحميل شاملة لمعالجة البيانات",
+                setupTitle: "الإعداد والتثبيت",
+                dockerSetupTitle: "إعداد Docker",
+                dockerSetupDesc: "سنستخدم صورة Jupyter PySpark الرسمية للمفكرة في هذا المعمل:",
+                dockerDescDetail: "الأمر يكشف:",
+                port8888: "المنفذ 8888: واجهة دفتر Jupyter",
+                port4040: "المنفذ 4040: واجهة المستخدم الرسومية لـ Spark لمراقبة الوظائف",
+                portData: "/data: مجلد لوصول ملفات البيانات الخاصة بك",
+                verifyTitle: "التحقق من التثبيت",
+                verifyDesc: "أنشئ خلية دفتر جديدة وقم بتشغيل:",
+                verifySuccess: "✓ إذا رأيت إصدار Spark المطبوع، فقد اكتمل إعدادك!",
+                theorieTitle: "النظرية: أساسيات Apache Spark",
+                whatIsSparkTitle: "ما هو Apache Spark؟",
+                whatIsSparkDesc: "Apache Spark هو محرك تحليلات موحد لمعالجة البيانات الكبيرة الحجم. على عكس Hadoop MapReduce الذي يكتب إلى القرص بين المراحل، يحتفظ Spark بالبيانات في الذاكرة، مما يجعله أسرع 10-100 مرة للخوارزميات التكرارية.",
+                rddTitle: "مجموعات البيانات الموزعة المرنة (RDDs)",
+                rddDesc: "RDDs هي مجموعات موزعة ثابتة من الأشياء التي يمكن معالجتها بالتوازي. فهي توفر تحمل الأخطاء من خلال تتبع الأنساب.",
+                rddNoteLabel: "ملاحظة:",
+                rddNoteText: "بينما تعتبر RDDs الأساس، يفضل استخدام DataFrames الآن لمعظم الحالات الاستخدام نظرا لتحسين الأداء.",
+                lazyEvalTitle: "التقييم الكسول و DAGs",
+                lazyEvalDesc: "Spark لا يحسب النتائج على الفور. بدلاً من ذلك، يبني رسم بياني دوري موجه (DAG) للتحويلات. فقط عندما تستدعي إجراء (مثل collect() أو write() أو show())، يقوم Spark بتنفيذ الحساب.",
+                sparkEcosystemTitle: "نظام Spark البيئي",
+                sparkSQL: "Spark SQL: استعلامات SQL على البيانات الموزعة",
+                sparkMLlib: "MLlib: مكتبة التعلم الآلي",
+                sparkStreaming: "Spark Streaming: معالجة البيانات في الوقت الفعلي",
+                sparkGraphX: "GraphX: معالجة الرسوم البيانية",
+                pipelineTitle: "خط أنابيب MegaStore Spark",
+                pipelineDesc: "في هذا المعمل، سنعالج بيانات معاملات MegaStore من خلال خط أنابيب دفعات نموذجي:",
+                step1Title: "تحميل البيانات الخام",
+                step1Desc: "اقرأ orders.parquet و order_items.parquet و clickstream.parquet",
+                step2Title: "تنظيف البيانات",
+                step2Desc: "إزالة النسخ المكررة ومعالجة القيم الفارغة وتصفية السجلات غير الصحيحة",
+                step3Title: "تحويل",
+                step3Desc: "الربط مع المنتجات والعملاء، إنشاء حقول مشتقة",
+                step4Title: "تجميع",
+                step4Desc: "التجميع حسب الفئة والمنطقة والوقت؛ حساب KPIs",
+                step5Title: "الناتج",
+                step5Desc: "حفظ النتائج كملف Parquet للاستهلاك النهائي",
+                ubung1Title: "التمرين 1: الخطوات الأولى مع PySpark",
+                ubung1Intro: "في هذا التمرين، ستنشئ SparkSession وتحمل البيانات وتستكشف هيكلها.",
+                ubung1TaskTitle: "المهمة",
+                ubung1Task1: "إنشاء SparkSession",
+                ubung1Task2: "تحميل orders.parquet",
+                ubung1Task3: "عرض المخطط",
+                ubung1Task4: "عرض أول 5 صفوف",
+                ubung1Task5: "الحصول على إحصائيات أساسية (count، describe)",
+                ubung1ExerciseTitle: "تمارين إضافية",
+                ubung1ExerciseDesc: "جرب هذه العمليات:",
+                ubung1TipsLabel: "نصائح:",
+                ubung1Tip1: "استخدم .show() لمعاينة البيانات، .count() يشغل التنفيذ",
+                ubung1Tip2: "Parquet عمودي، أسرع من CSV للملفات الكبيرة",
+                ubung1Tip3: "تحقق من واجهة Spark على http://localhost:4040 لرؤية تنفيذ الوظيفة",
+                ubung2Title: "التمرين 2: مفاهيم MapReduce",
+                ubung2Intro: "تعلم نمط map-reduce وتطبيقه على بيانات MegaStore.",
+                ubung2Task1Title: "الجزء أ: عد الكلمات الكلاسيكي",
+                ubung2Task1Desc: "أولاً، قم بتنفيذ عد الكلمات باستخدام عمليات RDD:",
+                ubung2Task2Title: "الجزء ب: تحليل طلب MegaStore",
+                ubung2Task2Desc: "تطبيق MapReduce لحساب الطلبات حسب الفئة:",
+                ubung3Title: "التمرين 3: SparkSQL",
+                ubung3Intro: "اكتب استعلامات SQL على بيانات MegaStore باستخدام SparkSQL.",
+                ubung3Task1Title: "تسجيل DataFrames كجداول",
+                ubung3Task2Title: "استعلامات معقدة",
+                ubung4Title: "التمرين 4: خط أنابيب ETL الكامل",
+                ubung4Intro: "بناء خط أنابيب شامل: التحميل → التنظيف → التحويل → التجميع → الحفظ.",
+                ubung5Title: "التمرين 5: الأداء والتحسين",
+                ubung5Intro: "فهم الأداء والتحسينات في Spark.",
+                ubung5Task1Title: "الجزء أ: أداء Parquet مقابل CSV",
+                ubung5Task2Title: "الجزء ب: محسن Catalyst والتخزين المؤقت",
+                ubung5Task3Title: "الجزء ج: استراتيجية التجزئة",
+                bonusTitle: "المهام الإضافية",
+                bonus1Title: "المهمة 1: ML بسيط مع MLlib",
+                bonus1Desc: "بناء نظام توصية المنتج باستخدام التصفية التعاونية:",
+                bonus2Title: "المهمة 2: مفاهيم Spark Streaming",
+                bonus2Desc: "فهم Spark Streaming لمعالجة البيانات في الوقت الفعلي:",
+                bonus3Title: "المهمة 3: الدوال المعرفة من قبل المستخدم (UDFs)",
+                summaryTitle: "الملخص واستكشاف الأخطاء",
+                keyTakeawaysTitle: "النقاط الرئيسية",
+                takeaway1: "المعالجة الموزعة",
+                takeaway1Desc: "يوزع Spark البيانات والحسابات على عناقيد، مما يتيح معالجة مجموعات البيانات الأكبر من ذاكرة الجهاز الواحد",
+                takeaway2: "التقييم الكسول",
+                takeaway2Desc: "يبني Spark خطط التنفيذ (DAGs) قبل التشغيل؛ وهذا يتيح التحسين ولا يادي البيانات إلا عند الحاجة",
+                takeaway3: "واجهة برمجة تطبيقات DataFrame",
+                takeaway3Desc: "DataFrames أكثر كفاءة من RDDs لمعظم العمليات؛ فهي تمكن استعلامات SQL وتحسين Catalyst",
+                takeaway4: "خطوط أنابيب ETL",
+                takeaway4Desc: "هيكل معالجة البيانات كخطوط أنابيب استخراج وتحويل وتحميل للصيانة وإعادة الاستخدام وتحمل الأخطاء",
+                takeaway5: "الأداء مهمة",
+                takeaway5Desc: "اختر تنسيق الملف الصحيح (Parquet)، قسم بحكمة، خزن النتائج الوسيطة مؤقتاً، ومراقبة مع Spark UI",
+                commonIssuesTitle: "المشاكل الشائعة والحلول",
+                issue1Title: "أخطاء نفاد الذاكرة (OOM)",
+                issue1Desc: "الحل: زيادة ذاكرة المنفذ باستخدام علم --executor-memory، استخدام التجزئة، أو التخزين المؤقت بشكل انتقائي",
+                issue2Title: "بطء الأداء",
+                issue2Desc: "الحل: تحقق من Spark UI (المنفذ 4040) من الاختناقات، استخدم Parquet بدلاً من CSV، فعّل التخزين المؤقت لـ DataFrames المستخدمة",
+                issue3Title: "انحراف البيانات",
+                issue3Desc: "الحل: إعادة تقسيم البيانات قبل الربط/التجميع، استخدام تقنيات التملح للمفاتيح المنحرفة بشدة",
+                issue4Title: "مشاكل الاتصال",
+                issue4Desc: "الحل: تحقق من تشغيل حاوية Docker، تحقق من إعادة توجيه المنفذ (8888، 4040)، افحص السجلات مع docker logs <container_id>",
+                resourcesTitle: "الموارد والتعلم الإضافي",
+                resource1: "وثائق Apache Spark الرسمية",
+                resource2: "مرجع واجهة برمجة تطبيقات PySpark",
+                resource3: "مدونة Databricks - نصائح وحيل Spark",
+                resource4: "مواد دورة البيانات الضخمة الخاصة بـ Prof. Dr. Robert Butscher",
+                resource5: "وثائق مجموعة بيانات MegaStore في مجلد Lab",
+                nextStepsTitle: "الخطوات التالية",
+                nextStepsDesc: "بعد الانتهاء من هذا المعمل، اكتشف المواضيع المتقدمة مثل:",
+                nextStep1: "نماذج MLlib المتقدمة (تعزيز التدرج، التعلم العميق)",
+                nextStep2: "خطوط أنابيب البث في الوقت الفعلي مع تكامل Kafka",
+                nextStep3: "معالجة الرسوم البيانية الموزعة مع GraphX",
+                nextStep4: "النشر الجاهز للإنتاج وإدارة الكتل",
+            },
+            uk: {
+                heroTitle: "Лабораторія Apache Spark - розподілена обробка даних",
+                heroSubtitle: "Розділ 7: Hadoop, MapReduce та Spark",
+                diffLabel: "Складність: Продвинутий",
+                timeLabel: "⏱️ Час: 3-4 години",
+                heroDesc: "Дізнайтеся про розподілені обчислення за допомогою Apache Spark та обробляйте набір даних MegaStore для електронної комерції",
+                backText: "← Повернутися до огляду",
+                lernzieleTitle: "Цілі навчання",
+                goal1: "Концепції розподілених обчислень",
+                goal1Desc: "Зрозумійте, як Spark розподіляє обчислення на кілька вузлів і обробляє великі набори даних паралельно",
+                goal2: "Парадигма MapReduce",
+                goal2Desc: "Вивчіть шаблон map-reduce та його застосування до задач обробки даних",
+                goal3: "Spark RDDs та DataFrames",
+                goal3Desc: "Оволодійте стійкими розподіленими наборами даних (RDDs) та оптимізованим API DataFrame",
+                goal4: "SparkSQL",
+                goal4Desc: "Напишіть запити SQL на розподілених даних та виконайте складні аналітичні операції",
+                goal5: "ETL трубопроводи",
+                goal5Desc: "Створіть наскрізні трубопроводи виділення, трансформування та завантаження для обробки даних",
+                setupTitle: "Налаштування та встановлення",
+                dockerSetupTitle: "Налаштування Docker",
+                dockerSetupDesc: "Ми будемо використовувати офіційний образ Jupyter PySpark notebook для цієї лабораторії:",
+                dockerDescDetail: "Команда відкриває:",
+                port8888: "Порт 8888: інтерфейс записника Jupyter",
+                port4040: "Порт 4040: інтерфейс користувача Spark для моніторингу завдань",
+                portData: "/data: том для доступу до ваших файлів даних",
+                verifyTitle: "Перевірити встановлення",
+                verifyDesc: "Створіть нову комірку записника та запустіть:",
+                verifySuccess: "✓ Якщо ви бачите надруковану версію Spark, ваше налаштування завершено!",
+                theorieTitle: "Теорія: основи Apache Spark",
+                whatIsSparkTitle: "Що таке Apache Spark?",
+                whatIsSparkDesc: "Apache Spark - це об'єднаний механізм аналітики для обробки великомасштабних даних. На відміну від Hadoop MapReduce, який записує на диск між етапами, Spark зберігає дані в пам'яті, що робить його в 10-100 разів швидшим для ітеративних алгоритмів.",
+                rddTitle: "Стійкі розподілені набори даних (RDDs)",
+                rddDesc: "RDDs - це незмінні розподілені збірки об'єктів, які можна обробляти паралельно. Вони забезпечують стійкість до помилок завдяки відстеженню походження.",
+                rddNoteLabel: "Примітка:",
+                rddNoteText: "Хоча RDDs є основою, DataFrames тепер краще підходять для більшості варіантів використання завдяки кращій оптимізації.",
+                lazyEvalTitle: "Ліниве оцінювання та DAGs",
+                lazyEvalDesc: "Spark не обчислює результати одразу. Натомість він створює спрямований ациклічний граф (DAG) трансформацій. Лише коли ви викличете дію (наприклад collect(), write() чи show()), Spark виконує обчислення.",
+                sparkEcosystemTitle: "Екосистема Spark",
+                sparkSQL: "Spark SQL: запити SQL на розподілених даних",
+                sparkMLlib: "MLlib: бібліотека машинного навчання",
+                sparkStreaming: "Spark Streaming: обробка даних у реальному часі",
+                sparkGraphX: "GraphX: обробка графіків",
+                pipelineTitle: "Конвеєр MegaStore Spark",
+                pipelineDesc: "У цій лабораторії ми будемо обробляти дані транзакцій MegaStore через типовий конвеєр партій:",
+                step1Title: "Завантажити необроблені дані",
+                step1Desc: "Прочитайте orders.parquet, order_items.parquet, clickstream.parquet",
+                step2Title: "Очистити дані",
+                step2Desc: "Видаліть дублікати, обробіть нулі, відфільтруйте недійсні записи",
+                step3Title: "Трансформувати",
+                step3Desc: "Приєднайтеся до продуктів і клієнтів, створіть похідні поля",
+                step4Title: "Агрегувати",
+                step4Desc: "Групування за категорією, регіоном, часом; обчисліть KPI",
+                step5Title: "Вихід",
+                step5Desc: "Зберігайте результати як Parquet для подальшого споживання",
+                ubung1Title: "Вправа 1: Перші кроки з PySpark",
+                ubung1Intro: "У цій вправі ви створите SparkSession, завантажите дані та дослідите її структуру.",
+                ubung1TaskTitle: "Завдання",
+                ubung1Task1: "Створіть SparkSession",
+                ubung1Task2: "Завантажте orders.parquet",
+                ubung1Task3: "Відобразіть схему",
+                ubung1Task4: "Показати перші 5 рядків",
+                ubung1Task5: "Отримайте базові статистики (count, describe)",
+                ubung1ExerciseTitle: "Додаткові вправи",
+                ubung1ExerciseDesc: "Спробуйте ці операції:",
+                ubung1TipsLabel: "Поради:",
+                ubung1Tip1: "Використовуйте .show() для перегляду даних, .count() запускає виконання",
+                ubung1Tip2: "Parquet - стовпчастий, швидший за CSV для великих файлів",
+                ubung1Tip3: "Перевірте інтерфейс Spark на http://localhost:4040 щоб побачити виконання завдання",
+                ubung2Title: "Вправа 2: Концепції MapReduce",
+                ubung2Intro: "Вивчіть шаблон map-reduce та застосуйте його до даних MegaStore.",
+                ubung2Task1Title: "Частина А: Класичний підрахунок слів",
+                ubung2Task1Desc: "Спочатку реалізуйте підрахунок слів за допомогою операцій RDD:",
+                ubung2Task2Title: "Частина Б: Аналіз замовлень MegaStore",
+                ubung2Task2Desc: "Застосуйте MapReduce для підрахунку замовлень за категоріями:",
+                ubung3Title: "Вправа 3: SparkSQL",
+                ubung3Intro: "Напишіть запити SQL на даних MegaStore за допомогою SparkSQL.",
+                ubung3Task1Title: "Реєстрація DataFrames як таблиць",
+                ubung3Task2Title: "Складні запити",
+                ubung4Title: "Вправа 4: Повний трубопровід ETL",
+                ubung4Intro: "Побудуйте наскрізний трубопровід: Завантаження → Очищення → Трансформація → Агрегування → Збереження.",
+                ubung5Title: "Вправа 5: Продуктивність та оптимізація",
+                ubung5Intro: "Зрозумійте продуктивність Spark та методи оптимізації.",
+                ubung5Task1Title: "Частина А: Продуктивність Parquet та CSV",
+                ubung5Task2Title: "Частина Б: Оптимізатор Catalyst та кешування",
+                ubung5Task3Title: "Частина В: Стратегія розділення",
+                bonusTitle: "Додаткові завдання",
+                bonus1Title: "Завдання 1: Простий ML з MLlib",
+                bonus1Desc: "Побудуйте систему рекомендації продуктів, використовуючи спільну фільтрацію:",
+                bonus2Title: "Завдання 2: Концепції Spark Streaming",
+                bonus2Desc: "Розуміння Spark Streaming для обробки даних у реальному часі:",
+                bonus3Title: "Завдання 3: Визначені користувачем функції (UDFs)",
+                summaryTitle: "Резюме та усунення несправностей",
+                keyTakeawaysTitle: "Ключові висновки",
+                takeaway1: "Розподілена обробка",
+                takeaway1Desc: "Spark розподіляє дані та обчислення по кластерах, що дозволяє обробляти набори даних, які перевищують пам'ять окремої машини",
+                takeaway2: "Ліниве оцінювання",
+                takeaway2Desc: "Spark створює плани виконання (DAGs) перед запуском; це дозволяє оптимізацію та матеріалізує дані тільки за потребою",
+                takeaway3: "API DataFrame",
+                takeaway3Desc: "DataFrames більш ефективні, ніж RDDs для більшості операцій; вони дозволяють запити SQL та оптимізацію Catalyst",
+                takeaway4: "Трубопроводи ETL",
+                takeaway4Desc: "Структуруйте обробку даних як трубопроводи виділення, трансформування та завантаження для зберігання, повторного використання та толерантності до помилок",
+                takeaway5: "Продуктивність важлива",
+                takeaway5Desc: "Виберіть правильний формат файлу (Parquet), розділіть розумно, кешуйте проміжні результати та контролюйте за допомогою Spark UI",
+                commonIssuesTitle: "Загальні проблеми та рішення",
+                issue1Title: "Помилки нестачі пам'яті (OOM)",
+                issue1Desc: "Рішення: збільште пам'ять виконавця прапором --executor-memory, використовуйте розділення або вибірково кешуйте",
+                issue2Title: "Повільна продуктивність",
+                issue2Desc: "Рішення: перевірте Spark UI (порт 4040) на наявність вузьких місць, використовуйте Parquet замість CSV, увімкніть кешування для повторно використовуваних DataFrames",
+                issue3Title: "Перекіс даних",
+                issue3Desc: "Рішення: перерозділіть дані перед приєднанням/групуванням, використовуйте технічні розподіли для дуже перекошених ключів",
+                issue4Title: "Проблеми з підключенням",
+                issue4Desc: "Рішення: перевірте, чи працює контейнер Docker, перевірте перенаправлення портів (8888, 4040), перевірте журнали за допомогою docker logs <container_id>",
+                resourcesTitle: "Ресурси та подальше навчання",
+                resource1: "Офіційна документація Apache Spark",
+                resource2: "Довідка API PySpark",
+                resource3: "Блог Databricks - Поради та хитрощі Spark",
+                resource4: "Матеріали курсу Big Data Prof. Dr. Robert Butscher",
+                resource5: "Документація набору даних MegaStore в папці Lab",
+                nextStepsTitle: "Наступні кроки",
+                nextStepsDesc: "Після завершення цієї лабораторії дослідіть розширені теми, такі як:",
+                nextStep1: "Розширені моделі MLlib (бустинг градієнту, глибинне навчання)",
+                nextStep2: "Трубопроводи потокового передавання в реальному часі з інтеграцією Kafka",
+                nextStep3: "Розподілена обробка графіків за допомогою GraphX",
+                nextStep4: "Розгортання для виробництва та управління кластером",
+            },
+            es: {
+                heroTitle: "Laboratorio Apache Spark - Procesamiento distribuido de datos",
+                heroSubtitle: "Capítulo 7: Hadoop, MapReduce y Spark",
+                diffLabel: "Dificultad: Avanzado",
+                timeLabel: "⏱️ Tiempo: 3-4 horas",
+                heroDesc: "Aprenda computación distribuida con Apache Spark y procese el conjunto de datos de comercio electrónico de MegaStore",
+                backText: "← Volver a la descripción general",
+                lernzieleTitle: "Objetivos de aprendizaje",
+                goal1: "Conceptos de computación distribuida",
+                goal1Desc: "Comprenda cómo Spark distribuye cálculos en varios nodos y procesa grandes conjuntos de datos en paralelo",
+                goal2: "Paradigma MapReduce",
+                goal2Desc: "Aprenda el patrón map-reduce y cómo se aplica a problemas de procesamiento de datos",
+                goal3: "Spark RDDs y DataFrames",
+                goal3Desc: "Domine los conjuntos de datos distribuidos resilientes (RDDs) y la API DataFrame optimizada",
+                goal4: "SparkSQL",
+                goal4Desc: "Escriba consultas SQL en datos distribuidos y realice operaciones analíticas complejas",
+                goal5: "Canalizaciones ETL",
+                goal5Desc: "Construya canalizaciones de extracción, transformación y carga completas para procesamiento de datos",
+                setupTitle: "Configuración e instalación",
+                dockerSetupTitle: "Configuración de Docker",
+                dockerSetupDesc: "Utilizaremos la imagen oficial de Jupyter PySpark notebook para este laboratorio:",
+                dockerDescDetail: "El comando expone:",
+                port8888: "Puerto 8888: interfaz de notebook de Jupyter",
+                port4040: "Puerto 4040: interfaz de usuario de Spark para monitorear trabajos",
+                portData: "/data: volumen para acceder a sus archivos de datos",
+                verifyTitle: "Verificar instalación",
+                verifyDesc: "Cree una nueva celda de notebook y ejecute:",
+                verifySuccess: "✓ Si ve la versión de Spark impresa, ¡su configuración está completa!",
+                theorieTitle: "Teoría: Fundamentos de Apache Spark",
+                whatIsSparkTitle: "¿Qué es Apache Spark?",
+                whatIsSparkDesc: "Apache Spark es un motor de análisis unificado para el procesamiento de datos a gran escala. A diferencia de Hadoop MapReduce que escribe en disco entre etapas, Spark mantiene los datos en memoria, lo que lo hace 10-100 veces más rápido para algoritmos iterativos.",
+                rddTitle: "Conjuntos de datos distribuidos resilientes (RDDs)",
+                rddDesc: "Los RDD son colecciones distribuidas inmutables de objetos que se pueden procesar en paralelo. Proporcionan tolerancia a fallos a través del seguimiento del linaje.",
+                rddNoteLabel: "Nota:",
+                rddNoteText: "Aunque los RDD son la base, los DataFrames ahora se prefieren para la mayoría de los casos de uso debido a una mejor optimización.",
+                lazyEvalTitle: "Evaluación perezosa y DAGs",
+                lazyEvalDesc: "Spark no calcula resultados inmediatamente. En su lugar, construye un gráfico acíclico dirigido (DAG) de transformaciones. Solo cuando llama a una acción (como collect(), write() o show()), Spark ejecuta el cálculo.",
+                sparkEcosystemTitle: "Ecosistema de Spark",
+                sparkSQL: "Spark SQL: consultas SQL en datos distribuidos",
+                sparkMLlib: "MLlib: biblioteca de aprendizaje automático",
+                sparkStreaming: "Spark Streaming: procesamiento de datos en tiempo real",
+                sparkGraphX: "GraphX: procesamiento de gráficos",
+                pipelineTitle: "Canalización MegaStore Spark",
+                pipelineDesc: "En este laboratorio, procesaremos datos de transacciones de MegaStore a través de una canalización de lotes típica:",
+                step1Title: "Cargar datos sin procesar",
+                step1Desc: "Lea orders.parquet, order_items.parquet, clickstream.parquet",
+                step2Title: "Limpiar datos",
+                step2Desc: "Elimine duplicados, maneje nulos, filtre registros inválidos",
+                step3Title: "Transformar",
+                step3Desc: "Unir con productos y clientes, crear campos derivados",
+                step4Title: "Agregar",
+                step4Desc: "Agrupar por categoría, región, tiempo; calcular KPI",
+                step5Title: "Salida",
+                step5Desc: "Guarde los resultados como Parquet para consumo posterior",
+                ubung1Title: "Ejercicio 1: Primeros pasos con PySpark",
+                ubung1Intro: "En este ejercicio, creará una SparkSession, cargará datos y explorará su estructura.",
+                ubung1TaskTitle: "Tarea",
+                ubung1Task1: "Crear una SparkSession",
+                ubung1Task2: "Cargar orders.parquet",
+                ubung1Task3: "Mostrar el esquema",
+                ubung1Task4: "Mostrar las primeras 5 filas",
+                ubung1Task5: "Obtener estadísticas básicas (count, describe)",
+                ubung1ExerciseTitle: "Ejercicios adicionales",
+                ubung1ExerciseDesc: "Intente estas operaciones:",
+                ubung1TipsLabel: "Consejos:",
+                ubung1Tip1: "Use .show() para ver datos de vista previa, .count() activa la ejecución",
+                ubung1Tip2: "Parquet es columnar, más rápido que CSV para archivos grandes",
+                ubung1Tip3: "Verifique la interfaz de Spark en http://localhost:4040 para ver la ejecución del trabajo",
+                ubung2Title: "Ejercicio 2: Conceptos de MapReduce",
+                ubung2Intro: "Aprenda el patrón map-reduce y aplíquelo a datos de MegaStore.",
+                ubung2Task1Title: "Parte A: Conteo de palabras clásico",
+                ubung2Task1Desc: "Primero, implemente el conteo de palabras usando operaciones RDD:",
+                ubung2Task2Title: "Parte B: Análisis de pedidos de MegaStore",
+                ubung2Task2Desc: "Aplique MapReduce para contar pedidos por categoría:",
+                ubung3Title: "Ejercicio 3: SparkSQL",
+                ubung3Intro: "Escriba consultas SQL en datos de MegaStore usando SparkSQL.",
+                ubung3Task1Title: "Registrar DataFrames como tablas",
+                ubung3Task2Title: "Consultas complejas",
+                ubung4Title: "Ejercicio 4: Canalización ETL completa",
+                ubung4Intro: "Construya una canalización integral: Cargar → Limpiar → Transformar → Agregar → Guardar.",
+                ubung5Title: "Ejercicio 5: Rendimiento y optimización",
+                ubung5Intro: "Comprenda el rendimiento de Spark y las técnicas de optimización.",
+                ubung5Task1Title: "Parte A: Rendimiento de Parquet vs CSV",
+                ubung5Task2Title: "Parte B: Optimizador Catalyst y almacenamiento en caché",
+                ubung5Task3Title: "Parte C: Estrategia de particionamiento",
+                bonusTitle: "Tareas adicionales",
+                bonus1Title: "Tarea 1: ML simple con MLlib",
+                bonus1Desc: "Construya un sistema de recomendación de productos utilizando filtrado colaborativo:",
+                bonus2Title: "Tarea 2: Conceptos de Spark Streaming",
+                bonus2Desc: "Comprensión de Spark Streaming para procesamiento de datos en tiempo real:",
+                bonus3Title: "Tarea 3: Funciones definidas por el usuario (UDF)",
+                summaryTitle: "Resumen y solución de problemas",
+                keyTakeawaysTitle: "Puntos clave",
+                takeaway1: "Procesamiento distribuido",
+                takeaway1Desc: "Spark distribuye datos y cálculos entre clústeres, lo que permite procesar conjuntos de datos más grandes que la memoria de una sola máquina",
+                takeaway2: "Evaluación perezosa",
+                takeaway2Desc: "Spark construye planes de ejecución (DAG) antes de ejecutar; esto permite optimización y materializa datos solo cuando es necesario",
+                takeaway3: "API de DataFrame",
+                takeaway3Desc: "Los DataFrames son más eficientes que los RDD para la mayoría de operaciones; permiten consultas SQL y optimización de Catalyst",
+                takeaway4: "Canalizaciones ETL",
+                takeaway4Desc: "Estructure el procesamiento de datos como canalizaciones de extracción, transformación y carga para mantenibilidad, reutilización y tolerancia a fallos",
+                takeaway5: "El rendimiento importa",
+                takeaway5Desc: "Elija el formato de archivo correcto (Parquet), particione sabiamente, almacene en caché resultados intermedios y supervise con la interfaz de usuario de Spark",
+                commonIssuesTitle: "Problemas comunes y soluciones",
+                issue1Title: "Errores de falta de memoria (OOM)",
+                issue1Desc: "Solución: aumente la memoria del ejecutor con el indicador --executor-memory, use particionamiento o almacene en caché de forma selectiva",
+                issue2Title: "Rendimiento lento",
+                issue2Desc: "Solución: verifique la interfaz de usuario de Spark (puerto 4040) en busca de cuellos de botella, use Parquet en lugar de CSV, habilite el almacenamiento en caché para DataFrames reutilizados",
+                issue3Title: "Sesgo de datos",
+                issue3Desc: "Solución: reparticione datos antes de uniones/agrupaciones, use técnicas de salting para claves altamente sesgadas",
+                issue4Title: "Problemas de conexión",
+                issue4Desc: "Solución: verifique que el contenedor de Docker se esté ejecutando, verifique el reenvío de puerto (8888, 4040), inspeccione registros con docker logs <container_id>",
+                resourcesTitle: "Recursos y aprendizaje adicional",
+                resource1: "Documentación oficial de Apache Spark",
+                resource2: "Referencia de API de PySpark",
+                resource3: "Blog de Databricks - Consejos y trucos de Spark",
+                resource4: "Materiales del curso Big Data de Prof. Dr. Robert Butscher",
+                resource5: "Documentación del conjunto de datos MegaStore en la carpeta del laboratorio",
+                nextStepsTitle: "Próximos pasos",
+                nextStepsDesc: "Después de completar este laboratorio, explore temas avanzados como:",
+                nextStep1: "Modelos MLlib avanzados (impulso de gradiente, aprendizaje profundo)",
+                nextStep2: "Canalizaciones de transmisión en tiempo real con integración de Kafka",
+                nextStep3: "Procesamiento de gráficos distribuido con GraphX",
+                nextStep4: "Implementación lista para producción y gestión de clústeres",
+            },
+            tr: {
+                heroTitle: "Apache Spark Lab - Dağıtılmış Veri İşleme",
+                heroSubtitle: "Bölüm 7: Hadoop, MapReduce ve Spark",
+                diffLabel: "Zorluk: İleri Seviye",
+                timeLabel: "⏱️ Zaman: 3-4 saat",
+                heroDesc: "Apache Spark ile dağıtılmış bilişim öğrenin ve MegaStore e-ticaret veri setini işleyin",
+                backText: "← Genel Bakışa Dön",
+                lernzieleTitle: "Öğrenme Hedefleri",
+                goal1: "Dağıtılmış Bilişim Kavramları",
+                goal1Desc: "Spark'ın hesaplamaları birden fazla düğüm arasında nasıl dağıttığını ve büyük veri setlerini paralel olarak nasıl işlediğini anlayın",
+                goal2: "MapReduce Paradigması",
+                goal2Desc: "Map-reduce desenini ve bunun veri işleme sorunlarına nasıl uygulandığını öğrenin",
+                goal3: "Spark RDD'leri ve DataFrame'leri",
+                goal3Desc: "Resilient Distributed Datasets (RDD'ler) ve optimize edilmiş DataFrame API'sini öğrenin",
+                goal4: "SparkSQL",
+                goal4Desc: "Dağıtılmış veriler üzerinde SQL sorguları yazın ve karmaşık analitik işlemler gerçekleştirin",
+                goal5: "ETL Boru Hatları",
+                goal5Desc: "Veri işleme için end-to-end extract, transform ve load boru hatları oluşturun",
+                setupTitle: "Kurulum ve Yükleme",
+                dockerSetupTitle: "Docker Kurulumu",
+                dockerSetupDesc: "Bu lab için resmi Jupyter PySpark notebook görüntüsünü kullanacağız:",
+                dockerDescDetail: "Komut şunları açığa çıkarır:",
+                port8888: "Port 8888: Jupyter notebook arayüzü",
+                port4040: "Port 4040: İşleri izlemek için Spark UI",
+                portData: "/data: Veri dosyalarınıza erişmek için birim",
+                verifyTitle: "Yüklemeyi Doğrula",
+                verifyDesc: "Yeni bir notebook hücresi oluşturun ve çalıştırın:",
+                verifySuccess: "✓ Spark sürümünü yazdırıldığını görürseniz, kurulumunuz tamamlanmıştır!",
+                theorieTitle: "Teori: Apache Spark Temelleri",
+                whatIsSparkTitle: "Apache Spark Nedir?",
+                whatIsSparkDesc: "Apache Spark, büyük ölçekli veri işleme için birleşik bir analitik motorudur. Hadoop MapReduce'tan farklı olarak aşamalar arasında diske yazan Spark, verileri bellekte tutarak yinelemeli algoritmalar için 10-100 kat daha hızlıdır.",
+                rddTitle: "Resilient Distributed Datasets (RDD'ler)",
+                rddDesc: "RDD'ler, paralel olarak işlenebilen değişmez, dağıtılmış nesne koleksiyonlarıdır. Soy izlemesi yoluyla hata toleransı sağlarlar.",
+                rddNoteLabel: "Not:",
+                rddNoteText: "RDD'ler temel olsa da, daha iyi optimizasyon nedeniyle çoğu kullanım durumu için artık DataFrame'ler tercih edilir.",
+                lazyEvalTitle: "Tembel Değerlendirme ve DAG'ler",
+                lazyEvalDesc: "Spark sonuçları hemen hesaplamaz. Bunun yerine, dönüşümlerin Yönlü Döngüsel Olmayan Grafiğini (DAG) oluşturur. Yalnızca bir eylem çağırdığında (collect(), write() veya show() gibi) Spark hesaplamayı yürütür.",
+                sparkEcosystemTitle: "Spark Ekosistemi",
+                sparkSQL: "Spark SQL: Dağıtılmış veriler üzerinde SQL sorguları",
+                sparkMLlib: "MLlib: Makine öğrenmesi kütüphanesi",
+                sparkStreaming: "Spark Streaming: Gerçek zamanlı veri işleme",
+                sparkGraphX: "GraphX: Grafik işleme",
+                pipelineTitle: "MegaStore Spark İşlem Hattı",
+                pipelineDesc: "Bu lab'da, MegaStore işlem verilerini tipik bir toplu işlem hattı aracılığıyla işleyeceğiz:",
+                step1Title: "Ham Verileri Yükle",
+                step1Desc: "orders.parquet, order_items.parquet, clickstream.parquet dosyalarını okuyun",
+                step2Title: "Verileri Temizle",
+                step2Desc: "Çoğaltmaları kaldırın, boşluğu işleyin, geçersiz kayıtları filtreleyin",
+                step3Title: "Dönüştür",
+                step3Desc: "Ürün ve müşterilerle birleştirin, türetilmiş alanlar oluşturun",
+                step4Title: "Topla",
+                step4Desc: "Kategoriye, bölgeye, zamana göre gruplandırın; KPI'ları hesaplayın",
+                step5Title: "Çıkış",
+                step5Desc: "Sonuçları aşağı akış tüketimi için Parquet olarak kaydedin",
+                ubung1Title: "Alıştırma 1: PySpark ile İlk Adımlar",
+                ubung1Intro: "Bu alıştırmada, bir SparkSession oluşturacak, veri yükleyecek ve yapısını keşfedeceksiniz.",
+                ubung1TaskTitle: "Görev",
+                ubung1Task1: "SparkSession oluşturun",
+                ubung1Task2: "orders.parquet dosyasını yükleyin",
+                ubung1Task3: "Şemayı görüntüleyin",
+                ubung1Task4: "İlk 5 satırı gösterin",
+                ubung1Task5: "Temel istatistikleri alın (count, describe)",
+                ubung1ExerciseTitle: "Ek Alıştırmalar",
+                ubung1ExerciseDesc: "Bu işlemleri deneyin:",
+                ubung1TipsLabel: "İpuçları:",
+                ubung1Tip1: "Verileri önizlemek için .show() kullanın, .count() yürütmeyi tetikler",
+                ubung1Tip2: "Parquet sütunlu, büyük dosyalar için CSV'den daha hızlı",
+                ubung1Tip3: "İş yürütmeyi görmek için Spark UI'sini http://localhost:4040 adresinde kontrol edin",
+                ubung2Title: "Alıştırma 2: MapReduce Kavramları",
+                ubung2Intro: "Map-reduce desenini öğrenin ve bunu MegaStore verilerine uygulayın.",
+                ubung2Task1Title: "Bölüm A: Klasik Kelime Sayısı",
+                ubung2Task1Desc: "Öncelikle, RDD işlemlerini kullanarak kelime sayısını uygulayın:",
+                ubung2Task2Title: "Bölüm B: MegaStore Sipariş Analizi",
+                ubung2Task2Desc: "Kategoriye göre siparişleri saymak için MapReduce'ı uygulayın:",
+                ubung3Title: "Alıştırma 3: SparkSQL",
+                ubung3Intro: "SparkSQL'i kullanarak MegaStore verilerine SQL sorguları yazın.",
+                ubung3Task1Title: "DataFrames'i Tablo Olarak Kaydedin",
+                ubung3Task2Title: "Karmaşık Sorgular",
+                ubung4Title: "Alıştırma 4: Tam ETL Boru Hattı",
+                ubung4Intro: "End-to-end boru hattı oluşturun: Yükle → Temizle → Dönüştür → Topla → Kaydet.",
+                ubung5Title: "Alıştırma 5: Performans ve Optimizasyon",
+                ubung5Intro: "Spark performansı ve optimizasyon tekniklerini anlayın.",
+                ubung5Task1Title: "Bölüm A: Parquet vs CSV Performansı",
+                ubung5Task2Title: "Bölüm B: Catalyst Iyileştirici ve Önbellekleme",
+                ubung5Task3Title: "Bölüm C: Bölümleme Stratejisi",
+                bonusTitle: "Bonus Görevler",
+                bonus1Title: "Görev 1: MLlib ile Basit ML",
+                bonus1Desc: "İşbirliğine dayalı filtreleme kullanarak bir ürün önerisi sistemi oluşturun:",
+                bonus2Title: "Görev 2: Spark Streaming Kavramları",
+                bonus2Desc: "Gerçek zamanlı veri işleme için Spark Streaming'i anlayın:",
+                bonus3Title: "Görev 3: Kullanıcı Tanımlı Fonksiyonlar (UDF)",
+                summaryTitle: "Özet ve Sorun Giderme",
+                keyTakeawaysTitle: "Temel Çıkarımlar",
+                takeaway1: "Dağıtılmış İşleme",
+                takeaway1Desc: "Spark, tek makinenin belleğinden daha büyük veri setlerinin işlenmesini sağlayan kümeler arasında veri ve hesaplama dağıtır",
+                takeaway2: "Tembel Değerlendirme",
+                takeaway2Desc: "Spark, çalışmadan önce yürütme planları (DAG'ler) oluşturur; bu optimizasyon sağlar ve verileri yalnızca gerektiğinde materyalize eder",
+                takeaway3: "DataFrame API",
+                takeaway3Desc: "DataFrames çoğu işlem için RDD'lerden daha verimlidir; SQL sorguları ve Catalyst optimizasyonunu etkinleştirirler",
+                takeaway4: "ETL Boru Hatları",
+                takeaway4Desc: "Veri işlemeyi bakım, yeniden kullanım ve hata toleransı için ekstraksiyon, dönüştürme ve yükleme boru hatları olarak yapılandırın",
+                takeaway5: "Performans Önemli",
+                takeaway5Desc: "Doğru dosya biçimini (Parquet) seçin, akıllıca bölümleyin, ara sonuçları önbelleğe alın ve Spark UI'sı ile izleyin",
+                commonIssuesTitle: "Yaygın Sorunlar ve Çözümler",
+                issue1Title: "Bellek Yetersiz (OOM) Hataları",
+                issue1Desc: "Çözüm: --executor-memory bayrağı ile yürütücü belleğini artırın, bölümleme kullanın veya seçe seçe önbelleğe alın",
+                issue2Title: "Yavaş Performans",
+                issue2Desc: "Çözüm: Darboğazlar için Spark UI'sını (port 4040) kontrol edin, CSV yerine Parquet kullanın, yeniden kullanılan DataFrames için önbelleklemeyi etkinleştirin",
+                issue3Title: "Veri Çarpıklığı",
+                issue3Desc: "Çözüm: Birleştirmelerden/gruplandırmalardan önce verileri yeniden bölümleyin, oldukça çarpık anahtarlar için tuzlama tekniklerini kullanın",
+                issue4Title: "Bağlantı Sorunları",
+                issue4Desc: "Çözüm: Docker konteynerinin çalışıp çalışmadığını doğrulayın, bağlantı noktası yönlendirmesini kontrol edin (8888, 4040), docker logs <container_id> ile günlükleri inceleyin",
+                resourcesTitle: "Kaynaklar ve İleri Öğrenme",
+                resource1: "Apache Spark Resmi Belgeleri",
+                resource2: "PySpark API Referansı",
+                resource3: "Databricks Blogu - Spark İpuçları ve Hiyleleri",
+                resource4: "Prof. Dr. Robert Butscher'in Big Data kurs materyalleri",
+                resource5: "Lab klasöründe MegaStore veri seti belgeleri",
+                nextStepsTitle: "Sonraki Adımlar",
+                nextStepsDesc: "Bu labı tamamladıktan sonra şunun gibi ileri konuları keşfedin:",
+                nextStep1: "Gelişmiş MLlib modelleri (gradient boosting, derin öğrenme)",
+                nextStep2: "Kafka entegrasyonu ile gerçek zamanlı akış boru hatları",
+                nextStep3: "GraphX ile dağıtılmış grafik işleme",
+                nextStep4: "Üretime hazır dağıtım ve küme yönetimi",
+            }
+        };
+
+        let currentLang = 'de';
+
+        function changeLanguage(lang) {
+            currentLang = lang;
+            const t = translations[lang];
+
+            // Update all elements with id="key"
+            Object.keys(t).forEach(key => {
+                const elem = document.getElementById(key);
+                if (elem) {
+                    elem.textContent = t[key];
+                }
+            });
+
+            // Update HTML direction for Arabic
+            document.documentElement.dir = (lang === 'ar') ? 'rtl' : 'ltr';
+            document.documentElement.lang = lang;
+        }
+
+        function copyCode(button) {
+            const code = button.nextElementSibling.textContent;
+            navigator.clipboard.writeText(code).then(() => {
+                const original = button.textContent;
+                button.textContent = 'Copied!';
+                setTimeout(() => { button.textContent = original; }, 2000);
+            });
+        }
+
+        function goBack() {
+            window.location.href = 'index.html';
+        }
+
+        // Sidebar navigation
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', (e) => {
+                document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+                link.classList.add('active');
+            });
+        });
+
+        // Highlight code blocks
+        document.querySelectorAll('code').forEach(el => {
+            hljs.highlightElement(el);
+        });
+    </script>
+</body>
+</html>

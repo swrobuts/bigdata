@@ -1,0 +1,1296 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Big Data & Anwendungen Lab - THWS BBA</title>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        * {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+            overflow-x: hidden;
+        }
+
+        html[dir="rtl"] {
+            direction: rtl;
+            text-align: right;
+        }
+
+        html[dir="rtl"] * {
+            text-align: inherit;
+        }
+
+        .hero-gradient {
+            background: linear-gradient(135deg, #1B3A5C 0%, #2D5A7B 50%, #E8792F 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .animated-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            opacity: 0.1;
+            background-image:
+                radial-gradient(circle at 20% 50%, rgba(232, 121, 47, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(27, 58, 92, 0.3) 0%, transparent 50%);
+            animation: float 15s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translate(0, 0);
+            }
+            50% {
+                transform: translate(30px, -30px);
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.8s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .slide-in-left {
+            animation: slideInLeft 0.8s ease-out;
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .slide-in-right {
+            animation: slideInRight 0.8s ease-out;
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .pulse-float {
+            animation: pulseFloat 3s ease-in-out infinite;
+        }
+
+        @keyframes pulseFloat {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #E8792F;
+        }
+
+        .lab-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 2px solid transparent;
+        }
+
+        .lab-card:hover {
+            transform: translateY(-8px);
+            border-color: #E8792F;
+            box-shadow: 0 20px 40px rgba(232, 121, 47, 0.15);
+        }
+
+        .code-block {
+            background: #1e293b;
+            border-left: 4px solid #E8792F;
+            color: #e2e8f0;
+            font-family: 'Monaco', 'Courier New', monospace;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            overflow-x: auto;
+        }
+
+        .copy-button {
+            background: #E8792F;
+            transition: background 0.2s;
+        }
+
+        .copy-button:hover {
+            background: #d4652b;
+        }
+
+        .difficulty-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+
+        .difficulty-beginner {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .difficulty-intermediate {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .difficulty-advanced {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .icon-wrapper {
+            width: 4rem;
+            height: 4rem;
+            background: linear-gradient(135deg, #E8792F 0%, #d4652b 100%);
+            border-radius: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .scroll-reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .data-flow {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .data-flow-item {
+            background: white;
+            border: 2px solid #E8792F;
+            border-radius: 0.5rem;
+            padding: 1rem 1.5rem;
+            font-weight: 600;
+            color: #1B3A5C;
+            flex: 1;
+            min-width: 150px;
+            text-align: center;
+        }
+
+        .data-flow-arrow {
+            font-size: 1.5rem;
+            color: #E8792F;
+            font-weight: bold;
+            animation: arrowPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes arrowPulse {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.5;
+                transform: translateX(5px);
+            }
+        }
+
+        .navbar {
+            background: white;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+
+        .navbar-content {
+            max-width: 7xl;
+            margin: 0 auto;
+            padding: 1rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #1B3A5C 0%, #E8792F 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .language-switcher {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        .lang-btn {
+            padding: 0.5rem 0.75rem;
+            border-radius: 0.375rem;
+            border: 2px solid #e5e7eb;
+            background: white;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.875rem;
+            color: #666;
+            transition: all 0.2s;
+        }
+
+        .lang-btn.active {
+            background: #E8792F;
+            color: white;
+            border-color: #E8792F;
+        }
+
+        .lang-btn:hover {
+            border-color: #E8792F;
+        }
+
+        .section-divider {
+            height: 1px;
+            background: linear-gradient(to right, transparent, #E8792F, transparent);
+            margin: 4rem 0;
+        }
+
+        .stat-bar {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .nav-scroll-hidden {
+            overflow: hidden;
+        }
+
+        html[dir="rtl"] .data-flow {
+            flex-direction: row-reverse;
+        }
+
+        html[dir="rtl"] .data-flow-arrow {
+            transform: scaleX(-1);
+        }
+
+        @media (max-width: 768px) {
+            .stat-number {
+                font-size: 2rem;
+            }
+
+            .data-flow {
+                flex-direction: column;
+            }
+
+            .data-flow-arrow {
+                transform: rotate(90deg);
+            }
+
+            html[dir="rtl"] .data-flow-arrow {
+                transform: rotate(90deg) scaleX(-1);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect, useRef } = React;
+
+        const translations = {
+            de: {
+                nav: {
+                    home: 'Start',
+                    about: 'Über den Kurs',
+                    case_study: 'MegaStore Case Study',
+                    labs: 'Labore',
+                    getting_started: 'Getting Started',
+                    architecture: 'Architektur'
+                },
+                hero: {
+                    headline: 'Big Data & Anwendungen',
+                    tagline: 'Praktisches Lernen mit Docker - Hands-on Big Data Engineering',
+                    cta: 'Erkunden Sie die Labore'
+                },
+                stats: {
+                    labs: '4 Docker Labore',
+                    case_study: '1 Case Study',
+                    languages: '6 Sprachen',
+                    hands_on: 'Hands-on Learning'
+                },
+                about: {
+                    title: 'Über den Kurs',
+                    description: 'Der Kurs Big Data & Anwendungen führt Sie in die Grundlagen und praktischen Anwendungen moderner Big Data Technologien ein. Sie arbeiten mit Dockerisierten Umgebungen, um echte Datenverarbeitungsszenarios zu erleben.',
+                    learning: 'Lernziele:',
+                    obj1: 'Big Data Architekturen und Datenflüsse verstehen',
+                    obj2: 'NoSQL Datenbanken praktisch anwenden',
+                    obj3: 'Große Datenmengen mit modernen Tools verarbeiten',
+                    obj4: 'Python Integration mit Big Data Technologien',
+                    obj5: 'Cloud-basierte Analytics Infrastruktur'
+                },
+                case_study: {
+                    title: 'Die MegaStore Case Study',
+                    intro: 'Willkommen bei MegaStore - einem fiktiven E-Commerce Unternehmen! Über alle 4 Labore hinweg arbeiten Sie mit realistische Daten von MegaStore:',
+                    customer: 'Kundendaten und Bestellungen',
+                    products: 'Produktkatalog mit Beziehungen',
+                    transactions: 'Millionen von Transaktionen',
+                    analytics: 'Business Analytics & Insights',
+                    flow: 'Datenfluss durch alle Technologien:',
+                    orders: 'Bestellungen',
+                    storage: 'Speicherung',
+                    relationships: 'Beziehungen',
+                    analytics_text: 'Analytics',
+                    batch: 'Batch Processing'
+                },
+                labs: {
+                    title: 'Die 4 Docker Labore',
+                    mongodb: {
+                        name: 'MongoDB Lab',
+                        subtitle: 'Document Store & Python',
+                        chapter: 'Kapitel 5: NoSQL Datenbanken',
+                        desc: 'Speichern und abfragen Sie den MegaStore Produktkatalog und Kundendaten mit MongoDB. Python + PyMongo Übungen mit Mongo Express Web UI.',
+                        difficulty: 'Anfänger',
+                        cta: 'Starten Sie das Lab'
+                    },
+                    duckdb: {
+                        name: 'DuckDB Lab',
+                        subtitle: 'Analytisches SQL auf großen Datensätzen',
+                        chapter: 'Kapitel 6: Analytische Datenbanken',
+                        desc: 'Führen Sie analytische Abfragen auf MegaStore Verkaufsdaten (CSV/Parquet) aus. Jupyter Notebook Umgebung mit Performance Vergleichen.',
+                        difficulty: 'Anfänger',
+                        cta: 'Starten Sie das Lab'
+                    },
+                    neo4j: {
+                        name: 'Neo4j Lab',
+                        subtitle: 'Graph Datenbank & Knowledge Graphs',
+                        chapter: 'Kapitel 5 + Ontologien',
+                        desc: 'Modellieren Sie MegaStore Produktbeziehungen und Kundennetzwerke. Cypher Query Language mit Neo4j Browser UI.',
+                        difficulty: 'Mittelstufe',
+                        cta: 'Starten Sie das Lab'
+                    },
+                    spark: {
+                        name: 'Apache Spark Lab',
+                        subtitle: 'Verteilte Datenverarbeitung',
+                        chapter: 'Kapitel 7: Stream & Batch Processing',
+                        desc: 'Batch-verarbeiten Sie MegaStore Transaktionslogs. PySpark in Jupyter mit MapReduce Konzepten und Performance-Optimierung.',
+                        difficulty: 'Fortgeschritten',
+                        cta: 'Starten Sie das Lab'
+                    }
+                },
+                getting_started: {
+                    title: 'Getting Started',
+                    prereq: 'Voraussetzungen:',
+                    docker: 'Docker Desktop installiert',
+                    step1: 'Schritt 1: Image pullen',
+                    step2: 'Schritt 2: Container starten',
+                    step3: 'Schritt 3: Web Interface öffnen',
+                    copy: 'Kopieren'
+                },
+                architecture: {
+                    title: 'Big Data Architektur Übersicht',
+                    desc: 'Wie die Technologien zusammenpassen:',
+                    lake: 'Data Lake',
+                    processing: 'Processing & Analytics',
+                    warehouse: 'Data Warehouse / Mart',
+                    insights: 'Business Insights'
+                },
+                footer: {
+                    built: 'Gebaut mit ❤️ für BBA Studenten',
+                    professor: 'Prof. Dr. Robert Butscher',
+                    thws: 'THWS - Technische Hochschule Würzburg-Schweinfurt',
+                    github: 'GitHub Repository'
+                }
+            },
+            en: {
+                nav: {
+                    home: 'Home',
+                    about: 'About Course',
+                    case_study: 'MegaStore Case',
+                    labs: 'Labs',
+                    getting_started: 'Getting Started',
+                    architecture: 'Architecture'
+                },
+                hero: {
+                    headline: 'Big Data & Applications',
+                    tagline: 'Practical Learning with Docker - Hands-on Big Data Engineering',
+                    cta: 'Explore the Labs'
+                },
+                stats: {
+                    labs: '4 Docker Labs',
+                    case_study: '1 Case Study',
+                    languages: '6 Languages',
+                    hands_on: 'Hands-on Learning'
+                },
+                about: {
+                    title: 'About the Course',
+                    description: 'Big Data & Applications introduces you to the fundamentals and practical applications of modern Big Data technologies. You work with Dockerized environments to experience real data processing scenarios.',
+                    learning: 'Learning Objectives:',
+                    obj1: 'Understand Big Data architectures and data flows',
+                    obj2: 'Apply NoSQL databases in practice',
+                    obj3: 'Process large datasets with modern tools',
+                    obj4: 'Python integration with Big Data technologies',
+                    obj5: 'Cloud-based analytics infrastructure'
+                },
+                case_study: {
+                    title: 'The MegaStore Case Study',
+                    intro: 'Welcome to MegaStore - a fictional e-commerce company! Across all 4 labs, you work with realistic MegaStore data:',
+                    customer: 'Customer data & orders',
+                    products: 'Product catalog with relationships',
+                    transactions: 'Millions of transactions',
+                    analytics: 'Business analytics & insights',
+                    flow: 'Data flow through all technologies:',
+                    orders: 'Orders',
+                    storage: 'Storage',
+                    relationships: 'Relationships',
+                    analytics_text: 'Analytics',
+                    batch: 'Batch Processing'
+                },
+                labs: {
+                    title: 'The 4 Docker Labs',
+                    mongodb: {
+                        name: 'MongoDB Lab',
+                        subtitle: 'Document Store & Python',
+                        chapter: 'Chapter 5: NoSQL Databases',
+                        desc: 'Store and query the MegaStore product catalog and customer data with MongoDB. Python + PyMongo exercises with Mongo Express web UI.',
+                        difficulty: 'Beginner',
+                        cta: 'Start Lab'
+                    },
+                    duckdb: {
+                        name: 'DuckDB Lab',
+                        subtitle: 'Analytical SQL on Large Datasets',
+                        chapter: 'Chapter 6: Analytical Databases',
+                        desc: 'Run analytical queries on MegaStore sales data (CSV/Parquet). Jupyter Notebook environment with performance comparisons.',
+                        difficulty: 'Beginner',
+                        cta: 'Start Lab'
+                    },
+                    neo4j: {
+                        name: 'Neo4j Lab',
+                        subtitle: 'Graph Database & Knowledge Graphs',
+                        chapter: 'Chapter 5 + Ontologies',
+                        desc: 'Model MegaStore product relationships and customer networks. Cypher query language with Neo4j Browser UI.',
+                        difficulty: 'Intermediate',
+                        cta: 'Start Lab'
+                    },
+                    spark: {
+                        name: 'Apache Spark Lab',
+                        subtitle: 'Distributed Data Processing',
+                        chapter: 'Chapter 7: Stream & Batch Processing',
+                        desc: 'Batch process MegaStore transaction logs. PySpark in Jupyter with MapReduce concepts and performance optimization.',
+                        difficulty: 'Advanced',
+                        cta: 'Start Lab'
+                    }
+                },
+                getting_started: {
+                    title: 'Getting Started',
+                    prereq: 'Prerequisites:',
+                    docker: 'Docker Desktop installed',
+                    step1: 'Step 1: Pull the image',
+                    step2: 'Step 2: Run the container',
+                    step3: 'Step 3: Open the web interface',
+                    copy: 'Copy'
+                },
+                architecture: {
+                    title: 'Big Data Architecture Overview',
+                    desc: 'How the technologies fit together:',
+                    lake: 'Data Lake',
+                    processing: 'Processing & Analytics',
+                    warehouse: 'Data Warehouse / Mart',
+                    insights: 'Business Insights'
+                },
+                footer: {
+                    built: 'Built with ❤️ for BBA students',
+                    professor: 'Prof. Dr. Robert Butscher',
+                    thws: 'THWS - Technische Hochschule Würzburg-Schweinfurt',
+                    github: 'GitHub Repository'
+                }
+            },
+            ar: {
+                nav: {
+                    home: 'الرئيسية',
+                    about: 'حول الدورة',
+                    case_study: 'دراسة الحالة',
+                    labs: 'المختبرات',
+                    getting_started: 'البدء السريع',
+                    architecture: 'العمارة'
+                },
+                hero: {
+                    headline: 'البيانات الضخمة والتطبيقات',
+                    tagline: 'التعلم العملي مع Docker - هندسة البيانات الضخمة العملية',
+                    cta: 'استكشف المختبرات'
+                },
+                stats: {
+                    labs: '4 مختبرات Docker',
+                    case_study: 'دراسة حالة واحدة',
+                    languages: '6 لغات',
+                    hands_on: 'التعلم العملي'
+                },
+                about: {
+                    title: 'حول الدورة',
+                    description: 'تقدم دورة البيانات الضخمة والتطبيقات لك أساسيات وتطبيقات عملية لتقنيات البيانات الضخمة الحديثة. تعمل مع بيئات Docker لتجربة سيناريوهات معالجة البيانات الحقيقية.',
+                    learning: 'أهداف التعلم:',
+                    obj1: 'فهم معماريات البيانات الضخمة وتدفقات البيانات',
+                    obj2: 'تطبيق قواعد بيانات NoSQL عمليًا',
+                    obj3: 'معالجة مجموعات البيانات الكبيرة باستخدام الأدوات الحديثة',
+                    obj4: 'تكامل Python مع تقنيات البيانات الضخمة',
+                    obj5: 'البنية التحتية التحليلية المستندة إلى السحابة'
+                },
+                case_study: {
+                    title: 'دراسة حالة MegaStore',
+                    intro: 'مرحبًا بك في MegaStore - شركة تجارة إلكترونية خيالية! عبر جميع المختبرات الأربعة، تعمل مع بيانات MegaStore الواقعية:',
+                    customer: 'بيانات العملاء والطلبات',
+                    products: 'كتالوج المنتجات مع العلاقات',
+                    transactions: 'ملايين العمليات',
+                    analytics: 'تحليلات الأعمال والرؤى',
+                    flow: 'تدفق البيانات عبر جميع التقنيات:',
+                    orders: 'الطلبات',
+                    storage: 'التخزين',
+                    relationships: 'العلاقات',
+                    analytics_text: 'التحليلات',
+                    batch: 'معالجة الدفعات'
+                },
+                labs: {
+                    title: 'المختبرات الأربعة Docker',
+                    mongodb: {
+                        name: 'مختبر MongoDB',
+                        subtitle: 'متجر المستندات و Python',
+                        chapter: 'الفصل 5: قواعد بيانات NoSQL',
+                        desc: 'قم بتخزين والاستعلام عن كتالوج منتجات MegaStore وبيانات العملاء باستخدام MongoDB. تمارين Python + PyMongo مع واجهة ويب Mongo Express.',
+                        difficulty: 'مبتدئ',
+                        cta: 'ابدأ المختبر'
+                    },
+                    duckdb: {
+                        name: 'مختبر DuckDB',
+                        subtitle: 'SQL التحليلي على مجموعات البيانات الكبيرة',
+                        chapter: 'الفصل 6: قواعد البيانات التحليلية',
+                        desc: 'قم بتشغيل الاستعلامات التحليلية على بيانات مبيعات MegaStore (CSV/Parquet). بيئة Jupyter Notebook مع مقارنات الأداء.',
+                        difficulty: 'مبتدئ',
+                        cta: 'ابدأ المختبر'
+                    },
+                    neo4j: {
+                        name: 'مختبر Neo4j',
+                        subtitle: 'قاعدة بيانات الرسم البياني وخرائط المعرفة',
+                        chapter: 'الفصل 5 + علم الوجود',
+                        desc: 'نمذجة علاقات منتجات MegaStore وشبكات العملاء. لغة استعلام Cypher مع واجهة Neo4j Browser.',
+                        difficulty: 'متوسط',
+                        cta: 'ابدأ المختبر'
+                    },
+                    spark: {
+                        name: 'مختبر Apache Spark',
+                        subtitle: 'معالجة البيانات الموزعة',
+                        chapter: 'الفصل 7: معالجة البث والدفعات',
+                        desc: 'معالجة بدفعات سجلات معاملات MegaStore. PySpark في Jupyter مع مفاهيم MapReduce وتحسين الأداء.',
+                        difficulty: 'متقدم',
+                        cta: 'ابدأ المختبر'
+                    }
+                },
+                getting_started: {
+                    title: 'البدء السريع',
+                    prereq: 'المتطلبات الأساسية:',
+                    docker: 'Docker Desktop مثبت',
+                    step1: 'الخطوة 1: اسحب الصورة',
+                    step2: 'الخطوة 2: قم بتشغيل الحاوية',
+                    step3: 'الخطوة 3: افتح واجهة الويب',
+                    copy: 'نسخ'
+                },
+                architecture: {
+                    title: 'نظرة عامة على معمارية البيانات الضخمة',
+                    desc: 'كيف تتناسب التقنيات معًا:',
+                    lake: 'بحيرة البيانات',
+                    processing: 'المعالجة والتحليلات',
+                    warehouse: 'مستودع البيانات',
+                    insights: 'رؤى الأعمال'
+                },
+                footer: {
+                    built: 'بُني بـ ❤️ لطلاب BBA',
+                    professor: 'أ.د. روبرت بوتشر',
+                    thws: 'THWS - الجامعة التقنية فورتسبورغ-شفاينفورت',
+                    github: 'مستودع GitHub'
+                }
+            },
+            uk: {
+                nav: {
+                    home: 'Дім',
+                    about: 'Про курс',
+                    case_study: 'Кейс-стаді',
+                    labs: 'Лабораторії',
+                    getting_started: 'Початок роботи',
+                    architecture: 'Архітектура'
+                },
+                hero: {
+                    headline: 'Big Data та Застосування',
+                    tagline: 'Практичне навчання з Docker - Практична інженерія Big Data',
+                    cta: 'Дослідіть лабораторії'
+                },
+                stats: {
+                    labs: '4 лабораторії Docker',
+                    case_study: '1 кейс-стаді',
+                    languages: '6 мов',
+                    hands_on: 'Практичне навчання'
+                },
+                about: {
+                    title: 'Про курс',
+                    description: 'Big Data та Застосування знайомить вас із основами та практичними застосуваннями сучасних технологій Big Data. Ви працюєте з контейнеризованими середовищами Docker для досвіду реальних сценаріїв обробки даних.',
+                    learning: 'Цілі навчання:',
+                    obj1: 'Розуміти архітектури Big Data та потоки даних',
+                    obj2: 'Застосовувати бази даних NoSQL на практиці',
+                    obj3: 'Обробляти великі набори даних сучасними інструментами',
+                    obj4: 'Інтеграція Python з технологіями Big Data',
+                    obj5: 'Хмарна інфраструктура аналітики'
+                },
+                case_study: {
+                    title: 'Кейс-стаді MegaStore',
+                    intro: 'Ласкаво просимо до MegaStore - вигаданої компанії електронної комерції! На всіх 4 лабораторіях ви працюєте з реальними даними MegaStore:',
+                    customer: 'Дані клієнтів та замовлення',
+                    products: 'Каталог продуктів зі зв\'язками',
+                    transactions: 'Мільйони операцій',
+                    analytics: 'Аналітика та інсайти бізнесу',
+                    flow: 'Потік даних через всі технології:',
+                    orders: 'Замовлення',
+                    storage: 'Зберігання',
+                    relationships: 'Зв\'язки',
+                    analytics_text: 'Аналітика',
+                    batch: 'Пакетна обробка'
+                },
+                labs: {
+                    title: 'Чотири лабораторії Docker',
+                    mongodb: {
+                        name: 'Лабораторія MongoDB',
+                        subtitle: 'Document Store та Python',
+                        chapter: 'Розділ 5: Бази даних NoSQL',
+                        desc: 'Збережіть та запитайте каталог продуктів MegaStore та дані клієнтів за допомогою MongoDB. Вправи Python + PyMongo з веб-інтерфейсом Mongo Express.',
+                        difficulty: 'Початківець',
+                        cta: 'Почати лабораторію'
+                    },
+                    duckdb: {
+                        name: 'Лабораторія DuckDB',
+                        subtitle: 'Аналітичний SQL на великих наборах даних',
+                        chapter: 'Розділ 6: Аналітичні бази даних',
+                        desc: 'Запустіть аналітичні запити на дані продажів MegaStore (CSV/Parquet). Середовище Jupyter Notebook з порівнянням продуктивності.',
+                        difficulty: 'Початківець',
+                        cta: 'Почати лабораторію'
+                    },
+                    neo4j: {
+                        name: 'Лабораторія Neo4j',
+                        subtitle: 'Графічна база даних та мережі знань',
+                        chapter: 'Розділ 5 + Онтології',
+                        desc: 'Змоделюйте зв\'язки продуктів та мережі клієнтів MegaStore. Мова запитів Cypher з інтерфейсом Neo4j Browser.',
+                        difficulty: 'Середній рівень',
+                        cta: 'Почати лабораторію'
+                    },
+                    spark: {
+                        name: 'Лабораторія Apache Spark',
+                        subtitle: 'Розподілена обробка даних',
+                        chapter: 'Розділ 7: Потокова та пакетна обробка',
+                        desc: 'Обробіть пакетно журнали операцій MegaStore. PySpark у Jupyter з концепціями MapReduce та оптимізацією продуктивності.',
+                        difficulty: 'Розширений',
+                        cta: 'Почати лабораторію'
+                    }
+                },
+                getting_started: {
+                    title: 'Початок роботи',
+                    prereq: 'Вимоги:',
+                    docker: 'Docker Desktop встановлено',
+                    step1: 'Крок 1: Витягніть образ',
+                    step2: 'Крок 2: Запустіть контейнер',
+                    step3: 'Крок 3: Откройте веб-інтерфейс',
+                    copy: 'Копіювати'
+                },
+                architecture: {
+                    title: 'Огляд архітектури Big Data',
+                    desc: 'Як технології поєднуються:',
+                    lake: 'Озеро даних',
+                    processing: 'Обробка та аналітика',
+                    warehouse: 'Хранилище даних',
+                    insights: 'Бізнес-інсайти'
+                },
+                footer: {
+                    built: 'Створено з ❤️ для студентів BBA',
+                    professor: 'проф. др. Роберт Бутшер',
+                    thws: 'THWS - Технічний університет Вюрцбурга-Швайнфурта',
+                    github: 'Репозиторій GitHub'
+                }
+            },
+            es: {
+                nav: {
+                    home: 'Inicio',
+                    about: 'Sobre el curso',
+                    case_study: 'Caso de estudio',
+                    labs: 'Laboratorios',
+                    getting_started: 'Primeros pasos',
+                    architecture: 'Arquitectura'
+                },
+                hero: {
+                    headline: 'Big Data y Aplicaciones',
+                    tagline: 'Aprendizaje práctico con Docker - Ingeniería de Big Data práctica',
+                    cta: 'Explora los laboratorios'
+                },
+                stats: {
+                    labs: '4 laboratorios Docker',
+                    case_study: '1 caso de estudio',
+                    languages: '6 idiomas',
+                    hands_on: 'Aprendizaje práctico'
+                },
+                about: {
+                    title: 'Sobre el curso',
+                    description: 'Big Data y Aplicaciones te introduce en los fundamentos y aplicaciones prácticas de las tecnologías modernas de Big Data. Trabajas con entornos Docker para experimentar escenarios reales de procesamiento de datos.',
+                    learning: 'Objetivos de aprendizaje:',
+                    obj1: 'Comprender arquitecturas de Big Data y flujos de datos',
+                    obj2: 'Aplicar bases de datos NoSQL en la práctica',
+                    obj3: 'Procesar grandes conjuntos de datos con herramientas modernas',
+                    obj4: 'Integración de Python con tecnologías de Big Data',
+                    obj5: 'Infraestructura de análisis basada en la nube'
+                },
+                case_study: {
+                    title: 'El caso de estudio de MegaStore',
+                    intro: 'Bienvenido a MegaStore, una empresa de comercio electrónico ficticia. En los 4 laboratorios, trabajas con datos reales de MegaStore:',
+                    customer: 'Datos de clientes y pedidos',
+                    products: 'Catálogo de productos con relaciones',
+                    transactions: 'Millones de transacciones',
+                    analytics: 'Análisis e insights empresariales',
+                    flow: 'Flujo de datos a través de todas las tecnologías:',
+                    orders: 'Pedidos',
+                    storage: 'Almacenamiento',
+                    relationships: 'Relaciones',
+                    analytics_text: 'Análisis',
+                    batch: 'Procesamiento por lotes'
+                },
+                labs: {
+                    title: 'Los 4 laboratorios Docker',
+                    mongodb: {
+                        name: 'Laboratorio MongoDB',
+                        subtitle: 'Document Store y Python',
+                        chapter: 'Capítulo 5: Bases de datos NoSQL',
+                        desc: 'Almacena y consulta el catálogo de productos y datos de clientes de MegaStore con MongoDB. Ejercicios de Python + PyMongo con interfaz web Mongo Express.',
+                        difficulty: 'Principiante',
+                        cta: 'Iniciar laboratorio'
+                    },
+                    duckdb: {
+                        name: 'Laboratorio DuckDB',
+                        subtitle: 'SQL analítico en grandes conjuntos de datos',
+                        chapter: 'Capítulo 6: Bases de datos analíticas',
+                        desc: 'Ejecuta consultas analíticas en datos de ventas de MegaStore (CSV/Parquet). Entorno Jupyter Notebook con comparaciones de rendimiento.',
+                        difficulty: 'Principiante',
+                        cta: 'Iniciar laboratorio'
+                    },
+                    neo4j: {
+                        name: 'Laboratorio Neo4j',
+                        subtitle: 'Base de datos de gráficos y gráficos de conocimiento',
+                        chapter: 'Capítulo 5 + Ontologías',
+                        desc: 'Modela las relaciones de productos y redes de clientes de MegaStore. Lenguaje de consultas Cypher con interfaz Neo4j Browser.',
+                        difficulty: 'Intermedio',
+                        cta: 'Iniciar laboratorio'
+                    },
+                    spark: {
+                        name: 'Laboratorio Apache Spark',
+                        subtitle: 'Procesamiento de datos distribuido',
+                        chapter: 'Capítulo 7: Procesamiento de flujos y lotes',
+                        desc: 'Procesa por lotes los registros de transacciones de MegaStore. PySpark en Jupyter con conceptos de MapReduce y optimización de rendimiento.',
+                        difficulty: 'Avanzado',
+                        cta: 'Iniciar laboratorio'
+                    }
+                },
+                getting_started: {
+                    title: 'Primeros pasos',
+                    prereq: 'Requisitos previos:',
+                    docker: 'Docker Desktop instalado',
+                    step1: 'Paso 1: Extrae la imagen',
+                    step2: 'Paso 2: Ejecuta el contenedor',
+                    step3: 'Paso 3: Abre la interfaz web',
+                    copy: 'Copiar'
+                },
+                architecture: {
+                    title: 'Descripción general de la arquitectura de Big Data',
+                    desc: 'Cómo encajan las tecnologías:',
+                    lake: 'Data Lake',
+                    processing: 'Procesamiento y análisis',
+                    warehouse: 'Data Warehouse',
+                    insights: 'Insights empresariales'
+                },
+                footer: {
+                    built: 'Construido con ❤️ para estudiantes de BBA',
+                    professor: 'Prof. Dr. Robert Butscher',
+                    thws: 'THWS - Universidad Técnica de Würzburg-Schweinfurt',
+                    github: 'Repositorio de GitHub'
+                }
+            },
+            tr: {
+                nav: {
+                    home: 'Ana Sayfa',
+                    about: 'Kurs Hakkında',
+                    case_study: 'Vaka Çalışması',
+                    labs: 'Laboratuvarlar',
+                    getting_started: 'Başlarken',
+                    architecture: 'Mimari'
+                },
+                hero: {
+                    headline: 'Büyük Veri ve Uygulamalar',
+                    tagline: 'Docker ile Pratik Öğrenme - Uygulamalı Büyük Veri Mühendisliği',
+                    cta: 'Laboratuvarları Keşfet'
+                },
+                stats: {
+                    labs: '4 Docker Laboratuvarı',
+                    case_study: '1 Vaka Çalışması',
+                    languages: '6 Dil',
+                    hands_on: 'Pratik Öğrenme'
+                },
+                about: {
+                    title: 'Kurs Hakkında',
+                    description: 'Büyük Veri ve Uygulamalar, modern Büyük Veri teknolojilerinin temellerini ve pratik uygulamalarını tanıtır. Gerçek veri işleme senaryolarını deneyimlemek için Docker konteynerli ortamlarla çalışırsınız.',
+                    learning: 'Öğrenme Hedefleri:',
+                    obj1: 'Büyük Veri mimarilerini ve veri akışlarını anlayın',
+                    obj2: 'NoSQL veritabanlarını uygulamada uygulayın',
+                    obj3: 'Modern araçlarla büyük veri setlerini işleyin',
+                    obj4: 'Python\'u Büyük Veri teknolojileriyle entegre edin',
+                    obj5: 'Bulut tabanlı analitik altyapısı'
+                },
+                case_study: {
+                    title: 'MegaStore Vaka Çalışması',
+                    intro: 'MegaStore\'a hoş geldiniz - kurgusal bir e-ticaret şirketi! 4 laboratuvarda gerçekçi MegaStore verileriyle çalışırsınız:',
+                    customer: 'Müşteri verileri ve siparişler',
+                    products: 'Ürün kataloğu ilişkilerle birlikte',
+                    transactions: 'Milyonlarca işlem',
+                    analytics: 'İşletme analitiği ve içgörüler',
+                    flow: 'Tüm teknolojiler arasında veri akışı:',
+                    orders: 'Siparişler',
+                    storage: 'Depolama',
+                    relationships: 'İlişkiler',
+                    analytics_text: 'Analitik',
+                    batch: 'Toplu İşlem'
+                },
+                labs: {
+                    title: '4 Docker Laboratuvarı',
+                    mongodb: {
+                        name: 'MongoDB Laboratuvarı',
+                        subtitle: 'Belge Deposu ve Python',
+                        chapter: 'Bölüm 5: NoSQL Veritabanları',
+                        desc: 'MongoDB ile MegaStore ürün kataloğunu ve müşteri verilerini depolayın ve sorgulayın. Mongo Express web arayüzüyle Python + PyMongo alıştırmaları.',
+                        difficulty: 'Başlangıç',
+                        cta: 'Laboratuvarı Başlat'
+                    },
+                    duckdb: {
+                        name: 'DuckDB Laboratuvarı',
+                        subtitle: 'Büyük Veri Setlerinde Analitik SQL',
+                        chapter: 'Bölüm 6: Analitik Veritabanları',
+                        desc: 'MegaStore satış verilerinde (CSV/Parquet) analitik sorgular çalıştırın. Performans karşılaştırmaları içeren Jupyter Notebook ortamı.',
+                        difficulty: 'Başlangıç',
+                        cta: 'Laboratuvarı Başlat'
+                    },
+                    neo4j: {
+                        name: 'Neo4j Laboratuvarı',
+                        subtitle: 'Graf Veritabanı ve Bilgi Grafikleri',
+                        chapter: 'Bölüm 5 + Ontolojiler',
+                        desc: 'MegaStore ürün ilişkilerini ve müşteri ağlarını modelleyin. Neo4j Browser arayüzüyle Cypher sorgu dili.',
+                        difficulty: 'Orta',
+                        cta: 'Laboratuvarı Başlat'
+                    },
+                    spark: {
+                        name: 'Apache Spark Laboratuvarı',
+                        subtitle: 'Dağıtılmış Veri İşleme',
+                        chapter: 'Bölüm 7: Akış ve Toplu İşlem',
+                        desc: 'MegaStore işlem günlüklerini toplu işleme tabi tutun. MapReduce kavramları ve performans optimizasyonuyla Jupyter\'da PySpark.',
+                        difficulty: 'İleri',
+                        cta: 'Laboratuvarı Başlat'
+                    }
+                },
+                getting_started: {
+                    title: 'Başlarken',
+                    prereq: 'Ön Koşullar:',
+                    docker: 'Docker Desktop yüklü',
+                    step1: 'Adım 1: Görüntüyü çekin',
+                    step2: 'Adım 2: Konteyner\'ı çalıştırın',
+                    step3: 'Adım 3: Web arayüzünü açın',
+                    copy: 'Kopyala'
+                },
+                architecture: {
+                    title: 'Büyük Veri Mimarisi Genel Bakışı',
+                    desc: 'Teknolojiler nasıl bir araya geliyor:',
+                    lake: 'Veri Gölü',
+                    processing: 'İşlem ve Analitik',
+                    warehouse: 'Veri Ambarı',
+                    insights: 'İş İçgörüleri'
+                },
+                footer: {
+                    built: 'BBA öğrencileri için ❤️ ile yapılmıştır',
+                    professor: 'Prof. Dr. Robert Butscher',
+                    thws: 'THWS - Würzburg-Schweinfurt Teknik Üniversitesi',
+                    github: 'GitHub Deposu'
+                }
+            }
+        };
+
+        function App() {
+            const [language, setLanguage] = useState('de');
+            const [scrollPosition, setScrollPosition] = useState(0);
+            const t = translations[language];
+
+            useEffect(() => {
+                document.documentElement.lang = language;
+                document.documentElement.dir = language === 'ar' ? 'rtl' : 'ltr';
+            }, [language]);
+
+            useEffect(() => {
+                const handleScroll = () => {
+                    setScrollPosition(window.scrollY);
+
+                    const reveals = document.querySelectorAll('.scroll-reveal');
+                    reveals.forEach(el => {
+                        const rect = el.getBoundingClientRect();
+                        if (rect.top < window.innerHeight * 0.85) {
+                            el.classList.add('visible');
+                        }
+                    });
+                };
+
+                window.addEventListener('scroll', handleScroll);
+                return () => window.removeEventListener('scroll', handleScroll);
+            }, []);
+
+            const copyToClipboard = (text) => {
+                navigator.clipboard.writeText(text);
+                alert('Copied to clipboard!');
+            };
+
+            const labsData = [
+                {
+                    key: 'mongodb',
+                    icon: '🗄️',
+                    difficulty: 'beginner'
+                },
+                {
+                    key: 'duckdb',
+                    icon: '📊',
+                    difficulty: 'beginner'
+                },
+                {
+                    key: 'neo4j',
+                    icon: '🔗',
+                    difficulty: 'intermediate'
+                },
+                {
+                    key: 'spark',
+                    icon: '⚡',
+                    difficulty: 'advanced'
+                }
+            ];
+
+            return (
+                <div className="w-full">
+                    {/* Navigation */}
+                    <nav className="navbar">
+                        <div className="navbar-content">
+                            <div className="logo">Big Data Lab</div>
+                            <div className="language-switcher">
+                                {['DE', 'EN', 'AR', 'UK', 'ES', 'TR'].map(lang => (
+                                    <button
+                                        key={lang}
+                                        onClick={() => setLanguage(lang.toLowerCase())}
+                                        className={`lang-btn ${language === lang.toLowerCase() ? 'active' : ''}`}
+                                    >
+                                        {lang}
+                                    </button>
+                                ))}
+                            </div>
+                        </div>
+                    </nav>
+
+                    {/* Hero Section */}
+                    <section className="hero-gradient relative w-full min-h-screen flex items-center justify-center overflow-hidden pt-20 pb-20">
+                        <div className="animated-bg"></div>
+                        <div className="relative z-10 max-w-6xl mx-auto px-6 text-center">
+                            <h1 className="text-5xl md:text-7xl font-black text-white mb-6 fade-in leading-tight">
+                                {t.hero.headline}
+                            </h1>
+                            <p className="text-xl md:text-2xl text-gray-100 mb-8 fade-in" style={{ animationDelay: '0.1s' }}>
+                                {t.hero.tagline}
+                            </p>
+                            <button
+                                onClick={() => {
+                                    document.getElementById('labs-section').scrollIntoView({ behavior: 'smooth' });
+                                }}
+                                className="inline-block bg-orange-500 hover:bg-orange-600 text-white font-bold py-4 px-8 rounded-lg text-lg transition-all transform hover:scale-105 fade-in"
+                                style={{ animationDelay: '0.2s' }}
+                            >
+                                {t.hero.cta}
+                            </button>
+                        </div>
+                    </section>
+
+                    {/* Stats Bar */}
+                    <section className="stat-bar">
+                        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-4">
+                            {[
+                                { label: t.stats.labs, value: '4' },
+                                { label: t.stats.case_study, value: '1' },
+                                { label: t.stats.languages, value: '6' },
+                                { label: t.stats.hands_on, value: '100%' }
+                            ].map((stat, idx) => (
+                                <div key={idx} className="stat-item scroll-reveal">
+                                    <div className="stat-number">{stat.value}</div>
+                                    <div className="text-gray-600 font-semibold">{stat.label}</div>
+                                </div>
+                            ))}
+                        </div>
+                    </section>
+
+                    {/* About Course */}
+                    <section id="about-section" className="py-20 px-6 bg-white">
+                        <div className="max-w-6xl mx-auto">
+                            <h2 className="text-4xl md:text-5xl font-black text-gray-900 mb-12 text-center scroll-reveal">
+                                {t.about.title}
+                            </h2>
+                            <div className="grid md:grid-cols-2 gap-12">
+                                <div className="scroll-reveal">
+                                    <p className="text-lg text-gray-700 leading-relaxed mb-6">
+                                        {t.about.description}
+                                    </p>
+                                </div>
+                                <div className="scroll-reveal">
+                                    <h3 className="text-2xl font-bold text-orange-500 mb-6">{t.about.learning}</h3>
+                                    <ul className="space-y-3">
+                                        {[t.about.obj1, t.about.obj2, t.about.obj3, t.about.obj4, t.about.obj5].map((obj, idx) => (
+                                            <li key={idx} className="flex items-start gap-3">
+                                                <span className="text-orange-500 font-bold mt-1">✓</span>
+                                                <span className="text-gray-700">{obj}</span>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <div className="section-divider"></div>
+
+                    {/* Case Study */}
+                    <section id="case-study-section" className="py-20 px-6 bg-gradient-to-br from-gray-50 to-white">
+                        <div className="max-w-6xl mx-auto">
+                            <h2 className="text-4xl md:text-5xl font-black text-gray-900 mb-12 text-center scroll-reveal">
+                                {t.case_study.title}
+                            </h2>
+                            <p className="text-xl text-gray-700 text-center mb-12 scroll-reveal">
+                                {t.case_study.intro}
+                            </p>
+
+                            <div className="grid md:grid-cols-4 gap-6 mb-16">
+                                {[
+                                    { emoji: '👥', text: t.case_study.customer },
+                                    { emoji: '🛍️', text: t.case_study.products },
+                                    { emoji: '💳', text: t.case_study.transactions },
+                                    { emoji: '📈', text: t.case_study.analytics }
+                                ].map((item, idx) => (
+                                    <div key={idx} className="bg-white border-2 border-orange-200 rounded-lg p-6 text-center scroll-reveal hover:border-orange-500 transition-colors">
+                                        <div className="text-4xl mb-3">{item.emoji}</div>
+                                        <p className="text-gray-700 font-semibold">{item.text}</p>
+                                    </div>
+                                ))}
+                            </div>
+
+                            <div className="scroll-reveal">
+                                <h3 className="text-2xl font-bold text-center text-gray-900 mb-8">{t.case_study.flow}</h3>
+                                <div className="data-flow bg-white p-6 rounded-lg border-2 border-gray-200">
+                                    <div className="data-flow-item">{t.case_study.orders}</div>
+                                    <div className="data-flow-arrow">→</div>
+                                    <div className="data-flow-item">MongoDB</div>
+                                    <div className="data-flow-arrow">→</div>
+                                    <div className="data-flow-item">Neo4j</div>
+                                    <div className="data-flow-arrow">→</div>
+                                    <div className="data-flow-item">DuckDB</div>
+                                    <div className="data-flow-arrow">→</div>
+                                    <div className="data-flow-item">Spark</div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <div className="section-divider"></div>
+
+                    {/* Labs Section */}
+                    <section id="labs-section" className="py-20 px-6 bg-white">
+                        <div className="max-w-7xl mx-auto">
+                            <h2 className="text-4xl md:text-5xl font-black text-gray-900 mb-16 text-center scroll-reveal">
+                                {t.labs.title}
+                            </h2>
+
+                            <div className="grid md:grid-cols-2 gap-8">
+                                {labsData.map((lab, idx) => {
+                                    const labInfo = t.labs[lab.key];
+                                    const difficultyMap = {
+                                        beginner: 'difficulty-beginner',
+                                        intermediate: 'difficulty-intermediate',
+                                        advanced: 'difficulty-advanced'
+                                    };
+
+                                    return (
+                                        <div key={idx} className="lab-card bg-white border-2 border-gray-200 rounded-lg overflow-hidden scroll-reveal">
+                                            <div className="bg-gradient-to-br from-gray-50 to-gray-100 p-8 flex items-center gap-4">
+                                                <div className="icon-wrapper text-4xl flex items-center justify-center">
+                                                    {lab.icon}
+                                                </div>
+                                                <div>
+                                                    <h3 className="text-2xl font-bold text-gray-900">{labInfo.name}</h3>
+                                                    <p className="text-gray-600">{labInfo.subtitle}</p>
+                                                </div>
+                                            </div>
+
+                                            <div className="p-8">
+                                                <div className="mb-4">
+                                                    <p className="text-sm text-gray-600 font-semibold">{labInfo.chapter}</p>
+                                                </div>
+
+                                                <p className="text-gray-700 mb-6 leading-relaxed">
+                                                    {labInfo.desc}
+                                                </p>
+
+                                                <div className="flex items-center justify-between">
+                                                    <span className={`difficulty-badge ${difficultyMap[lab.difficulty]}`}>
+                                                        {labInfo.difficulty}
+                                                    </span>
+                                                    <a
+                                                        href={`lab-${lab.key}.html`}
+                                                        className="bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded transition-colors"
+                                                    >
+                                                        {labInfo.cta}
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    );
+                                })}
+                            </div>
+                        </div>
+                    </section>
+
+                    <div className="section-divider"></div>
+
+                    {/* Getting Started */}
+                    <section id="getting-started-section" className="py-20 px-6 bg-gradient-to-br from-gray-50 to-white">
+                        <div className="max-w-4xl mx-auto">
+                            <h2 className="text-4xl md:text-5xl font-black text-gray-900 mb-12 text-center scroll-reveal">
+                                {t.getting_started.title}
+                            </h2>
+
+                            <div className="mb-12 scroll-reveal">
+                                <h3 className="text-2xl font-bold text-gray-900 mb-6">{t.getting_started.prereq}</h3>
+                                <div className="bg-white border-l-4 border-orange-500 rounded p-6">
+                                    <p className="text-gray-700 font-semibold">{t.getting_started.docker}</p>
+                                </div>
+                            </div>
+
+                            <div className="space-y-8">
+                                {[
+                                    { title: t.getting_started.step1, code: 'docker pull thws-bigdata-lab:latest' },
+                                    { title: t.getting_started.step2, code: 'docker run -p 8888:8888 -p 27017:27017 thws-bigdata-lab:latest' },
+                                    { title: t.getting_started.step3, code: 'open http://localhost:8888' }
+                                ].map((step, idx) => (
+                                    <div key={idx} className="scroll-reveal">
+                                        <h3 className="text-xl font-bold text-gray-900 mb-3">{step.title}</h3>
+                                        <div className="code-block">
+                                            <code>{step.code}</code>
+                                        </div>
+                                        <button
+                                            onClick={() => copyToClipboard(step.code)}
+                                            className="copy-button text-white font-bold py-2 px-4 rounded mt-3 transition-colors"
+                                        >
+                                            {t.getting_started.copy}
+                                        </button>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </section>
+
+                    <div className="section-divider"></div>
+
+                    {/* Architecture */}
+                    <section id="architecture-section" className="py-20 px-6 bg-white">
+                        <div className="max-w-6xl mx-auto">
+                            <h2 className="text-4xl md:text-5xl font-black text-gray-900 mb-8 text-center scroll-reveal">
+                                {t.architecture.title}
+                            </h2>
+                            <p className="text-xl text-gray-600 text-center mb-16 scroll-reveal">
+                                {t.architecture.desc}
+                            </p>
+
+                            <div className="grid md:grid-cols-4 gap-6 scroll-reveal">
+                                {[
+                                    { icon: '💾', label: t.architecture.lake, desc: 'Raw Data' },
+                                    { icon: '⚙️', label: t.architecture.processing, desc: 'Transform' },
+                                    { icon: '🏛️', label: t.architecture.warehouse, desc: 'Organize' },
+                                    { icon: '💡', label: t.architecture.insights, desc: 'Insight' }
+                                ].map((item, idx) => (
+                                    <div key={idx} className="bg-gradient-to-br from-blue-50 to-indigo-50 border-2 border-blue-200 rounded-lg p-8 text-center hover:border-orange-500 transition-colors">
+                                        <div className="text-5xl mb-4">{item.icon}</div>
+                                        <h3 className="text-xl font-bold text-gray-900 mb-2">{item.label}</h3>
+                                        <p className="text-sm text-gray-600">{item.desc}</p>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* Footer */}
+                    <footer className="bg-gradient-to-r from-gray-900 to-gray-800 text-white py-16 px-6">
+                        <div className="max-w-6xl mx-auto text-center">
+                            <p className="text-lg mb-4">{t.footer.built}</p>
+                            <p className="text-gray-400 mb-2">{t.footer.thws}</p>
+                            <p className="text-gray-400 mb-6">{t.footer.professor}</p>
+                            <div className="border-t border-gray-700 pt-8">
+                                <a
+                                    href="https://github.com/thws-bigdata"
+                                    className="text-orange-500 hover:text-orange-400 font-semibold transition-colors"
+                                >
+                                    {t.footer.github} →
+                                </a>
+                            </div>
+                        </div>
+                    </footer>
+                </div>
+            );
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>

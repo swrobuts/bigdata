@@ -1,0 +1,368 @@
+[
+  {
+    "id": "elektronik",
+    "name": "Elektronik",
+    "parent_id": null,
+    "level": 0
+  },
+  {
+    "id": "elektronik_smartphones",
+    "name": "Smartphones",
+    "parent_id": "elektronik",
+    "level": 1
+  },
+  {
+    "id": "elektronik_laptops",
+    "name": "Laptops",
+    "parent_id": "elektronik",
+    "level": 1
+  },
+  {
+    "id": "elektronik_tablets",
+    "name": "Tablets",
+    "parent_id": "elektronik",
+    "level": 1
+  },
+  {
+    "id": "elektronik_kopfh\u00f6rer",
+    "name": "Kopfh\u00f6rer",
+    "parent_id": "elektronik",
+    "level": 1
+  },
+  {
+    "id": "elektronik_kameras",
+    "name": "Kameras",
+    "parent_id": "elektronik",
+    "level": 1
+  },
+  {
+    "id": "elektronik_gaming",
+    "name": "Gaming",
+    "parent_id": "elektronik",
+    "level": 1
+  },
+  {
+    "id": "kleidung",
+    "name": "Kleidung",
+    "parent_id": null,
+    "level": 0
+  },
+  {
+    "id": "kleidung_herren",
+    "name": "Herren",
+    "parent_id": "kleidung",
+    "level": 1
+  },
+  {
+    "id": "kleidung_damen",
+    "name": "Damen",
+    "parent_id": "kleidung",
+    "level": 1
+  },
+  {
+    "id": "kleidung_kinder",
+    "name": "Kinder",
+    "parent_id": "kleidung",
+    "level": 1
+  },
+  {
+    "id": "kleidung_schuhe",
+    "name": "Schuhe",
+    "parent_id": "kleidung",
+    "level": 1
+  },
+  {
+    "id": "kleidung_accessoires",
+    "name": "Accessoires",
+    "parent_id": "kleidung",
+    "level": 1
+  },
+  {
+    "id": "haushalt",
+    "name": "Haushalt",
+    "parent_id": null,
+    "level": 0
+  },
+  {
+    "id": "haushalt_k\u00fcche",
+    "name": "K\u00fcche",
+    "parent_id": "haushalt",
+    "level": 1
+  },
+  {
+    "id": "haushalt_schlafzimmer",
+    "name": "Schlafzimmer",
+    "parent_id": "haushalt",
+    "level": 1
+  },
+  {
+    "id": "haushalt_wohnzimmer",
+    "name": "Wohnzimmer",
+    "parent_id": "haushalt",
+    "level": 1
+  },
+  {
+    "id": "haushalt_bad",
+    "name": "Bad",
+    "parent_id": "haushalt",
+    "level": 1
+  },
+  {
+    "id": "haushalt_dekoration",
+    "name": "Dekoration",
+    "parent_id": "haushalt",
+    "level": 1
+  },
+  {
+    "id": "sport",
+    "name": "Sport",
+    "parent_id": null,
+    "level": 0
+  },
+  {
+    "id": "sport_fitness",
+    "name": "Fitness",
+    "parent_id": "sport",
+    "level": 1
+  },
+  {
+    "id": "sport_outdoor",
+    "name": "Outdoor",
+    "parent_id": "sport",
+    "level": 1
+  },
+  {
+    "id": "sport_ballsportarten",
+    "name": "Ballsportarten",
+    "parent_id": "sport",
+    "level": 1
+  },
+  {
+    "id": "sport_wintersport",
+    "name": "Wintersport",
+    "parent_id": "sport",
+    "level": 1
+  },
+  {
+    "id": "sport_fahrr\u00e4der",
+    "name": "Fahrr\u00e4der",
+    "parent_id": "sport",
+    "level": 1
+  },
+  {
+    "id": "b\u00fccher",
+    "name": "B\u00fccher",
+    "parent_id": null,
+    "level": 0
+  },
+  {
+    "id": "b\u00fccher_sachb\u00fccher",
+    "name": "Sachb\u00fccher",
+    "parent_id": "b\u00fccher",
+    "level": 1
+  },
+  {
+    "id": "b\u00fccher_romane",
+    "name": "Romane",
+    "parent_id": "b\u00fccher",
+    "level": 1
+  },
+  {
+    "id": "b\u00fccher_e-books",
+    "name": "E-Books",
+    "parent_id": "b\u00fccher",
+    "level": 1
+  },
+  {
+    "id": "b\u00fccher_kinderb\u00fccher",
+    "name": "Kinderb\u00fccher",
+    "parent_id": "b\u00fccher",
+    "level": 1
+  },
+  {
+    "id": "b\u00fccher_comics",
+    "name": "Comics",
+    "parent_id": "b\u00fccher",
+    "level": 1
+  },
+  {
+    "id": "spielzeug",
+    "name": "Spielzeug",
+    "parent_id": null,
+    "level": 0
+  },
+  {
+    "id": "spielzeug_puppen",
+    "name": "Puppen",
+    "parent_id": "spielzeug",
+    "level": 1
+  },
+  {
+    "id": "spielzeug_baukl\u00f6tze",
+    "name": "Baukl\u00f6tze",
+    "parent_id": "spielzeug",
+    "level": 1
+  },
+  {
+    "id": "spielzeug_videospiele",
+    "name": "Videospiele",
+    "parent_id": "spielzeug",
+    "level": 1
+  },
+  {
+    "id": "spielzeug_action-figuren",
+    "name": "Action-Figuren",
+    "parent_id": "spielzeug",
+    "level": 1
+  },
+  {
+    "id": "spielzeug_puzzle",
+    "name": "Puzzle",
+    "parent_id": "spielzeug",
+    "level": 1
+  },
+  {
+    "id": "garten",
+    "name": "Garten",
+    "parent_id": null,
+    "level": 0
+  },
+  {
+    "id": "garten_werkzeuge",
+    "name": "Werkzeuge",
+    "parent_id": "garten",
+    "level": 1
+  },
+  {
+    "id": "garten_pflanzen",
+    "name": "Pflanzen",
+    "parent_id": "garten",
+    "level": 1
+  },
+  {
+    "id": "garten_m\u00f6bel",
+    "name": "M\u00f6bel",
+    "parent_id": "garten",
+    "level": 1
+  },
+  {
+    "id": "garten_dekoration",
+    "name": "Dekoration",
+    "parent_id": "garten",
+    "level": 1
+  },
+  {
+    "id": "garten_beleuchtung",
+    "name": "Beleuchtung",
+    "parent_id": "garten",
+    "level": 1
+  },
+  {
+    "id": "lebensmittel",
+    "name": "Lebensmittel",
+    "parent_id": null,
+    "level": 0
+  },
+  {
+    "id": "lebensmittel_bio-produkte",
+    "name": "Bio-Produkte",
+    "parent_id": "lebensmittel",
+    "level": 1
+  },
+  {
+    "id": "lebensmittel_getr\u00e4nke",
+    "name": "Getr\u00e4nke",
+    "parent_id": "lebensmittel",
+    "level": 1
+  },
+  {
+    "id": "lebensmittel_s\u00fc\u00dfwaren",
+    "name": "S\u00fc\u00dfwaren",
+    "parent_id": "lebensmittel",
+    "level": 1
+  },
+  {
+    "id": "lebensmittel_backzutaten",
+    "name": "Backzutaten",
+    "parent_id": "lebensmittel",
+    "level": 1
+  },
+  {
+    "id": "lebensmittel_gew\u00fcrze",
+    "name": "Gew\u00fcrze",
+    "parent_id": "lebensmittel",
+    "level": 1
+  },
+  {
+    "id": "beauty",
+    "name": "Beauty",
+    "parent_id": null,
+    "level": 0
+  },
+  {
+    "id": "beauty_kosmetik",
+    "name": "Kosmetik",
+    "parent_id": "beauty",
+    "level": 1
+  },
+  {
+    "id": "beauty_hautpflege",
+    "name": "Hautpflege",
+    "parent_id": "beauty",
+    "level": 1
+  },
+  {
+    "id": "beauty_haarpflege",
+    "name": "Haarpflege",
+    "parent_id": "beauty",
+    "level": 1
+  },
+  {
+    "id": "beauty_parf\u00fcm",
+    "name": "Parf\u00fcm",
+    "parent_id": "beauty",
+    "level": 1
+  },
+  {
+    "id": "beauty_wellness",
+    "name": "Wellness",
+    "parent_id": "beauty",
+    "level": 1
+  },
+  {
+    "id": "auto",
+    "name": "Auto",
+    "parent_id": null,
+    "level": 0
+  },
+  {
+    "id": "auto_zubeh\u00f6r",
+    "name": "Zubeh\u00f6r",
+    "parent_id": "auto",
+    "level": 1
+  },
+  {
+    "id": "auto_reifen",
+    "name": "Reifen",
+    "parent_id": "auto",
+    "level": 1
+  },
+  {
+    "id": "auto_\u00f6l_&_fl\u00fcssigkeiten",
+    "name": "\u00d6l & Fl\u00fcssigkeiten",
+    "parent_id": "auto",
+    "level": 1
+  },
+  {
+    "id": "auto_ersatzteile",
+    "name": "Ersatzteile",
+    "parent_id": "auto",
+    "level": 1
+  },
+  {
+    "id": "auto_reinigung",
+    "name": "Reinigung",
+    "parent_id": "auto",
+    "level": 1
+  }
+]

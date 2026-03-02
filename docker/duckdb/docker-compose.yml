@@ -1,0 +1,34 @@
+# DuckDB Lab - SQL Analytics Engine
+# Quick Start: docker-compose up -d
+# Access: Jupyter on localhost:8888
+
+version: '3.8'
+
+services:
+  duckdb:
+    build: .
+    container_name: megastore-duckdb
+    ports:
+      - "8888:8888"
+    volumes:
+      # Mount data directory for access to all MegaStore data
+      - ../data/megastore:/home/jovyan/data:ro
+      # Mount notebooks for persistence
+      - ./notebooks:/home/jovyan/notebooks
+    environment:
+      JUPYTER_ENABLE_LAB: "yes"
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8888/api"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    networks:
+      - megastore
+
+networks:
+  megastore:
+    driver: bridge

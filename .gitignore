@@ -1,0 +1,33 @@
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# Python
+__pycache__/
+*.pyc
+.env
+
+# Node
+node_modules/
+
+# Large data files (these are generated, not checked into git)
+# Students run generate_megastore_data.py to create them
+data/megastore/*.csv
+data/megastore/*.json
+data/megastore/*.parquet
+!data/megastore/README.md
+!data/megastore/data_model.mermaid
+!data/megastore/categories.json
+
+# Docker runtime
+docker/mongodb/data/
+docker/neo4j/data/
+docker/neo4j/logs/
+
+# Legacy scaffold directories (empty, not needed)
+src/
+public/

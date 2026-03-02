@@ -1,0 +1,41 @@
+# Spark Lab - Distributed Processing Engine
+# Quick Start: docker-compose up -d
+# Access: Jupyter on localhost:8888, Spark UI on localhost:4040
+
+version: '3.8'
+
+services:
+  spark:
+    build: .
+    container_name: megastore-spark
+    ports:
+      - "8888:8888"    # Jupyter notebook
+      - "4040:4040"    # Spark UI (driver)
+    environment:
+      # Spark configuration for single-node setup
+      SPARK_DRIVER_MEMORY: 1g
+      SPARK_EXECUTOR_MEMORY: 512m
+      SPARK_LOCAL_CORES: 2
+      JUPYTER_ENABLE_LAB: "yes"
+    volumes:
+      # Mount data directory for access to all MegaStore data
+      - ../data/megastore:/home/jovyan/data:ro
+      # Mount notebooks for persistence
+      - ./notebooks:/home/jovyan/notebooks
+      # Mount for output/results
+      - ./output:/home/jovyan/output
+    deploy:
+      resources:
+        limits:
+          memory: 2G
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8888/api"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    networks:
+      - megastore
+
+networks:
+  megastore:
+    driver: bridge

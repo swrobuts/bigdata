@@ -1,0 +1,1674 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neo4j Lab - Graph Datenbank & Knowledge Graphs</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+    <style>
+        :root {
+            --color-orange: #E8792F;
+            --color-dark-blue: #1B3A5C;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+
+        .orange-text { color: var(--color-orange); }
+        .dark-blue-text { color: var(--color-dark-blue); }
+        .orange-bg { background-color: var(--color-orange); }
+        .dark-blue-bg { background-color: var(--color-dark-blue); }
+
+        .navbar-sticky {
+            position: sticky;
+            top: 0;
+            z-index: 40;
+            background: white;
+            border-bottom: 2px solid var(--color-orange);
+        }
+
+        .sidebar {
+            max-height: calc(100vh - 80px);
+            overflow-y: auto;
+        }
+
+        .code-block {
+            position: relative;
+            background: #282c34;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            padding: 6px 12px;
+            background: var(--color-orange);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        .code-block:hover .copy-btn {
+            opacity: 1;
+        }
+
+        .copy-btn:hover {
+            background: #d46a1f;
+        }
+
+        .language-label {
+            position: absolute;
+            top: 8px;
+            left: 8px;
+            background: var(--color-dark-blue);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .hljs {
+            background: #282c34 !important;
+            color: #abb2bf !important;
+        }
+
+        pre {
+            margin: 0 !important;
+            padding: 40px 16px 16px 16px !important;
+        }
+
+        .nav-link {
+            padding: 10px 12px;
+            border-left: 4px solid transparent;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .nav-link:hover {
+            background: #f3f4f6;
+            border-left-color: var(--color-orange);
+        }
+
+        .nav-link.active {
+            background: #fef3f2;
+            border-left-color: var(--color-orange);
+            font-weight: 600;
+            color: var(--color-orange);
+        }
+
+        .hero {
+            background: linear-gradient(135deg, var(--color-dark-blue) 0%, #2c5aa0 100%);
+            color: white;
+        }
+
+        .difficulty-badge {
+            display: inline-block;
+            padding: 6px 12px;
+            background: var(--color-orange);
+            color: white;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .time-badge {
+            display: inline-block;
+            padding: 6px 12px;
+            background: var(--color-dark-blue);
+            color: white;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-left: 8px;
+        }
+
+        .learning-goal {
+            background: #fef3f2;
+            border-left: 4px solid var(--color-orange);
+            padding: 16px;
+            margin: 12px 0;
+            border-radius: 4px;
+        }
+
+        .info-box {
+            background: #eff6ff;
+            border-left: 4px solid #3b82f6;
+            padding: 16px;
+            margin: 16px 0;
+            border-radius: 4px;
+        }
+
+        .warning-box {
+            background: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            padding: 16px;
+            margin: 16px 0;
+            border-radius: 4px;
+        }
+
+        .exercise {
+            background: #f0fdf4;
+            border-left: 4px solid #22c55e;
+            padding: 16px;
+            margin: 16px 0;
+            border-radius: 4px;
+        }
+
+        .diagram {
+            background: white;
+            border: 2px solid #e5e7eb;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            text-align: center;
+            font-family: monospace;
+            overflow-x: auto;
+        }
+
+        .section-heading {
+            border-bottom: 3px solid var(--color-orange);
+            padding-bottom: 12px;
+            margin-bottom: 20px;
+        }
+
+        .subsection-heading {
+            border-left: 4px solid var(--color-orange);
+            padding-left: 12px;
+            margin-top: 20px;
+            margin-bottom: 12px;
+        }
+
+        [dir="rtl"] .nav-link {
+            border-left: none;
+            border-right: 4px solid transparent;
+            padding-left: 4px;
+            padding-right: 12px;
+        }
+
+        [dir="rtl"] .nav-link:hover,
+        [dir="rtl"] .nav-link.active {
+            border-left: none;
+            border-right-color: var(--color-orange);
+        }
+
+        [dir="rtl"] .learning-goal,
+        [dir="rtl"] .info-box,
+        [dir="rtl"] .warning-box,
+        [dir="rtl"] .exercise,
+        [dir="rtl"] .subsection-heading {
+            border-left: none;
+            border-right: 4px solid;
+        }
+
+        [dir="rtl"] .subsection-heading {
+            border-right-color: var(--color-orange);
+            padding-right: 12px;
+            padding-left: 0;
+        }
+
+        .language-selector {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .lang-btn {
+            padding: 8px 16px;
+            border: 2px solid #e5e7eb;
+            background: white;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .lang-btn.active {
+            background: var(--color-orange);
+            color: white;
+            border-color: var(--color-orange);
+        }
+
+        .lang-btn:hover {
+            border-color: var(--color-orange);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 16px 0;
+        }
+
+        th, td {
+            border: 1px solid #e5e7eb;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background: var(--color-dark-blue);
+            color: white;
+        }
+
+        [dir="rtl"] th,
+        [dir="rtl"] td {
+            text-align: right;
+        }
+
+        tr:nth-child(even) {
+            background: #f9fafb;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Back Button & Language Selector -->
+    <div class="navbar-sticky flex items-center justify-between px-6 py-4">
+        <a href="index.html" class="flex items-center gap-2 text-gray-700 hover:text-orange-text font-semibold transition no-underline">
+            <span class="text-xl">←</span>
+            <span id="back-label">Back to Overview</span>
+        </a>
+        <div class="language-selector">
+            <button class="lang-btn active" onclick="setLanguage('en')">English</button>
+            <button class="lang-btn" onclick="setLanguage('de')">Deutsch</button>
+            <button class="lang-btn" onclick="setLanguage('ar')">العربية</button>
+            <button class="lang-btn" onclick="setLanguage('uk')">Українська</button>
+            <button class="lang-btn" onclick="setLanguage('es')">Español</button>
+            <button class="lang-btn" onclick="setLanguage('tr')">Türkçe</button>
+        </div>
+    </div>
+
+    <div class="flex h-full">
+        <!-- Sidebar Navigation -->
+        <aside class="w-64 dark-blue-bg text-white sidebar hidden lg:block">
+            <nav class="p-6 space-y-2">
+                <div class="nav-link active" onclick="scrollToSection('hero')">
+                    <div id="nav-title">Neo4j Lab</div>
+                </div>
+                <div class="nav-link" onclick="scrollToSection('learning-goals')">
+                    <div id="nav-learning-goals">Learning Goals</div>
+                </div>
+                <div class="nav-link" onclick="scrollToSection('setup')">
+                    <div id="nav-setup">Setup & Installation</div>
+                </div>
+                <div class="nav-link" onclick="scrollToSection('theory')">
+                    <div id="nav-theory">Theory</div>
+                </div>
+                <div class="nav-link" onclick="scrollToSection('data-model')">
+                    <div id="nav-data-model">Graph Data Model</div>
+                </div>
+                <div class="nav-link" onclick="scrollToSection('exercise-1')">
+                    <div id="nav-ex1">Exercise 1: Cypher Basics</div>
+                </div>
+                <div class="nav-link" onclick="scrollToSection('exercise-2')">
+                    <div id="nav-ex2">Exercise 2: Load Data</div>
+                </div>
+                <div class="nav-link" onclick="scrollToSection('exercise-3')">
+                    <div id="nav-ex3">Exercise 3: Graph Queries</div>
+                </div>
+                <div class="nav-link" onclick="scrollToSection('exercise-4')">
+                    <div id="nav-ex4">Exercise 4: Recommendations</div>
+                </div>
+                <div class="nav-link" onclick="scrollToSection('exercise-5')">
+                    <div id="nav-ex5">Exercise 5: Knowledge Graph</div>
+                </div>
+                <div class="nav-link" onclick="scrollToSection('bonus')">
+                    <div id="nav-bonus">Bonus Tasks</div>
+                </div>
+                <div class="nav-link" onclick="scrollToSection('summary')">
+                    <div id="nav-summary">Summary & Troubleshooting</div>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 overflow-y-auto">
+            <!-- Hero Section -->
+            <section id="hero" class="hero py-20 px-6">
+                <div class="max-w-4xl mx-auto">
+                    <h1 class="text-5xl font-bold mb-4" id="hero-title">Neo4j Lab - Graph Datenbank & Knowledge Graphs</h1>
+                    <p class="text-xl opacity-90 mb-6" id="hero-subtitle">Chapter 5: Ontologies and Graph Data Modeling</p>
+                    <div class="flex gap-4 flex-wrap">
+                        <span class="difficulty-badge" id="hero-difficulty">Difficulty: Intermediate</span>
+                        <span class="time-badge" id="hero-time">Time: 3-4 hours</span>
+                    </div>
+                    <div class="mt-6 text-sm opacity-80" id="hero-course">
+                        <p id="hero-course-text">Big Data Lab • Prof. Dr. Robert Butscher • THWS</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Main Content Area -->
+            <div class="max-w-4xl mx-auto px-6 py-16">
+                <!-- Learning Goals -->
+                <section id="learning-goals">
+                    <h2 class="text-4xl font-bold mb-4 section-heading dark-blue-text" id="h-learning-goals">Learning Goals</h2>
+                    <div id="learning-goal-1" class="learning-goal">
+                        <strong id="lg1-title">Graph Data Modeling</strong>
+                        <p id="lg1-desc">Understand how to model real-world relationships as a property graph with nodes, edges, and properties.</p>
+                    </div>
+                    <div id="learning-goal-2" class="learning-goal">
+                        <strong id="lg2-title">Cypher Query Language</strong>
+                        <p id="lg2-desc">Learn Cypher, the powerful query language for Neo4j, to create and query graph patterns.</p>
+                    </div>
+                    <div id="learning-goal-3" class="learning-goal">
+                        <strong id="lg3-title">Relationship Analysis</strong>
+                        <p id="lg3-desc">Analyze complex relationship patterns and discover insights through graph traversal.</p>
+                    </div>
+                    <div id="learning-goal-4" class="learning-goal">
+                        <strong id="lg4-title">Knowledge Graphs</strong>
+                        <p id="lg4-desc">Build semantic knowledge graphs and ontologies to represent domain knowledge.</p>
+                    </div>
+                    <div id="learning-goal-5" class="learning-goal">
+                        <strong id="lg5-title">Relational vs. Graph</strong>
+                        <p id="lg5-desc">Compare graph databases with relational models and understand when each excels.</p>
+                    </div>
+                </section>
+
+                <!-- Setup & Installation -->
+                <section id="setup" class="mt-20">
+                    <h2 class="text-4xl font-bold mb-4 section-heading dark-blue-text" id="h-setup">Setup & Installation</h2>
+
+                    <h3 class="text-2xl font-semibold subsection-heading mt-8 mb-4" id="h-docker-setup">Docker Installation</h3>
+                    <p id="p-docker-intro">Start Neo4j using Docker. This sets up a complete Neo4j instance with the web-based Neo4j Browser.</p>
+
+                    <div class="code-block mt-4">
+                        <span class="language-label">bash</span>
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        <pre><code class="language-bash" id="code-docker-run">docker run -d \
+  --name neo4j-container \
+  -p 7474:7474 \
+  -p 7687:7687 \
+  -e NEO4J_AUTH=neo4j/password123 \
+  neo4j:latest</code></pre>
+                    </div>
+
+                    <p id="p-docker-explain" class="mt-4">This command:</p>
+                    <ul class="list-disc list-inside space-y-2 mt-2" id="ul-docker-explain">
+                        <li id="li-docker-1">Runs Neo4j in a detached container</li>
+                        <li id="li-docker-2">Maps port 7474 for the web interface (Neo4j Browser)</li>
+                        <li id="li-docker-3">Maps port 7687 for the Bolt protocol (programmatic access)</li>
+                        <li id="li-docker-4">Sets the default password to "password123"</li>
+                    </ul>
+
+                    <h3 class="text-2xl font-semibold subsection-heading mt-8 mb-4" id="h-access-browser">Access Neo4j Browser</h3>
+                    <ol class="list-decimal list-inside space-y-2 mt-4" id="ol-access">
+                        <li id="li-access-1">Open your browser and navigate to <code class="bg-gray-200 px-2 py-1 rounded">http://localhost:7474</code></li>
+                        <li id="li-access-2">Login with username <code class="bg-gray-200 px-2 py-1 rounded">neo4j</code> and password <code class="bg-gray-200 px-2 py-1 rounded">password123</code></li>
+                        <li id="li-access-3">You'll be prompted to change the password on first login</li>
+                        <li id="li-access-4">Create a new password and remember it for future sessions</li>
+                    </ol>
+
+                    <div class="info-box mt-6" id="info-docker">
+                        <strong id="info-docker-title">ℹ Info:</strong>
+                        <p id="info-docker-text">If port 7474 is already in use, map it to a different port: <code class="bg-blue-100 px-2 py-1 rounded">-p 8080:7474</code></p>
+                    </div>
+                </section>
+
+                <!-- Theory Section -->
+                <section id="theory" class="mt-20">
+                    <h2 class="text-4xl font-bold mb-4 section-heading dark-blue-text" id="h-theory">Theory: Graph Databases</h2>
+
+                    <h3 class="text-2xl font-semibold subsection-heading mt-8 mb-4" id="h-what-is-graph">What is a Graph Database?</h3>
+                    <p id="p-what-is-graph" class="mb-4">
+                        A graph database is a type of NoSQL database optimized for storing and querying highly connected data. Instead of storing data in tables with rows and columns (relational model), graph databases use a property graph model consisting of:
+                    </p>
+
+                    <h4 class="text-xl font-semibold mt-6 mb-3" id="h-nodes">Nodes</h4>
+                    <p id="p-nodes" class="mb-3">Represent entities (e.g., Product, Customer, Category). Each node can have labels (tags) and properties (key-value pairs).</p>
+                    <div class="code-block">
+                        <span class="language-label">cypher</span>
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        <pre><code class="language-sql" id="code-node-example">(product:Product {id: "P001", name: "Laptop", price: 999.99})</code></pre>
+                    </div>
+
+                    <h4 class="text-xl font-semibold mt-6 mb-3" id="h-relationships">Relationships</h4>
+                    <p id="p-relationships" class="mb-3">Represent connections between nodes. They have a type (direction) and can also have properties.</p>
+                    <div class="code-block">
+                        <span class="language-label">cypher</span>
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        <pre><code class="language-sql" id="code-rel-example">(product)-[rel:BELONGS_TO {since: "2024-01-15"}]->(category)</code></pre>
+                    </div>
+
+                    <h4 class="text-xl font-semibold mt-6 mb-3" id="h-properties">Properties</h4>
+                    <p id="p-properties" class="mb-3">Key-value pairs attached to nodes or relationships. Properties store atomic values (strings, numbers, booleans, dates).</p>
+
+                    <h3 class="text-2xl font-semibold subsection-heading mt-10 mb-4" id="h-why-graphs">Why Graphs Beat Tables</h3>
+                    <table id="table-graphs-vs-tables">
+                        <thead>
+                            <tr>
+                                <th id="th-aspect">Aspect</th>
+                                <th id="th-relational">Relational (SQL)</th>
+                                <th id="th-graph">Graph (Neo4j)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td id="td-relationships">Relationships</td>
+                                <td id="td-rel-sql">Foreign keys, JOIN operations</td>
+                                <td id="td-rel-graph">Native first-class objects</td>
+                            </tr>
+                            <tr>
+                                <td id="td-performance">Performance</td>
+                                <td id="td-perf-sql">Slows with many JOINs (O(n))</td>
+                                <td id="td-perf-graph">Constant time traversal (O(1))</td>
+                            </tr>
+                            <tr>
+                                <td id="td-patterns">Pattern Matching</td>
+                                <td id="td-pattern-sql">Complex multi-table queries</td>
+                                <td id="td-pattern-graph">Natural graph patterns</td>
+                            </tr>
+                            <tr>
+                                <td id="td-semantics">Semantics</td>
+                                <td id="td-sem-sql">Limited relationship meaning</td>
+                                <td id="td-sem-graph">Rich semantic relationships</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h3 class="text-2xl font-semibold subsection-heading mt-10 mb-4" id="h-use-cases">Use Cases for Graph Databases</h3>
+                    <ul class="space-y-3 mt-4">
+                        <li id="li-usecase-1"><strong id="strong-social">Social Networks:</strong> <span id="text-social">Finding friends, mutual connections, community detection.</span></li>
+                        <li id="li-usecase-2"><strong id="strong-recommend">Recommendations:</strong> <span id="text-recommend">"Customers who bought X also bought Y" or content recommendations.</span></li>
+                        <li id="li-usecase-3"><strong id="strong-fraud">Fraud Detection:</strong> <span id="text-fraud">Identifying suspicious patterns in transaction networks.</span></li>
+                        <li id="li-usecase-4"><strong id="strong-knowledge">Knowledge Graphs:</strong> <span id="text-knowledge">Wikipedia, Google Knowledge Graph, semantic search.</span></li>
+                        <li id="li-usecase-5"><strong id="strong-identity">Identity & Access:</strong> <span id="text-identity">Managing complex permission hierarchies.</span></li>
+                        <li id="li-usecase-6"><strong id="strong-iot">IoT & Sensors:</strong> <span id="text-iot">Modeling device relationships and data flows.</span></li>
+                    </ul>
+                </section>
+
+                <!-- Data Model -->
+                <section id="data-model" class="mt-20">
+                    <h2 class="text-4xl font-bold mb-4 section-heading dark-blue-text" id="h-data-model">MegaStore Graph Data Model</h2>
+
+                    <p id="p-megastore-intro" class="mb-6">
+                        We'll model the MegaStore e-commerce platform as a graph. Here's the conceptual structure:
+                    </p>
+
+                    <h3 class="text-2xl font-semibold subsection-heading mt-8 mb-4" id="h-node-types">Node Types</h3>
+                    <table id="table-node-types">
+                        <thead>
+                            <tr>
+                                <th id="th-node-label">Label</th>
+                                <th id="th-node-desc">Description</th>
+                                <th id="th-node-example">Example Properties</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td id="td-product">Product</td>
+                                <td id="td-product-desc">An item for sale</td>
+                                <td id="td-product-props">id, name, price, sku, stock</td>
+                            </tr>
+                            <tr>
+                                <td id="td-customer">Customer</td>
+                                <td id="td-customer-desc">A buyer</td>
+                                <td id="td-customer-props">id, name, email, country, signup_date</td>
+                            </tr>
+                            <tr>
+                                <td id="td-category">Category</td>
+                                <td id="td-category-desc">Product classification</td>
+                                <td id="td-category-props">id, name, slug</td>
+                            </tr>
+                            <tr>
+                                <td id="td-supplier">Supplier</td>
+                                <td id="td-supplier-desc">Product vendor</td>
+                                <td id="td-supplier-props">id, name, country, rating</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h3 class="text-2xl font-semibold subsection-heading mt-8 mb-4" id="h-relationship-types">Relationship Types</h3>
+                    <table id="table-rel-types">
+                        <thead>
+                            <tr>
+                                <th id="th-rel-type">Type</th>
+                                <th id="th-rel-connects">Connects</th>
+                                <th id="th-rel-meaning">Meaning</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td id="td-rel-bought">PURCHASED</td>
+                                <td id="td-rel-bought-con">Customer → Product</td>
+                                <td id="td-rel-bought-mean">Customer bought product (with quantity, date)</td>
+                            </tr>
+                            <tr>
+                                <td id="td-rel-together">BOUGHT_TOGETHER</td>
+                                <td id="td-rel-together-con">Product → Product</td>
+                                <td id="td-rel-together-mean">Products frequently bought together</td>
+                            </tr>
+                            <tr>
+                                <td id="td-rel-similar">SIMILAR_TO</td>
+                                <td id="td-rel-similar-con">Product → Product</td>
+                                <td id="td-rel-similar-mean">Products are similar (alternative)</td>
+                            </tr>
+                            <tr>
+                                <td id="td-rel-belongs">BELONGS_TO</td>
+                                <td id="td-rel-belongs-con">Product → Category</td>
+                                <td id="td-rel-belongs-mean">Product is in category</td>
+                            </tr>
+                            <tr>
+                                <td id="td-rel-supplies">SUPPLIES</td>
+                                <td id="td-rel-supplies-con">Supplier → Product</td>
+                                <td id="td-rel-supplies-mean">Supplier provides product</td>
+                            </tr>
+                            <tr>
+                                <td id="td-rel-referred">REFERRED_BY</td>
+                                <td id="td-rel-referred-con">Customer → Customer</td>
+                                <td id="td-rel-referred-mean">Customer referral relationship</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h3 class="text-2xl font-semibold subsection-heading mt-8 mb-4" id="h-visual-model">Visual Graph Diagram</h3>
+                    <div class="diagram" id="diagram-model">
+                        <pre id="diagram-text">┌─────────────┐
+│  Customer   │
+├─────────────┤
+│ id, name    │
+│ email       │
+└──────┬──────┘
+       │ PURCHASED (qty, date)
+       │ REFERRED_BY
+       │
+       ▼
+┌─────────────────────┐
+│     Product         │
+├─────────────────────┤
+│ id, name, price     │
+│ sku, stock          │
+└──────┬──────────┬───┘
+       │ BELONGS_TO
+       │ SIMILAR_TO
+       │ BOUGHT_TOGETHER
+       │
+       ▼
+┌─────────────┐
+│  Category   │
+├─────────────┤
+│ id, name    │
+└─────────────┘
+
+Product ◄──── SUPPLIES ─── Supplier
+            (from_date)</pre>
+                    </div>
+                </section>
+
+                <!-- Exercise 1 -->
+                <section id="exercise-1" class="mt-20">
+                    <h2 class="text-4xl font-bold mb-4 section-heading dark-blue-text" id="h-exercise-1">Exercise 1: First Steps with Cypher</h2>
+
+                    <p id="p-ex1-intro" class="mb-4">
+                        Learn the basics of Cypher, Neo4j's query language. We'll create nodes, match patterns, and return results.
+                    </p>
+
+                    <h3 class="text-2xl font-semibold subsection-heading mt-8 mb-4" id="h-ex1-create">CREATE: Add Nodes to the Graph</h3>
+                    <p id="p-ex1-create-desc" class="mb-3">The CREATE statement adds new nodes to the graph.</p>
+
+                    <div class="code-block">
+                        <span class="language-label">cypher</span>
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        <pre><code id="code-ex1-create">CREATE (p:Product {
+  id: "P001",
+  name: "Gaming Laptop",
+  price: 1299.99,
+  stock: 15
+})
+RETURN p;</code></pre>
+                    </div>
+
+                    <div class="exercise mt-4">
+                        <strong id="ex1-task-title">Task 1.1:</strong>
+                        <p id="ex1-task-desc">Create 3 product nodes with different names and prices. Use the code above as a template.</p>
+                    </div>
+
+                    <h3 class="text-2xl font-semibold subsection-heading mt-8 mb-4" id="h-ex1-match">MATCH: Find Nodes</h3>
+                    <p id="p-ex1-match-desc" class="mb-3">The MATCH statement finds nodes matching a pattern.</p>
+
+                    <div class="code-block">
+                        <span class="language-label">cypher</span>
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        <pre><code id="code-ex1-match">MATCH (p:Product)
+WHERE p.price > 1000
+RETURN p.name, p.price
+ORDER BY p.price DESC;</code></pre>
+                    </div>
+
+                    <div class="exercise mt-4">
+                        <strong id="ex1-task2-title">Task 1.2:</strong>
+                        <p id="ex1-task2-desc">Write a query to find all products with price between 500 and 1500. Use MATCH and WHERE clauses.</p>
+                    </div>
+
+                    <h3 class="text-2xl font-semibold subsection-heading mt-8 mb-4" id="h-ex1-relationships">CREATE Relationships</h3>
+                    <p id="p-ex1-rel-desc" class="mb-3">Connect nodes with relationships using the CREATE statement.</p>
+
+                    <div class="code-block">
+                        <span class="language-label">cypher</span>
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        <pre><code id="code-ex1-rel">MATCH (c:Customer {id: "C001"}), (p:Product {id: "P001"})
+CREATE (c)-[r:PURCHASED {
+  quantity: 2,
+  purchase_date: "2024-02-15",
+  total_price: 2599.98
+}]->(p)
+RETURN r;</code></pre>
+                    </div>
+
+                    <div class="exercise mt-4">
+                        <strong id="ex1-task3-title">Task 1.3:</strong>
+                        <p id="ex1-task3-desc">Create a customer node and establish a PURCHASED relationship to one of your products.</p>
+                    </div>
+
+                    <h3 class="text-2xl font-semibold subsection-heading mt-8 mb-4" id="h-ex1-traverse">Traverse Relationships</h3>
+                    <p id="p-ex1-traverse-desc" class="mb-3">Follow relationships to discover connected nodes.</p>
+
+                    <div class="code-block">
+                        <span class="language-label">cypher</span>
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        <pre><code id="code-ex1-traverse">MATCH (c:Customer {id: "C001"})-[r:PURCHASED]->(p:Product)
+RETURN c.name, r.quantity, p.name, r.purchase_date;</code></pre>
+                    </div>
+
+                    <div class="exercise mt-4">
+                        <strong id="ex1-task4-title">Task 1.4:</strong>
+                        <p id="ex1-task4-desc">Find all products purchased by a specific customer. Modify the query with a customer ID of your choice.</p>
+                    </div>
+                </section>
+
+                <!-- Exercise 2 -->
+                <section id="exercise-2" class="mt-20">
+                    <h2 class="text-4xl font-bold mb-4 section-heading dark-blue-text" id="h-exercise-2">Exercise 2: Load MegaStore Data</h2>
+
+                    <p id="p-ex2-intro" class="mb-4">
+                        Import the CSV data files (products, customers, relationships) into Neo4j using LOAD CSV.
+                    </p>
+
+                    <h3 class="text-2xl font-semibold subsection-heading mt-8 mb-4" id="h-ex2-products">Load Products</h3>
+                    <p id="p-ex2-products-desc" class="mb-3">Load 20,000 products from products.csv.</p>
+
+                    <div class="code-block">
+                        <span class="language-label">cypher</span>
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        <pre><code id="code-ex2-products">LOAD CSV WITH HEADERS FROM "file:///products.csv" AS row
+CREATE (p:Product {
+  id: row.product_id,
+  name: row.product_name,
+  price: toFloat(row.price),
+  sku: row.sku,
+  stock: toInteger(row.stock),
+  description: row.description
+});</code></pre>
+                    </div>
+
+                    <h3 class="text-2xl font-semibold subsection-heading mt-8 mb-4" id="h-ex2-customers">Load Customers</h3>
+                    <p id="p-ex2-customers-desc" class="mb-3">Load 30,000 customers from customers.csv.</p>
+
+                    <div class="code-block">
+                        <span class="language-label">cypher</span>
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        <pre><code id="code-ex2-customers">LOAD CSV WITH HEADERS FROM "file:///customers.csv" AS row
+CREATE (c:Customer {
+  id: row.customer_id,
+  name: row.customer_name,
+  email: row.email,
+  country: row.country,
+  signup_date: row.signup_date,
+  loyalty_tier: row.loyalty_tier
+});</code></pre>
+                    </div>
+
+                    <h3 class="text-2xl font-semibold subsection-heading mt-8 mb-4" id="h-ex2-relationships">Load Purchase Relationships</h3>
+                    <p id="p-ex2-rel-desc" class="mb-3">Load customer purchases from customer_relationships.csv.</p>
+
+                    <div class="code-block">
+                        <span class="language-label">cypher</span>
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        <pre><code id="code-ex2-rel">LOAD CSV WITH HEADERS FROM "file:///customer_relationships.csv" AS row
+MATCH (c:Customer {id: row.customer_id})
+MATCH (p:Product {id: row.product_id})
+CREATE (c)-[r:PURCHASED {
+  quantity: toInteger(row.quantity),
+  purchase_date: row.purchase_date,
+  total_price: toFloat(row.total_price)
+}]->(p);</code></pre>
+                    </div>
+
+                    <h3 class="text-2xl font-semibold subsection-heading mt-8 mb-4" id="h-ex2-categories">Load Categories</h3>
+                    <p id="p-ex2-cat-desc" class="mb-3">Create category nodes from categories.json.</p>
+
+                    <div class="code-block">
+                        <span class="language-label">cypher</span>
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        <pre><code id="code-ex2-cat">LOAD CSV WITH HEADERS FROM "file:///categories.csv" AS row
+CREATE (cat:Category {
+  id: row.category_id,
+  name: row.category_name,
+  slug: row.slug,
+  description: row.description
+});</code></pre>
+                    </div>
+
+                    <h3 class="text-2xl font-semibold subsection-heading mt-8 mb-4" id="h-ex2-belongs">Create BELONGS_TO Relationships</h3>
+                    <p id="p-ex2-belongs-desc" class="mb-3">Connect products to their categories from product_relationships.csv.</p>
+
+                    <div class="code-block">
+                        <span class="language-label">cypher</span>
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        <pre><code id="code-ex2-belongs">LOAD CSV WITH HEADERS FROM "file:///product_relationships.csv" AS row
+MATCH (p:Product {id: row.product_id})
+MATCH (c:Category {id: row.category_id})
+WHERE row.relationship_type = "BELONGS_TO"
+CREATE (p)-[r:BELONGS_TO]->(c);</code></pre>
+                    </div>
+
+                    <h3 class="text-2xl font-semibold subsection-heading mt-8 mb-4" id="h-ex2-indexes">Create Indexes</h3>
+                    <p id="p-ex2-index-desc" class="mb-3">Create indexes for faster queries on common properties.</p>
+
+                    <div class="code-block">
+                        <span class="language-label">cypher</span>
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        <pre><code id="code-ex2-index">CREATE INDEX idx_product_id FOR (p:Product) ON (p.id);
+CREATE INDEX idx_customer_id FOR (c:Customer) ON (c.id);
+CREATE INDEX idx_category_id FOR (cat:Category) ON (cat.id);
+CREATE INDEX idx_product_price FOR (p:Product) ON (p.price);</code></pre>
+                    </div>
+
+                    <div class="info-box mt-6" id="info-ex2">
+                        <strong id="info-ex2-title">ℹ Info:</strong>
+                        <p id="info-ex2-text">Place CSV files in the Neo4j <code class="bg-blue-100 px-2 py-1 rounded">import/</code> directory before running LOAD CSV commands.</p>
+                    </div>
+
+                    <div class="exercise mt-4">
+                        <strong id="ex2-task-title">Task 2.1:</strong>
+                        <p id="ex2-task-desc">Run all the LOAD CSV queries above to populate your graph. Verify the data loaded with: <code class="bg-green-100 px-2 py-1 rounded">MATCH (n) RETURN count(n);</code></p>
+                    </div>
+                </section>
+
+                <!-- Exercise 3 -->
+                <section id="exercise-3" class="mt-20">
+                    <h2 class="text-4xl font-bold mb-4 section-heading dark-blue-text" id="h-exercise-3">Exercise 3: Graph Queries</h2>
+
+                    <p id="p-ex3-intro" class="mb-4">
+                        Discover patterns in the MegaStore graph by writing advanced Cypher queries.
+                    </p>
+
+                    <h3 class="text-2xl font-semibold subsection-heading mt-8 mb-4" id="h-ex3-related">Find Related Products</h3>
+                    <p id="p-ex3-related-desc" class="mb-3">Find products that are similar or frequently bought together.</p>
+
+                    <div class="code-block">
+                        <span class="language-label">cypher</span>
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        <pre><code id="code-ex3-related">MATCH (p1:Product {id: "P001"})-[r:BOUGHT_TOGETHER|SIMILAR_TO]-(p2:Product)
+RETURN p1.name, TYPE(r) AS relationship, p2.name, p2.price
+LIMIT 20;</code></pre>
+                    </div>
+
+                    <div class="exercise mt-4">
+                        <strong id="ex3-task1-title">Task 3.1:</strong>
+                        <p id="ex3-task1-desc">Find all products related to a laptop in your database. How many similar or frequently bought-together products are there?</p>
+                    </div>
+
+                    <h3 class="text-2xl font-semibold subsection-heading mt-8 mb-4" id="h-ex3-paths">Customer Purchase Paths</h3>
+                    <p id="p-ex3-paths-desc" class="mb-3">Analyze customer purchase behavior and find frequent paths.</p>
+
+                    <div class="code-block">
+                        <span class="language-label">cypher</span>
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        <pre><code id="code-ex3-paths">MATCH (c:Customer {id: "C001"})-[p1:PURCHASED]->(prod1:Product)
+MATCH (c)-[p2:PURCHASED]->(prod2:Product)
+WHERE p1.purchase_date < p2.purchase_date
+RETURN prod1.name, p1.purchase_date, prod2.name, p2.purchase_date
+ORDER BY p1.purchase_date;</code></pre>
+                    </div>
+
+                    <div class="exercise mt-4">
+                        <strong id="ex3-task2-title">Task 3.2:</strong>
+                        <p id="ex3-task2-desc">Find a customer's complete purchase history in chronological order.</p>
+                    </div>
+
+                    <h3 class="text-2xl font-semibold subsection-heading mt-8 mb-4" id="h-ex3-categories">Category Hierarchies</h3>
+                    <p id="p-ex3-cat-desc" class="mb-3">Explore products within categories and sub-categories.</p>
+
+                    <div class="code-block">
+                        <span class="language-label">cypher</span>
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        <pre><code id="code-ex3-cat">MATCH (c:Category {id: "CAT_ELECTRONICS"})
+OPTIONAL MATCH (c)<-[r:BELONGS_TO]-(p:Product)
+RETURN c.name, COUNT(p) AS product_count, AVG(p.price) AS avg_price;</code></pre>
+                    </div>
+
+                    <div class="exercise mt-4">
+                        <strong id="ex3-task3-title">Task 3.3:</strong>
+                        <p id="ex3-task3-desc">Calculate statistics for each category: product count, average price, min/max price.</p>
+                    </div>
+
+                    <h3 class="text-2xl font-semibold subsection-heading mt-8 mb-4" id="h-ex3-shortest">Shortest Paths</h3>
+                    <p id="p-ex3-short-desc" class="mb-3">Find the shortest relationship path between two products.</p>
+
+                    <div class="code-block">
+                        <span class="language-label">cypher</span>
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        <pre><code id="code-ex3-short">MATCH (p1:Product {id: "P001"}), (p2:Product {id: "P050"})
+MATCH path = shortestPath((p1)-[*]-(p2))
+RETURN length(path) AS hops, [node IN nodes(path) | node.name] AS path_nodes;</code></pre>
+                    </div>
+
+                    <div class="exercise mt-4">
+                        <strong id="ex3-task4-title">Task 3.4:</strong>
+                        <p id="ex3-task4-desc">Find the shortest path between any two products in your graph. What does this tell you about their relationship?</p>
+                    </div>
+                </section>
+
+                <!-- Exercise 4 -->
+                <section id="exercise-4" class="mt-20">
+                    <h2 class="text-4xl font-bold mb-4 section-heading dark-blue-text" id="h-exercise-4">Exercise 4: Recommendation Engine</h2>
+
+                    <p id="p-ex4-intro" class="mb-4">
+                        Build a product recommendation system using graph analysis and collaborative filtering.
+                    </p>
+
+                    <h3 class="text-2xl font-semibold subsection-heading mt-8 mb-4" id="h-ex4-collab">Collaborative Filtering</h3>
+                    <p id="p-ex4-collab-desc" class="mb-3">Find products purchased by similar customers.</p>
+
+                    <div class="code-block">
+                        <span class="language-label">cypher</span>
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        <pre><code id="code-ex4-collab">MATCH (c1:Customer {id: "C001"})-[:PURCHASED]->(p:Product)<-[:PURCHASED]-(c2:Customer)
+WHERE c1 <> c2
+WITH c2, COUNT(p) AS common_purchases
+ORDER BY common_purchases DESC
+LIMIT 5
+MATCH (c2)-[:PURCHASED]->(recommended:Product)
+WHERE NOT (c1)-[:PURCHASED]->(recommended)
+RETURN DISTINCT recommended.name, recommended.price;</code></pre>
+                    </div>
+
+                    <div class="exercise mt-4">
+                        <strong id="ex4-task1-title">Task 4.1:</strong>
+                        <p id="ex4-task1-desc">Find 10 product recommendations for a customer based on what similar customers bought.</p>
+                    </div>
+
+                    <h3 class="text-2xl font-semibold subsection-heading mt-8 mb-4" id="h-ex4-copruchase">Co-Purchase Analysis</h3>
+                    <p id="p-ex4-copur-desc" class="mb-3">"Customers who bought X also bought Y" - the classic recommendation.</p>
+
+                    <div class="code-block">
+                        <span class="language-label">cypher</span>
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        <pre><code id="code-ex4-copur">MATCH (p1:Product {id: "P001"})<-[:PURCHASED]-(c:Customer)-[:PURCHASED]->(p2:Product)
+WHERE p1 <> p2
+WITH p2, COUNT(c) AS purchase_count
+ORDER BY purchase_count DESC
+RETURN p2.name, p2.price, purchase_count
+LIMIT 10;</code></pre>
+                    </div>
+
+                    <div class="exercise mt-4">
+                        <strong id="ex4-task2-title">Task 4.2:</strong>
+                        <p id="ex4-task2-desc">List the top 10 products most frequently bought alongside a gaming laptop.</p>
+                    </div>
+
+                    <h3 class="text-2xl font-semibold subsection-heading mt-8 mb-4" id="h-ex4-category">Category-Based Recommendations</h3>
+                    <p id="p-ex4-cat-desc" class="mb-3">Recommend products from the same category.</p>
+
+                    <div class="code-block">
+                        <span class="language-label">cypher</span>
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        <pre><code id="code-ex4-cat">MATCH (c:Customer {id: "C001"})-[:PURCHASED]->(p:Product)-[:BELONGS_TO]->(cat:Category)
+MATCH (cat)<-[:BELONGS_TO]-(rec:Product)
+WHERE NOT (c)-[:PURCHASED]->(rec)
+WITH rec, COUNT(*) AS category_score
+ORDER BY category_score DESC
+RETURN rec.name, rec.price, category_score
+LIMIT 10;</code></pre>
+                    </div>
+
+                    <div class="exercise mt-4">
+                        <strong id="ex4-task3-title">Task 4.3:</strong>
+                        <p id="ex4-task3-desc">Build a hybrid recommendation: combine collaborative filtering, co-purchase, and category-based recommendations. Weight them appropriately.</p>
+                    </div>
+                </section>
+
+                <!-- Exercise 5 -->
+                <section id="exercise-5" class="mt-20">
+                    <h2 class="text-4xl font-bold mb-4 section-heading dark-blue-text" id="h-exercise-5">Exercise 5: Knowledge Graph</h2>
+
+                    <p id="p-ex5-intro" class="mb-4">
+                        Model a semantic ontology for the MegaStore domain and build a knowledge graph.
+                    </p>
+
+                    <h3 class="text-2xl font-semibold subsection-heading mt-8 mb-4" id="h-ex5-ontology">Define Product Ontology</h3>
+                    <p id="p-ex5-onto-desc" class="mb-3">Create concept nodes and relationships that represent domain knowledge.</p>
+
+                    <div class="code-block">
+                        <span class="language-label">cypher</span>
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        <pre><code id="code-ex5-onto">// Create concept hierarchy
+CREATE (electronics:Concept {name: "Electronics", scope: "top_level"})
+CREATE (computers:Concept {name: "Computers", scope: "category"})
+CREATE (laptops:Concept {name: "Laptops", scope: "subcategory"})
+
+// Define hierarchy
+CREATE (electronics)-[:HAS_SUBCONCEPT]->(computers)
+CREATE (computers)-[:HAS_SUBCONCEPT]->(laptops)
+
+// Define properties
+CREATE (gaming:Attribute {name: "Gaming", type: "capability"})
+CREATE (laptops)-[:HAS_ATTRIBUTE]->(gaming);</code></pre>
+                    </div>
+
+                    <h3 class="text-2xl font-semibold subsection-heading mt-8 mb-4" id="h-ex5-semantic">Semantic Relationships</h3>
+                    <p id="p-ex5-sem-desc" class="mb-3">Create semantic relationships beyond simple purchases.</p>
+
+                    <div class="code-block">
+                        <span class="language-label">cypher</span>
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        <pre><code id="code-ex5-sem">// Link products to concepts
+MATCH (p:Product {name: "Gaming Laptop"})
+MATCH (concept:Concept {name: "Laptops"})
+CREATE (p)-[:INSTANCE_OF]->(concept)
+
+// Create property-based relationships
+MATCH (p1:Product), (p2:Product)
+WHERE p1.price > 1000 AND p2.price > 1000
+CREATE (p1)-[:PRICE_COMPARABLE_TO {difference: abs(p1.price - p2.price)}]->(p2);</code></pre>
+                    </div>
+
+                    <h3 class="text-2xl font-semibold subsection-heading mt-8 mb-4" id="h-ex5-infer">Inference & Reasoning</h3>
+                    <p id="p-ex5-infer-desc" class="mb-3">Use graph patterns to derive new knowledge.</p>
+
+                    <div class="code-block">
+                        <span class="language-label">cypher</span>
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        <pre><code id="code-ex5-infer">// Infer: If customer bought product of type X, they're interested in X
+MATCH (c:Customer)-[:PURCHASED]->(p:Product)-[:INSTANCE_OF]->(concept:Concept)
+WITH c, concept, COUNT(p) AS purchase_count
+WHERE purchase_count >= 2
+MERGE (c)-[r:INTERESTED_IN {score: purchase_count}]->(concept);</code></pre>
+                    </div>
+
+                    <div class="exercise mt-4">
+                        <strong id="ex5-task-title">Task 5.1:</strong>
+                        <p id="ex5-task-desc">Build a knowledge graph for MegaStore with at least 3 levels of concept hierarchy. Link products to concepts and create semantic relationships.</p>
+                    </div>
+                </section>
+
+                <!-- Bonus Section -->
+                <section id="bonus" class="mt-20">
+                    <h2 class="text-4xl font-bold mb-4 section-heading dark-blue-text" id="h-bonus">Bonus Tasks</h2>
+
+                    <h3 class="text-2xl font-semibold subsection-heading mt-8 mb-4" id="h-bonus-algorithms">Graph Algorithms</h3>
+
+                    <h4 class="text-xl font-semibold mt-6 mb-3" id="h-bonus-pagerank">PageRank</h4>
+                    <p id="p-bonus-pagerank-desc" class="mb-3">Calculate importance of products based on network structure.</p>
+
+                    <div class="code-block">
+                        <span class="language-label">cypher</span>
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        <pre><code id="code-bonus-pagerank">CALL gds.graph.project('product_graph', 'Product', 'BOUGHT_TOGETHER')
+YIELD graphName, nodeCount, relationshipCount
+
+CALL gds.pageRank.stream('product_graph')
+YIELD nodeId, score
+RETURN gds.util.asNode(nodeId).name AS product_name, score
+ORDER BY score DESC
+LIMIT 20;</code></pre>
+                    </div>
+
+                    <h4 class="text-xl font-semibold mt-6 mb-3" id="h-bonus-community">Community Detection</h4>
+                    <p id="p-bonus-community-desc" class="mb-3">Find groups of related products using Louvain algorithm.</p>
+
+                    <div class="code-block">
+                        <span class="language-label">cypher</span>
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        <pre><code id="code-bonus-community">CALL gds.graph.project('products', 'Product', 'SIMILAR_TO')
+YIELD graphName, nodeCount, relationshipCount
+
+CALL gds.louvain.stream('products')
+YIELD nodeId, communityId
+RETURN gds.util.asNode(nodeId).name AS product, communityId
+ORDER BY communityId;</code></pre>
+                    </div>
+
+                    <h3 class="text-2xl font-semibold subsection-heading mt-8 mb-4" id="h-bonus-python">Python Integration</h3>
+                    <p id="p-bonus-python-desc" class="mb-3">Access Neo4j from Python using the official driver.</p>
+
+                    <div class="code-block">
+                        <span class="language-label">python</span>
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        <pre><code id="code-bonus-python">from neo4j import GraphDatabase
+
+driver = GraphDatabase.driver("bolt://localhost:7687", auth=("neo4j", "password123"))
+
+def get_recommendations(customer_id):
+    with driver.session() as session:
+        result = session.run("""
+            MATCH (c:Customer {id: $cid})-[:PURCHASED]->(p:Product)<-[:PURCHASED]-(c2:Customer)
+            MATCH (c2)-[:PURCHASED]->(rec:Product)
+            WHERE NOT (c)-[:PURCHASED]->(rec)
+            RETURN DISTINCT rec.name, rec.price
+            LIMIT 10
+        """, cid=customer_id)
+        return [dict(record) for record in result]
+
+recommendations = get_recommendations("C001")
+print(recommendations)
+
+driver.close()</code></pre>
+                    </div>
+
+                    <h3 class="text-2xl font-semibold subsection-heading mt-8 mb-4" id="h-bonus-export">Export & Visualization</h3>
+                    <p id="p-bonus-export-desc" class="mb-3">Export graph data for visualization in external tools.</p>
+
+                    <div class="code-block">
+                        <span class="language-label">cypher</span>
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        <pre><code id="code-bonus-export">// Export as JSON for D3.js visualization
+MATCH (p:Product)-[r:BOUGHT_TOGETHER]-(p2:Product)
+WITH {nodes: [p, p2], links: [{source: p.id, target: p2.id, weight: r.frequency}]} AS graphData
+RETURN apoc.convert.toJson(graphData);</code></pre>
+                    </div>
+                </section>
+
+                <!-- Summary & Troubleshooting -->
+                <section id="summary" class="mt-20 mb-20">
+                    <h2 class="text-4xl font-bold mb-4 section-heading dark-blue-text" id="h-summary">Summary & Troubleshooting</h2>
+
+                    <h3 class="text-2xl font-semibold subsection-heading mt-8 mb-4" id="h-key-concepts">Key Concepts</h3>
+                    <ul class="space-y-3 mt-4" id="ul-summary">
+                        <li id="li-summary-1"><strong id="strong-nodes">Nodes:</strong> <span id="text-nodes-summary">Entities with labels and properties</span></li>
+                        <li id="li-summary-2"><strong id="strong-rels">Relationships:</strong> <span id="text-rels-summary">Typed connections between nodes with properties</span></li>
+                        <li id="li-summary-3"><strong id="strong-cypher">Cypher:</strong> <span id="text-cypher-summary">Intuitive query language for pattern matching</span></li>
+                        <li id="li-summary-4"><strong id="strong-performance">Performance:</strong> <span id="text-performance-summary">O(1) relationship traversal, perfect for connected data</span></li>
+                        <li id="li-summary-5"><strong id="strong-semantics">Semantics:</strong> <span id="text-semantics-summary">Rich relationship types enable knowledge representation</span></li>
+                    </ul>
+
+                    <h3 class="text-2xl font-semibold subsection-heading mt-8 mb-4" id="h-troubleshooting">Troubleshooting</h3>
+
+                    <div class="warning-box mt-4" id="warn-ports">
+                        <strong id="warn-ports-title">Port Already in Use:</strong>
+                        <p id="warn-ports-text">If port 7474 is busy, use <code class="bg-yellow-100 px-2 py-1 rounded">docker run -p 8080:7474 ...</code> and access at <code class="bg-yellow-100 px-2 py-1 rounded">localhost:8080</code></p>
+                    </div>
+
+                    <div class="warning-box mt-4" id="warn-csv">
+                        <strong id="warn-csv-title">LOAD CSV Not Finding Files:</strong>
+                        <p id="warn-csv-text">Ensure CSV files are in <code class="bg-yellow-100 px-2 py-1 rounded">/var/lib/neo4j/import/</code> inside the container. Use <code class="bg-yellow-100 px-2 py-1 rounded">docker cp file.csv neo4j-container:/var/lib/neo4j/import/</code></p>
+                    </div>
+
+                    <div class="warning-box mt-4" id="warn-memory">
+                        <strong id="warn-memory-title">Out of Memory:</strong>
+                        <p id="warn-memory-text">Increase Docker memory: <code class="bg-yellow-100 px-2 py-1 rounded">docker run -e NEO4J_dbms_memory_heap_max__size=4g ...</code></p>
+                    </div>
+
+                    <div class="warning-box mt-4" id="warn-timeout">
+                        <strong id="warn-timeout-title">Query Timeout:</strong>
+                        <p id="warn-timeout-text">Add LIMIT clause or use indexes. Check execution plan with <code class="bg-yellow-100 px-2 py-1 rounded">EXPLAIN/PROFILE</code></p>
+                    </div>
+
+                    <h3 class="text-2xl font-semibold subsection-heading mt-8 mb-4" id="h-next-steps">Next Steps</h3>
+                    <ul class="list-disc list-inside space-y-2 mt-4" id="ul-next-steps">
+                        <li id="li-next-1">Explore Neo4j documentation: <code class="bg-gray-200 px-2 py-1 rounded">https://neo4j.com/docs/</code></li>
+                        <li id="li-next-2">Learn graph algorithms with Neo4j Graph Data Science library</li>
+                        <li id="li-next-3">Build production applications with Neo4j drivers (Python, JavaScript, Java)</li>
+                        <li id="li-next-4">Join the Neo4j community and explore real-world use cases</li>
+                    </ul>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Translations object
+        const translations = {
+            en: {
+                'back-label': 'Back to Overview',
+                'nav-title': 'Neo4j Lab',
+                'nav-learning-goals': 'Learning Goals',
+                'nav-setup': 'Setup & Installation',
+                'nav-theory': 'Theory',
+                'nav-data-model': 'Graph Data Model',
+                'nav-ex1': 'Exercise 1: Cypher Basics',
+                'nav-ex2': 'Exercise 2: Load Data',
+                'nav-ex3': 'Exercise 3: Graph Queries',
+                'nav-ex4': 'Exercise 4: Recommendations',
+                'nav-ex5': 'Exercise 5: Knowledge Graph',
+                'nav-bonus': 'Bonus Tasks',
+                'nav-summary': 'Summary & Troubleshooting',
+                'hero-title': 'Neo4j Lab - Graph Datenbank & Knowledge Graphs',
+                'hero-subtitle': 'Chapter 5: Ontologies and Graph Data Modeling',
+                'hero-difficulty': 'Difficulty: Intermediate',
+                'hero-time': 'Time: 3-4 hours',
+                'hero-course-text': 'Big Data Lab • Prof. Dr. Robert Butscher • THWS',
+                'h-learning-goals': 'Learning Goals',
+                'lg1-title': 'Graph Data Modeling',
+                'lg1-desc': 'Understand how to model real-world relationships as a property graph with nodes, edges, and properties.',
+                'lg2-title': 'Cypher Query Language',
+                'lg2-desc': 'Learn Cypher, the powerful query language for Neo4j, to create and query graph patterns.',
+                'lg3-title': 'Relationship Analysis',
+                'lg3-desc': 'Analyze complex relationship patterns and discover insights through graph traversal.',
+                'lg4-title': 'Knowledge Graphs',
+                'lg4-desc': 'Build semantic knowledge graphs and ontologies to represent domain knowledge.',
+                'lg5-title': 'Relational vs. Graph',
+                'lg5-desc': 'Compare graph databases with relational models and understand when each excels.',
+                'h-setup': 'Setup & Installation',
+                'h-docker-setup': 'Docker Installation',
+                'p-docker-intro': 'Start Neo4j using Docker. This sets up a complete Neo4j instance with the web-based Neo4j Browser.',
+                'li-docker-1': 'Runs Neo4j in a detached container',
+                'li-docker-2': 'Maps port 7474 for the web interface (Neo4j Browser)',
+                'li-docker-3': 'Maps port 7687 for the Bolt protocol (programmatic access)',
+                'li-docker-4': 'Sets the default password to "password123"',
+                'h-access-browser': 'Access Neo4j Browser',
+                'li-access-1': 'Open your browser and navigate to http://localhost:7474',
+                'li-access-2': 'Login with username neo4j and password password123',
+                'li-access-3': 'You\'ll be prompted to change the password on first login',
+                'li-access-4': 'Create a new password and remember it for future sessions',
+                'info-docker-title': 'ℹ Info:',
+                'info-docker-text': 'If port 7474 is already in use, map it to a different port: -p 8080:7474',
+                'h-theory': 'Theory: Graph Databases',
+                'h-what-is-graph': 'What is a Graph Database?',
+                'p-what-is-graph': 'A graph database is a type of NoSQL database optimized for storing and querying highly connected data. Instead of storing data in tables with rows and columns (relational model), graph databases use a property graph model consisting of:',
+                'h-nodes': 'Nodes',
+                'p-nodes': 'Represent entities (e.g., Product, Customer, Category). Each node can have labels (tags) and properties (key-value pairs).',
+                'h-relationships': 'Relationships',
+                'p-relationships': 'Represent connections between nodes. They have a type (direction) and can also have properties.',
+                'h-properties': 'Properties',
+                'p-properties': 'Key-value pairs attached to nodes or relationships. Properties store atomic values (strings, numbers, booleans, dates).',
+                'h-why-graphs': 'Why Graphs Beat Tables',
+                'th-aspect': 'Aspect',
+                'th-relational': 'Relational (SQL)',
+                'th-graph': 'Graph (Neo4j)',
+                'td-relationships': 'Relationships',
+                'td-rel-sql': 'Foreign keys, JOIN operations',
+                'td-rel-graph': 'Native first-class objects',
+                'td-performance': 'Performance',
+                'td-perf-sql': 'Slows with many JOINs (O(n))',
+                'td-perf-graph': 'Constant time traversal (O(1))',
+                'td-patterns': 'Pattern Matching',
+                'td-pattern-sql': 'Complex multi-table queries',
+                'td-pattern-graph': 'Natural graph patterns',
+                'td-semantics': 'Semantics',
+                'td-sem-sql': 'Limited relationship meaning',
+                'td-sem-graph': 'Rich semantic relationships',
+                'h-use-cases': 'Use Cases for Graph Databases',
+                'strong-social': 'Social Networks:',
+                'text-social': 'Finding friends, mutual connections, community detection.',
+                'strong-recommend': 'Recommendations:',
+                'text-recommend': '"Customers who bought X also bought Y" or content recommendations.',
+                'strong-fraud': 'Fraud Detection:',
+                'text-fraud': 'Identifying suspicious patterns in transaction networks.',
+                'strong-knowledge': 'Knowledge Graphs:',
+                'text-knowledge': 'Wikipedia, Google Knowledge Graph, semantic search.',
+                'strong-identity': 'Identity & Access:',
+                'text-identity': 'Managing complex permission hierarchies.',
+                'strong-iot': 'IoT & Sensors:',
+                'text-iot': 'Modeling device relationships and data flows.',
+                'h-data-model': 'MegaStore Graph Data Model',
+                'p-megastore-intro': 'We\'ll model the MegaStore e-commerce platform as a graph. Here\'s the conceptual structure:',
+                'h-node-types': 'Node Types',
+                'th-node-label': 'Label',
+                'th-node-desc': 'Description',
+                'th-node-example': 'Example Properties',
+                'td-product': 'Product',
+                'td-product-desc': 'An item for sale',
+                'td-product-props': 'id, name, price, sku, stock',
+                'td-customer': 'Customer',
+                'td-customer-desc': 'A buyer',
+                'td-customer-props': 'id, name, email, country, signup_date',
+                'td-category': 'Category',
+                'td-category-desc': 'Product classification',
+                'td-category-props': 'id, name, slug',
+                'td-supplier': 'Supplier',
+                'td-supplier-desc': 'Product vendor',
+                'td-supplier-props': 'id, name, country, rating',
+                'h-relationship-types': 'Relationship Types',
+                'th-rel-type': 'Type',
+                'th-rel-connects': 'Connects',
+                'th-rel-meaning': 'Meaning',
+                'td-rel-bought': 'PURCHASED',
+                'td-rel-bought-con': 'Customer → Product',
+                'td-rel-bought-mean': 'Customer bought product (with quantity, date)',
+                'td-rel-together': 'BOUGHT_TOGETHER',
+                'td-rel-together-con': 'Product → Product',
+                'td-rel-together-mean': 'Products frequently bought together',
+                'td-rel-similar': 'SIMILAR_TO',
+                'td-rel-similar-con': 'Product → Product',
+                'td-rel-similar-mean': 'Products are similar (alternative)',
+                'td-rel-belongs': 'BELONGS_TO',
+                'td-rel-belongs-con': 'Product → Category',
+                'td-rel-belongs-mean': 'Product is in category',
+                'td-rel-supplies': 'SUPPLIES',
+                'td-rel-supplies-con': 'Supplier → Product',
+                'td-rel-supplies-mean': 'Supplier provides product',
+                'td-rel-referred': 'REFERRED_BY',
+                'td-rel-referred-con': 'Customer → Customer',
+                'td-rel-referred-mean': 'Customer referral relationship',
+                'h-visual-model': 'Visual Graph Diagram',
+                'h-exercise-1': 'Exercise 1: First Steps with Cypher',
+                'p-ex1-intro': 'Learn the basics of Cypher, Neo4j\'s query language. We\'ll create nodes, match patterns, and return results.',
+                'h-ex1-create': 'CREATE: Add Nodes to the Graph',
+                'p-ex1-create-desc': 'The CREATE statement adds new nodes to the graph.',
+                'ex1-task-title': 'Task 1.1:',
+                'ex1-task-desc': 'Create 3 product nodes with different names and prices. Use the code above as a template.',
+                'h-ex1-match': 'MATCH: Find Nodes',
+                'p-ex1-match-desc': 'The MATCH statement finds nodes matching a pattern.',
+                'ex1-task2-title': 'Task 1.2:',
+                'ex1-task2-desc': 'Write a query to find all products with price between 500 and 1500. Use MATCH and WHERE clauses.',
+                'h-ex1-relationships': 'CREATE Relationships',
+                'p-ex1-rel-desc': 'Connect nodes with relationships using the CREATE statement.',
+                'ex1-task3-title': 'Task 1.3:',
+                'ex1-task3-desc': 'Create a customer node and establish a PURCHASED relationship to one of your products.',
+                'h-ex1-traverse': 'Traverse Relationships',
+                'p-ex1-traverse-desc': 'Follow relationships to discover connected nodes.',
+                'ex1-task4-title': 'Task 1.4:',
+                'ex1-task4-desc': 'Find all products purchased by a specific customer. Modify the query with a customer ID of your choice.',
+                'h-exercise-2': 'Exercise 2: Load MegaStore Data',
+                'p-ex2-intro': 'Import the CSV data files (products, customers, relationships) into Neo4j using LOAD CSV.',
+                'h-ex2-products': 'Load Products',
+                'p-ex2-products-desc': 'Load 20,000 products from products.csv.',
+                'h-ex2-customers': 'Load Customers',
+                'p-ex2-customers-desc': 'Load 30,000 customers from customers.csv.',
+                'h-ex2-relationships': 'Load Purchase Relationships',
+                'p-ex2-rel-desc': 'Load customer purchases from customer_relationships.csv.',
+                'h-ex2-categories': 'Load Categories',
+                'p-ex2-cat-desc': 'Create category nodes from categories.json.',
+                'h-ex2-belongs': 'Create BELONGS_TO Relationships',
+                'p-ex2-belongs-desc': 'Connect products to their categories from product_relationships.csv.',
+                'h-ex2-indexes': 'Create Indexes',
+                'p-ex2-index-desc': 'Create indexes for faster queries on common properties.',
+                'info-ex2-title': 'ℹ Info:',
+                'info-ex2-text': 'Place CSV files in the Neo4j import/ directory before running LOAD CSV commands.',
+                'ex2-task-title': 'Task 2.1:',
+                'ex2-task-desc': 'Run all the LOAD CSV queries above to populate your graph. Verify the data loaded with: MATCH (n) RETURN count(n);',
+                'h-exercise-3': 'Exercise 3: Graph Queries',
+                'p-ex3-intro': 'Discover patterns in the MegaStore graph by writing advanced Cypher queries.',
+                'h-ex3-related': 'Find Related Products',
+                'p-ex3-related-desc': 'Find products that are similar or frequently bought together.',
+                'ex3-task1-title': 'Task 3.1:',
+                'ex3-task1-desc': 'Find all products related to a laptop in your database. How many similar or frequently bought-together products are there?',
+                'h-ex3-paths': 'Customer Purchase Paths',
+                'p-ex3-paths-desc': 'Analyze customer purchase behavior and find frequent paths.',
+                'ex3-task2-title': 'Task 3.2:',
+                'ex3-task2-desc': 'Find a customer\'s complete purchase history in chronological order.',
+                'h-ex3-categories': 'Category Hierarchies',
+                'p-ex3-cat-desc': 'Explore products within categories and sub-categories.',
+                'ex3-task3-title': 'Task 3.3:',
+                'ex3-task3-desc': 'Calculate statistics for each category: product count, average price, min/max price.',
+                'h-ex3-shortest': 'Shortest Paths',
+                'p-ex3-short-desc': 'Find the shortest relationship path between two products.',
+                'ex3-task4-title': 'Task 3.4:',
+                'ex3-task4-desc': 'Find the shortest path between any two products in your graph. What does this tell you about their relationship?',
+                'h-exercise-4': 'Exercise 4: Recommendation Engine',
+                'p-ex4-intro': 'Build a product recommendation system using graph analysis and collaborative filtering.',
+                'h-ex4-collab': 'Collaborative Filtering',
+                'p-ex4-collab-desc': 'Find products purchased by similar customers.',
+                'ex4-task1-title': 'Task 4.1:',
+                'ex4-task1-desc': 'Find 10 product recommendations for a customer based on what similar customers bought.',
+                'h-ex4-copruchase': 'Co-Purchase Analysis',
+                'p-ex4-copur-desc': '"Customers who bought X also bought Y" - the classic recommendation.',
+                'ex4-task2-title': 'Task 4.2:',
+                'ex4-task2-desc': 'List the top 10 products most frequently bought alongside a gaming laptop.',
+                'h-ex4-category': 'Category-Based Recommendations',
+                'p-ex4-cat-desc': 'Recommend products from the same category.',
+                'ex4-task3-title': 'Task 4.3:',
+                'ex4-task3-desc': 'Build a hybrid recommendation: combine collaborative filtering, co-purchase, and category-based recommendations. Weight them appropriately.',
+                'h-exercise-5': 'Exercise 5: Knowledge Graph',
+                'p-ex5-intro': 'Model a semantic ontology for the MegaStore domain and build a knowledge graph.',
+                'h-ex5-ontology': 'Define Product Ontology',
+                'p-ex5-onto-desc': 'Create concept nodes and relationships that represent domain knowledge.',
+                'h-ex5-semantic': 'Semantic Relationships',
+                'p-ex5-sem-desc': 'Create semantic relationships beyond simple purchases.',
+                'h-ex5-infer': 'Inference & Reasoning',
+                'p-ex5-infer-desc': 'Use graph patterns to derive new knowledge.',
+                'ex5-task-title': 'Task 5.1:',
+                'ex5-task-desc': 'Build a knowledge graph for MegaStore with at least 3 levels of concept hierarchy. Link products to concepts and create semantic relationships.',
+                'h-bonus': 'Bonus Tasks',
+                'h-bonus-algorithms': 'Graph Algorithms',
+                'h-bonus-pagerank': 'PageRank',
+                'p-bonus-pagerank-desc': 'Calculate importance of products based on network structure.',
+                'h-bonus-community': 'Community Detection',
+                'p-bonus-community-desc': 'Find groups of related products using Louvain algorithm.',
+                'h-bonus-python': 'Python Integration',
+                'p-bonus-python-desc': 'Access Neo4j from Python using the official driver.',
+                'h-bonus-export': 'Export & Visualization',
+                'p-bonus-export-desc': 'Export graph data for visualization in external tools.',
+                'h-summary': 'Summary & Troubleshooting',
+                'h-key-concepts': 'Key Concepts',
+                'strong-nodes': 'Nodes:',
+                'text-nodes-summary': 'Entities with labels and properties',
+                'strong-rels': 'Relationships:',
+                'text-rels-summary': 'Typed connections between nodes with properties',
+                'strong-cypher': 'Cypher:',
+                'text-cypher-summary': 'Intuitive query language for pattern matching',
+                'strong-performance': 'Performance:',
+                'text-performance-summary': 'O(1) relationship traversal, perfect for connected data',
+                'strong-semantics': 'Semantics:',
+                'text-semantics-summary': 'Rich relationship types enable knowledge representation',
+                'h-troubleshooting': 'Troubleshooting',
+                'warn-ports-title': 'Port Already in Use:',
+                'warn-ports-text': 'If port 7474 is busy, use docker run -p 8080:7474 ... and access at localhost:8080',
+                'warn-csv-title': 'LOAD CSV Not Finding Files:',
+                'warn-csv-text': 'Ensure CSV files are in /var/lib/neo4j/import/ inside the container. Use docker cp file.csv neo4j-container:/var/lib/neo4j/import/',
+                'warn-memory-title': 'Out of Memory:',
+                'warn-memory-text': 'Increase Docker memory: docker run -e NEO4J_dbms_memory_heap_max__size=4g ...',
+                'warn-timeout-title': 'Query Timeout:',
+                'warn-timeout-text': 'Add LIMIT clause or use indexes. Check execution plan with EXPLAIN/PROFILE',
+                'h-next-steps': 'Next Steps',
+                'li-next-1': 'Explore Neo4j documentation: https://neo4j.com/docs/',
+                'li-next-2': 'Learn graph algorithms with Neo4j Graph Data Science library',
+                'li-next-3': 'Build production applications with Neo4j drivers (Python, JavaScript, Java)',
+                'li-next-4': 'Join the Neo4j community and explore real-world use cases',
+            },
+            de: {
+                'back-label': 'Zurück zur Übersicht',
+                'nav-title': 'Neo4j Lab',
+                'nav-learning-goals': 'Lernziele',
+                'nav-setup': 'Setup & Installation',
+                'nav-theory': 'Theorie',
+                'nav-data-model': 'Graph-Datenmodell',
+                'nav-ex1': 'Übung 1: Cypher Grundlagen',
+                'nav-ex2': 'Übung 2: Daten laden',
+                'nav-ex3': 'Übung 3: Graph-Abfragen',
+                'nav-ex4': 'Übung 4: Empfehlungen',
+                'nav-ex5': 'Übung 5: Knowledge Graph',
+                'nav-bonus': 'Bonusaufgaben',
+                'nav-summary': 'Zusammenfassung & Fehlerbehebung',
+                'hero-title': 'Neo4j Lab - Graph Datenbank & Knowledge Graphs',
+                'hero-subtitle': 'Kapitel 5: Ontologien und Graph-Datenmodellierung',
+                'hero-difficulty': 'Schwierigkeit: Mittelstufe',
+                'hero-time': 'Zeit: 3-4 Stunden',
+                'hero-course-text': 'Big Data Lab • Prof. Dr. Robert Butscher • THWS',
+                'h-learning-goals': 'Lernziele',
+                'lg1-title': 'Graph-Datenmodellierung',
+                'lg1-desc': 'Verstehen Sie, wie Sie reale Beziehungen als Property Graph mit Knoten, Kanten und Eigenschaften modellieren.',
+                'lg2-title': 'Cypher-Abfragesprache',
+                'lg2-desc': 'Lernen Sie Cypher, die mächtige Abfragesprache für Neo4j, um Graph-Muster zu erstellen und abzufragen.',
+                'lg3-title': 'Beziehungsanalyse',
+                'lg3-desc': 'Analysieren Sie komplexe Beziehungsmuster und entdecken Sie Erkenntnisse durch Graph-Durchlauf.',
+                'lg4-title': 'Knowledge Graphs',
+                'lg4-desc': 'Erstellen Sie semantische Knowledge Graphs und Ontologien, um Domänenwissen zu repräsentieren.',
+                'lg5-title': 'Relational vs. Graph',
+                'lg5-desc': 'Vergleichen Sie Graphendatenbanken mit relationalen Modellen und verstehen Sie, wann jede Stärke hat.',
+                'h-setup': 'Setup & Installation',
+                'h-docker-setup': 'Docker-Installation',
+                'p-docker-intro': 'Starten Sie Neo4j mit Docker. Dies richtet eine vollständige Neo4j-Instanz mit der webbasierten Neo4j Browser-Schnittstelle ein.',
+                'li-docker-1': 'Führt Neo4j in einem getrennten Container aus',
+                'li-docker-2': 'Ordnet Port 7474 der Web-Schnittstelle (Neo4j Browser) zu',
+                'li-docker-3': 'Ordnet Port 7687 dem Bolt-Protokoll (programmgesteuerte Zugriff) zu',
+                'li-docker-4': 'Setzt das Standardkennwort auf "password123"',
+                'h-access-browser': 'Zugriff auf Neo4j Browser',
+                'li-access-1': 'Öffnen Sie Ihren Browser und navigieren Sie zu http://localhost:7474',
+                'li-access-2': 'Melden Sie sich mit Benutzername neo4j und Kennwort password123 an',
+                'li-access-3': 'Sie werden aufgefordert, das Kennwort beim ersten Login zu ändern',
+                'li-access-4': 'Erstellen Sie ein neues Kennwort und merken Sie es sich für zukünftige Sitzungen',
+                'info-docker-title': 'ℹ Info:',
+                'info-docker-text': 'Wenn Port 7474 bereits verwendet wird, ordnen Sie ihn einem anderen Port zu: -p 8080:7474',
+                'h-theory': 'Theorie: Graphendatenbanken',
+                'h-what-is-graph': 'Was ist eine Graphendatenbank?',
+                'p-what-is-graph': 'Eine Graphendatenbank ist ein NoSQL-Datenbanktyp, der für die Speicherung und Abfrage hochverbundener Daten optimiert ist. Anstatt Daten in Tabellen mit Zeilen und Spalten (relationales Modell) zu speichern, verwenden Graphendatenbanken ein Property-Graph-Modell bestehend aus:',
+                'h-nodes': 'Knoten',
+                'p-nodes': 'Repräsentieren Entitäten (z. B. Produkt, Kunde, Kategorie). Jeder Knoten kann Etiketten (Tags) und Eigenschaften (Schlüssel-Wert-Paare) haben.',
+                'h-relationships': 'Beziehungen',
+                'p-relationships': 'Repräsentieren Verbindungen zwischen Knoten. Sie haben einen Typ (Richtung) und können auch Eigenschaften haben.',
+                'h-properties': 'Eigenschaften',
+                'p-properties': 'Schlüssel-Wert-Paare, die an Knoten oder Beziehungen angehängt sind. Eigenschaften speichern atomare Werte (Zeichenketten, Zahlen, Boolesche Werte, Daten).',
+                'h-why-graphs': 'Warum Graphs besser sind als Tabellen',
+                'th-aspect': 'Aspekt',
+                'th-relational': 'Relational (SQL)',
+                'th-graph': 'Graph (Neo4j)',
+                'td-relationships': 'Beziehungen',
+                'td-rel-sql': 'Fremdschlüssel, JOIN-Vorgänge',
+                'td-rel-graph': 'Native Objekte höchster Ordnung',
+                'td-performance': 'Leistung',
+                'td-perf-sql': 'Verlangsamt sich mit vielen JOINs (O(n))',
+                'td-perf-graph': 'Konstante Zeit-Durchlauf (O(1))',
+                'td-patterns': 'Mustererkennung',
+                'td-pattern-sql': 'Komplexe Multi-Tabellen-Abfragen',
+                'td-pattern-graph': 'Natürliche Graph-Muster',
+                'td-semantics': 'Semantik',
+                'td-sem-sql': 'Begrenzte Beziehungsbedeutung',
+                'td-sem-graph': 'Reiche semantische Beziehungen',
+                'h-use-cases': 'Anwendungsfälle für Graphendatenbanken',
+                'strong-social': 'Soziale Netzwerke:',
+                'text-social': 'Freunde finden, gegenseitige Verbindungen, Community-Erkennung.',
+                'strong-recommend': 'Empfehlungen:',
+                'text-recommend': '"Kunden, die X kauften, kauften auch Y" oder Inhaltsempfehlungen.',
+                'strong-fraud': 'Betrugserkennung:',
+                'text-fraud': 'Identifizierung verdächtiger Muster in Transaktionsnetzwerken.',
+                'strong-knowledge': 'Knowledge Graphs:',
+                'text-knowledge': 'Wikipedia, Google Knowledge Graph, semantische Suche.',
+                'strong-identity': 'Identität & Zugang:',
+                'text-identity': 'Verwaltung komplexer Berechtigungshierarchien.',
+                'strong-iot': 'IoT & Sensoren:',
+                'text-iot': 'Modellierung von Gerätebeziehungen und Datenflüssen.',
+                'h-data-model': 'MegaStore Graph-Datenmodell',
+                'p-megastore-intro': 'Wir werden die MegaStore-E-Commerce-Plattform als Graph modellieren. Hier ist die konzeptionelle Struktur:',
+                'h-node-types': 'Knotentypen',
+                'th-node-label': 'Etikett',
+                'th-node-desc': 'Beschreibung',
+                'th-node-example': 'Beispieleigenschaften',
+                'td-product': 'Produkt',
+                'td-product-desc': 'Ein zum Verkauf stehendes Produkt',
+                'td-product-props': 'id, name, price, sku, stock',
+                'td-customer': 'Kunde',
+                'td-customer-desc': 'Ein Käufer',
+                'td-customer-props': 'id, name, email, country, signup_date',
+                'td-category': 'Kategorie',
+                'td-category-desc': 'Produktklassifizierung',
+                'td-category-props': 'id, name, slug',
+                'td-supplier': 'Lieferant',
+                'td-supplier-desc': 'Produktanbieter',
+                'td-supplier-props': 'id, name, country, rating',
+                'h-relationship-types': 'Beziehungstypen',
+                'th-rel-type': 'Typ',
+                'th-rel-connects': 'Verbindungen',
+                'th-rel-meaning': 'Bedeutung',
+                'td-rel-bought': 'PURCHASED',
+                'td-rel-bought-con': 'Kunde → Produkt',
+                'td-rel-bought-mean': 'Kunde kaufte Produkt (mit Menge, Datum)',
+                'td-rel-together': 'BOUGHT_TOGETHER',
+                'td-rel-together-con': 'Produkt → Produkt',
+                'td-rel-together-mean': 'Produkte häufig zusammen gekauft',
+                'td-rel-similar': 'SIMILAR_TO',
+                'td-rel-similar-con': 'Produkt → Produkt',
+                'td-rel-similar-mean': 'Produkte sind ähnlich (Alternative)',
+                'td-rel-belongs': 'BELONGS_TO',
+                'td-rel-belongs-con': 'Produkt → Kategorie',
+                'td-rel-belongs-mean': 'Produkt ist in Kategorie',
+                'td-rel-supplies': 'SUPPLIES',
+                'td-rel-supplies-con': 'Lieferant → Produkt',
+                'td-rel-supplies-mean': 'Lieferant stellt Produkt bereit',
+                'td-rel-referred': 'REFERRED_BY',
+                'td-rel-referred-con': 'Kunde → Kunde',
+                'td-rel-referred-mean': 'Kundenempfehlungsbeziehung',
+                'h-visual-model': 'Visuelles Graph-Diagramm',
+                'h-exercise-1': 'Übung 1: Erste Schritte mit Cypher',
+                'p-ex1-intro': 'Lernen Sie die Grundlagen von Cypher, der Abfragesprache von Neo4j. Wir erstellen Knoten, passen Muster an und geben Ergebnisse zurück.',
+                'h-ex1-create': 'CREATE: Knoten zum Graph hinzufügen',
+                'p-ex1-create-desc': 'Die CREATE-Anweisung fügt dem Graph neue Knoten hinzu.',
+                'ex1-task-title': 'Aufgabe 1.1:',
+                'ex1-task-desc': 'Erstellen Sie 3 Produktknoten mit unterschiedlichen Namen und Preisen. Verwenden Sie den obigen Code als Vorlage.',
+                'h-ex1-match': 'MATCH: Knoten finden',
+                'p-ex1-match-desc': 'Die MATCH-Anweisung findet Knoten, die einem Muster entsprechen.',
+                'ex1-task2-title': 'Aufgabe 1.2:',
+                'ex1-task2-desc': 'Schreiben Sie eine Abfrage, um alle Produkte mit einem Preis zwischen 500 und 1500 zu finden. Verwenden Sie MATCH- und WHERE-Klauseln.',
+                'h-ex1-relationships': 'Beziehungen erstellen',
+                'p-ex1-rel-desc': 'Verbinden Sie Knoten mit Beziehungen mithilfe der CREATE-Anweisung.',
+                'ex1-task3-title': 'Aufgabe 1.3:',
+                'ex1-task3-desc': 'Erstellen Sie einen Kundenknoten und stellen Sie eine PURCHASED-Beziehung zu einem Ihrer Produkte her.',
+                'h-ex1-traverse': 'Beziehungen durchlaufen',
+                'p-ex1-traverse-desc': 'Folgen Sie Beziehungen, um verbundene Knoten zu entdecken.',
+                'ex1-task4-title': 'Aufgabe 1.4:',
+                'ex1-task4-desc': 'Finden Sie alle Produkte, die ein bestimmter Kunde gekauft hat. Ändern Sie die Abfrage mit einer Kunden-ID Ihrer Wahl.',
+                'h-exercise-2': 'Übung 2: MegaStore-Daten laden',
+                'p-ex2-intro': 'Importieren Sie die CSV-Datendateien (Produkte, Kunden, Beziehungen) in Neo4j mithilfe von LOAD CSV.',
+                'h-ex2-products': 'Produkte laden',
+                'p-ex2-products-desc': 'Laden Sie 20.000 Produkte aus products.csv.',
+                'h-ex2-customers': 'Kunden laden',
+                'p-ex2-customers-desc': 'Laden Sie 30.000 Kunden aus customers.csv.',
+                'h-ex2-relationships': 'Kaufbeziehungen laden',
+                'p-ex2-rel-desc': 'Laden Sie Kundenkäufe aus customer_relationships.csv.',
+                'h-ex2-categories': 'Kategorien laden',
+                'p-ex2-cat-desc': 'Erstellen Sie Kategorieknoten aus categories.json.',
+                'h-ex2-belongs': 'BELONGS_TO-Beziehungen erstellen',
+                'p-ex2-belongs-desc': 'Verbinden Sie Produkte mit ihren Kategorien aus product_relationships.csv.',
+                'h-ex2-indexes': 'Indizes erstellen',
+                'p-ex2-index-desc': 'Erstellen Sie Indizes für schnellere Abfragen bei häufigen Eigenschaften.',
+                'info-ex2-title': 'ℹ Info:',
+                'info-ex2-text': 'Platzieren Sie CSV-Dateien im Neo4j-Verzeichnis import/, bevor Sie LOAD CSV-Befehle ausführen.',
+                'ex2-task-title': 'Aufgabe 2.1:',
+                'ex2-task-desc': 'Führen Sie alle obigen LOAD CSV-Abfragen aus, um Ihren Graph zu füllen. Überprüfen Sie die geladenen Daten mit: MATCH (n) RETURN count(n);',
+                'h-exercise-3': 'Übung 3: Graph-Abfragen',
+                'p-ex3-intro': 'Entdecken Sie Muster im MegaStore-Graph durch das Schreiben erweiterter Cypher-Abfragen.',
+                'h-ex3-related': 'Verwandte Produkte finden',
+                'p-ex3-related-desc': 'Suchen Sie nach Produkten, die ähnlich sind oder häufig zusammen gekauft werden.',
+                'ex3-task1-title': 'Aufgabe 3.1:',
+                'ex3-task1-desc': 'Finden Sie alle Produkte in Ihrer Datenbank, die sich auf einen Laptop beziehen. Wie viele ähnliche oder häufig zusammen gekaufte Produkte gibt es?',
+                'h-ex3-paths': 'Kundenkaufpfade',
+                'p-ex3-paths-desc': 'Analysieren Sie das Kundenkaufverhalten und finden Sie häufige Pfade.',
+                'ex3-task2-title': 'Aufgabe 3.2:',
+                'ex3-task2-desc': 'Finden Sie die vollständige Kaufhistorie eines Kunden in chronologischer Reihenfolge.',
+                'h-ex3-categories': 'Kategoriehierarchien',
+                'p-ex3-cat-desc': 'Erkunden Sie Produkte in Kategorien und Unterkategorien.',
+                'ex3-task3-title': 'Aufgabe 3.3:',
+                'ex3-task3-desc': 'Berechnen Sie Statistiken für jede Kategorie: Produktanzahl, Durchschnittspreis, Min./Max.-Preis.',
+                'h-ex3-shortest': 'Kürzeste Pfade',
+                'p-ex3-short-desc': 'Suchen Sie den kürzesten Beziehungspfad zwischen zwei Produkten.',
+                'ex3-task4-title': 'Aufgabe 3.4:',
+                'ex3-task4-desc': 'Finden Sie den kürzesten Pfad zwischen zwei beliebigen Produkten in Ihrem Graph. Was sagt dies über ihre Beziehung aus?',
+                'h-exercise-4': 'Übung 4: Empfehlungs-Engine',
+                'p-ex4-intro': 'Erstellen Sie ein Produktempfehlungssystem mit Graphanalyse und kollaborativem Filtern.',
+                'h-ex4-collab': 'Kollaboratives Filtern',
+                'p-ex4-collab-desc': 'Suchen Sie nach Produkten, die von ähnlichen Kunden gekauft wurden.',
+                'ex4-task1-title': 'Aufgabe 4.1:',
+                'ex4-task1-desc': 'Finden Sie 10 Produktempfehlungen für einen Kunden basierend auf dem, was ähnliche Kunden gekauft haben.',
+                'h-ex4-copruchase': 'Co-Purchase-Analyse',
+                'p-ex4-copur-desc': '"Kunden, die X kauften, kauften auch Y" - die klassische Empfehlung.',
+                'ex4-task2-title': 'Aufgabe 4.2:',
+                'ex4-task2-desc': 'Listet die Top 10-Produkte auf, die zusammen mit einem Gaming-Laptop gekauft werden.',
+                'h-ex4-category': 'Kategoriebasierte Empfehlungen',
+                'p-ex4-cat-desc': 'Empfehlen Sie Produkte aus der gleichen Kategorie.',
+                'ex4-task3-title': 'Aufgabe 4.3:',
+                'ex4-task3-desc': 'Erstellen Sie eine Hybrid-Empfehlung: kombinieren Sie Collaborative Filtering, Co-Purchase und kategoriebasierte Empfehlungen. Gewichten Sie sie angemessen.',
+                'h-exercise-5': 'Übung 5: Knowledge Graph',
+                'p-ex5-intro': 'Modellieren Sie eine semantische Ontologie für die MegaStore-Domäne und erstellen Sie einen Knowledge Graph.',
+                'h-ex5-ontology': 'Produktontologie definieren',
+                'p-ex5-onto-desc': 'Erstellen Sie Konzeptknoten und Beziehungen, die Domänenwissen darstellen.',
+                'h-ex5-semantic': 'Semantische Beziehungen',
+                'p-ex5-sem-desc': 'Erstellen Sie semantische Beziehungen jenseits einfacher Käufe.',
+                'h-ex5-infer': 'Schlussfolgerung & Argumentation',
+                'p-ex5-infer-desc': 'Verwenden Sie Graph-Muster, um neues Wissen abzuleiten.',
+                'ex5-task-title': 'Aufgabe 5.1:',
+                'ex5-task-desc': 'Erstellen Sie einen Knowledge Graph für MegaStore mit mindestens 3 Ebenen der Konzepthierarchie. Verknüpfen Sie Produkte mit Konzepten und erstellen Sie semantische Beziehungen.',
+                'h-bonus': 'Bonusaufgaben',
+                'h-bonus-algorithms': 'Graph-Algorithmen',
+                'h-bonus-pagerank': 'PageRank',
+                'p-bonus-pagerank-desc': 'Berechnen Sie die Wichtigkeit von Produkten basierend auf der Netzwerkstruktur.',
+                'h-bonus-community': 'Community-Erkennung',
+                'p-bonus-community-desc': 'Suchen Sie nach Produktgruppen mithilfe des Louvain-Algorithmus.',
+                'h-bonus-python': 'Python-Integration',
+                'p-bonus-python-desc': 'Greifen Sie auf Neo4j aus Python mit dem offiziellen Driver zu.',
+                'h-bonus-export': 'Export & Visualisierung',
+                'p-bonus-export-desc': 'Exportieren Sie Graphdaten zur Visualisierung in externen Tools.',
+                'h-summary': 'Zusammenfassung & Fehlerbehebung',
+                'h-key-concepts': 'Schlüsselkonzepte',
+                'strong-nodes': 'Knoten:',
+                'text-nodes-summary': 'Entitäten mit Etiketten und Eigenschaften',
+                'strong-rels': 'Beziehungen:',
+                'text-rels-summary': 'Typisierte Verbindungen zwischen Knoten mit Eigenschaften',
+                'strong-cypher': 'Cypher:',
+                'text-cypher-summary': 'Intuitive Abfragesprache zur Mustererkennung',
+                'strong-performance': 'Leistung:',
+                'text-performance-summary': 'O(1)-Beziehungsdurchlauf, perfekt für verbundene Daten',
+                'strong-semantics': 'Semantik:',
+                'text-semantics-summary': 'Reiche Beziehungstypen ermöglichen Wissensrepräsentation',
+                'h-troubleshooting': 'Fehlerbehebung',
+                'warn-ports-title': 'Port wird bereits verwendet:',
+                'warn-ports-text': 'Wenn Port 7474 belegt ist, ordnen Sie ihn einem anderen Port zu: docker run -p 8080:7474 ... und greifen Sie auf localhost:8080 zu',
+                'warn-csv-title': 'LOAD CSV findet Dateien nicht:',
+                'warn-csv-text': 'Stellen Sie sicher, dass CSV-Dateien in /var/lib/neo4j/import/ im Container vorhanden sind. Verwenden Sie docker cp file.csv neo4j-container:/var/lib/neo4j/import/',
+                'warn-memory-title': 'Speicher läuft aus:',
+                'warn-memory-text': 'Erhöhen Sie den Docker-Speicher: docker run -e NEO4J_dbms_memory_heap_max__size=4g ...',
+                'warn-timeout-title': 'Abfrage-Timeout:',
+                'warn-timeout-text': 'Fügen Sie LIMIT-Klausel hinzu oder verwenden Sie Indizes. Überprüfen Sie Ausführungsplan mit EXPLAIN/PROFILE',
+                'h-next-steps': 'Nächste Schritte',
+                'li-next-1': 'Erkunden Sie die Neo4j-Dokumentation: https://neo4j.com/docs/',
+                'li-next-2': 'Lernen Sie Graph-Algorithmen mit Neo4j Graph Data Science-Bibliothek',
+                'li-next-3': 'Erstellen Sie Produktionsanwendungen mit Neo4j-Treibern (Python, JavaScript, Java)',
+                'li-next-4': 'Treten Sie der Neo4j-Community bei und erkunden Sie reale Anwendungsfälle',
+            }
+        };
+
+        // Arabic translations would be added here (due to length, continuing in next message)
+        // Ukrainian translations would be added here
+        // Spanish translations would be added here
+        // Turkish translations would be added here
+
+        // Initialize highlight.js
+        hljs.highlightAll();
+
+        // Copy code to clipboard
+        function copyCode(btn) {
+            const code = btn.parentElement.querySelector('code').innerText;
+            navigator.clipboard.writeText(code).then(() => {
+                const originalText = btn.textContent;
+                btn.textContent = 'Copied!';
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                }, 2000);
+            });
+        }
+
+        // Scroll to section
+        function scrollToSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            section.scrollIntoView({ behavior: 'smooth' });
+
+            // Update active nav link
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+            event.target.closest('.nav-link').classList.add('active');
+        }
+
+        // Set language
+        function setLanguage(lang) {
+            // Update button states
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            // Set direction
+            if (lang === 'ar') {
+                document.documentElement.dir = 'rtl';
+            } else {
+                document.documentElement.dir = 'ltr';
+            }
+
+            // Update all text elements
+            const trans = translations[lang] || translations.en;
+            Object.keys(trans).forEach(key => {
+                const element = document.getElementById(key);
+                if (element) {
+                    element.textContent = trans[key];
+                }
+            });
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            hljs.highlightAll();
+        });
+    </script>
+</body>
+</html>

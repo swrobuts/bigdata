@@ -1,0 +1,57 @@
+# MongoDB Lab - MegaStore Data
+# Quick Start: docker-compose up -d
+# Access: MongoDB on localhost:27017, Mongo Express on localhost:8081
+
+version: '3.8'
+
+services:
+  mongodb:
+    image: mongo:7.0
+    container_name: megastore-mongodb
+    ports:
+      - "27017:27017"
+    environment:
+      # No authentication for educational purposes
+      MONGO_INITDB_DATABASE: megastore
+    volumes:
+      # Mount data files for import
+      - ../data/megastore:/data/megastore:ro
+      # Mount init script
+      - ./init/init-megastore.sh:/docker-entrypoint-initdb.d/01-init-megastore.sh:ro
+      # Persistent data storage
+      - mongodb_data:/data/db
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongosh localhost:27017/megastore --quiet
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - megastore
+
+  # Mongo Express - Web UI for MongoDB
+  mongo-express:
+    image: mongo-express:latest
+    container_name: megastore-mongo-express
+    ports:
+      - "8081:8081"
+    environment:
+      ME_CONFIG_MONGODB_URL: mongodb://mongodb:27017
+      ME_CONFIG_MONGODB_ADMINUSERNAME: ""
+      ME_CONFIG_MONGODB_ADMINPASSWORD: ""
+      ME_CONFIG_BASICAUTH_USERNAME: admin
+      ME_CONFIG_BASICAUTH_PASSWORD: pass
+    depends_on:
+      - mongodb
+    networks:
+      - megastore
+
+volumes:
+  mongodb_data:
+
+networks:
+  megastore:
+    driver: bridge

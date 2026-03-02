@@ -1,0 +1,1909 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MongoDB Lab - Document Store & Python</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Prism.js for syntax highlighting -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-json.min.js"></script>
+
+    <!-- React and ReactDOM from CDN -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <style>
+        * {
+            --color-primary: #E8792F;
+            --color-dark: #1B3A5C;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+
+        html[dir="rtl"] body {
+            direction: rtl;
+            text-align: right;
+        }
+
+        html[dir="rtl"] button,
+        html[dir="rtl"] .sidebar,
+        html[dir="rtl"] nav {
+            direction: rtl;
+        }
+
+        .navbar {
+            background-color: var(--color-dark);
+        }
+
+        .navbar a {
+            color: #E8792F;
+        }
+
+        .sidebar {
+            background-color: #f8f9fa;
+        }
+
+        .sidebar-link {
+            color: var(--color-dark);
+            border-left: 3px solid transparent;
+            padding-left: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        html[dir="rtl"] .sidebar-link {
+            border-left: none;
+            border-right: 3px solid transparent;
+            padding-left: 0;
+            padding-right: 1rem;
+        }
+
+        .sidebar-link.active {
+            color: #E8792F;
+            border-left-color: #E8792F;
+        }
+
+        html[dir="rtl"] .sidebar-link.active {
+            border-left: none;
+            border-right-color: #E8792F;
+        }
+
+        .code-block {
+            background-color: #2d2d2d;
+            border-radius: 0.5rem;
+            position: relative;
+            margin-bottom: 1rem;
+        }
+
+        .copy-button {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            background-color: #E8792F;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 0.25rem;
+            cursor: pointer;
+            font-size: 0.875rem;
+            transition: background-color 0.3s ease;
+        }
+
+        html[dir="rtl"] .copy-button {
+            right: auto;
+            left: 0.5rem;
+        }
+
+        .copy-button:hover {
+            background-color: #d16819;
+        }
+
+        .copy-button.copied {
+            background-color: #28a745;
+        }
+
+        .hero-section {
+            background: linear-gradient(135deg, var(--color-dark) 0%, #2d4a78 100%);
+            color: white;
+        }
+
+        .section-header {
+            color: var(--color-dark);
+            border-left: 4px solid #E8792F;
+            padding-left: 1rem;
+        }
+
+        html[dir="rtl"] .section-header {
+            border-left: none;
+            border-right: 4px solid #E8792F;
+            padding-left: 0;
+            padding-right: 1rem;
+        }
+
+        .learning-objective {
+            background-color: #f0f4f8;
+            border-left: 4px solid #E8792F;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        html[dir="rtl"] .learning-objective {
+            border-left: none;
+            border-right: 4px solid #E8792F;
+        }
+
+        .terminal-block {
+            background-color: #1e1e1e;
+            color: #00ff00;
+            font-family: 'Courier New', monospace;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        .difficulty-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+
+        .difficulty-beginner {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .difficulty-intermediate {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+
+        .difficulty-advanced {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+
+        .prism-code {
+            padding: 1.5rem 1rem 1rem 1rem !important;
+            border-radius: 0.5rem;
+            overflow-x: auto;
+        }
+
+        .mobile-sidebar-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 40;
+        }
+
+        .mobile-sidebar-overlay.active {
+            display: block;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                position: fixed;
+                left: 0;
+                top: 64px;
+                width: 256px;
+                height: calc(100vh - 64px);
+                overflow-y: auto;
+                z-index: 50;
+                transform: translateX(-100%);
+                transition: transform 0.3s ease;
+            }
+
+            html[dir="rtl"] .sidebar {
+                left: auto;
+                right: 0;
+                transform: translateX(100%);
+            }
+
+            .sidebar.active {
+                transform: translateX(0);
+            }
+
+            html[dir="rtl"] .sidebar.active {
+                transform: translateX(0);
+            }
+        }
+
+        .smooth-scroll {
+            scroll-behavior: smooth;
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body class="bg-white smooth-scroll">
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect, useRef } = React;
+
+        // Translation data - all 6 languages
+        const translations = {
+            de: {
+                // Navigation
+                backToOverview: "← Zurück zur Übersicht",
+                language: "Sprache",
+                toggleMenu: "Menü",
+
+                // Header
+                title: "MongoDB Lab - Document Store & Python",
+                chapter: "Kapitel 5 - NoSQL Datenbanken",
+                difficulty: "Schwierigkeitsgrad",
+                beginner: "Anfänger",
+                estimatedTime: "Geschätzte Zeit",
+                hours: "2-3 Stunden",
+
+                // Sidebar sections
+                learningObjectives: "Lernziele",
+                setupInstallation: "Setup & Installation",
+                theoryOverview: "Theorie-Überblick",
+                dataModel: "MegaStore Datenmodell",
+                exercise1: "Übung 1: MongoDB Shell",
+                exercise2: "Übung 2: Python mit PyMongo",
+                exercise3: "Übung 3: Aggregation Pipeline",
+                exercise4: "Übung 4: Data Modeling",
+                bonusExercises: "Bonusaufgaben",
+                summary: "Zusammenfassung & Reflexion",
+                troubleshooting: "Fehlerbehebung",
+
+                // Content
+                objectives: [
+                    "Dokumentenorientierte Datenmodellierung verstehen",
+                    "CRUD-Operationen in MongoDB beherrschen",
+                    "PyMongo für Python-Integration nutzen",
+                    "Aggregation Pipelines verstehen",
+                    "Document Store mit relationalen Ansätzen vergleichen"
+                ],
+
+                setupTitle: "Setup & Installation",
+                setupIntro: "Starten Sie MongoDB in Docker mit folgendem Befehl:",
+                dockerRunCommand: "Docker-Befehl ausführen",
+                dockerComposeTitle: "Alternative: Docker Compose",
+                dockerComposeDesc: "Erstellen Sie eine docker-compose.yml für MongoDB und Mongo Express zusammen:",
+                verifyConnection: "Verbindung überprüfen",
+                verifySteps: [
+                    "Öffnen Sie Mongo Express unter http://localhost:8081",
+                    "Prüfen Sie die MongoDB-Verbindung in der Shell",
+                    "Erstellen Sie eine Test-Datenbank"
+                ],
+
+                theoryTitle: "Theorie-Überblick",
+                documentStore: "Was ist ein Document Store?",
+                documentStoreDesc: "Ein Document Store ist eine NoSQL-Datenbank, die Daten als halbstrukturierte Dokumente speichert (typischerweise JSON/BSON). Im Gegensatz zu relationalen Datenbanken bieten Document Stores Schema-Flexibilität und ermöglichen komplexe, verschachtelte Datenstrukturen.",
+                jsonBson: "JSON/BSON Format",
+                jsonBsonDesc: "MongoDB speichert Daten im BSON-Format (Binary JSON), das JSON erweitert und zusätzliche Datentypen wie Datum, ObjectID und Binärdaten unterstützt.",
+                collectionsVsTables: "Collections vs. Tabellen",
+                collectionsVsTablesDesc: "Collections sind das MongoDB-Äquivalent zu Tabellen, aber mit weniger strikten Schemaanforderungen. Dokumente in einer Collection können unterschiedliche Strukturen haben.",
+                schemaFlexibility: "Schema-Flexibilität",
+                schemaFlexibilityDesc: "MongoDB ermöglicht flexible Schemas, was ideal für sich entwickelnde Anforderungen ist. Neue Felder können ohne Migration hinzugefügt werden.",
+                whenToUseMongo: "Wann MongoDB verwenden?",
+                whenToUseMongoDesc: [
+                    "Halbstrukturierte oder verschachtelte Daten",
+                    "Schnelle Entwicklung mit sich ändernden Anforderungen",
+                    "Horizontale Skalierung (Sharding)",
+                    "Komplexe, Multi-Level-Datenstrukturen",
+                    "Größere Flexibilität als bei relationalen Datenbanken"
+                ],
+
+                megastoreTitle: "MegaStore Datenmodell",
+                megastoreIntro: "Das MegaStore e-Commerce-System enthält folgende Hauptdokumenttypen:",
+                productDoc: "Produkt-Dokument",
+                customerDoc: "Kunden-Dokument",
+                orderDoc: "Bestellung-Dokument",
+                reviewDoc: "Bewertungs-Dokument",
+                embeddedVsRef: "Embedding vs. Referenzierung",
+                embeddedVsRefDesc: "MongoDB unterstützt beide Ansätze: Dokumente können andere Dokumente enthalten (Embedding) oder auf sie verweisen (Referenzierung).",
+                embeddingGood: "Embedding eignet sich für:",
+                embeddingGoodItems: [
+                    "1:1 oder 1:wenige Beziehungen",
+                    "Daten, die zusammen gelesen werden",
+                    "Unbegrenzte Verschachtelung mit Grenzen"
+                ],
+                referencingGood: "Referenzierung eignet sich für:",
+                referencingGoodItems: [
+                    "1:viele oder viele:viele Beziehungen",
+                    "Sich wiederholende Daten (um Duplikate zu vermeiden)",
+                    "Große oder häufig aktualisierte Sub-Dokumente"
+                ],
+
+                exercise1Title: "Übung 1: Erste Schritte mit MongoDB Shell",
+                exercise1Intro: "Verbinden Sie sich mit MongoDB und führen Sie grundlegende Operationen durch.",
+                connectToMongo: "Mit MongoDB verbinden",
+                showDatabases: "Datenbanken anzeigen",
+                showCollections: "Collections anzeigen",
+                insertDocument: "Ein Dokument einfügen",
+                findDocuments: "Dokumente finden",
+                updateDocument: "Ein Dokument aktualisieren",
+                deleteDocument: "Ein Dokument löschen",
+
+                exercise2Title: "Übung 2: Python mit PyMongo",
+                exercise2Intro: "Verwenden Sie PyMongo, um mit MongoDB aus Python zu interagieren.",
+                pymongoPrepare: "PyMongo vorbereiten",
+                connectPython: "Mit PyMongo verbinden",
+                loadData: "MegaStore-Daten laden",
+                queryProducts: "Produkte nach Kategorie abfragen",
+                queryCustomers: "Kunden nach Stadt abfragen",
+                complexQueries: "Komplexe Abfragen (Preisbereich, Bewertungen)",
+
+                exercise3Title: "Übung 3: Aggregation Pipeline",
+                exercise3Intro: "Lernen Sie, komplexe Datenanalysen mit Aggregation Pipelines durchzuführen.",
+                revenueByCategory: "Umsatz nach Kategorie",
+                topCustomers: "Top 10 Kunden nach Bestellwert",
+                monthlySales: "Monatliche Verkaufstrends",
+                avgRatings: "Durchschnittliche Bewertungen pro Kategorie",
+
+                exercise4Title: "Übung 4: Data Modeling Challenge",
+                exercise4Intro: "Entwerfen Sie ein Schema für eine neue Funktion.",
+                designChallenge: "Gestaltungsaufgabe",
+                shoppingCart: "Entwerfen Sie ein Einkaufswagenmodell für Kunden",
+                discussTradeoffs: "Diskutieren Sie die Vor- und Nachteile von Embedding vs. Referenzierung für diesen Anwendungsfall",
+
+                bonusTitle: "Bonusaufgaben",
+                textSearch: "Textsuche in Produktbeschreibungen",
+                geospatial: "Geospatiale Abfragen (falls Kundenstandorte vorhanden sind)",
+                indexPerformance: "Abfrageleistung mit Indizes vergleichen",
+
+                summaryTitle: "Zusammenfassung & Reflexion",
+                keyTakeaways: "Wichtige Erkenntnisse",
+                keyTakeawaysItems: [
+                    "Document Stores sind flexibel und skalierbar, aber mit anderen Kompromissen",
+                    "Schema-Design ist entscheidend für Performance und Wartbarkeit",
+                    "Aggregation Pipelines sind kraftvoll für komplexe Analysen",
+                    "Embedding vs. Referenzierung sollte basierend auf Zugriffsmuster gewählt werden",
+                    "MongoDB ist ideal für Szenarien mit sich ändernden Anforderungen"
+                ],
+                whenToChoose: "Wann Sie MongoDB wählen sollten",
+                furtherReading: "Weiterführende Ressourcen",
+                mongoDBDocs: "MongoDB Dokumentation",
+                pymongoGuide: "PyMongo Anleitung",
+
+                troubleshootingTitle: "Fehlerbehebung",
+                commonErrors: "Häufige Fehler und Lösungen",
+                error1: "Docker Port ist bereits in Verwendung",
+                error1Solution: "Verwenden Sie einen anderen Port: docker run -p 27018:27017 ...",
+                error2: "Verbindung zu MongoDB abgelehnt",
+                error2Solution: "Prüfen Sie, ob MongoDB läuft: docker ps",
+                error3: "PyMongo ImportError",
+                error3Solution: "Installieren Sie PyMongo: pip install pymongo",
+
+                copyCode: "Code kopieren",
+                copied: "Kopiert!",
+                returnToTop: "Nach oben",
+
+                // Data examples
+                exampleProduct: "Beispiel-Produkt",
+                exampleCustomer: "Beispiel-Kunde",
+                exampleOrder: "Beispiel-Bestellung",
+                exampleReview: "Beispiel-Bewertung",
+            },
+            en: {
+                // Navigation
+                backToOverview: "← Back to Overview",
+                language: "Language",
+                toggleMenu: "Menu",
+
+                // Header
+                title: "MongoDB Lab - Document Store & Python",
+                chapter: "Chapter 5 - NoSQL Databases",
+                difficulty: "Difficulty",
+                beginner: "Beginner",
+                estimatedTime: "Estimated Time",
+                hours: "2-3 hours",
+
+                // Sidebar sections
+                learningObjectives: "Learning Objectives",
+                setupInstallation: "Setup & Installation",
+                theoryOverview: "Theory Overview",
+                dataModel: "MegaStore Data Model",
+                exercise1: "Exercise 1: MongoDB Shell",
+                exercise2: "Exercise 2: Python with PyMongo",
+                exercise3: "Exercise 3: Aggregation Pipeline",
+                exercise4: "Exercise 4: Data Modeling",
+                bonusExercises: "Bonus Tasks",
+                summary: "Summary & Reflection",
+                troubleshooting: "Troubleshooting",
+
+                // Content
+                objectives: [
+                    "Understand document-oriented data modeling",
+                    "Master CRUD operations in MongoDB",
+                    "Use PyMongo for Python integration",
+                    "Understand aggregation pipelines",
+                    "Compare document store with relational approach"
+                ],
+
+                setupTitle: "Setup & Installation",
+                setupIntro: "Start MongoDB in Docker with the following command:",
+                dockerRunCommand: "Docker Run Command",
+                dockerComposeTitle: "Alternative: Docker Compose",
+                dockerComposeDesc: "Create a docker-compose.yml for MongoDB and Mongo Express together:",
+                verifyConnection: "Verify Connection",
+                verifySteps: [
+                    "Open Mongo Express at http://localhost:8081",
+                    "Check MongoDB connection in the shell",
+                    "Create a test database"
+                ],
+
+                theoryTitle: "Theory Overview",
+                documentStore: "What is a Document Store?",
+                documentStoreDesc: "A document store is a NoSQL database that stores data as semi-structured documents (typically JSON/BSON). Unlike relational databases, document stores offer schema flexibility and allow complex, nested data structures.",
+                jsonBson: "JSON/BSON Format",
+                jsonBsonDesc: "MongoDB stores data in BSON format (Binary JSON), which extends JSON and supports additional data types like Date, ObjectID, and binary data.",
+                collectionsVsTables: "Collections vs. Tables",
+                collectionsVsTablesDesc: "Collections are MongoDB's equivalent to tables, but with less strict schema requirements. Documents in a collection can have different structures.",
+                schemaFlexibility: "Schema Flexibility",
+                schemaFlexibilityDesc: "MongoDB enables flexible schemas, which is ideal for evolving requirements. New fields can be added without migration.",
+                whenToUseMongo: "When to Use MongoDB?",
+                whenToUseMongoDesc: [
+                    "Semi-structured or nested data",
+                    "Rapid development with changing requirements",
+                    "Horizontal scaling (Sharding)",
+                    "Complex, multi-level data structures",
+                    "Greater flexibility than relational databases"
+                ],
+
+                megastoreTitle: "MegaStore Data Model",
+                megastoreIntro: "The MegaStore e-Commerce system contains the following main document types:",
+                productDoc: "Product Document",
+                customerDoc: "Customer Document",
+                orderDoc: "Order Document",
+                reviewDoc: "Review Document",
+                embeddedVsRef: "Embedding vs. Referencing",
+                embeddedVsRefDesc: "MongoDB supports both approaches: documents can contain other documents (Embedding) or reference them (Referencing).",
+                embeddingGood: "Embedding is good for:",
+                embeddingGoodItems: [
+                    "1:1 or 1:few relationships",
+                    "Data that is read together",
+                    "Limited nesting with bounds"
+                ],
+                referencingGood: "Referencing is good for:",
+                referencingGoodItems: [
+                    "1:many or many:many relationships",
+                    "Repeated data (to avoid duplicates)",
+                    "Large or frequently updated sub-documents"
+                ],
+
+                exercise1Title: "Exercise 1: Getting Started with MongoDB Shell",
+                exercise1Intro: "Connect to MongoDB and perform basic operations.",
+                connectToMongo: "Connect to MongoDB",
+                showDatabases: "Show Databases",
+                showCollections: "Show Collections",
+                insertDocument: "Insert a Document",
+                findDocuments: "Find Documents",
+                updateDocument: "Update a Document",
+                deleteDocument: "Delete a Document",
+
+                exercise2Title: "Exercise 2: Python with PyMongo",
+                exercise2Intro: "Use PyMongo to interact with MongoDB from Python.",
+                pymongoPrepare: "Prepare PyMongo",
+                connectPython: "Connect with PyMongo",
+                loadData: "Load MegaStore Data",
+                queryProducts: "Query Products by Category",
+                queryCustomers: "Query Customers by City",
+                complexQueries: "Complex Queries (Price Range, Ratings)",
+
+                exercise3Title: "Exercise 3: Aggregation Pipeline",
+                exercise3Intro: "Learn to perform complex data analysis with aggregation pipelines.",
+                revenueByCategory: "Revenue by Category",
+                topCustomers: "Top 10 Customers by Order Value",
+                monthlySales: "Monthly Sales Trends",
+                avgRatings: "Average Ratings per Category",
+
+                exercise4Title: "Exercise 4: Data Modeling Challenge",
+                exercise4Intro: "Design a schema for a new feature.",
+                designChallenge: "Design Challenge",
+                shoppingCart: "Design a shopping cart model for customers",
+                discussTradeoffs: "Discuss the pros and cons of embedding vs. referencing for this use case",
+
+                bonusTitle: "Bonus Tasks",
+                textSearch: "Text Search on Product Descriptions",
+                geospatial: "Geospatial Queries (if customer locations are available)",
+                indexPerformance: "Compare Query Performance with Indexes",
+
+                summaryTitle: "Summary & Reflection",
+                keyTakeaways: "Key Takeaways",
+                keyTakeawaysItems: [
+                    "Document stores are flexible and scalable, but with different trade-offs",
+                    "Schema design is critical for performance and maintainability",
+                    "Aggregation pipelines are powerful for complex analysis",
+                    "Embedding vs. referencing should be chosen based on access patterns",
+                    "MongoDB is ideal for scenarios with changing requirements"
+                ],
+                whenToChoose: "When You Should Choose MongoDB",
+                furtherReading: "Further Reading",
+                mongoDBDocs: "MongoDB Documentation",
+                pymongoGuide: "PyMongo Guide",
+
+                troubleshootingTitle: "Troubleshooting",
+                commonErrors: "Common Errors and Solutions",
+                error1: "Docker port is already in use",
+                error1Solution: "Use a different port: docker run -p 27018:27017 ...",
+                error2: "Connection to MongoDB refused",
+                error2Solution: "Check if MongoDB is running: docker ps",
+                error3: "PyMongo ImportError",
+                error3Solution: "Install PyMongo: pip install pymongo",
+
+                copyCode: "Copy Code",
+                copied: "Copied!",
+                returnToTop: "Back to Top",
+
+                // Data examples
+                exampleProduct: "Example Product",
+                exampleCustomer: "Example Customer",
+                exampleOrder: "Example Order",
+                exampleReview: "Example Review",
+            },
+            ar: {
+                // Navigation
+                backToOverview: "← العودة إلى نظرة عامة",
+                language: "اللغة",
+                toggleMenu: "القائمة",
+
+                // Header
+                title: "معمل MongoDB - مخزن المستندات و Python",
+                chapter: "الفصل 5 - قواعد بيانات NoSQL",
+                difficulty: "مستوى الصعوبة",
+                beginner: "مبتدئ",
+                estimatedTime: "الوقت المقدر",
+                hours: "ساعتين إلى 3 ساعات",
+
+                // Sidebar sections
+                learningObjectives: "أهداف التعلم",
+                setupInstallation: "الإعداد والتثبيت",
+                theoryOverview: "نظرة عامة على النظرية",
+                dataModel: "نموذج بيانات MegaStore",
+                exercise1: "التمرين 1: قذيفة MongoDB",
+                exercise2: "التمرين 2: Python مع PyMongo",
+                exercise3: "التمرين 3: خط أنابيب التجميع",
+                exercise4: "التمرين 4: نمذجة البيانات",
+                bonusExercises: "مهام إضافية",
+                summary: "الملخص والتفكير",
+                troubleshooting: "استكشاف الأخطاء",
+
+                // Content
+                objectives: [
+                    "فهم نمذجة البيانات الموجهة للمستندات",
+                    "إتقان عمليات CRUD في MongoDB",
+                    "استخدام PyMongo لتكامل Python",
+                    "فهم خطوط أنابيب التجميع",
+                    "مقارنة مخزن المستندات مع النهج العلائقي"
+                ],
+
+                setupTitle: "الإعداد والتثبيت",
+                setupIntro: "ابدأ MongoDB في Docker باستخدام الأمر التالي:",
+                dockerRunCommand: "أمر Docker Run",
+                dockerComposeTitle: "بديل: Docker Compose",
+                dockerComposeDesc: "أنشئ docker-compose.yml لـ MongoDB و Mongo Express معاً:",
+                verifyConnection: "التحقق من الاتصال",
+                verifySteps: [
+                    "افتح Mongo Express على http://localhost:8081",
+                    "تحقق من اتصال MongoDB في shell",
+                    "إنشاء قاعدة بيانات اختبار"
+                ],
+
+                theoryTitle: "نظرة عامة على النظرية",
+                documentStore: "ما هو مخزن المستندات؟",
+                documentStoreDesc: "مخزن المستندات هو قاعدة بيانات NoSQL تخزن البيانات كمستندات شبه منظمة (عادة JSON/BSON). على عكس قواعد البيانات العلائقية، توفر مخازن المستندات مرونة schema وتسمح بهياكل بيانات معقدة ومتداخلة.",
+                jsonBson: "تنسيق JSON/BSON",
+                jsonBsonDesc: "تخزن MongoDB البيانات بتنسيق BSON (Binary JSON)، والذي يوسع JSON ويدعم أنواع بيانات إضافية مثل التاريخ و ObjectID والبيانات الثنائية.",
+                collectionsVsTables: "المجموعات مقابل الجداول",
+                collectionsVsTablesDesc: "المجموعات هي معادل MongoDB للجداول، لكن مع متطلبات schema أقل صرامة. يمكن للمستندات في المجموعة أن يكون لها هياكل مختلفة.",
+                schemaFlexibility: "مرونة Schema",
+                schemaFlexibilityDesc: "تمكن MongoDB من schemaات مرنة، وهي مثالية للمتطلبات المتطورة. يمكن إضافة حقول جديدة بدون ترحيل.",
+                whenToUseMongo: "متى تستخدم MongoDB؟",
+                whenToUseMongoDesc: [
+                    "البيانات شبه المنظمة أو المتداخلة",
+                    "التطوير السريع مع المتطلبات المتغيرة",
+                    "التوسع الأفقي (التجزئة)",
+                    "هياكل بيانات معقدة متعددة المستويات",
+                    "مرونة أكبر من قواعد البيانات العلائقية"
+                ],
+
+                megastoreTitle: "نموذج بيانات MegaStore",
+                megastoreIntro: "يحتوي نظام MegaStore للتجارة الإلكترونية على أنواع المستندات الرئيسية التالية:",
+                productDoc: "مستند المنتج",
+                customerDoc: "مستند العميل",
+                orderDoc: "مستند الطلب",
+                reviewDoc: "مستند المراجعة",
+                embeddedVsRef: "الدمج مقابل الإشارة",
+                embeddedVsRefDesc: "يدعم MongoDB كلا الأسلوبين: يمكن للمستندات أن تحتوي على مستندات أخرى (الدمج) أو تشير إليها (الإشارة).",
+                embeddingGood: "الدمج مناسب لـ:",
+                embeddingGoodItems: [
+                    "علاقات 1:1 أو 1:قليل",
+                    "البيانات التي تُقرأ معاً",
+                    "التداخل المحدود مع الحدود"
+                ],
+                referencingGood: "الإشارة مناسبة لـ:",
+                referencingGoodItems: [
+                    "علاقات 1:كثير أو كثير:كثير",
+                    "البيانات المكررة (لتجنب التكرارات)",
+                    "المستندات الفرعية الكبيرة أو المحدثة بشكل متكرر"
+                ],
+
+                exercise1Title: "التمرين 1: البدء مع قذيفة MongoDB",
+                exercise1Intro: "الاتصال بـ MongoDB وتنفيذ العمليات الأساسية.",
+                connectToMongo: "الاتصال بـ MongoDB",
+                showDatabases: "عرض قواعد البيانات",
+                showCollections: "عرض المجموعات",
+                insertDocument: "إدراج مستند",
+                findDocuments: "البحث عن المستندات",
+                updateDocument: "تحديث مستند",
+                deleteDocument: "حذف مستند",
+
+                exercise2Title: "التمرين 2: Python مع PyMongo",
+                exercise2Intro: "استخدم PyMongo للتفاعل مع MongoDB من Python.",
+                pymongoPrepare: "تحضير PyMongo",
+                connectPython: "الاتصال بـ PyMongo",
+                loadData: "تحميل بيانات MegaStore",
+                queryProducts: "الاستعلام عن المنتجات حسب الفئة",
+                queryCustomers: "الاستعلام عن العملاء حسب المدينة",
+                complexQueries: "استعلامات معقدة (نطاق السعر، التقييمات)",
+
+                exercise3Title: "التمرين 3: خط أنابيب التجميع",
+                exercise3Intro: "تعلم إجراء تحليل بيانات معقد مع خطوط أنابيب التجميع.",
+                revenueByCategory: "الإيرادات حسب الفئة",
+                topCustomers: "أفضل 10 عملاء حسب قيمة الطلب",
+                monthlySales: "اتجاهات المبيعات الشهرية",
+                avgRatings: "متوسط التقييمات لكل فئة",
+
+                exercise4Title: "التمرين 4: تحدي نمذجة البيانات",
+                exercise4Intro: "صمم schema لميزة جديدة.",
+                designChallenge: "تحدي التصميم",
+                shoppingCart: "صمم نموذج سلة تسوق للعملاء",
+                discussTradeoffs: "ناقش إيجابيات وسلبيات الدمج مقابل الإشارة لحالة الاستخدام هذه",
+
+                bonusTitle: "مهام إضافية",
+                textSearch: "البحث عن النصوص في وصف المنتج",
+                geospatial: "الاستعلامات الجغرافية المكانية (إذا كانت مواقع العملاء متاحة)",
+                indexPerformance: "مقارنة أداء الاستعلام مع الفهارس",
+
+                summaryTitle: "الملخص والتفكير",
+                keyTakeaways: "النقاط الرئيسية",
+                keyTakeawaysItems: [
+                    "مخازن المستندات مرنة وقابلة للتوسع، ولكن مع مقايضات مختلفة",
+                    "تصميم Schema حرج للأداء والصيانة",
+                    "خطوط أنابيب التجميع قوية لتحليل معقد",
+                    "يجب اختيار الدمج مقابل الإشارة بناءً على أنماط الوصول",
+                    "MongoDB مثالي للسيناريوهات ذات المتطلبات المتغيرة"
+                ],
+                whenToChoose: "متى يجب عليك اختيار MongoDB",
+                furtherReading: "قراءة إضافية",
+                mongoDBDocs: "وثائق MongoDB",
+                pymongoGuide: "دليل PyMongo",
+
+                troubleshootingTitle: "استكشاف الأخطاء",
+                commonErrors: "الأخطاء الشائعة والحلول",
+                error1: "منفذ Docker قيد الاستخدام بالفعل",
+                error1Solution: "استخدم منفذ مختلف: docker run -p 27018:27017 ...",
+                error2: "تم رفض الاتصال بـ MongoDB",
+                error2Solution: "تحقق مما إذا كان MongoDB يعمل: docker ps",
+                error3: "خطأ استيراد PyMongo",
+                error3Solution: "تثبيت PyMongo: pip install pymongo",
+
+                copyCode: "نسخ الكود",
+                copied: "تم النسخ!",
+                returnToTop: "العودة إلى الأعلى",
+
+                // Data examples
+                exampleProduct: "منتج نموذجي",
+                exampleCustomer: "عميل نموذجي",
+                exampleOrder: "طلب نموذجي",
+                exampleReview: "مراجعة نموذجية",
+            },
+            uk: {
+                // Navigation
+                backToOverview: "← Назад до огляду",
+                language: "Мова",
+                toggleMenu: "Меню",
+
+                // Header
+                title: "MongoDB Lab - Document Store і Python",
+                chapter: "Розділ 5 - NoSQL Бази Даних",
+                difficulty: "Рівень складності",
+                beginner: "Початківець",
+                estimatedTime: "Орієнтовний час",
+                hours: "2-3 години",
+
+                // Sidebar sections
+                learningObjectives: "Цілі навчання",
+                setupInstallation: "Налаштування та встановлення",
+                theoryOverview: "Огляд теорії",
+                dataModel: "Модель даних MegaStore",
+                exercise1: "Вправа 1: MongoDB Shell",
+                exercise2: "Вправа 2: Python з PyMongo",
+                exercise3: "Вправа 3: Конвеєр агрегації",
+                exercise4: "Вправа 4: Моделювання даних",
+                bonusExercises: "Бонусні завдання",
+                summary: "Резюме та рефлексія",
+                troubleshooting: "Усунення неполадок",
+
+                // Content
+                objectives: [
+                    "Розуміти об'єктно-орієнтоване моделювання даних",
+                    "Оволодіти операціями CRUD у MongoDB",
+                    "Використовувати PyMongo для інтеграції Python",
+                    "Розуміти конвеєри агрегації",
+                    "Порівняти сховище документів із реляційним підходом"
+                ],
+
+                setupTitle: "Налаштування та встановлення",
+                setupIntro: "Запустіть MongoDB у Docker за допомогою наступної команди:",
+                dockerRunCommand: "Команда Docker Run",
+                dockerComposeTitle: "Альтернатива: Docker Compose",
+                dockerComposeDesc: "Створіть docker-compose.yml для MongoDB та Mongo Express разом:",
+                verifyConnection: "Перевірити з'єднання",
+                verifySteps: [
+                    "Відкрийте Mongo Express за адресою http://localhost:8081",
+                    "Перевірте з'єднання MongoDB в shell",
+                    "Створіть тестову базу даних"
+                ],
+
+                theoryTitle: "Огляд теорії",
+                documentStore: "Що таке сховище документів?",
+                documentStoreDesc: "Сховище документів - це база даних NoSQL, яка зберігає дані як напівструктуровані документи (зазвичай JSON/BSON). На відміну від реляційних баз даних, сховища документів забезпечують гнучкість схеми та дозволяють складні, вкладені структури даних.",
+                jsonBson: "Формат JSON/BSON",
+                jsonBsonDesc: "MongoDB зберігає дані у форматі BSON (Binary JSON), який розширює JSON і підтримує додаткові типи даних, такі як Дата, ObjectID та двійкові дані.",
+                collectionsVsTables: "Колекції проти таблиць",
+                collectionsVsTablesDesc: "Колекції - це еквівалент MongoDB до таблиць, але з менш суворими вимогами до схеми. Документи в колекції можуть мати різні структури.",
+                schemaFlexibility: "Гнучкість схеми",
+                schemaFlexibilityDesc: "MongoDB дозволяє гнучкі схеми, що ідеально для змінюваних вимог. Нові поля можна додавати без міграції.",
+                whenToUseMongo: "Коли використовувати MongoDB?",
+                whenToUseMongoDesc: [
+                    "Напівструктуровані або вкладені дані",
+                    "Швидкий розвиток зі змінюваними вимогами",
+                    "Горизонтальне масштабування (Sharding)",
+                    "Складні, багаторівневі структури даних",
+                    "Більша гнучкість, ніж реляційні бази даних"
+                ],
+
+                megastoreTitle: "Модель даних MegaStore",
+                megastoreIntro: "Система електронної комерції MegaStore містить такі основні типи документів:",
+                productDoc: "Документ продукту",
+                customerDoc: "Документ клієнта",
+                orderDoc: "Замовлення документу",
+                reviewDoc: "Документ рецензії",
+                embeddedVsRef: "Вбудування проти посилання",
+                embeddedVsRefDesc: "MongoDB підтримує обидва підходи: документи можуть містити інші документи (вбудування) або посилатися на них (посилання).",
+                embeddingGood: "Вбудування добре підходить для:",
+                embeddingGoodItems: [
+                    "Відносини 1:1 або 1:кілька",
+                    "Дані, які читаються разом",
+                    "Обмежене гніздування з межами"
+                ],
+                referencingGood: "Посилання добре підходить для:",
+                referencingGoodItems: [
+                    "Відносини 1:багато або багато:багато",
+                    "Повторювані дані (щоб уникнути дублікатів)",
+                    "Великі або часто оновлювані під-документи"
+                ],
+
+                exercise1Title: "Вправа 1: Початок роботи з MongoDB Shell",
+                exercise1Intro: "Підключіться до MongoDB та виконайте базові операції.",
+                connectToMongo: "Підключитися до MongoDB",
+                showDatabases: "Показати бази даних",
+                showCollections: "Показати колекції",
+                insertDocument: "Вставити документ",
+                findDocuments: "Знайти документи",
+                updateDocument: "Оновити документ",
+                deleteDocument: "Видалити документ",
+
+                exercise2Title: "Вправа 2: Python з PyMongo",
+                exercise2Intro: "Використовуйте PyMongo для взаємодії з MongoDB з Python.",
+                pymongoPrepare: "Підготовка PyMongo",
+                connectPython: "Підключитися за допомогою PyMongo",
+                loadData: "Завантажити дані MegaStore",
+                queryProducts: "Запит продуктів за категорією",
+                queryCustomers: "Запит клієнтів за містом",
+                complexQueries: "Складні запити (діапазон цін, оцінки)",
+
+                exercise3Title: "Вправа 3: Конвеєр агрегації",
+                exercise3Intro: "Дізнайтеся, як виконувати складний аналіз даних за допомогою конвеєрів агрегації.",
+                revenueByCategory: "Дохід за категорією",
+                topCustomers: "Топ 10 клієнтів за вартістю замовлення",
+                monthlySales: "Тенденції продажів за місяцем",
+                avgRatings: "Середні оцінки за категорією",
+
+                exercise4Title: "Вправа 4: Виклик моделювання даних",
+                exercise4Intro: "Розробіть схему для нової функції.",
+                designChallenge: "Виклик дизайну",
+                shoppingCart: "Розробіть модель кошика покупок для клієнтів",
+                discussTradeoffs: "Обговоріть переваги та недоліки вбудування проти посилання для цього варіанту використання",
+
+                bonusTitle: "Бонусні завдання",
+                textSearch: "Текстовий пошук у описах продуктів",
+                geospatial: "Геопросторові запити (якщо доступні місцезнаходження клієнтів)",
+                indexPerformance: "Порівняти продуктивність запиту з індексами",
+
+                summaryTitle: "Резюме та рефлексія",
+                keyTakeaways: "Ключові моменти",
+                keyTakeawaysItems: [
+                    "Сховища документів гнучкі та масштабовані, але з різними компромісами",
+                    "Дизайн схеми критичний для продуктивності та обслуговування",
+                    "Конвеєри агрегації потужні для складного аналізу",
+                    "Вбудування проти посилання слід вибирати на основі шаблонів доступу",
+                    "MongoDB ідеальна для сценаріїв зі змінюваними вимогами"
+                ],
+                whenToChoose: "Коли вибрати MongoDB",
+                furtherReading: "Подальше читання",
+                mongoDBDocs: "Документація MongoDB",
+                pymongoGuide: "Керівництво PyMongo",
+
+                troubleshootingTitle: "Усунення неполадок",
+                commonErrors: "Поширені помилки та рішення",
+                error1: "Порт Docker вже використовується",
+                error1Solution: "Використовуйте інший порт: docker run -p 27018:27017 ...",
+                error2: "З'єднання з MongoDB відхилено",
+                error2Solution: "Перевірте, чи працює MongoDB: docker ps",
+                error3: "Помилка імпорту PyMongo",
+                error3Solution: "Встановити PyMongo: pip install pymongo",
+
+                copyCode: "Копіювати код",
+                copied: "Скопійовано!",
+                returnToTop: "Назад до вершини",
+
+                // Data examples
+                exampleProduct: "Приклад продукту",
+                exampleCustomer: "Приклад клієнта",
+                exampleOrder: "Приклад замовлення",
+                exampleReview: "Приклад рецензії",
+            },
+            es: {
+                // Navigation
+                backToOverview: "← Volver a la descripción general",
+                language: "Idioma",
+                toggleMenu: "Menú",
+
+                // Header
+                title: "Laboratorio de MongoDB - Almacén de documentos y Python",
+                chapter: "Capítulo 5 - Bases de datos NoSQL",
+                difficulty: "Dificultad",
+                beginner: "Principiante",
+                estimatedTime: "Tiempo estimado",
+                hours: "2-3 horas",
+
+                // Sidebar sections
+                learningObjectives: "Objetivos de aprendizaje",
+                setupInstallation: "Configuración e instalación",
+                theoryOverview: "Descripción general de la teoría",
+                dataModel: "Modelo de datos de MegaStore",
+                exercise1: "Ejercicio 1: Shell de MongoDB",
+                exercise2: "Ejercicio 2: Python con PyMongo",
+                exercise3: "Ejercicio 3: Canalización de agregación",
+                exercise4: "Ejercicio 4: Modelado de datos",
+                bonusExercises: "Tareas adicionales",
+                summary: "Resumen y reflexión",
+                troubleshooting: "Solución de problemas",
+
+                // Content
+                objectives: [
+                    "Comprender el modelado de datos orientado a documentos",
+                    "Dominar operaciones CRUD en MongoDB",
+                    "Usar PyMongo para la integración de Python",
+                    "Entender canalizaciones de agregación",
+                    "Comparar almacén de documentos con enfoque relacional"
+                ],
+
+                setupTitle: "Configuración e instalación",
+                setupIntro: "Inicie MongoDB en Docker con el siguiente comando:",
+                dockerRunCommand: "Comando Docker Run",
+                dockerComposeTitle: "Alternativa: Docker Compose",
+                dockerComposeDesc: "Cree un docker-compose.yml para MongoDB y Mongo Express juntos:",
+                verifyConnection: "Verificar conexión",
+                verifySteps: [
+                    "Abra Mongo Express en http://localhost:8081",
+                    "Verifique la conexión de MongoDB en shell",
+                    "Crear una base de datos de prueba"
+                ],
+
+                theoryTitle: "Descripción general de la teoría",
+                documentStore: "¿Qué es un almacén de documentos?",
+                documentStoreDesc: "Un almacén de documentos es una base de datos NoSQL que almacena datos como documentos semiestructurados (típicamente JSON/BSON). A diferencia de las bases de datos relacionales, los almacenes de documentos ofrecen flexibilidad de esquema y permiten estructuras de datos complejas y anidadas.",
+                jsonBson: "Formato JSON/BSON",
+                jsonBsonDesc: "MongoDB almacena datos en formato BSON (JSON binario), que extiende JSON y admite tipos de datos adicionales como Fecha, ObjectID y datos binarios.",
+                collectionsVsTables: "Colecciones vs. tablas",
+                collectionsVsTablesDesc: "Las colecciones son el equivalente de MongoDB a las tablas, pero con requisitos de esquema menos estrictos. Los documentos en una colección pueden tener diferentes estructuras.",
+                schemaFlexibility: "Flexibilidad de esquema",
+                schemaFlexibilityDesc: "MongoDB permite esquemas flexibles, que es ideal para requisitos en evolución. Se pueden agregar nuevos campos sin migración.",
+                whenToUseMongo: "¿Cuándo usar MongoDB?",
+                whenToUseMongoDesc: [
+                    "Datos semiestructurados o anidados",
+                    "Desarrollo rápido con requisitos cambiantes",
+                    "Escalado horizontal (fragmentación)",
+                    "Estructuras de datos complejas y multinivel",
+                    "Mayor flexibilidad que las bases de datos relacionales"
+                ],
+
+                megastoreTitle: "Modelo de datos de MegaStore",
+                megastoreIntro: "El sistema de comercio electrónico MegaStore contiene los siguientes tipos de documentos principales:",
+                productDoc: "Documento de producto",
+                customerDoc: "Documento de cliente",
+                orderDoc: "Documento de pedido",
+                reviewDoc: "Documento de revisión",
+                embeddedVsRef: "Incrustación vs. referencia",
+                embeddedVsRefDesc: "MongoDB admite ambos enfoques: los documentos pueden contener otros documentos (Incrustación) o hacer referencia a ellos (Referencia).",
+                embeddingGood: "La incrustación es buena para:",
+                embeddingGoodItems: [
+                    "Relaciones de 1:1 o 1:pocos",
+                    "Datos que se leen juntos",
+                    "Anidación limitada con límites"
+                ],
+                referencingGood: "La referencia es buena para:",
+                referencingGoodItems: [
+                    "Relaciones de 1:muchos o muchos:muchos",
+                    "Datos repetidos (para evitar duplicados)",
+                    "Documentos secundarios grandes o actualizados con frecuencia"
+                ],
+
+                exercise1Title: "Ejercicio 1: Primeros pasos con MongoDB Shell",
+                exercise1Intro: "Conéctese a MongoDB y realice operaciones básicas.",
+                connectToMongo: "Conectarse a MongoDB",
+                showDatabases: "Mostrar bases de datos",
+                showCollections: "Mostrar colecciones",
+                insertDocument: "Insertar un documento",
+                findDocuments: "Encontrar documentos",
+                updateDocument: "Actualizar un documento",
+                deleteDocument: "Eliminar un documento",
+
+                exercise2Title: "Ejercicio 2: Python con PyMongo",
+                exercise2Intro: "Use PyMongo para interactuar con MongoDB desde Python.",
+                pymongoPrepare: "Preparar PyMongo",
+                connectPython: "Conectarse con PyMongo",
+                loadData: "Cargar datos de MegaStore",
+                queryProducts: "Consultar productos por categoría",
+                queryCustomers: "Consultar clientes por ciudad",
+                complexQueries: "Consultas complejas (rango de precios, calificaciones)",
+
+                exercise3Title: "Ejercicio 3: Canalización de agregación",
+                exercise3Intro: "Aprenda a realizar análisis de datos complejos con canalizaciones de agregación.",
+                revenueByCategory: "Ingresos por categoría",
+                topCustomers: "Top 10 clientes por valor de pedido",
+                monthlySales: "Tendencias de ventas mensuales",
+                avgRatings: "Calificaciones promedio por categoría",
+
+                exercise4Title: "Ejercicio 4: Desafío de modelado de datos",
+                exercise4Intro: "Diseñe un esquema para una nueva función.",
+                designChallenge: "Desafío de diseño",
+                shoppingCart: "Diseñe un modelo de carrito de compras para clientes",
+                discussTradeoffs: "Discuta los pros y contras de la incrustación frente a la referencia para este caso de uso",
+
+                bonusTitle: "Tareas adicionales",
+                textSearch: "Búsqueda de texto en descripciones de productos",
+                geospatial: "Consultas geoespaciales (si hay ubicaciones de clientes disponibles)",
+                indexPerformance: "Comparar el desempeño de consultas con índices",
+
+                summaryTitle: "Resumen y reflexión",
+                keyTakeaways: "Conclusiones clave",
+                keyTakeawaysItems: [
+                    "Los almacenes de documentos son flexibles y escalables, pero con diferentes compensaciones",
+                    "El diseño de esquema es crítico para el rendimiento y la mantenibilidad",
+                    "Las canalizaciones de agregación son potentes para análisis complejos",
+                    "La incrustación frente a la referencia debe elegirse según los patrones de acceso",
+                    "MongoDB es ideal para escenarios con requisitos cambiantes"
+                ],
+                whenToChoose: "Cuándo debería elegir MongoDB",
+                furtherReading: "Lecturas adicionales",
+                mongoDBDocs: "Documentación de MongoDB",
+                pymongoGuide: "Guía de PyMongo",
+
+                troubleshootingTitle: "Solución de problemas",
+                commonErrors: "Errores comunes y soluciones",
+                error1: "El puerto de Docker ya está en uso",
+                error1Solution: "Use un puerto diferente: docker run -p 27018:27017 ...",
+                error2: "Conexión a MongoDB rechazada",
+                error2Solution: "Compruebe si MongoDB se está ejecutando: docker ps",
+                error3: "Error de importación de PyMongo",
+                error3Solution: "Instalar PyMongo: pip install pymongo",
+
+                copyCode: "Copiar código",
+                copied: "¡Copiado!",
+                returnToTop: "Volver al inicio",
+
+                // Data examples
+                exampleProduct: "Producto de ejemplo",
+                exampleCustomer: "Cliente de ejemplo",
+                exampleOrder: "Pedido de ejemplo",
+                exampleReview: "Revisión de ejemplo",
+            },
+            tr: {
+                // Navigation
+                backToOverview: "← Genel Bakışa Dön",
+                language: "Dil",
+                toggleMenu: "Menü",
+
+                // Header
+                title: "MongoDB Laboratuvarı - Belge Deposu ve Python",
+                chapter: "Bölüm 5 - NoSQL Veritabanları",
+                difficulty: "Zorluk Seviyesi",
+                beginner: "Başlangıç",
+                estimatedTime: "Tahmini Zaman",
+                hours: "2-3 saat",
+
+                // Sidebar sections
+                learningObjectives: "Öğrenme Hedefleri",
+                setupInstallation: "Kurulum ve Yükleme",
+                theoryOverview: "Teori Özeti",
+                dataModel: "MegaStore Veri Modeli",
+                exercise1: "Alıştırma 1: MongoDB Shell",
+                exercise2: "Alıştırma 2: PyMongo ile Python",
+                exercise3: "Alıştırma 3: Toplama Hattı",
+                exercise4: "Alıştırma 4: Veri Modelleme",
+                bonusExercises: "Bonus Görevler",
+                summary: "Özet ve Yansıtma",
+                troubleshooting: "Sorun Giderme",
+
+                // Content
+                objectives: [
+                    "Belge tabanlı veri modellemesini anlayın",
+                    "MongoDB'de CRUD işlemlerini ustalaşın",
+                    "Python entegrasyonu için PyMongo kullanın",
+                    "Toplama hatlarını anlayın",
+                    "Belge deposunu ilişkisel yaklaşımla karşılaştırın"
+                ],
+
+                setupTitle: "Kurulum ve Yükleme",
+                setupIntro: "Aşağıdaki komutla Docker'da MongoDB'yi başlatın:",
+                dockerRunCommand: "Docker Run Komutu",
+                dockerComposeTitle: "Alternatif: Docker Compose",
+                dockerComposeDesc: "MongoDB ve Mongo Express için birlikte docker-compose.yml oluşturun:",
+                verifyConnection: "Bağlantıyı Doğrula",
+                verifySteps: [
+                    "Mongo Express'i http://localhost:8081 adresinde açın",
+                    "Shell'de MongoDB bağlantısını kontrol edin",
+                    "Test veritabanı oluşturun"
+                ],
+
+                theoryTitle: "Teori Özeti",
+                documentStore: "Belge Deposu Nedir?",
+                documentStoreDesc: "Belge deposu, verileri yarı yapılandırılmış belgeler olarak depolayan (genellikle JSON/BSON) bir NoSQL veritabanıdır. İlişkisel veritabanlarından farklı olarak, belge depoları şema esnekliği sunar ve karmaşık, iç içe geçmiş veri yapılarına izin verir.",
+                jsonBson: "JSON/BSON Formatı",
+                jsonBsonDesc: "MongoDB, verileri JSON'u genişleten ve Tarih, ObjectID ve ikili veri gibi ek veri türlerini destekleyen BSON (Binary JSON) formatında depolar.",
+                collectionsVsTables: "Koleksiyonlar ve Tablolar",
+                collectionsVsTablesDesc: "Koleksiyonlar MongoDB'nin tabloların eşdeğeridir, ancak daha az katı şema gereksinimleriyle. Bir koleksiyondaki belgeler farklı yapılara sahip olabilir.",
+                schemaFlexibility: "Şema Esnekliği",
+                schemaFlexibilityDesc: "MongoDB, esnek şemaları etkinleştirerek gelişen gereksinimler için idealdir. Yeni alanlar migrasyon olmadan eklenebilir.",
+                whenToUseMongo: "MongoDB Ne Zaman Kullanılır?",
+                whenToUseMongoDesc: [
+                    "Yarı yapılandırılmış veya iç içe geçmiş veriler",
+                    "Değişen gereksinimlerle hızlı geliştirme",
+                    "Yatay ölçekleme (Parçalama)",
+                    "Karmaşık, çok seviyeli veri yapıları",
+                    "İlişkisel veritabanlarından daha fazla esneklik"
+                ],
+
+                megastoreTitle: "MegaStore Veri Modeli",
+                megastoreIntro: "MegaStore e-ticaret sistemi aşağıdaki ana belge türlerini içerir:",
+                productDoc: "Ürün Belgesi",
+                customerDoc: "Müşteri Belgesi",
+                orderDoc: "Sipariş Belgesi",
+                reviewDoc: "İnceleme Belgesi",
+                embeddedVsRef: "Gömme vs. Referans",
+                embeddedVsRefDesc: "MongoDB her iki yaklaşımı destekler: belgeler diğer belgeleri içerebilir (Gömme) veya onlara atıfta bulunabilir (Referans).",
+                embeddingGood: "Gömme şu durumlar için iyidir:",
+                embeddingGoodItems: [
+                    "1:1 veya 1:az ilişkiler",
+                    "Birlikte okunan veriler",
+                    "Sınırlarla sınırlı iç içe geçme"
+                ],
+                referencingGood: "Referans şu durumlar için iyidir:",
+                referencingGoodItems: [
+                    "1:çok veya çok:çok ilişkiler",
+                    "Yinelenen veriler (çoğalmayı önlemek için)",
+                    "Büyük veya sık güncellenen alt belgeler"
+                ],
+
+                exercise1Title: "Alıştırma 1: MongoDB Shell ile Başlarken",
+                exercise1Intro: "MongoDB'ye bağlanın ve temel işlemleri gerçekleştirin.",
+                connectToMongo: "MongoDB'ye Bağlan",
+                showDatabases: "Veritabanlarını Göster",
+                showCollections: "Koleksiyonları Göster",
+                insertDocument: "Belge Ekle",
+                findDocuments: "Belgeleri Bul",
+                updateDocument: "Belgeyi Güncelle",
+                deleteDocument: "Belgeyi Sil",
+
+                exercise2Title: "Alıştırma 2: PyMongo ile Python",
+                exercise2Intro: "Python'dan MongoDB ile etkileşim kurmak için PyMongo kullanın.",
+                pymongoPrepare: "PyMongo'yu Hazırla",
+                connectPython: "PyMongo ile Bağlan",
+                loadData: "MegaStore Verilerini Yükle",
+                queryProducts: "Ürünleri Kategoriye Göre Sorgula",
+                queryCustomers: "Müşterileri Şehre Göre Sorgula",
+                complexQueries: "Karmaşık Sorgular (Fiyat Aralığı, Derecelendirmeler)",
+
+                exercise3Title: "Alıştırma 3: Toplama Hattı",
+                exercise3Intro: "Toplama hatlarıyla karmaşık veri analizi yapmayı öğrenin.",
+                revenueByCategory: "Kategoriye Göre Gelir",
+                topCustomers: "Sipariş Değerine Göre En İyi 10 Müşteri",
+                monthlySales: "Aylık Satış Trendleri",
+                avgRatings: "Kategoriye Göre Ortalama Derecelendirmeler",
+
+                exercise4Title: "Alıştırma 4: Veri Modelleme Zorlama",
+                exercise4Intro: "Yeni bir özellik için şema tasarlayın.",
+                designChallenge: "Tasarım Zorlama",
+                shoppingCart: "Müşteriler için alışveriş sepeti modeli tasarlayın",
+                discussTradeoffs: "Bu kullanım durumu için gömme ve referans karşılıklarını tartışın",
+
+                bonusTitle: "Bonus Görevler",
+                textSearch: "Ürün Açıklamalarında Metin Araması",
+                geospatial: "Coğrafi Sorgular (müşteri konumları mevcutsa)",
+                indexPerformance: "İndekslerle Sorgu Performansını Karşılaştırın",
+
+                summaryTitle: "Özet ve Yansıtma",
+                keyTakeaways: "Önemli Noktalar",
+                keyTakeawaysItems: [
+                    "Belge depoları esnek ve ölçeklenebilir, ancak farklı ödünleşimlerle",
+                    "Şema tasarımı performans ve bakım için kritiktir",
+                    "Toplama hatları karmaşık analiz için güçlüdür",
+                    "Gömme vs. referans erişim modellerine göre seçilmesi gerekir",
+                    "MongoDB değişen gereksinimli senaryolar için idealdir"
+                ],
+                whenToChoose: "MongoDB'yi Ne Zaman Seçmelisiniz",
+                furtherReading: "İleri Okuma",
+                mongoDBDocs: "MongoDB Dokümantasyonu",
+                pymongoGuide: "PyMongo Kılavuzu",
+
+                troubleshootingTitle: "Sorun Giderme",
+                commonErrors: "Yaygın Hatalar ve Çözümler",
+                error1: "Docker portu zaten kullanımda",
+                error1Solution: "Farklı bir bağlantı noktası kullanın: docker run -p 27018:27017 ...",
+                error2: "MongoDB bağlantısı reddedildi",
+                error2Solution: "MongoDB'nin çalışıp çalışmadığını kontrol edin: docker ps",
+                error3: "PyMongo ImportError",
+                error3Solution: "PyMongo yükleyin: pip install pymongo",
+
+                copyCode: "Kodu Kopyala",
+                copied: "Kopyalandı!",
+                returnToTop: "Başa Dön",
+
+                // Data examples
+                exampleProduct: "Örnek Ürün",
+                exampleCustomer: "Örnek Müşteri",
+                exampleOrder: "Örnek Sipariş",
+                exampleReview: "Örnek İnceleme",
+            }
+        };
+
+        // Code examples
+        const codeExamples = {
+            dockerRun: `docker run --name mongodb -d -p 27017:27017 \
+  -e MONGO_INITDB_ROOT_USERNAME=admin \
+  -e MONGO_INITDB_ROOT_PASSWORD=password \
+  mongo:latest`,
+
+            dockerCompose: `version: '3.8'
+services:
+  mongodb:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: password
+    volumes:
+      - mongodb_data:/data/db
+
+  mongo-express:
+    image: mongo-express
+    ports:
+      - "8081:8081"
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: admin
+      ME_CONFIG_MONGODB_ADMINPASSWORD: password
+      ME_CONFIG_MONGODB_URL: mongodb://admin:password@mongodb:27017/
+    depends_on:
+      - mongodb
+
+volumes:
+  mongodb_data:`,
+
+            mongoShellConnect: `mongosh --username admin --password password --authenticationDatabase admin`,
+
+            mongoShellBasics: `// Show databases
+show databases
+
+// Use a database
+use megastore
+
+// Show collections
+show collections
+
+// Insert a document
+db.products.insertOne({
+  _id: ObjectId(),
+  name: "Laptop",
+  category: "Electronics",
+  price: 999.99,
+  stock: 50
+})
+
+// Find documents
+db.products.find({ category: "Electronics" })
+
+// Find with filters
+db.products.find({ price: { $gte: 500, $lte: 1000 } })
+
+// Update a document
+db.products.updateOne(
+  { _id: ObjectId("...") },
+  { $set: { stock: 45 } }
+)
+
+// Delete a document
+db.products.deleteOne({ _id: ObjectId("...") })`,
+
+            pymongoPrepare: `pip install pymongo`,
+
+            pythonConnect: `from pymongo import MongoClient
+
+# Connect to MongoDB
+client = MongoClient(
+    'mongodb://admin:password@localhost:27017/',
+    authSource='admin'
+)
+
+# Access database and collection
+db = client['megastore']
+products = db['products']
+
+# Verify connection
+print(client.list_database_names())`,
+
+            pythonLoadData: `import json
+from pymongo import MongoClient
+
+client = MongoClient('mongodb://admin:password@localhost:27017/', authSource='admin')
+db = client['megastore']
+
+# Load products
+with open('products.json', 'r') as f:
+    products_data = json.load(f)
+    db.products.insert_many(products_data)
+
+# Load customers
+with open('customers.json', 'r') as f:
+    customers_data = json.load(f)
+    db.customers.insert_many(customers_data)
+
+print("Data loaded successfully!")`,
+
+            pythonQueries: `# Query products by category
+electronics = list(products.find({ "category": "Electronics" }).limit(10))
+
+# Query customers by city
+city_customers = list(db.customers.find({ "city": "New York" }))
+
+# Complex query: products with price between 500-1000 and in stock
+query = {
+    "price": { "$gte": 500, "$lte": 1000 },
+    "stock": { "$gt": 0 }
+}
+filtered_products = list(products.find(query))
+
+# Query with projection (select specific fields)
+expensive_items = list(products.find(
+    { "price": { "$gte": 5000 } },
+    { "name": 1, "price": 1, "_id": 0 }
+))`,
+
+            aggregation1: `# Revenue by category
+pipeline = [
+    {
+        "$group": {
+            "_id": "$category",
+            "total_revenue": { "$sum": "$price" },
+            "count": { "$sum": 1 }
+        }
+    },
+    { "$sort": { "total_revenue": -1 } }
+]
+
+result = list(db.products.aggregate(pipeline))`,
+
+            aggregation2: `# Top 10 customers by order value
+pipeline = [
+    {
+        "$group": {
+            "_id": "$customer_id",
+            "total_spent": { "$sum": "$total_amount" },
+            "order_count": { "$sum": 1 }
+        }
+    },
+    { "$sort": { "total_spent": -1 } },
+    { "$limit": 10 }
+]
+
+top_customers = list(db.orders.aggregate(pipeline))`,
+
+            aggregation3: `# Average rating per category
+pipeline = [
+    {
+        "$group": {
+            "_id": "$category",
+            "avg_rating": { "$avg": "$rating" },
+            "review_count": { "$sum": 1 }
+        }
+    },
+    { "$sort": { "avg_rating": -1 } }
+]
+
+ratings = list(db.reviews.aggregate(pipeline))`,
+
+            productDoc: `{
+  "_id": ObjectId("507f1f77bcf86cd799439011"),
+  "name": "Professional Gaming Laptop",
+  "category": "Electronics",
+  "subcategory": "Laptops",
+  "price": 1299.99,
+  "currency": "USD",
+  "stock": 42,
+  "description": "High-performance laptop for gaming...",
+  "specifications": {
+    "processor": "Intel i9-12900H",
+    "ram": "32GB DDR5",
+    "storage": "1TB NVMe SSD",
+    "gpu": "RTX 4090"
+  },
+  "ratings": {
+    "average": 4.8,
+    "count": 256
+  },
+  "created_at": ISODate("2024-01-15T10:30:00Z"),
+  "updated_at": ISODate("2024-02-01T14:45:00Z")
+}`,
+
+            customerDoc: `{
+  "_id": ObjectId("507f1f77bcf86cd799439012"),
+  "email": "john.doe@example.com",
+  "first_name": "John",
+  "last_name": "Doe",
+  "phone": "+1-555-0123",
+  "address": {
+    "street": "123 Main St",
+    "city": "San Francisco",
+    "state": "CA",
+    "postal_code": "94105",
+    "country": "USA"
+  },
+  "billing_address": {
+    "street": "456 Oak Ave",
+    "city": "Los Angeles",
+    "state": "CA",
+    "postal_code": "90001",
+    "country": "USA"
+  },
+  "membership_level": "Gold",
+  "total_orders": 25,
+  "total_spent": 12450.75,
+  "created_at": ISODate("2023-06-10T08:00:00Z")
+}`,
+
+            orderDoc: `{
+  "_id": ObjectId("507f1f77bcf86cd799439013"),
+  "order_number": "ORD-2024-001234",
+  "customer_id": ObjectId("507f1f77bcf86cd799439012"),
+  "status": "shipped",
+  "order_date": ISODate("2024-02-01T12:00:00Z"),
+  "items": [
+    {
+      "product_id": ObjectId("507f1f77bcf86cd799439011"),
+      "product_name": "Professional Gaming Laptop",
+      "quantity": 1,
+      "price": 1299.99,
+      "subtotal": 1299.99
+    },
+    {
+      "product_id": ObjectId("507f1f77bcf86cd799439014"),
+      "product_name": "USB-C Cable",
+      "quantity": 2,
+      "price": 19.99,
+      "subtotal": 39.98
+    }
+  ],
+  "subtotal": 1339.97,
+  "tax": 107.20,
+  "shipping": 15.00,
+  "total_amount": 1462.17,
+  "shipping_address": {
+    "city": "San Francisco",
+    "country": "USA"
+  }
+}`,
+
+            reviewDoc: `{
+  "_id": ObjectId("507f1f77bcf86cd799439015"),
+  "product_id": ObjectId("507f1f77bcf86cd799439011"),
+  "customer_id": ObjectId("507f1f77bcf86cd799439012"),
+  "rating": 5,
+  "title": "Excellent gaming laptop!",
+  "review_text": "This laptop exceeds all expectations...",
+  "verified_purchase": true,
+  "helpful_count": 156,
+  "unhelpful_count": 12,
+  "created_at": ISODate("2024-02-05T15:30:00Z")
+}`,
+        };
+
+        // Code block component
+        const CodeBlock = ({ code, language = 'bash' }) => {
+            const [copied, setCopied] = useState(false);
+            const { language: lang } = useContext();
+            const t = translations[lang];
+
+            const copyToClipboard = () => {
+                navigator.clipboard.writeText(code);
+                setCopied(true);
+                setTimeout(() => setCopied(false), 2000);
+            };
+
+            return (
+                <div className="code-block relative">
+                    <button
+                        onClick={copyToClipboard}
+                        className="copy-button"
+                    >
+                        {copied ? t.copied : t.copyCode}
+                    </button>
+                    <pre style={{ marginTop: '0' }}>
+                        <code className={`language-${language} prism-code`}>
+                            {code}
+                        </code>
+                    </pre>
+                </div>
+            );
+        };
+
+        // Section component
+        const Section = ({ id, title, children }) => {
+            return (
+                <section id={id} className="scroll-mt-24 mb-16">
+                    <h2 className="section-header text-3xl font-bold mb-6">
+                        {title}
+                    </h2>
+                    {children}
+                </section>
+            );
+        };
+
+        // Context for language
+        const LanguageContext = React.createContext();
+        const useContext = () => React.useContext(LanguageContext);
+
+        // Main app component
+        function MongoDBLab() {
+            const [language, setLanguage] = useState('en');
+            const [sidebarOpen, setSidebarOpen] = useState(false);
+            const [activeSection, setActiveSection] = useState('learning-objectives');
+            const t = translations[language];
+
+            useEffect(() => {
+                document.documentElement.lang = language;
+                document.documentElement.dir = language === 'ar' ? 'rtl' : 'ltr';
+            }, [language]);
+
+            useEffect(() => {
+                // Re-highlight code after render
+                if (typeof Prism !== 'undefined') {
+                    Prism.highlightAll();
+                }
+            }, [language]);
+
+            const scrollToSection = (sectionId) => {
+                setActiveSection(sectionId);
+                const element = document.getElementById(sectionId);
+                if (element) {
+                    element.scrollIntoView({ behavior: 'smooth' });
+                }
+                setSidebarOpen(false);
+            };
+
+            const sections = [
+                { id: 'learning-objectives', label: t.learningObjectives },
+                { id: 'setup-installation', label: t.setupInstallation },
+                { id: 'theory-overview', label: t.theoryOverview },
+                { id: 'data-model', label: t.dataModel },
+                { id: 'exercise-1', label: t.exercise1 },
+                { id: 'exercise-2', label: t.exercise2 },
+                { id: 'exercise-3', label: t.exercise3 },
+                { id: 'exercise-4', label: t.exercise4 },
+                { id: 'bonus', label: t.bonusExercises },
+                { id: 'summary', label: t.summary },
+                { id: 'troubleshooting', label: t.troubleshooting },
+            ];
+
+            return (
+                <LanguageContext.Provider value={{ language, setLanguage }}>
+                    <div className="flex flex-col min-h-screen">
+                        {/* Navbar */}
+                        <nav className="navbar sticky top-0 z-50 shadow-lg">
+                            <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
+                                <div className="flex items-center gap-4">
+                                    <a href="index.html" className="text-lg font-semibold hover:text-gray-300">
+                                        {t.backToOverview}
+                                    </a>
+                                </div>
+
+                                <div className="flex items-center gap-4">
+                                    {/* Mobile menu toggle */}
+                                    <button
+                                        onClick={() => setSidebarOpen(!sidebarOpen)}
+                                        className="md:hidden bg-white text-var(--color-dark) px-3 py-2 rounded"
+                                    >
+                                        {t.toggleMenu}
+                                    </button>
+
+                                    {/* Language selector */}
+                                    <select
+                                        value={language}
+                                        onChange={(e) => setLanguage(e.target.value)}
+                                        className="bg-white text-var(--color-dark) px-3 py-2 rounded cursor-pointer"
+                                    >
+                                        <option value="en">English</option>
+                                        <option value="de">Deutsch</option>
+                                        <option value="ar">العربية</option>
+                                        <option value="uk">Українська</option>
+                                        <option value="es">Español</option>
+                                        <option value="tr">Türkçe</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </nav>
+
+                        {/* Mobile sidebar overlay */}
+                        <div
+                            className={`mobile-sidebar-overlay ${sidebarOpen ? 'active' : ''}`}
+                            onClick={() => setSidebarOpen(false)}
+                        />
+
+                        <div className="flex flex-1">
+                            {/* Sidebar */}
+                            <aside className={`sidebar w-64 border-r border-gray-200 ${sidebarOpen ? 'active' : ''}`}>
+                                <nav className="sticky top-20 p-4 space-y-2 max-h-screen overflow-y-auto">
+                                    {sections.map((section) => (
+                                        <button
+                                            key={section.id}
+                                            onClick={() => scrollToSection(section.id)}
+                                            className={`sidebar-link block w-full text-left py-2 px-4 rounded transition-colors ${
+                                                activeSection === section.id
+                                                    ? 'active font-semibold'
+                                                    : 'hover:bg-gray-100'
+                                            }`}
+                                        >
+                                            {section.label}
+                                        </button>
+                                    ))}
+                                </nav>
+                            </aside>
+
+                            {/* Main content */}
+                            <main className="flex-1 p-8 max-w-4xl">
+                                {/* Hero Section */}
+                                <div className="hero-section rounded-lg p-12 mb-12">
+                                    <h1 className="text-4xl font-bold mb-4">{t.title}</h1>
+                                    <p className="text-xl text-gray-200 mb-6">{t.chapter}</p>
+                                    <div className="flex gap-6 flex-wrap">
+                                        <div>
+                                            <p className="text-sm text-gray-300">{t.difficulty}</p>
+                                            <span className="difficulty-badge difficulty-beginner">{t.beginner}</span>
+                                        </div>
+                                        <div>
+                                            <p className="text-sm text-gray-300">{t.estimatedTime}</p>
+                                            <span className="difficulty-badge difficulty-beginner">{t.hours}</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* Learning Objectives */}
+                                <Section id="learning-objectives" title={t.learningObjectives}>
+                                    <div className="space-y-4">
+                                        {t.objectives.map((objective, index) => (
+                                            <div key={index} className="learning-objective">
+                                                <p className="text-gray-800">{objective}</p>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </Section>
+
+                                {/* Setup & Installation */}
+                                <Section id="setup-installation" title={t.setupTitle}>
+                                    <p className="mb-6 text-gray-700">{t.setupIntro}</p>
+
+                                    <h3 className="text-2xl font-bold mb-4 text-var(--color-dark)">{t.dockerRunCommand}</h3>
+                                    <CodeBlock code={codeExamples.dockerRun} language="bash" />
+
+                                    <h3 className="text-2xl font-bold mb-4 mt-8 text-var(--color-dark)">{t.dockerComposeTitle}</h3>
+                                    <p className="mb-4 text-gray-700">{t.dockerComposeDesc}</p>
+                                    <CodeBlock code={codeExamples.dockerCompose} language="yaml" />
+
+                                    <h3 className="text-2xl font-bold mb-4 mt-8 text-var(--color-dark)">{t.verifyConnection}</h3>
+                                    <ul className="list-disc list-inside space-y-2 text-gray-700">
+                                        {t.verifySteps.map((step, index) => (
+                                            <li key={index}>{step}</li>
+                                        ))}
+                                    </ul>
+                                </Section>
+
+                                {/* Theory Overview */}
+                                <Section id="theory-overview" title={t.theoryTitle}>
+                                    <div className="space-y-8">
+                                        <div>
+                                            <h3 className="text-2xl font-bold mb-3 text-var(--color-dark)">{t.documentStore}</h3>
+                                            <p className="text-gray-700">{t.documentStoreDesc}</p>
+                                        </div>
+
+                                        <div>
+                                            <h3 className="text-2xl font-bold mb-3 text-var(--color-dark)">{t.jsonBson}</h3>
+                                            <p className="text-gray-700">{t.jsonBsonDesc}</p>
+                                        </div>
+
+                                        <div>
+                                            <h3 className="text-2xl font-bold mb-3 text-var(--color-dark)">{t.collectionsVsTables}</h3>
+                                            <p className="text-gray-700">{t.collectionsVsTablesDesc}</p>
+                                        </div>
+
+                                        <div>
+                                            <h3 className="text-2xl font-bold mb-3 text-var(--color-dark)">{t.schemaFlexibility}</h3>
+                                            <p className="text-gray-700">{t.schemaFlexibilityDesc}</p>
+                                        </div>
+
+                                        <div>
+                                            <h3 className="text-2xl font-bold mb-3 text-var(--color-dark)">{t.whenToUseMongo}</h3>
+                                            <ul className="list-disc list-inside space-y-2 text-gray-700">
+                                                {t.whenToUseMongoDesc.map((item, index) => (
+                                                    <li key={index}>{item}</li>
+                                                ))}
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </Section>
+
+                                {/* MegaStore Data Model */}
+                                <Section id="data-model" title={t.megastoreTitle}>
+                                    <p className="mb-8 text-gray-700">{t.megastoreIntro}</p>
+
+                                    <div className="space-y-8">
+                                        <div>
+                                            <h3 className="text-2xl font-bold mb-3 text-var(--color-dark)">{t.productDoc}</h3>
+                                            <CodeBlock code={codeExamples.productDoc} language="json" />
+                                        </div>
+
+                                        <div>
+                                            <h3 className="text-2xl font-bold mb-3 text-var(--color-dark)">{t.customerDoc}</h3>
+                                            <CodeBlock code={codeExamples.customerDoc} language="json" />
+                                        </div>
+
+                                        <div>
+                                            <h3 className="text-2xl font-bold mb-3 text-var(--color-dark)">{t.orderDoc}</h3>
+                                            <CodeBlock code={codeExamples.orderDoc} language="json" />
+                                        </div>
+
+                                        <div>
+                                            <h3 className="text-2xl font-bold mb-3 text-var(--color-dark)">{t.reviewDoc}</h3>
+                                            <CodeBlock code={codeExamples.reviewDoc} language="json" />
+                                        </div>
+
+                                        <div>
+                                            <h3 className="text-2xl font-bold mb-3 text-var(--color-dark)">{t.embeddedVsRef}</h3>
+                                            <p className="text-gray-700 mb-4">{t.embeddedVsRefDesc}</p>
+
+                                            <div className="grid md:grid-cols-2 gap-6">
+                                                <div className="bg-blue-50 p-4 rounded">
+                                                    <h4 className="font-bold mb-3 text-var(--color-dark)">{t.embeddingGood}</h4>
+                                                    <ul className="list-disc list-inside space-y-2 text-gray-700 text-sm">
+                                                        {t.embeddingGoodItems.map((item, index) => (
+                                                            <li key={index}>{item}</li>
+                                                        ))}
+                                                    </ul>
+                                                </div>
+
+                                                <div className="bg-orange-50 p-4 rounded">
+                                                    <h4 className="font-bold mb-3 text-var(--color-dark)">{t.referencingGood}</h4>
+                                                    <ul className="list-disc list-inside space-y-2 text-gray-700 text-sm">
+                                                        {t.referencingGoodItems.map((item, index) => (
+                                                            <li key={index}>{item}</li>
+                                                        ))}
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </Section>
+
+                                {/* Exercise 1 */}
+                                <Section id="exercise-1" title={t.exercise1Title}>
+                                    <p className="mb-6 text-gray-700">{t.exercise1Intro}</p>
+
+                                    <div className="space-y-6">
+                                        <div>
+                                            <h3 className="text-xl font-bold mb-3 text-var(--color-dark)">{t.connectToMongo}</h3>
+                                            <CodeBlock code={codeExamples.mongoShellConnect} language="bash" />
+                                        </div>
+
+                                        <div>
+                                            <h3 className="text-xl font-bold mb-3 text-var(--color-dark)">{t.showDatabases}</h3>
+                                            <CodeBlock code={`show databases`} language="bash" />
+                                        </div>
+
+                                        <div>
+                                            <h3 className="text-xl font-bold mb-3 text-var(--color-dark)">{t.showCollections}</h3>
+                                            <CodeBlock code={`show collections`} language="bash" />
+                                        </div>
+
+                                        <div>
+                                            <h3 className="text-xl font-bold mb-3 text-var(--color-dark)">{t.mongoShellBasics}</h3>
+                                            <CodeBlock code={codeExamples.mongoShellBasics} language="javascript" />
+                                        </div>
+                                    </div>
+                                </Section>
+
+                                {/* Exercise 2 */}
+                                <Section id="exercise-2" title={t.exercise2Title}>
+                                    <p className="mb-6 text-gray-700">{t.exercise2Intro}</p>
+
+                                    <div className="space-y-6">
+                                        <div>
+                                            <h3 className="text-xl font-bold mb-3 text-var(--color-dark)">{t.pymongoPrepare}</h3>
+                                            <CodeBlock code={codeExamples.pymongoPrepare} language="bash" />
+                                        </div>
+
+                                        <div>
+                                            <h3 className="text-xl font-bold mb-3 text-var(--color-dark)">{t.connectPython}</h3>
+                                            <CodeBlock code={codeExamples.pythonConnect} language="python" />
+                                        </div>
+
+                                        <div>
+                                            <h3 className="text-xl font-bold mb-3 text-var(--color-dark)">{t.loadData}</h3>
+                                            <CodeBlock code={codeExamples.pythonLoadData} language="python" />
+                                        </div>
+
+                                        <div>
+                                            <h3 className="text-xl font-bold mb-3 text-var(--color-dark)">{t.complexQueries}</h3>
+                                            <CodeBlock code={codeExamples.pythonQueries} language="python" />
+                                        </div>
+                                    </div>
+                                </Section>
+
+                                {/* Exercise 3 */}
+                                <Section id="exercise-3" title={t.exercise3Title}>
+                                    <p className="mb-6 text-gray-700">{t.exercise3Intro}</p>
+
+                                    <div className="space-y-6">
+                                        <div>
+                                            <h3 className="text-xl font-bold mb-3 text-var(--color-dark)">{t.revenueByCategory}</h3>
+                                            <CodeBlock code={codeExamples.aggregation1} language="python" />
+                                        </div>
+
+                                        <div>
+                                            <h3 className="text-xl font-bold mb-3 text-var(--color-dark)">{t.topCustomers}</h3>
+                                            <CodeBlock code={codeExamples.aggregation2} language="python" />
+                                        </div>
+
+                                        <div>
+                                            <h3 className="text-xl font-bold mb-3 text-var(--color-dark)">{t.avgRatings}</h3>
+                                            <CodeBlock code={codeExamples.aggregation3} language="python" />
+                                        </div>
+                                    </div>
+                                </Section>
+
+                                {/* Exercise 4 */}
+                                <Section id="exercise-4" title={t.exercise4Title}>
+                                    <p className="mb-6 text-gray-700">{t.exercise4Intro}</p>
+                                    <div className="learning-objective">
+                                        <h4 className="font-bold mb-2">{t.designChallenge}</h4>
+                                        <p>{t.shoppingCart}</p>
+                                    </div>
+                                    <div className="learning-objective">
+                                        <p>{t.discussTradeoffs}</p>
+                                    </div>
+                                </Section>
+
+                                {/* Bonus Tasks */}
+                                <Section id="bonus" title={t.bonusTitle}>
+                                    <div className="space-y-4">
+                                        <div className="learning-objective">
+                                            <p className="font-semibold">{t.textSearch}</p>
+                                        </div>
+                                        <div className="learning-objective">
+                                            <p className="font-semibold">{t.geospatial}</p>
+                                        </div>
+                                        <div className="learning-objective">
+                                            <p className="font-semibold">{t.indexPerformance}</p>
+                                        </div>
+                                    </div>
+                                </Section>
+
+                                {/* Summary */}
+                                <Section id="summary" title={t.summaryTitle}>
+                                    <h3 className="text-2xl font-bold mb-4 text-var(--color-dark)">{t.keyTakeaways}</h3>
+                                    <ul className="list-disc list-inside space-y-3 text-gray-700 mb-8">
+                                        {t.keyTakeawaysItems.map((item, index) => (
+                                            <li key={index}>{item}</li>
+                                        ))}
+                                    </ul>
+
+                                    <h3 className="text-2xl font-bold mb-4 text-var(--color-dark)">{t.furtherReading}</h3>
+                                    <ul className="list-disc list-inside space-y-2 text-gray-700">
+                                        <li>
+                                            <a href="https://docs.mongodb.com/" target="_blank" rel="noopener noreferrer" className="text-orange-600 hover:underline">
+                                                {t.mongoDBDocs}
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="https://pymongo.readthedocs.io/" target="_blank" rel="noopener noreferrer" className="text-orange-600 hover:underline">
+                                                {t.pymongoGuide}
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </Section>
+
+                                {/* Troubleshooting */}
+                                <Section id="troubleshooting" title={t.troubleshootingTitle}>
+                                    <div className="space-y-6">
+                                        <div>
+                                            <h3 className="text-xl font-bold mb-2 text-var(--color-dark)">{t.error1}</h3>
+                                            <p className="text-gray-700 bg-red-50 p-3 rounded">{t.error1Solution}</p>
+                                        </div>
+
+                                        <div>
+                                            <h3 className="text-xl font-bold mb-2 text-var(--color-dark)">{t.error2}</h3>
+                                            <p className="text-gray-700 bg-red-50 p-3 rounded">{t.error2Solution}</p>
+                                        </div>
+
+                                        <div>
+                                            <h3 className="text-xl font-bold mb-2 text-var(--color-dark)">{t.error3}</h3>
+                                            <p className="text-gray-700 bg-red-50 p-3 rounded">{t.error3Solution}</p>
+                                        </div>
+                                    </div>
+                                </Section>
+
+                                {/* Back to top */}
+                                <div className="mt-12 pt-8 border-t border-gray-200">
+                                    <button
+                                        onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                                        className="text-orange-600 hover:text-orange-700 font-semibold"
+                                    >
+                                        ↑ {t.returnToTop}
+                                    </button>
+                                </div>
+                            </main>
+                        </div>
+                    </div>
+                </LanguageContext.Provider>
+            );
+        }
+
+        // Render the app
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<MongoDBLab />);
+    </script>
+</body>
+</html>

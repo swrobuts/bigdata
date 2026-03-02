@@ -1,0 +1,129 @@
+erDiagram
+    CUSTOMERS ||--o{ ORDERS : places
+    CUSTOMERS ||--o{ REVIEWS : writes
+    PRODUCTS ||--o{ ORDER_ITEMS : "in orders"
+    PRODUCTS ||--o{ REVIEWS : "reviewed in"
+    PRODUCTS ||--o{ PRODUCT_RELATIONSHIPS : source
+    PRODUCTS ||--o{ PRODUCT_RELATIONSHIPS : target
+    PRODUCTS }o--|| SUPPLIERS : "supplied by"
+    PRODUCTS }o--|| CATEGORIES : "belongs to"
+    ORDERS ||--o{ ORDER_ITEMS : contains
+    ORDERS ||--o{ CLICKSTREAM : "generated"
+    CUSTOMERS ||--o{ CUSTOMER_RELATIONSHIPS : source
+    CUSTOMERS ||--o{ CUSTOMER_RELATIONSHIPS : target
+    CLICKSTREAM }o--|| PRODUCTS : "views"
+
+    CUSTOMERS {
+        int customer_id PK
+        string first_name
+        string last_name
+        string email UK
+        int age
+        string gender
+        string city
+        string postal_code
+        string country
+        date registration_date
+        string customer_segment
+        decimal lifetime_value
+        int total_orders
+        string preferred_payment
+    }
+
+    PRODUCTS {
+        int product_id PK
+        string name
+        string description
+        string category
+        string subcategory
+        string brand
+        decimal price
+        decimal cost_price
+        decimal weight_kg
+        decimal rating_avg
+        int rating_count
+        boolean in_stock
+        int stock_quantity
+        int supplier_id FK
+        array tags
+        datetime created_at
+    }
+
+    SUPPLIERS {
+        int supplier_id PK
+        string company_name
+        string contact_person
+        string email
+        string city
+        string country
+        int product_count
+        int avg_delivery_days
+        decimal rating
+    }
+
+    CATEGORIES {
+        string id PK
+        string name
+        string parent_id FK
+        int level
+    }
+
+    ORDERS {
+        int order_id PK
+        int customer_id FK
+        datetime order_date
+        string status
+        decimal total_amount
+        decimal discount_amount
+        decimal shipping_cost
+        string payment_method
+        string shipping_city
+        int delivery_days
+    }
+
+    ORDER_ITEMS {
+        int item_id PK
+        int order_id FK
+        int product_id FK
+        int quantity
+        decimal unit_price
+        decimal total_price
+        decimal discount_percent
+    }
+
+    REVIEWS {
+        int review_id PK
+        int product_id FK
+        int customer_id FK
+        int rating
+        string title
+        string text
+        int helpful_votes
+        boolean verified_purchase
+        datetime review_date
+    }
+
+    CLICKSTREAM {
+        int event_id PK
+        string session_id
+        int customer_id FK "nullable"
+        datetime timestamp
+        string event_type
+        string page_url
+        int product_id FK "nullable"
+        string device_type
+        string browser
+        string referrer_source
+    }
+
+    PRODUCT_RELATIONSHIPS {
+        int source_product_id FK
+        int target_product_id FK
+        string relationship_type
+    }
+
+    CUSTOMER_RELATIONSHIPS {
+        int source_customer_id FK
+        int target_customer_id FK
+        string relationship_type
+    }

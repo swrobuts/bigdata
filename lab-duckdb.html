@@ -1,0 +1,1740 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DuckDB Lab - Big Data Course THWS</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Prism.js for syntax highlighting -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+
+    <!-- React for interactive components -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <style>
+        :root {
+            --color-orange: #E8792F;
+            --color-dark-blue: #1B3A5C;
+            --color-light-gray: #F3F4F6;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #1F2937;
+        }
+
+        html.rtl {
+            direction: rtl;
+            text-align: right;
+        }
+
+        html.rtl body {
+            font-family: 'Arial', 'Segoe UI', sans-serif;
+        }
+
+        .navbar {
+            background-color: var(--color-dark-blue);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .navbar-content {
+            max-width: 7xl;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .navbar a:hover {
+            color: var(--color-orange);
+        }
+
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 60px;
+            width: 250px;
+            height: calc(100vh - 60px);
+            background: white;
+            border-right: 1px solid #E5E7EB;
+            overflow-y: auto;
+            padding: 2rem 0;
+            z-index: 40;
+        }
+
+        html.rtl .sidebar {
+            left: auto;
+            right: 0;
+            border-right: none;
+            border-left: 1px solid #E5E7EB;
+        }
+
+        .sidebar-item {
+            padding: 0.75rem 1.5rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            border-left: 3px solid transparent;
+        }
+
+        html.rtl .sidebar-item {
+            border-left: none;
+            border-right: 3px solid transparent;
+        }
+
+        .sidebar-item:hover {
+            background-color: var(--color-light-gray);
+        }
+
+        .sidebar-item.active {
+            border-left-color: var(--color-orange);
+            background-color: var(--color-light-gray);
+            color: var(--color-orange);
+            font-weight: 600;
+        }
+
+        html.rtl .sidebar-item.active {
+            border-left: none;
+            border-right-color: var(--color-orange);
+        }
+
+        .main-content {
+            margin-left: 250px;
+            margin-top: 60px;
+            padding: 3rem 2rem;
+            max-width: 1200px;
+        }
+
+        html.rtl .main-content {
+            margin-left: 0;
+            margin-right: 250px;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, var(--color-dark-blue) 0%, #263d5e 100%);
+            color: white;
+            padding: 4rem 2rem;
+            border-radius: 8px;
+            margin-bottom: 3rem;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .hero .meta {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-top: 1.5rem;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            background-color: var(--color-orange);
+            color: white;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+
+        h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--color-dark-blue);
+            margin: 2.5rem 0 1.5rem 0;
+            padding-top: 1rem;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--color-dark-blue);
+            margin: 1.5rem 0 1rem 0;
+        }
+
+        .code-block {
+            background-color: #282C34;
+            border-radius: 6px;
+            margin: 1.5rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .code-block-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 1rem;
+            background-color: #1E2228;
+            border-bottom: 1px solid #3E4451;
+        }
+
+        .code-block-language {
+            color: #ABB2BF;
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+
+        .copy-btn {
+            background-color: var(--color-orange);
+            color: white;
+            border: none;
+            padding: 0.4rem 0.8rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.875rem;
+            transition: all 0.2s;
+        }
+
+        .copy-btn:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+        }
+
+        pre {
+            margin: 0 !important;
+            padding: 1.5rem !important;
+            overflow-x: auto;
+        }
+
+        pre code {
+            background: none !important;
+        }
+
+        .content-section {
+            margin-bottom: 3rem;
+        }
+
+        .learning-goals {
+            background-color: var(--color-light-gray);
+            border-left: 4px solid var(--color-orange);
+            padding: 1.5rem;
+            border-radius: 4px;
+            margin: 1.5rem 0;
+        }
+
+        html.rtl .learning-goals {
+            border-left: none;
+            border-right: 4px solid var(--color-orange);
+        }
+
+        .learning-goals ul {
+            list-style: none;
+            margin-top: 1rem;
+        }
+
+        .learning-goals li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        html.rtl .learning-goals li {
+            padding-left: 0;
+            padding-right: 1.5rem;
+        }
+
+        .learning-goals li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--color-orange);
+            font-weight: bold;
+        }
+
+        html.rtl .learning-goals li:before {
+            left: auto;
+            right: 0;
+        }
+
+        .info-box {
+            background-color: #EFF6FF;
+            border-left: 4px solid #3B82F6;
+            padding: 1.5rem;
+            border-radius: 4px;
+            margin: 1.5rem 0;
+        }
+
+        html.rtl .info-box {
+            border-left: none;
+            border-right: 4px solid #3B82F6;
+        }
+
+        .warning-box {
+            background-color: #FEF3C7;
+            border-left: 4px solid #F59E0B;
+            padding: 1.5rem;
+            border-radius: 4px;
+            margin: 1.5rem 0;
+        }
+
+        html.rtl .warning-box {
+            border-left: none;
+            border-right: 4px solid #F59E0B;
+        }
+
+        .exercise-box {
+            background-color: #F0FDF4;
+            border-left: 4px solid #10B981;
+            padding: 1.5rem;
+            border-radius: 4px;
+            margin: 1.5rem 0;
+        }
+
+        html.rtl .exercise-box {
+            border-left: none;
+            border-right: 4px solid #10B981;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+        }
+
+        th {
+            background-color: var(--color-dark-blue);
+            color: white;
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        html.rtl th {
+            text-align: right;
+        }
+
+        td {
+            padding: 1rem;
+            border-bottom: 1px solid #E5E7EB;
+        }
+
+        tr:hover {
+            background-color: var(--color-light-gray);
+        }
+
+        .language-selector {
+            position: fixed;
+            top: 70px;
+            right: 20px;
+            z-index: 50;
+            display: flex;
+            gap: 0.5rem;
+            background: white;
+            padding: 0.5rem;
+            border-radius: 6px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        html.rtl .language-selector {
+            left: 20px;
+            right: auto;
+        }
+
+        .lang-btn {
+            background: white;
+            border: 2px solid #E5E7EB;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.875rem;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .lang-btn.active {
+            background-color: var(--color-orange);
+            color: white;
+            border-color: var(--color-orange);
+        }
+
+        .lang-btn:hover {
+            border-color: var(--color-orange);
+        }
+
+        .comparison-table {
+            overflow-x: auto;
+            margin: 1.5rem 0;
+        }
+
+        .section-nav {
+            display: flex;
+            gap: 1rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .section-nav a {
+            padding: 0.75rem 1.5rem;
+            background-color: var(--color-light-gray);
+            color: var(--color-dark-blue);
+            text-decoration: none;
+            border-radius: 4px;
+            transition: all 0.2s;
+        }
+
+        .section-nav a:hover {
+            background-color: var(--color-orange);
+            color: white;
+        }
+
+        .footer {
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid #E5E7EB;
+            text-align: center;
+            color: #6B7280;
+            font-size: 0.875rem;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 200px;
+            }
+
+            .main-content {
+                margin-left: 0;
+                padding: 2rem 1rem;
+            }
+
+            html.rtl .main-content {
+                margin-right: 0;
+            }
+
+            .language-selector {
+                right: 10px;
+                top: 65px;
+            }
+
+            html.rtl .language-selector {
+                left: 10px;
+                right: auto;
+            }
+
+            .hero h1 {
+                font-size: 1.75rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const translations = {
+            de: {
+                backToOverview: "← Zurück zur Übersicht",
+                languageLabel: "Sprache:",
+                hero: {
+                    title: "DuckDB Lab - Analytisches SQL auf großen Datensätzen",
+                    chapter: "Kapitel 6",
+                    difficulty: "Anfänger",
+                    time: "2-3 Stunden"
+                },
+                navigation: {
+                    hero: "Start",
+                    goals: "Lernziele",
+                    setup: "Setup & Installation",
+                    theory: "Theorie",
+                    dataModel: "Datenmodell",
+                    exercise1: "Übung 1: Erste Schritte",
+                    exercise2: "Übung 2: Analytische Abfragen",
+                    exercise3: "Übung 3: Parquet vs CSV",
+                    exercise4: "Übung 4: Komplexe Analytics",
+                    bonus: "Bonusaufgaben",
+                    summary: "Zusammenfassung",
+                    troubleshooting: "Fehlerbehebung"
+                },
+                sections: {
+                    goals: {
+                        title: "Lernziele",
+                        items: [
+                            "Analytische SQL-Abfragen mit DuckDB schreiben",
+                            "Parquet-Format verstehen und nutzen",
+                            "Window Functions und erweiterte SQL-Funktionen anwenden",
+                            "Performance bei großen Datensätzen optimieren",
+                            "DuckDB mit traditionellen RDBMS vergleichen"
+                        ]
+                    },
+                    setup: {
+                        title: "Setup & Installation",
+                        subtitle1: "Docker-Umgebung starten",
+                        docker: `docker run -it --rm -p 8888:8888 \
+  -v $(pwd)/data:/home/jovyan/data \
+  jupyter/scipy-notebook:latest \
+  start-notebook.sh --NotebookApp.token=''`,
+                        subtitle2: "DuckDB im Notebook installieren",
+                        install: `# Im Jupyter Notebook ausführen
+!pip install duckdb`,
+                        subtitle3: "Verifikation",
+                        verify: `import duckdb
+
+# DuckDB-Version prüfen
+print(duckdb.__version__)
+
+# Verbindung testen
+con = duckdb.connect(':memory:')
+con.execute("SELECT 42 as answer").fetchall()`
+                    },
+                    theory: {
+                        title: "Theorie",
+                        whatIs: "Was ist DuckDB?",
+                        whatis_desc: "DuckDB ist eine In-Process OLAP-Datenbank, die speziell für analytische Arbeitslasten optimiert ist. Im Gegensatz zu SQLite konzentriert sich DuckDB auf schnelle analytische Abfragen.",
+                        columnar: "Spaltenorientierte Speicherung",
+                        columnar_desc: "DuckDB speichert Daten in Spalten statt in Reihen, was analytische Abfragen dramatisch schneller macht.",
+                        vectorized: "Vektorisierte Ausführung",
+                        vectorized_desc: "Moderne CPUs unterstützen SIMD-Operationen. DuckDB nutzt dies zur Verarbeitung mehrerer Datensätze parallel.",
+                        comparison: "Vergleich mit anderen Datenbanken",
+                        parquet: "Parquet-Format",
+                        parquet_desc: "Ein spaltenorientiertes Speicherformat, das mit DuckDB optimiert arbeitet. Viel schneller als CSV für analytische Abfragen."
+                    },
+                    dataModel: {
+                        title: "MegaStore Datenmodell",
+                        desc: "Die Daten für dieses Lab sind in mehreren CSV- und Parquet-Dateien organisiert:",
+                        tables: {
+                            orders: { name: "orders", rows: "500K", desc: "Bestellungen mit ID, Datum, Kundeninfo, Betrag" },
+                            items: { name: "order_items", rows: "1M+", desc: "Positionen je Bestellung mit Produkt-ID, Menge, Preis" },
+                            clickstream: { name: "clickstream", rows: "200K", desc: "Klickereignisse mit Timestamp, Benutzer-ID, Produkt-ID" },
+                            products: { name: "products", rows: "~5K", desc: "Produktkatalog mit Name, Kategorie, Preis" },
+                            customers: { name: "customers", rows: "~50K", desc: "Kundenstammdaten mit Name, Email, Region" }
+                        }
+                    },
+                    exercise1: {
+                        title: "Übung 1: Erste Schritte",
+                        intro: "In dieser Übung laden wir DuckDB-Daten und führen grundlegende Abfragen aus.",
+                        step1: "Schritt 1: Import und Verbindung",
+                        step2: "Schritt 2: CSV laden",
+                        step3: "Schritt 3: Grundlegende SELECT-Abfragen",
+                        step4: "Schritt 4: Tabellen explorieren"
+                    },
+                    exercise2: {
+                        title: "Übung 2: Analytische Abfragen",
+                        intro: "Nun schreiben wir echte analytische SQL-Abfragen mit Window Functions und Aggregationen.",
+                        revenue: "Umsatz pro Monat",
+                        topProducts: "Top 10 Produkte nach Umsatz",
+                        segmentation: "Kundensegmentierung nach Wert (RFM)",
+                        movingAvg: "Gleitender Durchschnitt mit Window Functions"
+                    },
+                    exercise3: {
+                        title: "Übung 3: Parquet vs CSV Performance",
+                        intro: "Vergleich der Ladezeiten und Performance zwischen CSV und Parquet.",
+                        csvLoad: "CSV laden (langsamerer Weg)",
+                        parquetLoad: "Parquet laden (optimierter Weg)",
+                        benchmark: "Benchmark durchführen"
+                    },
+                    exercise4: {
+                        title: "Übung 4: Komplexe Analytics",
+                        intro: "Fortgeschrittene analytische Fragen mit CTEs und Window Functions.",
+                        cohort: "Kohortanalyse",
+                        rfm: "RFM-Segmentierung",
+                        funnel: "Funnel-Analyse aus Clickstream",
+                        growth: "Year-over-Year Wachstum"
+                    },
+                    bonus: {
+                        title: "Bonusaufgaben",
+                        export: "Ergebnisse als Parquet exportieren",
+                        materialized: "Materialisierte Views erstellen",
+                        pandas: "DuckDB mit Pandas Integration"
+                    },
+                    summary: {
+                        title: "Zusammenfassung",
+                        takeaways: "Wichtige Erkenntnisse",
+                        when: "Wann sollte man DuckDB nutzen?"
+                    },
+                    troubleshooting: {
+                        title: "Fehlerbehebung",
+                        common: "Häufige Probleme und Lösungen"
+                    }
+                }
+            },
+            en: {
+                backToOverview: "← Back to Overview",
+                languageLabel: "Language:",
+                hero: {
+                    title: "DuckDB Lab - Analytical SQL on Large Datasets",
+                    chapter: "Chapter 6",
+                    difficulty: "Beginner",
+                    time: "2-3 hours"
+                },
+                navigation: {
+                    hero: "Start",
+                    goals: "Learning Goals",
+                    setup: "Setup & Installation",
+                    theory: "Theory",
+                    dataModel: "Data Model",
+                    exercise1: "Exercise 1: Getting Started",
+                    exercise2: "Exercise 2: Analytical Queries",
+                    exercise3: "Exercise 3: Parquet vs CSV",
+                    exercise4: "Exercise 4: Complex Analytics",
+                    bonus: "Bonus Tasks",
+                    summary: "Summary",
+                    troubleshooting: "Troubleshooting"
+                },
+                sections: {
+                    goals: {
+                        title: "Learning Goals",
+                        items: [
+                            "Write analytical SQL queries with DuckDB",
+                            "Understand and use the Parquet format",
+                            "Apply window functions and advanced SQL",
+                            "Optimize performance on large datasets",
+                            "Compare DuckDB with traditional RDBMS"
+                        ]
+                    },
+                    setup: {
+                        title: "Setup & Installation",
+                        subtitle1: "Start Docker environment",
+                        docker: `docker run -it --rm -p 8888:8888 \
+  -v $(pwd)/data:/home/jovyan/data \
+  jupyter/scipy-notebook:latest \
+  start-notebook.sh --NotebookApp.token=''`,
+                        subtitle2: "Install DuckDB in Notebook",
+                        install: `# Run in Jupyter Notebook
+!pip install duckdb`,
+                        subtitle3: "Verification",
+                        verify: `import duckdb
+
+# Check DuckDB version
+print(duckdb.__version__)
+
+# Test connection
+con = duckdb.connect(':memory:')
+con.execute("SELECT 42 as answer").fetchall()`
+                    },
+                    theory: {
+                        title: "Theory",
+                        whatIs: "What is DuckDB?",
+                        whatis_desc: "DuckDB is an in-process OLAP database optimized for analytical workloads. Unlike SQLite, DuckDB focuses on fast analytical queries.",
+                        columnar: "Columnar Storage",
+                        columnar_desc: "DuckDB stores data in columns rather than rows, making analytical queries dramatically faster.",
+                        vectorized: "Vectorized Execution",
+                        vectorized_desc: "Modern CPUs support SIMD operations. DuckDB leverages this to process multiple records in parallel.",
+                        comparison: "Comparison with Other Databases",
+                        parquet: "Parquet Format",
+                        parquet_desc: "A columnar storage format that works optimally with DuckDB. Much faster than CSV for analytical queries."
+                    },
+                    dataModel: {
+                        title: "MegaStore Data Model",
+                        desc: "The data for this lab is organized in multiple CSV and Parquet files:",
+                        tables: {
+                            orders: { name: "orders", rows: "500K", desc: "Orders with ID, date, customer info, amount" },
+                            items: { name: "order_items", rows: "1M+", desc: "Line items per order with product ID, quantity, price" },
+                            clickstream: { name: "clickstream", rows: "200K", desc: "Click events with timestamp, user ID, product ID" },
+                            products: { name: "products", rows: "~5K", desc: "Product catalog with name, category, price" },
+                            customers: { name: "customers", rows: "~50K", desc: "Customer master data with name, email, region" }
+                        }
+                    },
+                    exercise1: {
+                        title: "Exercise 1: Getting Started",
+                        intro: "In this exercise, we load data into DuckDB and run basic queries.",
+                        step1: "Step 1: Import and Connection",
+                        step2: "Step 2: Load CSV",
+                        step3: "Step 3: Basic SELECT Queries",
+                        step4: "Step 4: Explore Tables"
+                    },
+                    exercise2: {
+                        title: "Exercise 2: Analytical Queries",
+                        intro: "Now we write real analytical SQL queries with window functions and aggregations.",
+                        revenue: "Revenue per Month",
+                        topProducts: "Top 10 Products by Revenue",
+                        segmentation: "Customer Segmentation by Value (RFM)",
+                        movingAvg: "Moving Average with Window Functions"
+                    },
+                    exercise3: {
+                        title: "Exercise 3: Parquet vs CSV Performance",
+                        intro: "Compare loading times and performance between CSV and Parquet.",
+                        csvLoad: "Load CSV (slower approach)",
+                        parquetLoad: "Load Parquet (optimized approach)",
+                        benchmark: "Run benchmark"
+                    },
+                    exercise4: {
+                        title: "Exercise 4: Complex Analytics",
+                        intro: "Advanced analytical questions using CTEs and window functions.",
+                        cohort: "Cohort Analysis",
+                        rfm: "RFM Segmentation",
+                        funnel: "Funnel Analysis from Clickstream",
+                        growth: "Year-over-Year Growth"
+                    },
+                    bonus: {
+                        title: "Bonus Tasks",
+                        export: "Export results as Parquet",
+                        materialized: "Create materialized views",
+                        pandas: "DuckDB with Pandas integration"
+                    },
+                    summary: {
+                        title: "Summary",
+                        takeaways: "Key Takeaways",
+                        when: "When to use DuckDB?"
+                    },
+                    troubleshooting: {
+                        title: "Troubleshooting",
+                        common: "Common Issues and Solutions"
+                    }
+                }
+            },
+            ar: {
+                backToOverview: "← العودة إلى نظرة عامة",
+                languageLabel: "اللغة:",
+                hero: {
+                    title: "معمل DuckDB - SQL التحليلي على مجموعات البيانات الكبيرة",
+                    chapter: "الفصل 6",
+                    difficulty: "مبتدئ",
+                    time: "ساعتان إلى 3 ساعات"
+                },
+                navigation: {
+                    hero: "ابدأ",
+                    goals: "أهداف التعلم",
+                    setup: "الإعداد والتثبيت",
+                    theory: "النظرية",
+                    dataModel: "نموذج البيانات",
+                    exercise1: "التمرين 1: البدء",
+                    exercise2: "التمرين 2: الاستعلامات التحليلية",
+                    exercise3: "التمرين 3: Parquet مقابل CSV",
+                    exercise4: "التمرين 4: التحليلات المتقدمة",
+                    bonus: "مهام إضافية",
+                    summary: "الملخص",
+                    troubleshooting: "استكشاف الأخطاء"
+                },
+                sections: {
+                    goals: {
+                        title: "أهداف التعلم",
+                        items: [
+                            "كتابة استعلامات SQL التحليلية باستخدام DuckDB",
+                            "فهم واستخدام تنسيق Parquet",
+                            "تطبيق وظائف النافذة و SQL المتقدمة",
+                            "تحسين الأداء على مجموعات البيانات الكبيرة",
+                            "مقارنة DuckDB مع أنظمة RDBMS التقليدية"
+                        ]
+                    },
+                    setup: {
+                        title: "الإعداد والتثبيت",
+                        subtitle1: "بدء بيئة Docker",
+                        docker: `docker run -it --rm -p 8888:8888 \
+  -v $(pwd)/data:/home/jovyan/data \
+  jupyter/scipy-notebook:latest \
+  start-notebook.sh --NotebookApp.token=''`,
+                        subtitle2: "تثبيت DuckDB في Notebook",
+                        install: `# تشغيل في Jupyter Notebook
+!pip install duckdb`,
+                        subtitle3: "التحقق",
+                        verify: `import duckdb
+
+# التحقق من إصدار DuckDB
+print(duckdb.__version__)
+
+# اختبار الاتصال
+con = duckdb.connect(':memory:')
+con.execute("SELECT 42 as answer").fetchall()`
+                    },
+                    theory: {
+                        title: "النظرية",
+                        whatIs: "ما هو DuckDB؟",
+                        whatis_desc: "DuckDB هو قاعدة بيانات OLAP في العملية محسّنة لأحمال العمل التحليلية. بخلاف SQLite، يركز DuckDB على الاستعلامات التحليلية السريعة.",
+                        columnar: "التخزين العمودي",
+                        columnar_desc: "يخزن DuckDB البيانات في أعمدة بدلاً من الصفوف، مما يجعل الاستعلامات التحليلية أسرع بكثير.",
+                        vectorized: "التنفيذ المتجه",
+                        vectorized_desc: "تدعم وحدات المعالجة الحديثة عمليات SIMD. يستفيد DuckDB من هذا لمعالجة عدة سجلات بالتوازي.",
+                        comparison: "المقارنة مع قواعد البيانات الأخرى",
+                        parquet: "تنسيق Parquet",
+                        parquet_desc: "تنسيق تخزين عمودي يعمل بشكل مثالي مع DuckDB. أسرع بكثير من CSV للاستعلامات التحليلية."
+                    },
+                    dataModel: {
+                        title: "نموذج بيانات MegaStore",
+                        desc: "تنظم البيانات الخاصة بهذا المعمل في ملفات CSV و Parquet متعددة:",
+                        tables: {
+                            orders: { name: "orders", rows: "500K", desc: "الطلبات مع المعرف والتاريخ ومعلومات العميل والمبلغ" },
+                            items: { name: "order_items", rows: "1M+", desc: "بنود لكل طلب مع معرف المنتج والكمية والسعر" },
+                            clickstream: { name: "clickstream", rows: "200K", desc: "أحداث النقر مع الطابع الزمني ومعرف المستخدم ومعرف المنتج" },
+                            products: { name: "products", rows: "~5K", desc: "كتالوج المنتجات مع الاسم والفئة والسعر" },
+                            customers: { name: "customers", rows: "~50K", desc: "بيانات العملاء الأساسية مع الاسم والبريد الإلكتروني والمنطقة" }
+                        }
+                    },
+                    exercise1: {
+                        title: "التمرين 1: البدء",
+                        intro: "في هذا التمرين، نحمل البيانات في DuckDB وننفذ استعلامات أساسية.",
+                        step1: "الخطوة 1: الاستيراد والاتصال",
+                        step2: "الخطوة 2: تحميل CSV",
+                        step3: "الخطوة 3: استعلامات SELECT الأساسية",
+                        step4: "الخطوة 4: استكشاف الجداول"
+                    },
+                    exercise2: {
+                        title: "التمرين 2: الاستعلامات التحليلية",
+                        intro: "الآن نكتب استعلامات SQL التحليلية الحقيقية مع وظائف النافذة والتجميعات.",
+                        revenue: "الإيرادات حسب الشهر",
+                        topProducts: "أفضل 10 منتجات حسب الإيرادات",
+                        segmentation: "تقسيم العملاء حسب القيمة (RFM)",
+                        movingAvg: "المتوسط المتحرك مع وظائف النافذة"
+                    },
+                    exercise3: {
+                        title: "التمرين 3: Parquet مقابل CSV الأداء",
+                        intro: "قارن أوقات التحميل والأداء بين CSV و Parquet.",
+                        csvLoad: "تحميل CSV (طريقة أبطأ)",
+                        parquetLoad: "تحميل Parquet (طريقة محسّنة)",
+                        benchmark: "تشغيل المعيار"
+                    },
+                    exercise4: {
+                        title: "التمرين 4: التحليلات المتقدمة",
+                        intro: "أسئلة تحليلية متقدمة باستخدام CTEs ووظائف النافذة.",
+                        cohort: "تحليل المجموعة",
+                        rfm: "تقسيم RFM",
+                        funnel: "تحليل القمع من Clickstream",
+                        growth: "نمو سنة عن سنة"
+                    },
+                    bonus: {
+                        title: "مهام إضافية",
+                        export: "تصدير النتائج كـ Parquet",
+                        materialized: "إنشاء طرق عرض مادية",
+                        pandas: "DuckDB مع تكامل Pandas"
+                    },
+                    summary: {
+                        title: "الملخص",
+                        takeaways: "النقاط الرئيسية",
+                        when: "متى يجب استخدام DuckDB؟"
+                    },
+                    troubleshooting: {
+                        title: "استكشاف الأخطاء",
+                        common: "المشاكل الشائعة والحلول"
+                    }
+                }
+            },
+            uk: {
+                backToOverview: "← Повернутися до огляду",
+                languageLabel: "Мова:",
+                hero: {
+                    title: "DuckDB Lab - Аналітичний SQL на великих наборах даних",
+                    chapter: "Розділ 6",
+                    difficulty: "Початківець",
+                    time: "2-3 години"
+                },
+                navigation: {
+                    hero: "Початок",
+                    goals: "Цілі навчання",
+                    setup: "Налаштування та встановлення",
+                    theory: "Теорія",
+                    dataModel: "Модель даних",
+                    exercise1: "Вправа 1: Перші кроки",
+                    exercise2: "Вправа 2: Аналітичні запити",
+                    exercise3: "Вправа 3: Parquet проти CSV",
+                    exercise4: "Вправа 4: Складна аналітика",
+                    bonus: "Бонусні завдання",
+                    summary: "Резюме",
+                    troubleshooting: "Усунення неполадок"
+                },
+                sections: {
+                    goals: {
+                        title: "Цілі навчання",
+                        items: [
+                            "Написати аналітичні запити SQL за допомогою DuckDB",
+                            "Зрозуміти та використовувати формат Parquet",
+                            "Застосувати віконні функції та розширений SQL",
+                            "Оптимізувати продуктивність на великих наборах даних",
+                            "Порівняти DuckDB з традиційними RDBMS"
+                        ]
+                    },
+                    setup: {
+                        title: "Налаштування та встановлення",
+                        subtitle1: "Запустити середовище Docker",
+                        docker: `docker run -it --rm -p 8888:8888 \
+  -v $(pwd)/data:/home/jovyan/data \
+  jupyter/scipy-notebook:latest \
+  start-notebook.sh --NotebookApp.token=''`,
+                        subtitle2: "Встановити DuckDB у Notebook",
+                        install: `# Запустити в Jupyter Notebook
+!pip install duckdb`,
+                        subtitle3: "Перевірка",
+                        verify: `import duckdb
+
+# Перевірити версію DuckDB
+print(duckdb.__version__)
+
+# Тестувати з'єднання
+con = duckdb.connect(':memory:')
+con.execute("SELECT 42 as answer").fetchall()`
+                    },
+                    theory: {
+                        title: "Теорія",
+                        whatIs: "Що таке DuckDB?",
+                        whatis_desc: "DuckDB - це вбудована база даних OLAP, оптимізована для аналітичних навантажень. На відміну від SQLite, DuckDB зосереджується на швидких аналітичних запитах.",
+                        columnar: "Стовпцевий склад",
+                        columnar_desc: "DuckDB зберігає дані в стовпцях, а не в рядках, що робить аналітичні запити значно швидшими.",
+                        vectorized: "Векторизоване виконання",
+                        vectorized_desc: "Сучасні CPU підтримують операції SIMD. DuckDB використовує це для обробки кількох записів паралельно.",
+                        comparison: "Порівняння з іншими базами даних",
+                        parquet: "Формат Parquet",
+                        parquet_desc: "Формат стовпцевого сховища, який оптимально працює з DuckDB. Набагато швидше за CSV для аналітичних запитів."
+                    },
+                    dataModel: {
+                        title: "Модель даних MegaStore",
+                        desc: "Дані для цієї лабораторної роботи організовані у кількох файлах CSV та Parquet:",
+                        tables: {
+                            orders: { name: "orders", rows: "500K", desc: "Замовлення з ID, датою, інформацією про клієнта, сумою" },
+                            items: { name: "order_items", rows: "1M+", desc: "Позиції за замовленням з ID продукту, кількістю, ціною" },
+                            clickstream: { name: "clickstream", rows: "200K", desc: "Події клацання з часовою міткою, ID користувача, ID продукту" },
+                            products: { name: "products", rows: "~5K", desc: "Каталог продуктів з назвою, категорією, ціною" },
+                            customers: { name: "customers", rows: "~50K", desc: "Основні дані клієнтів з назвою, електронною поштою, регіоном" }
+                        }
+                    },
+                    exercise1: {
+                        title: "Вправа 1: Перші кроки",
+                        intro: "У цій вправі ми завантажуємо дані в DuckDB і виконуємо основні запити.",
+                        step1: "Крок 1: Імпорт та з'єднання",
+                        step2: "Крок 2: Завантажити CSV",
+                        step3: "Крок 3: Основні запити SELECT",
+                        step4: "Крок 4: Дослідити таблиці"
+                    },
+                    exercise2: {
+                        title: "Вправа 2: Аналітичні запити",
+                        intro: "Тепер ми пишемо реальні аналітичні запити SQL з віконними функціями та агрегуванням.",
+                        revenue: "Дохід за місяцем",
+                        topProducts: "Топ 10 продуктів за дохідом",
+                        segmentation: "Сегментація клієнтів за вартістю (RFM)",
+                        movingAvg: "Ковзаючий середній вид віконних функцій"
+                    },
+                    exercise3: {
+                        title: "Вправа 3: Продуктивність Parquet проти CSV",
+                        intro: "Порівняйте час завантаження та продуктивність між CSV та Parquet.",
+                        csvLoad: "Завантажити CSV (повільніший підхід)",
+                        parquetLoad: "Завантажити Parquet (оптимізований підхід)",
+                        benchmark: "Запустити еталон"
+                    },
+                    exercise4: {
+                        title: "Вправа 4: Складна аналітика",
+                        intro: "Передові аналітичні запитання з використанням CTE та віконних функцій.",
+                        cohort: "Аналіз когорти",
+                        rfm: "Сегментація RFM",
+                        funnel: "Аналіз воронки з Clickstream",
+                        growth: "Рік до року зростання"
+                    },
+                    bonus: {
+                        title: "Бонусні завдання",
+                        export: "Експортувати результати як Parquet",
+                        materialized: "Створити матеріалізовані представлення",
+                        pandas: "DuckDB з інтеграцією Pandas"
+                    },
+                    summary: {
+                        title: "Резюме",
+                        takeaways: "Ключові висновки",
+                        when: "Коли використовувати DuckDB?"
+                    },
+                    troubleshooting: {
+                        title: "Усунення неполадок",
+                        common: "Типові проблеми та рішення"
+                    }
+                }
+            },
+            es: {
+                backToOverview: "← Volver a descripción general",
+                languageLabel: "Idioma:",
+                hero: {
+                    title: "Laboratorio DuckDB - SQL analítico en conjuntos de datos grandes",
+                    chapter: "Capítulo 6",
+                    difficulty: "Principiante",
+                    time: "2-3 horas"
+                },
+                navigation: {
+                    hero: "Inicio",
+                    goals: "Objetivos de aprendizaje",
+                    setup: "Configuración e instalación",
+                    theory: "Teoría",
+                    dataModel: "Modelo de datos",
+                    exercise1: "Ejercicio 1: Primeros pasos",
+                    exercise2: "Ejercicio 2: Consultas analíticas",
+                    exercise3: "Ejercicio 3: Parquet vs CSV",
+                    exercise4: "Ejercicio 4: Análisis complejos",
+                    bonus: "Tareas bonus",
+                    summary: "Resumen",
+                    troubleshooting: "Solución de problemas"
+                },
+                sections: {
+                    goals: {
+                        title: "Objetivos de aprendizaje",
+                        items: [
+                            "Escribir consultas SQL analíticas con DuckDB",
+                            "Entender y usar el formato Parquet",
+                            "Aplicar funciones de ventana y SQL avanzado",
+                            "Optimizar el rendimiento en conjuntos de datos grandes",
+                            "Comparar DuckDB con RDBMS tradicionales"
+                        ]
+                    },
+                    setup: {
+                        title: "Configuración e instalación",
+                        subtitle1: "Iniciar entorno Docker",
+                        docker: `docker run -it --rm -p 8888:8888 \
+  -v $(pwd)/data:/home/jovyan/data \
+  jupyter/scipy-notebook:latest \
+  start-notebook.sh --NotebookApp.token=''`,
+                        subtitle2: "Instalar DuckDB en Notebook",
+                        install: `# Ejecutar en Jupyter Notebook
+!pip install duckdb`,
+                        subtitle3: "Verificación",
+                        verify: `import duckdb
+
+# Verificar versión de DuckDB
+print(duckdb.__version__)
+
+# Probar conexión
+con = duckdb.connect(':memory:')
+con.execute("SELECT 42 as answer").fetchall()`
+                    },
+                    theory: {
+                        title: "Teoría",
+                        whatIs: "¿Qué es DuckDB?",
+                        whatis_desc: "DuckDB es una base de datos OLAP en proceso optimizada para cargas de trabajo analíticas. A diferencia de SQLite, DuckDB se enfoca en consultas analíticas rápidas.",
+                        columnar: "Almacenamiento columnar",
+                        columnar_desc: "DuckDB almacena datos en columnas en lugar de filas, lo que hace que las consultas analíticas sean mucho más rápidas.",
+                        vectorized: "Ejecución vectorizada",
+                        vectorized_desc: "Las CPU modernas admiten operaciones SIMD. DuckDB aprovecha esto para procesar múltiples registros en paralelo.",
+                        comparison: "Comparación con otras bases de datos",
+                        parquet: "Formato Parquet",
+                        parquet_desc: "Un formato de almacenamiento columnar que funciona de manera óptima con DuckDB. Mucho más rápido que CSV para consultas analíticas."
+                    },
+                    dataModel: {
+                        title: "Modelo de datos MegaStore",
+                        desc: "Los datos para este laboratorio se organizan en múltiples archivos CSV y Parquet:",
+                        tables: {
+                            orders: { name: "orders", rows: "500K", desc: "Pedidos con ID, fecha, información del cliente, monto" },
+                            items: { name: "order_items", rows: "1M+", desc: "Artículos de línea por pedido con ID de producto, cantidad, precio" },
+                            clickstream: { name: "clickstream", rows: "200K", desc: "Eventos de clic con marca de tiempo, ID de usuario, ID de producto" },
+                            products: { name: "products", rows: "~5K", desc: "Catálogo de productos con nombre, categoría, precio" },
+                            customers: { name: "customers", rows: "~50K", desc: "Datos maestros de clientes con nombre, correo electrónico, región" }
+                        }
+                    },
+                    exercise1: {
+                        title: "Ejercicio 1: Primeros pasos",
+                        intro: "En este ejercicio, cargamos datos en DuckDB y ejecutamos consultas básicas.",
+                        step1: "Paso 1: Importar y conexión",
+                        step2: "Paso 2: Cargar CSV",
+                        step3: "Paso 3: Consultas SELECT básicas",
+                        step4: "Paso 4: Explorar tablas"
+                    },
+                    exercise2: {
+                        title: "Ejercicio 2: Consultas analíticas",
+                        intro: "Ahora escribimos consultas SQL analíticas reales con funciones de ventana y agregaciones.",
+                        revenue: "Ingresos por mes",
+                        topProducts: "Top 10 productos por ingresos",
+                        segmentation: "Segmentación de clientes por valor (RFM)",
+                        movingAvg: "Promedio móvil con funciones de ventana"
+                    },
+                    exercise3: {
+                        title: "Ejercicio 3: Rendimiento Parquet vs CSV",
+                        intro: "Compare tiempos de carga y rendimiento entre CSV y Parquet.",
+                        csvLoad: "Cargar CSV (enfoque más lento)",
+                        parquetLoad: "Cargar Parquet (enfoque optimizado)",
+                        benchmark: "Ejecutar punto de referencia"
+                    },
+                    exercise4: {
+                        title: "Ejercicio 4: Análisis complejos",
+                        intro: "Preguntas analíticas avanzadas usando CTE y funciones de ventana.",
+                        cohort: "Análisis de cohortes",
+                        rfm: "Segmentación RFM",
+                        funnel: "Análisis de embudo desde Clickstream",
+                        growth: "Crecimiento año sobre año"
+                    },
+                    bonus: {
+                        title: "Tareas bonus",
+                        export: "Exportar resultados como Parquet",
+                        materialized: "Crear vistas materializadas",
+                        pandas: "DuckDB con integración Pandas"
+                    },
+                    summary: {
+                        title: "Resumen",
+                        takeaways: "Conclusiones clave",
+                        when: "¿Cuándo usar DuckDB?"
+                    },
+                    troubleshooting: {
+                        title: "Solución de problemas",
+                        common: "Problemas comunes y soluciones"
+                    }
+                }
+            },
+            tr: {
+                backToOverview: "← Özete Dön",
+                languageLabel: "Dil:",
+                hero: {
+                    title: "DuckDB Lab - Büyük Veri Setlerinde Analitik SQL",
+                    chapter: "Bölüm 6",
+                    difficulty: "Başlangıç",
+                    time: "2-3 saat"
+                },
+                navigation: {
+                    hero: "Başla",
+                    goals: "Öğrenme Hedefleri",
+                    setup: "Kurulum ve İnstallasyon",
+                    theory: "Teori",
+                    dataModel: "Veri Modeli",
+                    exercise1: "Alıştırma 1: İlk Adımlar",
+                    exercise2: "Alıştırma 2: Analitik Sorgular",
+                    exercise3: "Alıştırma 3: Parquet vs CSV",
+                    exercise4: "Alıştırma 4: Karmaşık Analitik",
+                    bonus: "Bonus Görevler",
+                    summary: "Özet",
+                    troubleshooting: "Sorun Giderme"
+                },
+                sections: {
+                    goals: {
+                        title: "Öğrenme Hedefleri",
+                        items: [
+                            "DuckDB ile analitik SQL sorguları yazma",
+                            "Parquet formatını anlama ve kullanma",
+                            "Pencere fonksiyonları ve gelişmiş SQL uygulama",
+                            "Büyük veri setlerinde performans optimizasyonu",
+                            "DuckDB ile geleneksel RDBMS karşılaştırması"
+                        ]
+                    },
+                    setup: {
+                        title: "Kurulum ve İnstallasyon",
+                        subtitle1: "Docker ortamını başlat",
+                        docker: `docker run -it --rm -p 8888:8888 \
+  -v $(pwd)/data:/home/jovyan/data \
+  jupyter/scipy-notebook:latest \
+  start-notebook.sh --NotebookApp.token=''`,
+                        subtitle2: "DuckDB'yi Notebook'a kur",
+                        install: `# Jupyter Notebook'ta çalıştır
+!pip install duckdb`,
+                        subtitle3: "Doğrulama",
+                        verify: `import duckdb
+
+# DuckDB sürümünü kontrol et
+print(duckdb.__version__)
+
+# Bağlantı test et
+con = duckdb.connect(':memory:')
+con.execute("SELECT 42 as answer").fetchall()`
+                    },
+                    theory: {
+                        title: "Teori",
+                        whatIs: "DuckDB Nedir?",
+                        whatis_desc: "DuckDB, analitik iş yükleri için optimize edilmiş bir işlem içi OLAP veritabanıdır. SQLite'den farklı olarak, DuckDB hızlı analitik sorgulara odaklanır.",
+                        columnar: "Sütun Depolaması",
+                        columnar_desc: "DuckDB, satırlar yerine sütunlarda veri depoladığı için analitik sorgular çok daha hızlıdır.",
+                        vectorized: "Vektörleştirilmiş Yürütme",
+                        vectorized_desc: "Modern CPU'lar SIMD operasyonlarını destekler. DuckDB, bunu birden fazla kaydı paralel olarak işlemek için kullanır.",
+                        comparison: "Diğer Veritabanlarıyla Karşılaştırma",
+                        parquet: "Parquet Formatı",
+                        parquet_desc: "DuckDB ile optimal olarak çalışan sütunlu bir depolama formatı. Analitik sorgular için CSV'den çok daha hızlıdır."
+                    },
+                    dataModel: {
+                        title: "MegaStore Veri Modeli",
+                        desc: "Bu lab için veriler birden fazla CSV ve Parquet dosyasında organize edilmiştir:",
+                        tables: {
+                            orders: { name: "orders", rows: "500K", desc: "ID, tarih, müşteri bilgisi, tutar ile siparişler" },
+                            items: { name: "order_items", rows: "1M+", desc: "Sipariş başına satır öğeleri, ürün ID'si, miktar, fiyat" },
+                            clickstream: { name: "clickstream", rows: "200K", desc: "Zaman damgası, kullanıcı ID'si, ürün ID'si ile tıkla olayları" },
+                            products: { name: "products", rows: "~5K", desc: "Ad, kategori, fiyat ile ürün kataloğu" },
+                            customers: { name: "customers", rows: "~50K", desc: "Ad, e-posta, bölge ile müşteri ana verileri" }
+                        }
+                    },
+                    exercise1: {
+                        title: "Alıştırma 1: İlk Adımlar",
+                        intro: "Bu alıştırmada, verileri DuckDB'ye yüklüyoruz ve temel sorgular çalıştırıyoruz.",
+                        step1: "Adım 1: İçe aktar ve bağlan",
+                        step2: "Adım 2: CSV'yi yükle",
+                        step3: "Adım 3: Temel SELECT Sorguları",
+                        step4: "Adım 4: Tabloları Keşfet"
+                    },
+                    exercise2: {
+                        title: "Alıştırma 2: Analitik Sorgular",
+                        intro: "Şimdi pencere fonksiyonları ve toplamaları içeren gerçek analitik SQL sorguları yazıyoruz.",
+                        revenue: "Aya Göre Gelir",
+                        topProducts: "Gelire Göre En İyi 10 Ürün",
+                        segmentation: "Değere Göre Müşteri Segmentasyonu (RFM)",
+                        movingAvg: "Pencere Fonksiyonları ile Hareketli Ortalama"
+                    },
+                    exercise3: {
+                        title: "Alıştırma 3: Parquet vs CSV Performansı",
+                        intro: "CSV ve Parquet arasında yükleme sürelerini ve performansını karşılaştırın.",
+                        csvLoad: "CSV yükle (daha yavaş yaklaşım)",
+                        parquetLoad: "Parquet yükle (optimize yaklaşım)",
+                        benchmark: "Kıyaslama çalıştır"
+                    },
+                    exercise4: {
+                        title: "Alıştırma 4: Karmaşık Analitik",
+                        intro: "CTE'ler ve pencere fonksiyonlarını kullanan gelişmiş analitik sorular.",
+                        cohort: "Kohort Analizi",
+                        rfm: "RFM Segmentasyonu",
+                        funnel: "Clickstream'den Huni Analizi",
+                        growth: "Yıldan Yıla Büyüme"
+                    },
+                    bonus: {
+                        title: "Bonus Görevler",
+                        export: "Sonuçları Parquet olarak dışa aktar",
+                        materialized: "Materyalleştirilmiş Görünümler oluştur",
+                        pandas: "DuckDB Pandas entegrasyonu ile"
+                    },
+                    summary: {
+                        title: "Özet",
+                        takeaways: "Temel Çıkarımlar",
+                        when: "DuckDB Ne Zaman Kullanılmalı?"
+                    },
+                    troubleshooting: {
+                        title: "Sorun Giderme",
+                        common: "Yaygın Sorunlar ve Çözümler"
+                    }
+                }
+            }
+        };
+
+        function LabDuckDB() {
+            const [currentLang, setCurrentLang] = React.useState('de');
+            const [activeSection, setActiveSection] = React.useState('hero');
+            const t = translations[currentLang].sections;
+            const nav = translations[currentLang].navigation;
+
+            const toggleRTL = (lang) => {
+                const html = document.documentElement;
+                if (lang === 'ar') {
+                    html.classList.add('rtl');
+                } else {
+                    html.classList.remove('rtl');
+                }
+            };
+
+            const handleLanguageChange = (lang) => {
+                setCurrentLang(lang);
+                toggleRTL(lang);
+            };
+
+            React.useEffect(() => {
+                toggleRTL(currentLang);
+            }, []);
+
+            const copyToClipboard = (text) => {
+                navigator.clipboard.writeText(text);
+                alert(currentLang === 'de' ? 'Kopiert!' : 'Copied!');
+            };
+
+            const CodeBlock = ({ language, code }) => (
+                <div className="code-block">
+                    <div className="code-block-header">
+                        <span className="code-block-language">{language}</span>
+                        <button
+                            className="copy-btn"
+                            onClick={() => copyToClipboard(code)}
+                        >
+                            {currentLang === 'de' ? 'Kopieren' : 'Copy'}
+                        </button>
+                    </div>
+                    <pre><code className={`language-${language.toLowerCase()}`}>{code}</code></pre>
+                </div>
+            );
+
+            return (
+                <>
+                    <nav className="navbar">
+                        <div className="navbar-content">
+                            <a href="index.html">{translations[currentLang].backToOverview}</a>
+                            <span style={{ color: 'white' }}>DuckDB Lab</span>
+                        </div>
+                    </nav>
+
+                    <div className="language-selector">
+                        {['de', 'en', 'ar', 'uk', 'es', 'tr'].map(lang => (
+                            <button
+                                key={lang}
+                                className={`lang-btn ${currentLang === lang ? 'active' : ''}`}
+                                onClick={() => handleLanguageChange(lang)}
+                            >
+                                {lang.toUpperCase()}
+                            </button>
+                        ))}
+                    </div>
+
+                    <div className="sidebar">
+                        {[
+                            { id: 'hero', label: nav.hero },
+                            { id: 'goals', label: nav.goals },
+                            { id: 'setup', label: nav.setup },
+                            { id: 'theory', label: nav.theory },
+                            { id: 'dataModel', label: nav.dataModel },
+                            { id: 'exercise1', label: nav.exercise1 },
+                            { id: 'exercise2', label: nav.exercise2 },
+                            { id: 'exercise3', label: nav.exercise3 },
+                            { id: 'exercise4', label: nav.exercise4 },
+                            { id: 'bonus', label: nav.bonus },
+                            { id: 'summary', label: nav.summary },
+                            { id: 'troubleshooting', label: nav.troubleshooting }
+                        ].map(item => (
+                            <div
+                                key={item.id}
+                                className={`sidebar-item ${activeSection === item.id ? 'active' : ''}`}
+                                onClick={() => setActiveSection(item.id)}
+                            >
+                                {item.label}
+                            </div>
+                        ))}
+                    </div>
+
+                    <div className="main-content">
+                        {activeSection === 'hero' && (
+                            <div className="content-section">
+                                <div className="hero">
+                                    <h1>{translations[currentLang].hero.title}</h1>
+                                    <div className="meta">
+                                        <div className="meta-item">
+                                            <span className="badge">{translations[currentLang].hero.chapter}</span>
+                                        </div>
+                                        <div className="meta-item">
+                                            <span className="badge">{translations[currentLang].hero.difficulty}</span>
+                                        </div>
+                                        <div className="meta-item">
+                                            <span className="badge">⏱️ {translations[currentLang].hero.time}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <h2>{currentLang === 'de' ? 'Willkommen' : 'Welcome'}</h2>
+                                <p style={{ fontSize: '1.1rem', marginBottom: '1rem', lineHeight: '1.8' }}>
+                                    {currentLang === 'de'
+                                        ? 'In diesem Lab werden Sie DuckDB, eine leistungsstarke OLAP-Datenbank für analytische SQL-Abfragen, kennenlernen. Sie werden lernen, wie Sie große Datenmengen analysieren, komplexe analytische Fragen beantworten und die Performance optimieren. Unser Fallbeispiel ist der MegaStore e-Commerce-Shop mit echten Datenmengen: 500K Bestellungen, über 1 Million Bestellpositionen und 200K Klickereignisse.'
+                                        : currentLang === 'en'
+                                        ? 'In this lab, you will learn DuckDB, a powerful OLAP database for analytical SQL queries. You will learn how to analyze large amounts of data, answer complex analytical questions, and optimize performance. Our case study is the MegaStore e-commerce shop with real data volumes: 500K orders, over 1 million order items, and 200K click events.'
+                                        : currentLang === 'ar'
+                                        ? 'في هذا المعمل، ستتعرف على DuckDB، وهي قاعدة بيانات OLAP قوية لاستعلامات SQL التحليلية. ستتعلم كيفية تحليل كميات كبيرة من البيانات والإجابة على أسئلة تحليلية معقدة وتحسين الأداء. حالتنا الدراسية هي متجر التجارة الإلكترونية MegaStore مع أحجام بيانات حقيقية: 500 ألف طلب، وأكثر من مليون عنصر طلب، و 200 ألف حدث نقر.'
+                                        : currentLang === 'uk'
+                                        ? 'У цій лабораторній роботі ви познайомитесь з DuckDB, потужною базою даних OLAP для аналітичних запитів SQL. Ви навчитеся аналізувати великі обсяги даних, відповідати на складні аналітичні запитання та оптимізувати продуктивність. Наш конкретний випадок - це вебсайт електронної комерції MegaStore з реальними обсягами даних: 500 тисяч замовлень, понад мільйон позицій замовлення та 200 тисяч подій клацання.'
+                                        : currentLang === 'es'
+                                        ? 'En este laboratorio, aprenderá DuckDB, una poderosa base de datos OLAP para consultas SQL analíticas. Aprenderá cómo analizar grandes cantidades de datos, responder preguntas analíticas complejas y optimizar el rendimiento. Nuestro caso de estudio es la tienda de comercio electrónico MegaStore con volúmenes de datos reales: 500K pedidos, más de 1 millón de artículos de pedido y 200K eventos de clic.'
+                                        : 'У цій лабораторії ви познайомитеся з DuckDB, потужною базою даних OLAP для аналітичних запитів SQL. Ви дізнаєтесь, як аналізувати великі обсяги даних, відповідати на складні аналітичні запитання та оптимізувати продуктивність. Наш приклад - це вебсайт електронної комерції MegaStore з реальними обсягами даних: 500 тисяч замовлень, понад мільйон позицій замовлення та 200 тисяч подій клацання.'
+                                    }
+                                </p>
+                            </div>
+                        )}
+
+                        {activeSection === 'goals' && (
+                            <div className="content-section">
+                                <h2>{t.goals.title}</h2>
+                                <div className="learning-goals">
+                                    <ul>
+                                        {t.goals.items.map((item, i) => (
+                                            <li key={i}>{item}</li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            </div>
+                        )}
+
+                        {activeSection === 'setup' && (
+                            <div className="content-section">
+                                <h2>{t.setup.title}</h2>
+                                <h3>{t.setup.subtitle1}</h3>
+                                <p>{currentLang === 'de' ? 'Starten Sie einen Docker-Container mit Jupyter und den notwendigen Abhängigkeiten:' : 'Start a Docker container with Jupyter and necessary dependencies:'}</p>
+                                <CodeBlock language="bash" code={t.setup.docker} />
+                                <h3>{t.setup.subtitle2}</h3>
+                                <p>{currentLang === 'de' ? 'Öffnen Sie ein neues Notebook-Cell und installieren Sie DuckDB:' : 'Open a new notebook cell and install DuckDB:'}</p>
+                                <CodeBlock language="python" code={t.setup.install} />
+                                <h3>{t.setup.subtitle3}</h3>
+                                <p>{currentLang === 'de' ? 'Überprüfen Sie, dass DuckDB korrekt installiert ist:' : 'Verify that DuckDB is correctly installed:'}</p>
+                                <CodeBlock language="python" code={t.setup.verify} />
+                                <div className="info-box">
+                                    {currentLang === 'de'
+                                        ? '<strong>Info:</strong> Wenn Sie keinen lokalen Docker haben, können Sie auch cloud-basierte Jupyter-Umgebungen wie Google Colab oder Kaggle Notebooks verwenden.'
+                                        : '<strong>Info:</strong> If you don\'t have local Docker, you can also use cloud-based Jupyter environments like Google Colab or Kaggle Notebooks.'
+                                    }
+                                </div>
+                            </div>
+                        )}
+
+                        {activeSection === 'theory' && (
+                            <div className="content-section">
+                                <h2>{t.theory.title}</h2>
+                                <h3>{t.theory.whatIs}</h3>
+                                <p>{t.theory.whatis_desc}</p>
+                                <h3>{t.theory.columnar}</h3>
+                                <p>{t.theory.columnar_desc}</p>
+                                <h3>{t.theory.vectorized}</h3>
+                                <p>{t.theory.vectorized_desc}</p>
+                                <h3>{t.theory.parquet}</h3>
+                                <p>{t.theory.parquet_desc}</p>
+                                <div className="info-box">
+                                    {currentLang === 'de'
+                                        ? '<strong>Vergleich:</strong> DuckDB ist ideal für OLAP (OnLine Analytical Processing), während SQLite und PostgreSQL eher für OLTP (OnLine Transaction Processing) geeignet sind.'
+                                        : '<strong>Comparison:</strong> DuckDB is ideal for OLAP (Online Analytical Processing), while SQLite and PostgreSQL are better suited for OLTP (Online Transaction Processing).'
+                                    }
+                                </div>
+                            </div>
+                        )}
+
+                        {activeSection === 'dataModel' && (
+                            <div className="content-section">
+                                <h2>{t.dataModel.title}</h2>
+                                <p>{t.dataModel.desc}</p>
+                                <div style={{ overflowX: 'auto', marginTop: '1.5rem' }}>
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>{currentLang === 'de' ? 'Tabelle' : 'Table'}</th>
+                                                <th>{currentLang === 'de' ? 'Zeilen' : 'Rows'}</th>
+                                                <th>{currentLang === 'de' ? 'Beschreibung' : 'Description'}</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {Object.entries(t.dataModel.tables).map(([key, table]) => (
+                                                <tr key={key}>
+                                                    <td><code>{table.name}</code></td>
+                                                    <td>{table.rows}</td>
+                                                    <td>{table.desc}</td>
+                                                </tr>
+                                            ))}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        )}
+
+                        {activeSection === 'exercise1' && (
+                            <div className="content-section">
+                                <h2>{t.exercise1.title}</h2>
+                                <p>{t.exercise1.intro}</p>
+                                <h3>{t.exercise1.step1}</h3>
+                                <CodeBlock language="python" code={`import duckdb
+import pandas as pd
+
+# Erstelle eine Verbindung zur In-Memory-Datenbank
+con = duckdb.connect(':memory:')`} />
+                                <h3>{t.exercise1.step2}</h3>
+                                <CodeBlock language="python" code={`# Lade CSV-Dateien
+orders = con.read_csv('/data/orders.csv')
+customers = con.read_csv('/data/customers.csv')
+products = con.read_csv('/data/products.csv')
+order_items = con.read_csv('/data/order_items.csv')`} />
+                                <h3>{t.exercise1.step3}</h3>
+                                <CodeBlock language="python" code={`# Einfache SELECT-Abfrage
+result = con.execute("SELECT * FROM orders LIMIT 5").fetchall()
+print(result)
+
+# Aggregation
+total_orders = con.execute("SELECT COUNT(*) as cnt FROM orders").fetchone()
+print(f"Gesamtanzahl Bestellungen: {total_orders[0]}")`} />
+                                <h3>{t.exercise1.step4}</h3>
+                                <CodeBlock language="python" code={`# Tabellen-Info
+con.execute("SELECT COUNT(*) as cnt FROM orders").show()
+con.execute("SELECT COUNT(*) as cnt FROM customers").show()
+con.execute("SELECT COUNT(*) as cnt FROM products").show()`} />
+                            </div>
+                        )}
+
+                        {activeSection === 'exercise2' && (
+                            <div className="content-section">
+                                <h2>{t.exercise2.title}</h2>
+                                <p>{t.exercise2.intro}</p>
+                                <h3>{t.exercise2.revenue}</h3>
+                                <CodeBlock language="sql" code={`SELECT
+    DATE_TRUNC('month', order_date) as month,
+    SUM(total_amount) as revenue,
+    COUNT(*) as num_orders
+FROM orders
+GROUP BY DATE_TRUNC('month', order_date)
+ORDER BY month DESC`} />
+                                <h3>{t.exercise2.topProducts}</h3>
+                                <CodeBlock language="sql" code={`SELECT
+    p.product_name,
+    SUM(oi.quantity * oi.unit_price) as total_revenue,
+    COUNT(DISTINCT oi.order_id) as num_orders
+FROM order_items oi
+JOIN products p ON oi.product_id = p.product_id
+GROUP BY p.product_id, p.product_name
+ORDER BY total_revenue DESC
+LIMIT 10`} />
+                                <h3>{t.exercise2.segmentation}</h3>
+                                <CodeBlock language="sql" code={`SELECT
+    c.customer_id,
+    c.customer_name,
+    COUNT(DISTINCT o.order_id) as frequency,
+    SUM(o.total_amount) as monetary,
+    MAX(o.order_date) as recency
+FROM customers c
+LEFT JOIN orders o ON c.customer_id = o.customer_id
+GROUP BY c.customer_id, c.customer_name
+ORDER BY monetary DESC
+LIMIT 20`} />
+                                <h3>{t.exercise2.movingAvg}</h3>
+                                <CodeBlock language="sql" code={`SELECT
+    order_date,
+    total_amount,
+    AVG(total_amount) OVER (
+        ORDER BY order_date
+        ROWS BETWEEN 6 PRECEDING AND CURRENT ROW
+    ) as moving_avg_7day
+FROM orders
+ORDER BY order_date DESC
+LIMIT 30`} />
+                            </div>
+                        )}
+
+                        {activeSection === 'exercise3' && (
+                            <div className="content-section">
+                                <h2>{t.exercise3.title}</h2>
+                                <p>{t.exercise3.intro}</p>
+                                <h3>{t.exercise3.csvLoad}</h3>
+                                <CodeBlock language="python" code={`import time
+
+# CSV laden (langsamer)
+start = time.time()
+orders_csv = con.read_csv('/data/orders.csv')
+csv_time = time.time() - start
+print(f"CSV Ladezeit: {csv_time:.2f} Sekunden")`} />
+                                <h3>{t.exercise3.parquetLoad}</h3>
+                                <CodeBlock language="python" code={`# Parquet laden (schneller)
+start = time.time()
+orders_parquet = con.read_parquet('/data/orders.parquet')
+parquet_time = time.time() - start
+print(f"Parquet Ladezeit: {parquet_time:.2f} Sekunden")`} />
+                                <h3>{t.exercise3.benchmark}</h3>
+                                <CodeBlock language="python" code={`# Benchmark durchführen
+print(f"\\nParquet ist {csv_time/parquet_time:.1f}x schneller als CSV!")
+print(f"CSV-Zeit: {csv_time:.3f}s")
+print(f"Parquet-Zeit: {parquet_time:.3f}s")`} />
+                                <div className="info-box">
+                                    {currentLang === 'de'
+                                        ? 'Parquet ist ein spaltenorientiertes Format, das Kompression und effiziente Speichernutzung ermöglicht. Dies macht es ideal für analytische Workloads.'
+                                        : 'Parquet is a columnar format that enables compression and efficient memory usage. This makes it ideal for analytical workloads.'
+                                    }
+                                </div>
+                            </div>
+                        )}
+
+                        {activeSection === 'exercise4' && (
+                            <div className="content-section">
+                                <h2>{t.exercise4.title}</h2>
+                                <p>{t.exercise4.intro}</p>
+                                <h3>{t.exercise4.cohort}</h3>
+                                <CodeBlock language="sql" code={`WITH first_orders AS (
+    SELECT
+        customer_id,
+        DATE_TRUNC('month', MIN(order_date)) as cohort_month
+    FROM orders
+    GROUP BY customer_id
+)
+SELECT
+    cohort_month,
+    DATE_TRUNC('month', o.order_date) as order_month,
+    COUNT(DISTINCT o.customer_id) as num_customers,
+    SUM(o.total_amount) as revenue
+FROM orders o
+JOIN first_orders fo ON o.customer_id = fo.customer_id
+GROUP BY cohort_month, DATE_TRUNC('month', o.order_date)
+ORDER BY cohort_month, order_month`} />
+                                <h3>{t.exercise4.rfm}</h3>
+                                <CodeBlock language="sql" code={`WITH customer_metrics AS (
+    SELECT
+        c.customer_id,
+        c.customer_name,
+        COUNT(DISTINCT o.order_id) as frequency,
+        SUM(o.total_amount) as monetary,
+        CAST((JULIANDAY('now') - JULIANDAY(MAX(o.order_date)))/365.0 AS INT) as recency_years
+    FROM customers c
+    LEFT JOIN orders o ON c.customer_id = o.customer_id
+    GROUP BY c.customer_id, c.customer_name
+)
+SELECT
+    customer_id,
+    customer_name,
+    frequency,
+    monetary,
+    recency_years,
+    CASE
+        WHEN monetary > 1000 THEN 'High Value'
+        WHEN monetary > 500 THEN 'Medium Value'
+        ELSE 'Low Value'
+    END as segment
+FROM customer_metrics
+ORDER BY monetary DESC`} />
+                                <h3>{t.exercise4.funnel}</h3>
+                                <CodeBlock language="sql" code={`WITH events AS (
+    SELECT
+        user_id,
+        product_id,
+        event_type,
+        event_timestamp,
+        ROW_NUMBER() OVER (PARTITION BY user_id ORDER BY event_timestamp) as event_seq
+    FROM clickstream
+)
+SELECT
+    SUM(CASE WHEN event_type = 'view' THEN 1 ELSE 0 END) as views,
+    SUM(CASE WHEN event_type = 'add_to_cart' THEN 1 ELSE 0 END) as add_to_cart,
+    SUM(CASE WHEN event_type = 'purchase' THEN 1 ELSE 0 END) as purchases,
+    ROUND(100.0 * SUM(CASE WHEN event_type = 'add_to_cart' THEN 1 ELSE 0 END) /
+        SUM(CASE WHEN event_type = 'view' THEN 1 ELSE 0 END), 2) as cart_conversion_rate,
+    ROUND(100.0 * SUM(CASE WHEN event_type = 'purchase' THEN 1 ELSE 0 END) /
+        SUM(CASE WHEN event_type = 'view' THEN 1 ELSE 0 END), 2) as purchase_conversion_rate
+FROM events`} />
+                                <h3>{t.exercise4.growth}</h3>
+                                <CodeBlock language="sql" code={`WITH yearly_revenue AS (
+    SELECT
+        YEAR(order_date) as year,
+        SUM(total_amount) as revenue
+    FROM orders
+    GROUP BY YEAR(order_date)
+)
+SELECT
+    year,
+    revenue,
+    LAG(revenue) OVER (ORDER BY year) as prev_year_revenue,
+    ROUND(100.0 * (revenue - LAG(revenue) OVER (ORDER BY year)) /
+        LAG(revenue) OVER (ORDER BY year), 2) as yoy_growth_pct
+FROM yearly_revenue
+ORDER BY year`} />
+                            </div>
+                        )}
+
+                        {activeSection === 'bonus' && (
+                            <div className="content-section">
+                                <h2>{t.bonus.title}</h2>
+                                <h3>{t.bonus.export}</h3>
+                                <CodeBlock language="python" code={`# Ergebnisse in Parquet exportieren
+result = con.execute("""
+    SELECT * FROM orders
+    WHERE order_date >= '2023-01-01'
+""")
+result.to_parquet('/data/orders_2023.parquet')`} />
+                                <h3>{t.bonus.materialized}</h3>
+                                <CodeBlock language="sql" code={`-- Materialisierte Views mit SQL
+CREATE VIEW monthly_revenue AS
+SELECT
+    DATE_TRUNC('month', order_date) as month,
+    SUM(total_amount) as revenue,
+    COUNT(*) as num_orders
+FROM orders
+GROUP BY DATE_TRUNC('month', order_date);
+
+-- Abfrage der View
+SELECT * FROM monthly_revenue ORDER BY month DESC;`} />
+                                <h3>{t.bonus.pandas}</h3>
+                                <CodeBlock language="python" code={`# DuckDB mit Pandas integrieren
+import pandas as pd
+
+# Pandas DataFrame zu DuckDB
+df = pd.read_csv('/data/customers.csv')
+con.register('customers_df', df)
+
+# DuckDB Abfrage direkt auf Pandas DataFrame
+result = con.execute("SELECT * FROM customers_df WHERE country = 'DE'").df()
+print(result)`} />
+                            </div>
+                        )}
+
+                        {activeSection === 'summary' && (
+                            <div className="content-section">
+                                <h2>{t.summary.title}</h2>
+                                <h3>{t.summary.takeaways}</h3>
+                                <div className="learning-goals">
+                                    <ul>
+                                        <li>{currentLang === 'de' ? 'DuckDB ist eine hochperformante OLAP-Datenbank für analytische Workloads' : 'DuckDB is a high-performance OLAP database for analytical workloads'}</li>
+                                        <li>{currentLang === 'de' ? 'Parquet-Format ist für große analytische Datenmengen optimal' : 'Parquet format is optimal for large analytical data volumes'}</li>
+                                        <li>{currentLang === 'de' ? 'Window Functions ermöglichen komplexe analytische Fragen' : 'Window Functions enable complex analytical questions'}</li>
+                                        <li>{currentLang === 'de' ? 'DuckDB ist schnell für Ad-hoc-Analysen und Data-Science-Aufgaben' : 'DuckDB is fast for ad-hoc analytics and data science tasks'}</li>
+                                        <li>{currentLang === 'de' ? 'Die Integration mit Python und Pandas macht DuckDB sehr flexibel' : 'Integration with Python and Pandas makes DuckDB very flexible'}</li>
+                                    </ul>
+                                </div>
+                                <h3>{t.summary.when}</h3>
+                                <div className="info-box">
+                                    <strong>{currentLang === 'de' ? 'Nutzen Sie DuckDB wenn:' : 'Use DuckDB when:'}</strong>
+                                    <ul style={{ marginTop: '0.5rem', marginLeft: '1rem' }}>
+                                        <li>{currentLang === 'de' ? 'Sie schnelle analytische Abfragen auf CSV/Parquet-Daten brauchen' : 'You need fast analytical queries on CSV/Parquet data'}</li>
+                                        <li>{currentLang === 'de' ? 'Sie in Python arbeiten und keine externe DB brauchen' : 'You work in Python and don\'t need an external DB'}</li>
+                                        <li>{currentLang === 'de' ? 'Daten nicht transaktional sind (keine Writes)' : 'Data is not transactional (no writes)'}</li>
+                                        <li>{currentLang === 'de' ? 'Sie Millionen bis Milliarden Reihen analysieren' : 'You analyze millions to billions of rows'}</li>
+                                    </ul>
+                                </div>
+                                <div className="warning-box">
+                                    <strong>{currentLang === 'de' ? 'Nutzen Sie DuckDB NICHT wenn:' : 'Do NOT use DuckDB when:'}</strong>
+                                    <ul style={{ marginTop: '0.5rem', marginLeft: '1rem' }}>
+                                        <li>{currentLang === 'de' ? 'Sie häufige Schreibvorgänge haben' : 'You have frequent write operations'}</li>
+                                        <li>{currentLang === 'de' ? 'Sie Multi-User-Zugriff brauchen' : 'You need multi-user access'}</li>
+                                        <li>{currentLang === 'de' ? 'Sie komplexe Transaktionen mit ACID brauchen' : 'You need complex transactions with ACID'}</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        )}
+
+                        {activeSection === 'troubleshooting' && (
+                            <div className="content-section">
+                                <h2>{t.troubleshooting.title}</h2>
+                                <h3>{currentLang === 'de' ? 'Fehler beim CSV-Laden' : 'Error loading CSV'}</h3>
+                                <CodeBlock language="python" code={`# Prüfen Sie den Dateipfad und das Format
+import os
+print(os.path.exists('/data/orders.csv'))
+
+# CSV mit spezifischen Optionen laden
+orders = con.read_csv('/data/orders.csv', sep=',', encoding='utf-8')`} />
+                                <h3>{currentLang === 'de' ? 'Speicherproblem' : 'Memory issue'}</h3>
+                                <div className="warning-box">
+                                    {currentLang === 'de'
+                                        ? 'Wenn Sie "Out of Memory"-Fehler bekommen: Verwenden Sie Parquet statt CSV, oder teilen Sie die Daten in kleinere Chunks.'
+                                        : 'If you get "Out of Memory" errors: Use Parquet instead of CSV, or split the data into smaller chunks.'
+                                    }
+                                </div>
+                                <h3>{currentLang === 'de' ? 'Abfrage ist langsam' : 'Query is slow'}</h3>
+                                <CodeBlock language="sql" code={`-- Explain Plan ansehen
+EXPLAIN SELECT * FROM large_table WHERE condition;
+
+-- Index oder Parquet-Partitionierung verwenden
+-- DuckDB optimiert automatisch, aber präfiltern hilft`} />
+                                <h3>{currentLang === 'de' ? 'Docker-Port-Konflikt' : 'Docker port conflict'}</h3>
+                                <CodeBlock language="bash" code={`# Anderen Port verwenden
+docker run -it --rm -p 8889:8888 \\
+  -v $(pwd)/data:/home/jovyan/data \\
+  jupyter/scipy-notebook:latest`} />
+                            </div>
+                        )}
+
+                        <div className="footer">
+                            <p>{currentLang === 'de' ? 'Big Data Seminar - THWS' : 'Big Data Seminar - THWS'} • Prof. Dr. Robert Butscher • {new Date().getFullYear()}</p>
+                            <p style={{ marginTop: '0.5rem', fontSize: '0.8rem' }}>
+                                {currentLang === 'de'
+                                    ? 'Diese Dokumentation ist Teil des Big Data Kurses an der Technischen Hochschule Würzburg-Schweinfurt.'
+                                    : 'This documentation is part of the Big Data course at THWS.'
+                                }
+                            </p>
+                        </div>
+                    </div>
+                </>
+            );
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<LabDuckDB />);
+    </script>
+</body>
+</html>
