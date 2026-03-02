@@ -457,6 +457,111 @@
                 font-size: 1.5rem;
             }
         }
+        .mission-card {
+            background: linear-gradient(135deg, #1B3A5C 0%, #2D5A7B 100%);
+            color: white;
+            border-radius: 1rem;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .challenge-card {
+            border: 2px solid #e5e7eb;
+            border-radius: 0.75rem;
+            overflow: hidden;
+            margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .challenge-card:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .challenge-header {
+            cursor: pointer;
+            padding: 1rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            user-select: none;
+        }
+
+        .challenge-content {
+            padding: 0 1.5rem 1.5rem 1.5rem;
+        }
+
+        .hypothesis-box {
+            background: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            padding: 1rem;
+            border-radius: 0 0.5rem 0.5rem 0;
+            margin: 1rem 0;
+        }
+
+        html[dir="rtl"] .hypothesis-box {
+            border-left: none;
+            border-right: 4px solid #f59e0b;
+        }
+
+        .insight-box {
+            background: #d1fae5;
+            border-left: 4px solid #10b981;
+            padding: 1rem;
+            border-radius: 0 0.5rem 0.5rem 0;
+            margin: 1rem 0;
+        }
+
+        html[dir="rtl"] .insight-box {
+            border-left: none;
+            border-right: 4px solid #10b981;
+        }
+
+        .business-context {
+            background: #e0e7ff;
+            border-left: 4px solid #6366f1;
+            padding: 1rem;
+            border-radius: 0 0.5rem 0.5rem 0;
+            margin: 1rem 0;
+        }
+
+        html[dir="rtl"] .business-context {
+            border-left: none;
+            border-right: 4px solid #6366f1;
+        }
+
+        .self-check-card {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            cursor: pointer;
+        }
+
+        .reflection-prompt {
+            background: #fdf2f8;
+            border-left: 4px solid #ec4899;
+            padding: 1rem;
+            border-radius: 0 0.5rem 0.5rem 0;
+            margin-bottom: 1rem;
+        }
+
+        html[dir="rtl"] .reflection-prompt {
+            border-left: none;
+            border-right: 4px solid #ec4899;
+        }
+
+        .real-world-section {
+            background: #f0fdf4;
+            border: 2px solid #86efac;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+        }
+
+        .difficulty-boss {
+            background-color: #e53e3e;
+            color: white;
+        }
     </style>
 </head>
 <body>
@@ -2179,113 +2284,6 @@ EXPLAIN SELECT * FROM large_table WHERE condition;
                                     ? 'Diese Dokumentation ist Teil des Big Data Kurses an der Technischen Hochschule Würzburg-Schweinfurt.'
                                     : 'This documentation is part of the Big Data course at THWS.'
                                 }
-
-        .mission-card {
-            background: linear-gradient(135deg, #1B3A5C 0%, #2D5A7B 100%);
-            color: white;
-            border-radius: 1rem;
-            padding: 2rem;
-            margin-bottom: 2rem;
-        }
-
-        .challenge-card {
-            border: 2px solid #e5e7eb;
-            border-radius: 0.75rem;
-            overflow: hidden;
-            margin-bottom: 1.5rem;
-            transition: all 0.3s ease;
-        }
-
-        .challenge-card:hover {
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-        }
-
-        .challenge-header {
-            cursor: pointer;
-            padding: 1rem 1.5rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            user-select: none;
-        }
-
-        .challenge-content {
-            padding: 0 1.5rem 1.5rem 1.5rem;
-        }
-
-        .hypothesis-box {
-            background: #fef3c7;
-            border-left: 4px solid #f59e0b;
-            padding: 1rem;
-            border-radius: 0 0.5rem 0.5rem 0;
-            margin: 1rem 0;
-        }
-
-        html[dir="rtl"] .hypothesis-box {
-            border-left: none;
-            border-right: 4px solid #f59e0b;
-        }
-
-        .insight-box {
-            background: #d1fae5;
-            border-left: 4px solid #10b981;
-            padding: 1rem;
-            border-radius: 0 0.5rem 0.5rem 0;
-            margin: 1rem 0;
-        }
-
-        html[dir="rtl"] .insight-box {
-            border-left: none;
-            border-right: 4px solid #10b981;
-        }
-
-        .business-context {
-            background: #e0e7ff;
-            border-left: 4px solid #6366f1;
-            padding: 1rem;
-            border-radius: 0 0.5rem 0.5rem 0;
-            margin: 1rem 0;
-        }
-
-        html[dir="rtl"] .business-context {
-            border-left: none;
-            border-right: 4px solid #6366f1;
-        }
-
-        .self-check-card {
-            background: #f8fafc;
-            border: 1px solid #e2e8f0;
-            border-radius: 0.5rem;
-            padding: 1rem;
-            margin-bottom: 1rem;
-            cursor: pointer;
-        }
-
-        .reflection-prompt {
-            background: #fdf2f8;
-            border-left: 4px solid #ec4899;
-            padding: 1rem;
-            border-radius: 0 0.5rem 0.5rem 0;
-            margin-bottom: 1rem;
-        }
-
-        html[dir="rtl"] .reflection-prompt {
-            border-left: none;
-            border-right: 4px solid #ec4899;
-        }
-
-        .real-world-section {
-            background: #f0fdf4;
-            border: 2px solid #86efac;
-            border-radius: 0.75rem;
-            padding: 1.5rem;
-        }
-
-        .difficulty-boss {
-            background-color: #e53e3e;
-            color: white;
-        }
-
                             </p>
                         </div>
                     </div>
