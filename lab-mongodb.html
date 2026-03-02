@@ -112,7 +112,7 @@
         }
 
         .hero-section {
-            background: linear-gradient(135deg, var(--color-dark) 0%, #2d4a78 100%);
+            background: #1B3A5C;
             color: white;
         }
 
@@ -172,6 +172,11 @@
         .difficulty-advanced {
             background-color: #f8d7da;
             color: #721c24;
+        }
+
+        .difficulty-boss {
+            background-color: #e53e3e;
+            color: white;
         }
 
         .prism-code {
@@ -238,6 +243,278 @@
             to {
                 opacity: 1;
             }
+        }
+
+        /* New component styles */
+        .mission-card {
+            background: linear-gradient(135deg, #1B3A5C 0%, #2D5A7B 100%);
+            color: white;
+            border-radius: 1rem;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .mission-card h3 {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .mission-card p {
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        .mission-tasks {
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .mission-task-item {
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+        }
+
+        html[dir="rtl"] .mission-task-item {
+            flex-direction: row-reverse;
+        }
+
+        .mission-task-item::before {
+            content: "→";
+            flex-shrink: 0;
+            font-weight: bold;
+        }
+
+        .challenge-card {
+            border: 2px solid #e5e7eb;
+            border-radius: 0.75rem;
+            overflow: hidden;
+            margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .challenge-card:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .challenge-header {
+            background-color: #f8fafc;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            user-select: none;
+        }
+
+        html[dir="rtl"] .challenge-header {
+            flex-direction: row-reverse;
+        }
+
+        .challenge-header:hover {
+            background-color: #f1f5f9;
+        }
+
+        .challenge-title-section {
+            flex: 1;
+        }
+
+        .challenge-title-section h4 {
+            font-weight: bold;
+            margin-bottom: 0.25rem;
+            color: var(--color-dark);
+        }
+
+        .challenge-toggle {
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: transform 0.3s ease;
+        }
+
+        .challenge-toggle.open {
+            transform: rotate(90deg);
+        }
+
+        .challenge-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            padding: 0 1rem;
+        }
+
+        .challenge-content.open {
+            max-height: 2000px;
+            padding: 1rem;
+        }
+
+        .challenge-section {
+            margin-bottom: 1rem;
+        }
+
+        .challenge-section-title {
+            font-weight: bold;
+            color: var(--color-dark);
+            margin-bottom: 0.5rem;
+            margin-top: 0.75rem;
+        }
+
+        .challenge-section:first-child .challenge-section-title {
+            margin-top: 0;
+        }
+
+        .hypothesis-box {
+            background-color: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        html[dir="rtl"] .hypothesis-box {
+            border-left: none;
+            border-right: 4px solid #f59e0b;
+        }
+
+        .insight-box {
+            background-color: #d1fae5;
+            border-left: 4px solid #10b981;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        html[dir="rtl"] .insight-box {
+            border-left: none;
+            border-right: 4px solid #10b981;
+        }
+
+        .business-context {
+            background-color: #e0e7ff;
+            border-left: 4px solid #6366f1;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        html[dir="rtl"] .business-context {
+            border-left: none;
+            border-right: 4px solid #6366f1;
+        }
+
+        .self-check-card {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .question-text {
+            font-weight: bold;
+            color: var(--color-dark);
+            margin-bottom: 0.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        html[dir="rtl"] .question-text {
+            flex-direction: row-reverse;
+        }
+
+        .answer-toggle {
+            font-size: 0.9rem;
+            user-select: none;
+        }
+
+        .answer-text {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            padding: 0 0.5rem;
+            color: #4b5563;
+            line-height: 1.5;
+        }
+
+        .answer-text.open {
+            max-height: 500px;
+            padding: 0.75rem 0.5rem;
+            margin-top: 0.5rem;
+            background-color: #eef2ff;
+            border-radius: 0.3rem;
+            border-left: 3px solid #6366f1;
+            padding-left: 0.75rem;
+        }
+
+        html[dir="rtl"] .answer-text.open {
+            border-left: none;
+            border-right: 3px solid #6366f1;
+            padding-left: 0.5rem;
+            padding-right: 0.75rem;
+        }
+
+        .reflection-prompt {
+            background-color: #fce7f3;
+            border: 1px solid #f472b6;
+            border-radius: 0.75rem;
+            padding: 1.25rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .reflection-prompt h4 {
+            font-weight: bold;
+            color: var(--color-dark);
+            margin-bottom: 0.75rem;
+        }
+
+        .reflection-prompt p {
+            color: #5b6c7d;
+            line-height: 1.6;
+        }
+
+        .real-world-section {
+            background-color: #ecfdf5;
+            border: 2px solid #10b981;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .real-world-section h4 {
+            color: var(--color-dark);
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .real-world-items {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .real-world-item {
+            background-color: white;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            border-left: 4px solid #10b981;
+        }
+
+        html[dir="rtl"] .real-world-item {
+            border-left: none;
+            border-right: 4px solid #10b981;
+        }
+
+        .real-world-item-title {
+            font-weight: bold;
+            color: var(--color-dark);
+            margin-bottom: 0.25rem;
+        }
+
+        .real-world-item-desc {
+            font-size: 0.9rem;
+            color: #5b6c7d;
         }
     </style>
 </head>
@@ -405,6 +682,105 @@
                 exampleCustomer: "Beispiel-Kunde",
                 exampleOrder: "Beispiel-Bestellung",
                 exampleReview: "Beispiel-Bewertung",
+
+                // Mission section
+                missionTitle: "Ihre Mission",
+                missionIntro: "Sie sind der neue Datenanalyst bei MegaStore, einem wachsenden E-Commerce-Unternehmen mit 2 Millionen Kundendatensätzen. Der CEO hat dringende Fragen:",
+                missionTasks: [
+                    "Welche Produktkategorien generieren die meisten Umsätze?",
+                    "Warum sind die Rückgabequoten so hoch?",
+                    "Welche Kunden drohen abzuwandern?"
+                ],
+                missionConclusion: "Ihre Aufgabe: Verwenden Sie MongoDB, um diese Datensätze zu erkunden und verwertbare Geschäftserkenntnisse zu liefern.",
+
+                // Challenges section
+                challengesTitle: "Progressive Herausforderungen",
+                level1Title: "Einstieg - Top 5 Produktkategorien",
+                level1Challenge: "Finden Sie die 5 Produktkategorien mit den meisten Produkten",
+                level1Hypothesis: "Bevor Sie die Query schreiben: Welche Kategorien haben Ihrer Meinung nach die meisten Produkte? Warum?",
+                level1Solution: "db.products.aggregate([{ $group: { _id: \"$category\", count: { $sum: 1 } } }, { $sort: { count: -1 } }, { $limit: 5 }])",
+                level1Insight: "Elektronik und Haus & Garten dominieren typischerweise. Kategorieverwalter nutzen diese Daten für Regalbelegung und Marketingbudgets.",
+                level1RealWorld: "Kategorieverwalter nutzen diese Daten, um Regalbelegung und Marketingbudgets zu optimieren.",
+
+                level2Title: "Vertiefung - Abwanderungsgefährdete Kunden",
+                level2Challenge: "Identifizieren Sie Kunden, die mehr als $1000 ausgegeben haben, aber seit 6 Monaten keine Bestellung aufgegeben haben",
+                level2Hint: "Hinweis: Verwenden Sie $match und $group mit Datum-Vergleichen",
+                level2RealWorld: "Kundenretention kostet 5x weniger als Neuakquisition. Dies ist eine kritische Segmentierung.",
+
+                level3Title: "Fortgeschritten - Produktempfehlungssystem",
+                level3Challenge: "Bauen Sie ein System: Für jedes Produkt die 3 Produkte finden, die am häufigsten zusammen gekauft werden",
+                level3Hint: "Hinweis: Analysieren Sie Bestellungen und finde Produkt-Paare häufig zusammen vorkommen",
+                level3RealWorld: "Amazon generiert 35% des Umsatzes aus Empfehlungen. Dies ist ein Kern-Geschäftsmodell.",
+
+                level4Title: "Boss Challenge - RFM Segmentierung",
+                level4Challenge: "Führen Sie eine RFM-Analyse (Recency, Frequency, Monetary) durch und segmentieren Sie Kunden in Gold, Silver, Bronze Tiers",
+                level4Concept: "RFM-Konzept: Recency (wie kürzlich), Frequency (wie oft), Monetary (wie viel). Nutzen Sie diese Metriken um Kundenwert zu klassifizieren.",
+                level4RealWorld: "RFM-Segmentierung ist die Grundlage personalisierter Marketingkampagnen und gezielter Kundenbindung.",
+
+                // Self-check questions
+                selfCheckTitle: "Selbstkontrolle - Überprüfen Sie Ihr Verständnis",
+                selfCheckQuestions: [
+                    {
+                        q: "Was ist ein Dokument im MongoDB-Kontext?",
+                        a: "Ein Dokument in MongoDB ist eine Einheit strukturierter Daten (JSON/BSON) mit einem eindeutigen _id. Es ist das Äquivalent zu einer Zeile in einer relationalen Datenbank."
+                    },
+                    {
+                        q: "Wann sollten Sie Embedding versus Referencing verwenden?",
+                        a: "Verwenden Sie Embedding für 1:1 oder 1:wenige Beziehungen und Daten, die zusammen gelesen werden. Verwenden Sie Referencing für 1:viele oder viele:viele Beziehungen und wiederholte Daten."
+                    },
+                    {
+                        q: "Was macht die $group-Phase in einer Aggregation Pipeline?",
+                        a: "Die $group-Phase gruppiert Dokumente nach einem bestimmten Feld und kann Aggregationsfunktionen wie $sum, $avg, $max anwenden, um Zusammenfassungen zu erstellen."
+                    },
+                    {
+                        q: "Warum wird MongoDB 'schema-flexibel' genannt?",
+                        a: "MongoDB ermöglicht es, dass Dokumente in einer Kollektion unterschiedliche Strukturen haben. Neue Felder können hinzugefügt werden, ohne die gesamte Datenbank zu migrieren."
+                    },
+                    {
+                        q: "Wann würden Sie MongoDB gegenüber einer relationalen Datenbank wählen?",
+                        a: "Wählen Sie MongoDB für semi-strukturierte Daten, schnelle Entwicklung mit sich ändernden Anforderungen, horizontale Skalierung und komplexe verschachtelte Strukturen."
+                    }
+                ],
+
+                // Enhanced reflection
+                reflectionTitle: "Reflexion & Wirkliche Anwendungen",
+                reflectionPrompts: [
+                    {
+                        title: "Was hat Sie überrascht?",
+                        description: "Welcher Aspekt von MongoDB war unerwartet? Wie unterschied es sich von Ihren Erwartungen?"
+                    },
+                    {
+                        title: "Was war am schwierigsten?",
+                        description: "Welche Konzepte waren am herausforderndsten? Wo benötigen Sie noch mehr Übung?"
+                    },
+                    {
+                        title: "Erklären Sie MongoDB einem nicht-technischen CEO",
+                        description: "Wie würden Sie die Vorteile von MongoDB für Geschäftsentscheidungen in einfachen Worten erklären?"
+                    },
+                    {
+                        title: "Welche Business-Frage war am interessantesten?",
+                        description: "Von allen MegaStore-Szenarien: Welches faszinierte Sie am meisten und warum?"
+                    }
+                ],
+                realWorldTitle: "Wo MongoDB in der echten Welt eingesetzt wird",
+                realWorldUseCases: [
+                    {
+                        title: "IoT & Sensordaten",
+                        desc: "Millionen von Sensoren generieren semi-strukturierte Daten mit unterschiedlichen Schemas. MongoDB skaliert horizontal."
+                    },
+                    {
+                        title: "Content Management",
+                        desc: "Blogs, Artikel, Medieninhalte mit verschiedenen Feldern. Schema-Flexibilität für unterschiedliche Content-Typen."
+                    },
+                    {
+                        title: "Echtzeit-Analysen",
+                        desc: "Streaming-Daten von Websites, Apps, Ereignisse. Aggregation Pipelines für schnelle Insights."
+                    },
+                    {
+                        title: "Spielentwicklung",
+                        desc: "Spieler-Profile, Spielstände, Gegenstände. Verschachtelte Strukturen perfekt für komplexe Spielmechaniken."
+                    }
+                ],
             },
             en: {
                 // Navigation
@@ -562,6 +938,105 @@
                 exampleCustomer: "Example Customer",
                 exampleOrder: "Example Order",
                 exampleReview: "Example Review",
+
+                // Mission section
+                missionTitle: "Your Mission",
+                missionIntro: "You are the new data analyst at MegaStore, a growing e-commerce company with 2 million customer records. The CEO has urgent questions:",
+                missionTasks: [
+                    "Which product categories drive the most revenue?",
+                    "Why are return rates so high?",
+                    "Which customers are at risk of churning?"
+                ],
+                missionConclusion: "Your job: Use MongoDB to explore these records and deliver actionable business insights.",
+
+                // Challenges section
+                challengesTitle: "Progressive Challenges",
+                level1Title: "Getting Started - Top 5 Product Categories",
+                level1Challenge: "Find the 5 product categories with the most products",
+                level1Hypothesis: "Before you write the query: Which categories do you think have the most products? Why?",
+                level1Solution: "db.products.aggregate([{ $group: { _id: \"$category\", count: { $sum: 1 } } }, { $sort: { count: -1 } }, { $limit: 5 }])",
+                level1Insight: "Electronics and Home & Garden typically dominate. Category managers use this data to allocate shelf space and marketing budget.",
+                level1RealWorld: "Category managers use this data to optimize shelf space allocation and marketing budgets.",
+
+                level2Title: "Deeper Dive - At-Risk Customers",
+                level2Challenge: "Identify customers who spent more than $1,000 but haven't ordered in the last 6 months — potential churners",
+                level2Hint: "Hint: Use $match and $group with date comparisons",
+                level2RealWorld: "Customer retention costs 5x less than acquisition. This is a critical segmentation.",
+
+                level3Title: "Advanced - Product Recommendation Engine",
+                level3Challenge: "Build a recommendation system: For each product, find the 3 products most frequently bought together",
+                level3Hint: "Hint: Analyze orders to find product pairs that frequently appear together",
+                level3RealWorld: "Amazon generates 35% of revenue from recommendations. This is core to the business model.",
+
+                level4Title: "Boss Challenge - RFM Segmentation",
+                level4Challenge: "Perform an RFM (Recency, Frequency, Monetary) analysis to segment customers into Gold, Silver, Bronze tiers",
+                level4Concept: "RFM Concept: Recency (how recent), Frequency (how often), Monetary (how much). Use these metrics to classify customer value.",
+                level4RealWorld: "RFM segmentation is the foundation of personalized marketing campaigns and targeted customer retention strategies.",
+
+                // Self-check questions
+                selfCheckTitle: "Self-Check - Test Your Understanding",
+                selfCheckQuestions: [
+                    {
+                        q: "What is a Document in MongoDB context?",
+                        a: "A document in MongoDB is a unit of structured data (JSON/BSON) with a unique _id. It's equivalent to a row in a relational database."
+                    },
+                    {
+                        q: "When should you use Embedding vs. Referencing?",
+                        a: "Use Embedding for 1:1 or 1:few relationships and data read together. Use Referencing for 1:many or many:many relationships and repeated data."
+                    },
+                    {
+                        q: "What does the $group stage do in an Aggregation Pipeline?",
+                        a: "The $group stage groups documents by a field and can apply aggregation functions like $sum, $avg, $max to create summaries."
+                    },
+                    {
+                        q: "Why is MongoDB called 'schema-flexible'?",
+                        a: "MongoDB allows documents in a collection to have different structures. New fields can be added without migrating the entire database."
+                    },
+                    {
+                        q: "When would you choose MongoDB over a relational database?",
+                        a: "Choose MongoDB for semi-structured data, rapid development with changing requirements, horizontal scaling, and complex nested structures."
+                    }
+                ],
+
+                // Enhanced reflection
+                reflectionTitle: "Reflection & Real-World Applications",
+                reflectionPrompts: [
+                    {
+                        title: "What surprised you?",
+                        description: "Which aspect of MongoDB was unexpected? How did it differ from your expectations?"
+                    },
+                    {
+                        title: "What was the hardest part?",
+                        description: "Which concepts were most challenging? Where do you need more practice?"
+                    },
+                    {
+                        title: "Explain MongoDB to a non-technical CEO",
+                        description: "How would you explain MongoDB's benefits for business decisions in simple terms?"
+                    },
+                    {
+                        title: "Which MegaStore business question was most interesting?",
+                        description: "Of all the scenarios: Which fascinated you most and why?"
+                    }
+                ],
+                realWorldTitle: "Where MongoDB Is Used in the Real World",
+                realWorldUseCases: [
+                    {
+                        title: "IoT & Sensor Data",
+                        desc: "Millions of sensors generate semi-structured data with varying schemas. MongoDB scales horizontally effortlessly."
+                    },
+                    {
+                        title: "Content Management",
+                        desc: "Blogs, articles, media with different fields. Schema flexibility for various content types."
+                    },
+                    {
+                        title: "Real-Time Analytics",
+                        desc: "Streaming data from websites, apps, events. Aggregation pipelines for quick insights."
+                    },
+                    {
+                        title: "Game Development",
+                        desc: "Player profiles, game states, inventory. Nested structures perfect for complex game mechanics."
+                    }
+                ],
             },
             ar: {
                 // Navigation
@@ -719,6 +1194,105 @@
                 exampleCustomer: "عميل نموذجي",
                 exampleOrder: "طلب نموذجي",
                 exampleReview: "مراجعة نموذجية",
+
+                // Mission section
+                missionTitle: "مهمتك",
+                missionIntro: "أنت محلل البيانات الجديد في MegaStore، شركة تجارة إلكترونية متنامية بها مليوني سجل عميل. للرئيس التنفيذي أسئلة عاجلة:",
+                missionTasks: [
+                    "أي فئات المنتجات تدر أكثر إيرادات؟",
+                    "لماذا معدلات الإرجاع مرتفعة جداً؟",
+                    "أي العملاء في خطر فقدانهم؟"
+                ],
+                missionConclusion: "مهمتك: استخدم MongoDB لاستكشاف هذه السجلات وتقديم رؤى تجارية قابلة للتنفيذ.",
+
+                // Challenges section
+                challengesTitle: "تحديات متدرجة",
+                level1Title: "البداية - أفضل 5 فئات منتجات",
+                level1Challenge: "ابحث عن فئات المنتجات الـ 5 التي تحتوي على أكثر المنتجات",
+                level1Hypothesis: "قبل كتابة الاستعلام: برأيك أي فئات بها أكثر المنتجات؟ لماذا؟",
+                level1Solution: "db.products.aggregate([{ $group: { _id: \"$category\", count: { $sum: 1 } } }, { $sort: { count: -1 } }, { $limit: 5 }])",
+                level1Insight: "الإلكترونيات والمنزل والحديقة عادة ما تهيمن. يستخدم مديرو الفئات هذه البيانات لتخصيص المساحة والميزانية.",
+                level1RealWorld: "يستخدم مديرو الفئات هذه البيانات لتحسين تخصيص المساحة والميزانيات التسويقية.",
+
+                level2Title: "معمق - العملاء المعرضون للخطر",
+                level2Challenge: "حدد العملاء الذين أنفقوا أكثر من 1000 دولار لكنهم لم يطلبوا منذ 6 أشهر - عملاء قد يتركونك",
+                level2Hint: "تلميح: استخدم $match و $group مع مقارنات التاريخ",
+                level2RealWorld: "الاحتفاظ بالعملاء يكلف 5 مرات أقل من اكتساب عملاء جدد. هذا تقسيم حرج.",
+
+                level3Title: "متقدم - محرك التوصيات",
+                level3Challenge: "بناء نظام توصيات: لكل منتج، ابحث عن 3 منتجات يتم شراؤها معاً بشكل متكرر",
+                level3Hint: "تلميح: حلل الطلبات للعثور على أزواج المنتجات التي تظهر معاً بشكل متكرر",
+                level3RealWorld: "يولد Amazon 35% من الإيرادات من التوصيات. هذا أساس النموذج التجاري.",
+
+                level4Title: "تحدي القبطان - تجزئة RFM",
+                level4Challenge: "قم بإجراء تحليل RFM (الحداثة والتكرار والقيمة المالية) لتقسيم العملاء إلى طبقات ذهبية وفضية وبرونزية",
+                level4Concept: "مفهوم RFM: الحداثة (كم حديثة)، التكرار (كم مرة)، القيمة (كم قيمة). استخدم هذه المقاييس لتصنيف قيمة العملاء.",
+                level4RealWorld: "تجزئة RFM هي أساس الحملات التسويقية المخصصة واستراتيجيات الاحتفاظ بالعملاء.",
+
+                // Self-check questions
+                selfCheckTitle: "فحص ذاتي - اختبر فهمك",
+                selfCheckQuestions: [
+                    {
+                        q: "ما هو المستند في سياق MongoDB؟",
+                        a: "المستند في MongoDB هو وحدة بيانات منظمة (JSON/BSON) بمعرّف فريد _id. إنه يعادل صفاً في قاعدة بيانات علائقية."
+                    },
+                    {
+                        q: "متى يجب عليك استخدام الدمج مقابل الإشارة؟",
+                        a: "استخدم الدمج للعلاقات 1:1 أو 1:قليل والبيانات المقروءة معاً. استخدم الإشارة للعلاقات 1:كثير أو كثير:كثير والبيانات المكررة."
+                    },
+                    {
+                        q: "ماذا تفعل مرحلة $group في خط أنابيب التجميع؟",
+                        a: "مرحلة $group تجمع المستندات حسب حقل ويمكنها تطبيق وظائف التجميع مثل $sum و $avg و $max لإنشاء ملخصات."
+                    },
+                    {
+                        q: "لماذا تُسمى MongoDB 'مرنة الـ Schema'؟",
+                        a: "تسمح MongoDB بأن يكون للمستندات في المجموعة هياكل مختلفة. يمكن إضافة حقول جديدة بدون ترحيل قاعدة البيانات بأكملها."
+                    },
+                    {
+                        q: "متى ستختار MongoDB على قاعدة البيانات العلائقية؟",
+                        a: "اختر MongoDB للبيانات شبه المنظمة والتطوير السريع والمتطلبات المتغيرة والقياس الأفقي والهياكل المتداخلة المعقدة."
+                    }
+                ],
+
+                // Enhanced reflection
+                reflectionTitle: "التفكير والتطبيقات الحقيقية",
+                reflectionPrompts: [
+                    {
+                        title: "ما الذي فاجأك؟",
+                        description: "أي جانب من MongoDB كان غير متوقع؟ كيف اختلف عن توقعاتك؟"
+                    },
+                    {
+                        title: "ما الجزء الأصعب؟",
+                        description: "أي المفاهيم كانت الأكثر تحديًا؟ أين تحتاج إلى مزيد من الممارسة؟"
+                    },
+                    {
+                        title: "اشرح MongoDB للرئيس التنفيذي غير التقني",
+                        description: "كيف ستشرح فوائد MongoDB لاتخاذ القرارات التجارية بكلمات بسيطة؟"
+                    },
+                    {
+                        title: "أي سؤال تجاري في MegaStore كان الأكثر إثارة للاهتمام؟",
+                        description: "من جميع السيناريوهات: أيها أثار فضولك أكثر ولماذا؟"
+                    }
+                ],
+                realWorldTitle: "حيث يتم استخدام MongoDB في العالم الحقيقي",
+                realWorldUseCases: [
+                    {
+                        title: "بيانات IoT والمستشعرات",
+                        desc: "ملايين المستشعرات تولد بيانات شبه منظمة بأنماط مختلفة. MongoDB تتسع أفقياً بسهولة."
+                    },
+                    {
+                        title: "إدارة المحتوى",
+                        desc: "المدونات والمقالات والوسائط بحقول مختلفة. مرونة Schema لأنواع محتوى مختلفة."
+                    },
+                    {
+                        title: "التحليلات في الوقت الفعلي",
+                        desc: "بيانات البث من المواقع والتطبيقات والأحداث. خطوط أنابيب التجميع لرؤى سريعة."
+                    },
+                    {
+                        title: "تطوير الألعاب",
+                        desc: "ملفات اللاعبين وحالات اللعبة والمخزون. الهياكل المتداخلة مثالية لميكانيكا اللعبة المعقدة."
+                    }
+                ],
             },
             uk: {
                 // Navigation
@@ -876,6 +1450,105 @@
                 exampleCustomer: "Приклад клієнта",
                 exampleOrder: "Приклад замовлення",
                 exampleReview: "Приклад рецензії",
+
+                // Mission section
+                missionTitle: "Ваша місія",
+                missionIntro: "Ви новий аналітик даних у MegaStore, компанії електронної комерції з 2 мільйонів записів клієнтів. Генеральний директор має невідкладні питання:",
+                missionTasks: [
+                    "Які категорії продуктів генерують найбільше доходу?",
+                    "Чому показники повернення товару такі високі?",
+                    "Які клієнти ризикують пройти усадовування?"
+                ],
+                missionConclusion: "Ваша робота: Використовуйте MongoDB для дослідження цих записів та надання практичних бізнес-інсайтів.",
+
+                // Challenges section
+                challengesTitle: "Прогресивні виклики",
+                level1Title: "Початок - Топ 5 категорій продуктів",
+                level1Challenge: "Знайдіть 5 категорій продуктів з найбільшою кількістю товарів",
+                level1Hypothesis: "Перш ніж писати запит: На вашу думку, які категорії мають найбільше продуктів? Чому?",
+                level1Solution: "db.products.aggregate([{ $group: { _id: \"$category\", count: { $sum: 1 } } }, { $sort: { count: -1 } }, { $limit: 5 }])",
+                level1Insight: "Електроніка та дім і сад зазвичай домінують. Керівники категорій використовують ці дані для розподілу місця на полицях.",
+                level1RealWorld: "Керівники категорій використовують ці дані для оптимізації розподілу місця та маркетингових бюджетів.",
+
+                level2Title: "Глибше - Клієнти в групі ризику",
+                level2Challenge: "Визначте клієнтів, які витратили більше ніж $1000, але не замовляли протягом 6 місяців",
+                level2Hint: "Підказка: Використовуйте $match та $group з порівняннями дат",
+                level2RealWorld: "Утримання клієнтів коштує в 5 разів менше, ніж залучення нових. Це критична сегментація.",
+
+                level3Title: "Просунуто - Система рекомендацій продуктів",
+                level3Challenge: "Побудуйте систему: для кожного продукту знайдіть 3 продукти, які найчастіше купуються разом",
+                level3Hint: "Підказка: Аналізуйте замовлення, щоб знайти пари продуктів, які часто з'являються разом",
+                level3RealWorld: "Amazon генерує 35% доходу з рекомендацій. Це основа бізнес-моделі.",
+
+                level4Title: "Виклик капітана - RFM сегментація",
+                level4Challenge: "Виконайте аналіз RFM (Свіжість, Частота, Вартість) для сегментації клієнтів на золоті, срібні та бронзові рівні",
+                level4Concept: "Концепція RFM: Свіжість (як нещодавно), Частота (як часто), Вартість (скільки коштує). Використовуйте ці метрики для класифікації вартості клієнтів.",
+                level4RealWorld: "RFM сегментація - основа персоналізованих маркетингових кампаній та цільових стратегій утримання клієнтів.",
+
+                // Self-check questions
+                selfCheckTitle: "Самоперевірка - Перевірте своє розуміння",
+                selfCheckQuestions: [
+                    {
+                        q: "Що таке документ в контексті MongoDB?",
+                        a: "Документ у MongoDB - це одиниця структурованих даних (JSON/BSON) з унікальним ідентифікатором _id. Це еквівалент рядка в реляційній базі даних."
+                    },
+                    {
+                        q: "Коли слід використовувати вбудовування проти посилання?",
+                        a: "Використовуйте вбудовування для відносин 1:1 або 1:мало та даних, прочитаних разом. Використовуйте посилання для відносин 1:багато або багато:багато та повторюваних даних."
+                    },
+                    {
+                        q: "Що робить етап $group у конвеєрі агрегації?",
+                        a: "Етап $group групує документи за полем і може застосовувати функції агрегації, такі як $sum, $avg, $max для створення резюме."
+                    },
+                    {
+                        q: "Чому MongoDB називається 'гнучкою схемою'?",
+                        a: "MongoDB дозволяє документам у колекції мати різні структури. Нові поля можна додавати без міграції всієї бази даних."
+                    },
+                    {
+                        q: "Коли ви виберете MongoDB замість реляційної бази даних?",
+                        a: "Виберіть MongoDB для напівструктурованих даних, швидкого розроблення зі змінюваними вимогами, горизонтального масштабування та складних вложених структур."
+                    }
+                ],
+
+                // Enhanced reflection
+                reflectionTitle: "Рефлексія та реальні застосування",
+                reflectionPrompts: [
+                    {
+                        title: "Що вас здивувало?",
+                        description: "Який аспект MongoDB був неочікуваний? Чим він відрізнявся від ваших очікувань?"
+                    },
+                    {
+                        title: "Яка була найтруднішою частиною?",
+                        description: "Які концепції були найбільш складними? Де вам потрібна більше практики?"
+                    },
+                    {
+                        title: "Поясніть MongoDB не-технічному генеральному директору",
+                        description: "Як пояснити переваги MongoDB для ділових рішень простими словами?"
+                    },
+                    {
+                        title: "Яке запитання MegaStore було найцікавішим?",
+                        description: "З усіх сценаріїв: Який вас найбільше зацікавив і чому?"
+                    }
+                ],
+                realWorldTitle: "Де MongoDB використовується у реальному світі",
+                realWorldUseCases: [
+                    {
+                        title: "IoT та дані датчиків",
+                        desc: "Мільйони датчиків генерують напівструктуровані дані з різними схемами. MongoDB масштабується горизонтально без проблем."
+                    },
+                    {
+                        title: "Управління вмістом",
+                        desc: "Блоги, статті, медіа з різними полями. Гнучкість схеми для різних типів вмісту."
+                    },
+                    {
+                        title: "Аналітика в реальному часі",
+                        desc: "Потокові дані від веб-сайтів, застосунків, подій. Конвеєри агрегації для швидких інсайтів."
+                    },
+                    {
+                        title: "Розроблення ігор",
+                        desc: "Профілі гравців, стани гри, інвентар. Вложені структури ідеальні для складної механіки гри."
+                    }
+                ],
             },
             es: {
                 // Navigation
@@ -1033,6 +1706,105 @@
                 exampleCustomer: "Cliente de ejemplo",
                 exampleOrder: "Pedido de ejemplo",
                 exampleReview: "Revisión de ejemplo",
+
+                // Mission section
+                missionTitle: "Tu misión",
+                missionIntro: "Eres el nuevo analista de datos en MegaStore, una empresa de comercio electrónico en crecimiento con 2 millones de registros de clientes. El CEO tiene preguntas urgentes:",
+                missionTasks: [
+                    "¿Qué categorías de productos generan más ingresos?",
+                    "¿Por qué las tasas de devolución son tan altas?",
+                    "¿Qué clientes están en riesgo de abandono?"
+                ],
+                missionConclusion: "Tu trabajo: Usa MongoDB para explorar estos registros y proporcionar información empresarial accionable.",
+
+                // Challenges section
+                challengesTitle: "Desafíos progresivos",
+                level1Title: "Inicio - Top 5 categorías de productos",
+                level1Challenge: "Encuentra las 5 categorías de productos con más productos",
+                level1Hypothesis: "Antes de escribir la consulta: ¿Qué categorías crees que tienen más productos? ¿Por qué?",
+                level1Solution: "db.products.aggregate([{ $group: { _id: \"$category\", count: { $sum: 1 } } }, { $sort: { count: -1 } }, { $limit: 5 }])",
+                level1Insight: "Electrónica y Hogar y Jardín generalmente dominan. Los gerentes de categorías utilizan estos datos para asignar espacio en estantes y presupuestos.",
+                level1RealWorld: "Los gerentes de categorías utilizan estos datos para optimizar la asignación de espacio en estantes y presupuestos de marketing.",
+
+                level2Title: "Más profundo - Clientes en riesgo",
+                level2Challenge: "Identifica clientes que gastaron más de $1,000 pero no han pedido en los últimos 6 meses",
+                level2Hint: "Consejo: Usa $match y $group con comparaciones de fechas",
+                level2RealWorld: "La retención de clientes cuesta 5 veces menos que la adquisición. Esta es una segmentación crítica.",
+
+                level3Title: "Avanzado - Motor de recomendaciones de productos",
+                level3Challenge: "Construye un sistema: para cada producto, encuentra los 3 productos comprados más frecuentemente juntos",
+                level3Hint: "Consejo: Analiza pedidos para encontrar pares de productos que frecuentemente aparecen juntos",
+                level3RealWorld: "Amazon genera el 35% de ingresos a partir de recomendaciones. Esto es fundamental para el modelo de negocio.",
+
+                level4Title: "Desafío del jefe - Segmentación RFM",
+                level4Challenge: "Realiza un análisis RFM (Recencia, Frecuencia, Monetario) para segmentar clientes en niveles Oro, Plata y Bronce",
+                level4Concept: "Concepto RFM: Recencia (cuán recientemente), Frecuencia (cuán a menudo), Monetario (cuánto gasta). Usa estas métricas para clasificar el valor del cliente.",
+                level4RealWorld: "La segmentación RFM es la base de campañas de marketing personalizadas y estrategias de retención dirigidas.",
+
+                // Self-check questions
+                selfCheckTitle: "Autoevaluación - Prueba tu comprensión",
+                selfCheckQuestions: [
+                    {
+                        q: "¿Qué es un Documento en el contexto de MongoDB?",
+                        a: "Un documento en MongoDB es una unidad de datos estructurados (JSON/BSON) con un identificador único _id. Es equivalente a una fila en una base de datos relacional."
+                    },
+                    {
+                        q: "¿Cuándo deberías usar Embedding vs. Referencing?",
+                        a: "Usa Embedding para relaciones 1:1 o 1:pocos y datos leídos juntos. Usa Referencing para relaciones 1:muchos o muchos:muchos y datos repetidos."
+                    },
+                    {
+                        q: "¿Qué hace la fase $group en un Pipeline de Agregación?",
+                        a: "La fase $group agrupa documentos por un campo y puede aplicar funciones de agregación como $sum, $avg, $max para crear resúmenes."
+                    },
+                    {
+                        q: "¿Por qué MongoDB se llama 'flexible de esquema'?",
+                        a: "MongoDB permite que documentos en una colección tengan diferentes estructuras. Se pueden agregar nuevos campos sin migrar toda la base de datos."
+                    },
+                    {
+                        q: "¿Cuándo elegirías MongoDB sobre una base de datos relacional?",
+                        a: "Elige MongoDB para datos semiestructurados, desarrollo rápido con requisitos cambiantes, escalado horizontal y estructuras complejas anidadas."
+                    }
+                ],
+
+                // Enhanced reflection
+                reflectionTitle: "Reflexión y aplicaciones del mundo real",
+                reflectionPrompts: [
+                    {
+                        title: "¿Qué te sorprendió?",
+                        description: "¿Qué aspecto de MongoDB fue inesperado? ¿Cómo difirió de tus expectativas?"
+                    },
+                    {
+                        title: "¿Cuál fue la parte más difícil?",
+                        description: "¿Qué conceptos fueron más desafiantes? ¿Dónde necesitas más práctica?"
+                    },
+                    {
+                        title: "Explica MongoDB a un CEO no técnico",
+                        description: "¿Cómo explicarías los beneficios de MongoDB para decisiones empresariales en términos simples?"
+                    },
+                    {
+                        title: "¿Cuál fue la pregunta comercial de MegaStore más interesante?",
+                        description: "De todos los escenarios: ¿Cuál te fascinó más y por qué?"
+                    }
+                ],
+                realWorldTitle: "Dónde se usa MongoDB en el mundo real",
+                realWorldUseCases: [
+                    {
+                        title: "IoT y datos de sensores",
+                        desc: "Millones de sensores generan datos semiestructurados con esquemas variados. MongoDB se escala horizontalmente sin esfuerzo."
+                    },
+                    {
+                        title: "Gestión de contenidos",
+                        desc: "Blogs, artículos, medios con diferentes campos. Flexibilidad de esquema para varios tipos de contenido."
+                    },
+                    {
+                        title: "Análisis en tiempo real",
+                        desc: "Datos de transmisión de sitios web, aplicaciones, eventos. Canalizaciones de agregación para información rápida."
+                    },
+                    {
+                        title: "Desarrollo de juegos",
+                        desc: "Perfiles de jugadores, estados de juego, inventario. Estructuras anidadas perfectas para mecánicas de juegos complejas."
+                    }
+                ],
             },
             tr: {
                 // Navigation
@@ -1190,6 +1962,105 @@
                 exampleCustomer: "Örnek Müşteri",
                 exampleOrder: "Örnek Sipariş",
                 exampleReview: "Örnek İnceleme",
+
+                // Mission section
+                missionTitle: "Göreviniz",
+                missionIntro: "Siz, 2 milyon müşteri kaydına sahip büyüyen bir e-ticaret şirketi olan MegaStore'daki yeni veri analisti siziniz. CEO'nun acil soruları var:",
+                missionTasks: [
+                    "Hangi ürün kategorileri en fazla gelir sağlıyor?",
+                    "İade oranları neden bu kadar yüksek?",
+                    "Hangi müşteriler kaybolma riski altındadır?"
+                ],
+                missionConclusion: "Göreviniz: Bu kayıtları keşfetmek ve uygulanabilir iş içgörüleri sağlamak için MongoDB kullanın.",
+
+                // Challenges section
+                challengesTitle: "Kademeli Zorluklar",
+                level1Title: "Başlangıç - En İyi 5 Ürün Kategorisi",
+                level1Challenge: "En fazla ürüne sahip 5 ürün kategorisini bulun",
+                level1Hypothesis: "Sorguyu yazmadan önce: Sizce hangi kategorilerin en fazla ürünü vardır? Neden?",
+                level1Solution: "db.products.aggregate([{ $group: { _id: \"$category\", count: { $sum: 1 } } }, { $sort: { count: -1 } }, { $limit: 5 }])",
+                level1Insight: "Elektronik ve Ev & Bahçe tipik olarak egemenlik sağlar. Kategori yöneticileri bu verileri raf alanı ve pazarlama bütçesi için kullanırlar.",
+                level1RealWorld: "Kategori yöneticileri bu verileri raf alanı dağılımını ve pazarlama bütçelerini optimize etmek için kullanırlar.",
+
+                level2Title: "Daha Derin - Risk Altındaki Müşteriler",
+                level2Challenge: "$1.000'den fazla harcayan ancak son 6 ayda sipariş vermeyen müşterileri belirleyin",
+                level2Hint: "İpucu: Tarih karşılaştırmaları ile $match ve $group kullanın",
+                level2RealWorld: "Müşteri tutma, kazanımın 5 katı kadar maliyetlidir. Bu kritik bir segmentasyondur.",
+
+                level3Title: "İleri - Ürün Tavsiye Sistemi",
+                level3Challenge: "Bir sistem oluşturun: Her ürün için en sık birlikte satın alınan 3 ürünü bulun",
+                level3Hint: "İpucu: Sık birlikte görünen ürün çiftlerini bulmak için siparişleri analiz edin",
+                level3RealWorld: "Amazon gelirinin %35'ini tavsiyelerden elde eder. Bu iş modelinin temelidir.",
+
+                level4Title: "Patron Zorlama - RFM Segmentasyonu",
+                level4Challenge: "RFM (Yakınlık, Sıklık, Parasal) analizi gerçekleştirin ve müşterileri Altın, Gümüş, Bronz seviyelerine ayırın",
+                level4Concept: "RFM Konsepti: Yakınlık (ne kadar yakın), Sıklık (ne kadar sık), Parasal (ne kadar harcandı). Müşteri değerini sınıflandırmak için bu ölçümleri kullanın.",
+                level4RealWorld: "RFM segmentasyonu, kişiselleştirilmiş pazarlama kampanyalarının ve hedefli müşteri tutma stratejilerinin temelidir.",
+
+                // Self-check questions
+                selfCheckTitle: "Öz-Kontrol - Anlayışınızı Test Edin",
+                selfCheckQuestions: [
+                    {
+                        q: "MongoDB bağlamında Belge nedir?",
+                        a: "MongoDB'deki bir belge, benzersiz bir _id'ye sahip yapılandırılmış verinin (JSON/BSON) bir birimidir. İlişkisel veritabanındaki bir satıra eşdeğerdir."
+                    },
+                    {
+                        q: "Gömme ile Referans arasında ne zaman seçim yapmalısınız?",
+                        a: "1:1 veya 1:birkaç ilişkiler ve birlikte okunan veriler için Gömmeyi kullanın. 1:çok veya çok:çok ilişkiler ve tekrarlanan veriler için Referans kullanın."
+                    },
+                    {
+                        q: "Toplama Pipeline'da $group aşaması ne yapar?",
+                        a: "$group aşaması belgeleri bir alana göre gruplandırır ve özet oluşturmak için $sum, $avg, $max gibi toplama işlevlerini uygulayabilir."
+                    },
+                    {
+                        q: "MongoDB neden 'şema-esnek' olarak adlandırılır?",
+                        a: "MongoDB, koleksiyondaki belgelerin farklı yapılara sahip olmasına izin verir. Yeni alanlar, veritabanının tamamını geçirmeden eklenebilir."
+                    },
+                    {
+                        q: "İlişkisel veritabanı üzerinde MongoDB'yi ne zaman seçersiniz?",
+                        a: "Yarı yapılandırılmış veriler, değişen gereksinimlerle hızlı geliştirme, yatay ölçekleme ve karmaşık iç içe yapılar için MongoDB'yi seçin."
+                    }
+                ],
+
+                // Enhanced reflection
+                reflectionTitle: "Düşünme ve Gerçek Dünya Uygulamaları",
+                reflectionPrompts: [
+                    {
+                        title: "Sizi şaşırtan neydi?",
+                        description: "MongoDB'nin hangi yönü beklenmediydi? Beklentilerinizden nasıl farklıydı?"
+                    },
+                    {
+                        title: "En zor kısım neydi?",
+                        description: "Hangi kavramlar en zorlayıcıydı? Nerede daha fazla pratisyere ihtiyacınız var?"
+                    },
+                    {
+                        title: "MongoDB'yi teknik olmayan bir CEO'ya açıklayın",
+                        description: "MongoDB'nin iş kararları için faydalarını basit terimlerle nasıl açıklarsınız?"
+                    },
+                    {
+                        title: "MegaStore'un hangi iş sorusu en ilginç geldi?",
+                        description: "Tüm senaryolardan: Hangisi sizi en çok büyüledi ve neden?"
+                    }
+                ],
+                realWorldTitle: "MongoDB'nin Gerçek Dünyada Kullanıldığı Yerler",
+                realWorldUseCases: [
+                    {
+                        title: "IoT ve Sensör Verileri",
+                        desc: "Milyonlarca sensör değişen şemalarla yarı yapılandırılmış veri oluşturur. MongoDB kolaylıkla yatay olarak ölçeklenebilir."
+                    },
+                    {
+                        title: "İçerik Yönetimi",
+                        desc: "Farklı alanları olan bloglar, makaleler, medya. Çeşitli içerik türleri için şema esnekliği."
+                    },
+                    {
+                        title: "Gerçek Zamanlı Analitik",
+                        desc: "Web siteleri, uygulamalar, olaylardan akan veriler. Hızlı içgörüler için toplama boruları."
+                    },
+                    {
+                        title: "Oyun Geliştirme",
+                        desc: "Oyuncu profilleri, oyun durumları, envanterler. Karmaşık oyun mekaniği için iç içe yapılar mükemmeldir."
+                    }
+                ],
             }
         };
 
@@ -1494,6 +2365,208 @@ ratings = list(db.reviews.aggregate(pipeline))`,
             );
         };
 
+        // MissionSection component
+        const MissionSection = ({ t }) => {
+            return (
+                <Section id="mission" title={t.missionTitle}>
+                    <div className="mission-card">
+                        <p>{t.missionIntro}</p>
+                        <div className="mission-tasks">
+                            <p style={{ fontWeight: 'bold', marginBottom: '0.75rem' }}>Der CEO fragt:</p>
+                            {t.missionTasks.map((task, index) => (
+                                <div key={index} className="mission-task-item">
+                                    {task}
+                                </div>
+                            ))}
+                        </div>
+                        <p style={{ marginTop: '1rem' }}><em>{t.missionConclusion}</em></p>
+                    </div>
+                </Section>
+            );
+        };
+
+        // CollapsibleChallenge component
+        const CollapsibleChallenge = ({ level, title, challenge, badge, children }) => {
+            const [isOpen, setIsOpen] = useState(false);
+            return (
+                <div className="challenge-card">
+                    <div
+                        className="challenge-header"
+                        onClick={() => setIsOpen(!isOpen)}
+                    >
+                        <div className="challenge-title-section">
+                            <span className={`difficulty-badge ${badge}`} style={{ marginRight: '0.75rem' }}>
+                                {level}
+                            </span>
+                            <h4 style={{ display: 'inline-block' }}>{title}</h4>
+                        </div>
+                        <span className={`challenge-toggle ${isOpen ? 'open' : ''}`}>▶</span>
+                    </div>
+                    <div className={`challenge-content ${isOpen ? 'open' : ''}`}>
+                        {children}
+                    </div>
+                </div>
+            );
+        };
+
+        // ChallengesSection component
+        const ChallengesSection = ({ t, language }) => {
+            const challengeLabel = language === 'de' ? 'Herausforderung' : 'Challenge';
+            const beforeLabel = language === 'de' ? 'Vor der Query' : 'Before Query';
+            const solutionLabel = language === 'de' ? 'Lösung' : 'Solution';
+            const insightLabel = language === 'de' ? 'Erwartet Insight' : 'Expected Insight';
+            const realWorldLabel = language === 'de' ? 'Wirkliche Welt' : language === 'ar' ? 'العالم الحقيقي' : language === 'uk' ? 'Реальний світ' : language === 'es' ? 'Mundo real' : language === 'tr' ? 'Gerçek Dünya' : 'Real World';
+            const conceptLabel = language === 'de' ? 'Konzept' : 'Concept';
+            const hintLabel = language === 'de' ? 'Hinweis' : 'Hint';
+
+            return (
+                <Section id="challenges" title={t.challengesTitle}>
+                    <CollapsibleChallenge
+                        level="Level 1"
+                        title={t.level1Title}
+                        badge="difficulty-beginner"
+                    >
+                        <div className="challenge-section">
+                            <p className="challenge-section-title">{challengeLabel}:</p>
+                            <p>{t.level1Challenge}</p>
+                        </div>
+                        <div className="hypothesis-box">
+                            <p><strong>{beforeLabel}:</strong> {t.level1Hypothesis}</p>
+                        </div>
+                        <div className="challenge-section">
+                            <p className="challenge-section-title">{solutionLabel}:</p>
+                            <CodeBlock code={t.level1Solution} language="javascript" />
+                        </div>
+                        <div className="insight-box">
+                            <p><strong>{insightLabel}:</strong> {t.level1Insight}</p>
+                        </div>
+                        <div className="business-context">
+                            <p><strong>{realWorldLabel}:</strong> {t.level1RealWorld}</p>
+                        </div>
+                    </CollapsibleChallenge>
+
+                    <CollapsibleChallenge
+                        level="Level 2"
+                        title={t.level2Title}
+                        badge="difficulty-intermediate"
+                    >
+                        <div className="challenge-section">
+                            <p className="challenge-section-title">{challengeLabel}:</p>
+                            <p>{t.level2Challenge}</p>
+                        </div>
+                        <div className="hypothesis-box">
+                            <p>{t.level2Hint}</p>
+                        </div>
+                        <div className="business-context">
+                            <p><strong>{realWorldLabel}:</strong> {t.level2RealWorld}</p>
+                        </div>
+                    </CollapsibleChallenge>
+
+                    <CollapsibleChallenge
+                        level="Level 3"
+                        title={t.level3Title}
+                        badge="difficulty-advanced"
+                    >
+                        <div className="challenge-section">
+                            <p className="challenge-section-title">{challengeLabel}:</p>
+                            <p>{t.level3Challenge}</p>
+                        </div>
+                        <div className="hypothesis-box">
+                            <p>{t.level3Hint}</p>
+                        </div>
+                        <div className="business-context">
+                            <p><strong>{realWorldLabel}:</strong> {t.level3RealWorld}</p>
+                        </div>
+                    </CollapsibleChallenge>
+
+                    <CollapsibleChallenge
+                        level="Boss"
+                        title={t.level4Title}
+                        badge="difficulty-boss"
+                    >
+                        <div className="challenge-section">
+                            <p className="challenge-section-title">{challengeLabel}:</p>
+                            <p>{t.level4Challenge}</p>
+                        </div>
+                        <div className="hypothesis-box">
+                            <p><strong>{conceptLabel}:</strong> {t.level4Concept}</p>
+                        </div>
+                        <div className="business-context">
+                            <p><strong>{realWorldLabel}:</strong> {t.level4RealWorld}</p>
+                        </div>
+                    </CollapsibleChallenge>
+                </Section>
+            );
+        };
+
+        // SelfCheckQuestion component
+        const SelfCheckQuestion = ({ question, answer }) => {
+            const [isOpen, setIsOpen] = useState(false);
+            return (
+                <div className="self-check-card">
+                    <div
+                        className="question-text"
+                        onClick={() => setIsOpen(!isOpen)}
+                    >
+                        <span>{question}</span>
+                        <span className="answer-toggle">{isOpen ? '▼' : '▶'}</span>
+                    </div>
+                    <div className={`answer-text ${isOpen ? 'open' : ''}`}>
+                        {answer}
+                    </div>
+                </div>
+            );
+        };
+
+        // SelfCheckSection component
+        const SelfCheckSection = ({ t, language }) => {
+            const instructionText = language === 'de' ? 'Klicken Sie auf jede Frage, um die Antwort zu überprüfen:' : language === 'ar' ? 'انقر على كل سؤال للتحقق من الإجابة:' : language === 'uk' ? 'Натисніть на кожне запитання, щоб перевірити відповідь:' : language === 'es' ? 'Haz clic en cada pregunta para verificar la respuesta:' : language === 'tr' ? 'Her soruya tıklayın ve cevabı kontrol edin:' : 'Click each question to reveal the answer:';
+
+            return (
+                <Section id="self-check" title={t.selfCheckTitle}>
+                    <p className="mb-6 text-gray-700">{instructionText}</p>
+                    {t.selfCheckQuestions.map((item, index) => (
+                        <SelfCheckQuestion
+                            key={index}
+                            question={item.q}
+                            answer={item.a}
+                        />
+                    ))}
+                </Section>
+            );
+        };
+
+        // ReflectionSection component
+        const ReflectionSection = ({ t }) => {
+            return (
+                <Section id="summary" title={t.reflectionTitle}>
+                    <h3 className="text-2xl font-bold mb-4 text-var(--color-dark)" style={{ marginBottom: '1.5rem' }}>
+                        Reflexion Prompts
+                    </h3>
+                    <div>
+                        {t.reflectionPrompts.map((prompt, index) => (
+                            <div key={index} className="reflection-prompt">
+                                <h4>{prompt.title}</h4>
+                                <p>{prompt.description}</p>
+                            </div>
+                        ))}
+                    </div>
+
+                    <div className="real-world-section">
+                        <h4>{t.realWorldTitle}</h4>
+                        <div className="real-world-items">
+                            {t.realWorldUseCases.map((useCase, index) => (
+                                <div key={index} className="real-world-item">
+                                    <div className="real-world-item-title">{useCase.title}</div>
+                                    <div className="real-world-item-desc">{useCase.desc}</div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </Section>
+            );
+        };
+
         // Context for language
         const LanguageContext = React.createContext();
         const useContext = () => React.useContext(LanguageContext);
@@ -1528,6 +2601,7 @@ ratings = list(db.reviews.aggregate(pipeline))`,
 
             const sections = [
                 { id: 'learning-objectives', label: t.learningObjectives },
+                { id: 'mission', label: t.missionTitle },
                 { id: 'setup-installation', label: t.setupInstallation },
                 { id: 'theory-overview', label: t.theoryOverview },
                 { id: 'data-model', label: t.dataModel },
@@ -1535,8 +2609,10 @@ ratings = list(db.reviews.aggregate(pipeline))`,
                 { id: 'exercise-2', label: t.exercise2 },
                 { id: 'exercise-3', label: t.exercise3 },
                 { id: 'exercise-4', label: t.exercise4 },
+                { id: 'challenges', label: t.challengesTitle },
+                { id: 'self-check', label: t.selfCheckTitle },
                 { id: 'bonus', label: t.bonusExercises },
-                { id: 'summary', label: t.summary },
+                { id: 'summary', label: t.reflectionTitle },
                 { id: 'troubleshooting', label: t.troubleshooting },
             ];
 
@@ -1632,6 +2708,9 @@ ratings = list(db.reviews.aggregate(pipeline))`,
                                         ))}
                                     </div>
                                 </Section>
+
+                                {/* Mission Section */}
+                                <MissionSection t={t} />
 
                                 {/* Setup & Installation */}
                                 <Section id="setup-installation" title={t.setupTitle}>
@@ -1826,6 +2905,12 @@ ratings = list(db.reviews.aggregate(pipeline))`,
                                     </div>
                                 </Section>
 
+                                {/* Progressive Challenges */}
+                                <ChallengesSection t={t} language={language} />
+
+                                {/* Self-Check Questions */}
+                                <SelfCheckSection t={t} language={language} />
+
                                 {/* Bonus Tasks */}
                                 <Section id="bonus" title={t.bonusTitle}>
                                     <div className="space-y-4">
@@ -1841,9 +2926,11 @@ ratings = list(db.reviews.aggregate(pipeline))`,
                                     </div>
                                 </Section>
 
-                                {/* Summary */}
-                                <Section id="summary" title={t.summaryTitle}>
-                                    <h3 className="text-2xl font-bold mb-4 text-var(--color-dark)">{t.keyTakeaways}</h3>
+                                {/* Summary - Enhanced Reflection */}
+                                <ReflectionSection t={t} />
+
+                                {/* Key Takeaways */}
+                                <Section id="key-takeaways" title={t.keyTakeaways}>
                                     <ul className="list-disc list-inside space-y-3 text-gray-700 mb-8">
                                         {t.keyTakeawaysItems.map((item, index) => (
                                             <li key={index}>{item}</li>

@@ -139,7 +139,7 @@
         }
 
         .hero {
-            background: linear-gradient(135deg, var(--color-dark-blue) 0%, #263d5e 100%);
+            background: #1B3A5C;
             color: white;
             padding: 4rem 2rem;
             border-radius: 8px;
@@ -476,6 +476,7 @@
                 navigation: {
                     hero: "Start",
                     goals: "Lernziele",
+                    mission: "Eure Mission",
                     setup: "Setup & Installation",
                     theory: "Theorie",
                     dataModel: "Datenmodell",
@@ -483,6 +484,9 @@
                     exercise2: "Übung 2: Analytische Abfragen",
                     exercise3: "Übung 3: Parquet vs CSV",
                     exercise4: "Übung 4: Komplexe Analytics",
+                    challenges: "Progressive Herausforderungen",
+                    selfCheck: "Selbstüberprüfung",
+                    reflection: "Reflexion & Anwendungen",
                     bonus: "Bonusaufgaben",
                     summary: "Zusammenfassung",
                     troubleshooting: "Fehlerbehebung"
@@ -586,7 +590,73 @@ con.execute("SELECT 42 as answer").fetchall()`
                     troubleshooting: {
                         title: "Fehlerbehebung",
                         common: "Häufige Probleme und Lösungen"
+                    },
+                    mission: {
+                        title: "Eure Mission",
+                        intro: "Das Szenario:",
+                        scenario: "Der CFO von MegaStore benötigt schnelle analytische Abfragen auf 2 Millionen Transaktionsdatensätzen. Traditionelle Datenbanken sind für Ad-hoc-Analysen zu langsam.",
+                        yourJob: "Eure Aufgabe:",
+                        yourJobDesc: "Nutzen Sie die blitzschnelle SQL-Engine von DuckDB, um kritische Geschäftsfragen zu beantworten",
+                        keyQuestions: "Wichtige Fragen:",
+                        keyQuestionsItems: [
+                            "Welche Umsatztrends zeigen sich in den letzten Monaten?",
+                            "Wie hoch ist der Lifetime Value unserer besten Kunden?",
+                            "Welche Produkte performen am besten?",
+                            "Welche saisonalen Muster beobachten wir?"
+                        ]
+                    },
+                    challenges: {
+                        title: "Progressive Herausforderungen",
+                        intro: "Steigern Sie Ihre DuckDB-Fähigkeiten mit diesen praktischen Herausforderungen.",
+                        level1Title: "Level 1 - Einstieg",
+                        level1Task: "Berechnen Sie den durchschnittlichen Bestellwert pro Monat für das letzte Jahr",
+                        level1Hypothesis: "Hypothesis: In welchen Monaten erwarten Sie höhere Werte? Black Friday? Weihnachten?",
+                        level1Solution: "Vollständige SQL-Lösung:",
+                        level1Code: `SELECT
+    DATE_TRUNC('month', order_date) as month,
+    AVG(total_amount) as avg_order_value,
+    COUNT(*) as order_count,
+    SUM(total_amount) as total_revenue
+FROM orders
+WHERE order_date >= CURRENT_DATE - INTERVAL '1 year'
+GROUP BY DATE_TRUNC('month', order_date)
+ORDER BY month DESC`,
+                        level1Insight: "Business-Einblick: Saisonale Muster beeinflussen Lagerbestände und Marketingplanung",
+                        level2Title: "Level 2 - Vertiefung",
+                        level2Task: "Berechnen Sie den Customer Lifetime Value (CLV) für die Top 100 Kunden und identifizieren Sie gemeinsame Merkmale",
+                        level2Hint: "Hinweis: Verwenden Sie Window Functions und CTEs (Common Table Expressions)",
+                        level2Insight: "Business-Kontext: CLV ist die Grundlage einer kundenorientierten Geschäftsstrategie",
+                        level3Title: "Level 3 - Fortgeschritten",
+                        level3Task: "Erstellen Sie eine Kohortanalyse: Gruppieren Sie Kunden nach ihrem ersten Kaufmonat und verfolgen Sie die Retention über 12 Monate",
+                        level3Guidance: "Hochrangige Anleitung: Verwenden Sie CTEs zur Definition von Kohorten, JOINs für die Verfolgung und Analytics-Funktionen",
+                        level3Insight: "Business-Kontext: Kohortanalyse zeigt, ob sich Ihre Kundenbindung verbessert",
+                        level4Title: "Level 4 - Boss-Challenge",
+                        level4Task: "Erstellen Sie eine vollständige Market Basket Analysis: Finden Sie Produkte, die häufig zusammen gekauft werden, und berechnen Sie Lift-Scores",
+                        level4Guidance: "Konzept: Berechnen Sie gemeinsame Häufigkeiten und Lift (P(A∩B) / P(A)*P(B))",
+                        level4Insight: "Business-Kontext: Market Basket Analysis ermöglicht 'Kunden kauften auch'-Features"
+                    },
+                    selfCheck: {
+                        title: "Selbstüberprüfung",
+                        intro: "Testen Sie Ihr Verständnis mit diesen Fragen:",
+                        q1: "Was unterscheidet DuckDB von traditionellen Datenbanken wie PostgreSQL?",
+                        q2: "Was ist ein spaltenorientiertes Speicherformat und warum ist es für Analytics schnell?",
+                        q3: "Wann würden Sie eine CTE (Common Table Expression) verwenden?",
+                        q4: "Was ist der Unterschied zwischen OLTP und OLAP?",
+                        q5: "Warum wird DuckDB als 'in-process' bezeichnet?"
+                    },
+                    reflection: {
+                        title: "Reflexion & Anwendungen in der Praxis",
+                        intro: "Erweitern Sie Ihre Perspektive auf DuckDB-Anwendungen:",
+                        prompt1: "Wie könnten Sie DuckDB in Ihrem nächsten Data Science Projekt nutzen?",
+                        prompt2: "Welche ETL-Pipelines in Ihrem Unternehmen könnten von DuckDB profitieren?",
+                        prompt3: "Wie würden Sie DuckDB für Business Intelligence Dashboards einsetzen?",
+                        appTitle: "Real-World DuckDB Anwendungen",
+                        app1: "Data Science Notebooks (Jupyter) - Schnelle explorative Datenanalyse",
+                        app2: "ETL/ELT Pipelines - Datenverarbeitung ohne externe DB",
+                        app3: "Business Intelligence Dashboards - Schnelle Ad-hoc Abfragen",
+                        app4: "Log-Analyse und Observability - Echtzeitanalyse strukturierter Logs"
                     }
+                }
                 }
             },
             en: {
@@ -601,6 +671,7 @@ con.execute("SELECT 42 as answer").fetchall()`
                 navigation: {
                     hero: "Start",
                     goals: "Learning Goals",
+                    mission: "Your Mission",
                     setup: "Setup & Installation",
                     theory: "Theory",
                     dataModel: "Data Model",
@@ -608,6 +679,9 @@ con.execute("SELECT 42 as answer").fetchall()`
                     exercise2: "Exercise 2: Analytical Queries",
                     exercise3: "Exercise 3: Parquet vs CSV",
                     exercise4: "Exercise 4: Complex Analytics",
+                    challenges: "Progressive Challenges",
+                    selfCheck: "Self-Check",
+                    reflection: "Reflection & Applications",
                     bonus: "Bonus Tasks",
                     summary: "Summary",
                     troubleshooting: "Troubleshooting"
@@ -711,7 +785,71 @@ con.execute("SELECT 42 as answer").fetchall()`
                     troubleshooting: {
                         title: "Troubleshooting",
                         common: "Common Issues and Solutions"
-                    }
+                    },                    mission: {
+                        title: "Your Mission",
+                        intro: "The Scenario:",
+                        scenario: "MegaStore's CFO needs fast analytical queries on 2 million transaction records. Traditional databases are too slow for ad-hoc analysis.",
+                        yourJob: "Your Job:",
+                        yourJobDesc: "Use DuckDB's blazing-fast SQL engine to answer critical business questions",
+                        keyQuestions: "Key Questions:",
+                        keyQuestionsItems: [
+                            "What revenue trends are we seeing?",
+                            "What is the lifetime value of our best customers?",
+                            "Which products are performing best?",
+                            "What seasonal patterns do we observe?"
+                        ]
+                    },
+                    challenges: {
+                        title: "Progressive Challenges",
+                        intro: "Level up your DuckDB skills with these practical challenges.",
+                        level1Title: "Level 1 - Getting Started",
+                        level1Task: "Calculate the average order value per month for the last year",
+                        level1Hypothesis: "Hypothesis: Which months do you expect higher AOV? Black Friday? Christmas?",
+                        level1Solution: "Full SQL Solution:",
+                        level1Code: `SELECT
+    DATE_TRUNC('month', order_date) as month,
+    AVG(total_amount) as avg_order_value,
+    COUNT(*) as order_count,
+    SUM(total_amount) as total_revenue
+FROM orders
+WHERE order_date >= CURRENT_DATE - INTERVAL '1 year'
+GROUP BY DATE_TRUNC('month', order_date)
+ORDER BY month DESC`,
+                        level1Insight: "Business Insight: Seasonal patterns drive inventory and marketing planning",
+                        level2Title: "Level 2 - Deepening",
+                        level2Task: "Find the customer lifetime value (CLV) for the top 100 customers and identify common characteristics",
+                        level2Hint: "Hint: Use window functions and CTEs (Common Table Expressions)",
+                        level2Insight: "Business Context: CLV is the foundation of customer-centric business strategy",
+                        level3Title: "Level 3 - Advanced",
+                        level3Task: "Build a cohort analysis: Group customers by their first purchase month and track retention over 12 months",
+                        level3Guidance: "High-level guidance: Use CTEs to define cohorts, JOINs to track, and analytics functions",
+                        level3Insight: "Business Context: Cohort analysis reveals whether your business is getting better at retaining customers",
+                        level4Title: "Level 4 - Boss Challenge",
+                        level4Task: "Create a complete Market Basket Analysis using SQL: Find which products are frequently bought together and calculate lift scores",
+                        level4Guidance: "Concept: Calculate co-occurrence frequencies and lift (P(A∩B) / P(A)*P(B))",
+                        level4Insight: "Business Context: Market basket analysis powers 'Customers also bought' features"
+                    },
+                    selfCheck: {
+                        title: "Self-Check Questions",
+                        intro: "Test your understanding with these questions:",
+                        q1: "What makes DuckDB different from traditional databases like PostgreSQL?",
+                        q2: "What is a columnar storage format and why is it fast for analytics?",
+                        q3: "When would you use a CTE (Common Table Expression)?",
+                        q4: "What is the difference between OLTP and OLAP?",
+                        q5: "Why is DuckDB called 'in-process'?"
+                    },
+                    reflection: {
+                        title: "Reflection & Real-World Applications",
+                        intro: "Expand your perspective on DuckDB use cases:",
+                        prompt1: "How could you use DuckDB in your next data science project?",
+                        prompt2: "Which ETL pipelines in your organization could benefit from DuckDB?",
+                        prompt3: "How would you leverage DuckDB for BI dashboards?",
+                        appTitle: "Real-World DuckDB Applications",
+                        app1: "Data Science Notebooks (Jupyter) - Fast exploratory data analysis",
+                        app2: "ETL/ELT Pipelines - Data processing without external DB",
+                        app3: "Business Intelligence Dashboards - Fast ad-hoc queries",
+                        app4: "Log Analysis and Observability - Real-time analysis of structured logs"
+                    },
                 }
             },
             ar: {
@@ -726,6 +864,7 @@ con.execute("SELECT 42 as answer").fetchall()`
                 navigation: {
                     hero: "ابدأ",
                     goals: "أهداف التعلم",
+                    mission: "مهمتك",
                     setup: "الإعداد والتثبيت",
                     theory: "النظرية",
                     dataModel: "نموذج البيانات",
@@ -733,6 +872,9 @@ con.execute("SELECT 42 as answer").fetchall()`
                     exercise2: "التمرين 2: الاستعلامات التحليلية",
                     exercise3: "التمرين 3: Parquet مقابل CSV",
                     exercise4: "التمرين 4: التحليلات المتقدمة",
+                    challenges: "التحديات التقدمية",
+                    selfCheck: "التحقق الذاتي",
+                    reflection: "الانعكاس والتطبيقات",
                     bonus: "مهام إضافية",
                     summary: "الملخص",
                     troubleshooting: "استكشاف الأخطاء"
@@ -836,7 +978,58 @@ con.execute("SELECT 42 as answer").fetchall()`
                     troubleshooting: {
                         title: "استكشاف الأخطاء",
                         common: "المشاكل الشائعة والحلول"
-                    }
+                    },                    mission: {
+                        title: "مهمتك",
+                        intro: "السيناريو:",
+                        scenario: "يحتاج CFO في MegaStore إلى استعلامات تحليلية سريعة على 2 مليون سجل معاملات. قواعد البيانات التقليدية بطيئة جداً.",
+                        yourJob: "عملك:",
+                        yourJobDesc: "استخدم محرك SQL السريع من DuckDB",
+                        keyQuestions: "الأسئلة الرئيسية:",
+                        keyQuestionsItems: ["اتجاهات الإيرادات", "قيمة العميل الدائمة", "أداء المنتجات", "الأنماط الموسمية"]
+                    },
+                    challenges: {
+                        title: "التحديات التقدمية",
+                        intro: "حسّن مهاراتك في DuckDB",
+                        level1Title: "المستوى 1",
+                        level1Task: "احسب متوسط قيمة الطلب",
+                        level1Hypothesis: "الفرضية: في أي أشهر تتوقع قيماً أعلى؟",
+                        level1Solution: "الحل:",
+                        level1Code: `SELECT DATE_TRUNC('month', order_date) as month, AVG(total_amount) as avg_order_value FROM orders GROUP BY DATE_TRUNC('month', order_date)`,
+                        level1Insight: "رؤية العمل: تدفع الأنماط الموسمية التخطيط",
+                        level2Title: "المستوى 2",
+                        level2Task: "ابحث عن CLV",
+                        level2Hint: "تلميح: استخدم دوال النافذة",
+                        level2Insight: "CLV هو أساس الاستراتيجية",
+                        level3Title: "المستوى 3",
+                        level3Task: "بناء تحليل الكوهورت",
+                        level3Guidance: "توجيهات عالية المستوى",
+                        level3Insight: "يكشف تحليل الكوهورت",
+                        level4Title: "المستوى 4",
+                        level4Task: "تحليل سلة السوق",
+                        level4Guidance: "احسب تكرارات التزامن",
+                        level4Insight: "تحليل سلة السوق"
+                    },
+                    selfCheck: {
+                        title: "الفحص الذاتي",
+                        intro: "اختبر فهمك:",
+                        q1: "ما الفرق بين DuckDB و PostgreSQL؟",
+                        q2: "ما التخزين العمودي؟",
+                        q3: "متى تستخدم CTE؟",
+                        q4: "الفرق بين OLTP و OLAP؟",
+                        q5: "لماذا DuckDB 'in-process'؟"
+                    },
+                    reflection: {
+                        title: "الانعكاس والتطبيقات",
+                        intro: "وسّع منظورك:",
+                        prompt1: "كيف تستخدم DuckDB؟",
+                        prompt2: "أي أنابيب ETL تستفيد؟",
+                        prompt3: "كيف تستفيد من DuckDB؟",
+                        appTitle: "التطبيقات الحقيقية",
+                        app1: "أجهزة الكمبيوتر المحمولة - تحليل سريع",
+                        app2: "أنابيب ETL - معالجة البيانات",
+                        app3: "لوحات معلومات - استعلامات سريعة",
+                        app4: "تحليل السجلات - تحليل فوري"
+                    },
                 }
             },
             uk: {
@@ -961,6 +1154,58 @@ con.execute("SELECT 42 as answer").fetchall()`
                     troubleshooting: {
                         title: "Усунення неполадок",
                         common: "Типові проблеми та рішення"
+                    },
+                    mission: {
+                        title: "Ваша місія",
+                        intro: "Сценарій:",
+                        scenario: "CFO компанії MegaStore потребує швидких аналітичних запитів на 2 млн записів транзакцій.",
+                        yourJob: "Ваша робота:",
+                        yourJobDesc: "Використовуйте DuckDB для відповіді на критичні питання",
+                        keyQuestions: "Ключові питання:",
+                        keyQuestionsItems: ["Тренди доходу", "Значення клієнта", "Продуктивність", "Сезонні закономірності"]
+                    },
+                    challenges: {
+                        title: "Прогресивні виклики",
+                        intro: "Покращуйте навички",
+                        level1Title: "Рівень 1",
+                        level1Task: "Розрахуйте середню вартість",
+                        level1Hypothesis: "Гіпотеза:",
+                        level1Solution: "Розв'язок:",
+                        level1Code: `SELECT DATE_TRUNC('month', order_date) FROM orders`,
+                        level1Insight: "Сезонні закономірності",
+                        level2Title: "Рівень 2",
+                        level2Task: "Знайдіть CLV",
+                        level2Hint: "Підказка:",
+                        level2Insight: "CLV є основою",
+                        level3Title: "Рівень 3",
+                        level3Task: "Аналіз когорти",
+                        level3Guidance: "Керівництво:",
+                        level3Insight: "Виявляє утримання",
+                        level4Title: "Рівень 4",
+                        level4Task: "Аналіз кошику",
+                        level4Guidance: "Концепція:",
+                        level4Insight: "Аналіз кошику"
+                    },
+                    selfCheck: {
+                        title: "Самоперевірка",
+                        intro: "Тестуйте розуміння:",
+                        q1: "Що відрізняє DuckDB?",
+                        q2: "Що таке колонкове сховище?",
+                        q3: "Коли використовувати CTE?",
+                        q4: "Різниця OLTP і OLAP?",
+                        q5: "Чому in-process?"
+                    },
+                    reflection: {
+                        title: "Рефлексія та застосування",
+                        intro: "Розширте перспективу:",
+                        prompt1: "Як використати?",
+                        prompt2: "Які конвеєри?",
+                        prompt3: "Як використовувати?",
+                        appTitle: "Реальні застосування",
+                        app1: "Ноутбуки науки про дані",
+                        app2: "Конвеєри ETL",
+                        app3: "Інформаційні панелі",
+                        app4: "Аналіз журналів"
                     }
                 }
             },
@@ -1086,6 +1331,58 @@ con.execute("SELECT 42 as answer").fetchall()`
                     troubleshooting: {
                         title: "Solución de problemas",
                         common: "Problemas comunes y soluciones"
+                    },
+                    mission: {
+                        title: "Tu misión",
+                        intro: "El escenario:",
+                        scenario: "El CFO de MegaStore necesita consultas analíticas rápidas en 2 millones de registros.",
+                        yourJob: "Tu trabajo:",
+                        yourJobDesc: "Usa DuckDB para responder preguntas críticas",
+                        keyQuestions: "Preguntas clave:",
+                        keyQuestionsItems: ["Tendencias de ingresos", "Valor del cliente", "Rendimiento de productos", "Patrones estacionales"]
+                    },
+                    challenges: {
+                        title: "Desafíos progresivos",
+                        intro: "Mejora tus habilidades",
+                        level1Title: "Nivel 1",
+                        level1Task: "Calcula el valor promedio",
+                        level1Hypothesis: "Hipótesis:",
+                        level1Solution: "Solución:",
+                        level1Code: `SELECT DATE_TRUNC('month', order_date) FROM orders`,
+                        level1Insight: "Los patrones estacionales",
+                        level2Title: "Nivel 2",
+                        level2Task: "Encuentra CLV",
+                        level2Hint: "Pista:",
+                        level2Insight: "CLV es la base",
+                        level3Title: "Nivel 3",
+                        level3Task: "Análisis de cohorte",
+                        level3Guidance: "Guía:",
+                        level3Insight: "Revela retención",
+                        level4Title: "Nivel 4",
+                        level4Task: "Análisis de cesta",
+                        level4Guidance: "Concepto:",
+                        level4Insight: "Análisis de cesta"
+                    },
+                    selfCheck: {
+                        title: "Autoevaluación",
+                        intro: "Prueba tu comprensión:",
+                        q1: "¿Qué diferencia a DuckDB?",
+                        q2: "¿Qué es almacenamiento columnar?",
+                        q3: "¿Cuándo usar CTE?",
+                        q4: "¿Diferencia OLTP y OLAP?",
+                        q5: "¿Por qué in-process?"
+                    },
+                    reflection: {
+                        title: "Reflexión y aplicaciones",
+                        intro: "Amplía tu perspectiva:",
+                        prompt1: "¿Cómo usar?",
+                        prompt2: "¿Qué canales?",
+                        prompt3: "¿Cómo aprovechar?",
+                        appTitle: "Aplicaciones reales",
+                        app1: "Cuadernos de ciencia de datos",
+                        app2: "Canales ETL",
+                        app3: "Paneles de control",
+                        app4: "Análisis de registros"
                     }
                 }
             },
@@ -1211,6 +1508,58 @@ con.execute("SELECT 42 as answer").fetchall()`
                     troubleshooting: {
                         title: "Sorun Giderme",
                         common: "Yaygın Sorunlar ve Çözümler"
+                    },
+                    mission: {
+                        title: "Göreviniz",
+                        intro: "Senaryo:",
+                        scenario: "MegaStore'un CFO'su 2 milyon kayıt üzerinde hızlı analitik sorgulara ihtiyaç duyuyor.",
+                        yourJob: "Sizin işiniz:",
+                        yourJobDesc: "DuckDB kullanarak kritik sorulara cevap verin",
+                        keyQuestions: "Anahtar sorular:",
+                        keyQuestionsItems: ["Gelir trendleri", "Müşteri değeri", "Ürün performansı", "Mevsimsel desenler"]
+                    },
+                    challenges: {
+                        title: "Kademeli zorluklar",
+                        intro: "Becerilerinizi geliştirin",
+                        level1Title: "Seviye 1",
+                        level1Task: "Ortalama değeri hesapla",
+                        level1Hypothesis: "Hipotez:",
+                        level1Solution: "Çözüm:",
+                        level1Code: `SELECT DATE_TRUNC('month', order_date) FROM orders`,
+                        level1Insight: "Mevsimsel desenler",
+                        level2Title: "Seviye 2",
+                        level2Task: "CLV bul",
+                        level2Hint: "İpucu:",
+                        level2Insight: "CLV temeldir",
+                        level3Title: "Seviye 3",
+                        level3Task: "Kohor analizi",
+                        level3Guidance: "Rehberlik:",
+                        level3Insight: "Saklama ortaya çıkarmak",
+                        level4Title: "Seviye 4",
+                        level4Task: "Sepet analizi",
+                        level4Guidance: "Konsept:",
+                        level4Insight: "Sepet analizi"
+                    },
+                    selfCheck: {
+                        title: "Öz-kontrol",
+                        intro: "Anlayışını test et:",
+                        q1: "DuckDB'yi ne farklı kılıyor?",
+                        q2: "Sütun depolaması nedir?",
+                        q3: "CTE ne zaman kullanılır?",
+                        q4: "OLTP ve OLAP farkı?",
+                        q5: "Neden in-process?"
+                    },
+                    reflection: {
+                        title: "Yansıtma ve uygulamalar",
+                        intro: "Perspektifini genişlet:",
+                        prompt1: "Nasıl kullan?",
+                        prompt2: "Hangi hatlar?",
+                        prompt3: "Nasıl yararlan?",
+                        appTitle: "Gerçek dünya uygulamaları",
+                        app1: "Veri bilimi not defterleri",
+                        app2: "ETL hatları",
+                        app3: "Kontrol panelleri",
+                        app4: "Günlük analizi"
                     }
                 }
             }
@@ -1260,6 +1609,98 @@ con.execute("SELECT 42 as answer").fetchall()`
                 </div>
             );
 
+            const CollapsibleChallenge = ({ title, difficulty, task, hypothesis, solution, code, hint, guidance, insight }) => {
+                const [isOpen, setIsOpen] = React.useState(false);
+                const difficultyColors = {
+                    easy: '#10b981',
+                    medium: '#f59e0b',
+                    hard: '#f97316',
+                    boss: '#e53e3e'
+                };
+                const difficultyLabels = {
+                    easy: currentLang === 'de' ? 'Einstieg' : 'Getting Started',
+                    medium: currentLang === 'de' ? 'Vertiefung' : 'Deepening',
+                    hard: currentLang === 'de' ? 'Fortgeschritten' : 'Advanced',
+                    boss: currentLang === 'de' ? 'Boss-Challenge' : 'Boss Challenge'
+                };
+                
+                return (
+                    <div className="challenge-card">
+                        <div className="challenge-header" onClick={() => setIsOpen(!isOpen)}>
+                            <div>
+                                <h3 style={{margin: '0 0 0.5rem 0'}}>{title}</h3>
+                                <span style={{
+                                    backgroundColor: difficultyColors[difficulty],
+                                    color: 'white',
+                                    padding: '0.25rem 0.75rem',
+                                    borderRadius: '20px',
+                                    fontSize: '0.875rem',
+                                    fontWeight: '600'
+                                }}>
+                                    {difficultyLabels[difficulty]}
+                                </span>
+                            </div>
+                            <span style={{fontSize: '1.5rem'}}>{isOpen ? '▼' : '▶'}</span>
+                        </div>
+                        {isOpen && (
+                            <div className="challenge-content">
+                                <div style={{marginBottom: '1rem'}}>
+                                    <strong>{currentLang === 'de' ? 'Aufgabe:' : 'Task:'}</strong>
+                                    <p>{task}</p>
+                                </div>
+                                {hypothesis && (
+                                    <div className="hypothesis-box">
+                                        <strong>{currentLang === 'de' ? 'Hypothese:' : 'Hypothesis:'}</strong>
+                                        <p>{hypothesis}</p>
+                                    </div>
+                                )}
+                                {hint && (
+                                    <div className="hypothesis-box">
+                                        <strong>{currentLang === 'de' ? 'Hinweis:' : 'Hint:'}</strong>
+                                        <p>{hint}</p>
+                                    </div>
+                                )}
+                                {guidance && (
+                                    <div className="hypothesis-box">
+                                        <strong>{currentLang === 'de' ? 'Anleitung:' : 'Guidance:'}</strong>
+                                        <p>{guidance}</p>
+                                    </div>
+                                )}
+                                {code && (
+                                    <>
+                                        <p><strong>{solution || (currentLang === 'de' ? 'Lösung:' : 'Solution:')}</strong></p>
+                                        <CodeBlock language="sql" code={code} />
+                                    </>
+                                )}
+                                {insight && (
+                                    <div className="insight-box">
+                                        <strong>{currentLang === 'de' ? 'Geschäftseinblick:' : 'Business Insight:'}</strong>
+                                        <p>{insight}</p>
+                                    </div>
+                                )}
+                            </div>
+                        )}
+                    </div>
+                );
+            };
+
+            const SelfCheckCard = ({ question }) => {
+                const [isOpen, setIsOpen] = React.useState(false);
+                return (
+                    <div className="self-check-card" onClick={() => setIsOpen(!isOpen)}>
+                        <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+                            <strong>{question}</strong>
+                            <span>{isOpen ? '▼' : '▶'}</span>
+                        </div>
+                        {isOpen && (
+                            <div style={{marginTop: '1rem', padding: '1rem', backgroundColor: '#f0fdf4', borderRadius: '0.5rem'}}>
+                                <p>{currentLang === 'de' ? 'Überlegen Sie sich Ihre Antwort, bevor Sie sie offenbaren.' : 'Think about your answer before revealing it.'}</p>
+                            </div>
+                        )}
+                    </div>
+                );
+            };
+
             return (
                 <>
                     <nav className="navbar">
@@ -1283,8 +1724,10 @@ con.execute("SELECT 42 as answer").fetchall()`
 
                     <div className="sidebar">
                         {[
+                        {[
                             { id: 'hero', label: nav.hero },
                             { id: 'goals', label: nav.goals },
+                            { id: 'mission', label: nav.mission },
                             { id: 'setup', label: nav.setup },
                             { id: 'theory', label: nav.theory },
                             { id: 'dataModel', label: nav.dataModel },
@@ -1292,9 +1735,13 @@ con.execute("SELECT 42 as answer").fetchall()`
                             { id: 'exercise2', label: nav.exercise2 },
                             { id: 'exercise3', label: nav.exercise3 },
                             { id: 'exercise4', label: nav.exercise4 },
+                            { id: 'challenges', label: nav.challenges },
+                            { id: 'selfCheck', label: nav.selfCheck },
+                            { id: 'reflection', label: nav.reflection },
                             { id: 'bonus', label: nav.bonus },
                             { id: 'summary', label: nav.summary },
                             { id: 'troubleshooting', label: nav.troubleshooting }
+                        ].map(item => (
                         ].map(item => (
                             <div
                                 key={item.id}
@@ -1349,6 +1796,22 @@ con.execute("SELECT 42 as answer").fetchall()`
                                         {t.goals.items.map((item, i) => (
                                             <li key={i}>{item}</li>
                                         ))}
+
+                        {activeSection === 'mission' && (
+                            <div className="content-section">
+                                <h2>{t.mission.title}</h2>
+                                <div className="mission-card">
+                                    <h3>{t.mission.intro}</h3>
+                                    <p>{t.mission.scenario}</p>
+                                    <h3 style={{marginTop: '1.5rem'}}>{t.mission.yourJob}</h3>
+                                    <p>{t.mission.yourJobDesc}</p>
+                                    <h3 style={{marginTop: '1.5rem'}}>{t.mission.keyQuestions}</h3>
+                                    <ul style={{marginLeft: '1.5rem', marginTop: '0.5rem'}}>
+                                        {t.mission.keyQuestionsItems.map((q, i) => <li key={i}>{q}</li>)}
+                                    </ul>
+                                </div>
+                            </div>
+                        )}
                                     </ul>
                                 </div>
                             </div>
@@ -1618,6 +2081,84 @@ ORDER BY year`} />
                             </div>
                         )}
 
+                        {activeSection === 'challenges' && (
+                            <div className="content-section">
+                                <h2>{t.challenges.title}</h2>
+                                <p style={{fontSize: '1.05rem', marginBottom: '2rem'}}>{t.challenges.intro}</p>
+                                
+                                <CollapsibleChallenge 
+                                    title={t.challenges.level1Title}
+                                    difficulty="easy"
+                                    task={t.challenges.level1Task}
+                                    hypothesis={t.challenges.level1Hypothesis}
+                                    solution={t.challenges.level1Solution}
+                                    code={t.challenges.level1Code}
+                                    insight={t.challenges.level1Insight}
+                                />
+                                
+                                <CollapsibleChallenge 
+                                    title={t.challenges.level2Title}
+                                    difficulty="medium"
+                                    task={t.challenges.level2Task}
+                                    hint={t.challenges.level2Hint}
+                                    insight={t.challenges.level2Insight}
+                                />
+                                
+                                <CollapsibleChallenge 
+                                    title={t.challenges.level3Title}
+                                    difficulty="hard"
+                                    task={t.challenges.level3Task}
+                                    guidance={t.challenges.level3Guidance}
+                                    insight={t.challenges.level3Insight}
+                                />
+                                
+                                <CollapsibleChallenge 
+                                    title={t.challenges.level4Title}
+                                    difficulty="boss"
+                                    task={t.challenges.level4Task}
+                                    guidance={t.challenges.level4Guidance}
+                                    insight={t.challenges.level4Insight}
+                                />
+                            </div>
+                        )}
+
+                        {activeSection === 'selfCheck' && (
+                            <div className="content-section">
+                                <h2>{t.selfCheck.title}</h2>
+                                <p style={{marginBottom: '1.5rem'}}>{t.selfCheck.intro}</p>
+                                <SelfCheckCard question={t.selfCheck.q1} />
+                                <SelfCheckCard question={t.selfCheck.q2} />
+                                <SelfCheckCard question={t.selfCheck.q3} />
+                                <SelfCheckCard question={t.selfCheck.q4} />
+                                <SelfCheckCard question={t.selfCheck.q5} />
+                            </div>
+                        )}
+
+                        {activeSection === 'reflection' && (
+                            <div className="content-section">
+                                <h2>{t.reflection.title}</h2>
+                                <p style={{marginBottom: '2rem'}}>{t.reflection.intro}</p>
+                                <div className="reflection-prompt">
+                                    <strong>💭 {t.reflection.prompt1}</strong>
+                                </div>
+                                <div className="reflection-prompt">
+                                    <strong>💭 {t.reflection.prompt2}</strong>
+                                </div>
+                                <div className="reflection-prompt">
+                                    <strong>💭 {t.reflection.prompt3}</strong>
+                                </div>
+                                <div className="real-world-section">
+                                    <h3 style={{marginTop: 0}}>{t.reflection.appTitle}</h3>
+                                    <ul style={{marginLeft: '1.5rem', marginTop: '1rem'}}>
+                                        <li><strong>📊 {t.reflection.app1}</strong></li>
+                                        <li><strong>🔄 {t.reflection.app2}</strong></li>
+                                        <li><strong>📈 {t.reflection.app3}</strong></li>
+                                        <li><strong>🔍 {t.reflection.app4}</strong></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        )}
+
                         {activeSection === 'bonus' && (
                             <div className="content-section">
                                 <h2>{t.bonus.title}</h2>
@@ -1726,6 +2267,113 @@ docker run -it --rm -p 8889:8888 \\
                                     ? 'Diese Dokumentation ist Teil des Big Data Kurses an der Technischen Hochschule Würzburg-Schweinfurt.'
                                     : 'This documentation is part of the Big Data course at THWS.'
                                 }
+
+        .mission-card {
+            background: linear-gradient(135deg, #1B3A5C 0%, #2D5A7B 100%);
+            color: white;
+            border-radius: 1rem;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .challenge-card {
+            border: 2px solid #e5e7eb;
+            border-radius: 0.75rem;
+            overflow: hidden;
+            margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .challenge-card:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .challenge-header {
+            cursor: pointer;
+            padding: 1rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            user-select: none;
+        }
+
+        .challenge-content {
+            padding: 0 1.5rem 1.5rem 1.5rem;
+        }
+
+        .hypothesis-box {
+            background: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            padding: 1rem;
+            border-radius: 0 0.5rem 0.5rem 0;
+            margin: 1rem 0;
+        }
+
+        html[dir="rtl"] .hypothesis-box {
+            border-left: none;
+            border-right: 4px solid #f59e0b;
+        }
+
+        .insight-box {
+            background: #d1fae5;
+            border-left: 4px solid #10b981;
+            padding: 1rem;
+            border-radius: 0 0.5rem 0.5rem 0;
+            margin: 1rem 0;
+        }
+
+        html[dir="rtl"] .insight-box {
+            border-left: none;
+            border-right: 4px solid #10b981;
+        }
+
+        .business-context {
+            background: #e0e7ff;
+            border-left: 4px solid #6366f1;
+            padding: 1rem;
+            border-radius: 0 0.5rem 0.5rem 0;
+            margin: 1rem 0;
+        }
+
+        html[dir="rtl"] .business-context {
+            border-left: none;
+            border-right: 4px solid #6366f1;
+        }
+
+        .self-check-card {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            cursor: pointer;
+        }
+
+        .reflection-prompt {
+            background: #fdf2f8;
+            border-left: 4px solid #ec4899;
+            padding: 1rem;
+            border-radius: 0 0.5rem 0.5rem 0;
+            margin-bottom: 1rem;
+        }
+
+        html[dir="rtl"] .reflection-prompt {
+            border-left: none;
+            border-right: 4px solid #ec4899;
+        }
+
+        .real-world-section {
+            background: #f0fdf4;
+            border: 2px solid #86efac;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+        }
+
+        .difficulty-boss {
+            background-color: #e53e3e;
+            color: white;
+        }
+
                             </p>
                         </div>
                     </div>

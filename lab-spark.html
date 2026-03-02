@@ -27,7 +27,7 @@
         }
 
         .hero-section {
-            background: linear-gradient(135deg, var(--dark-blue) 0%, #2d5a8c 100%);
+            background: #1B3A5C;
             color: white;
         }
 
@@ -155,6 +155,112 @@
             border-left: none;
             border-right: 4px solid var(--orange);
         }
+        .mission-card {
+            background: linear-gradient(135deg, #1B3A5C 0%, #2D5A7B 100%);
+            color: white;
+            border-radius: 1rem;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .challenge-card {
+            border: 2px solid #e5e7eb;
+            border-radius: 0.75rem;
+            overflow: hidden;
+            margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .challenge-card:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .challenge-header {
+            cursor: pointer;
+            padding: 1rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            user-select: none;
+        }
+
+        .challenge-content {
+            padding: 0 1.5rem 1.5rem 1.5rem;
+        }
+
+        .hypothesis-box {
+            background: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            padding: 1rem;
+            border-radius: 0 0.5rem 0.5rem 0;
+            margin: 1rem 0;
+        }
+
+        html[dir="rtl"] .hypothesis-box {
+            border-left: none;
+            border-right: 4px solid #f59e0b;
+        }
+
+        .insight-box {
+            background: #d1fae5;
+            border-left: 4px solid #10b981;
+            padding: 1rem;
+            border-radius: 0 0.5rem 0.5rem 0;
+            margin: 1rem 0;
+        }
+
+        html[dir="rtl"] .insight-box {
+            border-left: none;
+            border-right: 4px solid #10b981;
+        }
+
+        .business-context {
+            background: #e0e7ff;
+            border-left: 4px solid #6366f1;
+            padding: 1rem;
+            border-radius: 0 0.5rem 0.5rem 0;
+            margin: 1rem 0;
+        }
+
+        html[dir="rtl"] .business-context {
+            border-left: none;
+            border-right: 4px solid #6366f1;
+        }
+
+        .self-check-card {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            cursor: pointer;
+        }
+
+        .reflection-prompt {
+            background: #fdf2f8;
+            border-left: 4px solid #ec4899;
+            padding: 1rem;
+            border-radius: 0 0.5rem 0.5rem 0;
+            margin-bottom: 1rem;
+        }
+
+        html[dir="rtl"] .reflection-prompt {
+            border-left: none;
+            border-right: 4px solid #ec4899;
+        }
+
+        .real-world-section {
+            background: #f0fdf4;
+            border: 2px solid #86efac;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+        }
+
+        .difficulty-boss {
+            background-color: #e53e3e;
+            color: white;
+        }
+
     </style>
 </head>
 <body dir="ltr" class="bg-gray-50">
@@ -192,6 +298,10 @@
                     <a href="#ubung3" class="nav-link">Übung 3</a>
                     <a href="#ubung4" class="nav-link">Übung 4</a>
                     <a href="#ubung5" class="nav-link">Übung 5</a>
+                    <a href="#mission" class="nav-link">Mission</a>
+                    <a href="#challenges" class="nav-link">Progressive Challenges</a>
+                    <a href="#selfcheck" class="nav-link">Self-Check</a>
+                    <a href="#reflection" class="nav-link">Reflection</a>
                     <a href="#bonus" class="nav-link">Bonusaufgaben</a>
                     <a href="#summary" class="nav-link">Zusammenfassung</a>
                 </nav>
@@ -240,6 +350,28 @@
                             <p id="goal5Desc">Build end-to-end extract, transform, and load pipelines for data processing</p>
                         </div>
                     </div>
+
+                <!-- Mission Section -->
+                <section id="mission" class="mb-16">
+                    <h2 class="text-4xl font-bold mb-8" id="missionTitle">Your Mission</h2>
+                    <div class="mission-card">
+                        <h3 class="text-2xl font-bold mb-4" id="missionSubtitle">MegaStore Distributed Computing Challenge</h3>
+                        <p class="mb-4" id="missionContext1">MegaStore has grown to millions of transactions. Single-machine processing can't keep up. The CTO has decided to invest in Apache Spark for distributed data processing.</p>
+                        <p class="mb-6 text-lg" id="missionObjective"><strong id="missionYourJob">Your job:</strong> <span id="missionObjectiveText">Learn to harness the power of distributed computing to process massive datasets</span></p>
+                        <div class="space-y-3">
+                            <div class="text-white" id="missionQuestion1">
+                                <strong>?</strong> <span id="missionQ1">How do we process 100GB+ of clickstream data?</span>
+                            </div>
+                            <div class="text-white" id="missionQuestion2">
+                                <strong>?</strong> <span id="missionQ2">Can we build real-time dashboards?</span>
+                            </div>
+                            <div class="text-white" id="missionQuestion3">
+                                <strong>?</strong> <span id="missionQ3">How do we train ML models on millions of records?</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
                 </section>
 
                 <!-- Setup & Installation Section -->
@@ -711,6 +843,235 @@ print("\nPartition structure:")
 spark.read.parquet("/home/jovyan/data/orders_partitioned").explain()
 </code></pre>
                     </div>
+
+                <!-- Progressive Challenges Section -->
+                <section id="challenges" class="mb-16">
+                    <h2 class="text-4xl font-bold mb-8" id="challengesTitle">Progressive Challenges</h2>
+                    <p class="mb-8" id="challengesIntro">Master Spark through 4 progressive difficulty levels. Each challenges your understanding and builds real-world skills:</p>
+
+                    <!-- Level 1: Einstieg -->
+                    <div class="challenge-card">
+                        <div class="challenge-header" onclick="toggleChallenge(this)">
+                            <div>
+                                <h3 class="text-2xl font-bold" id="level1Title">Level 1 - Einstieg</h3>
+                                <p class="text-gray-600" id="level1Desc">Load MegaStore orders and calculate revenue per category</p>
+                            </div>
+                            <span>▼</span>
+                        </div>
+                        <div class="challenge-content" style="display: none;">
+                            <p class="mb-4" id="level1TaskText">Load the MegaStore orders dataset and calculate total revenue per product category using Spark SQL</p>
+                            <div class="hypothesis-box">
+                                <strong id="hypothesisLabel">Hypothesis:</strong> <span id="level1Hypothesis">Do you expect the revenue distribution to follow Pareto (80/20) principle?</span>
+                            </div>
+                            <h4 class="font-bold mt-6 mb-3" id="level1SolutionLabel">Solution:</h4>
+                            <div class="code-block mb-4">
+                                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                                <pre><code class="language-python">from pyspark.sql import SparkSession
+from pyspark.sql.functions import sum, col, round
+
+spark = SparkSession.builder.appName("Level1-Revenue").getOrCreate()
+
+# Load orders data
+orders_df = spark.read.parquet("/home/jovyan/data/orders.parquet")
+order_items_df = spark.read.parquet("/home/jovyan/data/order_items.parquet")
+products_df = spark.read.csv("/home/jovyan/data/products.csv", header=True)
+
+# Register as tables
+orders_df.createOrReplaceTempView("orders")
+order_items_df.createOrReplaceTempView("order_items")
+products_df.createOrReplaceTempView("products")
+
+# Calculate revenue per category
+result = spark.sql("""
+    SELECT 
+        p.category,
+        COUNT(DISTINCT oi.order_id) as num_orders,
+        SUM(oi.quantity * oi.unit_price) as total_revenue
+    FROM order_items oi
+    JOIN products p ON oi.product_id = p.product_id
+    GROUP BY p.category
+    ORDER BY total_revenue DESC
+""")
+
+result.show()
+
+# Analyze Pareto distribution
+total_revenue = result.agg(sum("total_revenue")).collect()[0][0]
+result.createOrReplaceTempView("cat_rev")
+pareto = spark.sql(f"""
+    SELECT 
+        category,
+        total_revenue,
+        ROUND(100.0 * total_revenue / {total_revenue}, 2) as pct_revenue
+    FROM cat_rev
+    ORDER BY total_revenue DESC
+""")
+
+pareto.show(truncate=False)</code></pre>
+                            </div>
+                            <div class="insight-box">
+                                <strong id="insightLabel">Business Insight:</strong> <span id="level1Insight">Understanding revenue concentration helps prioritize inventory investment. Which 20% of categories generate 80% of revenue?</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Level 2: Vertiefung -->
+                    <div class="challenge-card">
+                        <div class="challenge-header" onclick="toggleChallenge(this)">
+                            <div>
+                                <h3 class="text-2xl font-bold" id="level2Title">Level 2 - Vertiefung</h3>
+                                <p class="text-gray-600" id="level2Desc">Build customer segmentation with RFM metrics</p>
+                            </div>
+                            <span>▼</span>
+                        </div>
+                        <div class="challenge-content" style="display: none;">
+                            <p class="mb-4" id="level2TaskText">Build a customer segmentation pipeline: Calculate RFM metrics (Recency, Frequency, Monetary) using Spark DataFrames and window functions</p>
+                            <div class="hypothesis-box">
+                                <strong id="hypothesisLabel2">Hint:</strong> <span id="level2Hint">Use Window functions (over()) and when/otherwise for categorization. Recency = days since last order, Frequency = order count, Monetary = total spent</span>
+                            </div>
+                            <h4 class="font-bold mt-6 mb-3" id="level2SolutionLabel">High-Level Guidance:</h4>
+                            <ul class="list-disc list-inside mb-4 space-y-2">
+                                <li id="level2Step1">Create RFM dimensions from orders data</li>
+                                <li id="level2Step2">Use percentile_approx to segment customers into quartiles</li>
+                                <li id="level2Step3">Combine scores to create segments (e.g., VIP, At-Risk, Loyal)</li>
+                            </ul>
+                            <div class="business-context">
+                                <strong id="businessLabel">Business Context:</strong> <span id="level2Context">Customer segmentation at scale requires distributed processing — this is where Spark shines. RFM segmentation drives targeted marketing strategies.</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Level 3: Fortgeschritten -->
+                    <div class="challenge-card">
+                        <div class="challenge-header" onclick="toggleChallenge(this)">
+                            <div>
+                                <h3 class="text-2xl font-bold" id="level3Title">Level 3 - Fortgeschritten</h3>
+                                <p class="text-gray-600" id="level3Desc">Complete ETL pipeline with data cleaning and enrichment</p>
+                            </div>
+                            <span>▼</span>
+                        </div>
+                        <div class="challenge-content" style="display: none;">
+                            <p class="mb-4" id="level3TaskText">Create a complete ETL pipeline: Read raw clickstream data, clean it, enrich with product data, aggregate by session, and write to Parquet format</p>
+                            <h4 class="font-bold mt-6 mb-3" id="level3GuidanceLabel">High-Level Guidance:</h4>
+                            <ul class="list-disc list-inside mb-4 space-y-2">
+                                <li id="level3Step1">Use spark.read to load raw clickstream data</li>
+                                <li id="level3Step2">Filter null values, remove duplicates with dropDuplicates()</li>
+                                <li id="level3Step3">Join with products DataFrame to enrich with metadata</li>
+                                <li id="level3Step4">Window functions: rank() over() to extract session boundaries</li>
+                                <li id="level3Step5">GroupBy session_id, aggregate metrics</li>
+                                <li id="level3Step6">Write with mode("overwrite").parquet() for reuse</li>
+                            </ul>
+                            <div class="business-context">
+                                <strong id="businessLabel2">Business Context:</strong> <span id="level3Context">ETL pipelines are the backbone of every data warehouse — mastering them is essential for data engineering. Production pipelines run daily and power analytics dashboards.</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Level 4: Boss Challenge -->
+                    <div class="challenge-card difficulty-boss">
+                        <div class="challenge-header" onclick="toggleChallenge(this)" style="color: white;">
+                            <div>
+                                <h3 class="text-2xl font-bold" id="level4Title">Level 4 - Boss Challenge</h3>
+                                <p class="text-gray-100" id="level4Desc">Build a product recommendation engine with ALS</p>
+                            </div>
+                            <span style="color: white;">▼</span>
+                        </div>
+                        <div class="challenge-content" style="display: none; background: rgba(0,0,0,0.1); padding: 0 1.5rem 1.5rem 1.5rem;">
+                            <p class="mb-4 text-white" id="level4TaskText">Build a simple product recommendation engine using Spark MLlib's ALS (Alternating Least Squares) collaborative filtering algorithm</p>
+                            <h4 class="font-bold mt-6 mb-3 text-white" id="level4ConceptLabel">Concept:</h4>
+                            <p class="mb-4 text-gray-100" id="level4Concept">The ALS algorithm models user-item interactions as matrix factorization. Import from <code style="background: rgba(255,255,255,0.1); padding: 0.2rem 0.5rem;">spark.ml.recommendation.ALS</code>. ALS learns latent factors representing user preferences and item characteristics.</p>
+                            <div class="business-context" style="background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.3); color: white;">
+                                <strong id="businessLabel3">Business Context:</strong> <span id="level4Context">Netflix's original recommendation engine was built on ALS. Spark MLlib makes this accessible at any scale. A 5% improvement in recommendations can drive millions in incremental revenue.</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Self-Check Questions Section -->
+                <section id="selfcheck" class="mb-16">
+                    <h2 class="text-4xl font-bold mb-8" id="selfCheckTitle">Self-Check Questions</h2>
+                    <p class="mb-6" id="selfCheckIntro">Test your understanding of Spark fundamentals. Click to reveal answers:</p>
+
+                    <div class="self-check-card" onclick="toggleAnswer(this)">
+                        <h4 class="font-bold mb-2" id="q1">What is the difference between a transformation and an action in Spark?</h4>
+                        <div class="answer" style="display: none; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #e2e8f0;">
+                            <p id="a1">Transformations (map, filter, join) build the execution plan (DAG) but don't compute results. Actions (collect, count, write) trigger actual execution of the plan. Spark uses lazy evaluation to optimize the entire pipeline before running.</p>
+                        </div>
+                    </div>
+
+                    <div class="self-check-card" onclick="toggleAnswer(this)">
+                        <h4 class="font-bold mb-2" id="q2">Why does Spark use lazy evaluation?</h4>
+                        <div class="answer" style="display: none; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #e2e8f0;">
+                            <p id="a2">Lazy evaluation allows Spark's Catalyst optimizer to see the entire computation plan before execution. This enables optimizations like predicate pushdown, constant folding, and stage coalescence. The result is faster execution than eager evaluation would allow.</p>
+                        </div>
+                    </div>
+
+                    <div class="self-check-card" onclick="toggleAnswer(this)">
+                        <h4 class="font-bold mb-2" id="q3">What is a DataFrame in Spark and how does it differ from a Pandas DataFrame?</h4>
+                        <div class="answer" style="display: none; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #e2e8f0;">
+                            <p id="a3">Spark DataFrames are distributed, immutable collections with schema enforcement and SQL support. Pandas DataFrames are in-memory, mutable, and single-machine. Spark DataFrames scale to petabytes, while Pandas is limited to machine memory.</p>
+                        </div>
+                    </div>
+
+                    <div class="self-check-card" onclick="toggleAnswer(this)">
+                        <h4 class="font-bold mb-2" id="q4">What is partitioning and why is it important for performance?</h4>
+                        <div class="answer" style="display: none; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #e2e8f0;">
+                            <p id="a4">Partitioning divides data into chunks distributed across the cluster. Proper partitioning enables parallelism, reduces network shuffle, and improves query performance. Partitioning by date/region allows Spark to prune irrelevant data during queries.</p>
+                        </div>
+                    </div>
+
+                    <div class="self-check-card" onclick="toggleAnswer(this)">
+                        <h4 class="font-bold mb-2" id="q5">When would you use Spark SQL vs. DataFrame API?</h4>
+                        <div class="answer" style="display: none; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #e2e8f0;">
+                            <p id="a5">Use Spark SQL for complex analytical queries and when collaborating with SQL-familiar analysts. Use DataFrame API for procedural logic, machine learning pipelines, and when you need programmatic control. Both compile to the same optimized execution plan.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Reflection Section -->
+                <section id="reflection" class="mb-16">
+                    <h2 class="text-4xl font-bold mb-8" id="reflectionTitle">Reflection & Real-World Applications</h2>
+                    
+                    <h3 class="text-2xl font-bold mb-6" id="reflectionPromptsTitle">Reflection Prompts</h3>
+                    <div class="space-y-4 mb-8">
+                        <div class="reflection-prompt">
+                            <strong id="prompt1">Reflect:</strong> <span id="promptText1">You have learned about lazy evaluation. How does this change your approach to writing Spark code? When would you add an action to force evaluation?</span>
+                        </div>
+                        <div class="reflection-prompt">
+                            <strong id="prompt2">Reflect:</strong> <span id="promptText2">Consider a 500GB dataset that needs daily processing. How would Spark's distributed architecture help vs. traditional SQL databases? What challenges might arise?</span>
+                        </div>
+                        <div class="reflection-prompt">
+                            <strong id="prompt3">Reflect:</strong> <span id="promptText3">You built an ETL pipeline. What happens if one executor fails mid-job? How does Spark ensure fault tolerance?</span>
+                        </div>
+                    </div>
+
+                    <h3 class="text-2xl font-bold mb-6" id="realWorldTitle">Real-World Spark Applications</h3>
+                    <div class="real-world-section">
+                        <div class="space-y-4">
+                            <div>
+                                <h4 class="font-bold text-lg mb-2" id="netflix">Netflix: Personalized Recommendations</h4>
+                                <p id="netflixText">Spark powers Netflix's collaborative filtering engine. Processes billions of user-movie interactions daily to serve personalized recommendations, driving 75% of content engagement.</p>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-lg mb-2" id="uber">Uber: Real-Time Trip Processing</h4>
+                                <p id="uberText">Spark Streaming processes millions of GPS events per second. Aggregates metrics on driver behavior, surge pricing signals, and ETA calculations to optimize matching and routing in real-time.</p>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-lg mb-2" id="spotify">Spotify: Music Recommendation & Playlists</h4>
+                                <p id="spotifyText">Spark ML pipelines analyze listening patterns across 500M users to generate personalized playlists. ALS collaborative filtering discovers artist similarities and user taste clusters.</p>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-lg mb-2" id="nasa">NASA: Processing Satellite Data</h4>
+                                <p id="nasaText">Spark processes terabytes of satellite imagery daily for climate science, land use mapping, and disaster response. Distributed image processing enables real-time analysis of planetary-scale datasets.</p>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-lg mb-2" id="finserv">Financial Services: Risk Analysis & Fraud Detection</h4>
+                                <p id="finservText">Spark powers fraud detection systems analyzing millions of transactions. Graph analysis detects fraud rings; ML models identify suspicious patterns in real-time to prevent losses.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
                 </section>
 
                 <!-- Bonusaufgaben -->
@@ -1037,6 +1398,86 @@ categorized.select("order_id", "order_total", "order_category").show()
                 nextStep2: "Real-Time-Streaming-Pipelines mit Kafka-Integration",
                 nextStep3: "Verteilte Graphenverarbeitung mit GraphX",
                 nextStep4: "Produktionsbereitstellung und Cluster-Verwaltung",
+                missionTitle: "Deine Mission",
+                missionSubtitle: "MegaStore Verteilte Computing Herausforderung",
+                missionContext1: "MegaStore ist auf Millionen von Transaktionen gewachsen. Single-Machine-Verarbeitung kann nicht mithalten. Der CTO hat entschieden, in Apache Spark für verteilte Datenverarbeitung zu investieren.",
+                missionYourJob: "Deine Aufgabe:",
+                missionObjectiveText: "Lernen Sie, die Kraft des verteilten Computing zu nutzen, um massive Datensätze zu verarbeiten",
+                missionQ1: "Wie verarbeiten wir 100GB+ Clickstream-Daten?",
+                missionQ2: "Können wir echtzeitliche Dashboards erstellen?",
+                missionQ3: "Wie trainieren wir ML-Modelle für Millionen von Datensätzen?",
+                challengesTitle: "Progressive Herausforderungen",
+                challengesIntro: "Meistern Sie Spark durch 4 progressive Schwierigkeitsstufen. Jede stellt Ihr Verständnis in Frage und entwickelt praktische Fähigkeiten:",
+                level1Title: "Level 1 - Einstieg",
+                level1Desc: "Laden Sie MegaStore-Bestellungen und berechnen Sie Umsatz pro Kategorie",
+                level1TaskText: "Laden Sie den MegaStore-Bestellungsdatensatz und berechnen Sie den Gesamtumsatz pro Produktkategorie mit Spark SQL",
+                level1Hypothesis: "Erwarten Sie, dass die Umsatzverteilung dem Pareto-(80/20)-Prinzip folgt?",
+                level1SolutionLabel: "Lösung:",
+                level1Insight: "Das Verständnis der Umsatzkonzentration hilft bei der Priorisierung von Lagerbestandsinvestitionen. Welche 20% der Kategorien generieren 80% des Umsatzes?",
+                level2Title: "Level 2 - Vertiefung",
+                level2Desc: "Erstellen Sie Kundensegmentierung mit RFM-Metriken",
+                level2TaskText: "Erstellen Sie eine Kundensegmentierungs-Pipeline: Berechnen Sie RFM-Metriken (Recency, Frequency, Monetary) mit Spark DataFrames und Window-Funktionen",
+                level2Hint: "Verwenden Sie Window-Funktionen (over()) und when/otherwise für Kategorisierung. Recency = Tage seit letzter Bestellung, Frequency = Bestellanzahl, Monetary = Gesamtausgaben",
+                level2SolutionLabel: "Allgemeine Anleitung:",
+                level2Step1: "Erstellen Sie RFM-Dimensionen aus Bestellungsdaten",
+                level2Step2: "Verwenden Sie percentile_approx, um Kunden in Quartile zu segmentieren",
+                level2Step3: "Kombinieren Sie Scores, um Segmente zu erstellen (z.B. VIP, gefährdet, treu)",
+                level2Context: "Kundensegmentierung im großen Maßstab erfordert verteilte Verarbeitung — hier glänzt Spark. RFM-Segmentierung treibt gezielt gerichtete Marketingstrategien.",
+                level3Title: "Level 3 - Fortgeschritten",
+                level3Desc: "Komplette ETL-Pipeline mit Datenbereinigung und -anreicherung",
+                level3TaskText: "Erstellen Sie eine komplette ETL-Pipeline: Laden Sie Rohdaten des Clickstreams, bereinigen Sie sie, bereichern Sie sie mit Produktdaten, aggregieren Sie nach Session und speichern Sie im Parquet-Format",
+                level3GuidanceLabel: "Allgemeine Anleitung:",
+                level3Step1: "Verwenden Sie spark.read, um Rohdaten des Clickstreams zu laden",
+                level3Step2: "Filtern Sie Nullwerte, entfernen Sie Duplikate mit dropDuplicates()",
+                level3Step3: "Verbinden Sie mit Products DataFrame, um mit Metadaten zu bereichern",
+                level3Step4: "Window-Funktionen: rank() over(), um Sessionsgrenzen zu extrahieren",
+                level3Step5: "GroupBy session_id, Aggregation von Metriken",
+                level3Step6: "Schreiben Sie mit mode('overwrite').parquet() zur Wiederverwendung",
+                level3Context: "ETL-Pipelines sind das Rückgrat jedes Data Warehouse — ihre Beherrschung ist für Data Engineering unerlässlich. Produktions-Pipelines laufen täglich und unterstützen Analytics-Dashboards.",
+                level4Title: "Level 4 - Boss-Herausforderung",
+                level4Desc: "Erstellen Sie eine Produktempfehlungs-Engine mit ALS",
+                level4TaskText: "Erstellen Sie eine einfache Produktempfehlungs-Engine mit Spark MLlib's ALS (Alternating Least Squares) Collaborative Filtering Algorithm",
+                level4ConceptLabel: "Konzept:",
+                level4Concept: "Der ALS-Algorithmus modelliert Benutzer-Element-Interaktionen als Matrixfaktorisierung. Importieren Sie von spark.ml.recommendation.ALS. ALS lernt latente Faktoren, die Benutzerpräferenzen und Element-Merkmale darstellen.",
+                level4Context: "Netflix's ursprüngliche Empfehlungs-Engine basierte auf ALS. Spark MLlib macht dies im beliebigen Maßstab zugänglich. Eine 5%ige Verbesserung bei Empfehlungen kann Millionen an zusätzlichen Einnahmen generieren.",
+                selfCheckTitle: "Selbstprüfungsfragen",
+                selfCheckIntro: "Testen Sie Ihr Verständnis der Spark-Grundlagen. Klicken Sie, um Antworten zu enthüllen:",
+                q1: "Was ist der Unterschied zwischen einer Transformation und einer Aktion in Spark?",
+                a1: "Transformationen (map, filter, join) erstellen den Ausführungsplan (DAG), aber berechnen nicht das Ergebnis. Aktionen (collect, count, write) triggern die tatsächliche Ausführung des Plans. Spark verwendet Lazy Evaluation, um die gesamte Pipeline vor der Ausführung zu optimieren.",
+                q2: "Warum verwendet Spark Lazy Evaluation?",
+                a2: "Lazy Evaluation ermöglicht Spark's Catalyst Optimizer, den gesamten Berechnungsplan vor der Ausführung zu sehen. Dies ermöglicht Optimierungen wie Predicate Pushdown, Constant Folding und Stage Coalescence. Das Ergebnis ist schnellere Ausführung als Eager Evaluation ermöglichen würde.",
+                q3: "Was ist ein DataFrame in Spark und wie unterscheidet es sich von einem Pandas DataFrame?",
+                a3: "Spark DataFrames sind verteilte, unveränderliche Sammlungen mit Schema-Erzwingung und SQL-Unterstützung. Pandas DataFrames sind im Speicher, veränderlich und Single-Machine. Spark DataFrames skalieren auf Petabytes, während Pandas auf den Maschinenpeicher beschränkt ist.",
+                q4: "Was ist Partitionierung und warum ist sie wichtig für die Leistung?",
+                a4: "Partitionierung unterteilt Daten in Chunks, die über den Cluster verteilt sind. Eine ordnungsgemäße Partitionierung ermöglicht Parallelität, reduziert Netzwerk-Shuffle und verbessert die Abfrageleistung. Partitionierung nach Datum/Region ermöglicht Spark, während Abfragen irrelevante Daten zu entfernen.",
+                q5: "Wann würden Sie Spark SQL gegenüber der DataFrame API verwenden?",
+                a5: "Verwenden Sie Spark SQL für komplexe analytische Abfragen und bei der Zusammenarbeit mit SQL-vertrauten Analysten. Verwenden Sie die DataFrame API für prozedurale Logik, Machine Learning Pipelines und wenn Sie programmatische Kontrolle benötigen. Beide kompilieren zum gleichen optimierten Ausführungsplan.",
+                reflectionTitle: "Reflexion & Real-World-Anwendungen",
+                reflectionPromptsTitle: "Reflexions-Aufforderungen",
+                prompt1: "Reflektieren Sie:",
+                promptText1: "Sie haben über Lazy Evaluation gelernt. Wie ändert dies Ihren Ansatz beim Schreiben von Spark-Code? Wann würden Sie eine Aktion hinzufügen, um die Evaluierung zu erzwingen?",
+                prompt2: "Reflektieren Sie:",
+                promptText2: "Stellen Sie sich einen 500-GB-Datensatz vor, der täglich verarbeitet werden muss. Wie würde Spark's verteilte Architektur im Vergleich zu traditionellen SQL-Datenbanken helfen? Welche Herausforderungen könnten auftreten?",
+                prompt3: "Reflektieren Sie:",
+                promptText3: "Sie haben eine ETL-Pipeline erstellt. Was passiert, wenn während eines Jobs ein Executor ausfällt? Wie sorgt Spark für Fehlertoleranz?",
+                realWorldTitle: "Real-World Spark-Anwendungen",
+                netflix: "Netflix: Personalisierte Empfehlungen",
+                netflixText: "Spark unterstützt Netflix's Collaborative Filtering Engine. Verarbeitet täglich Milliarden von Benutzer-Film-Interaktionen, um personalisierte Empfehlungen zu servieren und 75% des Content-Engagements zu treiben.",
+                uber: "Uber: Echtzeit-Trip-Verarbeitung",
+                uberText: "Spark Streaming verarbeitet pro Sekunde Millionen von GPS-Events. Aggregiert Metriken zum Fahrerverhalten, Surge-Pricing-Signale und ETA-Berechnungen, um Matching und Routing in Echtzeit zu optimieren.",
+                spotify: "Spotify: Musikempfehlung und Playlisten",
+                spotifyText: "Spark ML Pipelines analysieren Hörmuster über 500M Benutzer, um personalisierte Playlisten zu generieren. ALS Collaborative Filtering entdeckt Künstler-Ähnlichkeiten und Benutzer-Geschmacks-Cluster.",
+                nasa: "NASA: Verarbeitung von Satellitendaten",
+                nasaText: "Spark verarbeitet täglich Terabytes von Satellitenbildern für Klimawissenschaft, Landnutzungskartierung und Katastrophenreaktion. Verteilte Bildverarbeitung ermöglicht Echtzeit-Analyse von planetarischen Datensätzen.",
+                finserv: "Finanzdienstleistungen: Risikoanalyse & Betrugserkennung",
+                finservText: "Spark unterstützt Betrugserkennung Systeme, die Millionen von Transaktionen analysieren. Graph-Analyse erkennt Betrugsnetzwerke; ML-Modelle identifizieren verdächtige Muster in Echtzeit, um Verluste zu verhindern.",
+                hypothesisLabel: "Hypothese:",
+                hypothesisLabel2: "Hinweis:",
+                businessLabel: "Business Kontext:",
+                businessLabel2: "Business Kontext:",
+                businessLabel3: "Business Kontext:",
+                insightLabel: "Business Insight:",
+
             },
             en: {
                 heroTitle: "Apache Spark Lab - Distributed Data Processing",
@@ -1162,6 +1603,86 @@ categorized.select("order_id", "order_total", "order_category").show()
                 nextStep2: "Real-time streaming pipelines with Kafka integration",
                 nextStep3: "Distributed graph processing with GraphX",
                 nextStep4: "Production deployment and cluster management",
+                missionTitle: "Your Mission",
+                missionSubtitle: "MegaStore Distributed Computing Challenge",
+                missionContext1: "MegaStore has grown to millions of transactions. Single-machine processing can't keep up. The CTO has decided to invest in Apache Spark for distributed data processing.",
+                missionYourJob: "Your job:",
+                missionObjectiveText: "Learn to harness the power of distributed computing to process massive datasets",
+                missionQ1: "How do we process 100GB+ of clickstream data?",
+                missionQ2: "Can we build real-time dashboards?",
+                missionQ3: "How do we train ML models on millions of records?",
+                challengesTitle: "Progressive Challenges",
+                challengesIntro: "Master Spark through 4 progressive difficulty levels. Each challenges your understanding and builds real-world skills:",
+                level1Title: "Level 1 - Entry",
+                level1Desc: "Load MegaStore orders and calculate revenue per category",
+                level1TaskText: "Load the MegaStore orders dataset and calculate total revenue per product category using Spark SQL",
+                level1Hypothesis: "Do you expect the revenue distribution to follow Pareto (80/20) principle?",
+                level1SolutionLabel: "Solution:",
+                level1Insight: "Understanding revenue concentration helps prioritize inventory investment. Which 20% of categories generate 80% of revenue?",
+                level2Title: "Level 2 - Deep Dive",
+                level2Desc: "Build customer segmentation with RFM metrics",
+                level2TaskText: "Build a customer segmentation pipeline: Calculate RFM metrics (Recency, Frequency, Monetary) using Spark DataFrames and window functions",
+                level2Hint: "Use Window functions (over()) and when/otherwise for categorization. Recency = days since last order, Frequency = order count, Monetary = total spent",
+                level2SolutionLabel: "High-Level Guidance:",
+                level2Step1: "Create RFM dimensions from orders data",
+                level2Step2: "Use percentile_approx to segment customers into quartiles",
+                level2Step3: "Combine scores to create segments (e.g., VIP, At-Risk, Loyal)",
+                level2Context: "Customer segmentation at scale requires distributed processing — this is where Spark shines. RFM segmentation drives targeted marketing strategies.",
+                level3Title: "Level 3 - Advanced",
+                level3Desc: "Complete ETL pipeline with data cleaning and enrichment",
+                level3TaskText: "Create a complete ETL pipeline: Read raw clickstream data, clean it, enrich with product data, aggregate by session, and write to Parquet format",
+                level3GuidanceLabel: "High-Level Guidance:",
+                level3Step1: "Use spark.read to load raw clickstream data",
+                level3Step2: "Filter null values, remove duplicates with dropDuplicates()",
+                level3Step3: "Join with products DataFrame to enrich with metadata",
+                level3Step4: "Window functions: rank() over() to extract session boundaries",
+                level3Step5: "GroupBy session_id, aggregate metrics",
+                level3Step6: "Write with mode('overwrite').parquet() for reuse",
+                level3Context: "ETL pipelines are the backbone of every data warehouse — mastering them is essential for data engineering. Production pipelines run daily and power analytics dashboards.",
+                level4Title: "Level 4 - Boss Challenge",
+                level4Desc: "Build a product recommendation engine with ALS",
+                level4TaskText: "Build a simple product recommendation engine using Spark MLlib's ALS (Alternating Least Squares) collaborative filtering algorithm",
+                level4ConceptLabel: "Concept:",
+                level4Concept: "The ALS algorithm models user-item interactions as matrix factorization. Import from spark.ml.recommendation.ALS. ALS learns latent factors representing user preferences and item characteristics.",
+                level4Context: "Netflix's original recommendation engine was built on ALS. Spark MLlib makes this accessible at any scale. A 5% improvement in recommendations can drive millions in incremental revenue.",
+                selfCheckTitle: "Self-Check Questions",
+                selfCheckIntro: "Test your understanding of Spark fundamentals. Click to reveal answers:",
+                q1: "What is the difference between a transformation and an action in Spark?",
+                a1: "Transformations (map, filter, join) build the execution plan (DAG) but don't compute results. Actions (collect, count, write) trigger actual execution of the plan. Spark uses lazy evaluation to optimize the entire pipeline before running.",
+                q2: "Why does Spark use lazy evaluation?",
+                a2: "Lazy evaluation allows Spark's Catalyst optimizer to see the entire computation plan before execution. This enables optimizations like predicate pushdown, constant folding, and stage coalescence. The result is faster execution than eager evaluation would allow.",
+                q3: "What is a DataFrame in Spark and how does it differ from a Pandas DataFrame?",
+                a3: "Spark DataFrames are distributed, immutable collections with schema enforcement and SQL support. Pandas DataFrames are in-memory, mutable, and single-machine. Spark DataFrames scale to petabytes, while Pandas is limited to machine memory.",
+                q4: "What is partitioning and why is it important for performance?",
+                a4: "Partitioning divides data into chunks distributed across the cluster. Proper partitioning enables parallelism, reduces network shuffle, and improves query performance. Partitioning by date/region allows Spark to prune irrelevant data during queries.",
+                q5: "When would you use Spark SQL vs. DataFrame API?",
+                a5: "Use Spark SQL for complex analytical queries and when collaborating with SQL-familiar analysts. Use DataFrame API for procedural logic, machine learning pipelines, and when you need programmatic control. Both compile to the same optimized execution plan.",
+                reflectionTitle: "Reflection & Real-World Applications",
+                reflectionPromptsTitle: "Reflection Prompts",
+                prompt1: "Reflect:",
+                promptText1: "You have learned about lazy evaluation. How does this change your approach to writing Spark code? When would you add an action to force evaluation?",
+                prompt2: "Reflect:",
+                promptText2: "Consider a 500GB dataset that needs daily processing. How would Spark's distributed architecture help vs. traditional SQL databases? What challenges might arise?",
+                prompt3: "Reflect:",
+                promptText3: "You built an ETL pipeline. What happens if one executor fails mid-job? How does Spark ensure fault tolerance?",
+                realWorldTitle: "Real-World Spark Applications",
+                netflix: "Netflix: Personalized Recommendations",
+                netflixText: "Spark powers Netflix's collaborative filtering engine. Processes billions of user-movie interactions daily to serve personalized recommendations, driving 75% of content engagement.",
+                uber: "Uber: Real-Time Trip Processing",
+                uberText: "Spark Streaming processes millions of GPS events per second. Aggregates metrics on driver behavior, surge pricing signals, and ETA calculations to optimize matching and routing in real-time.",
+                spotify: "Spotify: Music Recommendation & Playlists",
+                spotifyText: "Spark ML pipelines analyze listening patterns across 500M users to generate personalized playlists. ALS collaborative filtering discovers artist similarities and user taste clusters.",
+                nasa: "NASA: Processing Satellite Data",
+                nasaText: "Spark processes terabytes of satellite imagery daily for climate science, land use mapping, and disaster response. Distributed image processing enables real-time analysis of planetary-scale datasets.",
+                finserv: "Financial Services: Risk Analysis & Fraud Detection",
+                finservText: "Spark powers fraud detection systems analyzing millions of transactions. Graph analysis detects fraud rings; ML models identify suspicious patterns in real-time to prevent losses.",
+                hypothesisLabel: "Hypothesis:",
+                hypothesisLabel2: "Hint:",
+                businessLabel: "Business Context:",
+                businessLabel2: "Business Context:",
+                businessLabel3: "Business Context:",
+                insightLabel: "Business Insight:",
+
             },
             ar: {
                 heroTitle: "معمل Apache Spark - معالجة البيانات الموزعة",
@@ -1287,6 +1808,86 @@ categorized.select("order_id", "order_total", "order_category").show()
                 nextStep2: "خطوط أنابيب البث في الوقت الفعلي مع تكامل Kafka",
                 nextStep3: "معالجة الرسوم البيانية الموزعة مع GraphX",
                 nextStep4: "النشر الجاهز للإنتاج وإدارة الكتل",
+                missionTitle: "مهمتك",
+                missionSubtitle: "تحدي حوسبة MegaStore الموزع",
+                missionContext1: "نمت MegaStore إلى ملايين المعاملات. معالجة الجهاز الواحد لا يمكنها مواكبة. قررت CTO الاستثمار في Apache Spark لمعالجة البيانات الموزعة.",
+                missionYourJob: "وظيفتك:",
+                missionObjectiveText: "تعلم استخدام قوة الحوسبة الموزعة لمعالجة مجموعات البيانات الضخمة",
+                missionQ1: "كيف نعالج 100 غيغابايت + من بيانات تدفق النقر؟",
+                missionQ2: "هل يمكننا بناء لوحات معلومات في الوقت الفعلي؟",
+                missionQ3: "كيف نتدرب على نماذج ML على ملايين السجلات؟",
+                challengesTitle: "التحديات التقدمية",
+                challengesIntro: "أتقن Spark من خلال 4 مستويات صعوبة متقدمة. كل واحد يطرح تفهمك وينمي المهارات العملية:",
+                level1Title: "المستوى 1 - المدخل",
+                level1Desc: "قم بتحميل طلبات MegaStore وحساب الإيرادات لكل فئة",
+                level1TaskText: "قم بتحميل مجموعة بيانات طلبات MegaStore وحساب إجمالي الإيرادات لكل فئة منتج باستخدام Spark SQL",
+                level1Hypothesis: "هل تتوقع أن توزيع الإيرادات يتبع مبدأ باريتو (80/20)؟",
+                level1SolutionLabel: "الحل:",
+                level1Insight: "يساعد فهم تركيز الإيرادات في تحديد أولويات استثمار المخزون. أي 20% من الفئات تولد 80% من الإيرادات؟",
+                level2Title: "المستوى 2 - الغوص العميق",
+                level2Desc: "بناء تقسيم العملاء بمقاييس RFM",
+                level2TaskText: "بناء خط أنابيب تقسيم العملاء: حساب مقاييس RFM (الحداثة، والتكرار، والقيمة النقدية) باستخدام Spark DataFrames ودوال النافذة",
+                level2Hint: "استخدم دوال Window (over()) و when/otherwise للتصنيف. الحداثة = أيام منذ آخر أمر، التكرار = عدد الطلبات، القيمة النقدية = الإجمالي المنفق",
+                level2SolutionLabel: "إرشادات عالية المستوى:",
+                level2Step1: "إنشاء أبعاد RFM من بيانات الطلبات",
+                level2Step2: "استخدم percentile_approx لتقسيم العملاء إلى ربعيات",
+                level2Step3: "دمج النقاط لإنشاء أجزاء (مثل VIP، المعرضة للخطر، المخلصة)",
+                level2Context: "يتطلب تقسيم العملاء على نطاق واسع معالجة موزعة — هنا يتوهج Spark. يدفع تقسيم RFM استراتيجيات التسويق الموجهة.",
+                level3Title: "المستوى 3 - متقدم",
+                level3Desc: "خط أنابيب ETL كامل مع تنظيف البيانات والإثراء",
+                level3TaskText: "إنشاء خط أنابيب ETL كامل: قراءة بيانات تدفق النقر الخام وتنظيفها وإثراؤها ببيانات المنتج والتجميع حسب الجلسة والكتابة بصيغة Parquet",
+                level3GuidanceLabel: "إرشادات عالية المستوى:",
+                level3Step1: "استخدم spark.read لتحميل بيانات تدفق النقر الخام",
+                level3Step2: "تصفية القيم الخالية وإزالة النسخ المكررة مع dropDuplicates()",
+                level3Step3: "الانضمام إلى DataFrame للمنتجات للإثراء بالبيانات الوصفية",
+                level3Step4: "دوال النافذة: rank() over() لاستخراج حدود الجلسة",
+                level3Step5: "GroupBy session_id وتجميع المقاييس",
+                level3Step6: "اكتب مع mode('overwrite').parquet() لإعادة الاستخدام",
+                level3Context: "خطوط أنابيب ETL هي العمود الفقري لكل مستودع بيانات — إتقانها ضروري للهندسة البيانات. تعمل خطوط الإنتاج يومياً وتشغل لوحات معلومات التحليلات.",
+                level4Title: "المستوى 4 - تحدي الزعيم",
+                level4Desc: "بناء محرك التوصيات للمنتج مع ALS",
+                level4TaskText: "بناء محرك توصية منتج بسيط باستخدام خوارزمية التصفية التعاونية ALS (Alternating Least Squares) من Spark MLlib",
+                level4ConceptLabel: "المفهوم:",
+                level4Concept: "تقوم خوارزمية ALS بنمذجة تفاعلات المستخدم والعنصر كمحاذاة مصفوفة. استورد من spark.ml.recommendation.ALS. يتعلم ALS العوامل الكامنة التي تمثل تفضيلات المستخدم وخصائص العنصر.",
+                level4Context: "تم بناء محرك التوصيات الأصلي لـ Netflix على ALS. يجعل Spark MLlib هذا متاحاً بأي حجم. تحسن 5% في التوصيات يمكن أن يدفع ملايين في الإيرادات الإضافية.",
+                selfCheckTitle: "أسئلة الفحص الذاتي",
+                selfCheckIntro: "اختبر فهمك لأساسيات Spark. انقر للكشف عن الإجابات:",
+                q1: "ما هو الفرق بين التحويل والإجراء في Spark؟",
+                a1: "تبني التحويلات (map و filter و join) خطة التنفيذ (DAG) لكنها لا تحسب النتائج. تؤدي الإجراءات (collect و count و write) إلى التنفيذ الفعلي للخطة. يستخدم Spark التقييم الكسول لتحسين خط الأنابيب كله قبل التشغيل.",
+                q2: "لماذا يستخدم Spark التقييم الكسول؟",
+                a2: "يسمح التقييم الكسول بـ Catalyst محسِّن Spark برؤية خطة الحساب بأكملها قبل التنفيذ. وهذا يتيح تحسينات مثل دفع التنبؤ والطي الثابت والائتلاف المرحلي. والنتيجة هي تنفيذ أسرع مما يسمح به التقييم الحريص.",
+                q3: "ما هو DataFrame في Spark وكيف يختلف عن Pandas DataFrame؟",
+                a3: "Spark DataFrames عبارة عن مجموعات موزعة وغير قابلة للتغيير مع فرض المخطط ودعم SQL. Pandas DataFrames في الذاكرة وقابلة للتغيير وآلة واحدة. Spark DataFrames يقيس petabytes بينما Pandas مقتصر على ذاكرة الجهاز.",
+                q4: "ما هي التجزئة ولماذا تعتبر مهمة للأداء؟",
+                a4: "تقسم التجزئة البيانات إلى أجزاء موزعة عبر المجموعة. تتيح التجزئة الصحيحة المتوازيات وتقلل من الخلط بالشبكة وتحسن أداء الاستعلام. تتيح التجزئة حسب التاريخ/المنطقة Spark لتقليص البيانات ذات الصلة أثناء الاستعلامات.",
+                q5: "متى ستستخدم Spark SQL مقابل DataFrame API؟",
+                a5: "استخدم Spark SQL للاستعلامات التحليلية المعقدة والتعاون مع المحللين الذين يفهمون SQL. استخدم DataFrame API للمنطق الإجرائي وخطوط أنابيب التعلم الآلي عندما تحتاج إلى السيطرة البرمجية. كلاهما يجمع إلى نفس خطة التنفيذ المحسنة.",
+                reflectionTitle: "الانعكاس والتطبيقات في العالم الحقيقي",
+                reflectionPromptsTitle: "مطالبات الانعكاس",
+                prompt1: "تأمل:",
+                promptText1: "لقد تعلمت عن التقييم الكسول. كيف يغير هذا نهجك في كتابة كود Spark؟ متى ستضيف إجراء لفرض التقييم؟",
+                prompt2: "تأمل:",
+                promptText2: "فكر في مجموعة بيانات بحجم 500 غيغابايت تتطلب معالجة يومية. كيف ستساعد الهندسة المعمارية الموزعة لـ Spark مقابل قواعد البيانات SQL التقليدية؟ ما التحديات التي قد تنشأ؟",
+                prompt3: "تأمل:",
+                promptText3: "أنشأت خط أنابيب ETL. ماذا يحدث إذا فشل منفذ واحد أثناء المهمة؟ كيف يضمن Spark تحمل الأخطاء؟",
+                realWorldTitle: "تطبيقات Spark في العالم الحقيقي",
+                netflix: "Netflix: التوصيات الشخصية",
+                netflixText: "Spark يدعم محرك الترشيح التعاوني الخاص بـ Netflix. يعالج مليارات تفاعلات المستخدم والفيلم يومياً لتقديم توصيات مخصصة وتشغيل 75% من مشاركة المحتوى.",
+                uber: "Uber: معالجة الرحلة في الوقت الفعلي",
+                uberText: "تعالج Spark Streaming ملايين أحداث GPS في الثانية. تجمع المقاييس على سلوك السائق وإشارات الأسعار المرتفعة وحسابات ETA لتحسين المطابقة والتوجيه في الوقت الفعلي.",
+                spotify: "Spotify: التوصيات الموسيقية والقوائم",
+                spotifyText: "تحلل خطوط أنابيب Spark ML أنماط الاستماع عبر 500M من المستخدمين لإنشاء قوائم تشغيل مخصصة. اكتشف التصفية التعاونية ALS تشابهات الفنانين وعناقيد الذوق الخاصة بالمستخدم.",
+                nasa: "NASA: معالجة بيانات الأقمار الصناعية",
+                nasaText: "تعالج Spark تيرابايتات صور الأقمار الصناعية يومياً لعلم المناخ وتعيين استخدام الأراضي والاستجابة للكوارث. تمكن معالجة الصور الموزعة التحليل في الوقت الفعلي لمجموعات البيانات على نطاق الكوكب.",
+                finserv: "الخدمات المالية: تحليل المخاطر وكشف الاحتيال",
+                finservText: "Spark يقوى أنظمة كشف الاحتيال التي تحلل ملايين المعاملات. يكتشف تحليل الرسم البياني حلقات الاحتيال؛ تحديد نماذج ML الأنماط المريبة في الوقت الفعلي لمنع الخسائر.",
+                hypothesisLabel: "الفرضية:",
+                hypothesisLabel2: "تلميح:",
+                businessLabel: "السياق التجاري:",
+                businessLabel2: "السياق التجاري:",
+                businessLabel3: "السياق التجاري:",
+                insightLabel: "رؤية العمل:",
+
             },
             uk: {
                 heroTitle: "Лабораторія Apache Spark - розподілена обробка даних",
@@ -1662,6 +2263,86 @@ categorized.select("order_id", "order_total", "order_category").show()
                 nextStep2: "Kafka entegrasyonu ile gerçek zamanlı akış boru hatları",
                 nextStep3: "GraphX ile dağıtılmış grafik işleme",
                 nextStep4: "Üretime hazır dağıtım ve küme yönetimi",
+                missionTitle: "Senin Görevin",
+                missionSubtitle: "MegaStore Dağıtılmış Bilişim Zorluk",
+                missionContext1: "MegaStore milyonlarca işleme büyüdü. Tek makine işleme yetişemez. CTO dağıtılmış veri işleme için Apache Spark'a yatırım yapmaya karar verdi.",
+                missionYourJob: "Senin işin:",
+                missionObjectiveText: "Dağıtılmış bilişimin gücünü kullanarak büyük veri kümelerini işlemeyi öğren",
+                missionQ1: "100GB+ tıklama akışı verilerini nasıl işleriz?",
+                missionQ2: "Gerçek zamanlı panolar oluşturabiliriz?",
+                missionQ3: "Milyonlarca kayıtta ML modellerini nasıl eğitiriz?",
+                challengesTitle: "Kademeli Zorluklar",
+                challengesIntro: "4 aşamalı zorluk seviyesi aracılığıyla Spark'ta uzmanlaş. Her biri anlayışına meydan okur ve pratik beceriler geliştirir:",
+                level1Title: "Seviye 1 - Giriş",
+                level1Desc: "MegaStore siparişlerini yükleyin ve kategoriye göre geliri hesaplayın",
+                level1TaskText: "MegaStore siparişleri veri setini yükleyin ve Spark SQL kullanarak ürün kategorisi başına toplam geliri hesaplayın",
+                level1Hypothesis: "Gelir dağılımının Pareto (80/20) ilkesine uymasını bekliyorsunuz?",
+                level1SolutionLabel: "Çözüm:",
+                level1Insight: "Gelir yoğunlaşmasını anlamak, envanter yatırımı önceliklendirmeye yardımcı olur. Hangi kategorilerin %20'si %80 gelir oluşturur?",
+                level2Title: "Seviye 2 - Derin Dalış",
+                level2Desc: "RFM metrikleriyle müşteri bölümlemesi oluşturun",
+                level2TaskText: "Müşteri bölümleme ardışık düzeni oluşturun: Spark DataFrames ve pencere işlevlerini kullanarak RFM metriklerini (Recency, Frequency, Monetary) hesaplayın",
+                level2Hint: "Kategorileme için Window işlevlerini (over()) ve when/otherwise kullanın. Recency = son siparişten bu yana günler, Frequency = sipariş sayısı, Monetary = toplam harcama",
+                level2SolutionLabel: "Üst Düzey Rehberlik:",
+                level2Step1: "Sipariş verilerinden RFM boyutları oluşturun",
+                level2Step2: "Müşterileri dörttebirlik halinde bölmek için percentile_approx kullanın",
+                level2Step3: "Segmentler oluşturmak için puanları birleştirin (ör. VIP, Riskli, Sadık)",
+                level2Context: "Ölçekli müşteri bölümlemesi dağıtılmış işlem gerektirir — Spark'ın parladığı yer burası. RFM bölümlenmesi hedeflenen pazarlama stratejilerine neden olur.",
+                level3Title: "Seviye 3 - Gelişmiş",
+                level3Desc: "Veri temizleme ve zenginleştirme ile eksiksiz ETL ardışık düzeni",
+                level3TaskText: "Eksiksiz bir ETL ardışık düzeni oluşturun: Ham tıklama akışı verilerini okuyun, temizleyin, ürün verileriyle zenginleştirin, oturuma göre toplayın ve Parquet formatına yazın",
+                level3GuidanceLabel: "Üst Düzey Rehberlik:",
+                level3Step1: "Ham tıklama akışı verilerini yüklemek için spark.read kullanın",
+                level3Step2: "Null değerleri filtreleyin, dropDuplicates() ile kopya kaldırın",
+                level3Step3: "Meta verilerle zenginleştirmek için ürünler DataFrame'iyle katılın",
+                level3Step4: "Pencere işlevleri: oturum sınırlarını ayıklamak için rank() over()",
+                level3Step5: "GroupBy session_id, metrikleri toplayın",
+                level3Step6: "Yeniden kullanım için mode('overwrite').parquet() ile yazın",
+                level3Context: "ETL ardışık düzenleri her veri ambarının temelir — bunlarda uzmanlaşmak veri mühendisliği için gereklidir. Üretim ardışık düzenleri günlük çalışır ve analitik panolarına güç verir.",
+                level4Title: "Seviye 4 - Boss Mücadelesi",
+                level4Desc: "ALS ile ürün tavsiye motoru oluşturun",
+                level4TaskText: "Spark MLlib'in ALS (Alternating Least Squares) işbirliğine dayalı filtreleme algoritmasını kullanan basit bir ürün tavsiye motoru oluşturun",
+                level4ConceptLabel: "Konsept:",
+                level4Concept: "ALS algoritması kullanıcı-öğe etkileşimlerini matris çarpanlarına ayırma olarak modellerken. spark.ml.recommendation.ALS'den içeri aktarın. ALS, kullanıcı tercihlerini ve öğe özelliklerini temsil eden gizli faktörleri öğrenir.",
+                level4Context: "Netflix'in orijinal tavsiye motoru ALS üzerine inşa edildi. Spark MLlib bunu herhangi bir ölçekte erişilebilir kılar. Tavsiyeler %5'lik bir iyileştirme, milyonlarca ek geliri gerçekleştirebilir.",
+                selfCheckTitle: "Kendi Kendini Kontrol Etme Soruları",
+                selfCheckIntro: "Spark temelleri hakkında anlayışınızı test edin. Yanıtları ortaya çıkarmak için tıklayın:",
+                q1: "Spark'ta dönüşüm ile eylem arasındaki fark nedir?",
+                a1: "Dönüşümler (map, filter, join) yürütme planını (DAG) oluşturur ancak sonuçları hesaplamaz. Eylemler (collect, count, write) planın fiili yürütülmesini tetikler. Spark, çalıştırmadan önce tüm ardışık düzeni optimize etmek için tembel değerlendirme kullanır.",
+                q2: "Spark neden tembel değerlendirmeyi kullanır?",
+                a2: "Tembel değerlendirme, Spark'ın Catalyst iyileştiricisinin yürütmeden önce tüm hesaplama planını görmesini sağlar. Bu, yüklem aşağı itme, sabit katlanma ve sahne birleştirmesi gibi optimizasyonları mümkün kılar. Sonuç, istekli değerlendirmenin izin vereceğinden daha hızlı yürütülmedir.",
+                q3: "Spark'ta DataFrame nedir ve Pandas DataFrame'den farkı nedir?",
+                a3: "Spark DataFrames, şema zorlama ve SQL desteğine sahip dağıtılmış, değişmez koleksiyonlardır. Pandas DataFrames hafızada, değişken ve tek makinedir. Spark DataFrames petabaytlara kadar ölçeklenirken Pandas makine belleği ile sınırlıdır.",
+                q4: "Bölümleme nedir ve performans için neden önemlidir?",
+                a4: "Bölümleme, verileri küme genelinde dağıtılan parçalara böler. Uygun bölümleme paralelleştirmeyi sağlar, ağ karışıklığını azaltır ve sorgu performansını artırır. Tarih/bölgeye göre bölümleme, Spark'ın sorgular sırasında ilgisiz verileri budamasına izin verir.",
+                q5: "Spark SQL'i DataFrame API'si ile ne zaman kullanırsınız?",
+                a5: "Karmaşık analitik sorgular ve SQL aşina analystlerle işbirliği yaparken Spark SQL kullanın. Prosedür mantığı, makine öğrenme ardışık düzenleri ve programlı denetime ihtiyaç duyduğunuzda DataFrame API'sini kullanın. Her ikisi de aynı optimize edilmiş yürütme planına derlenirs.",
+                reflectionTitle: "Yansıma ve Gerçek Dünya Uygulamaları",
+                reflectionPromptsTitle: "Yansıma İstemleri",
+                prompt1: "Yansıt:",
+                promptText1: "Tembel değerlendirme hakkında öğrendiniz. Bu, Spark kodu yazma yaklaşımınızı nasıl değiştirir? Değerlendirmeyi zorlamak için ne zaman eylem eklersiniz?",
+                prompt2: "Yansıt:",
+                promptText2: "Günlük işlem gerektiren 500GB'lık bir veri seti düşünün. Spark'ın dağıtılmış mimarisi geleneksel SQL veritabanlarına kıyasla nasıl yardımcı olur? Hangi zorluklar ortaya çıkabilir?",
+                prompt3: "Yansıt:",
+                promptText3: "Bir ETL ardışık düzeni oluşturdunuz. İş sırasında bir yürütücü başarısız olursa ne olur? Spark hata toleransını nasıl sağlar?",
+                realWorldTitle: "Gerçek Dünya Spark Uygulamaları",
+                netflix: "Netflix: Kişiselleştirilmiş Öneriler",
+                netflixText: "Spark, Netflix'in işbirliğine dayalı filtreleme motorunu güçlendirir. Milyarlarca kullanıcı-film etkileşimini günlük olarak işleyerek kişiselleştirilmiş öneriler sunarak içerik katılımının %75'ini sürükler.",
+                uber: "Uber: Gerçek Zamanlı Yolculuk İşlemesi",
+                uberText: "Spark Streaming saniyede milyonlarca GPS olayını işler. Sürücü davranışı, fiyat artışı sinyalleri ve ETA hesaplamaları hakkında metrikleri toplar ve gerçek zamanlı eşleştirme ve yönlendirmeyi optimize eder.",
+                spotify: "Spotify: Müzik Tavsiyesi ve Çalma Listeleri",
+                spotifyText: "Spark ML ardışık düzenleri 500M kullanıcı genelinde dinleme desenlerini analiz eder ve kişiselleştirilmiş çalma listeleri oluşturur. ALS işbirliğine dayalı filtreleme, sanatçı benzerliklerini ve kullanıcı zevk kümelerini keşfeder.",
+                nasa: "NASA: Uydu Veri İşlemesi",
+                nasaText: "Spark, iklim bilimi, arazi kullanımı haritalama ve afet yanıtı için günlük terabaytlarca uydu görüntüsünü işler. Dağıtılmış görüntü işleme, gezegen ölçeğindeki veri setlerinin gerçek zamanlı analizini sağlar.",
+                finserv: "Finansal Hizmetler: Risk Analizi ve Dolandırıcılık Tespiti",
+                finservText: "Spark, milyonlarca işlemi analiz eden dolandırıcılık algılama sistemlerini güçlendirir. Grafik analizi dolandırıcılık halkalarını tespit eder; ML modelleri kayıpları önlemek için gerçek zamanlı şüpheli desenleri tanımlar.",
+                hypothesisLabel: "Hipotez:",
+                hypothesisLabel2: "İpucu:",
+                businessLabel: "İş Bağlamı:",
+                businessLabel2: "İş Bağlamı:",
+                businessLabel3: "İş Bağlamı:",
+                insightLabel: "İş Görüşü:",
+
             }
         };
 
@@ -1705,10 +2386,27 @@ categorized.select("order_id", "order_total", "order_category").show()
             });
         });
 
+
         // Highlight code blocks
         document.querySelectorAll('code').forEach(el => {
             hljs.highlightElement(el);
         });
+
+        // Toggle challenge content
+        function toggleChallenge(header) {
+            const content = header.nextElementSibling;
+            const isVisible = content.style.display !== 'none';
+            content.style.display = isVisible ? 'none' : 'block';
+            const arrow = header.querySelector('span:last-child');
+            arrow.textContent = isVisible ? '▶' : '▼';
+        }
+
+        // Toggle self-check answers
+        function toggleAnswer(card) {
+            const answer = card.querySelector('.answer');
+            const isVisible = answer.style.display !== 'none';
+            answer.style.display = isVisible ? 'none' : 'block';
+        }
     </script>
 </body>
 </html>

@@ -1,0 +1,1488 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Docker Anfängerleitfaden - Big Data Lab</title>
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root {
+            --color-dark-blue: #1B3A5C;
+            --color-orange: #E8792F;
+            --color-light-blue: #EBF5FF;
+            --color-light-yellow: #FFFBEB;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+        }
+
+        .text-dark-blue { color: var(--color-dark-blue); }
+        .bg-dark-blue { background-color: var(--color-dark-blue); }
+        .text-orange { color: var(--color-orange); }
+        .border-orange { border-color: var(--color-orange); }
+        .bg-light-blue { background-color: var(--color-light-blue); }
+        .bg-light-yellow { background-color: var(--color-light-yellow); }
+        .hero-section { background-color: var(--color-dark-blue); }
+
+        .code-block {
+            background-color: #1e293b;
+            border-left: 4px solid var(--color-orange);
+            padding: 1rem;
+            border-radius: 0.5rem;
+            position: relative;
+        }
+
+        .code-text {
+            color: #e2e8f0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.875rem;
+            margin: 0;
+            word-break: break-all;
+            white-space: pre-wrap;
+        }
+
+        .copy-button {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            background-color: var(--color-orange);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border: none;
+            border-radius: 0.25rem;
+            cursor: pointer;
+            font-size: 0.75rem;
+            transition: opacity 0.2s;
+        }
+
+        .copy-button:hover {
+            opacity: 0.8;
+        }
+
+        .step-number {
+            background-color: var(--color-orange);
+            color: white;
+            width: 2rem;
+            height: 2rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .section-header {
+            color: var(--color-dark-blue);
+            font-size: 1.875rem;
+            font-weight: bold;
+            border-left: 4px solid var(--color-orange);
+            padding-left: 1rem;
+            margin: 2rem 0 1.5rem 0;
+        }
+
+        .nav-sidebar {
+            position: fixed;
+            left: 0;
+            top: 4rem;
+            width: 240px;
+            height: calc(100vh - 4rem);
+            background-color: #f8f9fa;
+            border-right: 1px solid #e0e0e0;
+            overflow-y: auto;
+            z-index: 40;
+        }
+
+        .nav-item {
+            padding: 0.75rem 1.5rem;
+            cursor: pointer;
+            border-left: 3px solid transparent;
+            color: var(--color-dark-blue);
+            transition: all 0.2s;
+        }
+
+        .nav-item:hover {
+            background-color: #e8f4f8;
+            border-left-color: var(--color-orange);
+        }
+
+        .nav-item.active {
+            background-color: var(--color-light-blue);
+            border-left-color: var(--color-orange);
+            font-weight: 600;
+        }
+
+        .main-content {
+            margin-left: 240px;
+            padding: 2rem;
+        }
+
+        .sticky-navbar {
+            position: sticky;
+            top: 0;
+            height: 4rem;
+            background-color: white;
+            border-bottom: 1px solid #e0e0e0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 2rem;
+            z-index: 50;
+        }
+
+        .navbar-brand {
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: var(--color-dark-blue);
+        }
+
+        .language-buttons {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .lang-btn {
+            padding: 0.5rem 1rem;
+            border: 1px solid #d0d0d0;
+            background-color: white;
+            border-radius: 0.375rem;
+            cursor: pointer;
+            font-size: 0.875rem;
+            transition: all 0.2s;
+            color: var(--color-dark-blue);
+        }
+
+        .lang-btn.active {
+            background-color: var(--color-orange);
+            color: white;
+            border-color: var(--color-orange);
+        }
+
+        .lang-btn:hover {
+            border-color: var(--color-orange);
+        }
+
+        .info-box {
+            background-color: var(--color-light-blue);
+            border-left: 4px solid #3b82f6;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .warning-box {
+            background-color: var(--color-light-yellow);
+            border-left: 4px solid #fbbf24;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .table-responsive {
+            overflow-x: auto;
+            margin: 1.5rem 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: white;
+        }
+
+        th {
+            background-color: var(--color-dark-blue);
+            color: white;
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        td {
+            border: 1px solid #e0e0e0;
+            padding: 1rem;
+        }
+
+        tr:hover {
+            background-color: #f8f9fa;
+        }
+
+        .hero-text {
+            color: white;
+        }
+
+        .back-link {
+            color: var(--color-orange);
+            text-decoration: none;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        .link-button {
+            color: var(--color-orange);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .link-button:hover {
+            text-decoration: underline;
+        }
+
+        .problem-item {
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            border-left: 4px solid var(--color-orange);
+            background-color: #fafafa;
+        }
+
+        @media (max-width: 768px) {
+            .nav-sidebar {
+                transform: translateX(-100%);
+                transition: transform 0.3s;
+                width: 200px;
+                z-index: 45;
+            }
+
+            .nav-sidebar.open {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                margin-left: 0;
+                padding: 1rem;
+            }
+
+            .sticky-navbar {
+                padding: 0 1rem;
+            }
+
+            .language-buttons {
+                gap: 0.25rem;
+            }
+
+            .lang-btn {
+                padding: 0.375rem 0.75rem;
+                font-size: 0.75rem;
+            }
+        }
+
+        [dir="rtl"] .nav-sidebar {
+            left: auto;
+            right: 0;
+            border-right: none;
+            border-left: 1px solid #e0e0e0;
+        }
+
+        [dir="rtl"] .nav-item {
+            border-left: none;
+            border-right: 3px solid transparent;
+            padding: 0.75rem 1.5rem;
+        }
+
+        [dir="rtl"] .nav-item:hover {
+            border-right-color: var(--color-orange);
+        }
+
+        [dir="rtl"] .nav-item.active {
+            border-right-color: var(--color-orange);
+        }
+
+        [dir="rtl"] .main-content {
+            margin-left: 0;
+            margin-right: 240px;
+        }
+
+        [dir="rtl"] .section-header {
+            border-left: none;
+            border-right: 4px solid var(--color-orange);
+            padding-left: 0;
+            padding-right: 1rem;
+        }
+
+        [dir="rtl"] .code-block {
+            border-left: none;
+            border-right: 4px solid var(--color-orange);
+        }
+
+        [dir="rtl"] .copy-button {
+            left: 0.5rem;
+            right: auto;
+        }
+
+        [dir="rtl"] .back-link {
+            flex-direction: row-reverse;
+        }
+
+        [dir="rtl"] .problem-item {
+            border-left: none;
+            border-right: 4px solid var(--color-orange);
+        }
+
+        [dir="rtl"] .info-box {
+            border-left: none;
+            border-right: 4px solid #3b82f6;
+        }
+
+        [dir="rtl"] .warning-box {
+            border-left: none;
+            border-right: 4px solid #fbbf24;
+        }
+
+        [dir="rtl"] .step-number {
+            margin-left: auto;
+            margin-right: 0;
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+
+        const translations = {
+            de: {
+                title: "Docker Anfängerleitfaden",
+                backToOverview: "Zurück zur Übersicht",
+                bigDataLab: "Big Data Lab",
+
+                section1Title: "Was ist Docker?",
+                section1Intro: "Docker ist ein Tool, das es dir ermöglicht, deine Anwendung und alle ihre Abhängigkeiten in einem isolierten Behälter zu packen – ähnlich wie ein Versandcontainer für Software.",
+                section1Analogy: "Genau wie Versandcontainer den globalen Handel standardisiert haben, standardisiert Docker die Softwarebereitstellung. Ein Container enthält alles, was deine Anwendung braucht, um überall zu funktionieren.",
+                section1Problem: "Das Problem ohne Docker: Dein Kollege sagt 'bei mir funktioniert es' – aber auf deinem Laptop funktioniert es nicht. Docker löst dieses Problem: Es garantiert, dass deine Anwendung überall funktioniert.",
+                section1Visual: "Stell dir dein Laptop als einen großen Chaos vor: viele Programme, Bibliotheken, verschiedene Versionen. Docker packt jede Anwendung in ihre eigene isolierte Box. Wenn eine Anwendung fehlschlägt, bleibt dein Laptop sauber.",
+
+                section2Title: "Warum Docker für Big Data?",
+                section2Point1: "Gleiche Umgebung auf jedem Laptop (Windows, Mac, Linux) – keine Kompatibilitätsprobleme mehr",
+                section2Point2: "Keine Softwarekonflikte zwischen verschiedenen Labs – jedes Lab läuft unabhängig",
+                section2Point3: "Starten und stoppen Sie Labs unabhängig voneinander – sparen Sie Ressourcen",
+                section2Point4: "Das ist der professionelle Workflow in der Industrie – Lerne die Tools, die in echten Jobsitzungen verwendet werden",
+                section2Point5: "Wenn etwas schiefgeht, starten Sie einfach den Container neu – Ihr Laptop bleibt unbeeinflusst",
+
+                section3Title: "Grundkonzepte",
+                section3Intro: "Bevor du beginnst, solltest du diese vier Konzepte verstehen:",
+
+                conceptImage: "Blueprint/Rezept",
+                conceptImageDesc: "Ein Docker Image ist wie ein Rezept zum Kochen. Es beschreibt, was in den Container gehört – welche Software, Konfigurationen und Dateien. Es ist unveränderlich (immutable) – sobald es erstellt ist, kann es nicht verändert werden.",
+
+                conceptContainer: "Laufende Instanz",
+                conceptContainerDesc: "Ein Container ist wie das fertige Gericht aus dem Rezept. Es wird vom Image erstellt und läuft tatsächlich. Du kannst mehrere Container aus demselben Image starten, genau wie du mehrere Gerichte aus einem Rezept kochen kannst.",
+
+                conceptDesktop: "Die Küche",
+                conceptDesktopDesc: "Docker Desktop ist die Anwendung, die du auf deinem Laptop installierst. Sie ist wie die Küche – ohne sie kannst du nicht kochen (Container nicht ausführen).",
+
+                conceptCompose: "Das Menü",
+                conceptComposeDesc: "docker-compose ist ein Tool zum Starten mehrerer verbundener Services gleichzeitig. Statt mehrere Container einzeln zu starten, beschreibst du das ganze System in einer Datei.",
+
+                section4Title: "Systemvoraussetzungen",
+                section4Intro: "Stelle sicher, dass dein System erfüllt:",
+
+                reqOS: "Betriebssystem",
+                reqRAM: "RAM",
+                reqDisk: "Festplatte",
+                reqExtra: "Zusätzlich",
+                reqWin: "Windows 10/11 (64-Bit)",
+                reqMac: "macOS 12+",
+                reqLinux: "Ubuntu 20.04+",
+                reqRAMMin: "min. 4 GB, empf. 8 GB",
+                reqDiskMin: "10 GB frei",
+                reqWSL: "WSL2 aktivieren",
+
+                section5Title: "Installation Schritt für Schritt",
+                section5Intro: "Folge diesen Schritten, um Docker Desktop zu installieren:",
+
+                step1Title: "Schritt 1: Docker Desktop herunterladen",
+                step1Desc: "Gehe zu https://www.docker.com/products/docker-desktop/ und lade Docker Desktop für dein Betriebssystem herunter.",
+
+                step2Title: "Schritt 2: Installer ausführen",
+                step2Desc: "Führe das Installationsprogramm aus und folge den Anweisungen. Die Standardoptionen sind in Ordnung.",
+
+                step3Title: "Schritt 3: Computer neu starten",
+                step3Desc: "Wenn Sie dazu aufgefordert werden, starten Sie Ihren Computer neu. Dies ist wichtig, damit die Virtualisierung aktiviert wird.",
+
+                step4Title: "Schritt 4: Docker Desktop öffnen",
+                step4Desc: "Öffne Docker Desktop und warte, bis der grüne Indikator 'Docker is running' angezeigt wird.",
+
+                step5Title: "Schritt 5: Überprüfe die Installation",
+                step5Desc: "Öffne Terminal (Mac/Linux) oder PowerShell (Windows) und führe aus:",
+
+                step6Title: "Schritt 6: Starten Sie Ihren ersten Container",
+                step6Desc: "Führe aus:",
+                step6Success: "Herzlichen Glückwunsch! Dein erster Container läuft!",
+
+                section6Title: "Dein erstes Big Data Lab starten",
+                section6Intro: "Jetzt, da Docker läuft, starten wir ein echtes Lab:",
+
+                labStep1Title: "Schritt 1: Repository klonen",
+                labStep1Desc: "Öffne Terminal/PowerShell und führe aus:",
+
+                labStep2Title: "Schritt 2: In das Verzeichnis navigieren",
+                labStep2Desc: "Führe aus:",
+
+                labStep3Title: "Schritt 3: Testdaten generieren",
+                labStep3Desc: "Führe aus:",
+
+                labStep4Title: "Schritt 4: Ein Lab starten (MongoDB Beispiel)",
+                labStep4Desc: "Führe aus:",
+
+                labStep5Title: "Schritt 5: Im Browser öffnen",
+                labStep5Desc: "Öffne diese URL in deinem Browser:",
+                labStep5Note: "Du solltest die MongoDB GUI sehen. Perfekt!",
+
+                labStep6Title: "Schritt 6: Lab beenden",
+                labStep6Desc: "Wenn du fertig bist, stoppe den Container mit:",
+
+                section7Title: "Häufige Probleme",
+                section7Intro: "Wenn etwas schiefgeht, schau hier nach:",
+
+                problemNotStarting: "Docker Desktop startet nicht",
+                solutionNotStarting: "Überprüfe, ob Virtualisierung im BIOS aktiviert ist. Unter Windows: WSL2 aktivieren. Neustart versuchen.",
+
+                problemPort: "Port already in use",
+                solutionPort: "Ein anderes Programm verwendet den Port. Beende das Programm oder ändere den Port in docker-compose.yml",
+
+                problemDisk: "Out of disk space",
+                solutionDisk: "Führe aus um alte Container/Images zu löschen:",
+
+                problemExit: "Container beendet sofort",
+                solutionExit: "Überprüfe die Logs mit:",
+
+                problemConnect: "Cannot connect to localhost",
+                solutionConnect: "Warte 30-60 Sekunden auf den Start. Überprüfe laufende Container mit: docker ps",
+
+                section8Title: "Nächste Schritte",
+                section8Intro: "Du hast die Grundlagen gelernt! Jetzt ist es Zeit zu starten:",
+
+                section8Tip: "Tipp: Starte mit dem MongoDB Lab – es ist das Einfachste!",
+
+                section8Labs: "Alle Lab-Dokumentationen:",
+                mongodbLab: "MongoDB Lab",
+                postgresLab: "PostgreSQL Lab",
+                elasticsearchLab: "Elasticsearch Lab",
+                kafkaLab: "Kafka Lab",
+
+                section8Conclusion: "Viel Spaß mit Docker und Big Data!",
+
+                copyButton: "Kopieren",
+                copiedButton: "Kopiert!",
+            },
+            en: {
+                title: "Docker Beginner's Guide",
+                backToOverview: "Back to Overview",
+                bigDataLab: "Big Data Lab",
+
+                section1Title: "What is Docker?",
+                section1Intro: "Docker is a tool that lets you package your application and all its dependencies in an isolated container – just like a shipping container for software.",
+                section1Analogy: "Just as shipping containers standardized global trade, Docker standardizes software deployment. A container holds everything your application needs to run anywhere.",
+                section1Problem: "The problem without Docker: Your colleague says 'it works on my machine' – but it doesn't work on your laptop. Docker solves this: It ensures your application works everywhere.",
+                section1Visual: "Imagine your laptop as chaos: many programs, libraries, different versions. Docker puts each application in its own isolated box. If one application fails, your laptop stays clean.",
+
+                section2Title: "Why Docker for Big Data?",
+                section2Point1: "Same environment on every laptop (Windows, Mac, Linux) – no compatibility issues",
+                section2Point2: "No software conflicts between different labs – each lab runs independently",
+                section2Point3: "Start and stop labs independently – save resources",
+                section2Point4: "This is the professional workflow in industry – learn the tools used in real jobs",
+                section2Point5: "If something breaks, just restart the container – your laptop stays clean",
+
+                section3Title: "Core Concepts",
+                section3Intro: "Before you start, understand these four concepts:",
+
+                conceptImage: "Blueprint/Recipe",
+                conceptImageDesc: "A Docker image is like a cooking recipe. It describes what goes into the container – which software, configurations, and files. It's immutable – once created, it can't be changed.",
+
+                conceptContainer: "Running Instance",
+                conceptContainerDesc: "A container is like the finished dish from the recipe. It's created from the image and actually runs. You can start multiple containers from the same image, just like cooking multiple dishes from one recipe.",
+
+                conceptDesktop: "The Kitchen",
+                conceptDesktopDesc: "Docker Desktop is the application you install on your laptop. It's like the kitchen – without it, you can't cook (run containers).",
+
+                conceptCompose: "The Menu",
+                conceptComposeDesc: "docker-compose is a tool to start multiple connected services at once. Instead of starting multiple containers individually, you describe the whole system in one file.",
+
+                section4Title: "System Requirements",
+                section4Intro: "Make sure your system meets these requirements:",
+
+                reqOS: "Operating System",
+                reqRAM: "RAM",
+                reqDisk: "Disk Space",
+                reqExtra: "Additional",
+                reqWin: "Windows 10/11 (64-bit)",
+                reqMac: "macOS 12+",
+                reqLinux: "Ubuntu 20.04+",
+                reqRAMMin: "min. 4 GB, recommended 8 GB",
+                reqDiskMin: "10 GB free",
+                reqWSL: "Enable WSL2",
+
+                section5Title: "Step-by-Step Installation",
+                section5Intro: "Follow these steps to install Docker Desktop:",
+
+                step1Title: "Step 1: Download Docker Desktop",
+                step1Desc: "Go to https://www.docker.com/products/docker-desktop/ and download Docker Desktop for your operating system.",
+
+                step2Title: "Step 2: Run the Installer",
+                step2Desc: "Run the installer and follow the instructions. Default options are fine.",
+
+                step3Title: "Step 3: Restart Your Computer",
+                step3Desc: "If prompted, restart your computer. This is important to enable virtualization.",
+
+                step4Title: "Step 4: Open Docker Desktop",
+                step4Desc: "Open Docker Desktop and wait for the green 'Docker is running' indicator.",
+
+                step5Title: "Step 5: Verify Installation",
+                step5Desc: "Open Terminal (Mac/Linux) or PowerShell (Windows) and run:",
+
+                step6Title: "Step 6: Start Your First Container",
+                step6Desc: "Run:",
+                step6Success: "Congratulations! Your first container is running!",
+
+                section6Title: "Start Your First Big Data Lab",
+                section6Intro: "Now that Docker is running, let's start a real lab:",
+
+                labStep1Title: "Step 1: Clone the Repository",
+                labStep1Desc: "Open Terminal/PowerShell and run:",
+
+                labStep2Title: "Step 2: Navigate to Directory",
+                labStep2Desc: "Run:",
+
+                labStep3Title: "Step 3: Generate Test Data",
+                labStep3Desc: "Run:",
+
+                labStep4Title: "Step 4: Start a Lab (MongoDB Example)",
+                labStep4Desc: "Run:",
+
+                labStep5Title: "Step 5: Open in Browser",
+                labStep5Desc: "Open this URL in your browser:",
+                labStep5Note: "You should see the MongoDB GUI. Perfect!",
+
+                labStep6Title: "Step 6: Stop the Lab",
+                labStep6Desc: "When done, stop the container with:",
+
+                section7Title: "Common Problems",
+                section7Intro: "If something goes wrong, check here:",
+
+                problemNotStarting: "Docker Desktop won't start",
+                solutionNotStarting: "Check if virtualization is enabled in BIOS. On Windows: enable WSL2. Try restarting.",
+
+                problemPort: "Port already in use",
+                solutionPort: "Another program is using the port. Stop that program or change the port in docker-compose.yml",
+
+                problemDisk: "Out of disk space",
+                solutionDisk: "Run this to clean up old containers/images:",
+
+                problemExit: "Container exits immediately",
+                solutionExit: "Check logs with:",
+
+                problemConnect: "Cannot connect to localhost",
+                solutionConnect: "Wait 30-60 seconds for startup. Check running containers with: docker ps",
+
+                section8Title: "Next Steps",
+                section8Intro: "You've learned the basics! Now it's time to get started:",
+
+                section8Tip: "Tip: Start with the MongoDB Lab – it's the easiest!",
+
+                section8Labs: "All lab documentations:",
+                mongodbLab: "MongoDB Lab",
+                postgresLab: "PostgreSQL Lab",
+                elasticsearchLab: "Elasticsearch Lab",
+                kafkaLab: "Kafka Lab",
+
+                section8Conclusion: "Have fun with Docker and Big Data!",
+
+                copyButton: "Copy",
+                copiedButton: "Copied!",
+            },
+            ar: {
+                title: "دليل Docker للمبتدئين",
+                backToOverview: "العودة إلى النظرة العامة",
+                bigDataLab: "معمل البيانات الكبيرة",
+
+                section1Title: "ما هو Docker؟",
+                section1Intro: "Docker هو أداة تتيح لك حزم تطبيقك وجميع تبعياته في حاوية معزولة - تماماً مثل حاوية شحن للبرامج.",
+                section1Analogy: "تماماً كما وحدت حاويات الشحن التجارة العالمية، يوحد Docker نشر البرامج. تحتوي الحاوية على كل ما يحتاجه تطبيقك للعمل في أي مكان.",
+                section1Problem: "المشكلة بدون Docker: يقول زميلك 'يعمل على جهازي' - لكنه لا يعمل على جهازك المحمول. يحل Docker هذه المشكلة: يضمن عمل تطبيقك في كل مكان.",
+                section1Visual: "تخيل جهازك المحمول فوضى: برامج كثيرة ومكتبات وإصدارات مختلفة. يضع Docker كل تطبيق في صندوقه الخاص المعزول. إذا فشل تطبيق واحد، يبقى جهازك المحمول نظيفاً.",
+
+                section2Title: "لماذا Docker للبيانات الكبيرة؟",
+                section2Point1: "نفس البيئة على كل جهاز محمول (Windows و Mac و Linux) - لا توجد مشاكل توافقية",
+                section2Point2: "لا توجد تضاربات برامج بين المعامل المختلفة - يعمل كل معمل بشكل مستقل",
+                section2Point3: "ابدأ وأوقف المعامل بشكل مستقل - وفر الموارد",
+                section2Point4: "هذا هو سير العمل الاحترافي في الصناعة - تعلم الأدوات المستخدمة في الوظائف الحقيقية",
+                section2Point5: "إذا حدث خطأ ما، أعد تشغيل الحاوية - يبقى جهازك المحمول نظيفاً",
+
+                section3Title: "المفاهيم الأساسية",
+                section3Intro: "قبل أن تبدأ، افهم هذه المفاهيم الأربعة:",
+
+                conceptImage: "خطة / وصفة",
+                conceptImageDesc: "صورة Docker مثل وصفة الطهي. تصف ما يدخل الحاوية - أي برامج وتكوينات وملفات. إنها غير قابلة للتغيير - بمجرد إنشاؤها، لا يمكن تغييرها.",
+
+                conceptContainer: "مثيل قيد التشغيل",
+                conceptContainerDesc: "الحاوية مثل الطبق المنتهي من الوصفة. يتم إنشاؤها من الصورة وتعمل بالفعل. يمكنك بدء حاويات متعددة من نفس الصورة، تماماً مثل طهي أطباق متعددة من وصفة واحدة.",
+
+                conceptDesktop: "المطبخ",
+                conceptDesktopDesc: "Docker Desktop هي التطبيق الذي تثبته على جهازك المحمول. إنها مثل المطبخ - بدونها، لا يمكنك الطهي (تشغيل الحاويات).",
+
+                conceptCompose: "القائمة",
+                conceptComposeDesc: "docker-compose هي أداة لبدء خدمات متعددة متصلة في وقت واحد. بدلاً من بدء حاويات متعددة بشكل فردي، تصف النظام بأكمله في ملف واحد.",
+
+                section4Title: "متطلبات النظام",
+                section4Intro: "تأكد من استيفاء نظامك لهذه المتطلبات:",
+
+                reqOS: "نظام التشغيل",
+                reqRAM: "الذاكرة",
+                reqDisk: "مساحة القرص",
+                reqExtra: "إضافي",
+                reqWin: "Windows 10/11 (64-Bit)",
+                reqMac: "macOS 12+",
+                reqLinux: "Ubuntu 20.04+",
+                reqRAMMin: "الحد الأدنى 4 GB، الموصى به 8 GB",
+                reqDiskMin: "10 GB حر",
+                reqWSL: "تفعيل WSL2",
+
+                section5Title: "التثبيت خطوة بخطوة",
+                section5Intro: "اتبع هذه الخطوات لتثبيت Docker Desktop:",
+
+                step1Title: "الخطوة 1: تحميل Docker Desktop",
+                step1Desc: "انتقل إلى https://www.docker.com/products/docker-desktop/ وحمّل Docker Desktop لنظام التشغيل الخاص بك.",
+
+                step2Title: "الخطوة 2: تشغيل برنامج التثبيت",
+                step2Desc: "قم بتشغيل برنامج التثبيت واتبع التعليمات. الخيارات الافتراضية بخير.",
+
+                step3Title: "الخطوة 3: إعادة تشغيل الكمبيوتر",
+                step3Desc: "إذا طُلب منك، أعد تشغيل الكمبيوتر. هذا مهم لتفعيل المحاكاة الافتراضية.",
+
+                step4Title: "الخطوة 4: فتح Docker Desktop",
+                step4Desc: "افتح Docker Desktop وانتظر مؤشر 'Docker is running' الأخضر.",
+
+                step5Title: "الخطوة 5: التحقق من التثبيت",
+                step5Desc: "افتح Terminal (Mac/Linux) أو PowerShell (Windows) وقم بتشغيل:",
+
+                step6Title: "الخطوة 6: ابدأ حاويتك الأولى",
+                step6Desc: "قم بتشغيل:",
+                step6Success: "تهانينا! حاويتك الأولى تعمل!",
+
+                section6Title: "ابدأ معملك الأول للبيانات الكبيرة",
+                section6Intro: "الآن بعد تشغيل Docker، دعنا نبدأ معملاً حقيقياً:",
+
+                labStep1Title: "الخطوة 1: استنساخ المستودع",
+                labStep1Desc: "افتح Terminal/PowerShell وقم بتشغيل:",
+
+                labStep2Title: "الخطوة 2: الانتقال إلى الدليل",
+                labStep2Desc: "قم بتشغيل:",
+
+                labStep3Title: "الخطوة 3: توليد بيانات الاختبار",
+                labStep3Desc: "قم بتشغيل:",
+
+                labStep4Title: "الخطوة 4: ابدأ معملاً (مثال MongoDB)",
+                labStep4Desc: "قم بتشغيل:",
+
+                labStep5Title: "الخطوة 5: الفتح في المتصفح",
+                labStep5Desc: "افتح عنوان URL هذا في متصفحك:",
+                labStep5Note: "يجب أن تري واجهة MongoDB. مثالي!",
+
+                labStep6Title: "الخطوة 6: إيقاف المعمل",
+                labStep6Desc: "عند الانتهاء، أوقف الحاوية بـ:",
+
+                section7Title: "المشاكل الشائعة",
+                section7Intro: "إذا حدث خطأ ما، تحقق هنا:",
+
+                problemNotStarting: "Docker Desktop لن يبدأ",
+                solutionNotStarting: "تحقق من تفعيل المحاكاة الافتراضية في BIOS. على Windows: تفعيل WSL2. جرب إعادة التشغيل.",
+
+                problemPort: "المنفذ قيد الاستخدام بالفعل",
+                solutionPort: "برنامج آخر يستخدم المنفذ. أيقف هذا البرنامج أو غيّر المنفذ في docker-compose.yml",
+
+                problemDisk: "انتهت مساحة القرص",
+                solutionDisk: "قم بتشغيل هذا لتنظيف الحاويات/الصور القديمة:",
+
+                problemExit: "الحاوية تنتهي فوراً",
+                solutionExit: "تحقق من السجلات باستخدام:",
+
+                problemConnect: "لا يمكن الاتصال بـ localhost",
+                solutionConnect: "انتظر 30-60 ثانية للبدء. تحقق من الحاويات قيد التشغيل مع: docker ps",
+
+                section8Title: "الخطوات التالية",
+                section8Intro: "لقد تعلمت الأساسيات! الآن حان وقت البدء:",
+
+                section8Tip: "نصيحة: ابدأ بـ MongoDB Lab - إنها الأسهل!",
+
+                section8Labs: "جميع وثائق المعامل:",
+                mongodbLab: "معمل MongoDB",
+                postgresLab: "معمل PostgreSQL",
+                elasticsearchLab: "معمل Elasticsearch",
+                kafkaLab: "معمل Kafka",
+
+                section8Conclusion: "استمتع بـ Docker والبيانات الكبيرة!",
+
+                copyButton: "نسخ",
+                copiedButton: "تم النسخ!",
+            },
+            uk: {
+                title: "Керівництво Docker для початківців",
+                backToOverview: "Повернутися до огляду",
+                bigDataLab: "Лабораторія Big Data",
+
+                section1Title: "Що таке Docker?",
+                section1Intro: "Docker — це інструмент, який дозволяє пакувати ваш додаток і всі його залежності в ізольовану контейнер — як контейнер для доставки програмного забезпечення.",
+                section1Analogy: "Так само, як контейнери доставки стандартизували світову торгівлю, Docker стандартизує розгортання програмного забезпечення. Контейнер містить все, що потрібно вашому додатку для роботи в будь-якому місці.",
+                section1Problem: "Проблема без Docker: ваш колега говорить 'у мене це працює' - але на вашому ноутбуку це не працює. Docker вирішує цю проблему: він гарантує, що ваш додаток працює всюди.",
+                section1Visual: "Уявіть свій ноутбук як хаос: багато програм, бібліотек, різні версії. Docker ставить кожний додаток у свою власну ізольовану коробку. Якщо один додаток впаде, ваш ноутбук залишиться чистим.",
+
+                section2Title: "Чому Docker для Big Data?",
+                section2Point1: "Однакове середовище на кожному ноутбуці (Windows, Mac, Linux) - немає проблем сумісності",
+                section2Point2: "Ніяких конфліктів програмного забезпечення між різними лабораторіями - кожна лабораторія працює незалежно",
+                section2Point3: "Запускайте та зупиняйте лабораторії незалежно - економьте ресурси",
+                section2Point4: "Це професійний робочий процес у промисловості - вивчайте інструменти, які використовуються в реальних роботах",
+                section2Point5: "Якщо щось пішло не так, просто перезавантажте контейнер - ваш ноутбук залишиться чистим",
+
+                section3Title: "Основні концепції",
+                section3Intro: "Перш ніж починати, зрозумійте ці чотири концепції:",
+
+                conceptImage: "Схема/Рецепт",
+                conceptImageDesc: "Образ Docker подібний рецепту кулінара. Він описує, що входить в контейнер - яке програмне забезпечення, конфігурації та файли. Він незмінний - один раз створений, його не можна змінити.",
+
+                conceptContainer: "Запущений екземпляр",
+                conceptContainerDesc: "Контейнер подібний готової страви з рецепту. Він створений з образу і насправді працює. Ви можете запустити кілька контейнерів з того ж образу, як готуючи кілька страв за одним рецептом.",
+
+                conceptDesktop: "Кухня",
+                conceptDesktopDesc: "Docker Desktop — це додаток, який ви встановлюєте на свій ноутбук. Це як кухня - без неї ви не можете готувати (запускати контейнери).",
+
+                conceptCompose: "Меню",
+                conceptComposeDesc: "docker-compose — це інструмент для запуску кількох пов'язаних сервісів одночасно. Замість запуску кількох контейнерів окремо, ви описуєте всю систему в одному файлі.",
+
+                section4Title: "Системні вимоги",
+                section4Intro: "Переконайтеся, що ваша система відповідає цим вимогам:",
+
+                reqOS: "Операційна система",
+                reqRAM: "ОЗУ",
+                reqDisk: "Дисковий простір",
+                reqExtra: "Додаткові",
+                reqWin: "Windows 10/11 (64-bit)",
+                reqMac: "macOS 12+",
+                reqLinux: "Ubuntu 20.04+",
+                reqRAMMin: "мін. 4 GB, рек. 8 GB",
+                reqDiskMin: "10 GB вільно",
+                reqWSL: "Ввімкнути WSL2",
+
+                section5Title: "Встановлення крок за кроком",
+                section5Intro: "Дотримуйтеся цих кроків для встановлення Docker Desktop:",
+
+                step1Title: "Крок 1: Завантажте Docker Desktop",
+                step1Desc: "Перейдіть на https://www.docker.com/products/docker-desktop/ і завантажте Docker Desktop для вашої операційної системи.",
+
+                step2Title: "Крок 2: Запустіть інсталятор",
+                step2Desc: "Запустіть інсталятор і слідуйте інструкціям. Параметри за замовчуванням добре.",
+
+                step3Title: "Крок 3: Перезавантажте комп'ютер",
+                step3Desc: "Якщо вас попросять, перезавантажте комп'ютер. Це важливо для вмикання віртуалізації.",
+
+                step4Title: "Крок 4: Відкрийте Docker Desktop",
+                step4Desc: "Відкрийте Docker Desktop і дочекайтеся зеленого індикатора 'Docker is running'.",
+
+                step5Title: "Крок 5: Перевірити встановлення",
+                step5Desc: "Відкрийте Terminal (Mac/Linux) або PowerShell (Windows) і запустіть:",
+
+                step6Title: "Крок 6: Запустіть свій перший контейнер",
+                step6Desc: "Запустіть:",
+                step6Success: "Вітаємо! Ваш перший контейнер працює!",
+
+                section6Title: "Запустіть свою першу лабораторію Big Data",
+                section6Intro: "Тепер, коли Docker працює, давайте запустимо справжню лабораторію:",
+
+                labStep1Title: "Крок 1: Клонувати репозиторій",
+                labStep1Desc: "Відкрийте Terminal/PowerShell і запустіть:",
+
+                labStep2Title: "Крок 2: Перейти до каталогу",
+                labStep2Desc: "Запустіть:",
+
+                labStep3Title: "Крок 3: Створити тестові дані",
+                labStep3Desc: "Запустіть:",
+
+                labStep4Title: "Крок 4: Запустіть лабораторію (приклад MongoDB)",
+                labStep4Desc: "Запустіть:",
+
+                labStep5Title: "Крок 5: Відкрити в браузері",
+                labStep5Desc: "Відкрийте цей URL у своєму браузері:",
+                labStep5Note: "Ви повинні побачити GUI MongoDB. Ідеально!",
+
+                labStep6Title: "Крок 6: Зупинити лабораторію",
+                labStep6Desc: "Коли закінчите, зупиніть контейнер з:",
+
+                section7Title: "Поширені проблеми",
+                section7Intro: "Якщо щось пішло не так, перевірте тут:",
+
+                problemNotStarting: "Docker Desktop не запускається",
+                solutionNotStarting: "Перевірте, чи ввімкнена віртуалізація в BIOS. На Windows: ввімкніть WSL2. Спробуйте перезавантажити.",
+
+                problemPort: "Порт уже використовується",
+                solutionPort: "Інша програма використовує порт. Зупиніть цю програму або змініть порт у docker-compose.yml",
+
+                problemDisk: "Недостатньо місця на диску",
+                solutionDisk: "Запустіть це, щоб очистити старі контейнери/образи:",
+
+                problemExit: "Контейнер завершується негайно",
+                solutionExit: "Перевірте журнали за допомогою:",
+
+                problemConnect: "Не можу підключитися до localhost",
+                solutionConnect: "Чекайте 30-60 секунд на запуск. Перевірте запущені контейнери за допомогою: docker ps",
+
+                section8Title: "Наступні кроки",
+                section8Intro: "Ви вивчили основи! Тепер пора розпочати:",
+
+                section8Tip: "Порада: Почніть з MongoDB Lab - це найпростіше!",
+
+                section8Labs: "Вся документація лабораторії:",
+                mongodbLab: "Лабораторія MongoDB",
+                postgresLab: "Лабораторія PostgreSQL",
+                elasticsearchLab: "Лабораторія Elasticsearch",
+                kafkaLab: "Лабораторія Kafka",
+
+                section8Conclusion: "Насолоджуйтеся Docker та Big Data!",
+
+                copyButton: "Копіювати",
+                copiedButton: "Скопійовано!",
+            },
+            es: {
+                title: "Guía de Docker para Principiantes",
+                backToOverview: "Volver a la Descripción General",
+                bigDataLab: "Laboratorio Big Data",
+
+                section1Title: "¿Qué es Docker?",
+                section1Intro: "Docker es una herramienta que te permite empacar tu aplicación y todas sus dependencias en un contenedor aislado - como un contenedor de envío para software.",
+                section1Analogy: "Así como los contenedores de envío estandarizaron el comercio mundial, Docker estandariza el despliegue de software. Un contenedor contiene todo lo que tu aplicación necesita para ejecutarse en cualquier lugar.",
+                section1Problem: "El problema sin Docker: Tu colega dice 'funciona en mi máquina' - pero no funciona en tu laptop. Docker resuelve esto: garantiza que tu aplicación funcione en todas partes.",
+                section1Visual: "Imagina tu laptop como un caos: muchos programas, librerías, diferentes versiones. Docker pone cada aplicación en su propio cuadro aislado. Si una aplicación falla, tu laptop permanece limpio.",
+
+                section2Title: "¿Por qué Docker para Big Data?",
+                section2Point1: "Mismo entorno en cada laptop (Windows, Mac, Linux) - sin problemas de compatibilidad",
+                section2Point2: "Sin conflictos de software entre laboratorios diferentes - cada laboratorio se ejecuta independientemente",
+                section2Point3: "Inicia y detén laboratorios de forma independiente - ahorra recursos",
+                section2Point4: "Este es el flujo de trabajo profesional en la industria - aprende las herramientas utilizadas en empleos reales",
+                section2Point5: "Si algo se rompe, simplemente reinicia el contenedor - tu laptop permanece limpio",
+
+                section3Title: "Conceptos Principales",
+                section3Intro: "Antes de comenzar, entiende estos cuatro conceptos:",
+
+                conceptImage: "Plano/Receta",
+                conceptImageDesc: "Una imagen Docker es como una receta de cocina. Describe qué entra en el contenedor - qué software, configuraciones y archivos. Es inmutable - una vez creada, no se puede cambiar.",
+
+                conceptContainer: "Instancia en Ejecución",
+                conceptContainerDesc: "Un contenedor es como el plato terminado de la receta. Se crea desde la imagen y se ejecuta realmente. Puedes iniciar múltiples contenedores de la misma imagen, como cocinar múltiples platos de una receta.",
+
+                conceptDesktop: "La Cocina",
+                conceptDesktopDesc: "Docker Desktop es la aplicación que instalas en tu laptop. Es como la cocina - sin ella, no puedes cocinar (ejecutar contenedores).",
+
+                conceptCompose: "El Menú",
+                conceptComposeDesc: "docker-compose es una herramienta para iniciar múltiples servicios conectados a la vez. En lugar de iniciar múltiples contenedores individualmente, describes todo el sistema en un archivo.",
+
+                section4Title: "Requisitos del Sistema",
+                section4Intro: "Asegúrate de que tu sistema cumpla con estos requisitos:",
+
+                reqOS: "Sistema Operativo",
+                reqRAM: "RAM",
+                reqDisk: "Espacio en Disco",
+                reqExtra: "Adicional",
+                reqWin: "Windows 10/11 (64-bit)",
+                reqMac: "macOS 12+",
+                reqLinux: "Ubuntu 20.04+",
+                reqRAMMin: "mín. 4 GB, recomendado 8 GB",
+                reqDiskMin: "10 GB libre",
+                reqWSL: "Habilitar WSL2",
+
+                section5Title: "Instalación Paso a Paso",
+                section5Intro: "Sigue estos pasos para instalar Docker Desktop:",
+
+                step1Title: "Paso 1: Descargar Docker Desktop",
+                step1Desc: "Ve a https://www.docker.com/products/docker-desktop/ y descarga Docker Desktop para tu sistema operativo.",
+
+                step2Title: "Paso 2: Ejecutar el Instalador",
+                step2Desc: "Ejecuta el instalador y sigue las instrucciones. Las opciones predeterminadas están bien.",
+
+                step3Title: "Paso 3: Reiniciar tu Computadora",
+                step3Desc: "Si se te pide, reinicia tu computadora. Esto es importante para habilitar la virtualización.",
+
+                step4Title: "Paso 4: Abrir Docker Desktop",
+                step4Desc: "Abre Docker Desktop y espera el indicador verde 'Docker is running'.",
+
+                step5Title: "Paso 5: Verificar la Instalación",
+                step5Desc: "Abre Terminal (Mac/Linux) o PowerShell (Windows) y ejecuta:",
+
+                step6Title: "Paso 6: Inicia tu Primer Contenedor",
+                step6Desc: "Ejecuta:",
+                step6Success: "¡Felicidades! Tu primer contenedor está funcionando!",
+
+                section6Title: "Inicia tu Primer Laboratorio Big Data",
+                section6Intro: "Ahora que Docker está funcionando, iniciemos un laboratorio real:",
+
+                labStep1Title: "Paso 1: Clonar el Repositorio",
+                labStep1Desc: "Abre Terminal/PowerShell y ejecuta:",
+
+                labStep2Title: "Paso 2: Navegar al Directorio",
+                labStep2Desc: "Ejecuta:",
+
+                labStep3Title: "Paso 3: Generar Datos de Prueba",
+                labStep3Desc: "Ejecuta:",
+
+                labStep4Title: "Paso 4: Inicia un Laboratorio (Ejemplo MongoDB)",
+                labStep4Desc: "Ejecuta:",
+
+                labStep5Title: "Paso 5: Abrir en el Navegador",
+                labStep5Desc: "Abre esta URL en tu navegador:",
+                labStep5Note: "Deberías ver la GUI de MongoDB. ¡Perfecto!",
+
+                labStep6Title: "Paso 6: Detener el Laboratorio",
+                labStep6Desc: "Cuando termines, detén el contenedor con:",
+
+                section7Title: "Problemas Comunes",
+                section7Intro: "Si algo sale mal, consulta aquí:",
+
+                problemNotStarting: "Docker Desktop no inicia",
+                solutionNotStarting: "Verifica si la virtualización está habilitada en BIOS. En Windows: habilita WSL2. Intenta reiniciar.",
+
+                problemPort: "El puerto ya está en uso",
+                solutionPort: "Otro programa está usando el puerto. Detén ese programa o cambia el puerto en docker-compose.yml",
+
+                problemDisk: "Espacio en disco agotado",
+                solutionDisk: "Ejecuta esto para limpiar contenedores/imágenes antiguos:",
+
+                problemExit: "El contenedor se cierra inmediatamente",
+                solutionExit: "Verifica los registros con:",
+
+                problemConnect: "No puedo conectar a localhost",
+                solutionConnect: "Espera 30-60 segundos para el inicio. Verifica contenedores en ejecución con: docker ps",
+
+                section8Title: "Próximos Pasos",
+                section8Intro: "¡Has aprendido lo básico! Ahora es hora de comenzar:",
+
+                section8Tip: "Consejo: Comienza con el Laboratorio MongoDB - ¡es el más fácil!",
+
+                section8Labs: "Toda la documentación de laboratorios:",
+                mongodbLab: "Laboratorio MongoDB",
+                postgresLab: "Laboratorio PostgreSQL",
+                elasticsearchLab: "Laboratorio Elasticsearch",
+                kafkaLab: "Laboratorio Kafka",
+
+                section8Conclusion: "¡Disfruta con Docker y Big Data!",
+
+                copyButton: "Copiar",
+                copiedButton: "¡Copiado!",
+            },
+            tr: {
+                title: "Docker Başlangıç Kılavuzu",
+                backToOverview: "Genel Bakışa Dön",
+                bigDataLab: "Big Data Laboratuvarı",
+
+                section1Title: "Docker Nedir?",
+                section1Intro: "Docker, uygulamanızı ve tüm bağımlılıklarını izole bir kapsayıcıda paketlemenizi sağlayan bir araçtır - yazılım için bir gemi konteynerine benzer.",
+                section1Analogy: "Nakliye konteynerlerinin küresel ticareti standardize ettiği gibi, Docker yazılım dağıtımını standardize eder. Bir kapsayıcı, uygulamanızın her yerde çalışması için gereken her şeyi içerir.",
+                section1Problem: "Docker olmadığında sorun: Meslektaşınız 'benim bilgisayarımda çalışıyor' diyor - ama sizin dizüstü bilgisayarınızda çalışmıyor. Docker bunu çözer: uygulamanızın her yerde çalışması garantisini verir.",
+                section1Visual: "Dizüstü bilgisayarınızı kaos olarak hayal edin: birçok program, kütüphaneler, farklı sürümler. Docker her uygulamayı kendi izole kutusu içine koyar. Bir uygulama başarısız olursa, dizüstü bilgisayarınız temiz kalır.",
+
+                section2Title: "Neden Big Data için Docker?",
+                section2Point1: "Her dizüstü bilgisayarda aynı ortam (Windows, Mac, Linux) - uyumluluk sorunları yok",
+                section2Point2: "Farklı laboratuvarlar arasında yazılım çakışması yok - her laboratuvar bağımsız olarak çalışır",
+                section2Point3: "Laboratuvarları bağımsız olarak başlatın ve durdurun - kaynakları tasarruf edin",
+                section2Point4: "Bu endüstride profesyonel iş akışıdır - gerçek işlerde kullanılan araçları öğrenin",
+                section2Point5: "Bir şey bozulursa, kapsayıcıyı yeniden başlatmanız yeterli - dizüstü bilgisayarınız temiz kalır",
+
+                section3Title: "Temel Kavramlar",
+                section3Intro: "Başlamadan önce bu dört kavramı anlayın:",
+
+                conceptImage: "Plan/Tarif",
+                conceptImageDesc: "Docker imajı, bir yemek tarifine benzer. Kapsayıcıya ne gireceğini açıklar - hangi yazılım, konfigürasyonlar ve dosyalar. Değişmez - bir kez oluşturulduktan sonra değiştirilemez.",
+
+                conceptContainer: "Çalışan Örnek",
+                conceptContainerDesc: "Kapsayıcı, tariften hazırlanan bitmiş yemek gibidir. İmajdan oluşturulur ve gerçekten çalışır. Aynı imajdan birden fazla kapsayıcı başlatabilirsiniz, tıpkı bir tariften birden fazla yemek pişirmek gibi.",
+
+                conceptDesktop: "Mutfak",
+                conceptDesktopDesc: "Docker Desktop, dizüstü bilgisayarınıza yüklediğiniz uygulamadır. Mutfak gibidir - onun olmadan pişiremezsiniz (kapsayıcı çalıştıramazsınız).",
+
+                conceptCompose: "Menü",
+                conceptComposeDesc: "docker-compose, aynı anda birden fazla bağlı hizmeti başlatmak için bir araçtır. Birden fazla kapsayıcıyı ayrı ayrı başlatmak yerine, tüm sistemi bir dosyada açıklarsınız.",
+
+                section4Title: "Sistem Gereksinimleri",
+                section4Intro: "Sisteminizin bu gereksinimleri karşıladığından emin olun:",
+
+                reqOS: "İşletim Sistemi",
+                reqRAM: "RAM",
+                reqDisk: "Disk Alanı",
+                reqExtra: "Ek",
+                reqWin: "Windows 10/11 (64-bit)",
+                reqMac: "macOS 12+",
+                reqLinux: "Ubuntu 20.04+",
+                reqRAMMin: "min. 4 GB, öner. 8 GB",
+                reqDiskMin: "10 GB boş",
+                reqWSL: "WSL2'yi etkinleştir",
+
+                section5Title: "Adım Adım Kurulum",
+                section5Intro: "Docker Desktop'ı kurmak için şu adımları izleyin:",
+
+                step1Title: "Adım 1: Docker Desktop'ı İndir",
+                step1Desc: "https://www.docker.com/products/docker-desktop/ adresine gidin ve işletim sisteminiz için Docker Desktop'ı indirin.",
+
+                step2Title: "Adım 2: Yükleyiciyi Çalıştır",
+                step2Desc: "Yükleyiciyi çalıştırın ve talimatları izleyin. Varsayılan seçenekler iyidir.",
+
+                step3Title: "Adım 3: Bilgisayarınızı Yeniden Başlatın",
+                step3Desc: "Istenirse, bilgisayarınızı yeniden başlatın. Bu, sanallaştırmayı etkinleştirmek için önemlidir.",
+
+                step4Title: "Adım 4: Docker Desktop'ı Açın",
+                step4Desc: "Docker Desktop'ı açın ve yeşil 'Docker is running' göstergesini bekleyin.",
+
+                step5Title: "Adım 5: Kurulumu Doğrulayın",
+                step5Desc: "Terminal (Mac/Linux) veya PowerShell (Windows) açın ve çalıştırın:",
+
+                step6Title: "Adım 6: İlk Kapsayıcınızı Başlatın",
+                step6Desc: "Çalıştırın:",
+                step6Success: "Tebrikler! İlk kapsayıcınız çalışıyor!",
+
+                section6Title: "İlk Big Data Laboratuvarınızı Başlatın",
+                section6Intro: "Docker çalışıyor olduğuna göre, gerçek bir laboratuvar başlatalım:",
+
+                labStep1Title: "Adım 1: Depoyu Klonlayın",
+                labStep1Desc: "Terminal/PowerShell açın ve çalıştırın:",
+
+                labStep2Title: "Adım 2: Dizine Gidin",
+                labStep2Desc: "Çalıştırın:",
+
+                labStep3Title: "Adım 3: Test Verileri Oluşturun",
+                labStep3Desc: "Çalıştırın:",
+
+                labStep4Title: "Adım 4: Laboratuvar Başlatın (MongoDB Örneği)",
+                labStep4Desc: "Çalıştırın:",
+
+                labStep5Title: "Adım 5: Tarayıcıda Açın",
+                labStep5Desc: "Bu URL'yi tarayıcınızda açın:",
+                labStep5Note: "MongoDB GUI'sini görmelisiniz. Mükemmel!",
+
+                labStep6Title: "Adım 6: Laboratuvarı Durdurun",
+                labStep6Desc: "Bitirdiğinizde, kapsayıcıyı şu şekilde durdurun:",
+
+                section7Title: "Yaygın Sorunlar",
+                section7Intro: "Bir şey yanlış giderse, burada kontrol edin:",
+
+                problemNotStarting: "Docker Desktop başlamıyor",
+                solutionNotStarting: "BIOS'ta sanallaştırmanın etkin olup olmadığını kontrol edin. Windows'ta: WSL2'yi etkinleştirin. Yeniden başlatmayı deneyin.",
+
+                problemPort: "Port zaten kullanımda",
+                solutionPort: "Başka bir program portu kullanıyor. Bu programı durdurun veya docker-compose.yml dosyasında portu değiştirin",
+
+                problemDisk: "Disk alanı tükendi",
+                solutionDisk: "Eski kapsayıcıları/imajları temizlemek için bunu çalıştırın:",
+
+                problemExit: "Kapsayıcı hemen çıkıyor",
+                solutionExit: "Günlükleri şu şekilde kontrol edin:",
+
+                problemConnect: "localhost'a bağlanamıyor",
+                solutionConnect: "Başlatma için 30-60 saniye bekleyin. Çalışan kapsayıcıları kontrol edin: docker ps",
+
+                section8Title: "Sonraki Adımlar",
+                section8Intro: "Temelleri öğrendiniz! Şimdi başlama zamanı:",
+
+                section8Tip: "İpucu: MongoDB Lab ile başlayın - en kolayı!",
+
+                section8Labs: "Tüm laboratuvar belgeleri:",
+                mongodbLab: "MongoDB Laboratuvarı",
+                postgresLab: "PostgreSQL Laboratuvarı",
+                elasticsearchLab: "Elasticsearch Laboratuvarı",
+                kafkaLab: "Kafka Laboratuvarı",
+
+                section8Conclusion: "Docker ve Big Data'nın tadını çıkarın!",
+
+                copyButton: "Kopyala",
+                copiedButton: "Kopyalandı!",
+            }
+        };
+
+        const sectionIds = [
+            'what-is-docker',
+            'why-docker-bigdata',
+            'core-concepts',
+            'system-requirements',
+            'installation',
+            'first-lab',
+            'troubleshooting',
+            'next-steps'
+        ];
+
+        function DockerGuide() {
+            const [language, setLanguage] = useState('de');
+            const [sidebarOpen, setSidebarOpen] = useState(false);
+            const [activeSection, setActiveSection] = useState('what-is-docker');
+            const [copiedCode, setCopiedCode] = useState(null);
+
+            const t = translations[language];
+            const isRTL = language === 'ar';
+
+            const copyToClipboard = (code, id) => {
+                navigator.clipboard.writeText(code);
+                setCopiedCode(id);
+                setTimeout(() => setCopiedCode(null), 2000);
+            };
+
+            const CodeBlock = ({ code, id }) => (
+                <div className="code-block">
+                    <p className="code-text">{code}</p>
+                    <button
+                        className="copy-button"
+                        onClick={() => copyToClipboard(code, id)}
+                    >
+                        {copiedCode === id ? t.copiedButton : t.copyButton}
+                    </button>
+                </div>
+            );
+
+            const StepItem = ({ number, title, description, code, codeId }) => (
+                <div className="flex gap-4 mb-6">
+                    <div className="step-number">{number}</div>
+                    <div className="flex-1">
+                        <h4 className="text-lg font-semibold text-dark-blue mb-2">{title}</h4>
+                        <p className="text-gray-700 mb-3">{description}</p>
+                        {code && <CodeBlock code={code} id={codeId} />}
+                    </div>
+                </div>
+            );
+
+            return (
+                <div dir={isRTL ? 'rtl' : 'ltr'}>
+                    {/* Sticky Navbar */}
+                    <div className="sticky-navbar">
+                        <div className="navbar-brand">{t.bigDataLab}</div>
+                        <div className="language-buttons">
+                            {Object.keys(translations).map((lang) => (
+                                <button
+                                    key={lang}
+                                    className={`lang-btn ${language === lang ? 'active' : ''}`}
+                                    onClick={() => {
+                                        setLanguage(lang);
+                                        setActiveSection('what-is-docker');
+                                    }}
+                                >
+                                    {lang.toUpperCase()}
+                                </button>
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* Main Layout */}
+                    <div className="flex">
+                        {/* Sidebar Navigation */}
+                        <nav className={`nav-sidebar ${sidebarOpen ? 'open' : ''}`}>
+                            <a href="index.html" className="nav-item hover:bg-blue-50">
+                                ← {t.backToOverview}
+                            </a>
+                            {sectionIds.map((id) => {
+                                let label = '';
+                                if (id === 'what-is-docker') label = t.section1Title;
+                                else if (id === 'why-docker-bigdata') label = t.section2Title;
+                                else if (id === 'core-concepts') label = t.section3Title;
+                                else if (id === 'system-requirements') label = t.section4Title;
+                                else if (id === 'installation') label = t.section5Title;
+                                else if (id === 'first-lab') label = t.section6Title;
+                                else if (id === 'troubleshooting') label = t.section7Title;
+                                else if (id === 'next-steps') label = t.section8Title;
+
+                                return (
+                                    <button
+                                        key={id}
+                                        className={`nav-item w-full text-left ${activeSection === id ? 'active' : ''}`}
+                                        onClick={() => {
+                                            setActiveSection(id);
+                                            document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+                                        }}
+                                    >
+                                        {label}
+                                    </button>
+                                );
+                            })}
+                        </nav>
+
+                        {/* Main Content */}
+                        <main className="main-content">
+                            {/* Hero Section */}
+                            <div className="hero-section text-white rounded-lg p-8 mb-8">
+                                <h1 className="text-4xl font-bold mb-4">{t.title}</h1>
+                                <p className="text-lg max-w-2xl">
+                                    {t.section1Intro}
+                                </p>
+                            </div>
+
+                            {/* Section 1: What is Docker */}
+                            <section id="what-is-docker" className="mb-12">
+                                <h2 className="section-header">{t.section1Title}</h2>
+                                <p className="text-gray-700 mb-4">{t.section1Analogy}</p>
+                                <div className="info-box">
+                                    <p className="font-semibold mb-2 text-dark-blue">Problem ohne Docker:</p>
+                                    <p className="text-gray-700">{t.section1Problem}</p>
+                                </div>
+                                <p className="text-gray-700 mt-4">{t.section1Visual}</p>
+                            </section>
+
+                            {/* Section 2: Why Docker for Big Data */}
+                            <section id="why-docker-bigdata" className="mb-12">
+                                <h2 className="section-header">{t.section2Title}</h2>
+                                <ul className="space-y-3">
+                                    {[
+                                        t.section2Point1,
+                                        t.section2Point2,
+                                        t.section2Point3,
+                                        t.section2Point4,
+                                        t.section2Point5
+                                    ].map((point, idx) => (
+                                        <li key={idx} className="flex gap-3 items-start">
+                                            <div className="step-number text-sm">{idx + 1}</div>
+                                            <span className="text-gray-700 pt-1">{point}</span>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </section>
+
+                            {/* Section 3: Core Concepts */}
+                            <section id="core-concepts" className="mb-12">
+                                <h2 className="section-header">{t.section3Title}</h2>
+                                <p className="text-gray-700 mb-6">{t.section3Intro}</p>
+
+                                <div className="space-y-6">
+                                    {[
+                                        { title: t.conceptImage, desc: t.conceptImageDesc },
+                                        { title: t.conceptContainer, desc: t.conceptContainerDesc },
+                                        { title: t.conceptDesktop, desc: t.conceptDesktopDesc },
+                                        { title: t.conceptCompose, desc: t.conceptComposeDesc }
+                                    ].map((concept, idx) => (
+                                        <div key={idx} className="bg-light-blue p-4 rounded-lg border-l-4 border-blue-500">
+                                            <h4 className="font-bold text-dark-blue mb-2">{concept.title}</h4>
+                                            <p className="text-gray-700">{concept.desc}</p>
+                                        </div>
+                                    ))}
+                                </div>
+                            </section>
+
+                            {/* Section 4: System Requirements */}
+                            <section id="system-requirements" className="mb-12">
+                                <h2 className="section-header">{t.section4Title}</h2>
+                                <p className="text-gray-700 mb-4">{t.section4Intro}</p>
+                                <div className="table-responsive">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th></th>
+                                                <th>Windows</th>
+                                                <th>macOS</th>
+                                                <th>Linux</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td className="font-semibold">{t.reqOS}</td>
+                                                <td>{t.reqWin}</td>
+                                                <td>{t.reqMac}</td>
+                                                <td>{t.reqLinux}</td>
+                                            </tr>
+                                            <tr>
+                                                <td className="font-semibold">{t.reqRAM}</td>
+                                                <td colSpan="3">{t.reqRAMMin}</td>
+                                            </tr>
+                                            <tr>
+                                                <td className="font-semibold">{t.reqDisk}</td>
+                                                <td colSpan="3">{t.reqDiskMin}</td>
+                                            </tr>
+                                            <tr>
+                                                <td className="font-semibold">{t.reqExtra}</td>
+                                                <td>{t.reqWSL}</td>
+                                                <td>-</td>
+                                                <td>-</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </section>
+
+                            {/* Section 5: Installation */}
+                            <section id="installation" className="mb-12">
+                                <h2 className="section-header">{t.section5Title}</h2>
+                                <p className="text-gray-700 mb-6">{t.section5Intro}</p>
+
+                                <StepItem
+                                    number="1"
+                                    title={t.step1Title}
+                                    description={t.step1Desc}
+                                />
+                                <StepItem
+                                    number="2"
+                                    title={t.step2Title}
+                                    description={t.step2Desc}
+                                />
+                                <StepItem
+                                    number="3"
+                                    title={t.step3Title}
+                                    description={t.step3Desc}
+                                />
+                                <StepItem
+                                    number="4"
+                                    title={t.step4Title}
+                                    description={t.step4Desc}
+                                />
+                                <StepItem
+                                    number="5"
+                                    title={t.step5Title}
+                                    description={t.step5Desc}
+                                    code="docker --version"
+                                    codeId="cmd-version"
+                                />
+                                <StepItem
+                                    number="6"
+                                    title={t.step6Title}
+                                    description={t.step6Desc}
+                                    code="docker run hello-world"
+                                    codeId="cmd-helloworld"
+                                />
+                                <div className="info-box">
+                                    <p>{t.step6Success}</p>
+                                </div>
+                            </section>
+
+                            {/* Section 6: First Lab */}
+                            <section id="first-lab" className="mb-12">
+                                <h2 className="section-header">{t.section6Title}</h2>
+                                <p className="text-gray-700 mb-6">{t.section6Intro}</p>
+
+                                <StepItem
+                                    number="1"
+                                    title={t.labStep1Title}
+                                    description={t.labStep1Desc}
+                                    code="git clone https://github.com/swrobuts/bigdata.git"
+                                    codeId="cmd-clone"
+                                />
+                                <StepItem
+                                    number="2"
+                                    title={t.labStep2Title}
+                                    description={t.labStep2Desc}
+                                    code="cd bigdata"
+                                    codeId="cmd-cd"
+                                />
+                                <StepItem
+                                    number="3"
+                                    title={t.labStep3Title}
+                                    description={t.labStep3Desc}
+                                    code="pip install faker pandas pyarrow && python data/generate_megastore_data.py"
+                                    codeId="cmd-data"
+                                />
+                                <StepItem
+                                    number="4"
+                                    title={t.labStep4Title}
+                                    description={t.labStep4Desc}
+                                    code="cd docker && chmod +x start-lab.sh && ./start-lab.sh mongodb"
+                                    codeId="cmd-start-lab"
+                                />
+                                <StepItem
+                                    number="5"
+                                    title={t.labStep5Title}
+                                    description={t.labStep5Desc}
+                                    code="http://localhost:8081"
+                                    codeId="cmd-localhost"
+                                />
+                                <div className="info-box">
+                                    <p>{t.labStep5Note}</p>
+                                </div>
+                                <StepItem
+                                    number="6"
+                                    title={t.labStep6Title}
+                                    description={t.labStep6Desc}
+                                    code="./start-lab.sh stop"
+                                    codeId="cmd-stop"
+                                />
+                            </section>
+
+                            {/* Section 7: Troubleshooting */}
+                            <section id="troubleshooting" className="mb-12">
+                                <h2 className="section-header">{t.section7Title}</h2>
+                                <p className="text-gray-700 mb-6">{t.section7Intro}</p>
+
+                                {[
+                                    { problem: t.problemNotStarting, solution: t.solutionNotStarting },
+                                    { problem: t.problemPort, solution: t.solutionPort },
+                                    {
+                                        problem: t.problemDisk,
+                                        solution: t.solutionDisk,
+                                        code: 'docker system prune'
+                                    },
+                                    {
+                                        problem: t.problemExit,
+                                        solution: t.solutionExit,
+                                        code: 'docker logs <container-name>'
+                                    },
+                                    { problem: t.problemConnect, solution: t.solutionConnect }
+                                ].map((item, idx) => (
+                                    <div key={idx} className="problem-item">
+                                        <h4 className="font-bold text-dark-blue mb-2">❓ {item.problem}</h4>
+                                        <p className="text-gray-700">{item.solution}</p>
+                                        {item.code && (
+                                            <div className="mt-3">
+                                                <CodeBlock code={item.code} id={`troubleshoot-${idx}`} />
+                                            </div>
+                                        )}
+                                    </div>
+                                ))}
+                            </section>
+
+                            {/* Section 8: Next Steps */}
+                            <section id="next-steps" className="mb-12">
+                                <h2 className="section-header">{t.section8Title}</h2>
+                                <p className="text-gray-700 mb-4">{t.section8Intro}</p>
+                                <div className="warning-box">
+                                    <p className="font-semibold text-dark-blue">{t.section8Tip}</p>
+                                </div>
+                                <h4 className="text-lg font-bold text-dark-blue mt-6 mb-4">{t.section8Labs}</h4>
+                                <ul className="space-y-2 mb-6">
+                                    <li>
+                                        <a href="mongodb-lab.html" className="link-button">
+                                            {t.mongodbLab}
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="postgres-lab.html" className="link-button">
+                                            {t.postgresLab}
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="elasticsearch-lab.html" className="link-button">
+                                            {t.elasticsearchLab}
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="kafka-lab.html" className="link-button">
+                                            {t.kafkaLab}
+                                        </a>
+                                    </li>
+                                </ul>
+                                <div className="info-box">
+                                    <p className="text-lg font-semibold">{t.section8Conclusion}</p>
+                                </div>
+                            </section>
+
+                            {/* Footer */}
+                            <footer className="border-t border-gray-200 pt-8 mt-12 pb-8">
+                                <a href="index.html" className="back-link">
+                                    ← {t.backToOverview}
+                                </a>
+                            </footer>
+                        </main>
+                    </div>
+                </div>
+            );
+        }
+
+        ReactDOM.render(<DockerGuide />, document.getElementById('root'));
+    </script>
+</body>
+</html>

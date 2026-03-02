@@ -108,7 +108,7 @@
         }
 
         .hero {
-            background: linear-gradient(135deg, var(--color-dark-blue) 0%, #2c5aa0 100%);
+            background: #1B3A5C;
             color: white;
         }
 
@@ -244,7 +244,120 @@
             border-color: var(--color-orange);
         }
 
-        table {
+        .mission-card {
+            background: linear-gradient(135deg, #1B3A5C 0%, #2D5A7B 100%);
+            color: white;
+            border-radius: 1rem;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .challenge-card {
+            border: 2px solid #e5e7eb;
+            border-radius: 0.75rem;
+            overflow: hidden;
+            margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .challenge-card:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .challenge-header {
+            cursor: pointer;
+            padding: 1rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            user-select: none;
+            background: #f9fafb;
+            font-weight: 600;
+        }
+
+        .challenge-content {
+            padding: 0 1.5rem 1.5rem 1.5rem;
+        }
+
+        .hypothesis-box {
+            background: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            padding: 1rem;
+            border-radius: 0 0.5rem 0.5rem 0;
+            margin: 1rem 0;
+        }
+
+        html[dir="rtl"] .hypothesis-box {
+            border-left: none;
+            border-right: 4px solid #f59e0b;
+        }
+
+        .insight-box {
+            background: #d1fae5;
+            border-left: 4px solid #10b981;
+            padding: 1rem;
+            border-radius: 0 0.5rem 0.5rem 0;
+            margin: 1rem 0;
+        }
+
+        html[dir="rtl"] .insight-box {
+            border-left: none;
+            border-right: 4px solid #10b981;
+        }
+
+        .business-context {
+            background: #e0e7ff;
+            border-left: 4px solid #6366f1;
+            padding: 1rem;
+            border-radius: 0 0.5rem 0.5rem 0;
+            margin: 1rem 0;
+        }
+
+        html[dir="rtl"] .business-context {
+            border-left: none;
+            border-right: 4px solid #6366f1;
+        }
+
+        .self-check-card {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            cursor: pointer;
+        }
+
+        .self-check-card:hover {
+            background: #f1f5f9;
+            border-color: var(--color-orange);
+        }
+
+        .reflection-prompt {
+            background: #fdf2f8;
+            border-left: 4px solid #ec4899;
+            padding: 1rem;
+            border-radius: 0 0.5rem 0.5rem 0;
+            margin-bottom: 1rem;
+        }
+
+        html[dir="rtl"] .reflection-prompt {
+            border-left: none;
+            border-right: 4px solid #ec4899;
+        }
+
+        .real-world-section {
+            background: #f0fdf4;
+            border: 2px solid #86efac;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+        }
+
+        .difficulty-boss {
+            background-color: #e53e3e;
+            color: white;
+        }
+
+                table {
             width: 100%;
             border-collapse: collapse;
             margin: 16px 0;
@@ -321,6 +434,18 @@
                 </div>
                 <div class="nav-link" onclick="scrollToSection('exercise-5')">
                     <div id="nav-ex5">Exercise 5: Knowledge Graph</div>
+                </div>
+                <div class="nav-link" onclick="scrollToSection('mission')">
+                    <div id="nav-mission">Mission & Context</div>
+                </div>
+                <div class="nav-link" onclick="scrollToSection('challenges')">
+                    <div id="nav-challenges">Progressive Challenges</div>
+                </div>
+                <div class="nav-link" onclick="scrollToSection('self-check')">
+                    <div id="nav-self-check">Self-Check Questions</div>
+                </div>
+                <div class="nav-link" onclick="scrollToSection('reflection')">
+                    <div id="nav-reflection">Reflection & Real-World</div>
                 </div>
                 <div class="nav-link" onclick="scrollToSection('bonus')">
                     <div id="nav-bonus">Bonus Tasks</div>
@@ -1003,6 +1128,250 @@ MERGE (c)-[r:INTERESTED_IN {score: purchase_count}]->(concept);</code></pre>
                     </div>
                 </section>
 
+
+                <!-- Mission & Context Section -->
+                <section id="mission" class="mt-20">
+                    <h2 class="text-4xl font-bold mb-4 section-heading dark-blue-text" id="h-mission">Your Mission</h2>
+                    
+                    <div class="mission-card">
+                        <h3 class="text-2xl font-semibold mb-4" id="mission-title">Understanding Relationships at Scale</h3>
+                        <div id="mission-content" class="space-y-4">
+                            <p id="mission-p1">MegaStore's marketing team discovered that understanding relationships between customers, products, and purchase patterns is key to growth. Traditional SQL databases struggle with complex relationship queries—many JOINs mean slow queries.</p>
+                            
+                            <p id="mission-p2"><strong id="mission-your-job">Your Job:</strong> <span id="mission-job-desc">Use Neo4j's graph database to uncover hidden connections and build intelligent recommendations.</span></p>
+                            
+                            <p id="mission-key-questions"><strong>Key Questions:</strong></p>
+                            <ul class="list-disc list-inside space-y-2 ml-4">
+                                <li id="mission-q1">Which customers influence others?</li>
+                                <li id="mission-q2">What purchase paths lead to high-value customers?</li>
+                                <li id="mission-q3">How are product categories connected through buying behavior?</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Progressive Challenges Section -->
+                <section id="challenges" class="mt-20">
+                    <h2 class="text-4xl font-bold mb-4 section-heading dark-blue-text" id="h-challenges">Progressive Challenges</h2>
+                    <p id="challenges-intro">Master Neo4j by solving increasingly complex problems. Each level builds on the previous one.</p>
+
+                    <!-- Level 1 -->
+                    <div class="challenge-card">
+                        <div class="challenge-header" onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none'">
+                            <div>
+                                <span id="challenge-l1-title">Level 1 - Einstieg (Beginner)</span>
+                                <span class="difficulty-badge" id="challenge-l1-badge">Beginner</span>
+                            </div>
+                            <span>▼</span>
+                        </div>
+                        <div class="challenge-content">
+                            <p id="challenge-l1-desc" class="font-semibold mb-3">Find all customers who bought products in the 'Electronics' category and also left a review with rating >= 4</p>
+                            
+                            <div class="hypothesis-box">
+                                <strong id="challenge-l1-hyp-title">Hypothesis:</strong>
+                                <p id="challenge-l1-hyp">What percentage of Electronics buyers leave positive reviews? More or less than other categories?</p>
+                            </div>
+
+                            <div class="code-block mt-4">
+                                <span class="language-label">cypher</span>
+                                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                                <pre><code id="code-challenge-l1">MATCH (c:Customer)-[:PURCHASED]->(p:Product)-[:BELONGS_TO]->(cat:Category {name: "Electronics"})
+WITH c, COUNT(p) as purchases
+MATCH (c)-[:LEFT_REVIEW]->(r:Review)
+WHERE r.rating >= 4
+RETURN c.name, purchases, COUNT(r) as positive_reviews</code></pre>
+                            </div>
+
+                            <div class="insight-box">
+                                <strong id="challenge-l1-insight-title">Business Insight:</strong>
+                                <p id="challenge-l1-insight">Identifying satisfied customers is key for testimonial marketing. High review rates in specific categories signal product quality.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Level 2 -->
+                    <div class="challenge-card">
+                        <div class="challenge-header" onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none'">
+                            <div>
+                                <span id="challenge-l2-title">Level 2 - Vertiefung (Intermediate)</span>
+                                <span class="difficulty-badge orange-bg" id="challenge-l2-badge">Intermediate</span>
+                            </div>
+                            <span>▼</span>
+                        </div>
+                        <div class="challenge-content" style="display: none;">
+                            <p id="challenge-l2-desc" class="font-semibold mb-3">Find "Customers who bought X also bought Y" - the classic recommendation pattern using graph traversal</p>
+                            
+                            <div class="hypothesis-box">
+                                <strong id="challenge-l2-hyp-title">Hypothesis:</strong>
+                                <p id="challenge-l2-hyp">If a customer buys a laptop, what other products are they likely to buy? Which complementary products appear most frequently?</p>
+                            </div>
+
+                            <div class="business-context">
+                                <strong id="challenge-l2-context-title">Business Context:</strong>
+                                <p id="challenge-l2-context">Graph-based recommendations outperform collaborative filtering for sparse datasets. This pattern drives revenue through cross-selling.</p>
+                            </div>
+
+                            <p id="challenge-l2-hint" class="mt-4 text-sm text-gray-600"><strong>Hint:</strong> Use MATCH to find customers who bought product X, then traverse their other purchases to find patterns.</p>
+
+                            <div class="code-block mt-4">
+                                <span class="language-label">cypher</span>
+                                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                                <pre><code id="code-challenge-l2">MATCH (p1:Product {name: "Laptop"})<-[:PURCHASED]-(c:Customer)-[:PURCHASED]->(p2:Product)
+WHERE p1 <> p2
+RETURN p2.name, COUNT(*) as co_purchase_count
+ORDER BY co_purchase_count DESC
+LIMIT 10</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Level 3 -->
+                    <div class="challenge-card">
+                        <div class="challenge-header" onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none'">
+                            <div>
+                                <span id="challenge-l3-title">Level 3 - Fortgeschritten (Advanced)</span>
+                                <span class="difficulty-badge" style="background: #9333ea;" id="challenge-l3-badge">Advanced</span>
+                            </div>
+                            <span>▼</span>
+                        </div>
+                        <div class="challenge-content" style="display: none;">
+                            <p id="challenge-l3-desc" class="font-semibold mb-3">Identify influencer customers: Find customers whose purchases are most frequently followed by similar purchases from their connected customers</p>
+                            
+                            <div class="hypothesis-box">
+                                <strong id="challenge-l3-hyp-title">Hypothesis:</strong>
+                                <p id="challenge-l3-hyp">Which customers act as trend-setters? Do their purchase decisions influence others in the network?</p>
+                            </div>
+
+                            <div class="business-context">
+                                <strong id="challenge-l3-context-title">Business Context:</strong>
+                                <p id="challenge-l3-context">Influencer identification drives word-of-mouth marketing. Identifying early adopters helps with product launches and viral campaigns.</p>
+                            </div>
+
+                            <p id="challenge-l3-hint" class="mt-4 text-sm text-gray-600"><strong>High-Level Guidance:</strong> Find customers connected through purchases, analyze temporal ordering of their buys, and calculate influence scores based on path frequencies.</p>
+                        </div>
+                    </div>
+
+                    <!-- Level 4 - Boss Challenge -->
+                    <div class="challenge-card">
+                        <div class="challenge-header difficulty-boss" onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none'">
+                            <div>
+                                <span id="challenge-l4-title">Level 4 - Boss Challenge</span>
+                                <span class="difficulty-badge difficulty-boss" id="challenge-l4-badge">Boss Level</span>
+                            </div>
+                            <span>▼</span>
+                        </div>
+                        <div class="challenge-content" style="display: none;">
+                            <p id="challenge-l4-desc" class="font-semibold mb-3">Build a fraud detection system: Find suspicious patterns like multiple orders to the same address from different accounts, or unusual purchase velocity</p>
+                            
+                            <div class="hypothesis-box">
+                                <strong id="challenge-l4-hyp-title">Challenge:</strong>
+                                <p id="challenge-l4-hyp">Can you design a Cypher query to detect potential fraud rings? What patterns would reveal coordinated suspicious activity?</p>
+                            </div>
+
+                            <div class="business-context">
+                                <strong id="challenge-l4-context-title">Business Context:</strong>
+                                <p id="challenge-l4-context">Graph databases are the #1 tool for fraud detection at companies like PayPal and eBay. Relationship patterns reveal fraud rings that traditional databases miss.</p>
+                            </div>
+
+                            <p id="challenge-l4-hint" class="mt-4 text-sm text-gray-600"><strong>Concept Only:</strong> No solution provided for this boss challenge. Design your own approach and test it on the MegaStore data.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Self-Check Questions Section -->
+                <section id="self-check" class="mt-20">
+                    <h2 class="text-4xl font-bold mb-4 section-heading dark-blue-text" id="h-self-check">Self-Check Questions</h2>
+                    <p id="self-check-intro">Test your understanding of key concepts by answering these questions.</p>
+
+                    <div class="self-check-card" onclick="this.querySelector('.answer').style.display = this.querySelector('.answer').style.display === 'none' ? 'block' : 'none'">
+                        <p class="font-semibold" id="sc-q1">What is a node and what is a relationship in Neo4j?</p>
+                        <div class="answer" style="display: none; margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid #e5e7eb;">
+                            <p id="sc-a1">A <strong>node</strong> represents an entity (e.g., Customer, Product) with labels and properties. A <strong>relationship</strong> is a typed connection between nodes, representing how entities relate to each other (e.g., PURCHASED, BELONGS_TO). Relationships can also have properties.</p>
+                        </div>
+                    </div>
+
+                    <div class="self-check-card" onclick="this.querySelector('.answer').style.display = this.querySelector('.answer').style.display === 'none' ? 'block' : 'none'">
+                        <p class="font-semibold" id="sc-q2">How does Cypher's MATCH clause differ from SQL's SELECT?</p>
+                        <div class="answer" style="display: none; margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid #e5e7eb;">
+                            <p id="sc-a2"><strong>MATCH</strong> in Cypher finds patterns in the graph—it describes relationships between nodes. <strong>SELECT</strong> in SQL retrieves columns from tables. MATCH is pattern-oriented; SELECT is column-oriented. MATCH naturally expresses relationship traversal.</p>
+                        </div>
+                    </div>
+
+                    <div class="self-check-card" onclick="this.querySelector('.answer').style.display = this.querySelector('.answer').style.display === 'none' ? 'block' : 'none'">
+                        <p class="font-semibold" id="sc-q3">When is a graph database better than a relational database?</p>
+                        <div class="answer" style="display: none; margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid #e5e7eb;">
+                            <p id="sc-a3">Graph databases excel with <strong>highly connected data</strong>. When relationships are first-class objects and queries traverse many relationships, graphs outperform relational databases. Use graphs for: social networks, recommendation engines, fraud detection, knowledge graphs, and complex relationship analysis.</p>
+                        </div>
+                    </div>
+
+                    <div class="self-check-card" onclick="this.querySelector('.answer').style.display = this.querySelector('.answer').style.display === 'none' ? 'block' : 'none'">
+                        <p class="font-semibold" id="sc-q4">What is graph traversal and why is it fast in Neo4j?</p>
+                        <div class="answer" style="display: none; margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid #e5e7eb;">
+                            <p id="sc-a4"><strong>Graph traversal</strong> means following relationships from node to node. It's fast in Neo4j because relationships are stored as pointers—following a relationship is O(1) (constant time), regardless of database size. In SQL, JOINs scale with data size (O(n)).</p>
+                        </div>
+                    </div>
+
+                    <div class="self-check-card" onclick="this.querySelector('.answer').style.display = this.querySelector('.answer').style.display === 'none' ? 'block' : 'none'">
+                        <p class="font-semibold" id="sc-q5">What does the MERGE command do in Cypher?</p>
+                        <div class="answer" style="display: none; margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid #e5e7eb;">
+                            <p id="sc-a5"><strong>MERGE</strong> is an idempotent operation: it creates a node/relationship if it doesn't exist, or matches it if it does. It combines CREATE and MATCH. Use MERGE to avoid duplicates when loading data.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Reflection & Real-World Applications -->
+                <section id="reflection" class="mt-20">
+                    <h2 class="text-4xl font-bold mb-4 section-heading dark-blue-text" id="h-reflection">Reflection & Real-World Applications</h2>
+                    
+                    <div>
+                        <h3 class="text-2xl font-semibold subsection-heading mt-8 mb-4" id="h-reflection-prompts">Reflection Prompts</h3>
+                        
+                        <div class="reflection-prompt">
+                            <strong id="refl-p1-title">How did your understanding of databases change through this lab?</strong>
+                            <p id="refl-p1" class="mt-2">Compare your initial expectations with what you learned about graph databases vs. relational databases.</p>
+                        </div>
+
+                        <div class="reflection-prompt">
+                            <strong id="refl-p2-title">Which Neo4j features were most powerful to you?</strong>
+                            <p id="refl-p2" class="mt-2">Reflect on pattern matching, relationship traversal, and how they solve real problems.</p>
+                        </div>
+
+                        <div class="reflection-prompt">
+                            <strong id="refl-p3-title">What business problem would you solve with a graph database?</strong>
+                            <p id="refl-p3" class="mt-2">Think beyond e-commerce. What other domains need relationship analysis?</p>
+                        </div>
+                    </div>
+
+                    <div class="real-world-section mt-8">
+                        <h3 class="text-2xl font-semibold mb-4" id="h-real-world">Neo4j in the Real World</h3>
+                        
+                        <div class="mt-6">
+                            <h4 class="text-lg font-semibold mb-2" id="rw-social-title">Social Networks</h4>
+                            <p id="rw-social"><strong>Facebook, LinkedIn:</strong> Powering friend recommendations, mutual connections, and feed algorithms through graph queries. Finding your network within millions of users requires graph traversal.</p>
+                        </div>
+
+                        <div class="mt-6">
+                            <h4 class="text-lg font-semibold mb-2" id="rw-fraud-title">Fraud Detection</h4>
+                            <p id="rw-fraud"><strong>PayPal, eBay, Financial Institutions:</strong> Neo4j detects fraud rings by identifying relationship patterns (multiple accounts linked to same address, coordinated purchases, unusual velocity). Graph relationships expose fraud that SQL queries miss.</p>
+                        </div>
+
+                        <div class="mt-6">
+                            <h4 class="text-lg font-semibold mb-2" id="rw-knowledge-title">Knowledge Graphs</h4>
+                            <p id="rw-knowledge"><strong>Google, Wikipedia, Semantic Search:</strong> Google's Knowledge Graph connects entities and concepts. "Barack Obama" links to "United States", "44th President", "Michelle Obama". Semantic search uses graph relationships to understand intent.</p>
+                        </div>
+
+                        <div class="mt-6">
+                            <h4 class="text-lg font-semibold mb-2" id="rw-infrastructure-title">Network & IT Infrastructure</h4>
+                            <p id="rw-infrastructure"><strong>Cloud Providers, Telecom:</strong> Mapping IT infrastructure, service dependencies, and network topology. A graph instantly shows what breaks when one server fails.</p>
+                        </div>
+
+                        <div class="mt-6">
+                            <h4 class="text-lg font-semibold mb-2" id="rw-supply-title">Supply Chain Optimization</h4>
+                            <p id="rw-supply"><strong>Logistics, Manufacturing:</strong> Modeling suppliers, products, warehouses, and shipping routes as a graph. Optimizing paths and identifying bottlenecks becomes a graph problem.</p>
+                        </div>
+                    </div>
+                </section>
+
                 <!-- Bonus Section -->
                 <section id="bonus" class="mt-20">
                     <h2 class="text-4xl font-bold mb-4 section-heading dark-blue-text" id="h-bonus">Bonus Tasks</h2>
@@ -1367,6 +1736,85 @@ RETURN apoc.convert.toJson(graphData);</code></pre>
                 'li-next-2': 'Learn graph algorithms with Neo4j Graph Data Science library',
                 'li-next-3': 'Build production applications with Neo4j drivers (Python, JavaScript, Java)',
                 'li-next-4': 'Join the Neo4j community and explore real-world use cases',
+                'nav-mission': 'Mission & Context',
+                'nav-challenges': 'Progressive Challenges',
+                'nav-self-check': 'Self-Check Questions',
+                'nav-reflection': 'Reflection & Real-World',
+                'h-mission': 'Your Mission',
+                'mission-title': 'Understanding Relationships at Scale',
+                'mission-p1': 'MegaStore\'s marketing team discovered that understanding relationships between customers, products, and purchase patterns is key to growth. Traditional SQL databases struggle with complex relationship queries—many JOINs mean slow queries.',
+                'mission-p2': 'Use Neo4j\'s graph database to uncover hidden connections and build intelligent recommendations.',
+                'mission-your-job': 'Your Job:',
+                'mission-job-desc': 'Use Neo4j\'s graph database to uncover hidden connections and build intelligent recommendations.',
+                'mission-key-questions': 'Key Questions:',
+                'mission-q1': 'Which customers influence others?',
+                'mission-q2': 'What purchase paths lead to high-value customers?',
+                'mission-q3': 'How are product categories connected through buying behavior?',
+                'h-challenges': 'Progressive Challenges',
+                'challenges-intro': 'Master Neo4j by solving increasingly complex problems. Each level builds on the previous one.',
+                'challenge-l1-title': 'Level 1 - Einstieg (Beginner)',
+                'challenge-l1-badge': 'Beginner',
+                'challenge-l1-desc': 'Find all customers who bought products in the \'Electronics\' category and also left a review with rating >= 4',
+                'challenge-l1-hyp-title': 'Hypothesis:',
+                'challenge-l1-hyp': 'What percentage of Electronics buyers leave positive reviews? More or less than other categories?',
+                'challenge-l1-insight-title': 'Business Insight:',
+                'challenge-l1-insight': 'Identifying satisfied customers is key for testimonial marketing. High review rates in specific categories signal product quality.',
+                'challenge-l2-title': 'Level 2 - Vertiefung (Intermediate)',
+                'challenge-l2-badge': 'Intermediate',
+                'challenge-l2-desc': 'Find "Customers who bought X also bought Y" - the classic recommendation pattern using graph traversal',
+                'challenge-l2-hyp-title': 'Hypothesis:',
+                'challenge-l2-hyp': 'If a customer buys a laptop, what other products are they likely to buy? Which complementary products appear most frequently?',
+                'challenge-l2-context-title': 'Business Context:',
+                'challenge-l2-context': 'Graph-based recommendations outperform collaborative filtering for sparse datasets. This pattern drives revenue through cross-selling.',
+                'challenge-l2-hint': 'Hint: Use MATCH to find customers who bought product X, then traverse their other purchases to find patterns.',
+                'challenge-l3-title': 'Level 3 - Fortgeschritten (Advanced)',
+                'challenge-l3-badge': 'Advanced',
+                'challenge-l3-desc': 'Identify influencer customers: Find customers whose purchases are most frequently followed by similar purchases from their connected customers',
+                'challenge-l3-hyp-title': 'Hypothesis:',
+                'challenge-l3-hyp': 'Which customers act as trend-setters? Do their purchase decisions influence others in the network?',
+                'challenge-l3-context-title': 'Business Context:',
+                'challenge-l3-context': 'Influencer identification drives word-of-mouth marketing. Identifying early adopters helps with product launches and viral campaigns.',
+                'challenge-l3-hint': 'High-Level Guidance: Find customers connected through purchases, analyze temporal ordering of their buys, and calculate influence scores based on path frequencies.',
+                'challenge-l4-title': 'Level 4 - Boss Challenge',
+                'challenge-l4-badge': 'Boss Level',
+                'challenge-l4-desc': 'Build a fraud detection system: Find suspicious patterns like multiple orders to the same address from different accounts, or unusual purchase velocity',
+                'challenge-l4-hyp-title': 'Challenge:',
+                'challenge-l4-hyp': 'Can you design a Cypher query to detect potential fraud rings? What patterns would reveal coordinated suspicious activity?',
+                'challenge-l4-context-title': 'Business Context:',
+                'challenge-l4-context': 'Graph databases are the #1 tool for fraud detection at companies like PayPal and eBay. Relationship patterns reveal fraud rings that traditional databases miss.',
+                'challenge-l4-hint': 'Concept Only: No solution provided for this boss challenge. Design your own approach and test it on the MegaStore data.',
+                'h-self-check': 'Self-Check Questions',
+                'self-check-intro': 'Test your understanding of key concepts by answering these questions.',
+                'sc-q1': 'What is a node and what is a relationship in Neo4j?',
+                'sc-a1': 'A <strong>node</strong> represents an entity (e.g., Customer, Product) with labels and properties. A <strong>relationship</strong> is a typed connection between nodes, representing how entities relate to each other (e.g., PURCHASED, BELONGS_TO). Relationships can also have properties.',
+                'sc-q2': 'How does Cypher\'s MATCH clause differ from SQL\'s SELECT?',
+                'sc-a2': '<strong>MATCH</strong> in Cypher finds patterns in the graph—it describes relationships between nodes. <strong>SELECT</strong> in SQL retrieves columns from tables. MATCH is pattern-oriented; SELECT is column-oriented. MATCH naturally expresses relationship traversal.',
+                'sc-q3': 'When is a graph database better than a relational database?',
+                'sc-a3': 'Graph databases excel with <strong>highly connected data</strong>. When relationships are first-class objects and queries traverse many relationships, graphs outperform relational databases. Use graphs for: social networks, recommendation engines, fraud detection, knowledge graphs, and complex relationship analysis.',
+                'sc-q4': 'What is graph traversal and why is it fast in Neo4j?',
+                'sc-a4': '<strong>Graph traversal</strong> means following relationships from node to node. It\'s fast in Neo4j because relationships are stored as pointers—following a relationship is O(1) (constant time), regardless of database size. In SQL, JOINs scale with data size (O(n)).',
+                'sc-q5': 'What does the MERGE command do in Cypher?',
+                'sc-a5': '<strong>MERGE</strong> is an idempotent operation: it creates a node/relationship if it doesn\'t exist, or matches it if it does. It combines CREATE and MATCH. Use MERGE to avoid duplicates when loading data.',
+                'h-reflection': 'Reflection & Real-World Applications',
+                'h-reflection-prompts': 'Reflection Prompts',
+                'refl-p1-title': 'How did your understanding of databases change through this lab?',
+                'refl-p1': 'Compare your initial expectations with what you learned about graph databases vs. relational databases.',
+                'refl-p2-title': 'Which Neo4j features were most powerful to you?',
+                'refl-p2': 'Reflect on pattern matching, relationship traversal, and how they solve real problems.',
+                'refl-p3-title': 'What business problem would you solve with a graph database?',
+                'refl-p3': 'Think beyond e-commerce. What other domains need relationship analysis?',
+                'h-real-world': 'Neo4j in the Real World',
+                'rw-social-title': 'Social Networks',
+                'rw-social': '<strong>Facebook, LinkedIn:</strong> Powering friend recommendations, mutual connections, and feed algorithms through graph queries. Finding your network within millions of users requires graph traversal.',
+                'rw-fraud-title': 'Fraud Detection',
+                'rw-fraud': '<strong>PayPal, eBay, Financial Institutions:</strong> Neo4j detects fraud rings by identifying relationship patterns (multiple accounts linked to same address, coordinated purchases, unusual velocity). Graph relationships expose fraud that SQL queries miss.',
+                'rw-knowledge-title': 'Knowledge Graphs',
+                'rw-knowledge': '<strong>Google, Wikipedia, Semantic Search:</strong> Google\'s Knowledge Graph connects entities and concepts. "Barack Obama" links to "United States", "44th President", "Michelle Obama". Semantic search uses graph relationships to understand intent.',
+                'rw-infrastructure-title': 'Network & IT Infrastructure',
+                'rw-infrastructure': '<strong>Cloud Providers, Telecom:</strong> Mapping IT infrastructure, service dependencies, and network topology. A graph instantly shows what breaks when one server fails.',
+                'rw-supply-title': 'Supply Chain Optimization',
+                'rw-supply': '<strong>Logistics, Manufacturing:</strong> Modeling suppliers, products, warehouses, and shipping routes as a graph. Optimizing paths and identifying bottlenecks becomes a graph problem.',
+,
             },
             de: {
                 'back-label': 'Zurück zur Übersicht',
@@ -1605,7 +2053,406 @@ RETURN apoc.convert.toJson(graphData);</code></pre>
                 'li-next-2': 'Lernen Sie Graph-Algorithmen mit Neo4j Graph Data Science-Bibliothek',
                 'li-next-3': 'Erstellen Sie Produktionsanwendungen mit Neo4j-Treibern (Python, JavaScript, Java)',
                 'li-next-4': 'Treten Sie der Neo4j-Community bei und erkunden Sie reale Anwendungsfälle',
-            }
+                'nav-mission': 'Mission & Kontext',
+                'nav-challenges': 'Progressive Herausforderungen',
+                'nav-self-check': 'Selbstkontrolle-Fragen',
+                'nav-reflection': 'Reflexion & Real-World',
+                'h-mission': 'Ihre Mission',
+                'mission-title': 'Verständnis von Beziehungen im großen Maßstab',
+                'mission-p1': 'Das Marketingteam von MegaStore entdeckte, dass das Verständnis von Beziehungen zwischen Kunden, Produkten und Kaufmustern der Schlüssel zum Wachstum ist. Traditionelle SQL-Datenbanken kämpfen mit komplexen Beziehungsabfragen – viele JOINs bedeuten langsame Abfragen.',
+                'mission-p2': 'Verwenden Sie die Neo4j-Graphdatenbank, um verborgene Verbindungen aufzudecken und intelligente Empfehlungen zu erstellen.',
+                'mission-your-job': 'Ihre Aufgabe:',
+                'mission-job-desc': 'Verwenden Sie die Neo4j-Graphdatenbank, um verborgene Verbindungen aufzudecken und intelligente Empfehlungen zu erstellen.',
+                'mission-key-questions': 'Schlüsselfragen:',
+                'mission-q1': 'Welche Kunden beeinflussen andere?',
+                'mission-q2': 'Welche Kaufpfade führen zu hocherwartungsvollen Kunden?',
+                'mission-q3': 'Wie sind Produktkategorien durch Kaufverhalten verbunden?',
+                'h-challenges': 'Progressive Herausforderungen',
+                'challenges-intro': 'Meistern Sie Neo4j durch zunehmend komplexe Probleme. Jede Stufe baut auf der vorherigen auf.',
+                'challenge-l1-title': 'Stufe 1 - Einstieg (Anfänger)',
+                'challenge-l1-badge': 'Anfänger',
+                'challenge-l1-desc': 'Finden Sie alle Kunden, die Produkte in der Kategorie Elektronik gekauft haben und auch eine Bewertung mit einer Bewertung >= 4 hinterlassen haben',
+                'challenge-l1-hyp-title': 'Hypothese:',
+                'challenge-l1-hyp': 'Welcher Prozentsatz der Elektronikkäufer hinterlässt positive Bewertungen? Mehr oder weniger als andere Kategorien?',
+                'challenge-l1-insight-title': 'Geschäftliche Einsicht:',
+                'challenge-l1-insight': 'Die Identifizierung zufriedener Kunden ist der Schlüssel zum Testimonial-Marketing. Hohe Bewertungsraten in bestimmten Kategorien signalisieren Produktqualität.',
+                'challenge-l2-title': 'Stufe 2 - Vertiefung (Mittelstufe)',
+                'challenge-l2-badge': 'Mittelstufe',
+                'challenge-l2-desc': 'Finden Sie Kunden, die X gekauft haben, haben auch Y gekauft - das klassische Empfehlungsmuster mit Graph-Durchlauf',
+                'challenge-l2-hyp-title': 'Hypothese:',
+                'challenge-l2-hyp': 'Wenn ein Kunde einen Laptop kauft, welche anderen Produkte wird er wahrscheinlich kaufen? Welche Komplementärprodukte erscheinen am häufigsten?',
+                'challenge-l2-context-title': 'Geschäftlicher Kontext:',
+                'challenge-l2-context': 'Graph-basierte Empfehlungen übertreffen kollaboratives Filtern bei sparsamen Datensätzen. Dieses Muster steigert den Umsatz durch Cross-Selling.',
+                'challenge-l2-hint': 'Hinweis: Verwenden Sie MATCH, um Kunden zu finden, die Produkt X gekauft haben, dann durchqueren Sie ihre anderen Käufe, um Muster zu finden.',
+                'challenge-l3-title': 'Stufe 3 - Fortgeschritten (Erweitert)',
+                'challenge-l3-badge': 'Erweitert',
+                'challenge-l3-desc': 'Identifizieren Sie Influencer-Kunden: Finden Sie Kunden, deren Käufe am häufigsten von ähnlichen Käufen ihrer verbundenen Kunden gefolgt werden',
+                'challenge-l3-hyp-title': 'Hypothese:',
+                'challenge-l3-hyp': 'Welche Kunden sind Trendsetter? Beeinflussen ihre Kaufentscheidungen andere im Netzwerk?',
+                'challenge-l3-context-title': 'Geschäftlicher Kontext:',
+                'challenge-l3-context': 'Die Identifizierung von Influencern fördert das Mundpropaganda-Marketing. Die Identifizierung von Early Adopters hilft bei Produkteinführungen und viralen Kampagnen.',
+                'challenge-l3-hint': 'Hochstufiger Leitfaden: Suchen Sie Kunden, die durch Käufe verbunden sind, analysieren Sie die zeitliche Reihenfolge ihrer Käufe, und berechnen Sie Einflusswerte basierend auf Pfadhäufigkeiten.',
+                'challenge-l4-title': 'Stufe 4 - Boss Challenge',
+                'challenge-l4-badge': 'Boss-Level',
+                'challenge-l4-desc': 'Erstellen Sie ein Betrugserkennung System: Finden Sie verdächtige Muster wie mehrere Bestellungen an die gleiche Adresse von verschiedenen Konten oder ungewöhnliche Kaufgeschwindigkeit',
+                'challenge-l4-hyp-title': 'Herausforderung:',
+                'challenge-l4-hyp': 'Können Sie eine Cypher-Abfrage entwerfen, um potenzielle Betrugsbanden zu erkennen? Welche Muster würden koordinierte verdächtige Aktivitäten enthüllen?',
+                'challenge-l4-context-title': 'Geschäftlicher Kontext:',
+                'challenge-l4-context': 'Graphdatenbanken sind das #1 Tool für Betrugserkennung bei Unternehmen wie PayPal und eBay. Beziehungsmuster enthüllen Betrugsbanden, die traditionelle Datenbanken vermissen.',
+                'challenge-l4-hint': 'Nur Konzept: Keine Lösung für diese Boss Challenge. Entwerfen Sie Ihren eigenen Ansatz und testen Sie ihn auf den MegaStore-Daten.',
+                'h-self-check': 'Selbstkontrolle-Fragen',
+                'self-check-intro': 'Testen Sie Ihr Verständnis von Schlüsselkonzepten, indem Sie diese Fragen beantworten.',
+                'sc-q1': 'Was ist ein Knoten und was ist eine Beziehung in Neo4j?',
+                'sc-a1': 'Ein <strong>Knoten</strong> repräsentiert eine Entität (z. B. Kunde, Produkt) mit Etiketten und Eigenschaften. Eine <strong>Beziehung</strong> ist eine typisierte Verbindung zwischen Knoten, die darstellt, wie Entitäten miteinander in Beziehung stehen (z. B. PURCHASED, BELONGS_TO). Beziehungen können auch Eigenschaften haben.',
+                'sc-q2': 'Wie unterscheidet sich Cyphers MATCH-Klausel von SQLs SELECT?',
+                'sc-a2': '<strong>MATCH</strong> in Cypher findet Muster im Graph – es beschreibt Beziehungen zwischen Knoten. <strong>SELECT</strong> in SQL ruft Spalten aus Tabellen ab. MATCH ist mustererientiert; SELECT ist spaltenorientiert. MATCH drückt natürlicherweise Beziehungsdurchlauf aus.',
+                'sc-q3': 'Wann ist eine Graphdatenbank besser als eine relationale Datenbank?',
+                'sc-a3': 'Graphdatenbanken zeichnen sich mit <strong>hochverbundenen Daten</strong> aus. Wenn Beziehungen Erstklassige Objekte sind und Abfragen viele Beziehungen durchqueren, übertreffen Graphen relationale Datenbanken. Verwenden Sie Graphen für: soziale Netzwerke, Empfehlungsmaschinen, Betrugserkennung, Wissensgraphen und komplexe Beziehungsanalyse.',
+                'sc-q4': 'Was ist Graph-Durchlauf und warum ist es in Neo4j schnell?',
+                'sc-a4': '<strong>Graph-Durchlauf</strong> bedeutet, Beziehungen von Knoten zu Knoten zu folgen. Es ist in Neo4j schnell, da Beziehungen als Zeiger gespeichert werden – einer Beziehung zu folgen ist O(1) (konstante Zeit), unabhängig von der Datenbankgröße. In SQL skalieren JOINs mit Datengröße (O(n)).',
+                'sc-q5': 'Was macht der MERGE-Befehl in Cypher?',
+                'sc-a5': '<strong>MERGE</strong> ist eine idempotente Operation: Sie erstellt einen Knoten/eine Beziehung, falls dieser nicht vorhanden ist, oder passt ihn an, falls er vorhanden ist. Es kombiniert CREATE und MATCH. Verwenden Sie MERGE, um beim Laden von Daten Duplikate zu vermeiden.',
+                'h-reflection': 'Reflexion & Real-World-Anwendungen',
+                'h-reflection-prompts': 'Reflexionsfragen',
+                'refl-p1-title': 'Wie hat sich Ihr Verständnis von Datenbanken durch dieses Lab verändert?',
+                'refl-p1': 'Vergleichen Sie Ihre ursprünglichen Erwartungen mit dem, was Sie über Graphdatenbanken vs. relationale Datenbanken erfahren haben.',
+                'refl-p2-title': 'Welche Neo4j-Funktionen waren für Sie am meisten überzeugt?',
+                'refl-p2': 'Denken Sie über Mustererkennung, Beziehungsdurchlauf und wie sie reale Probleme lösen, nach.',
+                'refl-p3-title': 'Welches Geschäftsproblem würden Sie mit einer Graphdatenbank lösen?',
+                'refl-p3': 'Denken Sie über E-Commerce hinaus. Welche anderen Domänen benötigen Beziehungsanalyse?',
+                'h-real-world': 'Neo4j in der realen Welt',
+                'rw-social-title': 'Soziale Netzwerke',
+                'rw-social': '<strong>Facebook, LinkedIn:</strong> Freundschaftsempfehlungen, gegenseitige Verbindungen und Feed-Algorithmen durch Graph-Abfragen antreiben. Um Ihr Netzwerk unter Millionen von Benutzern zu finden, ist Graph-Durchlauf erforderlich.',
+                'rw-fraud-title': 'Betrugserkennung',
+                'rw-fraud': '<strong>PayPal, eBay, Finanzinstitutionen:</strong> Neo4j erkennt Betrugsbanden, indem es Beziehungsmuster identifiziert (mehrere Konten derselben Adresse, koordinierte Käufe, ungewöhnliche Geschwindigkeit). Graphbeziehungen enthüllen Betrug, den SQL-Abfragen vermissen.',
+                'rw-knowledge-title': 'Wissensgraphen',
+                'rw-knowledge': '<strong>Google, Wikipedia, semantische Suche:</strong> Googles Knowledge Graph verbindet Entitäten und Konzepte. Barack Obama verlinkt auf United States, 44. Präsident, Michelle Obama. Semantische Suche verwendet Graphbeziehungen, um die Absicht zu verstehen.',
+                'rw-infrastructure-title': 'Netzwerk- & IT-Infrastruktur',
+                'rw-infrastructure': '<strong>Cloud-Provider, Telekommunikation:</strong> Zuordnung von IT-Infrastruktur, Servicioabhängigkeiten und Netzwerktopologie. Ein Graph zeigt sofort, was bricht, wenn ein Server ausfällt.',
+                'rw-supply-title': 'Supply-Chain-Optimierung',
+                'rw-supply': '<strong>Logistik, Herstellung:</strong> Modellierung von Lieferanten, Produkten, Lagern und Versandwegen als Graph. Die Optimierung von Pfaden und die Identifizierung von Engpässen wird zu einem Graphproblem.',
+,
+,,
+            ar: {
+                'nav-mission': 'المهمة والسياق',
+                'nav-challenges': 'التحديات التدريجية',
+                'nav-self-check': 'أسئلة التحقق الذاتي',
+                'nav-reflection': 'الانعكاس والتطبيقات الواقعية',
+                'h-mission': 'مهمتك',
+                'mission-title': 'فهم العلاقات على نطاق واسع',
+                'mission-p1': 'اكتشف فريق التسويق في MegaStore أن فهم العلاقات بين العملاء والمنتجات وأنماط الشراء هو مفتاح النمو. تكافح قواعد البيانات SQL التقليدية مع استعلامات العلاقات المعقدة.',
+                'mission-p2': 'استخدم قاعدة بيانات Neo4j الرسومية لكشف الاتصالات المخفية وبناء توصيات ذكية.',
+                'mission-your-job': 'مهمتك:',
+                'mission-job-desc': 'استخدم قاعدة بيانات Neo4j الرسومية لكشف الاتصالات المخفية وبناء توصيات ذكية.',
+                'mission-key-questions': 'الأسئلة الرئيسية:',
+                'mission-q1': 'أي العملاء يؤثرون على الآخرين؟',
+                'mission-q2': 'ما مسارات الشراء التي تؤدي إلى العملاء ذوي القيمة العالية؟',
+                'mission-q3': 'كيف تتصل فئات المنتجات من خلال سلوك الشراء؟',
+                'h-challenges': 'التحديات التدريجية',
+                'challenges-intro': 'أتقن Neo4j من خلال حل مشاكل معقدة بشكل متزايد.',
+                'challenge-l1-title': 'المستوى 1 - المبتدئين',
+                'challenge-l1-badge': 'المبتدئين',
+                'challenge-l1-desc': 'ابحث عن جميع العملاء الذين اشتروا منتجات في فئة الإلكترونيات وتركوا أيضا تقييما بتصنيف >= 4',
+                'challenge-l1-hyp-title': 'الفرضية:',
+                'challenge-l1-hyp': 'ما نسبة مشتري الإلكترونيات الذين يتركون تقييمات إيجابية؟',
+                'challenge-l1-insight-title': 'رؤية عملية:',
+                'challenge-l1-insight': 'تحديد العملاء الراضين هو مفتاح التسويق الشهادات.',
+                'challenge-l2-title': 'المستوى 2 - متوسط',
+                'challenge-l2-badge': 'متوسط',
+                'challenge-l2-desc': 'ابحث عن نمط التوصية الكلاسيكي: \"العملاء الذين اشتروا X اشتروا أيضا Y\"',
+                'challenge-l2-hyp-title': 'الفرضية:',
+                'challenge-l2-hyp': 'إذا اشترى عميل جهاز كمبيوتر محمول، ما المنتجات الأخرى التي قد يشتريها؟',
+                'challenge-l2-context-title': 'السياق التجاري:',
+                'challenge-l2-context': 'التوصيات القائمة على الرسوم البيانية تتفوق على التصفية التعاونية.',
+                'challenge-l2-hint': 'تلميح: استخدم MATCH للعثور على العملاء الذين اشتروا المنتج X.',
+                'challenge-l3-title': 'المستوى 3 - متقدم',
+                'challenge-l3-badge': 'متقدم',
+                'challenge-l3-desc': 'حدد العملاء المؤثرين: ابحث عن العملاء الذين تؤثر عمليات شرائهم على الآخرين',
+                'challenge-l3-hyp-title': 'الفرضية:',
+                'challenge-l3-hyp': 'أي العملاء يعملون كمحددي الاتجاهات؟',
+                'challenge-l3-context-title': 'السياق التجاري:',
+                'challenge-l3-context': 'يؤدي تحديد المؤثرين إلى تسويق الكلام الشفهي.',
+                'challenge-l3-hint': 'البحث عن العملاء المرتبطين من خلال المشتريات.',
+                'challenge-l4-title': 'المستوى 4 - تحدي المدير',
+                'challenge-l4-badge': 'مستوى المدير',
+                'challenge-l4-desc': 'بناء نظام كشف الاحتيال: ابحث عن أنماط مريبة',
+                'challenge-l4-hyp-title': 'التحدي:',
+                'challenge-l4-hyp': 'هل يمكنك تصميم استعلام Cypher للكشف عن حلقات الاحتيال المحتملة؟',
+                'challenge-l4-context-title': 'السياق التجاري:',
+                'challenge-l4-context': 'قواعد البيانات الرسومية هي الأداة الأولى لكشف الاحتيال في PayPal و eBay.',
+                'challenge-l4-hint': 'مفهوم فقط: لا يوجد حل لهذا التحدي.',
+                'h-self-check': 'أسئلة التحقق الذاتي',
+                'self-check-intro': 'اختبر فهمك للمفاهيم الرئيسية.',
+                'sc-q1': 'ما هي العقدة والعلاقة في Neo4j؟',
+                'sc-a1': 'تمثل العقدة كيانا بالتصنيفات والخصائص. تمثل العلاقة اتصالا مكتوبا بين العقد.',
+                'sc-q2': 'كيف يختلف بند MATCH في Cypher عن SELECT في SQL؟',
+                'sc-a2': 'يجد MATCH أنماطا في الرسم البياني. يستعيد SELECT الأعمدة من الجداول.',
+                'sc-q3': 'متى تكون قاعدة البيانات الرسومية أفضل من قاعدة البيانات العلائقية؟',
+                'sc-a3': 'تتفوق قواعد البيانات الرسومية على البيانات المتصلة بشكل كبير.',
+                'sc-q4': 'ما هو عبور الرسوم البيانية ولماذا هو سريع في Neo4j؟',
+                'sc-a4': 'عبور الرسم البياني يعني متابعة العلاقات من عقدة إلى عقدة.',
+                'sc-q5': 'ماذا يفعل أمر MERGE في Cypher؟',
+                'sc-a5': 'MERGE هي عملية مستقلة: تنشئ عقدة إذا كانت غير موجودة أو تطابقها إذا كانت موجودة.',
+                'h-reflection': 'الانعكاس والتطبيقات الواقعية',
+                'h-reflection-prompts': 'اسئلة الانعكاس',
+                'refl-p1-title': 'كيف تغير فهمك لقواعد البيانات من خلال هذا المختبر؟',
+                'refl-p1': 'قارن توقعاتك الأولية بما تعلمته.',
+                'refl-p2-title': 'ما أقوى ميزات Neo4j بالنسبة لك؟',
+                'refl-p2': 'فكر في مطابقة الأنماط وعبور العلاقات.',
+                'refl-p3-title': 'ما مشكلة العمل التي ستحلها بقاعدة بيانات رسومية؟',
+                'refl-p3': 'فكر في ما هو أبعد من التجارة الإلكترونية.',
+                'h-real-world': 'Neo4j في العالم الحقيقي',
+                'rw-social-title': 'الشبكات الاجتماعية',
+                'rw-social': 'Facebook و LinkedIn: توصيات الأصدقاء والاتصالات المتبادلة.',
+                'rw-fraud-title': 'كشف الاحتيال',
+                'rw-fraud': 'PayPal و eBay: كشف حلقات الاحتيال من خلال أنماط العلاقات.',
+                'rw-knowledge-title': 'الرسوم البيانية للمعرفة',
+                'rw-knowledge': 'Google و Wikipedia: ربط الكيانات والمفاهيم.',
+                'rw-infrastructure-title': 'البنية التحتية للشبكة وتكنولوجيا المعلومات',
+                'rw-infrastructure': 'موفرو السحابة والاتصالات: رسم خريطة البنية التحتية.',
+                'rw-supply-title': 'تحسين سلسلة التوريد',
+                'rw-supply': 'الخدمات اللوجستية والتصنيع: نمذجة الموردين والمنتجات.',
+            },
+            uk: {
+                'nav-mission': 'Місія та контекст',
+                'nav-challenges': 'Прогресивні завдання',
+                'nav-self-check': 'Питання самоперевірки',
+                'nav-reflection': 'Рефлексія та реальні застосування',
+                'h-mission': 'Ваша місія',
+                'mission-title': 'Розуміння відносин у великому масштабі',
+                'mission-p1': 'Команда маркетингу MegaStore виявила, що розуміння зв'язків між клієнтами, продуктами та закономірностями покупок є ключем до зростання. Традиційні SQL-бази даних борються зі складними запитами про відносини.',
+                'mission-p2': 'Використовуйте графову базу даних Neo4j для виявлення прихованих зв'язків і побудови розумних рекомендацій.',
+                'mission-your-job': 'Ваше завдання:',
+                'mission-job-desc': 'Використовуйте графову базу даних Neo4j для виявлення прихованих зв'язків і побудови розумних рекомендацій.',
+                'mission-key-questions': 'Ключові питання:',
+                'mission-q1': 'Які клієнти впливають на інших?',
+                'mission-q2': 'Які шляхи покупок ведуть до цінних клієнтів?',
+                'mission-q3': 'Як категорії продуктів пов'язані через поведінку покупок?',
+                'h-challenges': 'Прогресивні завдання',
+                'challenges-intro': 'Оволодійте Neo4j, розв'язуючи все більш складні проблеми.',
+                'challenge-l1-title': 'Рівень 1 - Вступ (Початківець)',
+                'challenge-l1-badge': 'Початківець',
+                'challenge-l1-desc': 'Знайдіть всіх клієнтів, які купили продукти в категорії Електроніка і також залишили рецензію з рейтингом >= 4',
+                'challenge-l1-hyp-title': 'Гіпотеза:',
+                'challenge-l1-hyp': 'Який відсоток покупців електроніки залишають позитивні рецензії?',
+                'challenge-l1-insight-title': 'Ділова інформація:',
+                'challenge-l1-insight': 'Визначення задоволених клієнтів є ключем до маркетингу свідоцтв.',
+                'challenge-l2-title': 'Рівень 2 - Поглиблення (Середній)',
+                'challenge-l2-badge': 'Середній',
+                'challenge-l2-desc': 'Знайдіть класичний шаблон рекомендацій: "Клієнти, які купили X, також купили Y"',
+                'challenge-l2-hyp-title': 'Гіпотеза:',
+                'challenge-l2-hyp': 'Якщо клієнт купує ноутбук, які інші продукти він, ймовірно, купить?',
+                'challenge-l2-context-title': 'Ділова контекст:',
+                'challenge-l2-context': 'Рекомендації на основі графів перевершують спільну фільтрацію для розріджених наборів даних.',
+                'challenge-l2-hint': 'Підказка: Використовуйте MATCH для пошуку клієнтів, які купили продукт X.',
+                'challenge-l3-title': 'Рівень 3 - Просунутий (Розширений)',
+                'challenge-l3-badge': 'Розширений',
+                'challenge-l3-desc': 'Визначте впливових клієнтів: знайдіть клієнтів, чиї покупки найчастіше впливають на інших',
+                'challenge-l3-hyp-title': 'Гіпотеза:',
+                'challenge-l3-hyp': 'Які клієнти є трендсетерами? Чи впливають їхні рішення про покупку на інших?',
+                'challenge-l3-context-title': 'Ділова контекст:',
+                'challenge-l3-context': 'Визначення впливових осіб сприяє маркетингу з уст в уста.',
+                'challenge-l3-hint': 'Пошук клієнтів, пов'язаних через покупки.',
+                'challenge-l4-title': 'Рівень 4 - Боротьба з босом',
+                'challenge-l4-badge': 'Рівень босса',
+                'challenge-l4-desc': 'Побудуйте систему виявлення шахрайства: знайдіть підозрілі закономірності',
+                'challenge-l4-hyp-title': 'Виклик:',
+                'challenge-l4-hyp': 'Чи можете ви розробити запит Cypher для виявлення потенційних шахрайських банд?',
+                'challenge-l4-context-title': 'Ділова контекст:',
+                'challenge-l4-context': 'Графові бази даних є інструментом №1 для виявлення шахрайства в PayPal та eBay.',
+                'challenge-l4-hint': 'Тільки концепція: немає рішення для цього виклику.',
+                'h-self-check': 'Питання самоперевірки',
+                'self-check-intro': 'Перевірте своє розуміння ключових концепцій.',
+                'sc-q1': 'Що таке вузол і відносина в Neo4j?',
+                'sc-a1': 'Вузол представляє сутність з мітками та властивостями. Відносина - це типізований зв'язок між вузлами.',
+                'sc-q2': 'Чим clauses MATCH у Cypher відрізняється від SELECT у SQL?',
+                'sc-a2': 'MATCH знаходить шаблони в графі. SELECT отримує стовпці з таблиць.',
+                'sc-q3': 'Коли графова база даних краща за реляційну базу даних?',
+                'sc-a3': 'Графові бази даних відмінно працюють з дуже пов'язаними даними.',
+                'sc-q4': 'Що таке обхід графа і чому він швидкий у Neo4j?',
+                'sc-a4': 'Обхід графа означає дотримання відносин від вузла до вузла.',
+                'sc-q5': 'Що робить команда MERGE у Cypher?',
+                'sc-a5': 'MERGE - це ідемпотентна операція: створює вузол, якщо він не існує, або відповідає йому.',
+                'h-reflection': 'Рефлексія та реальні застосування',
+                'h-reflection-prompts': 'Питання для рефлексії',
+                'refl-p1-title': 'Як змінилося ваше розуміння баз даних через цю лабораторну роботу?',
+                'refl-p1': 'Порівняйте свої початкові очікування з тим, що ви дізналися.',
+                'refl-p2-title': 'Які функції Neo4j були для вас найбільш потужними?',
+                'refl-p2': 'Розмірковуйте про зіставлення шаблонів і обхід відносин.',
+                'refl-p3-title': 'Яку бізнес-проблему ви вирішили б за допомогою графової бази даних?',
+                'refl-p3': 'Подумайте за межами електронної комерції.',
+                'h-real-world': 'Neo4j у реальному світі',
+                'rw-social-title': 'Соціальні мережі',
+                'rw-social': 'Facebook, LinkedIn: рекомендації друзів та взаємні зв'язки через запити графів.',
+                'rw-fraud-title': 'Виявлення шахрайства',
+                'rw-fraud': 'PayPal, eBay: виявлення шахрайських банд через аналіз графів зв'язків.',
+                'rw-knowledge-title': 'Графи знань',
+                'rw-knowledge': 'Google, Wikipedia: з'єднання сутностей та концепцій через графи знань.',
+                'rw-infrastructure-title': 'Мережева та IT-інфраструктура',
+                'rw-infrastructure': 'Хмарні провайдери, телекомунікації: аналіз залежностей сервісів як графу.',
+                'rw-supply-title': 'Оптимізація ланцюга поставок',
+                'rw-supply': 'Логістика, виробництво: моделювання поставок та маршрутів як графу.',
+            },
+            es: {
+                'nav-mission': 'Misión y contexto',
+                'nav-challenges': 'Desafíos progresivos',
+                'nav-self-check': 'Preguntas de autoevaluación',
+                'nav-reflection': 'Reflexión y aplicaciones del mundo real',
+                'h-mission': 'Tu misión',
+                'mission-title': 'Comprender las relaciones a escala',
+                'mission-p1': 'El equipo de marketing de MegaStore descubrió que comprender las relaciones entre clientes, productos y patrones de compra es clave para el crecimiento. Las bases de datos SQL tradicionales luchan con consultas complejas de relaciones.',
+                'mission-p2': 'Utiliza la base de datos de gráficos Neo4j para descubrir conexiones ocultas y construir recomendaciones inteligentes.',
+                'mission-your-job': 'Tu trabajo:',
+                'mission-job-desc': 'Utiliza la base de datos de gráficos Neo4j para descubrir conexiones ocultas y construir recomendaciones inteligentes.',
+                'mission-key-questions': 'Preguntas clave:',
+                'mission-q1': '¿Qué clientes influyen en otros?',
+                'mission-q2': '¿Qué caminos de compra conducen a clientes de alto valor?',
+                'mission-q3': '¿Cómo se conectan las categorías de productos a través del comportamiento de compra?',
+                'h-challenges': 'Desafíos progresivos',
+                'challenges-intro': 'Domina Neo4j resolviendo problemas cada vez más complejos.',
+                'challenge-l1-title': 'Nivel 1 - Introducción (Principiante)',
+                'challenge-l1-badge': 'Principiante',
+                'challenge-l1-desc': 'Encuentra todos los clientes que compraron productos en la categoría Electrónica y también dejaron una reseña con calificación >= 4',
+                'challenge-l1-hyp-title': 'Hipótesis:',
+                'challenge-l1-hyp': '¿Qué porcentaje de compradores de electrónica dejan reseñas positivas?',
+                'challenge-l1-insight-title': 'Perspectiva empresarial:',
+                'challenge-l1-insight': 'Identificar clientes satisfechos es clave para el marketing de testimonios.',
+                'challenge-l2-title': 'Nivel 2 - Profundización (Intermedio)',
+                'challenge-l2-badge': 'Intermedio',
+                'challenge-l2-desc': 'Encuentra el patrón de recomendación clásico: "Los clientes que compraron X también compraron Y"',
+                'challenge-l2-hyp-title': 'Hipótesis:',
+                'challenge-l2-hyp': 'Si un cliente compra un portátil, ¿qué otros productos probablemente compraría?',
+                'challenge-l2-context-title': 'Contexto empresarial:',
+                'challenge-l2-context': 'Las recomendaciones basadas en gráficos superan al filtrado colaborativo para conjuntos de datos dispersos.',
+                'challenge-l2-hint': 'Pista: Usa MATCH para encontrar clientes que compraron el producto X.',
+                'challenge-l3-title': 'Nivel 3 - Avanzado',
+                'challenge-l3-badge': 'Avanzado',
+                'challenge-l3-desc': 'Identifica clientes influyentes: encuentra clientes cuyas compras influyen más frecuentemente en otros',
+                'challenge-l3-hyp-title': 'Hipótesis:',
+                'challenge-l3-hyp': '¿Qué clientes actúan como tendencias? ¿Sus decisiones de compra influyen en otros?',
+                'challenge-l3-context-title': 'Contexto empresarial:',
+                'challenge-l3-context': 'Identificar influyentes impulsa el marketing de boca en boca.',
+                'challenge-l3-hint': 'Busca clientes conectados a través de compras.',
+                'challenge-l4-title': 'Nivel 4 - Desafío del Boss',
+                'challenge-l4-badge': 'Nivel Boss',
+                'challenge-l4-desc': 'Construye un sistema de detección de fraude: encuentra patrones sospechosos',
+                'challenge-l4-hyp-title': 'Desafío:',
+                'challenge-l4-hyp': '¿Puedes diseñar una consulta Cypher para detectar posibles redes de fraude?',
+                'challenge-l4-context-title': 'Contexto empresarial:',
+                'challenge-l4-context': 'Las bases de datos de gráficos son la herramienta #1 para la detección de fraude en PayPal y eBay.',
+                'challenge-l4-hint': 'Solo concepto: No hay solución para este desafío.',
+                'h-self-check': 'Preguntas de autoevaluación',
+                'self-check-intro': 'Prueba tu comprensión de conceptos clave.',
+                'sc-q1': '¿Qué es un nodo y qué es una relación en Neo4j?',
+                'sc-a1': 'Un nodo representa una entidad con etiquetas y propiedades. Una relación es una conexión tipificada entre nodos.',
+                'sc-q2': '¿Cómo difiere la cláusula MATCH de Cypher del SELECT de SQL?',
+                'sc-a2': 'MATCH encuentra patrones en el gráfico. SELECT obtiene columnas de tablas.',
+                'sc-q3': '¿Cuándo es una base de datos de gráficos mejor que una base de datos relacional?',
+                'sc-a3': 'Las bases de datos de gráficos se destacan con datos altamente conectados.',
+                'sc-q4': '¿Qué es el recorrido de gráficos y por qué es rápido en Neo4j?',
+                'sc-a4': 'El recorrido de gráficos significa seguir relaciones de nodo a nodo.',
+                'sc-q5': '¿Qué hace el comando MERGE en Cypher?',
+                'sc-a5': 'MERGE es una operación idempotente: crea un nodo si no existe, o lo coincide si existe.',
+                'h-reflection': 'Reflexión y aplicaciones del mundo real',
+                'h-reflection-prompts': 'Preguntas para reflexión',
+                'refl-p1-title': '¿Cómo cambió tu comprensión de las bases de datos a través de este laboratorio?',
+                'refl-p1': 'Compara tus expectativas iniciales con lo que aprendiste.',
+                'refl-p2-title': '¿Cuáles fueron las características más poderosas de Neo4j para ti?',
+                'refl-p2': 'Reflexiona sobre coincidencia de patrones y recorrido de relaciones.',
+                'refl-p3-title': '¿Qué problema empresarial resolverías con una base de datos de gráficos?',
+                'refl-p3': 'Piensa más allá del comercio electrónico.',
+                'h-real-world': 'Neo4j en el mundo real',
+                'rw-social-title': 'Redes sociales',
+                'rw-social': 'Facebook, LinkedIn: recomendaciones de amigos y conexiones mutuas a través de consultas de gráficos.',
+                'rw-fraud-title': 'Detección de fraude',
+                'rw-fraud': 'PayPal, eBay: detección de redes de fraude a través de análisis de patrones de relaciones.',
+                'rw-knowledge-title': 'Gráficos de conocimiento',
+                'rw-knowledge': 'Google, Wikipedia: conectar entidades y conceptos a través de gráficos de conocimiento.',
+                'rw-infrastructure-title': 'Infraestructura de red e IT',
+                'rw-infrastructure': 'Proveedores de nube, telecomunicaciones: análisis de dependencias de servicios como un gráfico.',
+                'rw-supply-title': 'Optimización de cadena de suministro',
+                'rw-supply': 'Logística, fabricación: modelar proveedores y rutas como un gráfico.',
+            },
+            tr: {
+                'nav-mission': 'Görev ve İçerik',
+                'nav-challenges': 'Kademeli Zorluklar',
+                'nav-self-check': 'Öz-Kontrol Soruları',
+                'nav-reflection': 'Yansıtma ve Gerçek Dünya',
+                'h-mission': 'Göreviniz',
+                'mission-title': 'İlişkileri Ölçekte Anlamak',
+                'mission-p1': 'MegaStore pazarlama ekibi, müşteriler, ürünler ve satın alma kalıpları arasındaki ilişkileri anlamanın büyüme için anahtar olduğunu keşfetti. Geleneksel SQL veritabanları karmaşık ilişki sorguları ile mücadele ediyor.',
+                'mission-p2': 'Neo4j grafik veritabanını kullanarak gizli bağlantıları ortaya çıkarın ve akıllı önerileri oluşturun.',
+                'mission-your-job': 'Göreviniz:',
+                'mission-job-desc': 'Neo4j grafik veritabanını kullanarak gizli bağlantıları ortaya çıkarın ve akıllı önerileri oluşturun.',
+                'mission-key-questions': 'Temel Sorular:',
+                'mission-q1': 'Hangi müşteriler diğerlerini etkiliyor?',
+                'mission-q2': 'Hangi satın alma yolları yüksek değerli müşterilere yol açıyor?',
+                'mission-q3': 'Ürün kategorileri satın alma davranışı ile nasıl bağlantılı?',
+                'h-challenges': 'Kademeli Zorluklar',
+                'challenges-intro': 'Giderek karmaşık sorunlar çözerek Neo4j-u ustalaştırın.',
+                'challenge-l1-title': 'Seviye 1 - Başlangıç (Başlangıç)',
+                'challenge-l1-badge': 'Başlangıç',
+                'challenge-l1-desc': 'Elektronik kategorisinde ürün satın alan ve >= 4 derecelendirilmiş bir inceleme bırakan tüm müşterileri bulun',
+                'challenge-l1-hyp-title': 'Hipotez:',
+                'challenge-l1-hyp': 'Elektronik alıcılarının yüzde kaçı olumlu incelemeler bırakıyor?',
+                'challenge-l1-insight-title': 'İş Insight:',
+                'challenge-l1-insight': 'Memnun müşterileri belirlemek tanıtım pazarlaması için anahtardır.',
+                'challenge-l2-title': 'Seviye 2 - Derinlemesine (Orta Seviye)',
+                'challenge-l2-badge': 'Orta Seviye',
+                'challenge-l2-desc': 'Klasik tavsiye modelini bulun: "X satın alanlar ayrıca Y satın aldılar"',
+                'challenge-l2-hyp-title': 'Hipotez:',
+                'challenge-l2-hyp': 'Bir müşteri dizüstü bilgisayar satın alırsa, başka hangi ürünleri satın almak isteyebilir?',
+                'challenge-l2-context-title': 'İş İçeriği:',
+                'challenge-l2-context': 'Grafik tabanlı öneriler seyrek veri setleri için işbirlikçi filtrelemeden daha üstündür.',
+                'challenge-l2-hint': 'İpucu: Ürün X satın alan müşterileri bulmak için MATCH kullanın.',
+                'challenge-l3-title': 'Seviye 3 - Gelişmiş',
+                'challenge-l3-badge': 'Gelişmiş',
+                'challenge-l3-desc': 'Etkileyici müşterileri belirleyin: satın almalarını en sık diğerlerini etkileyen müşterileri bulun',
+                'challenge-l3-hyp-title': 'Hipotez:',
+                'challenge-l3-hyp': 'Hangi müşteriler trend belirleyici olarak hareket ediyor?',
+                'challenge-l3-context-title': 'İş İçeriği:',
+                'challenge-l3-context': 'Etkileyici tanımlama ağızdan ağıza pazarlamayı sürüyor.',
+                'challenge-l3-hint': 'Satın almalar aracılığıyla bağlantılı müşterileri bulun.',
+                'challenge-l4-title': 'Seviye 4 - Boss Zorluğu',
+                'challenge-l4-badge': 'Boss Seviyesi',
+                'challenge-l4-desc': 'Bir sahtecilik tespit sistemi oluşturun: şüpheli kalıpları bulun',
+                'challenge-l4-hyp-title': 'Meydan Okuma:',
+                'challenge-l4-hyp': 'Potansiyel sahtecilik çetelerini tespit etmek için bir Cypher sorgusu tasarlayabilir misiniz?',
+                'challenge-l4-context-title': 'İş İçeriği:',
+                'challenge-l4-context': 'Grafik veritabanları PayPal ve eBay'de sahtecilik tespiti için #1 araçtır.',
+                'challenge-l4-hint': 'Sadece konsept: Bu zorluk için çözüm yok.',
+                'h-self-check': 'Öz-Kontrol Soruları',
+                'self-check-intro': 'Temel kavramları anlayışınızı test edin.',
+                'sc-q1': 'Neo4j'da düğüm ve ilişki nedir?',
+                'sc-a1': 'Bir düğüm etiketleri ve özellikleri olan bir varlığı temsil eder. Bir ilişki düğümler arasında yazılı bir bağlantıdır.',
+                'sc-q2': 'Cypher'in MATCH cümlesi SQL'in SELECT'inden nasıl farklı?',
+                'sc-a2': 'MATCH grafikte desenleri bulur. SELECT tablodan sütunları alır.',
+                'sc-q3': 'Bir grafik veritabanı ne zaman ilişkisel bir veritabanından daha iyi?',
+                'sc-a3': 'Grafik veritabanları yüksek bağlantılı verilerle parlıyor.',
+                'sc-q4': 'Grafik geçişi nedir ve neden Neo4j'de hızlıdır?',
+                'sc-a4': 'Grafik geçişi düğümden düğüme ilişkiyi takip etmek anlamına gelir.',
+                'sc-q5': 'Cypher'de MERGE komutu ne yapar?',
+                'sc-a5': 'MERGE bir idempotent işlemdir: yoksa düğüm oluşturur, varsa eşleşir.',
+                'h-reflection': 'Yansıtma ve Gerçek Dünya Uygulamaları',
+                'h-reflection-prompts': 'Yansıtma Soruları',
+                'refl-p1-title': 'Bu laboratuvar aracılığıyla veritabanları hakkındaki anlayışınız nasıl değişti?',
+                'refl-p1': 'İlk beklentilerinizi öğrendiğiniz şeylerle karşılaştırın.',
+                'refl-p2-title': 'Neo4j'nin hangi özellikleri sizin için en güçlüydü?',
+                'refl-p2': 'Desen eşleştirmesi ve ilişki geçişini düşünün.',
+                'refl-p3-title': 'Bir grafik veritabanı ile hangi iş problemini çözersiniz?',
+                'refl-p3': 'E-ticaretin ötesini düşünün.',
+                'h-real-world': 'Gerçek Dünya'da Neo4j',
+                'rw-social-title': 'Sosyal Ağlar',
+                'rw-social': 'Facebook, LinkedIn: grafik sorguları aracılığıyla arkadaş önerileri ve karşılıklı bağlantılar.',
+                'rw-fraud-title': 'Sahtecilik Tespiti',
+                'rw-fraud': 'PayPal, eBay: ilişki kalıplarının analizi aracılığıyla sahtecilik çetelerinin tespiti.',
+                'rw-knowledge-title': 'Bilgi Grafikleri',
+                'rw-knowledge': 'Google, Wikipedia: bilgi grafikleri aracılığıyla varlıkları ve kavramları bağlamak.',
+                'rw-infrastructure-title': 'Ağ ve BT Altyapısı',
+                'rw-infrastructure': 'Bulut sağlayıcıları, telekomünikasyon: hizmet bağımlılıklarının bir grafik olarak analizi.',
+                'rw-supply-title': 'Tedarik Zinciri Optimizasyonu',
+                'rw-supply': 'Lojistik, imalat: tedarikçileri ve rotaları bir grafik olarak modellemek.',
+            }            }
         };
 
         // Arabic translations would be added here (due to length, continuing in next message)
