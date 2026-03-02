@@ -505,10 +505,7 @@
                     setup: {
                         title: "Setup & Installation",
                         subtitle1: "Docker-Umgebung starten",
-                        docker: `docker run -it --rm -p 8888:8888 \
-  -v $(pwd)/data:/home/jovyan/data \
-  jupyter/scipy-notebook:latest \
-  start-notebook.sh --NotebookApp.token=''`,
+                        docker: "docker run -it --rm -p 8888:8888 \\\n  -v $(pwd)/data:/home/jovyan/data \\\n  jupyter/scipy-notebook:latest \\\n  start-notebook.sh --NotebookApp.token=''",
                         subtitle2: "DuckDB im Notebook installieren",
                         install: `# Im Jupyter Notebook ausführen
 !pip install duckdb`,
@@ -700,10 +697,7 @@ ORDER BY month DESC`,
                     setup: {
                         title: "Setup & Installation",
                         subtitle1: "Start Docker environment",
-                        docker: `docker run -it --rm -p 8888:8888 \
-  -v $(pwd)/data:/home/jovyan/data \
-  jupyter/scipy-notebook:latest \
-  start-notebook.sh --NotebookApp.token=''`,
+                        docker: "docker run -it --rm -p 8888:8888 \\\n  -v $(pwd)/data:/home/jovyan/data \\\n  jupyter/scipy-notebook:latest \\\n  start-notebook.sh --NotebookApp.token=''",
                         subtitle2: "Install DuckDB in Notebook",
                         install: `# Run in Jupyter Notebook
 !pip install duckdb`,
@@ -893,10 +887,7 @@ ORDER BY month DESC`,
                     setup: {
                         title: "الإعداد والتثبيت",
                         subtitle1: "بدء بيئة Docker",
-                        docker: `docker run -it --rm -p 8888:8888 \
-  -v $(pwd)/data:/home/jovyan/data \
-  jupyter/scipy-notebook:latest \
-  start-notebook.sh --NotebookApp.token=''`,
+                        docker: "docker run -it --rm -p 8888:8888 \\\n  -v $(pwd)/data:/home/jovyan/data \\\n  jupyter/scipy-notebook:latest \\\n  start-notebook.sh --NotebookApp.token=''",
                         subtitle2: "تثبيت DuckDB في Notebook",
                         install: `# تشغيل في Jupyter Notebook
 !pip install duckdb`,
@@ -1069,10 +1060,7 @@ con.execute("SELECT 42 as answer").fetchall()`
                     setup: {
                         title: "Налаштування та встановлення",
                         subtitle1: "Запустити середовище Docker",
-                        docker: `docker run -it --rm -p 8888:8888 \
-  -v $(pwd)/data:/home/jovyan/data \
-  jupyter/scipy-notebook:latest \
-  start-notebook.sh --NotebookApp.token=''`,
+                        docker: "docker run -it --rm -p 8888:8888 \\\n  -v $(pwd)/data:/home/jovyan/data \\\n  jupyter/scipy-notebook:latest \\\n  start-notebook.sh --NotebookApp.token=''",
                         subtitle2: "Встановити DuckDB у Notebook",
                         install: `# Запустити в Jupyter Notebook
 !pip install duckdb`,
@@ -1246,10 +1234,7 @@ con.execute("SELECT 42 as answer").fetchall()`
                     setup: {
                         title: "Configuración e instalación",
                         subtitle1: "Iniciar entorno Docker",
-                        docker: `docker run -it --rm -p 8888:8888 \
-  -v $(pwd)/data:/home/jovyan/data \
-  jupyter/scipy-notebook:latest \
-  start-notebook.sh --NotebookApp.token=''`,
+                        docker: "docker run -it --rm -p 8888:8888 \\\n  -v $(pwd)/data:/home/jovyan/data \\\n  jupyter/scipy-notebook:latest \\\n  start-notebook.sh --NotebookApp.token=''",
                         subtitle2: "Instalar DuckDB en Notebook",
                         install: `# Ejecutar en Jupyter Notebook
 !pip install duckdb`,
@@ -1423,10 +1408,7 @@ con.execute("SELECT 42 as answer").fetchall()`
                     setup: {
                         title: "Kurulum ve İnstallasyon",
                         subtitle1: "Docker ortamını başlat",
-                        docker: `docker run -it --rm -p 8888:8888 \
-  -v $(pwd)/data:/home/jovyan/data \
-  jupyter/scipy-notebook:latest \
-  start-notebook.sh --NotebookApp.token=''`,
+                        docker: "docker run -it --rm -p 8888:8888 \\\n  -v $(pwd)/data:/home/jovyan/data \\\n  jupyter/scipy-notebook:latest \\\n  start-notebook.sh --NotebookApp.token=''",
                         subtitle2: "DuckDB'yi Notebook'a kur",
                         install: `# Jupyter Notebook'ta çalıştır
 !pip install duckdb`,
@@ -2253,10 +2235,7 @@ EXPLAIN SELECT * FROM large_table WHERE condition;
 -- Index oder Parquet-Partitionierung verwenden
 -- DuckDB optimiert automatisch, aber präfiltern hilft`} />
                                 <h3>{currentLang === 'de' ? 'Docker-Port-Konflikt' : 'Docker port conflict'}</h3>
-                                <CodeBlock language="bash" code={`# Anderen Port verwenden
-docker run -it --rm -p 8889:8888 \\
-  -v $(pwd)/data:/home/jovyan/data \\
-  jupyter/scipy-notebook:latest`} />
+                                <CodeBlock language="bash" code={"# Anderen Port verwenden\ndocker run -it --rm -p 8889:8888 \\\n  -v $(pwd)/data:/home/jovyan/data \\\n  jupyter/scipy-notebook:latest"} />
                             </div>
                         )}
 
