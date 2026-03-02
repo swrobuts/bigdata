@@ -26,9 +26,24 @@
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
 
+        .navbar button {
+            color: #E8792F;
+        }
+
+        .navbar button:hover {
+            color: #f0a853;
+        }
+
+        #langSelect {
+            background-color: white;
+            color: #1B3A5C;
+            padding: 0.5rem 0.75rem;
+        }
+
         .hero-section {
-            background: #1B3A5C;
+            background: linear-gradient(135deg, #1B3A5C 0%, #2D5A7B 100%);
             color: white;
+            border-radius: 0.5rem;
         }
 
         .accent-orange {
@@ -45,7 +60,7 @@
 
         .code-block {
             position: relative;
-            background: #1e1e1e;
+            background: #2d2d2d;
             border-radius: 8px;
             overflow: hidden;
         }
@@ -71,6 +86,8 @@
         .sidebar {
             max-height: calc(100vh - 80px);
             overflow-y: auto;
+            background-color: #f8f9fa;
+            border-right: 1px solid #e5e7eb;
         }
 
         .nav-link {
@@ -144,10 +161,10 @@
         }
 
         .learning-goal {
-            background: #f0f9ff;
-            border-left: 4px solid var(--orange);
-            padding: 16px;
-            margin: 12px 0;
+            background: #f0f4f8;
+            border-left: 4px solid #E8792F;
+            padding: 1rem;
+            margin-bottom: 1rem;
             border-radius: 4px;
         }
 
@@ -261,6 +278,19 @@
             color: white;
         }
 
+        h2 {
+            color: #1B3A5C;
+            border-left: 4px solid #E8792F;
+            padding-left: 1rem;
+        }
+
+        [dir="rtl"] h2 {
+            border-left: none;
+            border-right: 4px solid #E8792F;
+            padding-left: 0;
+            padding-right: 1rem;
+        }
+
     </style>
 </head>
 <body dir="ltr" class="bg-gray-50">
@@ -272,7 +302,7 @@
                 <span id="backText">Back to Overview</span>
             </button>
             <h1 class="text-xl font-bold">Apache Spark Lab</h1>
-            <select id="langSelect" onchange="changeLanguage(this.value)" class="bg-gray-700 text-white px-3 py-2 rounded border-gray-600">
+            <select id="langSelect" onchange="changeLanguage(this.value)" class="bg-white text-gray-900 px-3 py-2 rounded border-gray-300 border">
                 <option value="de">Deutsch</option>
                 <option value="en">English</option>
                 <option value="ar">العربية</option>
@@ -285,7 +315,7 @@
 
     <div class="flex max-w-7xl mx-auto">
         <!-- Sidebar -->
-        <aside class="w-64 bg-white border-r border-gray-200 sidebar hidden lg:block">
+        <aside class="w-64 sidebar hidden lg:block">
             <div class="sticky top-20">
                 <nav class="p-4 space-y-1">
                     <a href="#hero" class="nav-link active">Hero</a>
