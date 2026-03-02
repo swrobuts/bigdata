@@ -507,17 +507,9 @@
                         subtitle1: "Docker-Umgebung starten",
                         docker: "docker run -it --rm -p 8888:8888 \\\n  -v $(pwd)/data:/home/jovyan/data \\\n  jupyter/scipy-notebook:latest \\\n  start-notebook.sh --NotebookApp.token=''",
                         subtitle2: "DuckDB im Notebook installieren",
-                        install: `# Im Jupyter Notebook ausführen
-!pip install duckdb`,
+                        install: "# Im Jupyter Notebook ausführen\n!pip install duckdb",
                         subtitle3: "Verifikation",
-                        verify: `import duckdb
-
-# DuckDB-Version prüfen
-print(duckdb.__version__)
-
-# Verbindung testen
-con = duckdb.connect(':memory:')
-con.execute("SELECT 42 as answer").fetchall()`
+                        verify: "import duckdb\n\n# DuckDB-Version prüfen\nprint(duckdb.__version__)\n\n# Verbindung testen\ncon = duckdb.connect(':memory:')\ncon.execute(\"SELECT 42 as answer\").fetchall()"
                     },
                     theory: {
                         title: "Theorie",
@@ -609,15 +601,7 @@ con.execute("SELECT 42 as answer").fetchall()`
                         level1Task: "Berechnen Sie den durchschnittlichen Bestellwert pro Monat für das letzte Jahr",
                         level1Hypothesis: "Hypothesis: In welchen Monaten erwarten Sie höhere Werte? Black Friday? Weihnachten?",
                         level1Solution: "Vollständige SQL-Lösung:",
-                        level1Code: `SELECT
-    DATE_TRUNC('month', order_date) as month,
-    AVG(total_amount) as avg_order_value,
-    COUNT(*) as order_count,
-    SUM(total_amount) as total_revenue
-FROM orders
-WHERE order_date >= CURRENT_DATE - INTERVAL '1 year'
-GROUP BY DATE_TRUNC('month', order_date)
-ORDER BY month DESC`,
+                        level1Code: "SELECT\n    DATE_TRUNC('month', order_date) as month,\n    AVG(total_amount) as avg_order_value,\n    COUNT(*) as order_count,\n    SUM(total_amount) as total_revenue\nFROM orders\nWHERE order_date >= CURRENT_DATE - INTERVAL '1 year'\nGROUP BY DATE_TRUNC('month', order_date)\nORDER BY month DESC",
                         level1Insight: "Business-Einblick: Saisonale Muster beeinflussen Lagerbestände und Marketingplanung",
                         level2Title: "Level 2 - Vertiefung",
                         level2Task: "Berechnen Sie den Customer Lifetime Value (CLV) für die Top 100 Kunden und identifizieren Sie gemeinsame Merkmale",
@@ -699,17 +683,9 @@ ORDER BY month DESC`,
                         subtitle1: "Start Docker environment",
                         docker: "docker run -it --rm -p 8888:8888 \\\n  -v $(pwd)/data:/home/jovyan/data \\\n  jupyter/scipy-notebook:latest \\\n  start-notebook.sh --NotebookApp.token=''",
                         subtitle2: "Install DuckDB in Notebook",
-                        install: `# Run in Jupyter Notebook
-!pip install duckdb`,
+                        install: "# Run in Jupyter Notebook\n!pip install duckdb",
                         subtitle3: "Verification",
-                        verify: `import duckdb
-
-# Check DuckDB version
-print(duckdb.__version__)
-
-# Test connection
-con = duckdb.connect(':memory:')
-con.execute("SELECT 42 as answer").fetchall()`
+                        verify: "import duckdb\n\n# Check DuckDB version\nprint(duckdb.__version__)\n\n# Test connection\ncon = duckdb.connect(':memory:')\ncon.execute(\"SELECT 42 as answer\").fetchall()"
                     },
                     theory: {
                         title: "Theory",
@@ -800,15 +776,7 @@ con.execute("SELECT 42 as answer").fetchall()`
                         level1Task: "Calculate the average order value per month for the last year",
                         level1Hypothesis: "Hypothesis: Which months do you expect higher AOV? Black Friday? Christmas?",
                         level1Solution: "Full SQL Solution:",
-                        level1Code: `SELECT
-    DATE_TRUNC('month', order_date) as month,
-    AVG(total_amount) as avg_order_value,
-    COUNT(*) as order_count,
-    SUM(total_amount) as total_revenue
-FROM orders
-WHERE order_date >= CURRENT_DATE - INTERVAL '1 year'
-GROUP BY DATE_TRUNC('month', order_date)
-ORDER BY month DESC`,
+                        level1Code: "SELECT\n    DATE_TRUNC('month', order_date) as month,\n    AVG(total_amount) as avg_order_value,\n    COUNT(*) as order_count,\n    SUM(total_amount) as total_revenue\nFROM orders\nWHERE order_date >= CURRENT_DATE - INTERVAL '1 year'\nGROUP BY DATE_TRUNC('month', order_date)\nORDER BY month DESC",
                         level1Insight: "Business Insight: Seasonal patterns drive inventory and marketing planning",
                         level2Title: "Level 2 - Deepening",
                         level2Task: "Find the customer lifetime value (CLV) for the top 100 customers and identify common characteristics",
@@ -889,17 +857,9 @@ ORDER BY month DESC`,
                         subtitle1: "بدء بيئة Docker",
                         docker: "docker run -it --rm -p 8888:8888 \\\n  -v $(pwd)/data:/home/jovyan/data \\\n  jupyter/scipy-notebook:latest \\\n  start-notebook.sh --NotebookApp.token=''",
                         subtitle2: "تثبيت DuckDB في Notebook",
-                        install: `# تشغيل في Jupyter Notebook
-!pip install duckdb`,
+                        install: "# تشغيل في Jupyter Notebook\n!pip install duckdb",
                         subtitle3: "التحقق",
-                        verify: `import duckdb
-
-# التحقق من إصدار DuckDB
-print(duckdb.__version__)
-
-# اختبار الاتصال
-con = duckdb.connect(':memory:')
-con.execute("SELECT 42 as answer").fetchall()`
+                        verify: "import duckdb\n\n# التحقق من إصدار DuckDB\nprint(duckdb.__version__)\n\n# اختبار الاتصال\ncon = duckdb.connect(':memory:')\ncon.execute(\"SELECT 42 as answer\").fetchall()"
                     },
                     theory: {
                         title: "النظرية",
@@ -985,7 +945,7 @@ con.execute("SELECT 42 as answer").fetchall()`
                         level1Task: "احسب متوسط قيمة الطلب",
                         level1Hypothesis: "الفرضية: في أي أشهر تتوقع قيماً أعلى؟",
                         level1Solution: "الحل:",
-                        level1Code: `SELECT DATE_TRUNC('month', order_date) as month, AVG(total_amount) as avg_order_value FROM orders GROUP BY DATE_TRUNC('month', order_date)`,
+                        level1Code: "SELECT DATE_TRUNC('month', order_date) as month, AVG(total_amount) as avg_order_value FROM orders GROUP BY DATE_TRUNC('month', order_date)",
                         level1Insight: "رؤية العمل: تدفع الأنماط الموسمية التخطيط",
                         level2Title: "المستوى 2",
                         level2Task: "ابحث عن CLV",
@@ -1062,17 +1022,9 @@ con.execute("SELECT 42 as answer").fetchall()`
                         subtitle1: "Запустити середовище Docker",
                         docker: "docker run -it --rm -p 8888:8888 \\\n  -v $(pwd)/data:/home/jovyan/data \\\n  jupyter/scipy-notebook:latest \\\n  start-notebook.sh --NotebookApp.token=''",
                         subtitle2: "Встановити DuckDB у Notebook",
-                        install: `# Запустити в Jupyter Notebook
-!pip install duckdb`,
+                        install: "# Запустити в Jupyter Notebook\n!pip install duckdb",
                         subtitle3: "Перевірка",
-                        verify: `import duckdb
-
-# Перевірити версію DuckDB
-print(duckdb.__version__)
-
-# Тестувати з'єднання
-con = duckdb.connect(':memory:')
-con.execute("SELECT 42 as answer").fetchall()`
+                        verify: "import duckdb\n\n# Перевірити версію DuckDB\nprint(duckdb.__version__)\n\n# Тестувати з'єднання\ncon = duckdb.connect(':memory:')\ncon.execute(\"SELECT 42 as answer\").fetchall()"
                     },
                     theory: {
                         title: "Теорія",
@@ -1159,7 +1111,7 @@ con.execute("SELECT 42 as answer").fetchall()`
                         level1Task: "Розрахуйте середню вартість",
                         level1Hypothesis: "Гіпотеза:",
                         level1Solution: "Розв'язок:",
-                        level1Code: `SELECT DATE_TRUNC('month', order_date) FROM orders`,
+                        level1Code: "SELECT DATE_TRUNC('month', order_date) FROM orders",
                         level1Insight: "Сезонні закономірності",
                         level2Title: "Рівень 2",
                         level2Task: "Знайдіть CLV",
@@ -1236,17 +1188,9 @@ con.execute("SELECT 42 as answer").fetchall()`
                         subtitle1: "Iniciar entorno Docker",
                         docker: "docker run -it --rm -p 8888:8888 \\\n  -v $(pwd)/data:/home/jovyan/data \\\n  jupyter/scipy-notebook:latest \\\n  start-notebook.sh --NotebookApp.token=''",
                         subtitle2: "Instalar DuckDB en Notebook",
-                        install: `# Ejecutar en Jupyter Notebook
-!pip install duckdb`,
+                        install: "# Ejecutar en Jupyter Notebook\n!pip install duckdb",
                         subtitle3: "Verificación",
-                        verify: `import duckdb
-
-# Verificar versión de DuckDB
-print(duckdb.__version__)
-
-# Probar conexión
-con = duckdb.connect(':memory:')
-con.execute("SELECT 42 as answer").fetchall()`
+                        verify: "import duckdb\n\n# Verificar versión de DuckDB\nprint(duckdb.__version__)\n\n# Probar conexión\ncon = duckdb.connect(':memory:')\ncon.execute(\"SELECT 42 as answer\").fetchall()"
                     },
                     theory: {
                         title: "Teoría",
@@ -1333,7 +1277,7 @@ con.execute("SELECT 42 as answer").fetchall()`
                         level1Task: "Calcula el valor promedio",
                         level1Hypothesis: "Hipótesis:",
                         level1Solution: "Solución:",
-                        level1Code: `SELECT DATE_TRUNC('month', order_date) FROM orders`,
+                        level1Code: "SELECT DATE_TRUNC('month', order_date) FROM orders",
                         level1Insight: "Los patrones estacionales",
                         level2Title: "Nivel 2",
                         level2Task: "Encuentra CLV",
@@ -1410,17 +1354,9 @@ con.execute("SELECT 42 as answer").fetchall()`
                         subtitle1: "Docker ortamını başlat",
                         docker: "docker run -it --rm -p 8888:8888 \\\n  -v $(pwd)/data:/home/jovyan/data \\\n  jupyter/scipy-notebook:latest \\\n  start-notebook.sh --NotebookApp.token=''",
                         subtitle2: "DuckDB'yi Notebook'a kur",
-                        install: `# Jupyter Notebook'ta çalıştır
-!pip install duckdb`,
+                        install: "# Jupyter Notebook'ta çalıştır\n!pip install duckdb",
                         subtitle3: "Doğrulama",
-                        verify: `import duckdb
-
-# DuckDB sürümünü kontrol et
-print(duckdb.__version__)
-
-# Bağlantı test et
-con = duckdb.connect(':memory:')
-con.execute("SELECT 42 as answer").fetchall()`
+                        verify: "import duckdb\n\n# DuckDB sürümünü kontrol et\nprint(duckdb.__version__)\n\n# Bağlantı test et\ncon = duckdb.connect(':memory:')\ncon.execute(\"SELECT 42 as answer\").fetchall()"
                     },
                     theory: {
                         title: "Teori",
@@ -1507,7 +1443,7 @@ con.execute("SELECT 42 as answer").fetchall()`
                         level1Task: "Ortalama değeri hesapla",
                         level1Hypothesis: "Hipotez:",
                         level1Solution: "Çözüm:",
-                        level1Code: `SELECT DATE_TRUNC('month', order_date) FROM orders`,
+                        level1Code: "SELECT DATE_TRUNC('month', order_date) FROM orders",
                         level1Insight: "Mevsimsel desenler",
                         level2Title: "Seviye 2",
                         level2Task: "CLV bul",
