@@ -1816,6 +1816,10 @@
                                         {t.goals.items.map((item, i) => (
                                             <li key={i}>{item}</li>
                                         ))}
+                                    </ul>
+                                </div>
+                            </div>
+                        )}
 
                         {activeSection === 'mission' && (
                             <div className="content-section">
@@ -1828,10 +1832,6 @@
                                     <h3 style={{marginTop: '1.5rem'}}>{t.mission.keyQuestions}</h3>
                                     <ul style={{marginLeft: '1.5rem', marginTop: '0.5rem'}}>
                                         {t.mission.keyQuestionsItems.map((q, i) => <li key={i}>{q}</li>)}
-                                    </ul>
-                                </div>
-                            </div>
-                        )}
                                     </ul>
                                 </div>
                             </div>
@@ -1850,9 +1850,10 @@
                                 <p>{currentLang === 'de' ? 'Überprüfen Sie, dass DuckDB korrekt installiert ist:' : 'Verify that DuckDB is correctly installed:'}</p>
                                 <CodeBlock language="python" code={t.setup.verify} />
                                 <div className="info-box">
+                                    <strong>{currentLang === 'de' ? 'Info:' : 'Info:'}</strong>{' '}
                                     {currentLang === 'de'
-                                        ? '<strong>Info:</strong> Wenn Sie keinen lokalen Docker haben, können Sie auch cloud-basierte Jupyter-Umgebungen wie Google Colab oder Kaggle Notebooks verwenden.'
-                                        : '<strong>Info:</strong> If you don\'t have local Docker, you can also use cloud-based Jupyter environments like Google Colab or Kaggle Notebooks.'
+                                        ? 'Wenn Sie keinen lokalen Docker haben, können Sie auch cloud-basierte Jupyter-Umgebungen wie Google Colab oder Kaggle Notebooks verwenden.'
+                                        : 'If you don\'t have local Docker, you can also use cloud-based Jupyter environments like Google Colab or Kaggle Notebooks.'
                                     }
                                 </div>
                             </div>
@@ -1870,9 +1871,10 @@
                                 <h3>{t.theory.parquet}</h3>
                                 <p>{t.theory.parquet_desc}</p>
                                 <div className="info-box">
+                                    <strong>{currentLang === 'de' ? 'Vergleich:' : 'Comparison:'}</strong>{' '}
                                     {currentLang === 'de'
-                                        ? '<strong>Vergleich:</strong> DuckDB ist ideal für OLAP (OnLine Analytical Processing), während SQLite und PostgreSQL eher für OLTP (OnLine Transaction Processing) geeignet sind.'
-                                        : '<strong>Comparison:</strong> DuckDB is ideal for OLAP (Online Analytical Processing), while SQLite and PostgreSQL are better suited for OLTP (Online Transaction Processing).'
+                                        ? 'DuckDB ist ideal für OLAP (OnLine Analytical Processing), während SQLite und PostgreSQL eher für OLTP (OnLine Transaction Processing) geeignet sind.'
+                                        : 'DuckDB is ideal for OLAP (Online Analytical Processing), while SQLite and PostgreSQL are better suited for OLTP (Online Transaction Processing).'
                                     }
                                 </div>
                             </div>
