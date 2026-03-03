@@ -238,7 +238,120 @@
                 mongoDBIs: "Was ist MongoDB?",
                 documentOriented: "Dokumentorientiert: MongoDB speichert Daten als JSON-ähnliche Dokumente, nicht als Tabellen",
                 flexible: "Flexibles Schema: Jedes Dokument kann unterschiedliche Struktur haben",
-                scalable: "Skalierbar: Horizontal über mehrere Server verteilt"
+                scalable: "Skalierbar: Horizontal über mehrere Server verteilt",
+                estimatedTime: "⏱ Geschätzte Zeit:",
+                prerequisites: "Voraussetzungen:",
+                chapter: "Kapitel:",
+                architectureLearn: "MongoDB-Architektur und Dokumentmodell",
+                crudLearn: "CRUD-Operationen und Absprache",
+                aggregationLearn: "Aggregation Pipeline zur Datenanalyse",
+                modelingLearn: "Datenmodellierungsmuster und Best Practices",
+                realWorldLearn: "Realweltanwendungen und Leistungsoptimierung",
+                mongodbPopular: "MongoDB ist eine beliebte NoSQL-Datenbank, die Daten in flexiblen JSON-ähnlichen Dokumenten speichert.",
+                whenToUseSQL: "Wann MongoDB vs SQL verwenden?",
+                useCase: "Anwendungsfall",
+                excellent: "Ausgezeichnet",
+                notIdeal: "Nicht ideal",
+                nestedData: "Verschachtelte Daten",
+                nativeSupport: "Natives Support",
+                requiresJoins: "Benötigt Joins",
+                horizontalScaling: "Horizontale Skalierung",
+                builtInSharding: "Eingebautes Sharding",
+                complex: "Komplex",
+                acidTransactions: "ACID-Transaktionen",
+                multiDocSupported: "Multi-Doc unterstützt",
+                strong: "Stark",
+                realtimeAnalytics: "Echtzeit-Analytik",
+                aggregationPipeline: "Aggregations-Pipeline",
+                sqlQueries: "SQL-Abfragen",
+                dockerSetup: "Docker-Setup für MongoDB",
+                step1InstallDocker: "Schritt 1: Docker installieren",
+                downloadFrom: "Herunterladen von",
+                step2PullImage: "Schritt 2: MongoDB-Image abrufen",
+                step3StartContainer: "Schritt 3: MongoDB-Container starten",
+                step4Connect: "Schritt 4: Mit MongoDB verbinden",
+                mongoExpressUI: "Mongo Express Web UI:",
+                usingDockerCompose: "Falls docker-compose verwendet wird, öffnen Sie",
+                graphicalInterface: "für eine grafische Oberfläche zum Durchsuchen Ihrer Datenbanken.",
+                mongoDBFundamentals: "MongoDB-Grundlagen",
+                whatIsDocument: "Was ist ein Dokument?",
+                documentDesc: "Ein Dokument ist ein einzelner Datensatz mit verschachtelter Struktur.",
+                whatIsCollection: "Was ist eine Sammlung?",
+                collectionDesc: "Eine Sammlung ist eine Gruppe verwandter Dokumente. Beispiel: eine \"customers\"-Sammlung enthält alle Kundendokumente.",
+                shellBasics: "Shell-Grundlagen",
+                showAllDatabases: "Alle Datenbanken anzeigen",
+                selectOrCreateDB: "Datenbank auswählen oder erstellen",
+                showCollections: "Sammlungen anzeigen",
+                basicCRUDOps: "Grundlegende CRUD-Operationen",
+                createInsertOne: "ERSTELLEN: Ein Dokument einfügen",
+                readFindOne: "LESEN: Ein Dokument finden",
+                updateModify: "AKTUALISIEREN: Ein Dokument ändern",
+                deleteRemove: "LÖSCHEN: Ein Dokument entfernen",
+                objective: "Ziel",
+                steps: "Schritte",
+                verifyResults: "Ergebnisse überprüfen",
+                switchTestDB: "Zu einer Test-Datenbank wechseln:",
+                insertDocument: "Ein Dokument einfügen:",
+                findDocument: "Das Dokument finden:",
+                updateDocument: "Das Dokument aktualisieren (Alter auf 26 ändern):",
+                verifyUpdate: "Das Update überprüfen:",
+                deleteDocument: "Das Dokument löschen:",
+                checkDocuments: "Überprüfung: Wie viele Dokumente sind in der Sammlung users?",
+                expectedZero: "Erwartet: 0 (da wir das Dokument gelöscht haben)",
+                hint: "Hinweis",
+                ensureMongosh: "Stellen Sie sicher, dass mongosh läuft! Wenn Sie einen Verbindungsfehler erhalten, starten Sie Ihren MongoDB-Container neu.",
+                nextExercise2: "Nächste: Übung 2 →",
+                createCustomerCollection: "Erstellen Sie eine Kundensammlung, fügen Sie mehrere Dokumente ein und fragen Sie sie mit Filtern und Sortierung ab.",
+                useDatabase: "Datenbank verwenden:",
+                insertMultipleCustomers: "Mehrere Kunden einfügen:",
+                findAllCustomers: "Alle Kunden finden:",
+                filterCustomers: "Kunden filtern (Land = USA):",
+                sortByOrders: "Nach Bestellungen sortieren (absteigend):",
+                countCustomers: "Kundenzahl zählen:",
+                nextExercise3: "Nächste: Übung 3 →",
+                downloadMegastorePath: "Pfad zum Megastore-Dataset:",
+                importInstructions: "Import-Anweisungen (Beispiel mit CSV in MongoDB):",
+                aggregationFramework: "Aggregation Framework:",
+                calculateTotalSales: "Gesamtumsatz nach Kategorie berechnen:",
+                monthlyRevenue: "Monatlicher Umsatz trennen:",
+                nextExercise4: "Nächste: Übung 4 →",
+                filterQueryTitle: "Filterabfragen:",
+                filterExact: "Nach exaktem Wert filtern:",
+                filterGT: "Größer als ($gt):",
+                filterBetween: "Bereich-Filter ($and):",
+                filterLike: "Textsuche ($regex):",
+                updateMultiple: "Mehrere Dokumente aktualisieren:",
+                deleteMultiple: "Mehrere Dokumente löschen:",
+                nextExercise5: "Nächste: Übung 5 →",
+                pythonPymongo: "Mit PyMongo können Sie MongoDB aus Python aus steuern.",
+                installPymongo: "PyMongo installieren:",
+                connectPython: "Mit MongoDB verbinden:",
+                crudPython: "CRUD-Operationen in Python:",
+                nextExercise6: "Nächste: Übung 6 →",
+                aggregationPipelineTitle: "Aggregations-Pipeline ist eines der wichtigsten Konzepte in MongoDB.",
+                stagesExample: "Beispiel: Umsatz nach Produktkategorie berechnen mit $group, $match und $sort:",
+                nextExercise7: "Nächste: Übung 7 →",
+                dataModelingBestPractices: "Best Practices für die Datenmodellierung in MongoDB:",
+                embeddingVsReferencing: "Einbettung vs. Referenzierung:",
+                denormalizationBenefits: "Vorteile der Denormalisierung:",
+                indexingPerformance: "Indizierung für Leistung:",
+                nextExercise8: "Nächste: Übung 8 →",
+                rfmAnalysisExplanation: "RFM-Analyse (Recency, Frequency, Monetary) segmentiert Kunden basierend auf ihrem Kaufverhalten.",
+                understandingRFM: "RFM verstehen:",
+                recency: "Recency:",
+                frequency: "Frequency:",
+                monetary: "Monetary:",
+                customerSegmentation: "Kundensegmentierung:",
+                vipCustomers: "VIP-Kunden:",
+                regularCustomers: "Normale Kunden:",
+                atRiskCustomers: "Gefährdete Kunden:",
+                whatIsIdField: "Was ist das _id-Feld in MongoDB?",
+                idFieldDesc: "Der eindeutige Bezeichner für jedes Dokument. MongoDB erstellt automatisch eine ObjectId, wenn Sie eine nicht bereitstellen.",
+                whatIsBSON: "Was ist BSON?",
+                bsonDesc: "Binary JSON - Mongodbis internes Binärformat, das erweiterte Datentypen über JSON hinaus unterstützt.",
+                noDocumentsFound: "Keine Dokumente gefunden",
+                verifyDatabase: "Überprüfen Sie, dass Sie die richtige Datenbank und Sammlung verwenden. Überprüfen Sie mit: show dbs und show collections",
+                nextSteps: "Nächste Schritte"
             },
             en: {
                 back: "← Back to Landing Page",
@@ -268,7 +381,120 @@
                 mongoDBIs: "What is MongoDB?",
                 documentOriented: "Document-Oriented: MongoDB stores data as JSON-like documents, not tables",
                 flexible: "Flexible Schema: Each document can have a different structure",
-                scalable: "Scalable: Horizontally distributed across multiple servers"
+                scalable: "Scalable: Horizontally distributed across multiple servers",
+                estimatedTime: "⏱ Estimated time:",
+                prerequisites: "Prerequisites:",
+                chapter: "Chapter:",
+                architectureLearn: "MongoDB architecture and document model",
+                crudLearn: "CRUD operations and query language",
+                aggregationLearn: "Aggregation pipeline for data analysis",
+                modelingLearn: "Data modeling patterns and best practices",
+                realWorldLearn: "Real-world applications and performance optimization",
+                mongodbPopular: "MongoDB is a popular NoSQL database that stores data in flexible JSON-like documents.",
+                whenToUseSQL: "When to Use MongoDB vs SQL?",
+                useCase: "Use Case",
+                excellent: "Excellent",
+                notIdeal: "Not Ideal",
+                nestedData: "Nested Data",
+                nativeSupport: "Native Support",
+                requiresJoins: "Requires Joins",
+                horizontalScaling: "Horizontal Scaling",
+                builtInSharding: "Built-in Sharding",
+                complex: "Complex",
+                acidTransactions: "ACID Transactions",
+                multiDocSupported: "Multi-doc supported",
+                strong: "Strong",
+                realtimeAnalytics: "Real-time Analytics",
+                aggregationPipeline: "Aggregation Pipeline",
+                sqlQueries: "SQL queries",
+                dockerSetup: "Docker Setup for MongoDB",
+                step1InstallDocker: "Step 1: Install Docker",
+                downloadFrom: "Download from",
+                step2PullImage: "Step 2: Pull MongoDB Image",
+                step3StartContainer: "Step 3: Start MongoDB Container",
+                step4Connect: "Step 4: Connect to MongoDB",
+                mongoExpressUI: "Mongo Express Web UI:",
+                usingDockerCompose: "If using docker-compose, open",
+                graphicalInterface: "for a graphical interface to browse your databases.",
+                mongoDBFundamentals: "MongoDB Fundamentals",
+                whatIsDocument: "What is a Document?",
+                documentDesc: "A document is a single record with nested structure.",
+                whatIsCollection: "What is a Collection?",
+                collectionDesc: "A collection is a group of related documents. Example: a \"customers\" collection contains all customer documents.",
+                shellBasics: "Shell Basics",
+                showAllDatabases: "Show All Databases",
+                selectOrCreateDB: "Select or Create a Database",
+                showCollections: "Show Collections",
+                basicCRUDOps: "Basic CRUD Operations",
+                createInsertOne: "CREATE: Insert One Document",
+                readFindOne: "READ: Find One Document",
+                updateModify: "UPDATE: Modify a Document",
+                deleteRemove: "DELETE: Remove a Document",
+                objective: "Objective",
+                steps: "Steps",
+                verifyResults: "Verify Your Results",
+                switchTestDB: "Switch to a test database:",
+                insertDocument: "Insert a document:",
+                findDocument: "Find the document:",
+                updateDocument: "Update the document (change age to 26):",
+                verifyUpdate: "Verify the update:",
+                deleteDocument: "Delete the document:",
+                checkDocuments: "Check: How many documents are in the users collection?",
+                expectedZero: "Expected: 0 (since we deleted the document)",
+                hint: "Hint",
+                ensureMongosh: "Make sure mongosh is running! If you get a connection error, restart your MongoDB container.",
+                nextExercise2: "Next: Exercise 2 →",
+                createCustomerCollection: "Create a customer collection, insert multiple documents, and query them with filters and sorting.",
+                useDatabase: "Use database:",
+                insertMultipleCustomers: "Insert multiple customers:",
+                findAllCustomers: "Find all customers:",
+                filterCustomers: "Filter customers (country = USA):",
+                sortByOrders: "Sort by orders (descending):",
+                countCustomers: "Count customers:",
+                nextExercise3: "{t.nextExercise3}",
+                downloadMegastorePath: "MegaStore Dataset path:",
+                importInstructions: "Import Instructions (Example with CSV to MongoDB):",
+                aggregationFramework: "Aggregation Framework:",
+                calculateTotalSales: "Calculate total sales by category:",
+                monthlyRevenue: "Separate monthly revenue:",
+                nextExercise4: "{t.nextExercise4}",
+                filterQueryTitle: "Filter Queries:",
+                filterExact: "Filter by exact value:",
+                filterGT: "Greater than ($gt):",
+                filterBetween: "Range filter ($and):",
+                filterLike: "Text search ($regex):",
+                updateMultiple: "Update multiple documents:",
+                deleteMultiple: "Delete multiple documents:",
+                nextExercise5: "{t.nextExercise5}",
+                pythonPymongo: "With PyMongo, you can control MongoDB from Python.",
+                installPymongo: "Install PyMongo:",
+                connectPython: "Connect to MongoDB:",
+                crudPython: "CRUD Operations in Python:",
+                nextExercise6: "{t.nextExercise6}",
+                aggregationPipelineTitle: "Aggregation Pipeline is one of the most important concepts in MongoDB.",
+                stagesExample: "Example: Calculate revenue by product category using $group, $match, and $sort:",
+                nextExercise7: "{t.nextExercise7}",
+                dataModelingBestPractices: "Data Modeling Best Practices in MongoDB:",
+                embeddingVsReferencing: "Embedding vs. Referencing:",
+                denormalizationBenefits: "Benefits of Denormalization:",
+                indexingPerformance: "Indexing for Performance:",
+                nextExercise8: "{t.nextExercise8}",
+                rfmAnalysisExplanation: "RFM Analysis (Recency, Frequency, Monetary) segments customers based on their buying behavior.",
+                understandingRFM: "Understanding RFM:",
+                recency: "Recency:",
+                frequency: "Frequency:",
+                monetary: "Monetary:",
+                customerSegmentation: "Customer Segmentation:",
+                vipCustomers: "VIP Customers:",
+                regularCustomers: "Regular Customers:",
+                atRiskCustomers: "At-Risk Customers:",
+                whatIsIdField: "What is the _id field in MongoDB?",
+                idFieldDesc: "The unique identifier for each document. MongoDB creates an ObjectId automatically if you don't provide one.",
+                whatIsBSON: "What is BSON?",
+                bsonDesc: "Binary JSON - MongoDB's internal binary format that supports extended data types beyond JSON.",
+                noDocumentsFound: "No documents found",
+                verifyDatabase: "Verify you are using the correct database and collection. Check with: show dbs and show collections",
+                nextSteps: "Next Steps"
             },
             ar: {
                 back: "← العودة إلى الصفحة الرئيسية",
@@ -298,7 +524,120 @@
                 mongoDBIs: "ما هو MongoDB؟",
                 documentOriented: "موجهة للمستندات: تخزن MongoDB البيانات كمستندات تشبه JSON وليس الجداول",
                 flexible: "Schema المرن: كل مستند يمكن أن يحتوي على هيكل مختلف",
-                scalable: "قابلة للتوسع: موزعة أفقيًا عبر عدة خوادم"
+                scalable: "قابلة للتوسع: موزعة أفقيًا عبر عدة خوادم",
+                estimatedTime: "⏱ الوقت المقدر:",
+                prerequisites: "المتطلبات الأساسية:",
+                chapter: "الفصل:",
+                architectureLearn: "بنية MongoDB ونموذج المستند",
+                crudLearn: "عمليات CRUD ولغة الاستعلام",
+                aggregationLearn: "خط أنابيب التجميع لتحليل البيانات",
+                modelingLearn: "أنماط نمذجة البيانات والممارسات الفضلى",
+                realWorldLearn: "التطبيقات الواقعية وتحسين الأداء",
+                mongodbPopular: "MongoDB قاعدة بيانات NoSQL شهيرة تخزن البيانات كمستندات JSON مرنة.",
+                whenToUseSQL: "متى يتم استخدام MongoDB مقابل SQL؟",
+                useCase: "حالة الاستخدام",
+                excellent: "ممتاز",
+                notIdeal: "ليس مثاليًا",
+                nestedData: "البيانات المتداخلة",
+                nativeSupport: "دعم أصلي",
+                requiresJoins: "يتطلب عمليات الربط",
+                horizontalScaling: "التوسع الأفقي",
+                builtInSharding: "التجزئة المدمجة",
+                complex: "معقد",
+                acidTransactions: "معاملات ACID",
+                multiDocSupported: "تدعم متعدد المستندات",
+                strong: "قوي",
+                realtimeAnalytics: "تحليلات الوقت الفعلي",
+                aggregationPipeline: "خط أنابيب التجميع",
+                sqlQueries: "استعلامات SQL",
+                dockerSetup: "إعداد Docker لـ MongoDB",
+                step1InstallDocker: "الخطوة 1: تثبيت Docker",
+                downloadFrom: "تحميل من",
+                step2PullImage: "الخطوة 2: سحب صورة MongoDB",
+                step3StartContainer: "الخطوة 3: بدء حاوية MongoDB",
+                step4Connect: "الخطوة 4: الاتصال بـ MongoDB",
+                mongoExpressUI: "واجهة Mongo Express الويب:",
+                usingDockerCompose: "إذا كنت تستخدم docker-compose، افتح",
+                graphicalInterface: "للحصول على واجهة رسومية لاستعراض قواعد البيانات الخاصة بك.",
+                mongoDBFundamentals: "أساسيات MongoDB",
+                whatIsDocument: "ما هو المستند؟",
+                documentDesc: "المستند عبارة عن سجل واحد بهيكل متداخل.",
+                whatIsCollection: "ما هي المجموعة؟",
+                collectionDesc: "المجموعة عبارة عن مجموعة من المستندات ذات الصلة. مثال: تحتوي مجموعة \"العملاء\" على جميع مستندات العملاء.",
+                shellBasics: "أساسيات Shell",
+                showAllDatabases: "عرض جميع قواعد البيانات",
+                selectOrCreateDB: "اختيار أو إنشاء قاعدة بيانات",
+                showCollections: "عرض المجموعات",
+                basicCRUDOps: "عمليات CRUD الأساسية",
+                createInsertOne: "إنشاء: إدراج مستند واحد",
+                readFindOne: "قراءة: البحث عن مستند واحد",
+                updateModify: "تحديث: تعديل مستند",
+                deleteRemove: "حذف: إزالة مستند",
+                objective: "الهدف",
+                steps: "الخطوات",
+                verifyResults: "تحقق من النتائج",
+                switchTestDB: "الانتقال إلى قاعدة بيانات اختبار:",
+                insertDocument: "إدراج مستند:",
+                findDocument: "البحث عن المستند:",
+                updateDocument: "تحديث المستند (تغيير العمر إلى 26):",
+                verifyUpdate: "التحقق من التحديث:",
+                deleteDocument: "حذف المستند:",
+                checkDocuments: "تحقق: كم عدد المستندات في مجموعة users؟",
+                expectedZero: "متوقع: 0 (نظرًا لأننا حذفنا المستند)",
+                hint: "تلميح",
+                ensureMongosh: "تأكد من تشغيل mongosh! إذا حصلت على خطأ في الاتصال، أعد تشغيل حاوية MongoDB الخاصة بك.",
+                nextExercise2: "التالي: التمرين 2 →",
+                createCustomerCollection: "إنشاء مجموعة عملاء، وإدراج مستندات متعددة، والاستعلام عنها باستخدام المرشحات والفرز.",
+                useDatabase: "استخدام قاعدة البيانات:",
+                insertMultipleCustomers: "إدراج عملاء متعددين:",
+                findAllCustomers: "البحث عن جميع العملاء:",
+                filterCustomers: "تصفية العملاء (البلد = USA):",
+                sortByOrders: "الترتيب حسب الطلبات (تنازلي):",
+                countCustomers: "عدد العملاء:",
+                nextExercise3: "التالي: التمرين 3 →",
+                downloadMegastorePath: "مسار مجموعة بيانات MegaStore:",
+                importInstructions: "تعليمات الاستيراد (مثال مع CSV إلى MongoDB):",
+                aggregationFramework: "إطار العمل للتجميع:",
+                calculateTotalSales: "حساب إجمالي المبيعات حسب الفئة:",
+                monthlyRevenue: "فصل الإيرادات الشهرية:",
+                nextExercise4: "التالي: التمرين 4 →",
+                filterQueryTitle: "استعلامات المرشح:",
+                filterExact: "التصفية حسب القيمة الدقيقة:",
+                filterGT: "أكبر من ($gt):",
+                filterBetween: "مرشح النطاق ($and):",
+                filterLike: "البحث عن النصوص ($regex):",
+                updateMultiple: "تحديث مستندات متعددة:",
+                deleteMultiple: "حذف مستندات متعددة:",
+                nextExercise5: "التالي: التمرين 5 →",
+                pythonPymongo: "باستخدام PyMongo، يمكنك التحكم في MongoDB من Python.",
+                installPymongo: "تثبيت PyMongo:",
+                connectPython: "الاتصال بـ MongoDB:",
+                crudPython: "عمليات CRUD في Python:",
+                nextExercise6: "التالي: التمرين 6 →",
+                aggregationPipelineTitle: "خط أنابيب التجميع هو أحد أهم المفاهيم في MongoDB.",
+                stagesExample: "مثال: حساب الإيراد حسب فئة المنتج باستخدام $group و $match و $sort:",
+                nextExercise7: "التالي: التمرين 7 →",
+                dataModelingBestPractices: "أفضل الممارسات في نمذجة البيانات في MongoDB:",
+                embeddingVsReferencing: "التضمين مقابل الإشارة:",
+                denormalizationBenefits: "فوائد إلغاء التطبيع:",
+                indexingPerformance: "الفهرسة للأداء:",
+                nextExercise8: "التالي: التمرين 8 →",
+                rfmAnalysisExplanation: "تحليل RFM (الحداثة والتكرار والقيمة النقدية) يقسم العملاء بناءً على سلوكهم الشرائي.",
+                understandingRFM: "فهم RFM:",
+                recency: "الحداثة:",
+                frequency: "التكرار:",
+                monetary: "القيمة النقدية:",
+                customerSegmentation: "تقسيم العملاء:",
+                vipCustomers: "عملاء VIP:",
+                regularCustomers: "العملاء العاديون:",
+                atRiskCustomers: "العملاء المعرضون للخطر:",
+                whatIsIdField: "ما هو حقل _id في MongoDB؟",
+                idFieldDesc: "المعرّف الفريد لكل مستند. تقوم MongoDB بإنشاء ObjectId تلقائيًا إذا لم توفر واحدًا.",
+                whatIsBSON: "ما هو BSON؟",
+                bsonDesc: "Binary JSON - صيغة MongoDB الثنائية الداخلية التي تدعم أنواع البيانات الموسعة بعد JSON.",
+                noDocumentsFound: "لم يتم العثور على مستندات",
+                verifyDatabase: "تحقق من استخدام قاعدة البيانات والمجموعة الصحيحة. تحقق من: show dbs و show collections",
+                nextSteps: "الخطوات التالية"
             },
             uk: {
                 back: "← Повернутися на головну сторінку",
@@ -328,7 +667,120 @@
                 mongoDBIs: "Що таке MongoDB?",
                 documentOriented: "Орієнтована на документи: MongoDB зберігає дані як документи, подібні до JSON, а не таблиці",
                 flexible: "Гнучка схема: кожен документ може мати іншу структуру",
-                scalable: "Масштабовна: горизонтально розподілена по кількох серверах"
+                scalable: "Масштабовна: горизонтально розподілена по кількох серверах",
+                estimatedTime: "⏱ Орієнтовний час:",
+                prerequisites: "Передумови:",
+                chapter: "Розділ:",
+                architectureLearn: "Архітектура MongoDB та модель документа",
+                crudLearn: "Операції CRUD та мова запитів",
+                aggregationLearn: "Конвеєр агрегації для аналізу даних",
+                modelingLearn: "Шаблони моделювання даних та кращі практики",
+                realWorldLearn: "Реальні застосування та оптимізація продуктивності",
+                mongodbPopular: "MongoDB - це популярна база даних NoSQL, яка зберігає дані як гнучкі JSON-подібні документи.",
+                whenToUseSQL: "Коли використовувати MongoDB проти SQL?",
+                useCase: "Вариант використання",
+                excellent: "Чудово",
+                notIdeal: "Не ідеально",
+                nestedData: "Вкладені дані",
+                nativeSupport: "Оригінальна підтримка",
+                requiresJoins: "Вимагає з'єднань",
+                horizontalScaling: "Горизонтальне масштабування",
+                builtInSharding: "Вбудоване шардування",
+                complex: "Складно",
+                acidTransactions: "Транзакції ACID",
+                multiDocSupported: "Підтримка мультидокумента",
+                strong: "Сильний",
+                realtimeAnalytics: "Аналітика в реальному часі",
+                aggregationPipeline: "Конвеєр агрегації",
+                sqlQueries: "SQL-запити",
+                dockerSetup: "Налаштування Docker для MongoDB",
+                step1InstallDocker: "Крок 1: Встановіть Docker",
+                downloadFrom: "Завантажити з",
+                step2PullImage: "Крок 2: Витягніть образ MongoDB",
+                step3StartContainer: "Крок 3: Запустіть контейнер MongoDB",
+                step4Connect: "Крок 4: Підключіться до MongoDB",
+                mongoExpressUI: "Веб-інтерфейс Mongo Express:",
+                usingDockerCompose: "Якщо ви використовуєте docker-compose, відкрийте",
+                graphicalInterface: "для графічного інтерфейсу перегляду ваших баз даних.",
+                mongoDBFundamentals: "Основи MongoDB",
+                whatIsDocument: "Що таке документ?",
+                documentDesc: "Документ - це один запис зі вкладеною структурою.",
+                whatIsCollection: "Що таке колекція?",
+                collectionDesc: "Колекція - це група пов'язаних документів. Приклад: колекція \"customers\" містить всі документи клієнтів.",
+                shellBasics: "Основи Shell",
+                showAllDatabases: "Показати всі бази даних",
+                selectOrCreateDB: "Вибрати або створити базу даних",
+                showCollections: "Показати колекції",
+                basicCRUDOps: "Базові операції CRUD",
+                createInsertOne: "СТВОРЕННЯ: Вставте один документ",
+                readFindOne: "ЧИТАННЯ: Знайти один документ",
+                updateModify: "ОНОВЛЕННЯ: Змініть документ",
+                deleteRemove: "ВИДАЛЕННЯ: Видалити документ",
+                objective: "Мета",
+                steps: "Кроки",
+                verifyResults: "Перевірте результати",
+                switchTestDB: "Перейти на тестову базу даних:",
+                insertDocument: "Вставте документ:",
+                findDocument: "Знайдіть документ:",
+                updateDocument: "Оновіть документ (змініть вік на 26):",
+                verifyUpdate: "Перевірте оновлення:",
+                deleteDocument: "Видалити документ:",
+                checkDocuments: "Перевірка: Скільки документів у колекції users?",
+                expectedZero: "Очікується: 0 (оскільки ми видалили документ)",
+                hint: "Підказка",
+                ensureMongosh: "Переконайтесь, що mongosh запущений! Якщо ви отримаєте помилку підключення, перезавантажте контейнер MongoDB.",
+                nextExercise2: "Далі: Вправа 2 →",
+                createCustomerCollection: "Створіть колекцію клієнтів, вставте кілька документів та запитайте їх за допомогою фільтрів та сортування.",
+                useDatabase: "Використовувати базу даних:",
+                insertMultipleCustomers: "Вставте кількох клієнтів:",
+                findAllCustomers: "Знайти всіх клієнтів:",
+                filterCustomers: "Фільтрувати клієнтів (країна = USA):",
+                sortByOrders: "Сортувати за замовленнями (за спаданням):",
+                countCustomers: "Кількість клієнтів:",
+                nextExercise3: "Далі: Вправа 3 →",
+                downloadMegastorePath: "Шлях набору даних MegaStore:",
+                importInstructions: "Інструкції імпорту (приклад з CSV у MongoDB):",
+                aggregationFramework: "Фреймворк агрегації:",
+                calculateTotalSales: "Розрахуйте загальні продажі за категоріями:",
+                monthlyRevenue: "Розподіліть щомісячний дохід:",
+                nextExercise4: "Далі: Вправа 4 →",
+                filterQueryTitle: "Запити фільтрування:",
+                filterExact: "Фільтрувати за точним значенням:",
+                filterGT: "Більше за ($gt):",
+                filterBetween: "Фільтр діапазону ($and):",
+                filterLike: "Пошук тексту ($regex):",
+                updateMultiple: "Оновити кілька документів:",
+                deleteMultiple: "Видалити кілька документів:",
+                nextExercise5: "Далі: Вправа 5 →",
+                pythonPymongo: "За допомогою PyMongo ви можете керувати MongoDB з Python.",
+                installPymongo: "Встановіть PyMongo:",
+                connectPython: "Підключіться до MongoDB:",
+                crudPython: "Операції CRUD у Python:",
+                nextExercise6: "Далі: Вправа 6 →",
+                aggregationPipelineTitle: "Конвеєр агрегації - одне з найважливіших понять у MongoDB.",
+                stagesExample: "Приклад: розрахуйте дохід за категорією продукту за допомогою $group, $match та $sort:",
+                nextExercise7: "Далі: Вправа 7 →",
+                dataModelingBestPractices: "Найкращі практики моделювання даних у MongoDB:",
+                embeddingVsReferencing: "Вкладення проти посилання:",
+                denormalizationBenefits: "Переваги денормалізації:",
+                indexingPerformance: "Індексування для продуктивності:",
+                nextExercise8: "Далі: Вправа 8 →",
+                rfmAnalysisExplanation: "RFM-аналіз (Recency, Frequency, Monetary) сегментує клієнтів на основі їх поведінки покупок.",
+                understandingRFM: "Розуміння RFM:",
+                recency: "Новизна:",
+                frequency: "Частота:",
+                monetary: "Грошовий:",
+                customerSegmentation: "Сегментація клієнтів:",
+                vipCustomers: "VIP-клієнти:",
+                regularCustomers: "Звичайні клієнти:",
+                atRiskCustomers: "Клієнти з групи ризику:",
+                whatIsIdField: "Що таке поле _id у MongoDB?",
+                idFieldDesc: "Унікальний ідентифікатор для кожного документа. MongoDB автоматично створює ObjectId, якщо ви не надаєте його.",
+                whatIsBSON: "Що таке BSON?",
+                bsonDesc: "Binary JSON - внутрішній двійковий формат MongoDB, який підтримує розширені типи даних за межами JSON.",
+                noDocumentsFound: "Документи не знайдені",
+                verifyDatabase: "Перевірте, що ви використовуєте правильну базу даних і колекцію. Перевірте за допомогою: show dbs та show collections",
+                nextSteps: "Наступні кроки"
             },
             es: {
                 back: "← Volver a la página de inicio",
@@ -358,7 +810,120 @@
                 mongoDBIs: "¿Qué es MongoDB?",
                 documentOriented: "Orientada a documentos: MongoDB almacena datos como documentos similares a JSON, no tablas",
                 flexible: "Esquema flexible: cada documento puede tener una estructura diferente",
-                scalable: "Escalable: distribuida horizontalmente en varios servidores"
+                scalable: "Escalable: distribuida horizontalmente en varios servidores",
+                estimatedTime: "⏱ Tiempo estimado:",
+                prerequisites: "Requisitos previos:",
+                chapter: "Capítulo:",
+                architectureLearn: "Arquitectura de MongoDB y modelo de documento",
+                crudLearn: "Operaciones CRUD y lenguaje de consulta",
+                aggregationLearn: "Pipeline de agregación para análisis de datos",
+                modelingLearn: "Patrones de modelado de datos y mejores prácticas",
+                realWorldLearn: "Aplicaciones del mundo real y optimización del rendimiento",
+                mongodbPopular: "MongoDB es una base de datos NoSQL popular que almacena datos como documentos JSON flexibles.",
+                whenToUseSQL: "¿Cuándo usar MongoDB vs SQL?",
+                useCase: "Caso de uso",
+                excellent: "Excelente",
+                notIdeal: "No es ideal",
+                nestedData: "Datos anidados",
+                nativeSupport: "Soporte nativo",
+                requiresJoins: "Requiere uniones",
+                horizontalScaling: "Escalado horizontal",
+                builtInSharding: "Sharding integrado",
+                complex: "Complejo",
+                acidTransactions: "Transacciones ACID",
+                multiDocSupported: "Compatibilidad con múltiples documentos",
+                strong: "Fuerte",
+                realtimeAnalytics: "Análisis en tiempo real",
+                aggregationPipeline: "Pipeline de agregación",
+                sqlQueries: "Consultas SQL",
+                dockerSetup: "Configuración de Docker para MongoDB",
+                step1InstallDocker: "Paso 1: Instalar Docker",
+                downloadFrom: "Descargar desde",
+                step2PullImage: "Paso 2: Extraer imagen de MongoDB",
+                step3StartContainer: "Paso 3: Iniciar contenedor MongoDB",
+                step4Connect: "Paso 4: Conectarse a MongoDB",
+                mongoExpressUI: "Interfaz web de Mongo Express:",
+                usingDockerCompose: "Si usa docker-compose, abra",
+                graphicalInterface: "para una interfaz gráfica para examinar sus bases de datos.",
+                mongoDBFundamentals: "Fundamentos de MongoDB",
+                whatIsDocument: "¿Qué es un documento?",
+                documentDesc: "Un documento es un único registro con estructura anidada.",
+                whatIsCollection: "¿Qué es una colección?",
+                collectionDesc: "Una colección es un grupo de documentos relacionados. Ejemplo: una colección \"customers\" contiene todos los documentos de clientes.",
+                shellBasics: "Conceptos básicos de Shell",
+                showAllDatabases: "Mostrar todas las bases de datos",
+                selectOrCreateDB: "Seleccionar o crear una base de datos",
+                showCollections: "Mostrar colecciones",
+                basicCRUDOps: "Operaciones CRUD básicas",
+                createInsertOne: "CREAR: Insertar un documento",
+                readFindOne: "LEER: Buscar un documento",
+                updateModify: "ACTUALIZAR: Modificar un documento",
+                deleteRemove: "ELIMINAR: Eliminar un documento",
+                objective: "Objetivo",
+                steps: "Pasos",
+                verifyResults: "Verificar resultados",
+                switchTestDB: "Cambiar a una base de datos de prueba:",
+                insertDocument: "Insertar un documento:",
+                findDocument: "Buscar el documento:",
+                updateDocument: "Actualizar el documento (cambiar edad a 26):",
+                verifyUpdate: "Verificar la actualización:",
+                deleteDocument: "Eliminar el documento:",
+                checkDocuments: "Verificación: ¿Cuántos documentos hay en la colección users?",
+                expectedZero: "Esperado: 0 (ya que eliminamos el documento)",
+                hint: "Consejo",
+                ensureMongosh: "¡Asegúrese de que mongosh se está ejecutando! Si recibe un error de conexión, reinicie su contenedor MongoDB.",
+                nextExercise2: "Siguiente: Ejercicio 2 →",
+                createCustomerCollection: "Cree una colección de clientes, inserte varios documentos y consulte con filtros y ordenamiento.",
+                useDatabase: "Usar base de datos:",
+                insertMultipleCustomers: "Insertar múltiples clientes:",
+                findAllCustomers: "Buscar todos los clientes:",
+                filterCustomers: "Filtrar clientes (país = USA):",
+                sortByOrders: "Ordenar por pedidos (descendente):",
+                countCustomers: "Contar clientes:",
+                nextExercise3: "Siguiente: Ejercicio 3 →",
+                downloadMegastorePath: "Ruta del conjunto de datos MegaStore:",
+                importInstructions: "Instrucciones de importación (ejemplo con CSV a MongoDB):",
+                aggregationFramework: "Marco de agregación:",
+                calculateTotalSales: "Calcular ventas totales por categoría:",
+                monthlyRevenue: "Separar ingresos mensuales:",
+                nextExercise4: "Siguiente: Ejercicio 4 →",
+                filterQueryTitle: "Consultas de filtro:",
+                filterExact: "Filtrar por valor exacto:",
+                filterGT: "Mayor que ($gt):",
+                filterBetween: "Filtro de rango ($and):",
+                filterLike: "Búsqueda de texto ($regex):",
+                updateMultiple: "Actualizar múltiples documentos:",
+                deleteMultiple: "Eliminar múltiples documentos:",
+                nextExercise5: "Siguiente: Ejercicio 5 →",
+                pythonPymongo: "Con PyMongo, puede controlar MongoDB desde Python.",
+                installPymongo: "Instalar PyMongo:",
+                connectPython: "Conectarse a MongoDB:",
+                crudPython: "Operaciones CRUD en Python:",
+                nextExercise6: "Siguiente: Ejercicio 6 →",
+                aggregationPipelineTitle: "El pipeline de agregación es uno de los conceptos más importantes en MongoDB.",
+                stagesExample: "Ejemplo: calcular ingresos por categoría de producto usando $group, $match y $sort:",
+                nextExercise7: "Siguiente: Ejercicio 7 →",
+                dataModelingBestPractices: "Mejores prácticas de modelado de datos en MongoDB:",
+                embeddingVsReferencing: "Incrustación vs. Referencia:",
+                denormalizationBenefits: "Beneficios de la desnormalización:",
+                indexingPerformance: "Indexación para el rendimiento:",
+                nextExercise8: "Siguiente: Ejercicio 8 →",
+                rfmAnalysisExplanation: "El análisis RFM (Recency, Frequency, Monetary) segmenta clientes basándose en su comportamiento de compra.",
+                understandingRFM: "Comprensión de RFM:",
+                recency: "Actualidad:",
+                frequency: "Frecuencia:",
+                monetary: "Monetario:",
+                customerSegmentation: "Segmentación de clientes:",
+                vipCustomers: "Clientes VIP:",
+                regularCustomers: "Clientes regulares:",
+                atRiskCustomers: "Clientes en riesgo:",
+                whatIsIdField: "¿Cuál es el campo _id en MongoDB?",
+                idFieldDesc: "El identificador único para cada documento. MongoDB crea automáticamente un ObjectId si no lo proporciona.",
+                whatIsBSON: "¿Qué es BSON?",
+                bsonDesc: "JSON binario - el formato binario interno de MongoDB que admite tipos de datos extendidos más allá de JSON.",
+                noDocumentsFound: "No se encontraron documentos",
+                verifyDatabase: "Verifique que esté usando la base de datos y colección correctas. Verifique con: show dbs y show collections",
+                nextSteps: "Próximos pasos"
             },
             tr: {
                 back: "← Ana Sayfaya Dön",
@@ -388,7 +953,120 @@
                 mongoDBIs: "MongoDB Nedir?",
                 documentOriented: "Belge Odaklı: MongoDB verileri tablolar değil, JSON'a benzer belgeler olarak depolar",
                 flexible: "Esnek Şema: Her belge farklı bir yapıya sahip olabilir",
-                scalable: "Ölçeklenebilir: Birden fazla sunucu arasında yatay olarak dağıtılmış"
+                scalable: "Ölçeklenebilir: Birden fazla sunucu arasında yatay olarak dağıtılmış",
+                estimatedTime: "⏱ Tahmini zaman:",
+                prerequisites: "Ön koşullar:",
+                chapter: "Bölüm:",
+                architectureLearn: "MongoDB mimarisi ve belge modeli",
+                crudLearn: "CRUD işlemleri ve sorgu dili",
+                aggregationLearn: "Veri analizi için toplama ardışık düzeni",
+                modelingLearn: "Veri modelleme desenleri ve en iyi uygulamalar",
+                realWorldLearn: "Gerçek dünya uygulamaları ve performans optimizasyonu",
+                mongodbPopular: "MongoDB, verileri esnek JSON benzeri belgeler olarak depolayan popüler bir NoSQL veritabanıdır.",
+                whenToUseSQL: "MongoDB vs SQL ne zaman kullanılır?",
+                useCase: "Kullanım Durumu",
+                excellent: "Mükemmel",
+                notIdeal: "İdeal değil",
+                nestedData: "İç İçe Veriler",
+                nativeSupport: "Yerel Destek",
+                requiresJoins: "Birleştirme Gerektirir",
+                horizontalScaling: "Yatay Ölçekleme",
+                builtInSharding: "Yerleşik Parçalama",
+                complex: "Karmaşık",
+                acidTransactions: "ACID İşlemleri",
+                multiDocSupported: "Çoklu belge destekli",
+                strong: "Güçlü",
+                realtimeAnalytics: "Gerçek Zamanlı Analitik",
+                aggregationPipeline: "Toplama Ardışık Düzeni",
+                sqlQueries: "SQL sorguları",
+                dockerSetup: "MongoDB için Docker Kurulumu",
+                step1InstallDocker: "Adım 1: Docker'ı Yükleyin",
+                downloadFrom: "Şuradan indirin:",
+                step2PullImage: "Adım 2: MongoDB Görüntüsünü Çekin",
+                step3StartContainer: "Adım 3: MongoDB Kapsayıcısını Başlatın",
+                step4Connect: "Adım 4: MongoDB'ye Bağlanın",
+                mongoExpressUI: "Mongo Express Web Arayüzü:",
+                usingDockerCompose: "docker-compose kullanıyorsanız açın",
+                graphicalInterface: "veritabanlarınıza göz atmak için grafik arayüz.",
+                mongoDBFundamentals: "MongoDB Temelleri",
+                whatIsDocument: "Belge nedir?",
+                documentDesc: "Belge, iç içe yapılı tek bir kayıttır.",
+                whatIsCollection: "Koleksiyon nedir?",
+                collectionDesc: "Koleksiyon, ilişkili belgelerin bir grubudur. Örnek: \"customers\" koleksiyonu tüm müşteri belgelerini içerir.",
+                shellBasics: "Kabuk Temelleri",
+                showAllDatabases: "Tüm Veritabanlarını Göster",
+                selectOrCreateDB: "Veritabanı Seçin veya Oluşturun",
+                showCollections: "Koleksiyonları Göster",
+                basicCRUDOps: "Temel CRUD İşlemleri",
+                createInsertOne: "OLUŞTUR: Bir Belge Ekle",
+                readFindOne: "OKU: Bir Belge Bul",
+                updateModify: "GÜNCELLE: Belgeyi Değiştir",
+                deleteRemove: "SIL: Belgeyi Kaldır",
+                objective: "Amaç",
+                steps: "Adımlar",
+                verifyResults: "Sonuçları Doğrula",
+                switchTestDB: "Test veritabanına geçin:",
+                insertDocument: "Bir belge ekleyin:",
+                findDocument: "Belgeyi bulun:",
+                updateDocument: "Belgeyi güncelleyin (yaşı 26'ya değiştirin):",
+                verifyUpdate: "Güncelleşmeyi doğrulayın:",
+                deleteDocument: "Belgeyi silin:",
+                checkDocuments: "Kontrol: kullanıcılar koleksiyonunda kaç belge var?",
+                expectedZero: "Beklenen: 0 (belgeyi sildiğimiz için)",
+                hint: "İpucu",
+                ensureMongosh: "mongosh'un çalıştığından emin olun! Bağlantı hatası alırsanız MongoDB kapsayıcınızı yeniden başlatın.",
+                nextExercise2: "Sonraki: Alıştırma 2 →",
+                createCustomerCollection: "Bir müşteri koleksiyonu oluşturun, birden çok belge ekleyin ve filtreler ve sıralama ile sorgulayın.",
+                useDatabase: "Veritabanı kullan:",
+                insertMultipleCustomers: "Birden çok müşteri ekleyin:",
+                findAllCustomers: "Tüm müşterileri bulun:",
+                filterCustomers: "Müşterileri filtreleyin (ülke = USA):",
+                sortByOrders: "Siparişlere göre sıralayın (azalan):",
+                countCustomers: "Müşteri sayısı:",
+                nextExercise3: "Sonraki: Alıştırma 3 →",
+                downloadMegastorePath: "MegaStore Veri Seti yolu:",
+                importInstructions: "İçe Aktarma Talimatları (CSV'den MongoDB'ye örnek):",
+                aggregationFramework: "Toplama Çerçevesi:",
+                calculateTotalSales: "Kategoriye göre toplam satışları hesaplayın:",
+                monthlyRevenue: "Aylık geliri ayırın:",
+                nextExercise4: "Sonraki: Alıştırma 4 →",
+                filterQueryTitle: "Filtre Sorguları:",
+                filterExact: "Tam değere göre filtreleyin:",
+                filterGT: "Büyüktür ($gt):",
+                filterBetween: "Aralık filtresi ($and):",
+                filterLike: "Metin arama ($regex):",
+                updateMultiple: "Birden çok belgeyi güncelleyin:",
+                deleteMultiple: "Birden çok belgeyi silin:",
+                nextExercise5: "Sonraki: Alıştırma 5 →",
+                pythonPymongo: "PyMongo ile Python'dan MongoDB'yi kontrol edebilirsiniz.",
+                installPymongo: "PyMongo yükleyin:",
+                connectPython: "MongoDB'ye bağlanın:",
+                crudPython: "Python'da CRUD İşlemleri:",
+                nextExercise6: "Sonraki: Alıştırma 6 →",
+                aggregationPipelineTitle: "Toplama Ardışık Düzeni, MongoDB'deki en önemli kavramlardan biridir.",
+                stagesExample: "Örnek: $group, $match ve $sort kullanarak ürün kategorisine göre geliri hesaplayın:",
+                nextExercise7: "Sonraki: Alıştırma 7 →",
+                dataModelingBestPractices: "MongoDB'de Veri Modelleme En İyi Uygulamaları:",
+                embeddingVsReferencing: "Gömme vs. Referanslama:",
+                denormalizationBenefits: "Denormalizasyonun Faydaları:",
+                indexingPerformance: "Performans için İndeksleme:",
+                nextExercise8: "Sonraki: Alıştırma 8 →",
+                rfmAnalysisExplanation: "RFM Analizi (Recency, Frequency, Monetary), müşterileri satın alma davranışlarına göre segmentler.",
+                understandingRFM: "RFM'yi Anlamak:",
+                recency: "Güncellik:",
+                frequency: "Sıklık:",
+                monetary: "Parasal:",
+                customerSegmentation: "Müşteri Segmentasyonu:",
+                vipCustomers: "VIP Müşteriler:",
+                regularCustomers: "Düzenli Müşteriler:",
+                atRiskCustomers: "Risk Altındaki Müşteriler:",
+                whatIsIdField: "MongoDB'de _id alanı nedir?",
+                idFieldDesc: "Her belge için benzersiz tanımlayıcı. Siz bir tane sağlamaz ise MongoDB otomatik olarak bir ObjectId oluşturur.",
+                whatIsBSON: "BSON nedir?",
+                bsonDesc: "Binary JSON - MongoDB'nin JSON'dan daha fazla genişletilmiş veri türlerini destekleyen iç ikili biçimi.",
+                noDocumentsFound: "Belgeler bulunamadı",
+                verifyDatabase: "Doğru veritabanını ve koleksiyonu kullandığınızı doğrulayın. Kontrol edin: show dbs ve show collections",
+                nextSteps: "Sonraki Adımlar"
             }
         };
 
@@ -516,7 +1194,7 @@
 
                     <div className="card" style={{ padding: '2rem', marginBottom: '2rem' }}>
                         <h3 className="card-title" style={{ marginBottom: '1rem' }}>{t.mongoDBIs}</h3>
-                        <p style={{ marginBottom: '1rem' }}>MongoDB is a popular NoSQL database that stores data in flexible JSON-like documents.</p>
+                        <p style={{ marginBottom: '1rem' }}>{t.mongodbPopular}</p>
                         <ul className="numbered-list">
                             <li>{t.documentOriented}</li>
                             <li>{t.flexible}</li>
@@ -525,11 +1203,11 @@
                     </div>
 
                     <div className="card" style={{ padding: '2rem' }}>
-                        <h3 className="card-title" style={{ marginBottom: '1rem' }}>When to Use MongoDB vs SQL?</h3>
+                        <h3 className="card-title" style={{ marginBottom: '1rem' }}>{t.whenToUseSQL}</h3>
                         <table className="comparison-table">
                             <thead>
                                 <tr>
-                                    <th>Use Case</th>
+                                    <th>{t.useCase}</th>
                                     <th>MongoDB</th>
                                     <th>SQL</th>
                                 </tr>
@@ -537,28 +1215,28 @@
                             <tbody>
                                 <tr>
                                     <td>Flexible Schema</td>
-                                    <td style={{ color: '#0b663c', fontWeight: '600' }}>Excellent</td>
-                                    <td>Not Ideal</td>
+                                    <td style={{ color: '#0b663c', fontWeight: '600' }}>{t.excellent}</td>
+                                    <td>{t.notIdeal}</td>
                                 </tr>
                                 <tr>
-                                    <td>Nested Data</td>
-                                    <td style={{ color: '#0b663c', fontWeight: '600' }}>Native Support</td>
-                                    <td>Requires Joins</td>
+                                    <td>{t.nestedData}</td>
+                                    <td style={{ color: '#0b663c', fontWeight: '600' }}>{t.nativeSupport}</td>
+                                    <td>{t.requiresJoins}</td>
                                 </tr>
                                 <tr>
-                                    <td>Horizontal Scaling</td>
-                                    <td style={{ color: '#0b663c', fontWeight: '600' }}>Built-in Sharding</td>
-                                    <td>Complex</td>
+                                    <td>{t.horizontalScaling}</td>
+                                    <td style={{ color: '#0b663c', fontWeight: '600' }}>{t.builtInSharding}</td>
+                                    <td>{t.complex}</td>
                                 </tr>
                                 <tr>
-                                    <td>ACID Transactions</td>
-                                    <td>Multi-doc supported</td>
-                                    <td style={{ color: '#0b663c', fontWeight: '600' }}>Strong</td>
+                                    <td>{t.acidTransactions}</td>
+                                    <td>{t.multiDocSupported}</td>
+                                    <td style={{ color: '#0b663c', fontWeight: '600' }}>{t.strong}</td>
                                 </tr>
                                 <tr>
-                                    <td>Real-time Analytics</td>
-                                    <td style={{ color: '#0b663c', fontWeight: '600' }}>Aggregation Pipeline</td>
-                                    <td>SQL queries</td>
+                                    <td>{t.realtimeAnalytics}</td>
+                                    <td style={{ color: '#0b663c', fontWeight: '600' }}>{t.aggregationPipeline}</td>
+                                    <td>{t.sqlQueries}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -581,13 +1259,13 @@
                     <div className="accent-line" style={{ marginBottom: '2rem' }}></div>
 
                     <div className="card" style={{ padding: '2rem' }}>
-                        <h3 className="card-title" style={{ marginBottom: '1.5rem' }}>Docker Setup for MongoDB</h3>
+                        <h3 className="card-title" style={{ marginBottom: '1.5rem' }}>{t.dockerSetup}</h3>
 
-                        <h4 style={{ marginTop: '1.5rem', marginBottom: '0.5rem', color: '#1B3A5C', fontWeight: '600' }}>Step 1: Install Docker</h4>
-                        <p style={{ marginBottom: '1rem' }}>Download from <a href="https://www.docker.com/download" target="_blank" rel="noopener noreferrer" style={{ color: '#E8792F', textDecoration: 'underline' }}>docker.com/download</a></p>
+                        <h4 style={{ marginTop: '1.5rem', marginBottom: '0.5rem', color: '#1B3A5C', fontWeight: '600' }}>{t.step1InstallDocker}</h4>
+                        <p style={{ marginBottom: '1rem' }}>{t.downloadFrom} <a href="https://www.docker.com/download" target="_blank" rel="noopener noreferrer" style={{ color: '#E8792F', textDecoration: 'underline' }}>docker.com/download</a></p>
                         <div className="expandable" onClick={() => toggleHint('docker_install')} style={{ cursor: 'pointer' }}>
                             <div className="expandable-header">
-                                <span>Hint</span>
+                                <span>{t.hint}</span>
                                 <span className="expandable-chevron">▼</span>
                             </div>
                             {expandedHints['docker_install'] && (
@@ -595,14 +1273,14 @@
                             )}
                         </div>
 
-                        <h4 style={{ marginTop: '1.5rem', marginBottom: '0.5rem', color: '#1B3A5C', fontWeight: '600' }}>Step 2: Pull MongoDB Image</h4>
+                        <h4 style={{ marginTop: '1.5rem', marginBottom: '0.5rem', color: '#1B3A5C', fontWeight: '600' }}>{t.step2PullImage}</h4>
                         <div className="code-block">
                             <button className="copy-btn" onClick={() => copyToClipboard('docker pull mongo:latest')}>Copy</button>
                             <code>docker pull mongo:latest</code>
                         </div>
                         <div className="expandable" onClick={() => toggleHint('docker_pull')} style={{ cursor: 'pointer' }}>
                             <div className="expandable-header">
-                                <span>Hint</span>
+                                <span>{t.hint}</span>
                                 <span className="expandable-chevron">▼</span>
                             </div>
                             {expandedHints['docker_pull'] && (
@@ -610,14 +1288,14 @@
                             )}
                         </div>
 
-                        <h4 style={{ marginTop: '1.5rem', marginBottom: '0.5rem', color: '#1B3A5C', fontWeight: '600' }}>Step 3: Start MongoDB Container</h4>
+                        <h4 style={{ marginTop: '1.5rem', marginBottom: '0.5rem', color: '#1B3A5C', fontWeight: '600' }}>{t.step3StartContainer}</h4>
                         <div className="code-block">
                             <button className="copy-btn" onClick={() => copyToClipboard('docker run -d -p 27017:27017 --name mongodb -v mongodb_data:/data/db mongo:latest')}>Copy</button>
                             <code>{'docker run -d -p 27017:27017 --name mongodb \\\n  -v mongodb_data:/data/db mongo:latest'}</code>
                         </div>
                         <div className="expandable" onClick={() => toggleHint('docker_run')} style={{ cursor: 'pointer' }}>
                             <div className="expandable-header">
-                                <span>Hint</span>
+                                <span>{t.hint}</span>
                                 <span className="expandable-chevron">▼</span>
                             </div>
                             {expandedHints['docker_run'] && (
@@ -625,7 +1303,7 @@
                             )}
                         </div>
 
-                        <h4 style={{ marginTop: '1.5rem', marginBottom: '0.5rem', color: '#1B3A5C', fontWeight: '600' }}>Step 4: Connect to MongoDB</h4>
+                        <h4 style={{ marginTop: '1.5rem', marginBottom: '0.5rem', color: '#1B3A5C', fontWeight: '600' }}>{t.step4Connect}</h4>
                         <div className="code-block">
                             <button className="copy-btn" onClick={() => copyToClipboard('docker exec -it mongodb mongosh')}>Copy</button>
                             <code>docker exec -it mongodb mongosh</code>
@@ -639,7 +1317,7 @@
                         </div>
 
                         <div style={{ background: '#fef5f1', padding: '1rem', borderRadius: '0.5rem', marginTop: '1rem', borderLeft: '4px solid #E8792F' }}>
-                          <strong>Mongo Express Web UI:</strong> If using docker-compose, open <code>http://localhost:8081</code> for a graphical interface to browse your databases.
+                          <strong>{t.mongoExpressUI}</strong> {t.usingDockerCompose} <code>http://localhost:8081</code> {t.graphicalInterface}
                         </div>
                     </div>
                 </div>
@@ -655,12 +1333,12 @@
 
             return (
                 <div>
-                    <h2 style={{ fontSize: '2rem', marginBottom: '1.5rem', color: '#1B3A5C' }}>MongoDB Fundamentals</h2>
+                    <h2 style={{ fontSize: '2rem', marginBottom: '1.5rem', color: '#1B3A5C' }}>{t.mongoDBFundamentals}</h2>
                     <div className="accent-line" style={{ marginBottom: '2rem' }}></div>
 
                     <div className="card" style={{ padding: '2rem', marginBottom: '2rem' }}>
-                        <h3 className="card-title" style={{ marginBottom: '1rem' }}>What is a Document?</h3>
-                        <p style={{ marginBottom: '1rem' }}>{t.documentOriented} A document is a single record with nested structure.</p>
+                        <h3 className="card-title" style={{ marginBottom: '1rem' }}>{t.whatIsDocument}</h3>
+                        <p style={{ marginBottom: '1rem' }}>{t.documentOriented} {t.documentDesc}</p>
                         <div className="code-block">
                             <button className="copy-btn" onClick={() => copyToClipboard('{\n  "_id": ObjectId("123456"),\n  "name": "John Doe",\n  "email": "john@example.com",\n  "age": 28,\n  "addresses": [\n    { "street": "123 Main St", "city": "New York" }\n  ]\n}')}>Copy</button>
                             <code style={{ whiteSpace: 'pre-wrap' }}>{'{\n  "_id": ObjectId("123456"),\n  "name": "John Doe",\n  "email": "john@example.com",\n  "age": 28,\n  "addresses": [\n    {"street": "123 Main St", "city": "New York"}\n  ]\n}'}</code>
@@ -677,8 +1355,8 @@
                     </div>
 
                     <div className="card" style={{ padding: '2rem', marginBottom: '2rem' }}>
-                        <h3 className="card-title" style={{ marginBottom: '1rem' }}>What is a Collection?</h3>
-                        <p style={{ marginBottom: '1rem' }}>A collection is a group of related documents. Example: a "customers" collection contains all customer documents.</p>
+                        <h3 className="card-title" style={{ marginBottom: '1rem' }}>{t.whatIsCollection}</h3>
+                        <p style={{ marginBottom: '1rem' }}>{t.collectionDesc}</p>
                         <div className="code-block">
                             <button className="copy-btn" onClick={() => copyToClipboard('# customers collection:\n{\n  "_id": ObjectId("111"),\n  "name": "Alice",\n  "email": "alice@example.com"\n}\n{\n  "_id": ObjectId("222"),\n  "name": "Bob",\n  "email": "bob@example.com",\n  "phone": "+1-555-1234"\n}')}>Copy</button>
                             <code style={{ whiteSpace: 'pre-wrap' }}>{'# customers collection:\n{\n  "_id": ObjectId("111"),\n  "name": "Alice",\n  "email": "alice@example.com"\n}\n{\n  "_id": ObjectId("222"),\n  "name": "Bob",\n  "email": "bob@example.com",\n  "phone": "+1-555-1234"\n}'}</code>
@@ -695,9 +1373,9 @@
                     </div>
 
                     <div className="card" style={{ padding: '2rem', marginBottom: '2rem' }}>
-                        <h3 className="card-title" style={{ marginBottom: '1rem' }}>Shell Basics</h3>
+                        <h3 className="card-title" style={{ marginBottom: '1rem' }}>{t.shellBasics}</h3>
 
-                        <h4 style={{ marginTop: '1rem', marginBottom: '0.5rem', color: '#1B3A5C', fontWeight: '600' }}>Show All Databases</h4>
+                        <h4 style={{ marginTop: '1rem', marginBottom: '0.5rem', color: '#1B3A5C', fontWeight: '600' }}>{t.showAllDatabases}</h4>
                         <div className="code-block">
                             <button className="copy-btn" onClick={() => copyToClipboard('show dbs')}>Copy</button>
                             <code>show dbs</code>
@@ -709,7 +1387,7 @@
                             myapp    0.100GB
                         </div>
 
-                        <h4 style={{ marginTop: '1rem', marginBottom: '0.5rem', color: '#1B3A5C', fontWeight: '600' }}>Select or Create a Database</h4>
+                        <h4 style={{ marginTop: '1rem', marginBottom: '0.5rem', color: '#1B3A5C', fontWeight: '600' }}>{t.selectOrCreateDB}</h4>
                         <div className="code-block">
                             <button className="copy-btn" onClick={() => copyToClipboard('use myapp')}>Copy</button>
                             <code>use myapp</code>
@@ -718,7 +1396,7 @@
                             switched to db myapp
                         </div>
 
-                        <h4 style={{ marginTop: '1rem', marginBottom: '0.5rem', color: '#1B3A5C', fontWeight: '600' }}>Show Collections</h4>
+                        <h4 style={{ marginTop: '1rem', marginBottom: '0.5rem', color: '#1B3A5C', fontWeight: '600' }}>{t.showCollections}</h4>
                         <div className="code-block">
                             <button className="copy-btn" onClick={() => copyToClipboard('show collections')}>Copy</button>
                             <code>show collections</code>
@@ -732,9 +1410,9 @@
                     </div>
 
                     <div className="card" style={{ padding: '2rem' }}>
-                        <h3 className="card-title" style={{ marginBottom: '1rem' }}>Basic CRUD Operations</h3>
+                        <h3 className="card-title" style={{ marginBottom: '1rem' }}>{t.basicCRUDOps}</h3>
 
-                        <h4 style={{ marginTop: '1rem', marginBottom: '0.5rem', color: '#1B3A5C', fontWeight: '600' }}>CREATE: Insert One Document</h4>
+                        <h4 style={{ marginTop: '1rem', marginBottom: '0.5rem', color: '#1B3A5C', fontWeight: '600' }}>{t.createInsertOne}</h4>
                         <div className="code-block">
                             <button className="copy-btn" onClick={() => copyToClipboard('db.customers.insertOne({\n  "name": "Jane Smith",\n  "email": "jane@example.com",\n  "country": "USA"\n})')}>Copy</button>
                             <code style={{ whiteSpace: 'pre-wrap' }}>{'db.customers.insertOne({\n  "name": "Jane Smith",\n  "email": "jane@example.com",\n  "country": "USA"\n})'}</code>
@@ -742,7 +1420,7 @@
                         <div className="output-box">
                             {'{\n  "acknowledged": true,\n  "insertedId": ObjectId("507f1f77bcf86cd799439011")\n}'}</div>
 
-                        <h4 style={{ marginTop: '1rem', marginBottom: '0.5rem', color: '#1B3A5C', fontWeight: '600' }}>READ: Find One Document</h4>
+                        <h4 style={{ marginTop: '1rem', marginBottom: '0.5rem', color: '#1B3A5C', fontWeight: '600' }}>{t.readFindOne}</h4>
                         <div className="code-block">
                             <button className="copy-btn" onClick={() => copyToClipboard('db.customers.findOne({ name: "Jane Smith" })')}>Copy</button>
                             <code>{'db.customers.findOne({ name: "Jane Smith" })'}</code>
@@ -750,7 +1428,7 @@
                         <div className="output-box">
                             {'{\n  "_id": ObjectId("507f1f77bcf86cd799439011"),\n  "name": "Jane Smith",\n  "email": "jane@example.com",\n  "country": "USA"\n}'}</div>
 
-                        <h4 style={{ marginTop: '1rem', marginBottom: '0.5rem', color: '#1B3A5C', fontWeight: '600' }}>UPDATE: Modify a Document</h4>
+                        <h4 style={{ marginTop: '1rem', marginBottom: '0.5rem', color: '#1B3A5C', fontWeight: '600' }}>{t.updateModify}</h4>
                         <div className="code-block">
                             <button className="copy-btn" onClick={() => copyToClipboard('db.customers.updateOne(\n  { name: "Jane Smith" },\n  { $set: { country: "Canada" } }\n)')}>Copy</button>
                             <code style={{ whiteSpace: 'pre-wrap' }}>{'db.customers.updateOne(\n  { name: "Jane Smith" },\n  { $set: { country: "Canada" } }\n)'}</code>
@@ -758,7 +1436,7 @@
                         <div className="output-box">
                             {'{\n  "acknowledged": true,\n  "modifiedCount": 1\n}'}</div>
 
-                        <h4 style={{ marginTop: '1rem', marginBottom: '0.5rem', color: '#1B3A5C', fontWeight: '600' }}>DELETE: Remove a Document</h4>
+                        <h4 style={{ marginTop: '1rem', marginBottom: '0.5rem', color: '#1B3A5C', fontWeight: '600' }}>{t.deleteRemove}</h4>
                         <div className="code-block">
                             <button className="copy-btn" onClick={() => copyToClipboard('db.customers.deleteOne({ name: "Jane Smith" })')}>Copy</button>
                             <code>{'db.customers.deleteOne({ name: "Jane Smith" })'}</code>
@@ -786,49 +1464,49 @@
                     <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '1rem' }}>
                         <span className="badge badge-beginner">BEGINNER</span>
                     </div>
-                    <h2 style={{ fontSize: '2rem', marginBottom: '1.5rem', color: '#1B3A5C' }}>Exercise 1: First Steps</h2>
+                    <h2 style={{ fontSize: '2rem', marginBottom: '1.5rem', color: '#1B3A5C' }}>{t.exercise1}</h2>
                     <div className="accent-line" style={{ marginBottom: '2rem' }}></div>
 
                     <div className="card" style={{ padding: '2rem' }}>
-                        <h3 className="card-title" style={{ marginBottom: '1rem' }}>Objective</h3>
+                        <h3 className="card-title" style={{ marginBottom: '1rem' }}>{t.objective}</h3>
                         <p>Learn basic MongoDB operations: insert, find, update, and delete a single document.</p>
 
-                        <h3 className="card-title" style={{ marginTop: '2rem', marginBottom: '1rem' }}>Steps</h3>
+                        <h3 className="card-title" style={{ marginTop: '2rem', marginBottom: '1rem' }}>{t.steps}</h3>
                         <ol style={{ marginLeft: '1.5rem', lineHeight: '2' }}>
-                            <li><strong>Switch to a test database:</strong>
+                            <li><strong>{t.switchTestDB}</strong>
                                 <div className="code-block">
                                     <button className="copy-btn" onClick={() => copyToClipboard('use testdb')}>Copy</button>
                                     <code>use testdb</code>
                                 </div>
                             </li>
-                            <li><strong>Insert a document:</strong>
+                            <li><strong>{t.insertDocument}</strong>
                                 <div className="code-block">
                                     <button className="copy-btn" onClick={() => copyToClipboard('db.users.insertOne({\n  "username": "alice123",\n  "email": "alice@example.com",\n  "age": 25,\n  "active": true\n})')}>Copy</button>
                                     <code style={{ whiteSpace: 'pre-wrap' }}>{'db.users.insertOne({\n  "username": "alice123",\n  "email": "alice@example.com",\n  "age": 25,\n  "active": true\n})'}</code>
                                 </div>
                                 <div className="output-box">{'{\n  "acknowledged": true,\n  "insertedId": ObjectId(".....")\n}'}</div>
                             </li>
-                            <li><strong>Find the document:</strong>
+                            <li><strong>{t.findDocument}</strong>
                                 <div className="code-block">
                                     <button className="copy-btn" onClick={() => copyToClipboard('db.users.findOne()')}>Copy</button>
                                     <code>db.users.findOne()</code>
                                 </div>
                                 <div className="output-box">{'{\n  "_id": ObjectId("..."),\n  "username": "alice123",\n  "email": "alice@example.com",\n  "age": 25,\n  "active": true\n}'}</div>
                             </li>
-                            <li><strong>Update the document (change age to 26):</strong>
+                            <li><strong>{t.updateDocument}</strong>
                                 <div className="code-block">
                                     <button className="copy-btn" onClick={() => copyToClipboard('db.users.updateOne(\n  { username: "alice123" },\n  { $set: { age: 26 } }\n)')}>Copy</button>
                                     <code style={{ whiteSpace: 'pre-wrap' }}>{'db.users.updateOne(\n  { username: "alice123" },\n  { $set: { age: 26 } }\n)'}</code>
                                 </div>
                                 <div className="output-box">{'{\n  "acknowledged": true,\n  "modifiedCount": 1\n}'}</div>
                             </li>
-                            <li><strong>Verify the update:</strong>
+                            <li><strong>{t.verifyUpdate}</strong>
                                 <div className="code-block">
                                     <button className="copy-btn" onClick={() => copyToClipboard('db.users.findOne({ username: "alice123" })')}>Copy</button>
                                     <code>{'db.users.findOne({ username: "alice123" })'}</code>
                                 </div>
                             </li>
-                            <li><strong>Delete the document:</strong>
+                            <li><strong>{t.deleteDocument}</strong>
                                 <div className="code-block">
                                     <button className="copy-btn" onClick={() => copyToClipboard('db.users.deleteOne({ username: "alice123" })')}>Copy</button>
                                     <code>{'db.users.deleteOne({ username: "alice123" })'}</code>
@@ -837,29 +1515,29 @@
                             </li>
                         </ol>
 
-                        <h3 className="card-title" style={{ marginTop: '2rem', marginBottom: '1rem' }}>Verify Your Results</h3>
+                        <h3 className="card-title" style={{ marginTop: '2rem', marginBottom: '1rem' }}>{t.verifyResults}</h3>
                         <div className="hint-box">
-                            <div className="hint-title">Check: How many documents are in the users collection?</div>
+                            <div className="hint-title">{t.checkDocuments}</div>
                             <div className="code-block" style={{ marginTop: '0.5rem' }}>
                                 <button className="copy-btn" onClick={() => copyToClipboard('db.users.countDocuments()')}>Copy</button>
                                 <code>db.users.countDocuments()</code>
                             </div>
-                            <div style={{ marginTop: '0.5rem' }}>Expected: 0 (since we deleted the document)</div>
+                            <div style={{ marginTop: '0.5rem' }}>{t.expectedZero}</div>
                         </div>
 
                         <div className="expandable" onClick={() => toggleHint('exercise1_hint')} style={{ cursor: 'pointer', marginTop: '1.5rem' }}>
                             <div className="expandable-header">
-                                <span>Hint</span>
+                                <span>{t.hint}</span>
                                 <span className="expandable-chevron">▼</span>
                             </div>
                             {expandedHints['exercise1_hint'] && (
-                                <div className="expandable-content">Make sure mongosh is running! If you get a connection error, restart your MongoDB container.</div>
+                                <div className="expandable-content">{t.ensureMongosh}</div>
                             )}
                         </div>
 
                         <div style={{ textAlign: 'right', marginTop: '2rem' }}>
                           <button className="btn-accent" onClick={() => setActiveSection('exercise2')} style={{ fontSize: '0.9rem' }}>
-                            Next: Exercise 2 →
+                            {t.nextExercise2}
                           </button>
                         </div>
                     </div>
@@ -943,7 +1621,7 @@
 
                         <div style={{ textAlign: 'right', marginTop: '2rem' }}>
                           <button className="btn-accent" onClick={() => setActiveSection('exercise3')} style={{ fontSize: '0.9rem' }}>
-                            Next: Exercise 3 →
+                            {t.nextExercise3}
                           </button>
                         </div>
                     </div>
@@ -1035,7 +1713,7 @@
 
                         <div style={{ textAlign: 'right', marginTop: '2rem' }}>
                           <button className="btn-accent" onClick={() => setActiveSection('exercise4')} style={{ fontSize: '0.9rem' }}>
-                            Next: Exercise 4 →
+                            {t.nextExercise4}
                           </button>
                         </div>
                     </div>
@@ -1126,7 +1804,7 @@
 
                         <div style={{ textAlign: 'right', marginTop: '2rem' }}>
                           <button className="btn-accent" onClick={() => setActiveSection('exercise5')} style={{ fontSize: '0.9rem' }}>
-                            Next: Exercise 5 →
+                            {t.nextExercise5}
                           </button>
                         </div>
                     </div>
@@ -1179,7 +1857,7 @@
 
                         <div style={{ textAlign: 'right', marginTop: '2rem' }}>
                           <button className="btn-accent" onClick={() => setActiveSection('exercise6')} style={{ fontSize: '0.9rem' }}>
-                            Next: Exercise 6 →
+                            {t.nextExercise6}
                           </button>
                         </div>
                     </div>
@@ -1245,7 +1923,7 @@
 
                         <div style={{ textAlign: 'right', marginTop: '2rem' }}>
                           <button className="btn-accent" onClick={() => setActiveSection('exercise7')} style={{ fontSize: '0.9rem' }}>
-                            Next: Exercise 7 →
+                            {t.nextExercise7}
                           </button>
                         </div>
                     </div>
@@ -1336,7 +2014,7 @@
 
                         <div style={{ textAlign: 'right', marginTop: '2rem' }}>
                           <button className="btn-accent" onClick={() => setActiveSection('exercise8')} style={{ fontSize: '0.9rem' }}>
-                            Next: Exercise 8 →
+                            {t.nextExercise8}
                           </button>
                         </div>
                     </div>
