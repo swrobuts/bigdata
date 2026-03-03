@@ -3,1086 +3,1555 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DuckDB Lab - Analytical SQL & Python</title>
-
+    <title>DuckDB Lab - Big Data Course</title>
     <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-light.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/javascript.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/bash.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/json.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/yaml.min.js"></script>
-
     <style>
-        * {
-            scroll-behavior: smooth;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: #fafbfc;
-        }
-
-        html[dir="rtl"] {
-            direction: rtl;
-            text-align: right;
-        }
-
-        html[dir="rtl"] * {
-            text-align: inherit;
-        }
-
-        .navbar {
-            background: white;
-            box-shadow: 0 1px 12px rgba(0,0,0,0.05);
-            position: sticky;
-            top: 0;
-            z-index: 50;
-        }
-
-        .navbar-content {
-            max-width: 7xl;
-            margin: 0 auto;
-            padding: 1rem 1.5rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, #FFC107 0%, #1B3A5C 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .lang-btn {
-            padding: 0.5rem 0.75rem;
-            border-radius: 0.375rem;
-            border: 2px solid #e5e7eb;
-            background: white;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 0.875rem;
-            color: #666;
-            transition: all 0.3s ease;
-        }
-
-        .lang-btn.active {
-            background: #FFC107;
+            background-color: #fafbfc;
             color: #1B3A5C;
-            border-color: #FFC107;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
+            line-height: 1.6;
         }
-
-        .lang-btn:hover {
-            border-color: #FFC107;
-        }
-
-        .hero-section {
-            background: linear-gradient(135deg, rgba(255, 193, 7, 0.95) 0%, rgba(27, 58, 92, 0.9) 100%);
+        .accent-line { border-top: 4px solid #E8792F; }
+        .accent-border { border: 2px solid #E8792F; }
+        .accent-bg { background-color: #E8792F; }
+        .btn-accent {
+            background-color: #E8792F;
             color: white;
-            padding: 4rem 1.5rem;
-        }
-
-        .hero-content {
-            max-width: 7xl;
-            margin: 0 auto;
-        }
-
-        .sidebar {
-            background: white;
-            border-right: 1px solid rgba(0, 0, 0, 0.06);
-            padding: 2rem 1.5rem;
-            max-height: calc(100vh - 64px);
-            overflow-y: auto;
-            position: sticky;
-            top: 64px;
-        }
-
-        .sidebar-link {
-            display: block;
-            padding: 0.75rem 1rem;
-            margin-bottom: 0.5rem;
-            border-left: 3px solid transparent;
-            color: #1B3A5C;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border-radius: 0 0.375rem 0.375rem 0;
-        }
-
-        html[dir="rtl"] .sidebar-link {
-            border-left: none;
-            border-right: 3px solid transparent;
-            border-radius: 0.375rem 0 0 0.375rem;
-        }
-
-        .sidebar-link:hover {
-            background: rgba(255, 193, 7, 0.1);
-            border-left-color: #FFC107;
-        }
-
-        html[dir="rtl"] .sidebar-link:hover {
-            border-left: none;
-            border-right-color: #FFC107;
-        }
-
-        .sidebar-link.active {
-            background: rgba(255, 193, 7, 0.15);
-            border-left-color: #FFC107;
-            font-weight: 600;
-            color: #FFC107;
-        }
-
-        html[dir="rtl"] .sidebar-link.active {
-            border-left: none;
-            border-right-color: #FFC107;
-        }
-
-        .section {
-            margin-bottom: 3rem;
-            scroll-margin-top: 100px;
-        }
-
-        .section-header {
-            font-size: 2rem;
-            font-weight: 700;
-            color: #1B3A5C;
-            margin-bottom: 1.5rem;
-            padding-bottom: 1rem;
-            border-bottom: 3px solid rgba(255, 193, 7, 0.6);
-        }
-
-        html[dir="rtl"] .section-header {
-            border-bottom: 3px solid rgba(255, 193, 7, 0.6);
-        }
-
-        .subsection-header {
-            font-size: 1.25rem;
-            font-weight: 600;
-            color: #1B3A5C;
-            margin-top: 1.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .card {
-            background: white;
-            border: 1px solid rgba(0, 0, 0, 0.06);
+            padding: 0.75rem 1.5rem;
             border-radius: 0.75rem;
-            padding: 1.5rem;
-            margin-bottom: 1.5rem;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
-            transition: all 0.3s ease;
-        }
-
-        .card:hover {
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
-            border-color: rgba(255, 193, 7, 0.3);
-        }
-
-        .code-block {
-            background: #1e293b;
-            border-left: 3px solid rgba(255, 193, 7, 0.8);
-            border-radius: 0.75rem;
-            margin-bottom: 1.5rem;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .code-block-header {
-            background: rgba(0, 0, 0, 0.3);
-            color: #e2e8f0;
-            padding: 0.75rem 1rem;
-            font-size: 0.875rem;
-            font-weight: 600;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .code-block-content {
-            padding: 1.5rem 1rem;
-            overflow-x: auto;
-        }
-
-        .code-block code {
-            color: #e2e8f0;
-            font-family: 'Monaco', 'Courier New', monospace;
-            font-size: 0.875rem;
-            line-height: 1.5;
-        }
-
-        .copy-button {
-            background: rgba(255, 193, 7, 0.9);
-            color: #1B3A5C;
             border: none;
-            padding: 0.5rem 1rem;
-            border-radius: 0.375rem;
             cursor: pointer;
-            font-size: 0.875rem;
             font-weight: 600;
-            transition: all 0.3s ease;
+            transition: all 0.2s;
         }
-
-        .copy-button:hover {
-            background: #FFC107;
+        .btn-accent:hover { opacity: 0.9; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(232, 121, 47, 0.3); }
+        .card { background: white; border-radius: 0.75rem; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); }
+        .card-title { color: #1B3A5C; font-weight: 700; font-size: 1.125rem; }
+        .code-block {
+            background: #f5f5f5;
+            border-left: 4px solid #E8792F;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            overflow-x: auto;
+            margin: 1rem 0;
+            position: relative;
         }
-
-        .copy-button.copied {
-            background: #10b981;
+        .code-block code { font-size: 0.9rem; line-height: 1.5; font-family: 'Monaco', 'Courier New', monospace; }
+        .copy-btn {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            background: #E8792F;
+            color: white;
+            border: none;
+            padding: 0.4rem 0.8rem;
+            border-radius: 0.4rem;
+            cursor: pointer;
+            font-size: 0.8rem;
         }
-
-        .difficulty-badge {
+        .copy-btn:hover { opacity: 0.9; }
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 280px;
+            height: 100vh;
+            background: white;
+            border-right: 1px solid #e0e0e0;
+            overflow-y: auto;
+            padding-top: 5rem;
+            z-index: 40;
+        }
+        .main-content {
+            margin-left: 280px;
+            padding: 2rem;
+            max-width: 900px;
+        }
+        .sidebar-item {
+            padding: 0.75rem 1.5rem;
+            cursor: pointer;
+            border-left: 4px solid transparent;
+            transition: all 0.2s;
+            font-size: 0.95rem;
+        }
+        .sidebar-item:hover { background: #f5f5f5; }
+        .sidebar-item.active {
+            border-left-color: #E8792F;
+            background: #fef5f1;
+            font-weight: 600;
+            color: #E8792F;
+        }
+        .section { display: none; margin-bottom: 3rem; }
+        .section.active { display: block; animation: fadeIn 0.3s; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .quiz-item { border-left: 4px solid #E8792F; padding-left: 1rem; margin: 1rem 0; }
+        .badge {
             display: inline-block;
             padding: 0.25rem 0.75rem;
             border-radius: 9999px;
-            font-size: 0.875rem;
+            font-size: 0.8rem;
             font-weight: 600;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
         }
-
-        .difficulty-beginner {
-            background: rgba(34, 197, 94, 0.15);
-            color: #166534;
-        }
-
-        .exercise-card {
-            background: white;
-            border: 1px solid rgba(0, 0, 0, 0.06);
-            border-radius: 0.75rem;
-            padding: 1.5rem;
-            margin-bottom: 1.5rem;
-            border-left: 4px solid rgba(255, 193, 7, 0.5);
-        }
-
-        .exercise-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 1rem;
-        }
-
-        .exercise-number {
-            font-size: 2rem;
-            font-weight: 700;
-            color: rgba(255, 193, 7, 0.8);
-        }
-
-        .challenge-card {
-            background: white;
-            border: 1px solid rgba(0, 0, 0, 0.06);
-            border-radius: 0.75rem;
-            margin-bottom: 1.5rem;
-            overflow: hidden;
-        }
-
-        .challenge-header {
-            background: rgba(255, 193, 7, 0.05);
-            padding: 1.5rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        .badge-beginner { background: #c7f0d8; color: #0b663c; }
+        .badge-intermediate { background: #fef08a; color: #7c2d12; }
+        .badge-advanced { background: #fed7aa; color: #7c2d12; }
+        .badge-boss { background: #fecaca; color: #7f1d1d; }
+        .expandable {
+            background: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin: 1rem 0;
             cursor: pointer;
-            user-select: none;
+            transition: all 0.2s;
         }
-
-        .challenge-title {
-            font-weight: 600;
-            color: #1B3A5C;
-        }
-
-        .challenge-toggle {
-            font-size: 1.5rem;
-            transition: transform 0.3s ease;
-        }
-
-        .challenge-toggle.open {
-            transform: rotate(90deg);
-        }
-
-        .challenge-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease;
-        }
-
-        .challenge-content.open {
-            max-height: 3000px;
-            padding: 1.5rem;
-            border-top: 1px solid rgba(0, 0, 0, 0.06);
-        }
-
-        .self-check-question {
-            background: white;
-            border: 1px solid rgba(0, 0, 0, 0.06);
-            border-radius: 0.75rem;
-            padding: 1.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .question-text {
-            font-weight: 600;
-            color: #1B3A5C;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            user-select: none;
-        }
-
-        .answer-toggle {
+        .expandable:hover { background: #f3f4f6; }
+        .expandable-header { font-weight: 600; color: #E8792F; display: flex; align-items: center; justify-content: space-between; }
+        .expandable-content { display: none; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #e5e7eb; }
+        .expandable.expanded .expandable-content { display: block; }
+        .expandable-chevron { transition: transform 0.2s; }
+        .expandable.expanded .expandable-chevron { transform: rotate(180deg); }
+        .output-box {
+            background: #1B3A5C;
+            color: #00d084;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            font-family: 'Monaco', 'Courier New', monospace;
             font-size: 0.9rem;
+            overflow-x: auto;
+            margin: 1rem 0;
+            border-left: 4px solid #E8792F;
         }
-
-        .answer-text {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease;
-            padding: 0;
-            margin-top: 0;
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            border-bottom: 1px solid #e0e0e0;
+            z-index: 50;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 2rem;
         }
-
-        .answer-text.open {
-            max-height: 500px;
-            padding: 1rem 0;
-            margin-top: 1rem;
-            border-top: 1px solid rgba(0, 0, 0, 0.06);
-            color: #4b5563;
-            line-height: 1.6;
-        }
-
-        .info-box {
-            border-radius: 0.75rem;
-            padding: 1.5rem;
-            margin-bottom: 1.5rem;
-            border-left: 4px solid;
-        }
-
-        .hypothesis-box {
-            background: rgba(251, 146, 60, 0.08);
-            border-left-color: rgba(251, 146, 60, 0.6);
-        }
-
-        .insight-box {
-            background: rgba(34, 197, 94, 0.08);
-            border-left-color: rgba(34, 197, 94, 0.6);
-        }
-
-        .learning-box {
-            background: rgba(59, 130, 246, 0.08);
-            border-left-color: rgba(59, 130, 246, 0.6);
-        }
-
-        .mobile-menu-toggle {
-            display: none;
+        .header-left { display: flex; align-items: center; gap: 1rem; }
+        .back-btn {
             background: none;
             border: none;
+            color: #E8792F;
             font-size: 1.5rem;
             cursor: pointer;
+            font-weight: bold;
+        }
+        .lang-select {
+            padding: 0.5rem 1rem;
+            border: 1px solid #E8792F;
+            border-radius: 0.4rem;
+            background: white;
             color: #1B3A5C;
+            cursor: pointer;
+            font-weight: 600;
         }
-
-        @media (max-width: 768px) {
-            .sidebar {
-                position: fixed;
-                left: 0;
-                top: 64px;
-                width: 256px;
-                max-height: calc(100vh - 64px);
-                z-index: 40;
-                transform: translateX(-100%);
-                transition: transform 0.3s ease;
-            }
-
-            html[dir="rtl"] .sidebar {
-                left: auto;
-                right: 0;
-                transform: translateX(100%);
-            }
-
-            .sidebar.active {
-                transform: translateX(0);
-            }
-
-            html[dir="rtl"] .sidebar.active {
-                transform: translateX(0);
-            }
-
-            .mobile-menu-toggle {
-                display: block;
-            }
-
-            .hero-section {
-                padding: 2rem 1.5rem;
-            }
-
-            .section-header {
-                font-size: 1.5rem;
-            }
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
         }
-
-        .hljs {
-            background: transparent !important;
-            padding: 0 !important;
+        .comparison-table th, .comparison-table td {
+            padding: 1rem;
+            text-align: left;
+            border: 1px solid #e0e0e0;
         }
-
-        .hljs-string { color: #86e1a0; }
-        .hljs-number { color: #d4d4d4; }
-        .hljs-literal { color: #569cd6; }
-        .hljs-attr { color: #9cdcfe; }
-        .hljs-keyword { color: #569cd6; }
+        .comparison-table th {
+            background: #fef5f1;
+            font-weight: 700;
+            color: #E8792F;
+        }
+        .comparison-table tr:hover { background: #fafbfc; }
+        .hint-box {
+            background: #fffbeb;
+            border-left: 4px solid #E8792F;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin: 1rem 0;
+        }
+        .hint-title { font-weight: 600; color: #E8792F; margin-bottom: 0.5rem; }
+        [dir="rtl"] { direction: rtl; text-align: right; }
+        [dir="rtl"] .sidebar { left: auto; right: 0; border-right: none; border-left: 1px solid #e0e0e0; }
+        [dir="rtl"] .main-content { margin-left: 0; margin-right: 280px; }
+        [dir="rtl"] .back-btn { margin-left: 0; margin-right: 1rem; }
+        [dir="rtl"] .sidebar-item { border-left: none; border-right: 4px solid transparent; padding-left: 0; padding-right: 1.5rem; }
+        [dir="rtl"] .sidebar-item.active { border-right-color: #E8792F; }
+        [dir="rtl"] .code-block { border-left: none; border-right: 4px solid #E8792F; }
+        .lesson-box {
+            background: #fef5f1;
+            border-left: 4px solid #E8792F;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            margin: 1rem 0;
+        }
     </style>
 </head>
 <body>
     <div id="root"></div>
-
     <script type="text/babel">
-        const { useState, useEffect, useRef } = React;
-
         const translations = {
             de: {
-                nav: { backToOverview: "← Zurück zur Übersicht", language: "Sprache", toggleMenu: "Menü" },
-                hero: { title: "DuckDB Lab - Analytisches SQL auf großen Datensätzen", chapter: "Kapitel 6 - Analytische Datenbanken", difficulty: "Schwierigkeitsgrad", beginner: "Anfänger", estimatedTime: "Geschätzte Zeit", hours: "2-3 Stunden" },
-                sidebar: {
-                    learningObjectives: "Lernziele",
-                    setupInstallation: "Setup & Installation",
-                    theoryOverview: "Theorie-Überblick",
-                    dataModel: "MegaStore Datenmodell",
-                    exercise1: "Übung 1: Erste Schritte",
-                    exercise2: "Übung 2: Analytische Abfragen",
-                    exercise3: "Übung 3: Parquet vs CSV",
-                    exercise4: "Übung 4: Komplexe Analytics",
-                    challenges: "Progressive Herausforderungen",
-                    selfCheck: "Selbstkontrolle",
-                    reflection: "Reflexion & Wirkliche Anwendungen",
-                    troubleshooting: "Fehlerbehebung"
-                },
-                objectives: [
-                    "Analytische SQL-Abfragen mit DuckDB schreiben",
-                    "Parquet-Format verstehen und nutzen",
-                    "Window Functions und erweiterte SQL-Funktionen anwenden",
-                    "Performance bei großen Datensätzen optimieren",
-                    "DuckDB mit traditionellen RDBMS vergleichen"
-                ],
-                setup: {
-                    title: "Setup & Installation",
-                    intro: "Starten Sie DuckDB mit Docker und Jupyter Notebook:",
-                    dockerRun: "docker run -it --rm -p 8888:8888 \\\n  -v $(pwd)/data:/home/jovyan/data \\\n  jupyter/scipy-notebook:latest \\\n  start-notebook.sh --NotebookApp.token=''",
-                    pythonSetup: "DuckDB im Jupyter Notebook installieren:",
-                    pythonInstall: "!pip install duckdb\nimport duckdb\ncon = duckdb.connect(':memory:')\nprint(duckdb.__version__)",
-                    verify: "Verbindung überprüfen:",
-                    verifySteps: ["DuckDB Python-Paket ist installiert", "Speicherinterne Verbindung erfolgreich", "DuckDB-Version wird angezeigt"]
-                },
-                theory: {
-                    title: "Theorie-Überblick",
-                    whatIs: "Was ist DuckDB?",
-                    whatIsDesc: "DuckDB ist eine In-Process OLAP-Datenbank, die speziell für analytische Arbeitslasten optimiert ist. Im Gegensatz zu SQLite und relationalen Systemen konzentriert sich DuckDB auf schnelle analytische Abfragen mit erweiterten SQL-Funktionen.",
-                    columnar: "Spaltenorientierte Speicherung",
-                    columnarDesc: "DuckDB speichert Daten in Spalten statt in Reihen, was analytische Abfragen dramatisch schneller macht. Nur benötigte Spalten werden aus dem Speicher geladen.",
-                    vectorized: "Vektorisierte Ausführung",
-                    vectorizedDesc: "Moderne CPUs unterstützen SIMD-Operationen. DuckDB nutzt dies zur parallelen Verarbeitung mehrerer Datensätze, was die Query-Performance erheblich verbessert.",
-                    parquet: "Parquet-Format",
-                    parquetDesc: "Ein spaltenorientiertes Speicherformat, das mit DuckDB optimiert arbeitet. Viel schneller als CSV für analytische Abfragen und spart Speicherplatz.",
-                    whenToUseDuckDB: "Wann DuckDB verwenden?",
-                    whenToUseDuckDBDesc: [
-                        "Schnelle analytische Abfragen über große CSV/Parquet-Dateien",
-                        "In-Process Analytics ohne Datenbankserver",
-                        "Datenexploration und Ad-hoc-Analysen",
-                        "ETL-Pipelines und Datentransformation",
-                        "Python-Integration für Data Science"
-                    ]
-                },
-                dataModel: {
-                    title: "MegaStore Datenmodell",
-                    intro: "Das E-Commerce-System enthält folgende Haupttabellen:",
-                    orders: "orders (500K Zeilen): Bestellungen mit ID, Datum, Kundeninfo, Betrag",
-                    items: "order_items (1M+ Zeilen): Positionen je Bestellung mit Produkt-ID, Menge, Preis",
-                    clickstream: "clickstream (200K Zeilen): Klickereignisse mit Timestamp, Benutzer-ID, Produkt-ID",
-                    products: "products (~5K Zeilen): Produktkatalog mit Name, Kategorie, Preis",
-                    customers: "customers (~50K Zeilen): Kundenstammdaten mit Name, Email, Region"
-                },
-                exercise1: {
-                    title: "Übung 1: Erste Schritte mit DuckDB",
-                    intro: "Verbinden Sie sich mit DuckDB und führen Sie grundlegende Operationen durch."
-                },
-                exercise2: {
-                    title: "Übung 2: Analytische Abfragen",
-                    intro: "Lernen Sie, komplexe analytische SQL-Abfragen mit Window Functions durchzuführen."
-                },
-                exercise3: {
-                    title: "Übung 3: Parquet vs CSV Performance",
-                    intro: "Vergleichen Sie die Performance von CSV und Parquet Formaten."
-                },
-                exercise4: {
-                    title: "Übung 4: Komplexe Analytics Challenge",
-                    intro: "Entwerfen Sie echte analytische Szenarien mit Kohorten- und Marktkorb-Analysen."
-                },
-                challenges: {
-                    title: "Progressive Herausforderungen",
-                    level1: {
-                        title: "Einstieg - Top 5 Produktkategorien",
-                        challenge: "Finden Sie die 5 Produktkategorien mit den meisten Produkten",
-                        hypothesis: "Bevor Sie die Query schreiben: Welche Kategorien haben Ihrer Meinung nach die meisten Produkte? Warum?",
-                        solution: "SELECT category, COUNT(*) as cnt FROM products GROUP BY category ORDER BY cnt DESC LIMIT 5",
-                        insight: "Elektronik und Haus & Garten dominieren typischerweise. Kategorieverwalter nutzen diese Daten für Regalbelegung und Marketingbudgets."
-                    },
-                    level2: {
-                        title: "Vertiefung - Hochwertige Kunden",
-                        challenge: "Identifizieren Sie Kunden, die mehr als $1000 ausgegeben haben",
-                        hint: "Hinweis: Verwenden Sie GROUP BY und HAVING mit SUM()",
-                        realWorld: "Kundenanalyse ist entscheidend für Retention und gezieltes Marketing."
-                    },
-                    level3: {
-                        title: "Fortgeschritten - Marktkorb-Analyse",
-                        challenge: "Finden Sie für jedes Produkt die 3 Produkte, die am häufigsten zusammen gekauft werden",
-                        hint: "Hinweis: Joinen Sie order_items mit sich selbst und zählen Sie häufig zusammen auftretende Paare",
-                        realWorld: "Amazon generiert 35% des Umsatzes aus Empfehlungen. Dies ist ein Kern-Geschäftsmodell."
-                    },
-                    level4: {
-                        title: "Boss Challenge - Kohorten-Analyse",
-                        challenge: "Führen Sie eine Kohorten-Analyse durch: Kundenkohorten nach erstem Kaufmonat, dann Retention pro Monat",
-                        concept: "Kohorten-Analyse: Gruppieren Sie Kunden nach erstem Besuch/Kauf, dann verfolgen Sie ihr Verhalten zeitlich",
-                        realWorld: "Kohorten-Analysen sind die Grundlage für Churn-Prognosen und Lifetime-Value-Modelle."
-                    }
-                },
-                selfCheck: {
-                    title: "Selbstkontrolle - Überprüfen Sie Ihr Verständnis",
-                    questions: [
-                        { q: "Was ist der Hauptvorteil von DuckDB gegenüber SQLite?", a: "DuckDB ist für analytische Abfragen optimiert (OLAP), SQLite für transaktionale Arbeitslasten (OLTP). DuckDB nutzt spaltenorientierte Speicherung und Vektorisierung." },
-                        { q: "Warum ist Parquet schneller als CSV für analytische Abfragen?", a: "Parquet ist spaltenorientiert, sodass nur die benötigten Spalten geladen werden. CSV lädt alle Zeilen und Spalten, auch wenn Sie nur eine Spalte benötigen." },
-                        { q: "Was macht eine Window Function in SQL?", a: "Window Functions berechnen Aggregate über ein Fenster von Zeilen, ohne diese zu gruppieren. Beispiele: ROW_NUMBER(), SUM() OVER(), LAG(), LEAD()" },
-                        { q: "Wann würden Sie DATEDIFF verwenden statt manueller Datumberechnung?", a: "DATEDIFF berechnet automatisch die Differenz zwischen zwei Daten in der angegebenen Einheit (Tag, Monat, Jahr) und ist wartbar und präzise." },
-                        { q: "Warum sollten Sie große CSV-Dateien in Parquet konvertieren?", a: "Parquet spart Speicherplatz (Kompression), ist schneller zu lesen, unterstützt Partitionierung und ist ideal für wiederholte analytische Abfragen." }
-                    ]
-                },
-                reflection: {
-                    title: "Reflexion & Wirkliche Anwendungen",
-                    prompts: [
-                        { title: "Was hat Sie überrascht?", desc: "Welcher Aspekt von DuckDB war unerwartet? Wie unterschied es sich von SQL-Datenbanken, die Sie kennen?" },
-                        { title: "Was war am schwierigsten?", desc: "Welche SQL-Konzepte waren am herausforderndsten? Wo benötigen Sie noch mehr Übung?" },
-                        { title: "Erklären Sie DuckDB einem nicht-technischen CEO", desc: "Wie würden Sie die Vorteile von DuckDB für schnelle Datenanalysen in einfachen Worten erklären?" },
-                        { title: "Welche Business-Frage war am interessantesten?", desc: "Von allen MegaStore-Szenarien: Welches faszinierte Sie am meisten und warum?" }
-                    ],
-                    realWorld: "Wo DuckDB in der echten Welt eingesetzt wird",
-                    useCases: [
-                        { title: "Datenexploration", desc: "Schnelle SQL-Abfragen über CSV/Parquet ohne Datenbankserver. Ideal für Data Scientists und Analysten." },
-                        { title: "ETL-Pipelines", desc: "Datentransformation und Bereinigung direkt in Python. DuckDB lädt Daten einmal und führt mehrere Transformationen durch." },
-                        { title: "Echtzeit-Dashboards", desc: "In-Process Analytics für Web-Apps. DuckDB verarbeitet historische Daten schnell für Echtzeit-Insights." },
-                        { title: "Data Lake Queries", desc: "Direktes Abfragen von Parquet-Dateien in S3/Cloud Storage ohne ETL. Arrow-Integration für Zero-Copy-Performance." }
-                    ]
-                },
-                troubleshooting: {
-                    title: "Fehlerbehebung",
-                    commonErrors: "Häufige Fehler und Lösungen",
-                    errors: [
-                        { problem: "ModuleNotFoundError: No module named 'duckdb'", solution: "Installieren Sie DuckDB: !pip install duckdb" },
-                        { problem: "File not found when reading CSV", solution: "Verwenden Sie relative Pfade von /home/jovyan/data oder prüfen Sie Dateigröße mit os.listdir()" },
-                        { problem: "JULIANDAY() ist nicht definiert", solution: "Verwenden Sie DATE_TRUNC() statt JULIANDAY(). JULIANDAY ist SQLite-spezifisch." }
-                    ]
-                },
-                util: { copyCode: "Code kopieren", copied: "Kopiert!" }
+                back: "← Zurück zur Startseite",
+                welcome: "Willkommen zum DuckDB Labor",
+                overview: "Überblick",
+                technology: "Technologie-Einführung",
+                setup: "Setup & Installation",
+                fundamentals: "Grundlagen",
+                exercise1: "Übung 1: Erste Abfragen",
+                exercise2: "Übung 2: Filterung & Sortierung",
+                exercise3: "Übung 3: Aggregationen",
+                exercise4: "Übung 4: MegaStore Dataset",
+                exercise5: "Übung 5: JOINs",
+                exercise6: "Übung 6: Window Functions",
+                exercise7: "Übung 7: Parquet & CSV",
+                exercise8: "Übung 8: Komplexe Analytik",
+                selfCheck: "Selbstkontrolle",
+                reflection: "Reflexion & Anwendungen",
+                troubleshooting: "Fehlerbehebung",
+                resources: "Weitere Ressourcen",
+                whatYouLearn: "Was Sie lernen werden",
+                realWorldMotivation: "Warum DuckDB? Unternehmen wie Watershed, FinQore und Okta nutzen DuckDB täglich:",
+                watershedPerf: "Watershed: 10x schneller für ökologische Datenanalyse",
+                finqoreSpeed: "FinQore: Abfragen von 8 Stunden auf 8 Minuten reduziert",
+                oktaScale: "Okta: Analyse von 7,5 Billionen Datensätzen in Echtzeit",
+                southAusAnalytics: "South Australia: Klima-Dashboard mit In-Process OLAP",
+                duckdbIs: "Was ist DuckDB?",
+                inProcess: "In-Process OLAP: DuckDB läuft in Ihrem Prozess, nicht als Server",
+                columnar: "Spalten-orientiert: Optimiert für Analysen über viele Zeilen",
+                fast: "Schnell: Extrem performant für SQL-Analytik"
             },
             en: {
-                nav: { backToOverview: "← Back to Overview", language: "Language", toggleMenu: "Menu" },
-                hero: { title: "DuckDB Lab - Analytical SQL on Large Datasets", chapter: "Chapter 6 - Analytical Databases", difficulty: "Difficulty", beginner: "Beginner", estimatedTime: "Estimated Time", hours: "2-3 Hours" },
-                sidebar: {
-                    learningObjectives: "Learning Objectives",
-                    setupInstallation: "Setup & Installation",
-                    theoryOverview: "Theory Overview",
-                    dataModel: "MegaStore Data Model",
-                    exercise1: "Exercise 1: First Steps",
-                    exercise2: "Exercise 2: Analytical Queries",
-                    exercise3: "Exercise 3: Parquet vs CSV",
-                    exercise4: "Exercise 4: Complex Analytics",
-                    challenges: "Progressive Challenges",
-                    selfCheck: "Self-Check",
-                    reflection: "Reflection & Real-World Applications",
-                    troubleshooting: "Troubleshooting"
-                },
-                objectives: [
-                    "Write analytical SQL queries with DuckDB",
-                    "Understand and use Parquet format",
-                    "Apply Window Functions and advanced SQL",
-                    "Optimize performance on large datasets",
-                    "Compare DuckDB with traditional RDBMS"
-                ],
-                setup: {
-                    title: "Setup & Installation",
-                    intro: "Start DuckDB with Docker and Jupyter Notebook:",
-                    dockerRun: "docker run -it --rm -p 8888:8888 \\\n  -v $(pwd)/data:/home/jovyan/data \\\n  jupyter/scipy-notebook:latest \\\n  start-notebook.sh --NotebookApp.token=''",
-                    pythonSetup: "Install DuckDB in Jupyter Notebook:",
-                    pythonInstall: "!pip install duckdb\nimport duckdb\ncon = duckdb.connect(':memory:')\nprint(duckdb.__version__)",
-                    verify: "Verify connection:",
-                    verifySteps: ["DuckDB Python package is installed", "In-memory connection successful", "DuckDB version is displayed"]
-                },
-                theory: {
-                    title: "Theory Overview",
-                    whatIs: "What is DuckDB?",
-                    whatIsDesc: "DuckDB is an in-process OLAP database optimized for analytical workloads. Unlike SQLite and relational systems, DuckDB focuses on fast analytical queries with advanced SQL features.",
-                    columnar: "Columnar Storage",
-                    columnarDesc: "DuckDB stores data in columns instead of rows, making analytical queries dramatically faster. Only required columns are loaded from storage.",
-                    vectorized: "Vectorized Execution",
-                    vectorizedDesc: "Modern CPUs support SIMD operations. DuckDB uses this to process multiple rows in parallel, significantly improving query performance.",
-                    parquet: "Parquet Format",
-                    parquetDesc: "A columnar storage format optimized with DuckDB. Much faster than CSV for analytical queries and saves storage space.",
-                    whenToUseDuckDB: "When to use DuckDB?",
-                    whenToUseDuckDBDesc: [
-                        "Fast analytical queries over large CSV/Parquet files",
-                        "In-process analytics without database server",
-                        "Data exploration and ad-hoc analysis",
-                        "ETL pipelines and data transformation",
-                        "Python integration for data science"
-                    ]
-                },
-                dataModel: {
-                    title: "MegaStore Data Model",
-                    intro: "The e-commerce system contains the following main tables:",
-                    orders: "orders (500K rows): Orders with ID, date, customer info, amount",
-                    items: "order_items (1M+ rows): Line items per order with product ID, quantity, price",
-                    clickstream: "clickstream (200K rows): Click events with timestamp, user ID, product ID",
-                    products: "products (~5K rows): Product catalog with name, category, price",
-                    customers: "customers (~50K rows): Customer master data with name, email, region"
-                },
-                exercise1: {
-                    title: "Exercise 1: First Steps with DuckDB",
-                    intro: "Connect to DuckDB and perform basic operations."
-                },
-                exercise2: {
-                    title: "Exercise 2: Analytical Queries",
-                    intro: "Learn to perform complex analytical SQL queries with Window Functions."
-                },
-                exercise3: {
-                    title: "Exercise 3: Parquet vs CSV Performance",
-                    intro: "Compare the performance of CSV and Parquet formats."
-                },
-                exercise4: {
-                    title: "Exercise 4: Complex Analytics Challenge",
-                    intro: "Design real analytical scenarios with cohort and market basket analysis."
-                },
-                challenges: {
-                    title: "Progressive Challenges",
-                    level1: {
-                        title: "Starter - Top 5 Product Categories",
-                        challenge: "Find the 5 product categories with the most products",
-                        hypothesis: "Before writing the query: Which categories do you think have the most products? Why?",
-                        solution: "SELECT category, COUNT(*) as cnt FROM products GROUP BY category ORDER BY cnt DESC LIMIT 5",
-                        insight: "Electronics and Home & Garden typically dominate. Category managers use this data for shelf space allocation and marketing budgets."
-                    },
-                    level2: {
-                        title: "Deeper Dive - High-Value Customers",
-                        challenge: "Identify customers who have spent more than $1000",
-                        hint: "Hint: Use GROUP BY and HAVING with SUM()",
-                        realWorld: "Customer analysis is critical for retention and targeted marketing."
-                    },
-                    level3: {
-                        title: "Advanced - Market Basket Analysis",
-                        challenge: "For each product, find the 3 products most frequently bought together",
-                        hint: "Hint: Self-join order_items and count frequently co-occurring pairs",
-                        realWorld: "Amazon generates 35% of revenue from recommendations. This is core to their business model."
-                    },
-                    level4: {
-                        title: "Boss Challenge - Cohort Analysis",
-                        challenge: "Perform cohort analysis: Customer cohorts by first purchase month, then track retention per month",
-                        concept: "Cohort Analysis: Group customers by first visit/purchase, then track their behavior over time",
-                        realWorld: "Cohort analysis is the foundation for churn prediction and lifetime value models."
-                    }
-                },
-                selfCheck: {
-                    title: "Self-Check - Test Your Understanding",
-                    questions: [
-                        { q: "What is the main advantage of DuckDB over SQLite?", a: "DuckDB is optimized for analytical queries (OLAP), while SQLite targets transactional workloads (OLTP). DuckDB uses columnar storage and vectorization." },
-                        { q: "Why is Parquet faster than CSV for analytical queries?", a: "Parquet is columnar, so only required columns are loaded. CSV loads all rows and columns, even if you only need one column." },
-                        { q: "What do Window Functions do in SQL?", a: "Window Functions calculate aggregates over a window of rows without grouping. Examples: ROW_NUMBER(), SUM() OVER(), LAG(), LEAD()" },
-                        { q: "When would you use DATEDIFF instead of manual date calculation?", a: "DATEDIFF automatically calculates the difference between two dates in the specified unit (day, month, year) and is maintainable and precise." },
-                        { q: "Why should you convert large CSV files to Parquet?", a: "Parquet saves space (compression), is faster to read, supports partitioning, and is ideal for repeated analytical queries." }
-                    ]
-                },
-                reflection: {
-                    title: "Reflection & Real-World Applications",
-                    prompts: [
-                        { title: "What surprised you?", desc: "Which aspect of DuckDB was unexpected? How did it differ from SQL databases you know?" },
-                        { title: "What was most challenging?", desc: "Which SQL concepts were most difficult? Where do you need more practice?" },
-                        { title: "Explain DuckDB to a non-technical CEO", desc: "How would you explain the benefits of DuckDB for fast data analysis in simple terms?" },
-                        { title: "Which business question was most interesting?", desc: "Of all MegaStore scenarios: Which fascinated you most and why?" }
-                    ],
-                    realWorld: "Where DuckDB is Used in the Real World",
-                    useCases: [
-                        { title: "Data Exploration", desc: "Fast SQL queries over CSV/Parquet without database server. Ideal for data scientists and analysts." },
-                        { title: "ETL Pipelines", desc: "Data transformation and cleaning directly in Python. DuckDB loads data once and runs multiple transformations." },
-                        { title: "Real-time Dashboards", desc: "In-process analytics for web apps. DuckDB processes historical data quickly for real-time insights." },
-                        { title: "Data Lake Queries", desc: "Direct querying of Parquet files in S3/cloud storage without ETL. Arrow integration for zero-copy performance." }
-                    ]
-                },
-                troubleshooting: {
-                    title: "Troubleshooting",
-                    commonErrors: "Common Errors and Solutions",
-                    errors: [
-                        { problem: "ModuleNotFoundError: No module named 'duckdb'", solution: "Install DuckDB: !pip install duckdb" },
-                        { problem: "File not found when reading CSV", solution: "Use relative paths from /home/jovyan/data or check file size with os.listdir()" },
-                        { problem: "JULIANDAY() is not defined", solution: "Use DATE_TRUNC() instead of JULIANDAY(). JULIANDAY is SQLite-specific." }
-                    ]
-                },
-                util: { copyCode: "Copy Code", copied: "Copied!" }
+                back: "← Back to Landing Page",
+                welcome: "Welcome to DuckDB Lab",
+                overview: "Overview",
+                technology: "Technology Introduction",
+                setup: "Setup & Installation",
+                fundamentals: "Fundamentals",
+                exercise1: "Exercise 1: First Queries",
+                exercise2: "Exercise 2: Filtering & Sorting",
+                exercise3: "Exercise 3: Aggregations",
+                exercise4: "Exercise 4: MegaStore Dataset",
+                exercise5: "Exercise 5: JOINs",
+                exercise6: "Exercise 6: Window Functions",
+                exercise7: "Exercise 7: Parquet & CSV",
+                exercise8: "Exercise 8: Complex Analytics",
+                selfCheck: "Self-Check",
+                reflection: "Reflection & Applications",
+                troubleshooting: "Troubleshooting",
+                resources: "Further Resources",
+                whatYouLearn: "What You Will Learn",
+                realWorldMotivation: "Why DuckDB? Companies like Watershed, FinQore, and Okta use DuckDB daily:",
+                watershedPerf: "Watershed: 10x faster for ecological data analysis",
+                finqoreSpeed: "FinQore: Reduced queries from 8 hours to 8 minutes",
+                oktaScale: "Okta: Analyze 7.5 trillion records in real-time",
+                southAusAnalytics: "South Australia: Climate dashboard with in-process OLAP",
+                duckdbIs: "What is DuckDB?",
+                inProcess: "In-Process OLAP: DuckDB runs in your process, not as a server",
+                columnar: "Column-Oriented: Optimized for analysis across many rows",
+                fast: "Fast: Extremely performant for SQL analytics"
             },
             ar: {
-                nav: { backToOverview: "← العودة إلى نظرة عامة", language: "اللغة", toggleMenu: "القائمة" },
-                hero: { title: "DuckDB Lab - SQL التحليلي على مجموعات البيانات الكبيرة", chapter: "الفصل 6 - قواعد البيانات التحليلية", difficulty: "مستوى الصعوبة", beginner: "مبتدئ", estimatedTime: "الوقت المتوقع", hours: "ساعتان إلى 3 ساعات" },
-                sidebar: { learningObjectives: "أهداف التعلم", setupInstallation: "الإعداد والتثبيت", theoryOverview: "نظرة عامة على النظرية", dataModel: "نموذج البيانات MegaStore", exercise1: "التمرين 1: الخطوات الأولى", exercise2: "التمرين 2: الاستعلامات التحليلية", exercise3: "التمرين 3: Parquet مقابل CSV", exercise4: "التمرين 4: التحليلات المعقدة", challenges: "التحديات التدريجية", selfCheck: "التحقق الذاتي", reflection: "الانعكاس والتطبيقات الحقيقية", troubleshooting: "استكشاف الأخطاء" },
-                objectives: ["كتابة استعلامات SQL تحليلية باستخدام DuckDB", "فهم واستخدام تنسيق Parquet", "تطبيق Window Functions و SQL المتقدم", "تحسين الأداء على مجموعات البيانات الكبيرة", "مقارنة DuckDB مع أنظمة RDBMS التقليدية"],
-                setup: { title: "الإعداد والتثبيت", intro: "ابدأ DuckDB مع Docker و Jupyter Notebook:", dockerRun: "docker run -it --rm -p 8888:8888 \\\n  -v $(pwd)/data:/home/jovyan/data \\\n  jupyter/scipy-notebook:latest \\\n  start-notebook.sh --NotebookApp.token=''", pythonSetup: "تثبيت DuckDB في Jupyter Notebook:", pythonInstall: "!pip install duckdb\nimport duckdb\ncon = duckdb.connect(':memory:')\nprint(duckdb.__version__)", verify: "التحقق من الاتصال:", verifySteps: ["تم تثبيت حزمة DuckDB Python", "الاتصال في الذاكرة ناجح", "يتم عرض إصدار DuckDB"] },
-                theory: { title: "نظرة عامة على النظرية", whatIs: "ما هو DuckDB؟", whatIsDesc: "DuckDB هي قاعدة بيانات OLAP في العملية مُحسّنة للأحمال التحليلية. بخلاف SQLite والأنظمة العلائقية، تركز DuckDB على استعلامات تحليلية سريعة بميزات SQL متقدمة.", columnar: "التخزين الموجه للأعمدة", columnarDesc: "DuckDB تخزن البيانات في أعمدة بدلاً من الصفوف، مما يجعل الاستعلامات التحليلية أسرع بشكل كبير. يتم تحميل الأعمدة المطلوبة فقط من التخزين.", vectorized: "التنفيذ المتجهي", vectorizedDesc: "تدعم وحدات المعالجة الحديثة عمليات SIMD. تستخدم DuckDB هذا لمعالجة صفوف متعددة بالتوازي، مما يحسّن أداء الاستعلام بشكل كبير.", parquet: "تنسيق Parquet", parquetDesc: "تنسيق تخزين موجه للأعمدة محسّن مع DuckDB. أسرع بكثير من CSV للاستعلامات التحليلية ويوفر مساحة تخزين.", whenToUseDuckDB: "متى تستخدم DuckDB؟", whenToUseDuckDBDesc: ["الاستعلامات التحليلية السريعة على ملفات CSV/Parquet الكبيرة", "التحليلات في العملية بدون خادم قاعدة بيانات", "استكشاف البيانات والتحليل المخصص", "خطوط أنابيب ETL وتحويل البيانات", "تكامل Python لعلم البيانات"] },
-                dataModel: { title: "نموذج البيانات MegaStore", intro: "يحتوي نظام التجارة الإلكترونية على الجداول الرئيسية التالية:", orders: "orders (500K صف): الطلبات مع المعرّف والتاريخ ومعلومات العميل والمبلغ", items: "order_items (1M+ صف): بنود المشتريات لكل طلب مع معرّف المنتج والكمية والسعر", clickstream: "clickstream (200K صف): أحداث النقر مع الطابع الزمني ومعرّف المستخدم ومعرّف المنتج", products: "products (~5K صف): كتالوج المنتجات مع الاسم والفئة والسعر", customers: "customers (~50K صف): بيانات العميل الرئيسية مع الاسم والبريد الإلكتروني والمنطقة" },
-                exercise1: { title: "التمرين 1: الخطوات الأولى مع DuckDB", intro: "الاتصال بـ DuckDB وتنفيذ العمليات الأساسية." },
-                exercise2: { title: "التمرين 2: الاستعلامات التحليلية", intro: "تعلم تنفيذ استعلامات SQL تحليلية معقدة باستخدام Window Functions." },
-                exercise3: { title: "التمرين 3: أداء Parquet مقابل CSV", intro: "قارن أداء تنسيقات CSV و Parquet." },
-                exercise4: { title: "التمرين 4: تحدي التحليلات المعقدة", intro: "صمم سيناريوهات تحليلية حقيقية مع تحليل الكوهورت وسلة السوق." },
-                challenges: { title: "التحديات التدريجية", level1: { title: "المبتدئ - أفضل 5 فئات منتجات", challenge: "ابحث عن 5 فئات منتجات بها أكثر المنتجات", hypothesis: "قبل كتابة الاستعلام: أي الفئات تعتقد أن لديها أكثر المنتجات؟ لماذا؟", solution: "SELECT category, COUNT(*) as cnt FROM products GROUP BY category ORDER BY cnt DESC LIMIT 5", insight: "الإلكترونيات والمنزل والحديقة عادة ما تهيمن. يستخدم مديرو الفئات هذه البيانات لتخصيص مساحة الرفوف وميزانيات التسويق." }, level2: { title: "غوص أعمق - العملاء ذو القيمة العالية", challenge: "حدد العملاء الذين أنفقوا أكثر من 1000 دولار", hint: "تلميح: استخدم GROUP BY و HAVING مع SUM()", realWorld: "تحليل العملاء حاسم للاحتفاظ والتسويق الموجه." }, level3: { title: "متقدم - تحليل سلة السوق", challenge: "لكل منتج، ابحث عن 3 منتجات يتم شراؤها معاً بشكل متكرر", hint: "تلميح: ربط ذاتي لـ order_items وعد الأزواج المتكررة", realWorld: "تحصل Amazon على 35% من الإيرادات من التوصيات. هذا أساس نموذج أعمالهم." }, level4: { title: "تحدي الزعيم - تحليل الكوهورت", challenge: "قم بإجراء تحليل الكوهورت: كوهورتات العملاء حسب شهر الشراء الأول، ثم تتبع الاحتفاظ لكل شهر", concept: "تحليل الكوهورت: اجمع العملاء حسب أول زيارة/شراء، ثم تتبع سلوكهم بمرور الوقت", realWorld: "تحليل الكوهورت هو أساس تنبؤات التعطل ونماذج قيمة العمر." } },
-                selfCheck: { title: "التحقق الذاتي - اختبر فهمك", questions: [{ q: "ما هي الميزة الرئيسية لـ DuckDB على SQLite؟", a: "DuckDB محسّنة للاستعلامات التحليلية (OLAP)، بينما يستهدف SQLite أحمال العمل المعاملة (OLTP). تستخدم DuckDB التخزين الموجه للأعمدة والمتجهات." }, { q: "لماذا يكون Parquet أسرع من CSV للاستعلامات التحليلية؟", a: "Parquet موجهة للأعمدة، لذا يتم تحميل الأعمدة المطلوبة فقط. يحمل CSV جميع الصفوف والأعمدة، حتى لو كنت تحتاج إلى عمود واحد فقط." }, { q: "ماذا تفعل Window Functions في SQL؟", a: "تحسب Window Functions الإجماليات على نافذة من الصفوف بدون تجميع. أمثلة: ROW_NUMBER()، SUM() OVER()، LAG()، LEAD()" }, { q: "متى تستخدم DATEDIFF بدلاً من حساب التاريخ اليدوي؟", a: "DATEDIFF تحسب تلقائياً الفرق بين تاريخين في الوحدة المحددة (يوم، شهر، سنة) وقابلة للصيانة ودقيقة." }, { q: "لماذا يجب تحويل ملفات CSV الكبيرة إلى Parquet؟", a: "توفر Parquet المساحة (الضغط)، وتتم قراءتها بشكل أسرع، وتدعم التقسيم، وهي مثالية للاستعلامات التحليلية المتكررة." }] },
-                reflection: { title: "الانعكاس والتطبيقات الحقيقية", prompts: [{ title: "ما الذي فاجأك؟", desc: "أي جانب من DuckDB كان غير متوقع؟ كيف اختلف عن قواعس البيانات SQL التي تعرفها؟" }, { title: "ما الأصعب؟", desc: "ما مفاهيم SQL التي كانت الأكثر صعوبة؟ أين تحتاج إلى المزيد من التدريب؟" }, { title: "اشرح DuckDB لرئيس تنفيذي غير تقني", desc: "كيف ستشرح فوائد DuckDB لتحليل البيانات السريع بعبارات بسيطة؟" }, { title: "أي سؤال عمل كان الأكثر إثارة للاهتمام؟", desc: "من بين جميع سيناريوهات MegaStore: أيها أثار اهتمامك أكثر ولماذا؟" }], realWorld: "حيث يتم استخدام DuckDB في العالم الحقيقي", useCases: [{ title: "استكشاف البيانات", desc: "الاستعلامات SQL السريعة على CSV/Parquet بدون خادم قاعدة بيانات. مثالي لعلماء البيانات والمحللين." }, { title: "خطوط أنابيب ETL", desc: "تحويل البيانات والتنظيف مباشرة في Python. تحمل DuckDB البيانات مرة واحدة وتنفذ تحويلات متعددة." }, { title: "لوحات المعلومات في الوقت الفعلي", desc: "التحليلات في العملية لتطبيقات الويب. تعالج DuckDB البيانات التاريخية بسرعة للحصول على رؤى فورية." }, { title: "استعلامات Data Lake", desc: "الاستعلام المباشر لملفات Parquet في S3/cloud storage بدون ETL. تكامل Arrow لأداء النسخ الصفري." }] },
-                troubleshooting: { title: "استكشاف الأخطاء", commonErrors: "الأخطاء الشائعة والحلول", errors: [{ problem: "ModuleNotFoundError: No module named 'duckdb'", solution: "قم بتثبيت DuckDB: !pip install duckdb" }, { problem: "ملف غير موجود عند قراءة CSV", solution: "استخدم مسارات نسبية من /home/jovyan/data أو تحقق من حجم الملف باستخدام os.listdir()" }, { problem: "JULIANDAY() غير محدد", solution: "استخدم DATE_TRUNC() بدلاً من JULIANDAY(). JULIANDAY خاص بـ SQLite." }] },
-                util: { copyCode: "نسخ الكود", copied: "تم النسخ!" }
+                back: "← العودة إلى الصفحة الرئيسية",
+                welcome: "مرحبا بك في معمل DuckDB",
+                overview: "نظرة عامة",
+                technology: "مقدمة التكنولوجيا",
+                setup: "الإعداد والتثبيت",
+                fundamentals: "المبادئ الأساسية",
+                exercise1: "التمرين 1: الاستعلامات الأولى",
+                exercise2: "التمرين 2: التصفية والفرز",
+                exercise3: "التمرين 3: التجميعات",
+                exercise4: "التمرين 4: مجموعة بيانات MegaStore",
+                exercise5: "التمرين 5: الدمج",
+                exercise6: "التمرين 6: دوال النافذة",
+                exercise7: "التمرين 7: Parquet و CSV",
+                exercise8: "التمرين 8: تحليل متقدم",
+                selfCheck: "فحص ذاتي",
+                reflection: "التأمل والتطبيقات",
+                troubleshooting: "استكشاف الأخطاء",
+                resources: "موارد إضافية",
+                whatYouLearn: "ما ستتعلمه",
+                realWorldMotivation: "لماذا DuckDB؟ تستخدمه شركات مثل Watershed و FinQore و Okta يوميًا:",
+                watershedPerf: "Watershed: 10 مرات أسرع لتحليل البيانات البيئية",
+                finqoreSpeed: "FinQore: تقليل الاستعلامات من 8 ساعات إلى 8 دقائق",
+                oktaScale: "Okta: تحليل 7.5 تريليون سجل في الوقت الفعلي",
+                southAusAnalytics: "جنوب أستراليا: لوحة المناخ مع OLAP في العملية",
+                duckdbIs: "ما هو DuckDB؟",
+                inProcess: "OLAP في العملية: يعمل DuckDB في عمليتك وليس كخادم",
+                columnar: "موجهة للأعمدة: محسّنة للتحليل عبر عدة صفوف",
+                fast: "سريع: عالي الأداء جداً لتحليل SQL"
             },
             uk: {
-                nav: { backToOverview: "← Повернутися до огляду", language: "Мова", toggleMenu: "Меню" },
-                hero: { title: "DuckDB Lab - Аналітичний SQL на великих наборах даних", chapter: "Розділ 6 - Аналітичні бази даних", difficulty: "Рівень складності", beginner: "Початківець", estimatedTime: "Приблизний час", hours: "2-3 години" },
-                sidebar: { learningObjectives: "Цілі навчання", setupInstallation: "Налаштування та встановлення", theoryOverview: "Огляд теорії", dataModel: "Модель даних MegaStore", exercise1: "Вправа 1: Перші кроки", exercise2: "Вправа 2: Аналітичні запити", exercise3: "Вправа 3: Parquet проти CSV", exercise4: "Вправа 4: Складна аналітика", challenges: "Прогресивні виклики", selfCheck: "Самоперевірка", reflection: "Рефлексія та реальні застосування", troubleshooting: "Усунення неполадок" },
-                objectives: ["Писати аналітичні запити SQL з DuckDB", "Розуміти та використовувати формат Parquet", "Застосовувати Window Functions та продвинутий SQL", "Оптимізувати продуктивність на великих наборах даних", "Порівнювати DuckDB з традиційними RDBMS"],
-                setup: { title: "Налаштування та встановлення", intro: "Запустіть DuckDB за допомогою Docker та Jupyter Notebook:", dockerRun: "docker run -it --rm -p 8888:8888 \\\n  -v $(pwd)/data:/home/jovyan/data \\\n  jupyter/scipy-notebook:latest \\\n  start-notebook.sh --NotebookApp.token=''", pythonSetup: "Встановіть DuckDB у Jupyter Notebook:", pythonInstall: "!pip install duckdb\nimport duckdb\ncon = duckdb.connect(':memory:')\nprint(duckdb.__version__)", verify: "Перевірте з'єднання:", verifySteps: ["Пакет DuckDB Python встановлено", "З'єднання в пам'яті успішне", "Версія DuckDB відображається"] },
-                theory: { title: "Огляд теорії", whatIs: "Що таке DuckDB?", whatIsDesc: "DuckDB - це внутрішня база даних OLAP, оптимізована для аналітичних навантажень. На відміну від SQLite та реляційних систем, DuckDB зосереджена на швидких аналітичних запитах з передовими функціями SQL.", columnar: "Хранилище на основі стовпців", columnarDesc: "DuckDB зберігає дані у стовпцях замість рядків, що робить аналітичні запити значно швидшими. Завантажуються лише необхідні стовпці.", vectorized: "Векторизоване виконання", vectorizedDesc: "Сучасні процесори підтримують операції SIMD. DuckDB використовує це для паралельної обробки кількох рядків, що значно поліпшує продуктивність запитів.", parquet: "Формат Parquet", parquetDesc: "Формат хранилища на основі стовпців, оптимізований за допомогою DuckDB. Набагато швидший за CSV для аналітичних запитів та економить місце на диску.", whenToUseDuckDB: "Коли використовувати DuckDB?", whenToUseDuckDBDesc: ["Швидкі аналітичні запити над великими файлами CSV/Parquet", "Внутрішня аналітика без сервера бази даних", "Дослідження даних та спеціальний аналіз", "Конвеєри ETL та трансформація даних", "Інтеграція Python для науки про дані"] },
-                dataModel: { title: "Модель даних MegaStore", intro: "Система електронної комерції містить такі основні таблиці:", orders: "orders (500K рядків): Замовлення з ID, датою, інформацією про клієнта, сумою", items: "order_items (1M+ рядків): Позиції замовлення з ID продукту, кількістю, ціною", clickstream: "clickstream (200K рядків): Події клацання з часовою міткою, ID користувача, ID продукту", products: "products (~5K рядків): Каталог продуктів з назвою, категорією, ціною", customers: "customers (~50K рядків): Основні дані клієнта з іменем, електронною поштою, регіоном" },
-                exercise1: { title: "Вправа 1: Перші кроки з DuckDB", intro: "Підключіться до DuckDB та виконайте основні операції." },
-                exercise2: { title: "Вправа 2: Аналітичні запити", intro: "Навчіться виконувати складні аналітичні запити SQL за допомогою Window Functions." },
-                exercise3: { title: "Вправа 3: Продуктивність Parquet проти CSV", intro: "Порівняйте продуктивність форматів CSV та Parquet." },
-                exercise4: { title: "Вправа 4: Виклик складної аналітики", intro: "Розробіть реальні аналітичні сценарії з аналізом когорт та товарного кошика." },
-                challenges: { title: "Прогресивні виклики", level1: { title: "Початківець - Топ 5 категорій продуктів", challenge: "Знайдіть 5 категорій продуктів з найбільшою кількістю продуктів", hypothesis: "Перш ніж писати запит: які категорії, на вашу думку, мають найбільше продуктів? Чому?", solution: "SELECT category, COUNT(*) as cnt FROM products GROUP BY category ORDER BY cnt DESC LIMIT 5", insight: "Електроніка та Дім та Сад, як правило, домінують. Менеджери категорій використовують ці дані для розподілу полиць та бюджетів маркетингу." }, level2: { title: "Глибший аналіз - Цінні клієнти", challenge: "Визначте клієнтів, які витратили більше 1000 доларів", hint: "Підказка: використовуйте GROUP BY та HAVING з SUM()", realWorld: "Аналіз клієнтів критичний для утримання та цільованого маркетингу." }, level3: { title: "Продвинутий - Аналіз ринкового кошика", challenge: "Для кожного продукту знайдіть 3 продукти, які найчастіше купуються разом", hint: "Підказка: самозз'єднання order_items та підрахунок часто кооккурентних пар", realWorld: "Amazon отримує 35% доходу від рекомендацій. Це основа їх бізнес-моделі." }, level4: { title: "Виклик босса - Аналіз когорт", challenge: "Виконайте аналіз когорт: когорти клієнтів за місяцем першого покупки, потім відстежуйте утримання за місяцем", concept: "Аналіз когорт: групуйте клієнтів за першою відвідиною/покупкою, потім відстежуйте їхню поведінку з часом", realWorld: "Аналіз когорт є основою для прогнозування відтоку та моделей вартості за весь період." } },
-                selfCheck: { title: "Самоперевірка - Перевірте своє розуміння", questions: [{ q: "Яка головна перевага DuckDB перед SQLite?", a: "DuckDB оптимізована для аналітичних запитів (OLAP), тоді як SQLite орієнтована на транзакційні навантаження (OLTP). DuckDB використовує хранилище на основі стовпців та векторизацію." }, { q: "Чому Parquet швидший за CSV для аналітичних запитів?", a: "Parquet заснована на стовпцях, тому завантажуються лише необхідні стовпці. CSV завантажує всі рядки та стовпці, навіть якщо вам потрібен лише один стовпець." }, { q: "Що роблять Window Functions у SQL?", a: "Window Functions обчислюють агрегати через вікно рядків без групування. Приклади: ROW_NUMBER(), SUM() OVER(), LAG(), LEAD()" }, { q: "Коли б ви використовували DATEDIFF замість ручного розрахунку дати?", a: "DATEDIFF автоматично обчислює різницю між двома датами у вказаній одиниці (день, місяць, рік) і легко підтримується та точна." }, { q: "Чому слід конвертувати великі CSV-файли в Parquet?", a: "Parquet економить місце (стиск), швидше читається, підтримує розділення та ідеальна для повторних аналітичних запитів." }] },
-                reflection: { title: "Рефлексія та реальні застосування", prompts: [{ title: "Що вас здивувало?", desc: "Який аспект DuckDB був неочікуваним? Чим він відрізнявся від відомих вам баз даних SQL?" }, { title: "Що було найскладнішим?", desc: "Які поняття SQL були найбільш складними? Де вам потрібна більше практики?" }, { title: "Поясніть DuckDB нетехнічному генеральному директору", desc: "Як ви б пояснили переваги DuckDB для швидкого аналізу даних простими словами?" }, { title: "Яке бізнес-питання було найцікавішим?", desc: "З усіх сценаріїв MegaStore: який вас найбільше захопив та чому?" }], realWorld: "Де DuckDB використовується в реальному світі", useCases: [{ title: "Дослідження даних", desc: "Швидкі запити SQL над CSV/Parquet без сервера бази даних. Ідеально для науковців даних та аналітиків." }, { title: "Конвеєри ETL", desc: "Трансформація та очищення даних безпосередньо в Python. DuckDB завантажує дані один раз та запускає кілька трансформацій." }, { title: "Приборні панелі в реальному часі", desc: "Внутрішня аналітика для веб-додатків. DuckDB швидко обробляє історичні дані для миттєвих інсайтів." }, { title: "Запити Data Lake", desc: "Прямі запити файлів Parquet у S3/cloud storage без ETL. Інтеграція Arrow для нульової копіювальної продуктивності." }] },
-                troubleshooting: { title: "Усунення неполадок", commonErrors: "Поширені помилки та рішення", errors: [{ problem: "ModuleNotFoundError: No module named 'duckdb'", solution: "Встановіть DuckDB: !pip install duckdb" }, { problem: "Файл не знайдено при читанні CSV", solution: "Використовуйте відносні шляхи від /home/jovyan/data або перевірте розмір файлу за допомогою os.listdir()" }, { problem: "JULIANDAY() не визначена", solution: "Використовуйте DATE_TRUNC() замість JULIANDAY(). JULIANDAY характерна для SQLite." }] },
-                util: { copyCode: "Копіювати код", copied: "Скопійовано!" }
+                back: "← Повернутися на головну сторінку",
+                welcome: "Ласкаво просимо до DuckDB Lab",
+                overview: "Огляд",
+                technology: "Введення в технологію",
+                setup: "Установка та налаштування",
+                fundamentals: "Основи",
+                exercise1: "Вправа 1: Перші запити",
+                exercise2: "Вправа 2: Фільтрація та сортування",
+                exercise3: "Вправа 3: Агрегування",
+                exercise4: "Вправа 4: MegaStore Dataset",
+                exercise5: "Вправа 5: Об'єднання",
+                exercise6: "Вправа 6: Функції вікна",
+                exercise7: "Вправа 7: Parquet та CSV",
+                exercise8: "Вправа 8: Складна аналітика",
+                selfCheck: "Самоперевірка",
+                reflection: "Рефлексія та застосування",
+                troubleshooting: "Розв'язання проблем",
+                resources: "Додаткові ресурси",
+                whatYouLearn: "Що ви вивчитимете",
+                realWorldMotivation: "Чому DuckDB? Компанії як Watershed, FinQore та Okta використовують DuckDB щодня:",
+                watershedPerf: "Watershed: У 10 разів швидше для аналізу екологічних даних",
+                finqoreSpeed: "FinQore: Запити скорочені з 8 годин до 8 хвилин",
+                oktaScale: "Okta: Аналіз 7,5 трильйонів записів в реальному часі",
+                southAusAnalytics: "Південна Австралія: Панель клімату з внутрішньопроцесним OLAP",
+                duckdbIs: "Що таке DuckDB?",
+                inProcess: "OLAP у процесі: DuckDB виконується у вашому процесі, а не як сервер",
+                columnar: "Орієнтована на стовпці: оптимізована для аналізу по багатьох рядах",
+                fast: "Швидко: Надзвичайно продуктивно для SQL-аналітики"
             },
             es: {
-                nav: { backToOverview: "← Volver a la descripción general", language: "Idioma", toggleMenu: "Menú" },
-                hero: { title: "DuckDB Lab - SQL Analítico en Grandes Conjuntos de Datos", chapter: "Capítulo 6 - Bases de Datos Analíticas", difficulty: "Dificultad", beginner: "Principiante", estimatedTime: "Tiempo estimado", hours: "2-3 Horas" },
-                sidebar: { learningObjectives: "Objetivos de aprendizaje", setupInstallation: "Configuración e instalación", theoryOverview: "Descripción general de la teoría", dataModel: "Modelo de datos MegaStore", exercise1: "Ejercicio 1: Primeros pasos", exercise2: "Ejercicio 2: Consultas analíticas", exercise3: "Ejercicio 3: Parquet vs CSV", exercise4: "Ejercicio 4: Analítica compleja", challenges: "Desafíos progresivos", selfCheck: "Autoevaluación", reflection: "Reflexión y aplicaciones reales", troubleshooting: "Solución de problemas" },
-                objectives: ["Escribir consultas SQL analíticas con DuckDB", "Comprender y usar el formato Parquet", "Aplicar Window Functions y SQL avanzado", "Optimizar el rendimiento en grandes conjuntos de datos", "Comparar DuckDB con RDBMS tradicionales"],
-                setup: { title: "Configuración e instalación", intro: "Inicie DuckDB con Docker y Jupyter Notebook:", dockerRun: "docker run -it --rm -p 8888:8888 \\\n  -v $(pwd)/data:/home/jovyan/data \\\n  jupyter/scipy-notebook:latest \\\n  start-notebook.sh --NotebookApp.token=''", pythonSetup: "Instale DuckDB en Jupyter Notebook:", pythonInstall: "!pip install duckdb\nimport duckdb\ncon = duckdb.connect(':memory:')\nprint(duckdb.__version__)", verify: "Verifique la conexión:", verifySteps: ["El paquete DuckDB Python está instalado", "La conexión en memoria es exitosa", "Se muestra la versión de DuckDB"] },
-                theory: { title: "Descripción general de la teoría", whatIs: "¿Qué es DuckDB?", whatIsDesc: "DuckDB es una base de datos OLAP en proceso optimizada para cargas de trabajo analíticas. A diferencia de SQLite y sistemas relacionales, DuckDB se enfoca en consultas analíticas rápidas con características SQL avanzadas.", columnar: "Almacenamiento orientado a columnas", columnarDesc: "DuckDB almacena datos en columnas en lugar de filas, lo que hace que las consultas analíticas sean dramáticamente más rápidas. Solo se cargan las columnas requeridas del almacenamiento.", vectorized: "Ejecución vectorizada", vectorizedDesc: "Los procesadores modernos soportan operaciones SIMD. DuckDB usa esto para procesar múltiples filas en paralelo, mejorando significativamente el rendimiento de las consultas.", parquet: "Formato Parquet", parquetDesc: "Un formato de almacenamiento orientado a columnas optimizado con DuckDB. Mucho más rápido que CSV para consultas analíticas y ahorra espacio de almacenamiento.", whenToUseDuckDB: "¿Cuándo usar DuckDB?", whenToUseDuckDBDesc: ["Consultas analíticas rápidas sobre archivos CSV/Parquet grandes", "Análisis en proceso sin servidor de base de datos", "Exploración de datos y análisis ad-hoc", "Tuberías ETL y transformación de datos", "Integración Python para ciencia de datos"] },
-                dataModel: { title: "Modelo de datos MegaStore", intro: "El sistema de comercio electrónico contiene las siguientes tablas principales:", orders: "orders (500K filas): Pedidos con ID, fecha, información del cliente, monto", items: "order_items (1M+ filas): Artículos de línea por pedido con ID de producto, cantidad, precio", clickstream: "clickstream (200K filas): Eventos de clic con marca de tiempo, ID de usuario, ID de producto", products: "products (~5K filas): Catálogo de productos con nombre, categoría, precio", customers: "customers (~50K filas): Datos maestros del cliente con nombre, correo electrónico, región" },
-                exercise1: { title: "Ejercicio 1: Primeros pasos con DuckDB", intro: "Conéctese a DuckDB y realice operaciones básicas." },
-                exercise2: { title: "Ejercicio 2: Consultas analíticas", intro: "Aprenda a realizar consultas SQL analíticas complejas con Window Functions." },
-                exercise3: { title: "Ejercicio 3: Rendimiento de Parquet vs CSV", intro: "Compare el rendimiento de los formatos CSV y Parquet." },
-                exercise4: { title: "Ejercicio 4: Desafío de analítica compleja", intro: "Diseñe escenarios analíticos reales con análisis de cohortes y canasta de mercado." },
-                challenges: { title: "Desafíos progresivos", level1: { title: "Principiante - Top 5 categorías de productos", challenge: "Encuentre las 5 categorías de productos con más productos", hypothesis: "Antes de escribir la consulta: ¿Qué categorías cree que tienen más productos? ¿Por qué?", solution: "SELECT category, COUNT(*) as cnt FROM products GROUP BY category ORDER BY cnt DESC LIMIT 5", insight: "Electrónica y Hogar & Jardín típicamente dominan. Los administradores de categorías usan estos datos para asignación de espacio en estantería y presupuestos de marketing." }, level2: { title: "Análisis más profundo - Clientes de alto valor", challenge: "Identifique a los clientes que han gastado más de $1000", hint: "Consejo: Use GROUP BY y HAVING con SUM()", realWorld: "El análisis de clientes es crítico para la retención y el marketing dirigido." }, level3: { title: "Avanzado - Análisis de cesta de mercado", challenge: "Para cada producto, encuentre los 3 productos que se compran juntos con más frecuencia", hint: "Consejo: Unión automática de order_items y cuente pares que aparecen frecuentemente", realWorld: "Amazon genera el 35% de los ingresos de recomendaciones. Este es el núcleo de su modelo de negocio." }, level4: { title: "Desafío del jefe - Análisis de cohortes", challenge: "Realice análisis de cohortes: cohortes de clientes por mes de primera compra, luego retención por mes", concept: "Análisis de cohortes: Agrupe clientes por primera visita/compra, luego rastrée su comportamiento en el tiempo", realWorld: "El análisis de cohortes es la base para predicciones de deserción y modelos de valor de vida útil." } },
-                selfCheck: { title: "Autoevaluación - Verifique su comprensión", questions: [{ q: "¿Cuál es la principal ventaja de DuckDB sobre SQLite?", a: "DuckDB está optimizado para consultas analíticas (OLAP), mientras que SQLite se enfoca en cargas transaccionales (OLTP). DuckDB usa almacenamiento orientado a columnas y vectorización." }, { q: "¿Por qué Parquet es más rápido que CSV para consultas analíticas?", a: "Parquet está orientado a columnas, por lo que solo se cargan las columnas necesarias. CSV carga todas las filas y columnas, incluso si solo necesita una columna." }, { q: "¿Qué hacen las Window Functions en SQL?", a: "Las Window Functions calculan agregados sobre una ventana de filas sin agrupar. Ejemplos: ROW_NUMBER(), SUM() OVER(), LAG(), LEAD()" }, { q: "¿Cuándo usaría DATEDIFF en lugar del cálculo manual de fechas?", a: "DATEDIFF calcula automáticamente la diferencia entre dos fechas en la unidad especificada (día, mes, año) y es mantenible y precisa." }, { q: "¿Por qué debería convertir archivos CSV grandes a Parquet?", a: "Parquet ahorra espacio (compresión), se lee más rápido, soporta particionamiento y es ideal para consultas analíticas repetidas." }] },
-                reflection: { title: "Reflexión y aplicaciones reales", prompts: [{ title: "¿Qué le sorprendió?", desc: "¿Qué aspecto de DuckDB fue inesperado? ¿Cómo difirió de las bases de datos SQL que conoce?" }, { title: "¿Qué fue más desafiante?", desc: "¿Qué conceptos de SQL fueron más difíciles? ¿Dónde necesita más práctica?" }, { title: "Explique DuckDB a un CEO no técnico", desc: "¿Cómo explicaría los beneficios de DuckDB para análisis de datos rápido en términos simples?" }, { title: "¿Qué pregunta de negocio fue más interesante?", desc: "De todos los escenarios de MegaStore: ¿Cuál le fascinó más y por qué?" }], realWorld: "Dónde se usa DuckDB en el mundo real", useCases: [{ title: "Exploración de datos", desc: "Consultas SQL rápidas sobre CSV/Parquet sin servidor de base de datos. Ideal para científicos de datos y analistas." }, { title: "Tuberías ETL", desc: "Transformación y limpieza de datos directamente en Python. DuckDB carga datos una vez y ejecuta múltiples transformaciones." }, { title: "Paneles en tiempo real", desc: "Análisis en proceso para aplicaciones web. DuckDB procesa datos históricos rápidamente para información en tiempo real." }, { title: "Consultas de Data Lake", desc: "Consulta directa de archivos Parquet en S3/almacenamiento en la nube sin ETL. Integración Arrow para rendimiento de copia cero." }] },
-                troubleshooting: { title: "Solución de problemas", commonErrors: "Errores comunes y soluciones", errors: [{ problem: "ModuleNotFoundError: No module named 'duckdb'", solution: "Instale DuckDB: !pip install duckdb" }, { problem: "Archivo no encontrado al leer CSV", solution: "Use rutas relativas desde /home/jovyan/data o verifique el tamaño del archivo con os.listdir()" }, { problem: "JULIANDAY() no está definido", solution: "Use DATE_TRUNC() en lugar de JULIANDAY(). JULIANDAY es específico de SQLite." }] },
-                util: { copyCode: "Copiar código", copied: "¡Copiado!" }
+                back: "← Volver a la página de inicio",
+                welcome: "Bienvenido al Laboratorio DuckDB",
+                overview: "Descripción general",
+                technology: "Introducción a la tecnología",
+                setup: "Configuración e instalación",
+                fundamentals: "Fundamentos",
+                exercise1: "Ejercicio 1: Primeras consultas",
+                exercise2: "Ejercicio 2: Filtrado y ordenamiento",
+                exercise3: "Ejercicio 3: Agregaciones",
+                exercise4: "Ejercicio 4: Conjunto de datos MegaStore",
+                exercise5: "Ejercicio 5: Uniones",
+                exercise6: "Ejercicio 6: Funciones de ventana",
+                exercise7: "Ejercicio 7: Parquet y CSV",
+                exercise8: "Ejercicio 8: Analítica compleja",
+                selfCheck: "Autoevaluación",
+                reflection: "Reflexión y aplicaciones",
+                troubleshooting: "Solución de problemas",
+                resources: "Recursos adicionales",
+                whatYouLearn: "Qué aprenderá",
+                realWorldMotivation: "¿Por qué DuckDB? Empresas como Watershed, FinQore y Okta usan DuckDB diariamente:",
+                watershedPerf: "Watershed: 10 veces más rápido para análisis de datos ecológicos",
+                finqoreSpeed: "FinQore: Consultas reducidas de 8 horas a 8 minutos",
+                oktaScale: "Okta: Analizar 7,5 billones de registros en tiempo real",
+                southAusAnalytics: "Australia del Sur: Panel climático con OLAP en proceso",
+                duckdbIs: "¿Qué es DuckDB?",
+                inProcess: "OLAP en proceso: DuckDB se ejecuta en su proceso, no como servidor",
+                columnar: "Orientado a columnas: optimizado para análisis de muchas filas",
+                fast: "Rápido: Extremadamente performante para análisis SQL"
             },
             tr: {
-                nav: { backToOverview: "← Genel Bakışa Dön", language: "Dil", toggleMenu: "Menü" },
-                hero: { title: "DuckDB Lab - Büyük Veri Kümeleri Üzerinde Analitik SQL", chapter: "Bölüm 6 - Analitik Veritabanları", difficulty: "Zorluk Seviyesi", beginner: "Başlangıç", estimatedTime: "Tahmini Süre", hours: "2-3 Saat" },
-                sidebar: { learningObjectives: "Öğrenme Hedefleri", setupInstallation: "Kurulum ve İnstallasyon", theoryOverview: "Teori Özeti", dataModel: "MegaStore Veri Modeli", exercise1: "Alıştırma 1: İlk Adımlar", exercise2: "Alıştırma 2: Analitik Sorgular", exercise3: "Alıştırma 3: Parquet vs CSV", exercise4: "Alıştırma 4: Karmaşık Analitik", challenges: "Kademeli Zorluklar", selfCheck: "Öz Kontrol", reflection: "Yansıtma ve Gerçek Dünya Uygulamaları", troubleshooting: "Sorun Giderme" },
-                objectives: ["DuckDB ile analitik SQL sorguları yazma", "Parquet formatını anlama ve kullanma", "Window Functions ve gelişmiş SQL uygulama", "Büyük veri kümeleri üzerinde performansı optimize etme", "DuckDB'yi geleneksel RDBMS ile karşılaştırma"],
-                setup: { title: "Kurulum ve İnstallasyon", intro: "Docker ve Jupyter Notebook ile DuckDB'yi başlatın:", dockerRun: "docker run -it --rm -p 8888:8888 \\\n  -v $(pwd)/data:/home/jovyan/data \\\n  jupyter/scipy-notebook:latest \\\n  start-notebook.sh --NotebookApp.token=''", pythonSetup: "Jupyter Notebook'ta DuckDB'yi kurun:", pythonInstall: "!pip install duckdb\nimport duckdb\ncon = duckdb.connect(':memory:')\nprint(duckdb.__version__)", verify: "Bağlantıyı doğrulayın:", verifySteps: ["DuckDB Python paketi yüklü", "Bellek içi bağlantı başarılı", "DuckDB sürümü görüntüleniyor"] },
-                theory: { title: "Teori Özeti", whatIs: "DuckDB Nedir?", whatIsDesc: "DuckDB, analitik iş yükleri için optimize edilmiş işlem içi bir OLAP veritabanıdır. SQLite ve ilişkisel sistemlerden farklı olarak, DuckDB hızlı analitik sorgulara ve gelişmiş SQL özelliklerine odaklanır.", columnar: "Sütun Yönelimli Depolama", columnarDesc: "DuckDB verileri satırlar yerine sütunlarda depolar, bu da analitik sorguları önemli ölçüde hızlandırır. Yalnızca gerekli sütunlar depolamadan yüklenir.", vectorized: "Vektörleştirilmiş Yürütme", vectorizedDesc: "Modern CPU'lar SIMD işlemlerini destekler. DuckDB, birden fazla satırı paralel olarak işlemek için bunu kullanır ve sorgu performansını önemli ölçüde iyileştirir.", parquet: "Parquet Formatı", parquetDesc: "DuckDB ile optimize edilmiş sütun yönelimli bir depolama formatı. Analitik sorgular için CSV'den çok daha hızlı ve depolama alanı tasarrufu sağlar.", whenToUseDuckDB: "DuckDB Ne Zaman Kullanılır?", whenToUseDuckDBDesc: ["Büyük CSV/Parquet dosyaları üzerinde hızlı analitik sorgular", "Veritabanı sunucusu olmaksızın işlem içi analitik", "Veri keşfi ve geçici analiz", "ETL işlem hatları ve veri dönüştürme", "Veri bilimi için Python entegrasyonu"] },
-                dataModel: { title: "MegaStore Veri Modeli", intro: "E-ticaret sistemi aşağıdaki ana tabloları içerir:", orders: "orders (500K satır): ID, tarih, müşteri bilgisi ve tutarı içeren siparişler", items: "order_items (1M+ satır): Sipariş başına satır öğeleri, ürün ID'si, miktar, fiyat", clickstream: "clickstream (200K satır): Zaman damgası, kullanıcı ID'si, ürün ID'si içeren tıklama olayları", products: "products (~5K satır): Ad, kategori, fiyat içeren ürün kataloğu", customers: "customers (~50K satır): Ad, e-posta, bölge içeren müşteri ana verileri" },
-                exercise1: { title: "Alıştırma 1: DuckDB ile İlk Adımlar", intro: "DuckDB'ye bağlanın ve temel işlemleri gerçekleştirin." },
-                exercise2: { title: "Alıştırma 2: Analitik Sorgular", intro: "Window Functions ile karmaşık analitik SQL sorguları gerçekleştirmeyi öğrenin." },
-                exercise3: { title: "Alıştırma 3: Parquet vs CSV Performansı", intro: "CSV ve Parquet formatlarının performansını karşılaştırın." },
-                exercise4: { title: "Alıştırma 4: Karmaşık Analitik Zorluk", intro: "Kohort ve pazar sepeti analizi ile gerçek analitik senaryolar tasarlayın." },
-                challenges: { title: "Kademeli Zorluklar", level1: { title: "Başlangıç - En İyi 5 Ürün Kategorisi", challenge: "En fazla ürüne sahip 5 ürün kategorisini bulun", hypothesis: "Sorguyu yazmadan önce: Hangi kategorilerin en fazla ürüne sahip olduğunu düşünüyorsunuz? Neden?", solution: "SELECT category, COUNT(*) as cnt FROM products GROUP BY category ORDER BY cnt DESC LIMIT 5", insight: "Elektronik ve Ev & Bahçe tipik olarak hakim olur. Kategori yöneticileri bu verileri raf alanı dağıtımı ve pazarlama bütçeleri için kullanırlar." }, level2: { title: "Derin Dalış - Yüksek Değer Müşteriler", challenge: "$1000'den fazla harcayan müşterileri belirleyin", hint: "İpucu: GROUP BY ve HAVING ile SUM() kullanın", realWorld: "Müşteri analizi elde tutma ve hedefli pazarlama için kritiktir." }, level3: { title: "Gelişmiş - Pazar Sepeti Analizi", challenge: "Her ürün için, en sık birlikte satın alınan 3 ürünü bulun", hint: "İpucu: order_items'i kendi kendine birleştirin ve sık görülen çiftleri sayın", realWorld: "Amazon gelirinin %35'ini önerilerden elde eder. Bu iş modelinin özüdür." }, level4: { title: "Boss Zorluk - Kohort Analizi", challenge: "Kohort analizi gerçekleştirin: İlk satın alma ayına göre müşteri kohortları, ardından ayda tutma izlemesi", concept: "Kohort Analizi: Müşterileri ilk ziyaret/satın almaya göre gruplandırın, sonra davranışlarını zaman içinde izleyin", realWorld: "Kohort analizi, churn tahmini ve yaşam boyu değer modelleri için temeldir." } },
-                selfCheck: { title: "Öz Kontrol - Anlayışınızı Test Edin", questions: [{ q: "DuckDB'nin SQLite üzerindeki ana avantajı nedir?", a: "DuckDB analitik sorgular (OLAP) için optimize edilmiştir, SQLite işlem yükleri (OLTP) için hedeflenmiştir. DuckDB sütun yönelimli depolama ve vektörleştirme kullanır." }, { q: "Parquet neden analitik sorgular için CSV'den daha hızlıdır?", a: "Parquet sütun yönelimlidir, bu nedenle yalnızca gerekli sütunlar yüklenir. CSV tüm satırları ve sütunları yükler, hatta yalnızca bir sütuna ihtiyacınız olsa bile." }, { q: "SQL'de Window Functions ne yapar?", a: "Window Functions satırlar gruplanmadan satır penceresi üzerinde agregat hesaplar. Örnekler: ROW_NUMBER(), SUM() OVER(), LAG(), LEAD()" }, { q: "Manuel tarih hesaplaması yerine DATEDIFF'i ne zaman kullanırsınız?", a: "DATEDIFF, belirtilen birimde (gün, ay, yıl) iki tarih arasındaki farkı otomatik olarak hesaplar ve bakımlanabilir ve hassastır." }, { q: "Büyük CSV dosyalarını neden Parquet'a dönüştürmelisiniz?", a: "Parquet alan tasarrufu sağlar (sıkıştırma), daha hızlı okunur, bölümlemeyi destekler ve tekrarlanan analitik sorgular için idealdir." }] },
-                reflection: { title: "Yansıtma ve Gerçek Dünya Uygulamaları", prompts: [{ title: "Sizi neyin şaşırttığı?", desc: "DuckDB'nin hangi yönü beklenmedik miydi? Tanıdığınız SQL veritabanlarından nasıl farklıydı?" }, { title: "En zorlayıcı kısım ne oldu?", desc: "Hangi SQL kavramları en zorluydu? Daha fazla pratiye nerede ihtiyacınız var?" }, { title: "DuckDB'yi teknisyen olmayan bir CEO'ya açıklayın", desc: "Hızlı veri analizi için DuckDB'nin faydalarını basit terimlerle nasıl açıklarsınız?" }, { title: "Hangi iş sorusu en ilginçti?", desc: "Tüm MegaStore senaryolarından: Hangisi sizi en çok etkiledi ve neden?" }], realWorld: "DuckDB Gerçek Dünyada Kullanıldığı Yerler", useCases: [{ title: "Veri Keşfi", desc: "Veritabanı sunucusu olmaksızın CSV/Parquet üzerinde hızlı SQL sorguları. Veri bilimciler ve analitikçiler için ideal." }, { title: "ETL İşlem Hatları", desc: "Veri dönüştürme ve temizleme doğrudan Python'da. DuckDB verileri bir kez yükler ve birden fazla dönüştürme çalıştırır." }, { title: "Gerçek Zamanlı Panolar", desc: "Web uygulamaları için işlem içi analitik. DuckDB, gerçek zamanlı içgörüler için tarihsel verileri hızlı bir şekilde işler." }, { title: "Data Lake Sorguları", desc: "ETL olmaksızın S3/bulut depolamada Parquet dosyalarının doğrudan sorgulanması. Sıfır kopya performansı için Arrow entegrasyonu." }] },
-                troubleshooting: { title: "Sorun Giderme", commonErrors: "Yaygın Hatalar ve Çözümler", errors: [{ problem: "ModuleNotFoundError: No module named 'duckdb'", solution: "DuckDB'yi kurun: !pip install duckdb" }, { problem: "CSV okurken dosya bulunamadı", solution: "/home/jovyan/data'dan göreli yollar kullanın veya os.listdir() ile dosya boyutunu kontrol edin" }, { problem: "JULIANDAY() tanımlanmamış", solution: "JULIANDAY() yerine DATE_TRUNC() kullanın. JULIANDAY SQLite'a özgüdür." }] },
-                util: { copyCode: "Kodu Kopyala", copied: "Kopyalandı!" }
+                back: "← Ana Sayfaya Dön",
+                welcome: "DuckDB Lab'a Hoş Geldiniz",
+                overview: "Genel Bakış",
+                technology: "Teknoloji Sunuşu",
+                setup: "Kurulum ve Yükleme",
+                fundamentals: "Temeller",
+                exercise1: "Alıştırma 1: İlk Sorgular",
+                exercise2: "Alıştırma 2: Filtreleme ve Sıralama",
+                exercise3: "Alıştırma 3: Toplamalar",
+                exercise4: "Alıştırma 4: MegaStore Veri Seti",
+                exercise5: "Alıştırma 5: Birleştirmeler",
+                exercise6: "Alıştırma 6: Pencere Fonksiyonları",
+                exercise7: "Alıştırma 7: Parquet ve CSV",
+                exercise8: "Alıştırma 8: Karmaşık Analitik",
+                selfCheck: "Kendini Kontrol Et",
+                reflection: "Yansıtma ve Uygulamalar",
+                troubleshooting: "Sorun Giderme",
+                resources: "Ek Kaynaklar",
+                whatYouLearn: "Öğrenecekleriniz",
+                realWorldMotivation: "Neden DuckDB? Watershed, FinQore ve Okta gibi şirketler DuckDB'yi günlük olarak kullanır:",
+                watershedPerf: "Watershed: Ekolojik veri analizi için 10 kat daha hızlı",
+                finqoreSpeed: "FinQore: Sorguları 8 saatten 8 dakikaya indirdi",
+                oktaScale: "Okta: Gerçek zamanlı olarak 7,5 trilyon kaydı analiz edin",
+                southAusAnalytics: "Güney Avustralya: İşlem içi OLAP ile iklim panosu",
+                duckdbIs: "DuckDB Nedir?",
+                inProcess: "İşlem içi OLAP: DuckDB, sunucu olarak değil, işleminizde çalışır",
+                columnar: "Sütun Odaklı: Birçok satır analizi için optimize edilmiş",
+                fast: "Hızlı: SQL analitikleri için son derece performant"
             }
         };
 
-        const codeExamples = {
-            setup: `# Install DuckDB\n!pip install duckdb\n\n# Import and verify\nimport duckdb\ncon = duckdb.connect(':memory:')\nprint(duckdb.__version__)`,
-            exercise1: `import duckdb\ncon = duckdb.connect(':memory:')\n\n# Load CSV\ncon.execute("CREATE TABLE orders AS SELECT * FROM read_csv_auto('data/orders.csv')")\ncon.execute("CREATE TABLE products AS SELECT * FROM read_csv_auto('data/products.csv')")\n\n# Basic queries\nprint(con.execute("SELECT COUNT(*) FROM orders").fetchone())\nprint(con.execute("SELECT category, COUNT(*) as cnt FROM products GROUP BY category ORDER BY cnt DESC").fetchdf())`,
-            exercise2: `-- Window Functions: Running total\nSELECT order_date,\n       order_total,\n       SUM(order_total) OVER (ORDER BY order_date) as running_total\nFROM orders\nORDER BY order_date;\n\n-- Revenue by month with growth\nWITH monthly AS (\n  SELECT DATE_TRUNC('month', order_date) AS month,\n         SUM(order_total) AS revenue\n  FROM orders GROUP BY 1\n)\nSELECT month, revenue,\n       LAG(revenue) OVER (ORDER BY month) AS prev_month,\n       ROUND((revenue - LAG(revenue) OVER (ORDER BY month)) /\n             LAG(revenue) OVER (ORDER BY month) * 100, 2) AS growth_pct\nFROM monthly ORDER BY month;\n\n-- Top customers (RFM-style)\nSELECT customer_id,\n       COUNT(*) AS frequency,\n       SUM(order_total) AS monetary,\n       MAX(order_date) AS last_order\nFROM orders\nGROUP BY customer_id\nORDER BY monetary DESC\nLIMIT 20;`,
-            exercise3: `import time\n\n# CSV performance\nstart = time.time()\ncon.execute("SELECT category, SUM(order_total) FROM read_csv_auto('data/orders.csv') GROUP BY category")\ncsv_time = time.time() - start\n\n# Convert to Parquet\ncon.execute("COPY (SELECT * FROM orders) TO 'data/orders.parquet' (FORMAT PARQUET)")\n\n# Parquet performance\nstart = time.time()\ncon.execute("SELECT category, SUM(order_total) FROM read_parquet('data/orders.parquet') GROUP BY category")\nparquet_time = time.time() - start\n\nprint(f"CSV: {csv_time:.3f}s | Parquet: {parquet_time:.3f}s | Speedup: {csv_time/parquet_time:.1f}x")`,
-            exercise4: `-- Cohort Analysis\nWITH first_order AS (\n  SELECT customer_id, DATE_TRUNC('month', MIN(order_date)) AS cohort_month\n  FROM orders GROUP BY customer_id\n),\norders_with_cohort AS (\n  SELECT o.*, f.cohort_month,\n         DATEDIFF('month', f.cohort_month, DATE_TRUNC('month', o.order_date)) AS months_since\n  FROM orders o JOIN first_order f ON o.customer_id = f.customer_id\n)\nSELECT cohort_month, months_since,\n       COUNT(DISTINCT customer_id) AS customers\nFROM orders_with_cohort\nGROUP BY cohort_month, months_since\nORDER BY cohort_month, months_since;\n\n-- Market Basket Analysis\nWITH pairs AS (\n  SELECT a.product_id AS product_a, b.product_id AS product_b,\n         COUNT(*) AS frequency\n  FROM order_items a\n  JOIN order_items b ON a.order_id = b.order_id AND a.product_id < b.product_id\n  GROUP BY a.product_id, b.product_id\n)\nSELECT p1.product_name AS product_a, p2.product_name AS product_b, frequency\nFROM pairs\nJOIN products p1 ON pairs.product_a = p1.product_id\nJOIN products p2 ON pairs.product_b = p2.product_id\nORDER BY frequency DESC\nLIMIT 10;`
-        };
-
-        function CodeBlock({ code, language = 'python' }) {
-            const [copied, setCopied] = useState(false);
-
-            const handleCopy = () => {
-                navigator.clipboard.writeText(code);
-                setCopied(true);
-                setTimeout(() => setCopied(false), 2000);
-            };
-
-            return (
-                <div className="code-block">
-                    <div className="code-block-header">
-                        <span>{language}</span>
-                        <button className={`copy-button ${copied ? 'copied' : ''}`} onClick={handleCopy}>
-                            {copied ? '✓ Copied' : 'Copy'}
-                        </button>
-                    </div>
-                    <div className="code-block-content">
-                        <code>{code}</code>
-                    </div>
-                </div>
-            );
-        }
-
-        function ChallengeCard({ challenge }) {
-            const [expanded, setExpanded] = useState(false);
-            return (
-                <div className="challenge-card">
-                    <div className="challenge-header" onClick={() => setExpanded(!expanded)}>
-                        <span className="challenge-title">{challenge.title}</span>
-                        <span className={`challenge-toggle ${expanded ? 'open' : ''}`}>›</span>
-                    </div>
-                    <div className={`challenge-content ${expanded ? 'open' : ''}`}>
-                        <p><strong>Challenge:</strong> {challenge.challenge}</p>
-                        {challenge.hypothesis && <div className="info-box hypothesis-box"><strong>Hypothesis:</strong> {challenge.hypothesis}</div>}
-                        {challenge.hint && <p><strong>Hint:</strong> {challenge.hint}</p>}
-                        {challenge.solution && <p><strong>Solution:</strong> <code>{challenge.solution}</code></p>}
-                        {challenge.concept && <p><strong>Concept:</strong> {challenge.concept}</p>}
-                        {(challenge.insight || challenge.realWorld) && <div className="info-box insight-box"><strong>Real World:</strong> {challenge.insight || challenge.realWorld}</div>}
-                    </div>
-                </div>
-            );
-        }
-
-        function SelfCheckQuestion({ question }) {
-            const [expanded, setExpanded] = useState(false);
-            return (
-                <div className="self-check-question">
-                    <div className="question-text" onClick={() => setExpanded(!expanded)}>
-                        <span>{question.q}</span>
-                        <span className="answer-toggle">{expanded ? '▼' : '▶'}</span>
-                    </div>
-                    <div className={`answer-text ${expanded ? 'open' : ''}`}>
-                        {question.a}
-                    </div>
-                </div>
-            );
-        }
-
         function App() {
-            const [lang, setLang] = useState('en');
-            const [activeSection, setActiveSection] = useState('learningObjectives');
-            const [sidebarOpen, setSidebarOpen] = useState(false);
-
-            useEffect(() => {
-                document.documentElement.lang = lang;
-                document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
-            }, [lang]);
+            const [lang, setLang] = React.useState('en');
+            const [activeSection, setActiveSection] = React.useState('overview');
+            const [expandedQuizzes, setExpandedQuizzes] = React.useState({});
+            const [expandedHints, setExpandedHints] = React.useState({});
 
             const t = translations[lang];
+            const isRTL = lang === 'ar';
+
+            const toggleQuiz = (id) => {
+                setExpandedQuizzes(prev => ({ ...prev, [id]: !prev[id] }));
+            };
+
+            const toggleHint = (id) => {
+                setExpandedHints(prev => ({ ...prev, [id]: !prev[id] }));
+            };
+
+            const copyToClipboard = (code) => {
+                navigator.clipboard.writeText(code);
+                alert('Copied!');
+            };
 
             const sections = [
-                { id: 'learningObjectives', label: t.sidebar.learningObjectives },
-                { id: 'setupInstallation', label: t.sidebar.setupInstallation },
-                { id: 'theoryOverview', label: t.sidebar.theoryOverview },
-                { id: 'dataModel', label: t.sidebar.dataModel },
-                { id: 'exercise1', label: t.sidebar.exercise1 },
-                { id: 'exercise2', label: t.sidebar.exercise2 },
-                { id: 'exercise3', label: t.sidebar.exercise3 },
-                { id: 'exercise4', label: t.sidebar.exercise4 },
-                { id: 'challenges', label: t.sidebar.challenges },
-                { id: 'selfCheck', label: t.sidebar.selfCheck },
-                { id: 'reflection', label: t.sidebar.reflection },
-                { id: 'troubleshooting', label: t.sidebar.troubleshooting }
+                'overview', 'technology', 'setup', 'fundamentals',
+                'exercise1', 'exercise2', 'exercise3', 'exercise4',
+                'exercise5', 'exercise6', 'exercise7', 'exercise8',
+                'selfCheck', 'reflection', 'troubleshooting', 'resources'
             ];
 
             return (
-                <div className="flex flex-col min-h-screen">
-                    <nav className="navbar sticky top-0 z-50">
-                        <div className="navbar-content">
-                            <div className="flex items-center gap-2">
-                                <button className="mobile-menu-toggle" onClick={() => setSidebarOpen(!sidebarOpen)}>☰</button>
-                                <div className="logo">DuckDB Lab</div>
-                            </div>
-                            <div className="language-switcher flex gap-2">
-                                {['en', 'de', 'ar', 'uk', 'es', 'tr'].map(l => (
-                                    <button key={l} className={`lang-btn ${lang === l ? 'active' : ''}`} onClick={() => { setLang(l); setSidebarOpen(false); }}>
-                                        {l.toUpperCase()}
-                                    </button>
-                                ))}
-                            </div>
+                <div dir={isRTL ? 'rtl' : 'ltr'}>
+                    <div className="header">
+                        <div className="header-left">
+                            <button className="back-btn" onClick={() => window.location.href = 'index.html'}>
+                                {t.back}
+                            </button>
+                            <h1 style={{ fontSize: '1.5rem', fontWeight: '700', color: '#1B3A5C' }}>
+                                DuckDB Lab
+                            </h1>
                         </div>
-                    </nav>
+                        <select className="lang-select" value={lang} onChange={(e) => setLang(e.target.value)}>
+                            <option value="en">English</option>
+                            <option value="de">Deutsch</option>
+                            <option value="ar">العربية</option>
+                            <option value="uk">Українська</option>
+                            <option value="es">Español</option>
+                            <option value="tr">Türkçe</option>
+                        </select>
+                    </div>
 
-                    <div className="flex flex-1">
-                        {sidebarOpen && <div className="fixed inset-0 top-16 bg-black/50 z-30" onClick={() => setSidebarOpen(false)}></div>}
-                        <aside className={`sidebar ${sidebarOpen ? 'active' : ''}`}>
-                            {sections.map(section => (
-                                <button key={section.id} className={`sidebar-link ${activeSection === section.id ? 'active' : ''}`} onClick={() => { setActiveSection(section.id); setSidebarOpen(false); }}>
-                                    {section.label}
-                                </button>
-                            ))}
-                        </aside>
+                    <div className="sidebar">
+                        {sections.map(section => (
+                            <div
+                                key={section}
+                                className={`sidebar-item ${activeSection === section ? 'active' : ''}`}
+                                onClick={() => setActiveSection(section)}
+                            >
+                                {t[section]}
+                            </div>
+                        ))}
+                    </div>
 
-                        <main className="flex-1 max-w-5xl mx-auto px-4 py-8">
-                            {activeSection === 'learningObjectives' && (
-                                <section className="section" id="learningObjectives">
-                                    <div className="hero-section rounded-lg p-8 mb-8">
-                                        <h1 className="text-4xl font-bold mb-2">{t.hero.title}</h1>
-                                        <p className="text-lg mb-4">{t.hero.chapter}</p>
-                                        <div className="flex gap-4 flex-wrap">
-                                            <span>{t.hero.difficulty}: <span className="difficulty-badge difficulty-beginner">{t.hero.beginner}</span></span>
-                                            <span>{t.hero.estimatedTime}: {t.hero.hours}</span>
-                                        </div>
-                                    </div>
-                                    <h2 className="section-header">{t.sidebar.learningObjectives}</h2>
-                                    <div className="space-y-3 mb-8">
-                                        {t.objectives.map((obj, i) => <div key={i} className="card">{obj}</div>)}
-                                    </div>
-                                </section>
-                            )}
-
-                            {activeSection === 'setupInstallation' && (
-                                <section className="section" id="setupInstallation">
-                                    <h2 className="section-header">{t.setup.title}</h2>
-                                    <p className="mb-4">{t.setup.intro}</p>
-                                    <CodeBlock code={t.setup.dockerRun} language="bash" />
-                                    <h3 className="subsection-header">{t.setup.pythonSetup}</h3>
-                                    <CodeBlock code={t.setup.pythonInstall} language="python" />
-                                    <h3 className="subsection-header">{t.setup.verify}</h3>
-                                    <ul className="space-y-2 mb-8">
-                                        {t.setup.verifySteps.map((step, i) => <li key={i} className="card">✓ {step}</li>)}
-                                    </ul>
-                                </section>
-                            )}
-
-                            {activeSection === 'theoryOverview' && (
-                                <section className="section" id="theoryOverview">
-                                    <h2 className="section-header">{t.theory.title}</h2>
-                                    <div className="card">
-                                        <h3 className="subsection-header">{t.theory.whatIs}</h3>
-                                        <p>{t.theory.whatIsDesc}</p>
-                                    </div>
-                                    <div className="card">
-                                        <h3 className="subsection-header">{t.theory.columnar}</h3>
-                                        <p>{t.theory.columnarDesc}</p>
-                                    </div>
-                                    <div className="card">
-                                        <h3 className="subsection-header">{t.theory.vectorized}</h3>
-                                        <p>{t.theory.vectorizedDesc}</p>
-                                    </div>
-                                    <div className="card">
-                                        <h3 className="subsection-header">{t.theory.parquet}</h3>
-                                        <p>{t.theory.parquetDesc}</p>
-                                    </div>
-                                    <div className="card">
-                                        <h3 className="subsection-header">{t.theory.whenToUseDuckDB}</h3>
-                                        <ul className="space-y-2">
-                                            {t.theory.whenToUseDuckDBDesc.map((item, i) => <li key={i}>• {item}</li>)}
-                                        </ul>
-                                    </div>
-                                </section>
-                            )}
-
-                            {activeSection === 'dataModel' && (
-                                <section className="section" id="dataModel">
-                                    <h2 className="section-header">{t.dataModel.title}</h2>
-                                    <p className="mb-4">{t.dataModel.intro}</p>
-                                    <div className="space-y-3">
-                                        <div className="card"><strong>orders:</strong> {t.dataModel.orders}</div>
-                                        <div className="card"><strong>order_items:</strong> {t.dataModel.items}</div>
-                                        <div className="card"><strong>clickstream:</strong> {t.dataModel.clickstream}</div>
-                                        <div className="card"><strong>products:</strong> {t.dataModel.products}</div>
-                                        <div className="card"><strong>customers:</strong> {t.dataModel.customers}</div>
-                                    </div>
-                                </section>
-                            )}
-
-                            {activeSection === 'exercise1' && (
-                                <section className="section" id="exercise1">
-                                    <h2 className="section-header">{t.exercise1.title}</h2>
-                                    <p className="mb-4">{t.exercise1.intro}</p>
-                                    <CodeBlock code={codeExamples.exercise1} language="python" />
-                                </section>
-                            )}
-
-                            {activeSection === 'exercise2' && (
-                                <section className="section" id="exercise2">
-                                    <h2 className="section-header">{t.exercise2.title}</h2>
-                                    <p className="mb-4">{t.exercise2.intro}</p>
-                                    <CodeBlock code={codeExamples.exercise2} language="sql" />
-                                </section>
-                            )}
-
-                            {activeSection === 'exercise3' && (
-                                <section className="section" id="exercise3">
-                                    <h2 className="section-header">{t.exercise3.title}</h2>
-                                    <p className="mb-4">{t.exercise3.intro}</p>
-                                    <CodeBlock code={codeExamples.exercise3} language="python" />
-                                </section>
-                            )}
-
-                            {activeSection === 'exercise4' && (
-                                <section className="section" id="exercise4">
-                                    <h2 className="section-header">{t.exercise4.title}</h2>
-                                    <p className="mb-4">{t.exercise4.intro}</p>
-                                    <CodeBlock code={codeExamples.exercise4} language="sql" />
-                                </section>
-                            )}
-
-                            {activeSection === 'challenges' && (
-                                <section className="section" id="challenges">
-                                    <h2 className="section-header">{t.challenges.title}</h2>
-                                    <ChallengeCard challenge={t.challenges.level1} />
-                                    <ChallengeCard challenge={t.challenges.level2} />
-                                    <ChallengeCard challenge={t.challenges.level3} />
-                                    <ChallengeCard challenge={t.challenges.level4} />
-                                </section>
-                            )}
-
-                            {activeSection === 'selfCheck' && (
-                                <section className="section" id="selfCheck">
-                                    <h2 className="section-header">{t.selfCheck.title}</h2>
-                                    <div className="space-y-3">
-                                        {t.selfCheck.questions.map((q, i) => <SelfCheckQuestion key={i} question={q} />)}
-                                    </div>
-                                </section>
-                            )}
-
-                            {activeSection === 'reflection' && (
-                                <section className="section" id="reflection">
-                                    <h2 className="section-header">{t.reflection.title}</h2>
-                                    <div className="space-y-3 mb-8">
-                                        {t.reflection.prompts.map((p, i) => <div key={i} className="card"><strong>{p.title}:</strong> {p.desc}</div>)}
-                                    </div>
-                                    <h3 className="subsection-header">{t.reflection.realWorld}</h3>
-                                    <div className="space-y-3">
-                                        {t.reflection.useCases.map((uc, i) => <div key={i} className="card"><strong>{uc.title}:</strong> {uc.desc}</div>)}
-                                    </div>
-                                </section>
-                            )}
-
-                            {activeSection === 'troubleshooting' && (
-                                <section className="section" id="troubleshooting">
-                                    <h2 className="section-header">{t.troubleshooting.title}</h2>
-                                    <h3 className="subsection-header">{t.troubleshooting.commonErrors}</h3>
-                                    <div className="space-y-3">
-                                        {t.troubleshooting.errors.map((err, i) => (
-                                            <div key={i} className="card">
-                                                <p><strong>Problem:</strong> {err.problem}</p>
-                                                <p><strong>Solution:</strong> {err.solution}</p>
-                                            </div>
-                                        ))}
-                                    </div>
-                                </section>
-                            )}
-                        </main>
+                    <div className="main-content">
+                        {activeSection === 'overview' && <OverviewSection t={t} />}
+                        {activeSection === 'technology' && <TechnologySection t={t} />}
+                        {activeSection === 'setup' && <SetupSection t={t} copyToClipboard={copyToClipboard} toggleHint={toggleHint} expandedHints={expandedHints} />}
+                        {activeSection === 'fundamentals' && <FundamentalsSection t={t} copyToClipboard={copyToClipboard} toggleQuiz={toggleQuiz} toggleHint={toggleHint} expandedQuizzes={expandedQuizzes} expandedHints={expandedHints} />}
+                        {activeSection === 'exercise1' && <Exercise1 t={t} copyToClipboard={copyToClipboard} toggleHint={toggleHint} expandedHints={expandedHints} />}
+                        {activeSection === 'exercise2' && <Exercise2 t={t} copyToClipboard={copyToClipboard} toggleHint={toggleHint} expandedHints={expandedHints} />}
+                        {activeSection === 'exercise3' && <Exercise3 t={t} copyToClipboard={copyToClipboard} toggleHint={toggleHint} expandedHints={expandedHints} />}
+                        {activeSection === 'exercise4' && <Exercise4 t={t} copyToClipboard={copyToClipboard} toggleHint={toggleHint} expandedHints={expandedHints} />}
+                        {activeSection === 'exercise5' && <Exercise5 t={t} copyToClipboard={copyToClipboard} toggleHint={toggleHint} expandedHints={expandedHints} />}
+                        {activeSection === 'exercise6' && <Exercise6 t={t} copyToClipboard={copyToClipboard} toggleHint={toggleHint} expandedHints={expandedHints} />}
+                        {activeSection === 'exercise7' && <Exercise7 t={t} copyToClipboard={copyToClipboard} toggleHint={toggleHint} expandedHints={expandedHints} />}
+                        {activeSection === 'exercise8' && <Exercise8 t={t} copyToClipboard={copyToClipboard} toggleHint={toggleHint} expandedHints={expandedHints} />}
+                        {activeSection === 'selfCheck' && <SelfCheckSection t={t} expandedQuizzes={expandedQuizzes} toggleQuiz={toggleQuiz} />}
+                        {activeSection === 'reflection' && <ReflectionSection t={t} />}
+                        {activeSection === 'troubleshooting' && <TroubleshootingSection t={t} />}
+                        {activeSection === 'resources' && <ResourcesSection t={t} />}
                     </div>
                 </div>
             );
         }
 
-        ReactDOM.render(<App />, document.getElementById('root'));
+        function OverviewSection({ t }) {
+            return (
+                <div>
+                    <h2 style={{ fontSize: '2rem', marginBottom: '1.5rem', color: '#1B3A5C' }}>{t.welcome}</h2>
+                    <div className="accent-line" style={{ marginBottom: '2rem' }}></div>
+
+                    <div className="card" style={{ padding: '2rem', marginBottom: '2rem' }}>
+                        <h3 className="card-title" style={{ marginBottom: '1rem' }}>{t.whatYouLearn}</h3>
+                        <ul style={{ marginLeft: '1.5rem', lineHeight: '1.8' }}>
+                            <li>DuckDB architecture and in-process OLAP design</li>
+                            <li>SQL fundamentals and advanced query patterns</li>
+                            <li>Working with CSV, Parquet, and JSON data</li>
+                            <li>Window functions and complex analytics</li>
+                            <li>Performance optimization and real-world applications</li>
+                        </ul>
+                    </div>
+
+                    <div className="card" style={{ padding: '2rem' }}>
+                        <h3 className="card-title" style={{ marginBottom: '1rem' }}>{t.realWorldMotivation}</h3>
+                        <ul style={{ marginLeft: '1.5rem', lineHeight: '1.8' }}>
+                            <li>✓ {t.watershedPerf}</li>
+                            <li>✓ {t.finqoreSpeed}</li>
+                            <li>✓ {t.oktaScale}</li>
+                            <li>✓ {t.southAusAnalytics}</li>
+                        </ul>
+                    </div>
+                </div>
+            );
+        }
+
+        function TechnologySection({ t }) {
+            return (
+                <div>
+                    <h2 style={{ fontSize: '2rem', marginBottom: '1.5rem', color: '#1B3A5C' }}>Technology Introduction</h2>
+                    <div className="accent-line" style={{ marginBottom: '2rem' }}></div>
+
+                    <div className="card" style={{ padding: '2rem', marginBottom: '2rem' }}>
+                        <h3 className="card-title" style={{ marginBottom: '1rem' }}>{t.duckdbIs}</h3>
+                        <p style={{ marginBottom: '1rem' }}>{t.inProcess} No server infrastructure needed - just SQL in your application.</p>
+                        <ul style={{ marginLeft: '1.5rem', lineHeight: '1.8', marginTop: '1rem' }}>
+                            <li>{t.columnar}</li>
+                            <li>{t.fast}</li>
+                            <li>SQL-first: Full SQL support including window functions and CTEs</li>
+                            <li>Built-in: No external dependencies or configuration</li>
+                        </ul>
+                    </div>
+
+                    <div className="card" style={{ padding: '2rem', marginBottom: '2rem' }}>
+                        <h3 className="card-title" style={{ marginBottom: '1rem' }}>When to Use DuckDB vs Alternatives</h3>
+                        <table className="comparison-table">
+                            <thead>
+                                <tr>
+                                    <th>Feature</th>
+                                    <th>DuckDB</th>
+                                    <th>PostgreSQL</th>
+                                    <th>Snowflake</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Deployment</td>
+                                    <td>In-process, embedded</td>
+                                    <td>Server, separate instance</td>
+                                    <td>Cloud, fully managed</td>
+                                </tr>
+                                <tr>
+                                    <td>OLAP Performance</td>
+                                    <td>Excellent</td>
+                                    <td>Good</td>
+                                    <td>Excellent</td>
+                                </tr>
+                                <tr>
+                                    <td>Setup Complexity</td>
+                                    <td>Minimal</td>
+                                    <td>Medium</td>
+                                    <td>High</td>
+                                </tr>
+                                <tr>
+                                    <td>Cost</td>
+                                    <td>Free, open source</td>
+                                    <td>Free, open source</td>
+                                    <td>Pay per query/storage</td>
+                                </tr>
+                                <tr>
+                                    <td>Use Case</td>
+                                    <td>Analytics app, local data</td>
+                                    <td>OLTP, applications</td>
+                                    <td>Enterprise data warehouse</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div className="card" style={{ padding: '2rem' }}>
+                        <h3 className="card-title" style={{ marginBottom: '1rem' }}>Column-Oriented Storage</h3>
+                        <p style={{ marginBottom: '1rem' }}>DuckDB stores data by column, not by row. This means:</p>
+                        <ul style={{ marginLeft: '1.5rem', lineHeight: '1.8' }}>
+                            <li>Reading specific columns is fast - only load what you need</li>
+                            <li>Compression is more effective for similar values</li>
+                            <li>Aggregations (SUM, AVG) are extremely fast</li>
+                            <li>Perfect for analytics where you query a few columns of millions of rows</li>
+                        </ul>
+                    </div>
+                </div>
+            );
+        }
+
+        function SetupSection({ t, copyToClipboard, toggleHint, expandedHints }) {
+            const hints = {
+                docker_install: 'Docker is a containerization platform. Visit docker.com if not installed.',
+                duckdb_cli: 'Download from duckdb.org or use package managers like brew (macOS) or apt (Linux).',
+                python_install: 'Python 3.8+ is recommended. DuckDB works with both virtual environments and Anaconda.',
+                verify_cli: 'You should see the DuckDB version number if installation was successful.'
+            };
+
+            return (
+                <div>
+                    <h2 style={{ fontSize: '2rem', marginBottom: '1.5rem', color: '#1B3A5C' }}>Setup & Installation</h2>
+                    <div className="accent-line" style={{ marginBottom: '2rem' }}></div>
+
+                    <div className="card" style={{ padding: '2rem', marginBottom: '2rem' }}>
+                        <h3 className="card-title" style={{ marginBottom: '1rem' }}>Option 1: Docker (Recommended)</h3>
+                        <h4 style={{ marginTop: '1.5rem', marginBottom: '0.5rem', color: '#1B3A5C', fontWeight: '600' }}>Step 1: Pull DuckDB Image</h4>
+                        <div className="code-block">
+                            <button className="copy-btn" onClick={() => copyToClipboard('docker pull mcr.microsoft.com/devcontainers/universal:latest')}>Copy</button>
+                            <code>docker pull mcr.microsoft.com/devcontainers/universal:latest</code>
+                        </div>
+                        <div className="expandable" onClick={() => toggleHint('docker_install')} style={{ cursor: 'pointer' }}>
+                            <div className="expandable-header">
+                                <span>Hint</span>
+                                <span className="expandable-chevron">▼</span>
+                            </div>
+                            {expandedHints['docker_install'] && (
+                                <div className="expandable-content">{hints.docker_install}</div>
+                            )}
+                        </div>
+
+                        <h4 style={{ marginTop: '1.5rem', marginBottom: '0.5rem', color: '#1B3A5C', fontWeight: '600' }}>Step 2: Run Container with Python</h4>
+                        <div className="code-block">
+                            <button className="copy-btn" onClick={() => copyToClipboard('docker run -it --rm -v $(pwd):/workspace python:3.11 bash')}>Copy</button>
+                            <code>docker run -it --rm -v $(pwd):/workspace python:3.11 bash</code>
+                        </div>
+
+                        <h4 style={{ marginTop: '1.5rem', marginBottom: '0.5rem', color: '#1B3A5C', fontWeight: '600' }}>Step 3: Install DuckDB in Container</h4>
+                        <div className="code-block">
+                            <button className="copy-btn" onClick={() => copyToClipboard('pip install duckdb')}>Copy</button>
+                            <code>pip install duckdb</code>
+                        </div>
+                    </div>
+
+                    <div className="card" style={{ padding: '2rem', marginBottom: '2rem' }}>
+                        <h3 className="card-title" style={{ marginBottom: '1rem' }}>Option 2: DuckDB CLI (Local)</h3>
+                        <h4 style={{ marginTop: '1.5rem', marginBottom: '0.5rem', color: '#1B3A5C', fontWeight: '600' }}>macOS (Homebrew)</h4>
+                        <div className="code-block">
+                            <button className="copy-btn" onClick={() => copyToClipboard('brew install duckdb')}>Copy</button>
+                            <code>brew install duckdb</code>
+                        </div>
+
+                        <h4 style={{ marginTop: '1.5rem', marginBottom: '0.5rem', color: '#1B3A5C', fontWeight: '600' }}>Linux (apt)</h4>
+                        <div className="code-block">
+                            <button className="copy-btn" onClick={() => copyToClipboard('sudo apt-get install duckdb')}>Copy</button>
+                            <code>sudo apt-get install duckdb</code>
+                        </div>
+
+                        <h4 style={{ marginTop: '1.5rem', marginBottom: '0.5rem', color: '#1B3A5C', fontWeight: '600' }}>Start DuckDB Interactive Shell</h4>
+                        <div className="code-block">
+                            <button className="copy-btn" onClick={() => copyToClipboard('duckdb')}>Copy</button>
+                            <code>duckdb</code>
+                        </div>
+                        <div className="output-box">
+                            v0.9.2 (8.1.0)<br/>
+                            Type .help for help.<br/>
+                            memory&gt;
+                        </div>
+                        <div className="expandable" onClick={() => toggleHint('duckdb_cli')} style={{ cursor: 'pointer' }}>
+                            <div className="expandable-header">
+                                <span>Hint</span>
+                                <span className="expandable-chevron">▼</span>
+                            </div>
+                            {expandedHints['duckdb_cli'] && (
+                                <div className="expandable-content">{hints.duckdb_cli}</div>
+                            )}
+                        </div>
+                    </div>
+
+                    <div className="card" style={{ padding: '2rem', marginBottom: '2rem' }}>
+                        <h3 className="card-title" style={{ marginBottom: '1rem' }}>Option 3: Python Integration</h3>
+                        <h4 style={{ marginTop: '1.5rem', marginBottom: '0.5rem', color: '#1B3A5C', fontWeight: '600' }}>Install via pip</h4>
+                        <div className="code-block">
+                            <button className="copy-btn" onClick={() => copyToClipboard('pip install duckdb')}>Copy</button>
+                            <code>pip install duckdb</code>
+                        </div>
+
+                        <h4 style={{ marginTop: '1.5rem', marginBottom: '0.5rem', color: '#1B3A5C', fontWeight: '600' }}>Test in Python</h4>
+                        <div className="code-block">
+                            <button className="copy-btn" onClick={() => copyToClipboard('python3 -c "import duckdb; print(duckdb.execute(\'SELECT 1 as num\').fetchall())"')}>Copy</button>
+                            <code>python3 -c "import duckdb; print(duckdb.execute('SELECT 1 as num').fetchall())"</code>
+                        </div>
+                        <div className="output-box">
+                            [(1,)]
+                        </div>
+                        <div className="expandable" onClick={() => toggleHint('python_install')} style={{ cursor: 'pointer' }}>
+                            <div className="expandable-header">
+                                <span>Hint</span>
+                                <span className="expandable-chevron">▼</span>
+                            </div>
+                            {expandedHints['python_install'] && (
+                                <div className="expandable-content">{hints.python_install}</div>
+                            )}
+                        </div>
+                    </div>
+
+                    <div className="card" style={{ padding: '2rem' }}>
+                        <h3 className="card-title" style={{ marginBottom: '1rem' }}>Verification</h3>
+                        <h4 style={{ marginTop: '1.5rem', marginBottom: '0.5rem', color: '#1B3A5C', fontWeight: '600' }}>Check DuckDB Version</h4>
+                        <div className="code-block">
+                            <button className="copy-btn" onClick={() => copyToClipboard('duckdb --version')}>Copy</button>
+                            <code>duckdb --version</code>
+                        </div>
+                        <div className="output-box">
+                            v0.9.2
+                        </div>
+                        <div className="expandable" onClick={() => toggleHint('verify_cli')} style={{ cursor: 'pointer', marginTop: '1rem' }}>
+                            <div className="expandable-header">
+                                <span>Hint</span>
+                                <span className="expandable-chevron">▼</span>
+                            </div>
+                            {expandedHints['verify_cli'] && (
+                                <div className="expandable-content">{hints.verify_cli}</div>
+                            )}
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
+        function FundamentalsSection({ t, copyToClipboard, toggleQuiz, toggleHint, expandedQuizzes, expandedHints }) {
+            const quizzes = {
+                sql_select: { q: "What does SELECT * mean?", a: "Returns all columns from the specified table" },
+                sql_where: { q: "What is WHERE used for?", a: "Filters rows based on conditions" },
+                sql_order: { q: "How do you sort results?", a: "Use ORDER BY column ASC (ascending) or DESC (descending)" },
+            };
+
+            return (
+                <div>
+                    <h2 style={{ fontSize: '2rem', marginBottom: '1.5rem', color: '#1B3A5C' }}>SQL Fundamentals</h2>
+                    <div className="accent-line" style={{ marginBottom: '2rem' }}></div>
+
+                    <div className="card" style={{ padding: '2rem', marginBottom: '2rem' }}>
+                        <h3 className="card-title" style={{ marginBottom: '1rem' }}>SELECT: Get Data</h3>
+                        <p style={{ marginBottom: '1rem' }}>SELECT retrieves columns from a table. Start with the simplest query:</p>
+                        <div className="code-block">
+                            <button className="copy-btn" onClick={() => copyToClipboard('SELECT 1 as num, \'hello\' as text;')}>Copy</button>
+                            <code>SELECT 1 as num, 'hello' as text;</code>
+                        </div>
+                        <div className="output-box">
+                            num | text<br/>
+                            --- | -----<br/>
+                            1   | hello
+                        </div>
+                        <div className="expandable" onClick={() => toggleQuiz('sql_select')} style={{ cursor: 'pointer' }}>
+                            <div className="expandable-header">
+                                <span>{quizzes.sql_select.q}</span>
+                                <span className="expandable-chevron">▼</span>
+                            </div>
+                            {expandedQuizzes['sql_select'] && (
+                                <div className="expandable-content">{quizzes.sql_select.a}</div>
+                            )}
+                        </div>
+                    </div>
+
+                    <div className="card" style={{ padding: '2rem', marginBottom: '2rem' }}>
+                        <h3 className="card-title" style={{ marginBottom: '1rem' }}>FROM: Specify Table</h3>
+                        <p style={{ marginBottom: '1rem' }}>FROM tells SQL which table to query:</p>
+                        <div className="code-block">
+                            <button className="copy-btn" onClick={() => copyToClipboard('CREATE TEMPORARY TABLE users(id INT, name VARCHAR);\nINSERT INTO users VALUES (1, \'Alice\'), (2, \'Bob\');\nSELECT * FROM users;')}>Copy</button>
+                            <code>SELECT * FROM users;</code>
+                        </div>
+                        <div className="output-box">
+                            id | name<br/>
+                            -- | -----<br/>
+                            1  | Alice<br/>
+                            2  | Bob
+                        </div>
+                    </div>
+
+                    <div className="card" style={{ padding: '2rem', marginBottom: '2rem' }}>
+                        <h3 className="card-title" style={{ marginBottom: '1rem' }}>WHERE: Filter Rows</h3>
+                        <p style={{ marginBottom: '1rem' }}>WHERE filters results based on conditions:</p>
+                        <div className="code-block">
+                            <button className="copy-btn" onClick={() => copyToClipboard('SELECT * FROM users WHERE id = 1;')}>Copy</button>
+                            <code>SELECT * FROM users WHERE id = 1;</code>
+                        </div>
+                        <div className="output-box">
+                            id | name<br/>
+                            -- | -----<br/>
+                            1  | Alice
+                        </div>
+                        <div className="expandable" onClick={() => toggleQuiz('sql_where')} style={{ cursor: 'pointer' }}>
+                            <div className="expandable-header">
+                                <span>{quizzes.sql_where.q}</span>
+                                <span className="expandable-chevron">▼</span>
+                            </div>
+                            {expandedQuizzes['sql_where'] && (
+                                <div className="expandable-content">{quizzes.sql_where.a}</div>
+                            )}
+                        </div>
+                    </div>
+
+                    <div className="card" style={{ padding: '2rem', marginBottom: '2rem' }}>
+                        <h3 className="card-title" style={{ marginBottom: '1rem' }}>ORDER BY: Sort Results</h3>
+                        <div className="code-block">
+                            <button className="copy-btn" onClick={() => copyToClipboard('SELECT * FROM users ORDER BY name DESC;')}>Copy</button>
+                            <code>SELECT * FROM users ORDER BY name DESC;</code>
+                        </div>
+                        <div className="output-box">
+                            id | name<br/>
+                            -- | -----<br/>
+                            2  | Bob<br/>
+                            1  | Alice
+                        </div>
+                        <div className="expandable" onClick={() => toggleQuiz('sql_order')} style={{ cursor: 'pointer' }}>
+                            <div className="expandable-header">
+                                <span>{quizzes.sql_order.q}</span>
+                                <span className="expandable-chevron">▼</span>
+                            </div>
+                            {expandedQuizzes['sql_order'] && (
+                                <div className="expandable-content">{quizzes.sql_order.a}</div>
+                            )}
+                        </div>
+                    </div>
+
+                    <div className="card" style={{ padding: '2rem' }}>
+                        <h3 className="card-title" style={{ marginBottom: '1rem' }}>LIMIT: Control Output</h3>
+                        <p style={{ marginBottom: '1rem' }}>LIMIT restricts the number of rows returned:</p>
+                        <div className="code-block">
+                            <button className="copy-btn" onClick={() => copyToClipboard('SELECT * FROM users LIMIT 1;')}>Copy</button>
+                            <code>SELECT * FROM users LIMIT 1;</code>
+                        </div>
+                        <div className="output-box">
+                            id | name<br/>
+                            -- | -----<br/>
+                            1  | Alice
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
+        function Exercise1({ t, copyToClipboard, toggleHint, expandedHints }) {
+            return (
+                <div>
+                    <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '1rem' }}>
+                        <span className="badge badge-beginner">BEGINNER</span>
+                    </div>
+                    <h2 style={{ fontSize: '2rem', marginBottom: '1.5rem', color: '#1B3A5C' }}>Exercise 1: First Queries</h2>
+                    <div className="accent-line" style={{ marginBottom: '2rem' }}></div>
+
+                    <div className="card" style={{ padding: '2rem' }}>
+                        <h3 className="card-title" style={{ marginBottom: '1rem' }}>Objective</h3>
+                        <p>Write your first SELECT queries to understand basic SQL syntax.</p>
+
+                        <h3 className="card-title" style={{ marginTop: '2rem', marginBottom: '1rem' }}>Steps</h3>
+                        <ol style={{ marginLeft: '1.5rem', lineHeight: '2' }}>
+                            <li><strong>Start DuckDB interactive shell:</strong>
+                                <div className="code-block">
+                                    <button className="copy-btn" onClick={() => copyToClipboard('duckdb')}>Copy</button>
+                                    <code>duckdb</code>
+                                </div>
+                            </li>
+                            <li><strong>Query 1: Select a constant:</strong>
+                                <div className="code-block">
+                                    <button className="copy-btn" onClick={() => copyToClipboard('SELECT 42 as answer;')}>Copy</button>
+                                    <code>SELECT 42 as answer;</code>
+                                </div>
+                                <div className="output-box">answer<br/>------<br/>42</div>
+                            </li>
+                            <li><strong>Query 2: String concatenation:</strong>
+                                <div className="code-block">
+                                    <button className="copy-btn" onClick={() => copyToClipboard('SELECT \'Hello, \' || \'World!\' as greeting;')}>Copy</button>
+                                    <code>SELECT 'Hello, ' || 'World!' as greeting;</code>
+                                </div>
+                                <div className="output-box">greeting<br/>-----------<br/>Hello, World!</div>
+                            </li>
+                            <li><strong>Query 3: Math operations:</strong>
+                                <div className="code-block">
+                                    <button className="copy-btn" onClick={() => copyToClipboard('SELECT 10 + 5 as sum, 10 * 5 as product, 10 / 5 as division;')}>Copy</button>
+                                    <code>SELECT 10 + 5 as sum, 10 * 5 as product, 10 / 5 as division;</code>
+                                </div>
+                                <div className="output-box">sum | product | division<br/>--- | ------- | ---------<br/>15  | 50      | 2</div>
+                            </li>
+                            <li><strong>Query 4: Date/Time:</strong>
+                                <div className="code-block">
+                                    <button className="copy-btn" onClick={() => copyToClipboard('SELECT CURRENT_DATE as today, CURRENT_TIME as now;')}>Copy</button>
+                                    <code>SELECT CURRENT_DATE as today, CURRENT_TIME as now;</code>
+                                </div>
+                                <div className="output-box">today      | now<br/>---------- | ----------<br/>2024-03-15 | 14:32:45</div>
+                            </li>
+                            <li><strong>Query 5: Generate numbers:</strong>
+                                <div className="code-block">
+                                    <button className="copy-btn" onClick={() => copyToClipboard('SELECT 1 as num UNION ALL SELECT 2 UNION ALL SELECT 3;')}>Copy</button>
+                                    <code>SELECT 1 as num UNION ALL SELECT 2 UNION ALL SELECT 3;</code>
+                                </div>
+                                <div className="output-box">num<br/>---<br/>1<br/>2<br/>3</div>
+                            </li>
+                        </ol>
+
+                        <h3 className="card-title" style={{ marginTop: '2rem', marginBottom: '1rem' }}>Verify Your Results</h3>
+                        <div className="hint-box">
+                            <div className="hint-title">All queries ran without errors?</div>
+                            <div style={{ marginTop: '0.5rem' }}>You are ready for filtering and aggregations!</div>
+                        </div>
+
+                        <div className="expandable" onClick={() => toggleHint('ex1_hint')} style={{ cursor: 'pointer', marginTop: '1.5rem' }}>
+                            <div className="expandable-header">
+                                <span>Hint</span>
+                                <span className="expandable-chevron">▼</span>
+                            </div>
+                            {expandedHints['ex1_hint'] && (
+                                <div className="expandable-content">Use semicolons to end statements. In the CLI, press Enter to execute. Use .help to see available commands.</div>
+                            )}
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
+        function Exercise2({ t, copyToClipboard, toggleHint, expandedHints }) {
+            return (
+                <div>
+                    <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '1rem' }}>
+                        <span className="badge badge-beginner">BEGINNER</span>
+                    </div>
+                    <h2 style={{ fontSize: '2rem', marginBottom: '1.5rem', color: '#1B3A5C' }}>Exercise 2: Filtering & Sorting</h2>
+                    <div className="accent-line" style={{ marginBottom: '2rem' }}></div>
+
+                    <div className="card" style={{ padding: '2rem' }}>
+                        <h3 className="card-title" style={{ marginBottom: '1rem' }}>Objective</h3>
+                        <p>Master WHERE clauses and ORDER BY to filter and sort real data.</p>
+
+                        <h3 className="card-title" style={{ marginTop: '2rem', marginBottom: '1rem' }}>Dataset Setup</h3>
+                        <div className="code-block">
+                            <button className="copy-btn" onClick={() => copyToClipboard('CREATE TABLE products AS\nSELECT 1 as id, \'Laptop\' as name, 999.99 as price, 45 as stock\nUNION ALL SELECT 2, \'Mouse\', 29.99, 150\nUNION ALL SELECT 3, \'Keyboard\', 79.99, 80\nUNION ALL SELECT 4, \'Monitor\', 299.99, 20\nUNION ALL SELECT 5, \'Headphones\', 149.99, 60;')}>Copy</button>
+                            <code style={{ whiteSpace: 'pre-wrap', fontSize: '0.85rem' }}>CREATE TABLE products AS SELECT ...<br/>(Creates a products table)</code>
+                        </div>
+
+                        <h3 className="card-title" style={{ marginTop: '2rem', marginBottom: '1rem' }}>Queries to Try</h3>
+                        <ol style={{ marginLeft: '1.5rem', lineHeight: '2' }}>
+                            <li><strong>All products:</strong>
+                                <div className="code-block">
+                                    <button className="copy-btn" onClick={() => copyToClipboard('SELECT * FROM products;')}>Copy</button>
+                                    <code>SELECT * FROM products;</code>
+                                </div>
+                            </li>
+                            <li><strong>Products over 100 dollars:</strong>
+                                <div className="code-block">
+                                    <button className="copy-btn" onClick={() => copyToClipboard('SELECT name, price FROM products WHERE price > 100;')}>Copy</button>
+                                    <code>SELECT name, price FROM products WHERE price &gt; 100;</code>
+                                </div>
+                                <div className="output-box">name       | price<br/>----------- | --------<br/>Laptop     | 999.99<br/>Monitor    | 299.99<br/>Headphones | 149.99</div>
+                            </li>
+                            <li><strong>Products with more than 50 in stock:</strong>
+                                <div className="code-block">
+                                    <button className="copy-btn" onClick={() => copyToClipboard('SELECT name, stock FROM products WHERE stock > 50 ORDER BY stock DESC;')}>Copy</button>
+                                    <code>SELECT name, stock FROM products WHERE stock &gt; 50 ORDER BY stock DESC;</code>
+                                </div>
+                                <div className="output-box">name      | stock<br/>---------- | -------<br/>Mouse     | 150<br/>Keyboard  | 80<br/>Headphones| 60</div>
+                            </li>
+                            <li><strong>Specific product by name:</strong>
+                                <div className="code-block">
+                                    <button className="copy-btn" onClick={() => copyToClipboard('SELECT * FROM products WHERE name = \'Laptop\';')}>Copy</button>
+                                    <code>SELECT * FROM products WHERE name = 'Laptop';</code>
+                                </div>
+                            </li>
+                            <li><strong>Products sorted by price (ascending):</strong>
+                                <div className="code-block">
+                                    <button className="copy-btn" onClick={() => copyToClipboard('SELECT name, price FROM products ORDER BY price ASC;')}>Copy</button>
+                                    <code>SELECT name, price FROM products ORDER BY price ASC;</code>
+                                </div>
+                                <div className="output-box">name       | price<br/>----------- | --------<br/>Mouse      | 29.99<br/>Keyboard   | 79.99<br/>Headphones | 149.99<br/>Monitor    | 299.99<br/>Laptop     | 999.99</div>
+                            </li>
+                        </ol>
+
+                        <div className="expandable" onClick={() => toggleHint('ex2_hint')} style={{ cursor: 'pointer', marginTop: '1.5rem' }}>
+                            <div className="expandable-header">
+                                <span>Hint</span>
+                                <span className="expandable-chevron">▼</span>
+                            </div>
+                            {expandedHints['ex2_hint'] && (
+                                <div className="expandable-content">Use comparison operators: = (equals), &gt; (greater), &lt; (less), &gt;= (greater-equal), &lt;= (less-equal), != (not equal). Combine with AND/OR for multiple conditions.</div>
+                            )}
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
+        function Exercise3({ t, copyToClipboard, toggleHint, expandedHints }) {
+            return (
+                <div>
+                    <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '1rem' }}>
+                        <span className="badge badge-intermediate">INTERMEDIATE</span>
+                    </div>
+                    <h2 style={{ fontSize: '2rem', marginBottom: '1.5rem', color: '#1B3A5C' }}>Exercise 3: Aggregations</h2>
+                    <div className="accent-line" style={{ marginBottom: '2rem' }}></div>
+
+                    <div className="card" style={{ padding: '2rem' }}>
+                        <h3 className="card-title" style={{ marginBottom: '1rem' }}>Objective</h3>
+                        <p>Use COUNT, SUM, AVG, MIN, MAX and GROUP BY to analyze data patterns.</p>
+
+                        <h3 className="card-title" style={{ marginTop: '2rem', marginBottom: '1rem' }}>Aggregation Functions</h3>
+                        <ol style={{ marginLeft: '1.5rem', lineHeight: '2' }}>
+                            <li><strong>COUNT: How many?</strong>
+                                <div className="code-block">
+                                    <button className="copy-btn" onClick={() => copyToClipboard('SELECT COUNT(*) as total_products FROM products;')}>Copy</button>
+                                    <code>SELECT COUNT(*) as total_products FROM products;</code>
+                                </div>
+                                <div className="output-box">total_products<br/>---------------<br/>5</div>
+                            </li>
+                            <li><strong>SUM: Total value?</strong>
+                                <div className="code-block">
+                                    <button className="copy-btn" onClick={() => copyToClipboard('SELECT SUM(price) as total_value FROM products;')}>Copy</button>
+                                    <code>SELECT SUM(price) as total_value FROM products;</code>
+                                </div>
+                                <div className="output-box">total_value<br/>-------------<br/>1559.95</div>
+                            </li>
+                            <li><strong>AVG: Average price?</strong>
+                                <div className="code-block">
+                                    <button className="copy-btn" onClick={() => copyToClipboard('SELECT AVG(price) as avg_price FROM products;')}>Copy</button>
+                                    <code>SELECT AVG(price) as avg_price FROM products;</code>
+                                </div>
+                                <div className="output-box">avg_price<br/>-----------<br/>311.99</div>
+                            </li>
+                            <li><strong>MIN/MAX: Range?</strong>
+                                <div className="code-block">
+                                    <button className="copy-btn" onClick={() => copyToClipboard('SELECT MIN(price) as cheapest, MAX(price) as most_expensive FROM products;')}>Copy</button>
+                                    <code>SELECT MIN(price) as cheapest, MAX(price) as most_expensive FROM products;</code>
+                                </div>
+                                <div className="output-box">cheapest | most_expensive<br/>---------- | ---------------<br/>29.99    | 999.99</div>
+                            </li>
+                            <li><strong>GROUP BY: Aggregate by category</strong>
+                                <div className="code-block">
+                                    <button className="copy-btn" onClick={() => copyToClipboard('CREATE TABLE sales AS\nSELECT 1 as month, \'Electronics\' as category, 5000 as revenue\nUNION ALL SELECT 1, \'Furniture\', 3000\nUNION ALL SELECT 1, \'Electronics\', 2500\nUNION ALL SELECT 2, \'Electronics\', 6000\nUNION ALL SELECT 2, \'Furniture\', 2000;\n\nSELECT category, SUM(revenue) as total FROM sales GROUP BY category;')}>Copy</button>
+                                    <code style={{ whiteSpace: 'pre-wrap', fontSize: '0.85rem' }}>SELECT category, SUM(revenue) as total<br/>FROM sales<br/>GROUP BY category;</code>
+                                </div>
+                                <div className="output-box">category     | total<br/>------------- | -------<br/>Electronics  | 13500<br/>Furniture    | 5000</div>
+                            </li>
+                            <li><strong>HAVING: Filter groups</strong>
+                                <div className="code-block">
+                                    <button className="copy-btn" onClick={() => copyToClipboard('SELECT category, SUM(revenue) as total FROM sales GROUP BY category HAVING SUM(revenue) > 5000;')}>Copy</button>
+                                    <code style={{ whiteSpace: 'pre-wrap', fontSize: '0.85rem' }}>SELECT category, SUM(revenue) as total<br/>FROM sales<br/>GROUP BY category<br/>HAVING SUM(revenue) &gt; 5000;</code>
+                                </div>
+                                <div className="output-box">category    | total<br/>------------ | -------<br/>Electronics | 13500</div>
+                            </li>
+                        </ol>
+
+                        <div className="expandable" onClick={() => toggleHint('ex3_hint')} style={{ cursor: 'pointer', marginTop: '1.5rem' }}>
+                            <div className="expandable-header">
+                                <span>Hint</span>
+                                <span className="expandable-chevron">▼</span>
+                            </div>
+                            {expandedHints['ex3_hint'] && (
+                                <div className="expandable-content">GROUP BY combines rows with same values. HAVING filters groups (use after GROUP BY). WHERE filters rows (use before GROUP BY).</div>
+                            )}
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
+        function Exercise4({ t, copyToClipboard, toggleHint, expandedHints }) {
+            return (
+                <div>
+                    <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '1rem' }}>
+                        <span className="badge badge-intermediate">INTERMEDIATE</span>
+                    </div>
+                    <h2 style={{ fontSize: '2rem', marginBottom: '1.5rem', color: '#1B3A5C' }}>Exercise 4: MegaStore Dataset</h2>
+                    <div className="accent-line" style={{ marginBottom: '2rem' }}></div>
+
+                    <div className="card" style={{ padding: '2rem' }}>
+                        <h3 className="card-title" style={{ marginBottom: '1rem' }}>Objective</h3>
+                        <p>Work with realistic e-commerce data including customers, products, orders, and order items.</p>
+
+                        <h3 className="card-title" style={{ marginTop: '2rem', marginBottom: '1rem' }}>Dataset Overview</h3>
+                        <div style={{ background: '#f9fafb', padding: '1rem', borderRadius: '0.5rem', marginBottom: '1rem' }}>
+                            <p><strong>Database: megastore</strong></p>
+                            <ul style={{ marginLeft: '1.5rem', marginTop: '0.5rem' }}>
+                                <li>customers: 1000 customer records</li>
+                                <li>products: 500 product records</li>
+                                <li>orders: 5000 order records</li>
+                                <li>order_items: 15000 order item records</li>
+                            </ul>
+                        </div>
+
+                        <h3 className="card-title" style={{ marginTop: '2rem', marginBottom: '1rem' }}>Sample Queries</h3>
+                        <ol style={{ marginLeft: '1.5rem', lineHeight: '2' }}>
+                            <li><strong>Explore customers:</strong>
+                                <div className="code-block">
+                                    <button className="copy-btn" onClick={() => copyToClipboard('SELECT * FROM customers LIMIT 5;')}>Copy</button>
+                                    <code>SELECT * FROM customers LIMIT 5;</code>
+                                </div>
+                            </li>
+                            <li><strong>Find top products by price:</strong>
+                                <div className="code-block">
+                                    <button className="copy-btn" onClick={() => copyToClipboard('SELECT name, category, price FROM products WHERE price > 500 ORDER BY price DESC LIMIT 10;')}>Copy</button>
+                                    <code style={{ whiteSpace: 'pre-wrap', fontSize: '0.9rem' }}>SELECT name, category, price FROM products<br/>WHERE price &gt; 500<br/>ORDER BY price DESC LIMIT 10;</code>
+                                </div>
+                            </li>
+                            <li><strong>Revenue by customer:</strong>
+                                <div className="code-block">
+                                    <button className="copy-btn" onClick={() => copyToClipboard('SELECT c.name, COUNT(o.id) as order_count, SUM(o.total_amount) as revenue\nFROM customers c\nLEFT JOIN orders o ON c.id = o.customer_id\nGROUP BY c.id, c.name\nORDER BY revenue DESC LIMIT 10;')}>Copy</button>
+                                    <code style={{ whiteSpace: 'pre-wrap', fontSize: '0.8rem' }}>SELECT c.name, COUNT(o.id) as order_count,<br/>       SUM(o.total_amount) as revenue<br/>FROM customers c<br/>LEFT JOIN orders o ON c.id = o.customer_id<br/>GROUP BY c.id, c.name<br/>ORDER BY revenue DESC LIMIT 10;</code>
+                                </div>
+                            </li>
+                            <li><strong>Most popular products:</strong>
+                                <div className="code-block">
+                                    <button className="copy-btn" onClick={() => copyToClipboard('SELECT p.name, COUNT(oi.id) as times_sold, SUM(oi.quantity) as total_quantity\nFROM products p\nLEFT JOIN order_items oi ON p.id = oi.product_id\nGROUP BY p.id, p.name\nORDER BY times_sold DESC LIMIT 20;')}>Copy</button>
+                                    <code style={{ whiteSpace: 'pre-wrap', fontSize: '0.8rem' }}>SELECT p.name, COUNT(oi.id) as times_sold,<br/>       SUM(oi.quantity) as total_quantity<br/>FROM products p<br/>LEFT JOIN order_items oi ON p.id = oi.product_id<br/>GROUP BY p.id, p.name<br/>ORDER BY times_sold DESC LIMIT 20;</code>
+                                </div>
+                            </li>
+                            <li><strong>Orders per month:</strong>
+                                <div className="code-block">
+                                    <button className="copy-btn" onClick={() => copyToClipboard('SELECT DATE_TRUNC(\'month\', order_date) as month, COUNT(*) as num_orders, SUM(total_amount) as revenue\nFROM orders\nGROUP BY DATE_TRUNC(\'month\', order_date)\nORDER BY month;')}>Copy</button>
+                                    <code style={{ whiteSpace: 'pre-wrap', fontSize: '0.8rem' }}>SELECT DATE_TRUNC('month', order_date) as month,<br/>       COUNT(*) as num_orders,<br/>       SUM(total_amount) as revenue<br/>FROM orders<br/>GROUP BY DATE_TRUNC('month', order_date)<br/>ORDER BY month;</code>
+                                </div>
+                            </li>
+                        </ol>
+
+                        <div className="expandable" onClick={() => toggleHint('ex4_hint')} style={{ cursor: 'pointer', marginTop: '1.5rem' }}>
+                            <div className="expandable-header">
+                                <span>Hint</span>
+                                <span className="expandable-chevron">▼</span>
+                            </div>
+                            {expandedHints['ex4_hint'] && (
+                                <div className="expandable-content">Start with simple queries first. Use LIMIT to control output. Check table structures with DESCRIBE table_name;</div>
+                            )}
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
+        function Exercise5({ t, copyToClipboard, toggleHint, expandedHints }) {
+            return (
+                <div>
+                    <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '1rem' }}>
+                        <span className="badge badge-intermediate">INTERMEDIATE</span>
+                    </div>
+                    <h2 style={{ fontSize: '2rem', marginBottom: '1.5rem', color: '#1B3A5C' }}>Exercise 5: JOINs</h2>
+                    <div className="accent-line" style={{ marginBottom: '2rem' }}></div>
+
+                    <div className="card" style={{ padding: '2rem' }}>
+                        <h3 className="card-title" style={{ marginBottom: '1rem' }}>Objective</h3>
+                        <p>Combine data from multiple tables using INNER, LEFT, RIGHT, and FULL JOINs.</p>
+
+                        <h3 className="card-title" style={{ marginTop: '2rem', marginBottom: '1rem' }}>Types of Joins</h3>
+                        <ol style={{ marginLeft: '1.5rem', lineHeight: '2' }}>
+                            <li><strong>INNER JOIN: Only matching rows</strong>
+                                <div className="code-block">
+                                    <button className="copy-btn" onClick={() => copyToClipboard('SELECT c.name, o.id as order_id, o.total_amount\nFROM customers c\nINNER JOIN orders o ON c.id = o.customer_id\nLIMIT 10;')}>Copy</button>
+                                    <code style={{ whiteSpace: 'pre-wrap', fontSize: '0.85rem' }}>SELECT c.name, o.id as order_id,<br/>       o.total_amount<br/>FROM customers c<br/>INNER JOIN orders o ON c.id = o.customer_id<br/>LIMIT 10;</code>
+                                </div>
+                                <div className="output-box">Returns only customers with orders</div>
+                            </li>
+                            <li><strong>LEFT JOIN: All left table rows</strong>
+                                <div className="code-block">
+                                    <button className="copy-btn" onClick={() => copyToClipboard('SELECT c.name, COUNT(o.id) as num_orders\nFROM customers c\nLEFT JOIN orders o ON c.id = o.customer_id\nGROUP BY c.id, c.name;')}>Copy</button>
+                                    <code style={{ whiteSpace: 'pre-wrap', fontSize: '0.85rem' }}>SELECT c.name, COUNT(o.id) as num_orders<br/>FROM customers c<br/>LEFT JOIN orders o ON c.id = o.customer_id<br/>GROUP BY c.id, c.name;</code>
+                                </div>
+                                <div className="output-box">Includes customers with 0 orders</div>
+                            </li>
+                            <li><strong>Right JOIN: All right table rows</strong>
+                                <div className="code-block">
+                                    <button className="copy-btn" onClick={() => copyToClipboard('SELECT c.name, o.id as order_id\nFROM customers c\nRIGHT JOIN orders o ON c.id = o.customer_id\nLIMIT 10;')}>Copy</button>
+                                    <code style={{ whiteSpace: 'pre-wrap', fontSize: '0.85rem' }}>SELECT c.name, o.id as order_id<br/>FROM customers c<br/>RIGHT JOIN orders o ON c.id = o.customer_id<br/>LIMIT 10;</code>
+                                </div>
+                                <div className="output-box">All orders shown, customer name may be NULL</div>
+                            </li>
+                            <li><strong>FULL JOIN: All rows from both tables</strong>
+                                <div className="code-block">
+                                    <button className="copy-btn" onClick={() => copyToClipboard('SELECT c.name, o.id as order_id\nFROM customers c\nFULL JOIN orders o ON c.id = o.customer_id\nLIMIT 10;')}>Copy</button>
+                                    <code style={{ whiteSpace: 'pre-wrap', fontSize: '0.85rem' }}>SELECT c.name, o.id as order_id<br/>FROM customers c<br/>FULL JOIN orders o ON c.id = o.customer_id<br/>LIMIT 10;</code>
+                                </div>
+                                <div className="output-box">All customers and orders, NULLs fill gaps</div>
+                            </li>
+                            <li><strong>Multiple JOINs: Combine 3+ tables</strong>
+                                <div className="code-block">
+                                    <button className="copy-btn" onClick={() => copyToClipboard('SELECT c.name, o.id as order_id, p.name as product_name, oi.quantity\nFROM customers c\nJOIN orders o ON c.id = o.customer_id\nJOIN order_items oi ON o.id = oi.order_id\nJOIN products p ON oi.product_id = p.id\nLIMIT 10;')}>Copy</button>
+                                    <code style={{ whiteSpace: 'pre-wrap', fontSize: '0.8rem' }}>SELECT c.name, o.id as order_id,<br/>       p.name as product_name, oi.quantity<br/>FROM customers c<br/>JOIN orders o ON c.id = o.customer_id<br/>JOIN order_items oi ON o.id = oi.order_id<br/>JOIN products p ON oi.product_id = p.id<br/>LIMIT 10;</code>
+                                </div>
+                            </li>
+                        </ol>
+
+                        <div className="expandable" onClick={() => toggleHint('ex5_hint')} style={{ cursor: 'pointer', marginTop: '1.5rem' }}>
+                            <div className="expandable-header">
+                                <span>Hint</span>
+                                <span className="expandable-chevron">▼</span>
+                            </div>
+                            {expandedHints['ex5_hint'] && (
+                                <div className="expandable-content">Use aliases (c, o) to shorten table references. ON clause specifies the join condition. NULL values appear when no match exists in outer joins.</div>
+                            )}
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
+        function Exercise6({ t, copyToClipboard, toggleHint, expandedHints }) {
+            return (
+                <div>
+                    <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '1rem' }}>
+                        <span className="badge badge-advanced">ADVANCED</span>
+                    </div>
+                    <h2 style={{ fontSize: '2rem', marginBottom: '1.5rem', color: '#1B3A5C' }}>Exercise 6: Window Functions</h2>
+                    <div className="accent-line" style={{ marginBottom: '2rem' }}></div>
+
+                    <div className="card" style={{ padding: '2rem' }}>
+                        <h3 className="card-title" style={{ marginBottom: '1rem' }}>Objective</h3>
+                        <p>Use window functions for advanced analytics: ranking, running totals, and moving averages.</p>
+
+                        <h3 className="card-title" style={{ marginTop: '2rem', marginBottom: '1rem' }}>Window Function Basics</h3>
+                        <ol style={{ marginLeft: '1.5rem', lineHeight: '2' }}>
+                            <li><strong>ROW_NUMBER: Unique rank per row</strong>
+                                <div className="code-block">
+                                    <button className="copy-btn" onClick={() => copyToClipboard('SELECT name, price,\n       ROW_NUMBER() OVER (ORDER BY price DESC) as rank\nFROM products\nLIMIT 10;')}>Copy</button>
+                                    <code style={{ whiteSpace: 'pre-wrap', fontSize: '0.85rem' }}>SELECT name, price,<br/>       ROW_NUMBER() OVER (ORDER BY price DESC) as rank<br/>FROM products<br/>LIMIT 10;</code>
+                                </div>
+                                <div className="output-box">Shows 1, 2, 3... even with ties</div>
+                            </li>
+                            <li><strong>RANK: Ties get same rank</strong>
+                                <div className="code-block">
+                                    <button className="copy-btn" onClick={() => copyToClipboard('SELECT name, price,\n       RANK() OVER (ORDER BY price DESC) as rank\nFROM products\nLIMIT 10;')}>Copy</button>
+                                    <code style={{ whiteSpace: 'pre-wrap', fontSize: '0.85rem' }}>SELECT name, price,<br/>       RANK() OVER (ORDER BY price DESC) as rank<br/>FROM products<br/>LIMIT 10;</code>
+                                </div>
+                                <div className="output-box">Shows 1, 1, 3 if two items tie for rank 1</div>
+                            </li>
+                            <li><strong>LAG/LEAD: Previous/next row</strong>
+                                <div className="code-block">
+                                    <button className="copy-btn" onClick={() => copyToClipboard('SELECT DATE_TRUNC(\'month\', order_date) as month,\n       SUM(total_amount) as revenue,\n       LAG(SUM(total_amount)) OVER (ORDER BY DATE_TRUNC(\'month\', order_date)) as prev_month\nFROM orders\nGROUP BY DATE_TRUNC(\'month\', order_date);')}>Copy</button>
+                                    <code style={{ whiteSpace: 'pre-wrap', fontSize: '0.8rem' }}>SELECT DATE_TRUNC('month', order_date) as month,<br/>       SUM(total_amount) as revenue,<br/>       LAG(SUM(...)) OVER (ORDER BY ...) as prev_month<br/>FROM orders<br/>GROUP BY DATE_TRUNC('month', order_date);</code>
+                                </div>
+                            </li>
+                            <li><strong>Running Total with SUM</strong>
+                                <div className="code-block">
+                                    <button className="copy-btn" onClick={() => copyToClipboard('SELECT DATE_TRUNC(\'day\', order_date) as day,\n       SUM(total_amount) as daily_revenue,\n       SUM(SUM(total_amount)) OVER (ORDER BY DATE_TRUNC(\'day\', order_date) ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) as cumulative_revenue\nFROM orders\nGROUP BY DATE_TRUNC(\'day\', order_date)\nLIMIT 10;')}>Copy</button>
+                                    <code style={{ whiteSpace: 'pre-wrap', fontSize: '0.75rem' }}>SELECT DATE_TRUNC('day', order_date) as day,<br/>       SUM(total_amount) as daily_revenue,<br/>       SUM(SUM(...)) OVER (ORDER BY day<br/>         ROWS BETWEEN UNBOUNDED PRECEDING<br/>         AND CURRENT ROW) as cumulative_revenue<br/>FROM orders<br/>GROUP BY DATE_TRUNC('day', order_date);</code>
+                                </div>
+                            </li>
+                            <li><strong>Partition by Category</strong>
+                                <div className="code-block">
+                                    <button className="copy-btn" onClick={() => copyToClipboard('SELECT category, name, price,\n       RANK() OVER (PARTITION BY category ORDER BY price DESC) as rank_in_category\nFROM products;')}>Copy</button>
+                                    <code style={{ whiteSpace: 'pre-wrap', fontSize: '0.85rem' }}>SELECT category, name, price,<br/>       RANK() OVER (PARTITION BY category<br/>                    ORDER BY price DESC) as rank_in_category<br/>FROM products;</code>
+                                </div>
+                                <div className="output-box">Ranks within each category separately</div>
+                            </li>
+                        </ol>
+
+                        <div className="expandable" onClick={() => toggleHint('ex6_hint')} style={{ cursor: 'pointer', marginTop: '1.5rem' }}>
+                            <div className="expandable-header">
+                                <span>Hint</span>
+                                <span className="expandable-chevron">▼</span>
+                            </div>
+                            {expandedHints['ex6_hint'] && (
+                                <div className="expandable-content">OVER() defines the window frame. PARTITION BY splits into groups. ORDER BY sorts within the frame. ROWS BETWEEN controls which rows are included.</div>
+                            )}
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
+        function Exercise7({ t, copyToClipboard, toggleHint, expandedHints }) {
+            return (
+                <div>
+                    <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '1rem' }}>
+                        <span className="badge badge-advanced">ADVANCED</span>
+                    </div>
+                    <h2 style={{ fontSize: '2rem', marginBottom: '1.5rem', color: '#1B3A5C' }}>Exercise 7: Parquet & CSV</h2>
+                    <div className="accent-line" style={{ marginBottom: '2rem' }}></div>
+
+                    <div className="card" style={{ padding: '2rem' }}>
+                        <h3 className="card-title" style={{ marginBottom: '1rem' }}>Objective</h3>
+                        <p>Read and write CSV and Parquet files. Parquet is faster and more efficient.</p>
+
+                        <h3 className="card-title" style={{ marginTop: '2rem', marginBottom: '1rem' }}>CSV Operations</h3>
+                        <ol style={{ marginLeft: '1.5rem', lineHeight: '2' }}>
+                            <li><strong>Read CSV with auto-detection:</strong>
+                                <div className="code-block">
+                                    <button className="copy-btn" onClick={() => copyToClipboard('SELECT * FROM read_csv_auto(\'data.csv\') LIMIT 10;')}>Copy</button>
+                                    <code>SELECT * FROM read_csv_auto('data.csv') LIMIT 10;</code>
+                                </div>
+                            </li>
+                            <li><strong>Read CSV with custom options:</strong>
+                                <div className="code-block">
+                                    <button className="copy-btn" onClick={() => copyToClipboard('SELECT * FROM read_csv(\n  \'data.csv\',\n  delim=\',\',\n  header=true,\n  null_str=\'NA\'\n) LIMIT 10;')}>Copy</button>
+                                    <code style={{ whiteSpace: 'pre-wrap', fontSize: '0.85rem' }}>SELECT * FROM read_csv(<br/>  'data.csv',<br/>  delim=',',<br/>  header=true<br/>);</code>
+                                </div>
+                            </li>
+                            <li><strong>Write to CSV:</strong>
+                                <div className="code-block">
+                                    <button className="copy-btn" onClick={() => copyToClipboard('COPY (SELECT * FROM products WHERE price > 100) TO \'expensive_products.csv\' (HEADER, DELIM \',\');')}>Copy</button>
+                                    <code style={{ whiteSpace: 'pre-wrap', fontSize: '0.85rem' }}>COPY (SELECT ... FROM products<br/>      WHERE price &gt; 100)<br/>TO 'expensive_products.csv'<br/>(HEADER, DELIM ',');</code>
+                                </div>
+                            </li>
+                        </ol>
+
+                        <h3 className="card-title" style={{ marginTop: '2rem', marginBottom: '1rem' }}>Parquet Operations</h3>
+                        <ol style={{ marginLeft: '1.5rem', lineHeight: '2' }}>
+                            <li><strong>Read Parquet:</strong>
+                                <div className="code-block">
+                                    <button className="copy-btn" onClick={() => copyToClipboard('SELECT * FROM read_parquet(\'data.parquet\') LIMIT 10;')}>Copy</button>
+                                    <code>SELECT * FROM read_parquet('data.parquet') LIMIT 10;</code>
+                                </div>
+                            </li>
+                            <li><strong>Write to Parquet:</strong>
+                                <div className="code-block">
+                                    <button className="copy-btn" onClick={() => copyToClipboard('COPY (SELECT * FROM orders WHERE total_amount > 100) TO \'big_orders.parquet\' (FORMAT PARQUET);')}>Copy</button>
+                                    <code style={{ whiteSpace: 'pre-wrap', fontSize: '0.85rem' }}>COPY (SELECT * FROM orders<br/>      WHERE total_amount &gt; 100)<br/>TO 'big_orders.parquet'<br/>(FORMAT PARQUET);</code>
+                                </div>
+                            </li>
+                            <li><strong>Performance comparison:</strong>
+                                <div className="code-block">
+                                    <button className="copy-btn" onClick={() => copyToClipboard('-- Parquet is 5-10x faster than CSV for large files\n-- Parquet is also much smaller (compression)\n-- Query directly on Parquet without loading\nSELECT COUNT(*), SUM(total_amount)\nFROM read_parquet(\'big_orders.parquet\');')}>Copy</button>
+                                    <code style={{ whiteSpace: 'pre-wrap', fontSize: '0.85rem' }}>-- Query directly on Parquet<br/>SELECT COUNT(*), SUM(total_amount)<br/>FROM read_parquet('big_orders.parquet');</code>
+                                </div>
+                            </li>
+                            <li><strong>Inspect schema:</strong>
+                                <div className="code-block">
+                                    <button className="copy-btn" onClick={() => copyToClipboard('DESCRIBE SELECT * FROM read_parquet(\'orders.parquet\');')}>Copy</button>
+                                    <code>DESCRIBE SELECT * FROM read_parquet('orders.parquet');</code>
+                                </div>
+                            </li>
+                        </ol>
+
+                        <div className="expandable" onClick={() => toggleHint('ex7_hint')} style={{ cursor: 'pointer', marginTop: '1.5rem' }}>
+                            <div className="expandable-header">
+                                <span>Hint</span>
+                                <span className="expandable-chevron">▼</span>
+                            </div>
+                            {expandedHints['ex7_hint'] && (
+                                <div className="expandable-content">Parquet is columnar and compressed. Use for storage and data sharing. CSV is human-readable but slower. Use for simple data exchange.</div>
+                            )}
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
+        function Exercise8({ t, copyToClipboard, toggleHint, expandedHints }) {
+            return (
+                <div>
+                    <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '1rem' }}>
+                        <span className="badge badge-boss">BOSS LEVEL</span>
+                    </div>
+                    <h2 style={{ fontSize: '2rem', marginBottom: '1.5rem', color: '#1B3A5C' }}>Exercise 8: Complex Analytics</h2>
+                    <div className="accent-line" style={{ marginBottom: '2rem' }}></div>
+
+                    <div className="card" style={{ padding: '2rem' }}>
+                        <h3 className="card-title" style={{ marginBottom: '1rem' }}>Objective</h3>
+                        <p>Combine window functions, CTEs, and aggregations for real-world business analytics.</p>
+
+                        <h3 className="card-title" style={{ marginTop: '2rem', marginBottom: '1rem' }}>RFM Segmentation</h3>
+                        <p style={{ marginBottom: '1rem' }}>RFM = Recency (last order), Frequency (how often), Monetary (how much spent)</p>
+                        <div className="code-block">
+                            <button className="copy-btn" onClick={() => copyToClipboard('WITH rfm_base AS (\n  SELECT \n    c.id, c.name,\n    MAX(o.order_date) as last_order_date,\n    COUNT(o.id) as frequency,\n    SUM(o.total_amount) as monetary\n  FROM customers c\n  LEFT JOIN orders o ON c.id = o.customer_id\n  GROUP BY c.id, c.name\n),\nrfm_scores AS (\n  SELECT *,\n    CASE WHEN frequency = 0 THEN \'Lost\'\n         WHEN DATEDIFF(day, last_order_date, CURRENT_DATE) < 30 AND frequency > 2 THEN \'VIP\'\n         WHEN DATEDIFF(day, last_order_date, CURRENT_DATE) < 90 THEN \'Regular\'\n         ELSE \'At Risk\'\n    END as segment\n  FROM rfm_base\n)\nSELECT segment, COUNT(*) as customer_count, AVG(monetary) as avg_spent\nFROM rfm_scores\nGROUP BY segment\nORDER BY customer_count DESC;')}>Copy</button>
+                            <code style={{ whiteSpace: 'pre-wrap', fontSize: '0.75rem' }}>WITH rfm_base AS (<br/>  SELECT c.id, c.name,<br/>    MAX(o.order_date) as last_order_date,<br/>    COUNT(o.id) as frequency,<br/>    SUM(o.total_amount) as monetary<br/>  FROM customers c<br/>  LEFT JOIN orders o ON c.id = o.customer_id<br/>  GROUP BY c.id, c.name<br/>),<br/>rfm_scores AS (...)<br/>SELECT segment, COUNT(*) as customer_count<br/>FROM rfm_scores<br/>GROUP BY segment;</code>
+                        </div>
+
+                        <h3 className="card-title" style={{ marginTop: '2rem', marginBottom: '1rem' }}>Cohort Analysis</h3>
+                        <p style={{ marginBottom: '1rem' }}>Track customer behavior by their signup month</p>
+                        <div className="code-block">
+                            <button className="copy-btn" onClick={() => copyToClipboard('WITH cohorts AS (\n  SELECT \n    DATE_TRUNC(\'month\', c.signup_date) as cohort_month,\n    c.id as customer_id,\n    DATE_TRUNC(\'month\', o.order_date) as order_month\n  FROM customers c\n  LEFT JOIN orders o ON c.id = o.customer_id\n)\nSELECT \n  cohort_month,\n  order_month,\n  COUNT(DISTINCT customer_id) as customers\nFROM cohorts\nWHERE order_month IS NOT NULL\nGROUP BY cohort_month, order_month\nORDER BY cohort_month, order_month;')}>Copy</button>
+                            <code style={{ whiteSpace: 'pre-wrap', fontSize: '0.75rem' }}>WITH cohorts AS (...)<br/>SELECT \n  cohort_month,<br/>  order_month,<br/>  COUNT(DISTINCT customer_id) as customers<br/>FROM cohorts<br/>WHERE order_month IS NOT NULL<br/>GROUP BY cohort_month, order_month;</code>
+                        </div>
+
+                        <h3 className="card-title" style={{ marginTop: '2rem', marginBottom: '1rem' }}>Year-over-Year Growth</h3>
+                        <div className="code-block">
+                            <button className="copy-btn" onClick={() => copyToClipboard('WITH monthly_revenue AS (\n  SELECT \n    EXTRACT(month FROM order_date) as month,\n    EXTRACT(year FROM order_date) as year,\n    SUM(total_amount) as revenue\n  FROM orders\n  GROUP BY EXTRACT(year FROM order_date), EXTRACT(month FROM order_date)\n)\nSELECT \n  month,\n  MAX(CASE WHEN year = 2023 THEN revenue END) as revenue_2023,\n  MAX(CASE WHEN year = 2024 THEN revenue END) as revenue_2024,\n  ROUND(100.0 * (MAX(CASE WHEN year = 2024 THEN revenue END) - MAX(CASE WHEN year = 2023 THEN revenue END)) / MAX(CASE WHEN year = 2023 THEN revenue END), 2) as yoy_growth_pct\nFROM monthly_revenue\nGROUP BY month\nORDER BY month;')}>Copy</button>
+                            <code style={{ whiteSpace: 'pre-wrap', fontSize: '0.7rem' }}>WITH monthly_revenue AS (...)<br/>SELECT month,<br/>  MAX(CASE WHEN year = 2023<br/>      THEN revenue END) as revenue_2023,<br/>  MAX(CASE WHEN year = 2024<br/>      THEN revenue END) as revenue_2024<br/>FROM monthly_revenue<br/>GROUP BY month;</code>
+                        </div>
+
+                        <div className="expandable" onClick={() => toggleHint('ex8_hint')} style={{ cursor: 'pointer', marginTop: '1.5rem' }}>
+                            <div className="expandable-header">
+                                <span>Hint</span>
+                                <span className="expandable-chevron">▼</span>
+                            </div>
+                            {expandedHints['ex8_hint'] && (
+                                <div className="expandable-content">CTEs (WITH clauses) help break complex queries into readable steps. Use CASE WHEN for conditional logic. Test each part separately before combining.</div>
+                            )}
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
+        function SelfCheckSection({ t, expandedQuizzes, toggleQuiz }) {
+            const questions = [
+                { id: 'q1', q: 'What does SELECT * mean?', a: 'Returns all columns from the specified table' },
+                { id: 'q2', q: 'What is the difference between COUNT(*) and COUNT(column_name)?', a: 'COUNT(*) counts all rows; COUNT(column_name) counts non-NULL values' },
+                { id: 'q3', q: 'When do you use WHERE vs HAVING?', a: 'WHERE filters rows before grouping; HAVING filters groups after grouping' },
+                { id: 'q4', q: 'What is a JOIN and why would you use it?', a: 'JOINs combine data from multiple tables based on a condition. Use to correlate related data.' },
+                { id: 'q5', q: 'What does PARTITION BY do in a window function?', a: 'Divides rows into separate groups for the window function to operate on each group independently' },
+                { id: 'q6', q: 'Which is faster: CSV or Parquet?', a: 'Parquet is 5-10x faster because it\'s columnar and compressed' },
+                { id: 'q7', q: 'What is a CTE and when do you use it?', a: 'A CTE (WITH clause) creates a temporary named result set. Use to break complex queries into readable steps.' },
+                { id: 'q8', q: 'How do you export results to a file?', a: 'Use COPY (SELECT ...) TO \'filename.csv\' (HEADER, DELIM \',\');' },
+            ];
+
+            return (
+                <div>
+                    <h2 style={{ fontSize: '2rem', marginBottom: '1.5rem', color: '#1B3A5C' }}>Self-Check Questions</h2>
+                    <div className="accent-line" style={{ marginBottom: '2rem' }}></div>
+
+                    <div className="card" style={{ padding: '2rem' }}>
+                        <p style={{ marginBottom: '2rem' }}>Test your understanding. Click each question to reveal the answer.</p>
+                        {questions.map(q => (
+                            <div key={q.id} className="expandable" onClick={() => toggleQuiz(q.id)} style={{ cursor: 'pointer' }}>
+                                <div className="expandable-header">
+                                    <span>{q.q}</span>
+                                    <span className="expandable-chevron">▼</span>
+                                </div>
+                                {expandedQuizzes[q.id] && (
+                                    <div className="expandable-content">{q.a}</div>
+                                )}
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            );
+        }
+
+        function ReflectionSection({ t }) {
+            return (
+                <div>
+                    <h2 style={{ fontSize: '2rem', marginBottom: '1.5rem', color: '#1B3A5C' }}>Reflection & Real-World Applications</h2>
+                    <div className="accent-line" style={{ marginBottom: '2rem' }}></div>
+
+                    <div className="card" style={{ padding: '2rem', marginBottom: '2rem' }}>
+                        <h3 className="card-title" style={{ marginBottom: '1rem' }}>Career Relevance</h3>
+                        <ul style={{ marginLeft: '1.5rem', lineHeight: '1.8' }}>
+                            <li><strong>Data Analyst:</strong> Master DuckDB for exploratory analysis of CSV/Parquet data</li>
+                            <li><strong>Analytics Engineer:</strong> Use DuckDB in dbt for data transformation pipelines</li>
+                            <li><strong>Data Scientist:</strong> Integrate DuckDB with Python for fast data preparation</li>
+                            <li><strong>Full-Stack Developer:</strong> Embed DuckDB in applications for local analytics</li>
+                        </ul>
+                    </div>
+
+                    <div className="card" style={{ padding: '2rem', marginBottom: '2rem' }}>
+                        <h3 className="card-title" style={{ marginBottom: '1rem' }}>Real-World Use Cases</h3>
+                        <ul style={{ marginLeft: '1.5rem', lineHeight: '1.8' }}>
+                            <li><strong>Startup Analytics:</strong> No infrastructure? DuckDB lets you analyze customer data locally.</li>
+                            <li><strong>Data Apps:</strong> Embed analytics directly in web applications (Streamlit, Dash).</li>
+                            <li><strong>ETL Preprocessing:</strong> Extract and transform data before loading to data warehouse.</li>
+                            <li><strong>Ad-hoc Analysis:</strong> Fast interactive queries on CSV exports from your database.</li>
+                            <li><strong>Research:</strong> Analyze public datasets without cloud infrastructure.</li>
+                        </ul>
+                    </div>
+
+                    <div className="card" style={{ padding: '2rem' }}>
+                        <h3 className="card-title" style={{ marginBottom: '1rem' }}>Next Steps</h3>
+                        <ul style={{ marginLeft: '1.5rem', lineHeight: '1.8' }}>
+                            <li>Practice writing complex queries on real datasets</li>
+                            <li>Learn to integrate DuckDB with Python for automation</li>
+                            <li>Explore dbt for data transformation workflows</li>
+                            <li>Build a portfolio project combining DuckDB analysis with visualization</li>
+                            <li>Follow data engineering trends (MotherDuck, Iceberg, Delta Lake)</li>
+                        </ul>
+                    </div>
+                </div>
+            );
+        }
+
+        function TroubleshootingSection({ t }) {
+            return (
+                <div>
+                    <h2 style={{ fontSize: '2rem', marginBottom: '1.5rem', color: '#1B3A5C' }}>Troubleshooting</h2>
+                    <div className="accent-line" style={{ marginBottom: '2rem' }}></div>
+
+                    <div className="card" style={{ padding: '2rem', marginBottom: '2rem' }}>
+                        <h3 className="card-title" style={{ marginBottom: '1rem' }}>Error: Catalog Error: Relation "table_name" does not exist</h3>
+                        <p style={{ marginBottom: '1rem' }}>Table not found. Check:</p>
+                        <ul style={{ marginLeft: '1.5rem', lineHeight: '1.8' }}>
+                            <li>Table name spelling (case-sensitive)</li>
+                            <li>Create table first: CREATE TABLE table_name AS SELECT ...</li>
+                            <li>View all tables: SELECT * FROM information_schema.tables;</li>
+                        </ul>
+                    </div>
+
+                    <div className="card" style={{ padding: '2rem', marginBottom: '2rem' }}>
+                        <h3 className="card-title" style={{ marginBottom: '1rem' }}>Error: Binder Error: Column "column_name" must appear in the GROUP BY clause</h3>
+                        <p style={{ marginBottom: '1rem' }}>You selected a column not in GROUP BY. Fix:</p>
+                        <ul style={{ marginLeft: '1.5rem', lineHeight: '1.8' }}>
+                            <li>Add column to GROUP BY clause</li>
+                            <li>OR apply an aggregate function (SUM, COUNT, AVG)</li>
+                            <li>Example: SELECT category, SUM(price) FROM products GROUP BY category;</li>
+                        </ul>
+                    </div>
+
+                    <div className="card" style={{ padding: '2rem', marginBottom: '2rem' }}>
+                        <h3 className="card-title" style={{ marginBottom: '1rem' }}>Error: Could not find file at path</h3>
+                        <p style={{ marginBottom: '1rem' }}>File path incorrect or doesn't exist. Check:</p>
+                        <ul style={{ marginLeft: '1.5rem', lineHeight: '1.8' }}>
+                            <li>Use absolute paths: /home/user/data/file.csv</li>
+                            <li>Check file exists: ls -la /path/to/file</li>
+                            <li>Use forward slashes (/) not backslashes</li>
+                        </ul>
+                    </div>
+
+                    <div className="card" style={{ padding: '2rem', marginBottom: '2rem' }}>
+                        <h3 className="card-title" style={{ marginBottom: '1rem' }}>Error: Syntax Error</h3>
+                        <p style={{ marginBottom: '1rem' }}>Query has incorrect syntax. Check:</p>
+                        <ul style={{ marginLeft: '1.5rem', lineHeight: '1.8' }}>
+                            <li>Semicolon at end of statement</li>
+                            <li>Matching quotes for strings</li>
+                            <li>Proper comma placement between columns</li>
+                            <li>Use .help for DuckDB CLI commands (start with .)</li>
+                        </ul>
+                    </div>
+
+                    <div className="card" style={{ padding: '2rem' }}>
+                        <h3 className="card-title" style={{ marginBottom: '1rem' }}>Query is Slow - Performance Tips</h3>
+                        <ul style={{ marginLeft: '1.5rem', lineHeight: '1.8' }}>
+                            <li>Use LIMIT when testing large queries</li>
+                            <li>Use Parquet instead of CSV for large files</li>
+                            <li>Add WHERE before GROUP BY to filter early</li>
+                            <li>Avoid SELECT * - only select needed columns</li>
+                            <li>Use EXPLAIN ANALYZE to see query plan</li>
+                        </ul>
+                    </div>
+                </div>
+            );
+        }
+
+        function ResourcesSection({ t }) {
+            return (
+                <div>
+                    <h2 style={{ fontSize: '2rem', marginBottom: '1.5rem', color: '#1B3A5C' }}>Further Resources</h2>
+                    <div className="accent-line" style={{ marginBottom: '2rem' }}></div>
+
+                    <div className="card" style={{ padding: '2rem', marginBottom: '2rem' }}>
+                        <h3 className="card-title" style={{ marginBottom: '1rem' }}>Official Documentation</h3>
+                        <ul style={{ marginLeft: '1.5rem', lineHeight: '1.8' }}>
+                            <li><a href="https://duckdb.org/docs/" target="_blank" rel="noopener noreferrer">DuckDB Documentation</a> - Official docs and guides</li>
+                            <li><a href="https://duckdb.org/docs/sql/introduction" target="_blank" rel="noopener noreferrer">SQL Tutorial</a> - Step-by-step SQL learning</li>
+                            <li><a href="https://duckdb.org/docs/api/python/overview" target="_blank" rel="noopener noreferrer">Python Integration</a> - Use DuckDB in Python</li>
+                        </ul>
+                    </div>
+
+                    <div className="card" style={{ padding: '2rem', marginBottom: '2rem' }}>
+                        <h3 className="card-title" style={{ marginBottom: '1rem' }}>Cloud & Advanced</h3>
+                        <ul style={{ marginLeft: '1.5rem', lineHeight: '1.8' }}>
+                            <li><a href="https://motherduck.com/" target="_blank" rel="noopener noreferrer">MotherDuck</a> - Serverless DuckDB in the cloud</li>
+                            <li><a href="https://iceberg.apache.org/" target="_blank" rel="noopener noreferrer">Apache Iceberg</a> - Open table format for analytics</li>
+                            <li><a href="https://www.getdbt.com/" target="_blank" rel="noopener noreferrer">dbt (data build tool)</a> - Transformation framework</li>
+                        </ul>
+                    </div>
+
+                    <div className="card" style={{ padding: '2rem', marginBottom: '2rem' }}>
+                        <h3 className="card-title" style={{ marginBottom: '1rem' }}>Community & Learning</h3>
+                        <ul style={{ marginLeft: '1.5rem', lineHeight: '1.8' }}>
+                            <li><a href="https://github.com/duckdb/duckdb" target="_blank" rel="noopener noreferrer">GitHub Repository</a> - Source code and issues</li>
+                            <li><a href="https://discord.gg/tcvwpjfnnd" target="_blank" rel="noopener noreferrer">DuckDB Discord</a> - Community chat and support</li>
+                            <li>Practice on <a href="https://www.kaggle.com/" target="_blank" rel="noopener noreferrer">Kaggle</a> datasets</li>
+                        </ul>
+                    </div>
+
+                    <div className="card" style={{ padding: '2rem' }}>
+                        <h3 className="card-title" style={{ marginBottom: '1rem' }}>Related Topics</h3>
+                        <ul style={{ marginLeft: '1.5rem', lineHeight: '1.8' }}>
+                            <li>SQL optimization and query planning</li>
+                            <li>Data warehouse design (star schema, fact tables)</li>
+                            <li>Python libraries: Pandas, Polars, SQLAlchemy</li>
+                            <li>Business intelligence tools: Looker, Power BI, Tableau</li>
+                            <li>Data pipeline orchestration: Airflow, Prefect</li>
+                        </ul>
+                    </div>
+                </div>
+            );
+        }
+
+        ReactDOM.createRoot(document.getElementById('root')).render(<App />);
     </script>
 </body>
 </html>
