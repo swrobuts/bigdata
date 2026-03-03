@@ -172,6 +172,7 @@
         }
         .feedback-correct { background: #E8F5E9; color: #2E7D32; }
         .feedback-incorrect { background: #FFEBEE; color: #C62828; }
+        .lesson-box { background: #FFF3E0; border-left: 4px solid #E8792F; padding: 1.5rem; border-radius: 0.5rem; margin-bottom: 1.5rem; }
         @media (max-width: 768px) {
             .sidebar { width: 0; transform: translateX(-100%); }
             .main-content { margin-left: 0; }
@@ -291,6 +292,19 @@
                 practice1: "Verwenden Sie CTEs für Lesbarkeit",
                 practice2: "Indizieren Sie häufig gefilterte Spalten",
                 practice3: "Verwenden Sie EXPLAIN, um Abfragen zu analysieren",
+                whatYouLearn: "Was Sie lernen werden",
+                realWorldMotivation: "DuckDB wird von führenden Unternehmen für analytische Datenverarbeitung eingesetzt:",
+                motherDuckDesc: "MotherDuck: Bereitstellung von DuckDB als Cloud-Service für schnelle Analytik",
+                dbtDesc: "dbt Labs: Integration von DuckDB für SQL-basierte Datentransformation",
+                observableDesc: "Observable: Einsatz von DuckDB für interaktive Datenvisualisierungen",
+                duckdbIs: "Was ist DuckDB?",
+                inProcessDb: "In-Process Datenbank: DuckDB läuft im Speicher einer einzelnen Maschine ohne Server",
+                columnarStorage: "Spaltenorientierte Speicherung: Optimiert für analytische Abfragen mit High-Performance Columnar Format",
+                sqlNative: "SQL-Native: Vollständige SQL-Unterstützung für OLAP-Workloads",
+                estimatedTime: "Geschätzte Zeit",
+                timeValue: "60-90 Minuten",
+                prerequisites: "Voraussetzungen",
+                prereqValue: "SQL-Grundkenntnisse, Python installiert",
             },
             en: {
                 back: "← Back to Home",
@@ -396,6 +410,19 @@
                 practice1: "Use CTEs for readability",
                 practice2: "Index frequently filtered columns",
                 practice3: "Use EXPLAIN to analyze queries",
+                whatYouLearn: "What You'll Learn",
+                realWorldMotivation: "DuckDB is used by leading companies for analytical data processing:",
+                motherDuckDesc: "MotherDuck: Provides DuckDB as a cloud service for fast analytics",
+                dbtDesc: "dbt Labs: Integrates DuckDB for SQL-based data transformation",
+                observableDesc: "Observable: Uses DuckDB for interactive data visualizations",
+                duckdbIs: "What is DuckDB?",
+                inProcessDb: "In-Process Database: DuckDB runs in memory of a single machine without a server",
+                columnarStorage: "Columnar Storage: Optimized for analytical queries with High-Performance Columnar Format",
+                sqlNative: "SQL-Native: Full SQL support for OLAP workloads",
+                estimatedTime: "Estimated Time",
+                timeValue: "60-90 Minutes",
+                prerequisites: "Prerequisites",
+                prereqValue: "Basic SQL knowledge, Python installed",
             },
             ar: {
                 back: "← العودة للرئيسية",
@@ -501,6 +528,19 @@
                 practice1: "استخدم CTEs للوضوح",
                 practice2: "فهرس الأعمدة التي يتم تصفيتها بشكل متكرر",
                 practice3: "استخدم EXPLAIN لتحليل الاستعلامات",
+                whatYouLearn: "ما ستتعلمه",
+                realWorldMotivation: "تستخدم DuckDB من قبل الشركات الرائدة لمعالجة البيانات التحليلية:",
+                motherDuckDesc: "MotherDuck: توفر DuckDB كخدمة سحابية للتحليلات السريعة",
+                dbtDesc: "dbt Labs: تدمج DuckDB لتحويل البيانات القائم على SQL",
+                observableDesc: "Observable: تستخدم DuckDB للتصورات البيانية التفاعلية",
+                duckdbIs: "ما هي DuckDB؟",
+                inProcessDb: "قاعدة البيانات داخل العملية: تعمل DuckDB في ذاكرة جهاز واحد بدون خادم",
+                columnarStorage: "التخزين العمودي: محسّن للاستعلامات التحليلية بصيغة العمود عالية الأداء",
+                sqlNative: "SQL-أصلي: دعم SQL كامل لأحمال عمل OLAP",
+                estimatedTime: "الوقت المقدر",
+                timeValue: "60-90 دقيقة",
+                prerequisites: "المتطلبات الأساسية",
+                prereqValue: "معرفة SQL أساسية، Python مثبت",
             },
             uk: {
                 back: "← На головну",
@@ -606,6 +646,19 @@
                 practice1: "Використовуйте CTE для ясності",
                 practice2: "Індексуйте часто фільтровані стовпці",
                 practice3: "Використовуйте EXPLAIN для аналізу запитів",
+                whatYouLearn: "Що ви навчитеся",
+                realWorldMotivation: "DuckDB використовується провідними компаніями для аналітичної обробки даних:",
+                motherDuckDesc: "MotherDuck: надає DuckDB як хмарний сервіс для швидкої аналітики",
+                dbtDesc: "dbt Labs: інтегрує DuckDB для трансформації даних на основі SQL",
+                observableDesc: "Observable: використовує DuckDB для інтерактивних візуалізацій даних",
+                duckdbIs: "Що таке DuckDB?",
+                inProcessDb: "База даних у процесі: DuckDB працює в пам'яті однієї машини без сервера",
+                columnarStorage: "Колонкове сховище: оптимізоване для аналітичних запитів з форматом High-Performance Columnar Format",
+                sqlNative: "SQL-Native: повна підтримка SQL для OLAP робочих навантажень",
+                estimatedTime: "Приблизний час",
+                timeValue: "60-90 хвилин",
+                prerequisites: "Передумови",
+                prereqValue: "Базові знання SQL, встановлено Python",
             },
             es: {
                 back: "← Volver al inicio",
@@ -711,6 +764,19 @@
                 practice1: "Usa CTE para mayor claridad",
                 practice2: "Indexa columnas que se filtran frecuentemente",
                 practice3: "Usa EXPLAIN para analizar consultas",
+                whatYouLearn: "Lo que aprenderás",
+                realWorldMotivation: "DuckDB es utilizado por empresas líderes para procesamiento analítico de datos:",
+                motherDuckDesc: "MotherDuck: proporciona DuckDB como servicio en la nube para análisis rápido",
+                dbtDesc: "dbt Labs: integra DuckDB para transformación de datos basada en SQL",
+                observableDesc: "Observable: utiliza DuckDB para visualizaciones de datos interactivas",
+                duckdbIs: "¿Qué es DuckDB?",
+                inProcessDb: "Base de datos en proceso: DuckDB se ejecuta en la memoria de una sola máquina sin servidor",
+                columnarStorage: "Almacenamiento columnar: optimizado para consultas analíticas con formato de columna de alto rendimiento",
+                sqlNative: "SQL-Nativo: soporte SQL completo para cargas de trabajo OLAP",
+                estimatedTime: "Tiempo estimado",
+                timeValue: "60-90 minutos",
+                prerequisites: "Requisitos previos",
+                prereqValue: "Conocimientos básicos de SQL, Python instalado",
             },
             tr: {
                 back: "← Ana sayfaya dön",
@@ -816,6 +882,19 @@
                 practice1: "Okunabilirlik için CTE kullanın",
                 practice2: "Sık filtrelenen sütunları indeksleyin",
                 practice3: "Sorguları analiz etmek için EXPLAIN kullanın",
+                whatYouLearn: "Öğrenecekleriniz",
+                realWorldMotivation: "DuckDB, analitik veri işleme için önde gelen şirketler tarafından kullanılmaktadır:",
+                motherDuckDesc: "MotherDuck: hızlı analitik için bulut hizmeti olarak DuckDB sağlar",
+                dbtDesc: "dbt Labs: SQL tabanlı veri dönüşümü için DuckDB'yi entegre eder",
+                observableDesc: "Observable: etkileşimli veri görselleştirmeleri için DuckDB kullanır",
+                duckdbIs: "DuckDB Nedir?",
+                inProcessDb: "İşlem İçi Veritabanı: DuckDB sunucu olmadan tek bir makinenin belleğinde çalışır",
+                columnarStorage: "Sütunlu Depolama: Yüksek performanslı sütunlu format ile analitik sorgular için optimize edilmiştir",
+                sqlNative: "SQL Yerel: OLAP iş yükleri için tam SQL desteği",
+                estimatedTime: "Tahmini Süre",
+                timeValue: "60-90 Dakika",
+                prerequisites: "Ön Koşullar",
+                prereqValue: "Temel SQL bilgisi, Python yüklenmiş",
             }
         };
 
@@ -907,14 +986,28 @@
                     case 'overview':
                         return (
                             <div>
-                                <h2 className="text-3xl font-bold mb-4 accent-line pb-3">{t.gettingStarted}</h2>
+                                <h2 className="text-3xl font-bold mb-4 accent-line pb-3">{t.overview}</h2>
+                                <div className="lesson-box">
+                                    <h3 style={{ color: '#E8792F', marginBottom: '1rem' }}>{t.whatYouLearn}</h3>
+                                    <p>{t.realWorldMotivation}</p>
+                                    <ul style={{ listStyle: 'none', paddingLeft: 0, marginTop: '1rem' }}>
+                                        <li style={{ marginBottom: '0.5rem' }}><strong>MotherDuck:</strong> {t.motherDuckDesc}</li>
+                                        <li style={{ marginBottom: '0.5rem' }}><strong>dbt Labs:</strong> {t.dbtDesc}</li>
+                                        <li><strong>Observable:</strong> {t.observableDesc}</li>
+                                    </ul>
+                                </div>
                                 <div className="card">
-                                    <h3 className="text-xl font-bold mb-3">{t.connectDatabase}</h3>
-                                    <p className="mb-4">DuckDB ist eine analytische SQL-Datenbank für schnelle Datenverarbeitung. Sie können lokale CSV-Dateien direkt abfragen.</p>
-                                    <CodeBlock
-                                        code={`import duckdb\nconn = duckdb.connect(':memory:')\nresult = conn.execute("SELECT * FROM 'customers.csv' LIMIT 5").fetchall()\nprint(result)`}
-                                        id="overview-1"
-                                    />
+                                    <h3 className="text-xl font-bold mb-3" style={{ color: '#1B3A5C' }}>{t.duckdbIs}</h3>
+                                    <ul style={{ listStyle: 'none', paddingLeft: 0 }}>
+                                        <li style={{ marginBottom: '0.75rem' }}><strong>{t.inProcessDb}</strong></li>
+                                        <li style={{ marginBottom: '0.75rem' }}><strong>{t.columnarStorage}</strong></li>
+                                        <li><strong>{t.sqlNative}</strong></li>
+                                    </ul>
+                                </div>
+                                <div className="card">
+                                    <h3 className="text-xl font-bold mb-3" style={{ color: '#1B3A5C' }}>{t.estimatedTime}</h3>
+                                    <p><strong>{t.timeValue}</strong></p>
+                                    <p style={{ marginTop: '1rem' }}><strong>{t.prerequisites}</strong> {t.prereqValue}</p>
                                 </div>
                             </div>
                         );

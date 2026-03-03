@@ -150,8 +150,7 @@
         }
         .expandable:hover { background: #f3f4f6; }
         .expandable-header { font-weight: 600; color: #E8792F; display: flex; align-items: center; justify-content: space-between; }
-        .expandable-content { display: none; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #e5e7eb; }
-        .expandable.expanded .expandable-content { display: block; }
+        .expandable-content { margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #e5e7eb; }
         .expandable-chevron { transition: transform 0.2s; }
         .expandable.expanded .expandable-chevron { transform: rotate(180deg); }
         .output-box {
@@ -174,8 +173,7 @@
             cursor: pointer;
         }
         .quiz-item-question { font-weight: 600; color: #1B3A5C; margin-bottom: 0.5rem; display: flex; align-items: center; justify-content: space-between; }
-        .quiz-options { display: none; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #e5e7eb; }
-        .quiz-item.expanded .quiz-options { display: block; }
+        .quiz-options { margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #e5e7eb; }
         .quiz-option {
             padding: 0.5rem 0;
             margin: 0.5rem 0;
@@ -1174,37 +1172,31 @@ orders_count: 18`}
                                 <p>{t.quizIntro}</p>
 
                                 {['q1', 'q2', 'q3', 'q4', 'q5', 'q6'].map(qid => (
-                                    <div key={qid} className="quiz-item" onClick={() => toggleHint(qid)}>
-                                        <div className="quiz-item-question">
-                                            <span>{t[qid]}</span>
-                                            <span>{expandedHints[qid] ? '▼' : '▶'}</span>
+                                    <div key={qid} className="card" style={{ marginBottom: '1.5rem' }}>
+                                        <h4 style={{ fontWeight: 600, color: '#1B3A5C', marginBottom: '1rem' }}>{t[qid]}</h4>
+                                        <div>
+                                            {['a', 'b', 'c', 'd'].map(opt => {
+                                                const isCorrect = isQuizAnswerCorrect(qid, opt);
+                                                const isSelected = quizAnswers[qid] === opt;
+                                                return (
+                                                    <div
+                                                        key={opt}
+                                                        className={'quiz-option ' + (isSelected ? (isCorrect ? 'correct' : 'incorrect') : '')}
+                                                        onClick={() => handleQuizAnswer(qid, opt)}
+                                                        style={{ cursor: 'pointer' }}
+                                                    >
+                                                        <strong>{opt.toUpperCase()}.</strong> {t[qid + opt]}
+                                                        {isSelected && (
+                                                            <span style={{ marginLeft: '0.5rem' }}>{isCorrect ? '✓' : '✗'}</span>
+                                                        )}
+                                                    </div>
+                                                );
+                                            })}
                                         </div>
-                                        {expandedHints[qid] && (
-                                            <div className="quiz-options">
-                                                {['a', 'b', 'c', 'd'].map(opt => {
-                                                    const isCorrect = isQuizAnswerCorrect(qid, opt);
-                                                    const isSelected = quizAnswers[qid] === opt;
-                                                    return (
-                                                        <div
-                                                            key={opt}
-                                                            className={'quiz-option ' + (isSelected ? (isCorrect ? 'correct' : 'incorrect') : '')}
-                                                            onClick={(e) => { e.stopPropagation(); handleQuizAnswer(qid, opt); }}
-                                                        >
-                                                            <strong>{opt.toUpperCase()}.</strong> {t[qid + opt]}
-                                                            {isSelected && (
-                                                                <>
-                                                                    {' '}
-                                                                    {isCorrect ? '✓' : '✗'}
-                                                                    {!isCorrect && (
-                                                                        <div style={{ fontSize: '0.85rem', marginTop: '0.5rem', color: '#666' }}>
-                                                                            {t[qid + 'Explanation']}
-                                                                        </div>
-                                                                    )}
-                                                                </>
-                                                            )}
-                                                        </div>
-                                                    );
-                                                })}
+                                        {quizAnswers[qid] && (
+                                            <div style={{ marginTop: '1rem', padding: '0.75rem', borderRadius: '0.5rem', background: isQuizAnswerCorrect(qid, quizAnswers[qid]) ? '#ecfdf5' : '#fef2f2', color: isQuizAnswerCorrect(qid, quizAnswers[qid]) ? '#059669' : '#dc2626' }}>
+                                                {isQuizAnswerCorrect(qid, quizAnswers[qid]) ? t.correct : t.incorrect}
+                                                {!isQuizAnswerCorrect(qid, quizAnswers[qid]) && <p style={{ marginTop: '0.5rem', fontSize: '0.85rem', color: '#666' }}>{t[qid + 'Explanation']}</p>}
                                             </div>
                                         )}
                                     </div>
