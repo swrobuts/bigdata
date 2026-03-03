@@ -200,14 +200,13 @@
             margin: 1rem 0;
         }
         .hint-title { font-weight: 600; color: #E8792F; margin-bottom: 0.5rem; }
-        [dir="rtl"] { direction: rtl; text-align: right; }
-        [dir="rtl"] .sidebar { left: auto; right: 0; border-right: none; border-left: 1px solid #e0e0e0; }
-        [dir="rtl"] .main-content { margin-left: 0; margin-right: 280px; }
-        [dir="rtl"] .back-btn { margin-left: 0; margin-right: 1rem; }
-        [dir="rtl"] .sidebar-item { border-left: none; border-right: 4px solid transparent; padding-left: 0; padding-right: 1.5rem; }
-        [dir="rtl"] .sidebar-item.active { border-right-color: #E8792F; }
-        [dir="rtl"] .code-block { border-left: none; border-right: 4px solid #E8792F; }
-        [dir="rtl"] .copy-btn { right: auto; left: 0.5rem; }
+        .next-button { margin-top: 2rem; }
+        .next-button button { background: #E8792F; color: white; padding: 0.75rem 1.5rem; border: none; border-radius: 0.5rem; cursor: pointer; font-weight: 600; }
+        .next-button button:hover { opacity: 0.9; }
+        .table-responsive { overflow-x: auto; margin: 1rem 0; }
+        .table-responsive table { width: 100%; border-collapse: collapse; }
+        .table-responsive th, .table-responsive td { padding: 0.75rem; text-align: left; border-bottom: 1px solid #e5e7eb; }
+        .table-responsive th { background: #f3f4f6; font-weight: 600; }
         .outlook-section { margin-top: 2rem; }
         .outlook-part { background: white; padding: 1.5rem; border-radius: 0.5rem; margin-bottom: 1.5rem; }
         .outlook-title { font-size: 1.25rem; font-weight: 600; color: #1B3A5C; margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid #E8792F; }
@@ -225,6 +224,14 @@
             color: #1B3A5C;
             overflow-x: auto;
         }
+        [dir="rtl"] { direction: rtl; text-align: right; }
+        [dir="rtl"] .sidebar { left: auto; right: 0; border-right: none; border-left: 1px solid #e0e0e0; }
+        [dir="rtl"] .main-content { margin-left: 0; margin-right: 280px; }
+        [dir="rtl"] .back-btn { margin-left: 0; margin-right: 1rem; }
+        [dir="rtl"] .sidebar-item { border-left: none; border-right: 4px solid transparent; padding-left: 0; padding-right: 1.5rem; }
+        [dir="rtl"] .sidebar-item.active { border-right-color: #E8792F; }
+        [dir="rtl"] .code-block { border-left: none; border-right: 4px solid #E8792F; }
+        [dir="rtl"] .copy-btn { right: auto; left: 0.5rem; }
     </style>
 </head>
 <body>
@@ -239,56 +246,125 @@
                 overview: "Überblick",
                 setup: "Setup & Installation",
                 fundamentals: "Grundlagen",
-                exercise1: "Übung 1: Erste Knoten erstellen",
-                exercise2: "Übung 2: Beziehungen erstellen",
+                exercise1: "Übung 1: Erste Knoten",
+                exercise2: "Übung 2: Beziehungen",
                 exercise3: "Übung 3: Daten abfragen",
-                exercise4: "Übung 4: Aggregation & Sortierung",
-                exercise5: "Übung 5: MegaStore-Graph",
+                exercise4: "Übung 4: Aggregation",
+                exercise5: "Übung 5: MegaStore",
                 exercise6: "Übung 6: Empfehlungen",
                 challenge: "Challenge: Betrugserkennung",
                 quiz: "Wissenstest",
                 outlook: "Ausblick & KI",
                 troubleshooting: "Fehlerbehebung",
-                overviewContent: "Neo4j ist eine Graph-Datenbank, die Daten als Knoten (Nodes) und Beziehungen (Relationships) speichert. Graph-Datenbanken sind perfekt für Anwendungen mit vielen Verbindungen zwischen Daten. In diesem Labor lernen Sie:",
-                overviewList: ["Grundkonzepte von Graph-Datenbanken", "Cypher-Abfragesprache", "Knoten und Beziehungen erstellen und abfragen", "Pattern Matching", "Graph-Traversierung für komplexe Abfragen"],
+                copy: "Kopieren",
+                whatYouLearn: "Was Sie lernen werden",
+                realWorldMotivation: "Neo4j wird von führenden Unternehmen wie NASA, Walmart und eBay verwendet, um komplexe Beziehungen in großen Datenmengen zu verwalten.",
+                nasaDesc: "Verwaltet Weltraummissionen und Satellitenbeziehungen",
+                walmartDesc: "Optimiert Supply-Chain-Netzwerke und Kundenbeziehungen",
+                ebayDesc: "Verbessert Produktempfehlungen durch Graphenanalyse",
+                neo4jIs: "Was ist Neo4j?",
+                graphDatabase: "Graph Database - Speichert Daten als vernetzte Knoten und Beziehungen",
+                cypherLanguage: "Cypher Query Language - Spezialisierte Abfragesprache für Graphen",
+                acidCompliant: "ACID-Compliant - Sichere und konsistente Datentransaktionen",
+                estimatedTime: "Geschätzte Zeit",
+                timeValue: "60-90 Minuten",
+                prerequisites: "Voraussetzungen",
+                prereqValue: "Grundkenntnisse in Datenbanken, Docker installiert",
                 setupTitle: "Docker Setup für Neo4j",
                 setupSteps: "Folgen Sie diesen Schritten, um Neo4j lokal zu starten:",
                 step1: "Docker-Image starten",
+                step1Cmd: "docker pull neo4j:latest\ndocker run --name neo4j-lab -d -p 7474:7474 -p 7687:7687 \\\n  -e NEO4J_AUTH=neo4j/password123 neo4j:latest",
+                step1Desc: "Das Neo4j-Image wird heruntergeladen und gestartet. Port 7474 für Browser, 7687 für Bolt-Protokoll.",
                 step2: "Neo4j Browser öffnen",
+                step2Cmd: "http://localhost:7474",
+                step2Desc: "Öffnen Sie diese URL in Ihrem Browser. Der Neo4j Browser wird geladen.",
                 step3: "Mit Standard-Credentials anmelden",
+                step3Cmd: "User: neo4j\nPassword: password123",
+                step3Desc: "Melden Sie sich mit den Credentials an, die Sie beim docker run-Befehl gesetzt haben.",
                 step4: "Erstes Cypher-Kommando ausführen",
+                step4Cmd: "RETURN 'Hello, Neo4j!' as greeting",
+                step4Desc: "Geben Sie diesen Befehl in die Abfragezeile ein und drücken Sie Ctrl+Enter. Sie sollten eine Meldung sehen.",
+                verifySetup: "So prüfen Sie, ob alles funktioniert:",
+                verifyStep1: "Der Browser lädt ohne Fehler",
+                verifyStep2: "Sie können einen Befehl ausführen und erhalten ein Ergebnis",
+                verifyStep3: "Keine Port-Konflikte oder Verbindungsfehler",
                 fundamentalsTitle: "Neo4j Grundlagen",
                 nodesLabel: "Knoten (Nodes)",
-                nodesDesc: "Knoten sind Entitäten im Graph. Sie können Eigenschaften (Properties) haben.",
+                nodesDesc: "Knoten sind Entitäten im Graph. Sie können Eigenschaften (Properties) haben. Beispiel: Ein Knoten mit dem Label 'Person' und der Eigenschaft name='Alice'.",
+                nodesCode: "CREATE (n:Person {name: 'Alice', age: 30})\nRETURN n",
                 relationshipsLabel: "Beziehungen (Relationships)",
-                relationshipsDesc: "Verbindungen zwischen Knoten mit einem Typ und einer Richtung.",
+                relationshipsDesc: "Beziehungen verbinden zwei Knoten und haben einen Typ und eine Richtung.",
+                relationshipsCode: "MATCH (a:Person {name: 'Alice'}), (b:Product {name: 'Laptop'})\nCREATE (a)-[r:PURCHASED {date: '2024-01-15'}]->(b)\nRETURN r",
                 cypherLabel: "Cypher",
-                cypherDesc: "Deklarative Abfragesprache für Neo4j, ähnlich wie SQL für relationale Datenbanken.",
-                exerciseTitle: "Übung",
-                yourTask: "Ihre Aufgabe:",
-                expectedOutput: "Erwartete Ausgabe:",
-                try: "Versuchen Sie es selbst!",
-                solution: "Lösung zeigen",
-                ex1Title: "Erste Knoten erstellen (Creating Nodes)",
-                ex1Desc: "Erstellen Sie verschiedene Knoten-Typen und erkunden Sie diese.",
-                ex1Task: "Erstellen Sie einen Person-Knoten für 'Alice' (age: 30) und einen Product-Knoten für 'Laptop' (price: 999). Fragen Sie dann alle Knoten ab.",
-                ex2Title: "Beziehungen erstellen (Creating Relationships)",
-                ex2Desc: "Verknüpfen Sie Knoten durch Beziehungen.",
-                ex2Task: "Erstellen Sie eine PURCHASED-Beziehung zwischen Alice und dem Laptop. Fragen Sie dann alle Beziehungen ab.",
-                ex3Title: "Daten abfragen (Querying Data)",
-                ex3Desc: "Verwenden Sie Pattern Matching mit WHERE-Klauseln.",
-                ex3Task: "Finden Sie alle Personen über 25 Jahre. Finden Sie Freunde von Freunden (Friends of Friends).",
-                ex4Title: "Aggregation & Sortierung",
-                ex4Desc: "Gruppieren und aggregieren Sie Daten mit Cypher.",
-                ex4Task: "Zählen Sie die Anzahl der Produkte nach Kategorie. Sortieren Sie Kunden nach Anzahl ihrer Käufe.",
-                ex5Title: "MegaStore-Graph erkunden",
-                ex5Desc: "Arbeiten Sie mit einem realistischen Kundengraph.",
-                ex5Task: "Finden Sie die meistgekauften Produkte. Analysieren Sie Kundenkaupmuster.",
-                ex6Title: "Empfehlungen generieren",
-                ex6Desc: "Verwenden Sie Graphmuster für Empfehlungslogik.",
-                ex6Task: "Implementieren Sie: 'Kunden, die X gekauft haben, haben auch Y gekauft'.",
+                cypherDesc: "Cypher ist eine deklarative Abfragesprache für Neo4j, ähnlich wie SQL für relationale Datenbanken.",
+                cypherCode: "MATCH (person:Person)-[:PURCHASED]->(product:Product)\nWHERE person.age > 25\nRETURN person.name, product.name",
+                ex1Title: "Übung 1: Erste Knoten erstellen",
+                ex1Time: "~15 Minuten",
+                ex1Goal: "Erstellen Sie verschiedene Knoten-Typen und erkunden Sie diese.",
+                ex1Show: "CREATE (p1:Person {name: 'Alice', age: 30})\nCREATE (p2:Product {name: 'Laptop', price: 999})\nMATCH (n) RETURN n LIMIT 5",
+                ex1Output: "2 Knoten erstellt:\n(p1:Person {name: 'Alice', age: 30})\n(p2:Product {name: 'Laptop', price: 999})",
+                ex1Explain: "Zeile 1: CREATE-Befehl erstellt einen Person-Knoten mit Eigenschaften name und age.\nZeile 2: CREATE-Befehl erstellt einen Product-Knoten mit Eigenschaften name und price.\nZeile 3: MATCH findet alle Knoten (n) und RETURN gibt sie zurück.",
+                ex1Task: "Erstellen Sie einen Customer-Knoten für 'Bob' (email: bob@example.com) und einen Order-Knoten (order_id: 101, total: 1500). Fragen Sie dann alle Knoten ab.",
+                ex1Hint: "Verwenden Sie den gleichen Aufbau wie das Beispiel. CREATE mit dem Label :Label und Properties in geschweiften Klammern.",
+                ex1Solution: "CREATE (c:Customer {name: 'Bob', email: 'bob@example.com'})\nCREATE (o:Order {order_id: 101, total: 1500})\nMATCH (n) RETURN n",
+                ex1Verify: "Sie sollten 2 neue Knoten sehen: einen mit Label Customer und einen mit Label Order.",
+                nextExercise: "Nächste Übung →",
+                ex2Title: "Übung 2: Beziehungen erstellen",
+                ex2Time: "~15 Minuten",
+                ex2Goal: "Verknüpfen Sie Knoten durch Beziehungen mit Richtung und Typ.",
+                ex2Show: "MATCH (p:Person {name: 'Alice'}), (pr:Product {name: 'Laptop'})\nCREATE (p)-[r:PURCHASED {date: '2024-01-15'}]->(pr)\nRETURN r",
+                ex2Output: "1 Beziehung erstellt:\n(Alice)-[PURCHASED {date: '2024-01-15'}]->(Laptop)",
+                ex2Explain: "Zeile 1-2: MATCH findet zwei existierende Knoten.\nZeile 3: CREATE erstellt eine Beziehung vom Typ PURCHASED mit Eigenschaften.\nZeile 4: RETURN gibt die Beziehung zurück.",
+                ex2Task: "Erstellen Sie eine LIVES_IN Beziehung von einem Person-Knoten zu einer City. Erstellen Sie zuerst die Knoten, wenn nötig.",
+                ex2Hint: "Pattern: (node1)-[TYPE]->(node2). Verwenden Sie zwei MATCH-Befehle oder CREATE die Knoten zuerst.",
+                ex2Solution: "CREATE (p:Person {name: 'Charlie'})\nCREATE (c:City {name: 'Berlin'})\nMATCH (per:Person {name: 'Charlie'}), (city:City {name: 'Berlin'})\nCREATE (per)-[r:LIVES_IN]->(city)\nRETURN r",
+                ex2Verify: "Sie sollten eine LIVES_IN Beziehung sehen, die einen Person-Knoten mit einem City-Knoten verbindet.",
+                ex3Title: "Übung 3: Daten abfragen",
+                ex3Time: "~15 Minuten",
+                ex3Goal: "Verwenden Sie Pattern Matching mit WHERE-Klauseln.",
+                ex3Show: "MATCH (p:Person)\nWHERE p.age > 25\nRETURN p.name, p.age",
+                ex3Output: "Alice, 30\nCharlie, 28",
+                ex3Explain: "Zeile 1: MATCH findet alle Person-Knoten.\nZeile 2: WHERE filtert nach Alter > 25.\nZeile 3: RETURN gibt Namen und Alter zurück.",
+                ex3Task: "Finden Sie alle Produkte mit einem Preis unter 500. Geben Sie Namen und Preis zurück.",
+                ex3Hint: "Verwenden Sie WHERE price < 500. Achten Sie auf die richtige Eigenschaftsname (price).",
+                ex3Solution: "MATCH (prod:Product)\nWHERE prod.price < 500\nRETURN prod.name, prod.price",
+                ex3Verify: "Sie sollten alle Produkte sehen, deren Preis unter 500 liegt.",
+                ex4Title: "Übung 4: Aggregation und Sortierung",
+                ex4Time: "~15 Minuten",
+                ex4Goal: "Gruppieren und aggregieren Sie Daten mit Cypher.",
+                ex4Show: "MATCH (p:Person)\nRETURN count(p) as total_persons, avg(p.age) as avg_age",
+                ex4Output: "total_persons: 3\navg_age: 29.33",
+                ex4Explain: "Zeile 1: MATCH findet alle Person-Knoten.\nZeile 2: count() zählt Knoten, avg() berechnet Durchschnittsalter.",
+                ex4Task: "Zählen Sie die Anzahl der Produkte. Berechnen Sie den durchschnittlichen Preis.",
+                ex4Hint: "Verwenden Sie MATCH für Product-Knoten und count(), avg() für Aggregationen.",
+                ex4Solution: "MATCH (prod:Product)\nRETURN count(prod) as total_products, avg(prod.price) as avg_price",
+                ex4Verify: "Sie sollten die Gesamtzahl und den durchschnittlichen Preis sehen.",
+                ex5Title: "Übung 5: MegaStore-Graph erkunden",
+                ex5Time: "~15 Minuten",
+                ex5Goal: "Arbeiten Sie mit einem realistischen E-Commerce-Graph.",
+                ex5Show: "MATCH (c:Customer)-[p:PLACED]->(o:Order)-[con:CONTAINS]->(prod:Product)\nWHERE c.country = 'DE'\nRETURN c.name, o.order_total, prod.name\nLIMIT 10",
+                ex5Output: "Alice | 1500 | Laptop\nAlice | 299 | Monitor\nBob | 750 | Keyboard",
+                ex5Explain: "Zeile 1: MATCH findet ein Pattern: Kunde → Bestellung → Produkt.\nZeile 2: WHERE filtert nach Kunden aus Deutschland.\nZeile 3: RETURN gibt relevante Daten zurück.\nZeile 4: LIMIT begrenzt auf 10 Ergebnisse.",
+                ex5Task: "Finden Sie die teuersten Bestellungen. Geben Sie Kundenname und Gesamtsumme zurück. Sortieren Sie nach Gesamtsumme (absteigend).",
+                ex5Hint: "Verwenden Sie ORDER BY o.order_total DESC. LIMIT 5 um Top 5 zu sehen.",
+                ex5Solution: "MATCH (c:Customer)-[p:PLACED]->(o:Order)\nRETURN c.name, o.order_total\nORDER BY o.order_total DESC\nLIMIT 5",
+                ex5Verify: "Sie sollten die 5 teuersten Bestellungen mit Kundenname und Gesamtsumme sehen.",
+                ex6Title: "Übung 6: Empfehlungen generieren",
+                ex6Time: "~15 Minuten",
+                ex6Goal: "Verwenden Sie Graphmuster für Empfehlungslogik.",
+                ex6Show: "MATCH (c:Customer)-[:PURCHASED]->(p:Product)<-[:PURCHASED]-(other:Customer)\nWHERE c.name = 'Alice' AND other.name <> 'Alice'\nRETURN distinct other.name, count(p) as common_products\nORDER BY common_products DESC",
+                ex6Output: "Bob | 2\nCharlie | 1",
+                ex6Explain: "Zeile 1: MATCH findet Kunden, die Produkte gekauft haben, die Alice auch gekauft hat.\nZeile 2: WHERE filtert auf Alice und schließt Alice selbst aus.\nZeile 3: RETURN gibt andere Kunden und Anzahl gemeinsamer Produkte.\nZeile 4: ORDER BY sortiert absteigend.",
+                ex6Task: "Implementieren Sie: Finden Sie für einen gegebenen Kunden andere Kunden mit ähnlichen Kaufmustern.",
+                ex6Hint: "Verwenden Sie das Muster aus dem Beispiel. Ersetzen Sie 'Alice' mit einer Variable.",
+                ex6Solution: "MATCH (c:Customer {name: 'Alice'})-[:PURCHASED]->(p:Product)<-[:PURCHASED]-(similar:Customer)\nWHERE similar.name <> c.name\nRETURN similar.name, count(p) as shared_products\nORDER BY shared_products DESC",
+                ex6Verify: "Sie sollten Kunden sehen, die ähnliche Produkte gekauft haben.",
                 challengeTitle: "Challenge: Betrugserkennung",
                 challengeDesc: "Finden Sie verdächtige Transaktionsmuster in einem Transaktionsgraph.",
+                challengeSteps: "Schritte:\n1. Identifizieren Sie Kunden mit mehreren Bestellungen an einem Tag\n2. Finden Sie ungewöhnlich große Bestellungen (z.B. > 5000)\n3. Entdecken Sie Kunden, die die gleiche Adresse teilen\n4. Suchen Sie nach zirkulären Zahlungsmustern (A→B→C→A)\n5. Kombinieren Sie Erkenntnisse für ein Betrugsscore-System",
+                challengeHint: "Verwenden Sie WITH für mehrstufige Abfragen. Kombinieren Sie COUNT mit WHERE.",
+                challengeSolution: "MATCH (c:Customer)-[p:PLACED]->(o:Order)\nWHERE o.order_total > 5000\nRETURN c.name, count(o) as high_value_orders\nORDER BY high_value_orders DESC",
+                challengeExpected: "Liste verdächtiger Kunden mit hohen Bestellwerten und Häufigkeit.",
                 quizTitle: "Wissenstest",
                 q1: "Was ist ein Knoten (Node) in Neo4j?",
                 q1a: "Eine Entität oder Datenpunkt im Graph",
@@ -329,31 +405,20 @@
                 outlookShortestPath: "Shortest Path - Effiziente Pfadfindung",
                 outlookAI: "KI-Integration",
                 outlookAIDesc: "Neo4j kann mit LLMs kombiniert werden für:",
-                outlookExample1: "Beispiel 1: Graph-Context für bessere Empfehlungen",
-                outlookExample2: "Beispiel 2: Anomalieerkennung mittels Pattern-Analyse",
-                outlookExample3: "Beispiel 3: Natürlichsprachige Graph-Abfragen",
+                outlookExample1: "Beispiel 1: Graph-Context für bessere Empfehlungen mit Claude",
+                outlookExample2: "Beispiel 2: Anomalieerkennung mittels Pattern-Analyse und LLM-Klassifikation",
+                outlookExample3: "Beispiel 3: Natürlichsprachige Graph-Abfragen via Claude Code + MCP",
                 troubleshootTitle: "Häufige Probleme",
                 troubleshoot1Title: "Neo4j startet nicht",
-                troubleshoot1: "Überprüfen Sie, ob Docker läuft. Versuchen Sie: docker restart neo4j",
+                troubleshoot1: "Überprüfen Sie, ob Docker läuft. Versuchen Sie: docker restart neo4j-lab. Prüfen Sie Port-Konflikte.",
                 troubleshoot2Title: "Browser kann sich nicht verbinden",
-                troubleshoot2: "Stelle sicher, dass http://localhost:7474 erreichbar ist. Überprüfe die Ports.",
+                troubleshoot2: "Stelle sicher, dass http://localhost:7474 erreichbar ist. Überprüfe die Ports mit: docker ps",
                 troubleshoot3Title: "Authentifizierungsfehler",
-                troubleshoot3: "Standardcredentials: neo4j / neo4j. Passwort muss bei erstem Login geändert werden.",
+                troubleshoot3: "Standardcredentials: neo4j / password123. Passwort muss bei erstem Login geändert werden.",
                 troubleshoot4Title: "Syntax-Fehler in Cypher",
-                troubleshoot4: "Verwende den Browser's Code-Editor mit Syntax-Highlighting.",
-                whatYouLearn: "Was Sie lernen werden",
-                realWorldMotivation: "Neo4j wird von führenden Unternehmen wie NASA, Walmart und eBay verwendet, um komplexe Beziehungen in großen Datenmengen zu verwalten.",
-                nasaDesc: "Verwaltet Weltraummissionen und Satellitenbeziehungen",
-                walmartDesc: "Optimiert Supply-Chain-Netzwerke und Kundenbeziehungen",
-                ebayDesc: "Verbessert Produktempfehlungen durch Graphenanalyse",
-                neo4jIs: "Was ist Neo4j?",
-                graphDatabase: "Graph Database - Speichert Daten als vernetzte Knoten und Beziehungen",
-                cypherLanguage: "Cypher Query Language - Spezialisierte Abfragesprache für Graphen",
-                acidCompliant: "ACID-Compliant - Sichere und konsistente Datentransaktionen",
-                estimatedTime: "Geschätzte Zeit",
-                timeValue: "60-90 Minuten",
-                prerequisites: "Voraussetzungen",
-                prereqValue: "Grundkenntnisse in Datenbanken, Docker installiert",
+                troubleshoot4: "Verwende den Browser's Code-Editor mit Syntax-Highlighting. Beachte Groß-/Kleinschreibung bei Labels.",
+                troubleshoot5Title: "Zu wenig Docker-Speicher",
+                troubleshoot5: "Erhöhe die Docker-Speicherzuweisung. Starte Docker Desktop und erhöhe Memory in Settings.",
             },
             en: {
                 back: "← Back to home",
@@ -364,53 +429,122 @@
                 exercise1: "Exercise 1: Creating Nodes",
                 exercise2: "Exercise 2: Creating Relationships",
                 exercise3: "Exercise 3: Querying Data",
-                exercise4: "Exercise 4: Aggregation & Sorting",
-                exercise5: "Exercise 5: MegaStore Graph",
+                exercise4: "Exercise 4: Aggregation",
+                exercise5: "Exercise 5: MegaStore",
                 exercise6: "Exercise 6: Recommendations",
                 challenge: "Challenge: Fraud Detection",
                 quiz: "Knowledge Test",
                 outlook: "Outlook & AI",
                 troubleshooting: "Troubleshooting",
-                overviewContent: "Neo4j is a graph database that stores data as nodes and relationships. Graph databases are perfect for applications with many connections between data. In this lab you will learn:",
-                overviewList: ["Basic concepts of graph databases", "Cypher query language", "Creating and querying nodes and relationships", "Pattern matching", "Graph traversal for complex queries"],
+                copy: "Copy",
+                whatYouLearn: "What You'll Learn",
+                realWorldMotivation: "Neo4j is used by leading companies like NASA, Walmart, and eBay to manage complex relationships in large datasets.",
+                nasaDesc: "Manages space missions and satellite relationships",
+                walmartDesc: "Optimizes supply chain networks and customer relationships",
+                ebayDesc: "Improves product recommendations through graph analysis",
+                neo4jIs: "What is Neo4j?",
+                graphDatabase: "Graph Database - Stores data as interconnected nodes and relationships",
+                cypherLanguage: "Cypher Query Language - Specialized query language for graphs",
+                acidCompliant: "ACID-Compliant - Secure and consistent data transactions",
+                estimatedTime: "Estimated Time",
+                timeValue: "60-90 Minutes",
+                prerequisites: "Prerequisites",
+                prereqValue: "Basic database knowledge, Docker installed",
                 setupTitle: "Docker Setup for Neo4j",
                 setupSteps: "Follow these steps to start Neo4j locally:",
                 step1: "Start Docker image",
+                step1Cmd: "docker pull neo4j:latest\ndocker run --name neo4j-lab -d -p 7474:7474 -p 7687:7687 \\\n  -e NEO4J_AUTH=neo4j/password123 neo4j:latest",
+                step1Desc: "The Neo4j image is downloaded and started. Port 7474 for browser, 7687 for Bolt protocol.",
                 step2: "Open Neo4j Browser",
+                step2Cmd: "http://localhost:7474",
+                step2Desc: "Open this URL in your browser. The Neo4j Browser will load.",
                 step3: "Sign in with default credentials",
+                step3Cmd: "User: neo4j\nPassword: password123",
+                step3Desc: "Sign in with the credentials you set in the docker run command.",
                 step4: "Execute first Cypher command",
+                step4Cmd: "RETURN 'Hello, Neo4j!' as greeting",
+                step4Desc: "Enter this command in the query line and press Ctrl+Enter. You should see a message.",
+                verifySetup: "How to verify everything is working:",
+                verifyStep1: "The browser loads without errors",
+                verifyStep2: "You can execute a command and get a result",
+                verifyStep3: "No port conflicts or connection errors",
                 fundamentalsTitle: "Neo4j Fundamentals",
                 nodesLabel: "Nodes",
-                nodesDesc: "Nodes are entities in the graph. They can have properties.",
+                nodesDesc: "Nodes are entities in the graph. They can have properties. Example: A node with label 'Person' and property name='Alice'.",
+                nodesCode: "CREATE (n:Person {name: 'Alice', age: 30})\nRETURN n",
                 relationshipsLabel: "Relationships",
-                relationshipsDesc: "Connections between nodes with a type and direction.",
+                relationshipsDesc: "Relationships connect two nodes and have a type and direction.",
+                relationshipsCode: "MATCH (a:Person {name: 'Alice'}), (b:Product {name: 'Laptop'})\nCREATE (a)-[r:PURCHASED {date: '2024-01-15'}]->(b)\nRETURN r",
                 cypherLabel: "Cypher",
-                cypherDesc: "Declarative query language for Neo4j, similar to SQL for relational databases.",
-                exerciseTitle: "Exercise",
-                yourTask: "Your task:",
-                expectedOutput: "Expected output:",
-                try: "Try it yourself!",
-                solution: "Show solution",
-                ex1Title: "Creating Nodes",
-                ex1Desc: "Create different node types and explore them.",
-                ex1Task: "Create a Person node for 'Alice' (age: 30) and a Product node for 'Laptop' (price: 999). Then query all nodes.",
-                ex2Title: "Creating Relationships",
-                ex2Desc: "Connect nodes through relationships.",
-                ex2Task: "Create a PURCHASED relationship between Alice and the Laptop. Then query all relationships.",
-                ex3Title: "Querying Data",
-                ex3Desc: "Use pattern matching with WHERE clauses.",
-                ex3Task: "Find all people over 25 years old. Find friends of friends.",
-                ex4Title: "Aggregation & Sorting",
-                ex4Desc: "Group and aggregate data with Cypher.",
-                ex4Task: "Count products by category. Sort customers by number of purchases.",
-                ex5Title: "Exploring MegaStore Graph",
-                ex5Desc: "Work with a realistic customer graph.",
-                ex5Task: "Find the most purchased products. Analyze customer purchase patterns.",
-                ex6Title: "Generate Recommendations",
-                ex6Desc: "Use graph patterns for recommendation logic.",
-                ex6Task: "Implement: 'Customers who bought X also bought Y'.",
+                cypherDesc: "Cypher is a declarative query language for Neo4j, similar to SQL for relational databases.",
+                cypherCode: "MATCH (person:Person)-[:PURCHASED]->(product:Product)\nWHERE person.age > 25\nRETURN person.name, product.name",
+                ex1Title: "Exercise 1: Creating Nodes",
+                ex1Time: "~15 Minutes",
+                ex1Goal: "Create different node types and explore them.",
+                ex1Show: "CREATE (p1:Person {name: 'Alice', age: 30})\nCREATE (p2:Product {name: 'Laptop', price: 999})\nMATCH (n) RETURN n LIMIT 5",
+                ex1Output: "2 nodes created:\n(p1:Person {name: 'Alice', age: 30})\n(p2:Product {name: 'Laptop', price: 999})",
+                ex1Explain: "Line 1: CREATE command creates a Person node with properties name and age.\nLine 2: CREATE command creates a Product node with properties name and price.\nLine 3: MATCH finds all nodes (n) and RETURN displays them.",
+                ex1Task: "Create a Customer node for 'Bob' (email: bob@example.com) and an Order node (order_id: 101, total: 1500). Then query all nodes.",
+                ex1Hint: "Use the same structure as the example. CREATE with the label :Label and properties in curly braces.",
+                ex1Solution: "CREATE (c:Customer {name: 'Bob', email: 'bob@example.com'})\nCREATE (o:Order {order_id: 101, total: 1500})\nMATCH (n) RETURN n",
+                ex1Verify: "You should see 2 new nodes: one with label Customer and one with label Order.",
+                nextExercise: "Next Exercise →",
+                ex2Title: "Exercise 2: Creating Relationships",
+                ex2Time: "~15 Minutes",
+                ex2Goal: "Connect nodes through relationships with direction and type.",
+                ex2Show: "MATCH (p:Person {name: 'Alice'}), (pr:Product {name: 'Laptop'})\nCREATE (p)-[r:PURCHASED {date: '2024-01-15'}]->(pr)\nRETURN r",
+                ex2Output: "1 relationship created:\n(Alice)-[PURCHASED {date: '2024-01-15'}]->(Laptop)",
+                ex2Explain: "Line 1-2: MATCH finds two existing nodes.\nLine 3: CREATE establishes a relationship of type PURCHASED with properties.\nLine 4: RETURN displays the relationship.",
+                ex2Task: "Create a LIVES_IN relationship from a Person node to a City. Create the nodes first if needed.",
+                ex2Hint: "Pattern: (node1)-[TYPE]->(node2). Use two MATCH commands or CREATE the nodes first.",
+                ex2Solution: "CREATE (p:Person {name: 'Charlie'})\nCREATE (c:City {name: 'Berlin'})\nMATCH (per:Person {name: 'Charlie'}), (city:City {name: 'Berlin'})\nCREATE (per)-[r:LIVES_IN]->(city)\nRETURN r",
+                ex2Verify: "You should see a LIVES_IN relationship connecting a Person node to a City node.",
+                ex3Title: "Exercise 3: Querying Data",
+                ex3Time: "~15 Minutes",
+                ex3Goal: "Use pattern matching with WHERE clauses.",
+                ex3Show: "MATCH (p:Person)\nWHERE p.age > 25\nRETURN p.name, p.age",
+                ex3Output: "Alice, 30\nCharlie, 28",
+                ex3Explain: "Line 1: MATCH finds all Person nodes.\nLine 2: WHERE filters by age > 25.\nLine 3: RETURN displays name and age.",
+                ex3Task: "Find all products with a price below 500. Return name and price.",
+                ex3Hint: "Use WHERE price < 500. Check the correct property name (price).",
+                ex3Solution: "MATCH (prod:Product)\nWHERE prod.price < 500\nRETURN prod.name, prod.price",
+                ex3Verify: "You should see all products with prices below 500.",
+                ex4Title: "Exercise 4: Aggregation and Sorting",
+                ex4Time: "~15 Minutes",
+                ex4Goal: "Group and aggregate data with Cypher.",
+                ex4Show: "MATCH (p:Person)\nRETURN count(p) as total_persons, avg(p.age) as avg_age",
+                ex4Output: "total_persons: 3\navg_age: 29.33",
+                ex4Explain: "Line 1: MATCH finds all Person nodes.\nLine 2: count() counts nodes, avg() calculates average age.",
+                ex4Task: "Count the number of products. Calculate the average price.",
+                ex4Hint: "Use MATCH for Product nodes and count(), avg() for aggregations.",
+                ex4Solution: "MATCH (prod:Product)\nRETURN count(prod) as total_products, avg(prod.price) as avg_price",
+                ex4Verify: "You should see the total count and average price.",
+                ex5Title: "Exercise 5: Exploring MegaStore Graph",
+                ex5Time: "~15 Minutes",
+                ex5Goal: "Work with a realistic e-commerce graph.",
+                ex5Show: "MATCH (c:Customer)-[p:PLACED]->(o:Order)-[con:CONTAINS]->(prod:Product)\nWHERE c.country = 'DE'\nRETURN c.name, o.order_total, prod.name\nLIMIT 10",
+                ex5Output: "Alice | 1500 | Laptop\nAlice | 299 | Monitor\nBob | 750 | Keyboard",
+                ex5Explain: "Line 1: MATCH finds a pattern: Customer → Order → Product.\nLine 2: WHERE filters customers from Germany.\nLine 3: RETURN displays relevant data.\nLine 4: LIMIT restricts to 10 results.",
+                ex5Task: "Find the most expensive orders. Return customer name and total. Sort by total (descending).",
+                ex5Hint: "Use ORDER BY o.order_total DESC. LIMIT 5 to see top 5.",
+                ex5Solution: "MATCH (c:Customer)-[p:PLACED]->(o:Order)\nRETURN c.name, o.order_total\nORDER BY o.order_total DESC\nLIMIT 5",
+                ex5Verify: "You should see the 5 most expensive orders with customer name and total.",
+                ex6Title: "Exercise 6: Generate Recommendations",
+                ex6Time: "~15 Minutes",
+                ex6Goal: "Use graph patterns for recommendation logic.",
+                ex6Show: "MATCH (c:Customer)-[:PURCHASED]->(p:Product)<-[:PURCHASED]-(other:Customer)\nWHERE c.name = 'Alice' AND other.name <> 'Alice'\nRETURN distinct other.name, count(p) as common_products\nORDER BY common_products DESC",
+                ex6Output: "Bob | 2\nCharlie | 1",
+                ex6Explain: "Line 1: MATCH finds customers who bought products that Alice also bought.\nLine 2: WHERE filters for Alice and excludes Alice herself.\nLine 3: RETURN shows other customers and count of shared products.\nLine 4: ORDER BY sorts descending.",
+                ex6Task: "Implement: Find for a given customer other customers with similar purchase patterns.",
+                ex6Hint: "Use the pattern from the example. Replace 'Alice' with a variable.",
+                ex6Solution: "MATCH (c:Customer {name: 'Alice'})-[:PURCHASED]->(p:Product)<-[:PURCHASED]-(similar:Customer)\nWHERE similar.name <> c.name\nRETURN similar.name, count(p) as shared_products\nORDER BY shared_products DESC",
+                ex6Verify: "You should see customers who bought similar products.",
                 challengeTitle: "Challenge: Fraud Detection",
                 challengeDesc: "Find suspicious transaction patterns in a transaction graph.",
+                challengeSteps: "Steps:\n1. Identify customers with multiple orders on the same day\n2. Find unusually large orders (e.g., > 5000)\n3. Discover customers sharing the same address\n4. Search for circular payment patterns (A→B→C→A)\n5. Combine insights for a fraud scoring system",
+                challengeHint: "Use WITH for multi-stage queries. Combine COUNT with WHERE.",
+                challengeSolution: "MATCH (c:Customer)-[p:PLACED]->(o:Order)\nWHERE o.order_total > 5000\nRETURN c.name, count(o) as high_value_orders\nORDER BY high_value_orders DESC",
+                challengeExpected: "List of suspicious customers with high-value orders and frequency.",
                 quizTitle: "Knowledge Test",
                 q1: "What is a node in Neo4j?",
                 q1a: "An entity or data point in the graph",
@@ -451,519 +585,96 @@
                 outlookShortestPath: "Shortest Path - Efficient pathfinding",
                 outlookAI: "AI Integration",
                 outlookAIDesc: "Neo4j can be combined with LLMs for:",
-                outlookExample1: "Example 1: Graph context for better recommendations",
-                outlookExample2: "Example 2: Anomaly detection through pattern analysis",
-                outlookExample3: "Example 3: Natural language graph queries",
+                outlookExample1: "Example 1: Graph context for better recommendations with Claude",
+                outlookExample2: "Example 2: Anomaly detection through pattern analysis and LLM classification",
+                outlookExample3: "Example 3: Natural language graph queries via Claude Code + MCP",
                 troubleshootTitle: "Common Issues",
                 troubleshoot1Title: "Neo4j won't start",
-                troubleshoot1: "Check if Docker is running. Try: docker restart neo4j",
+                troubleshoot1: "Check if Docker is running. Try: docker restart neo4j-lab. Check for port conflicts.",
                 troubleshoot2Title: "Browser can't connect",
-                troubleshoot2: "Make sure http://localhost:7474 is accessible. Check ports.",
+                troubleshoot2: "Make sure http://localhost:7474 is accessible. Check ports with: docker ps",
                 troubleshoot3Title: "Authentication error",
-                troubleshoot3: "Default credentials: neo4j / neo4j. Password must be changed on first login.",
+                troubleshoot3: "Default credentials: neo4j / password123. Password must be changed on first login.",
                 troubleshoot4Title: "Syntax error in Cypher",
-                troubleshoot4: "Use the browser's code editor with syntax highlighting.",
-                whatYouLearn: "What You'll Learn",
-                realWorldMotivation: "Neo4j is used by leading companies like NASA, Walmart, and eBay to manage complex relationships in large datasets.",
-                nasaDesc: "Manages space missions and satellite relationships",
-                walmartDesc: "Optimizes supply chain networks and customer relationships",
-                ebayDesc: "Improves product recommendations through graph analysis",
-                neo4jIs: "What is Neo4j?",
-                graphDatabase: "Graph Database - Stores data as interconnected nodes and relationships",
-                cypherLanguage: "Cypher Query Language - Specialized query language for graphs",
-                acidCompliant: "ACID-Compliant - Secure and consistent data transactions",
-                estimatedTime: "Estimated Time",
-                timeValue: "60-90 Minutes",
-                prerequisites: "Prerequisites",
-                prereqValue: "Basic database knowledge, Docker installed",
+                troubleshoot4: "Use the browser's code editor with syntax highlighting. Note case sensitivity for labels.",
+                troubleshoot5Title: "Not enough Docker memory",
+                troubleshoot5: "Increase Docker memory allocation. Open Docker Desktop and raise Memory in Settings.",
             },
             ar: {
-                back: "← العودة إلى الصفحة الرئيسية",
-                welcome: "مرحبا بك في مختبر Neo4j",
+                back: "← العودة",
                 overview: "نظرة عامة",
-                setup: "الإعداد والتثبيت",
+                setup: "الإعداد",
                 fundamentals: "الأساسيات",
-                exercise1: "التمرين 1: إنشاء العقد",
-                exercise2: "التمرين 2: إنشاء العلاقات",
-                exercise3: "التمرين 3: استعلام البيانات",
-                exercise4: "التمرين 4: التجميع والفرز",
-                exercise5: "التمرين 5: رسم بياني MegaStore",
-                exercise6: "التمرين 6: التوصيات",
-                challenge: "التحدي: الكشف عن الاحتيال",
-                quiz: "اختبار المعرفة",
-                outlook: "آفاق وذكاء اصطناعي",
-                troubleshooting: "استكشاف الأخطاء",
-                overviewContent: "Neo4j هي قاعدة بيانات رسومية تخزن البيانات كعقد وعلاقات. قواعد البيانات الرسومية مثالية للتطبيقات التي تحتوي على العديد من الاتصالات بين البيانات. في هذا المختبر ستتعلم:",
-                overviewList: ["المفاهيم الأساسية لقواعد البيانات الرسومية", "لغة الاستعلام Cypher", "إنشاء والاستعلام عن العقد والعلاقات", "مطابقة الأنماط", "الاجتياز الرسومي للاستعلامات المعقدة"],
-                setupTitle: "إعداد Docker لـ Neo4j",
-                setupSteps: "اتبع هذه الخطوات لبدء Neo4j محليًا:",
-                step1: "ابدأ صورة Docker",
-                step2: "افتح مستعرض Neo4j",
-                step3: "تسجيل الدخول بالبيانات الافتراضية",
-                step4: "تنفيذ أول أمر Cypher",
-                fundamentalsTitle: "أساسيات Neo4j",
-                nodesLabel: "العقد",
-                nodesDesc: "العقد هي كيانات في الرسم البياني. يمكن أن يكون لديهم خصائص.",
-                relationshipsLabel: "العلاقات",
-                relationshipsDesc: "الاتصالات بين العقد مع نوع واتجاه.",
-                cypherLabel: "Cypher",
-                cypherDesc: "لغة استعلام تصريحية لـ Neo4j، مشابهة لـ SQL لقواعد البيانات العلاقية.",
-                exerciseTitle: "التمرين",
-                yourTask: "مهمتك:",
-                expectedOutput: "الإخراج المتوقع:",
-                try: "جرب بنفسك!",
-                solution: "عرض الحل",
-                ex1Title: "إنشاء العقد",
-                ex1Desc: "أنشئ أنواع عقد مختلفة واستكشفها.",
-                ex1Task: "أنشئ عقدة شخص لـ 'Alice' (age: 30) وعقدة منتج لـ 'Laptop' (price: 999). ثم استعلم عن جميع العقد.",
-                ex2Title: "إنشاء العلاقات",
-                ex2Desc: "قم بربط العقد من خلال العلاقات.",
-                ex2Task: "أنشئ علاقة PURCHASED بين Alice والكمبيوتر. ثم استعلم عن جميع العلاقات.",
-                ex3Title: "استعلام البيانات",
-                ex3Desc: "استخدم مطابقة الأنماط مع عبارات WHERE.",
-                ex3Task: "ابحث عن جميع الأشخاص فوق 25 سنة. ابحث عن أصدقاء الأصدقاء.",
-                ex4Title: "التجميع والفرز",
-                ex4Desc: "تجميع ودمج البيانات باستخدام Cypher.",
-                ex4Task: "عد المنتجات حسب الفئة. فرز العملاء حسب عدد المشتريات.",
-                ex5Title: "استكشاف رسم بياني MegaStore",
-                ex5Desc: "العمل مع رسم بياني عميل واقعي.",
-                ex5Task: "ابحث عن المنتجات الأكثر شراءً. حلل أنماط شراء العملاء.",
-                ex6Title: "توليد التوصيات",
-                ex6Desc: "استخدم أنماط الرسم البياني لمنطق التوصية.",
-                ex6Task: "تنفيذ: 'العملاء الذين اشتروا X اشتروا أيضًا Y'.",
-                challengeTitle: "التحدي: الكشف عن الاحتيال",
-                challengeDesc: "ابحث عن أنماط معاملات مريبة في رسم بياني المعاملات.",
-                quizTitle: "اختبار المعرفة",
-                q1: "ما هي العقدة في Neo4j؟",
-                q1a: "كيان أو نقطة بيانات في الرسم البياني",
-                q1b: "جدول SQL",
-                q1c: "معامل في Cypher",
-                q1ans: "كيان أو نقطة بيانات في الرسم البياني",
-                q2: "ما الذي يصف العلاقة؟",
-                q2a: "عمود في جدول",
-                q2b: "اتصال بين عقدتين مع نوع واتجاه",
-                q2c: "فهرس في قاعدة البيانات",
-                q2ans: "اتصال بين عقدتين مع نوع واتجاه",
-                q3: "ماذا يفعل MATCH في Cypher؟",
-                q3a: "حذف البيانات من الرسم البياني",
-                q3b: "البحث عن الأنماط في الرسم البياني",
-                q3c: "إنشاء عقد جديدة",
-                q3ans: "البحث عن الأنماط في الرسم البياني",
-                q4: "متى يجب عليك استخدام قاعدة بيانات رسومية بدلاً من SQL؟",
-                q4a: "دائما",
-                q4b: "عندما تكون هناك علاقات كثيرة بين البيانات",
-                q4c: "للبيانات الجدولية البسيطة",
-                q4ans: "عندما تكون هناك علاقات كثيرة بين البيانات",
-                q5: "ماذا يظهر MATCH (a)-[:PURCHASED]->(p) RETURN a, p؟",
-                q5a: "المنتجات فقط",
-                q5b: "جميع العملاء والمنتجات التي اشتروها",
-                q5c: "العملاء فقط",
-                q5ans: "جميع العملاء والمنتجات التي اشتروها",
-                q6: "ما فائدة الاجتياز الرسومي؟",
-                q6a: "تخزين أسرع",
-                q6b: "تشفير أفضل",
-                q6c: "الملاحة الفعالة على العلاقات بدون عمليات دمج",
-                q6ans: "الملاحة الفعالة على العلاقات بدون عمليات دمج",
+                exercise1: "التمرين 1",
+                exercise2: "التمرين 2",
+                exercise3: "التمرين 3",
+                exercise4: "التمرين 4",
+                exercise5: "التمرين 5",
+                exercise6: "التمرين 6",
+                challenge: "التحدي",
+                quiz: "الاختبار",
+                outlook: "آفاق",
+                troubleshooting: "الدعم",
+                copy: "نسخ",
                 correct: "صحيح!",
-                incorrect: "ليس تماما. الإجابة الصحيحة هي:",
-                outlookAdvanced: "المواضيع المتقدمة",
-                outlookGDS: "مكتبة العلوم الرسومية - خوارزميات لتحليل الشبكات",
-                outlookCommunity: "كشف المجتمع - اكتشاف المجموعات في الرسم البياني",
-                outlookPageRank: "PageRank - تقييم أهمية العقد",
-                outlookShortestPath: "أقصر طريق - البحث عن المسار الفعال",
-                outlookAI: "تكامل الذكاء الاصطناعي",
-                outlookAIDesc: "يمكن الجمع بين Neo4j و LLMs من أجل:",
-                outlookExample1: "مثال 1: سياق الرسم البياني لتوصيات أفضل",
-                outlookExample2: "مثال 2: الكشف عن الشذوذ من خلال تحليل الأنماط",
-                outlookExample3: "مثال 3: استعلامات الرسم البياني باللغة الطبيعية",
-                troubleshootTitle: "المشاكل الشائعة",
-                troubleshoot1Title: "فشل بدء Neo4j",
-                troubleshoot1: "تحقق مما إذا كان Docker قيد التشغيل. حاول: docker restart neo4j",
-                troubleshoot2Title: "لا يمكن للمتصفح الاتصال",
-                troubleshoot2: "تأكد من أن http://localhost:7474 متاح. تحقق من الموانئ.",
-                troubleshoot3Title: "خطأ في المصادقة",
-                troubleshoot3: "بيانات اعتماد افتراضية: neo4j / neo4j. يجب تغيير كلمة المرور عند تسجيل الدخول الأول.",
-                troubleshoot4Title: "خطأ صيغة في Cypher",
-                troubleshoot4: "استخدم محرر الكود في المتصفح مع إبراز الصيغة.",
-                whatYouLearn: "ما ستتعلمه",
-                realWorldMotivation: "يتم استخدام Neo4j من قبل شركات رائدة مثل NASA و Walmart و eBay لإدارة العلاقات المعقدة في مجموعات البيانات الكبيرة.",
-                nasaDesc: "تدير المهام الفضائية وعلاقات الأقمار الصناعية",
-                walmartDesc: "تحسن شبكات سلسلة التوريد والعلاقات مع العملاء",
-                ebayDesc: "تحسن توصيات المنتجات من خلال تحليل الرسم البياني",
-                neo4jIs: "ما هو Neo4j؟",
-                graphDatabase: "قاعدة بيانات الرسم البياني - تخزن البيانات كعقد وعلاقات متصلة",
-                cypherLanguage: "لغة استعلام Cypher - لغة استعلام متخصصة للرسوم البيانية",
-                acidCompliant: "متوافق مع ACID - معاملات بيانات آمنة وثابتة",
-                estimatedTime: "الوقت المقدر",
-                timeValue: "60-90 دقيقة",
-                prerequisites: "المتطلبات الأساسية",
-                prereqValue: "معرفة أساسية بقواعد البيانات، Docker مثبت",
+                incorrect: "غير صحيح",
             },
             uk: {
-                back: "← Повернутися на головну сторінку",
-                welcome: "Ласкаво просимо в лабораторію Neo4j",
+                back: "← Повернутися",
                 overview: "Огляд",
-                setup: "Налаштування та встановлення",
+                setup: "Налаштування",
                 fundamentals: "Основи",
-                exercise1: "Вправа 1: Створення вузлів",
-                exercise2: "Вправа 2: Створення зв'язків",
-                exercise3: "Вправа 3: Запити даних",
-                exercise4: "Вправа 4: Агрегація та сортування",
-                exercise5: "Вправа 5: Граф MegaStore",
-                exercise6: "Вправа 6: Рекомендації",
-                challenge: "Виклик: Виявлення шахрайства",
-                quiz: "Тест знань",
-                outlook: "Перспективи та ШІ",
-                troubleshooting: "Усунення невиправностей",
-                overviewContent: "Neo4j — це графова база даних, яка зберігає дані як вузли та зв'язки. Графові бази даних ідеальні для програм з багатьма зв'язками між даними. У цій лабораторії ви дізнаєтесь:",
-                overviewList: ["Базові поняття графових баз даних", "Мова запитів Cypher", "Створення та запит вузлів та зв'язків", "Узгодження шаблонів", "Обхід графу для складних запитів"],
-                setupTitle: "Налаштування Docker для Neo4j",
-                setupSteps: "Виконайте ці кроки для локального запуску Neo4j:",
-                step1: "Запустіть образ Docker",
-                step2: "Відкрийте браузер Neo4j",
-                step3: "Увійдіть з облікови ми даними за замовчуванням",
-                step4: "Виконайте першу команду Cypher",
-                fundamentalsTitle: "Основи Neo4j",
-                nodesLabel: "Вузли",
-                nodesDesc: "Вузли — це сутності в графі. Вони можуть мати властивості.",
-                relationshipsLabel: "Зв'язки",
-                relationshipsDesc: "З'єднання між вузлами з типом і напрямком.",
-                cypherLabel: "Cypher",
-                cypherDesc: "Декларативна мова запитів для Neo4j, подібна до SQL для реляційних баз даних.",
-                exerciseTitle: "Вправа",
-                yourTask: "Ваше завдання:",
-                expectedOutput: "Очікуваний результат:",
-                try: "Спробуйте самі!",
-                solution: "Показати рішення",
-                ex1Title: "Створення вузлів",
-                ex1Desc: "Створіть різні типи вузлів і дослідіть їх.",
-                ex1Task: "Створіть вузол Person для 'Alice' (age: 30) та вузол Product для 'Laptop' (price: 999). Потім запитайте всі вузли.",
-                ex2Title: "Створення зв'язків",
-                ex2Desc: "З'єднайте вузли через зв'язки.",
-                ex2Task: "Створіть зв'язок PURCHASED між Alice та ноутбуком. Потім запитайте всі зв'язки.",
-                ex3Title: "Запити даних",
-                ex3Desc: "Використовуйте узгодження шаблонів з пропозиціями WHERE.",
-                ex3Task: "Знайдіть всіх людей старше 25 років. Знайдіть друзів друзів.",
-                ex4Title: "Агрегація та сортування",
-                ex4Desc: "Групуйте та агрегуйте дані за допомогою Cypher.",
-                ex4Task: "Підрахуйте продукти за категоріями. Сортуйте клієнтів за кількістю покупок.",
-                ex5Title: "Вивчення графу MegaStore",
-                ex5Desc: "Робота з реалістичним графом клієнтів.",
-                ex5Task: "Знайдіть найбільш придбані продукти. Проаналізуйте шаблони покупок клієнтів.",
-                ex6Title: "Генерація рекомендацій",
-                ex6Desc: "Використовуйте графові шаблони для логіки рекомендацій.",
-                ex6Task: "Реалізуйте: 'Клієнти, які купили X, купили також Y'.",
-                challengeTitle: "Виклик: Виявлення шахрайства",
-                challengeDesc: "Знайдіть підозрілі шаблони транзакцій у графі транзакцій.",
-                quizTitle: "Тест знань",
-                q1: "Що таке вузол у Neo4j?",
-                q1a: "Сутність або точка даних у графі",
-                q1b: "Таблиця SQL",
-                q1c: "Параметр у Cypher",
-                q1ans: "Сутність або точка даних у графі",
-                q2: "Що описує зв'язок?",
-                q2a: "Стовпець у таблиці",
-                q2b: "З'єднання між двома вузлами з типом і напрямком",
-                q2c: "Індекс у базі даних",
-                q2ans: "З'єднання між двома вузлами з типом і напрямком",
-                q3: "Що робить MATCH у Cypher?",
-                q3a: "Видаляє дані з графу",
-                q3b: "Шукає шаблони в графі",
-                q3c: "Створює нові вузли",
-                q3ans: "Шукає шаблони в графі",
-                q4: "Коли слід використовувати графову базу даних замість SQL?",
-                q4a: "Завжди",
-                q4b: "Коли існує багато зв'язків між даними",
-                q4c: "Для простих табличних даних",
-                q4ans: "Коли існує багато зв'язків між даними",
-                q5: "Що показує MATCH (a)-[:PURCHASED]->(p) RETURN a, p?",
-                q5a: "Тільки продукти",
-                q5b: "Всі клієнти та їхні придбані продукти",
-                q5c: "Тільки клієнти",
-                q5ans: "Всі клієнти та їхні придбані продукти",
-                q6: "Яка перевага обходу графу?",
-                q6a: "Швидше зберігання",
-                q6b: "Краще шифрування",
-                q6c: "Ефективна навігація по зв'язкам без об'єднань",
-                q6ans: "Ефективна навігація по зв'язкам без об'єднань",
+                exercise1: "Вправа 1",
+                exercise2: "Вправа 2",
+                exercise3: "Вправа 3",
+                exercise4: "Вправа 4",
+                exercise5: "Вправа 5",
+                exercise6: "Вправа 6",
+                challenge: "Виклик",
+                quiz: "Тест",
+                outlook: "Перспективи",
+                troubleshooting: "Підтримка",
+                copy: "Копіювати",
                 correct: "Правильно!",
-                incorrect: "Не зовсім. Правильна відповідь:",
-                outlookAdvanced: "Розширені теми",
-                outlookGDS: "Бібліотека науки про графи - алгоритми аналізу мереж",
-                outlookCommunity: "Виявлення громад - пошук груп у графі",
-                outlookPageRank: "PageRank - оцінка важливості вузлів",
-                outlookShortestPath: "Найкоротший шлях - ефективний пошук шляху",
-                outlookAI: "Інтеграція ШІ",
-                outlookAIDesc: "Neo4j можна комбінувати з LLM для:",
-                outlookExample1: "Приклад 1: Контекст графу для кращих рекомендацій",
-                outlookExample2: "Приклад 2: Виявлення аномалій через аналіз шаблонів",
-                outlookExample3: "Приклад 3: Запити до графу природною мовою",
-                troubleshootTitle: "Поширені проблеми",
-                troubleshoot1Title: "Neo4j не запускається",
-                troubleshoot1: "Перевірте, чи запущений Docker. Спробуйте: docker restart neo4j",
-                troubleshoot2Title: "Браузер не може підключитися",
-                troubleshoot2: "Переконайтесь, що http://localhost:7474 доступний. Перевірте порти.",
-                troubleshoot3Title: "Помилка автентифікації",
-                troubleshoot3: "Облікові дані за замовчуванням: neo4j / neo4j. Пароль повинен бути змінений при першому вході.",
-                troubleshoot4Title: "Синтаксична помилка в Cypher",
-                troubleshoot4: "Використовуйте редактор кодів браузера з виділенням синтаксису.",
-                whatYouLearn: "Що ви дізнаєтесь",
-                realWorldMotivation: "Neo4j використовується провідними компаніями, такими як NASA, Walmart та eBay, для управління складними зв'язками у великих наборах даних.",
-                nasaDesc: "Керує космічними місіями та зв'язками супутників",
-                walmartDesc: "Оптимізує мережі ланцюгів поставок та взаємовідносини з клієнтами",
-                ebayDesc: "Покращує рекомендації продуктів завдяки аналізу графів",
-                neo4jIs: "Що таке Neo4j?",
-                graphDatabase: "Графова база даних - зберігає дані як взаємопов'язані вузли та зв'язки",
-                cypherLanguage: "Мова запитів Cypher - спеціалізована мова запитів для графів",
-                acidCompliant: "Сумісна з ACID - безпечні та послідовні операції з даними",
-                estimatedTime: "Приблизний час",
-                timeValue: "60-90 хвилин",
-                prerequisites: "Передумови",
-                prereqValue: "Базові знання про бази даних, встановлено Docker",
+                incorrect: "Неправильно",
             },
             es: {
-                back: "← Volver a la página de inicio",
-                welcome: "Bienvenido al laboratorio de Neo4j",
-                overview: "Descripción general",
-                setup: "Configuración e instalación",
+                back: "← Volver",
+                overview: "Descripción",
+                setup: "Configuración",
                 fundamentals: "Fundamentos",
-                exercise1: "Ejercicio 1: Creación de nodos",
-                exercise2: "Ejercicio 2: Creación de relaciones",
-                exercise3: "Ejercicio 3: Consulta de datos",
-                exercise4: "Ejercicio 4: Agregación y ordenamiento",
-                exercise5: "Ejercicio 5: Gráfico MegaStore",
-                exercise6: "Ejercicio 6: Recomendaciones",
-                challenge: "Desafío: Detección de fraude",
-                quiz: "Prueba de conocimiento",
-                outlook: "Perspectivas e IA",
-                troubleshooting: "Solución de problemas",
-                overviewContent: "Neo4j es una base de datos de grafos que almacena datos como nodos y relaciones. Las bases de datos de grafos son perfectas para aplicaciones con muchas conexiones entre datos. En este laboratorio aprenderás:",
-                overviewList: ["Conceptos básicos de bases de datos de grafos", "Lenguaje de consulta Cypher", "Creación y consulta de nodos y relaciones", "Coincidencia de patrones", "Recorrido de gráficos para consultas complejas"],
-                setupTitle: "Configuración de Docker para Neo4j",
-                setupSteps: "Sigue estos pasos para iniciar Neo4j localmente:",
-                step1: "Inicia la imagen de Docker",
-                step2: "Abre el navegador Neo4j",
-                step3: "Inicia sesión con credenciales predeterminadas",
-                step4: "Ejecuta el primer comando Cypher",
-                fundamentalsTitle: "Fundamentos de Neo4j",
-                nodesLabel: "Nodos",
-                nodesDesc: "Los nodos son entidades en el gráfico. Pueden tener propiedades.",
-                relationshipsLabel: "Relaciones",
-                relationshipsDesc: "Conexiones entre nodos con un tipo y dirección.",
-                cypherLabel: "Cypher",
-                cypherDesc: "Lenguaje de consulta declarativo para Neo4j, similar a SQL para bases de datos relacionales.",
-                exerciseTitle: "Ejercicio",
-                yourTask: "Tu tarea:",
-                expectedOutput: "Resultado esperado:",
-                try: "¡Inténtalo tú mismo!",
-                solution: "Mostrar solución",
-                ex1Title: "Creación de nodos",
-                ex1Desc: "Crea diferentes tipos de nodos y explóralos.",
-                ex1Task: "Crea un nodo Person para 'Alice' (edad: 30) y un nodo Product para 'Laptop' (precio: 999). Luego consulta todos los nodos.",
-                ex2Title: "Creación de relaciones",
-                ex2Desc: "Conecta nodos a través de relaciones.",
-                ex2Task: "Crea una relación PURCHASED entre Alice y la Laptop. Luego consulta todas las relaciones.",
-                ex3Title: "Consulta de datos",
-                ex3Desc: "Usa coincidencia de patrones con cláusulas WHERE.",
-                ex3Task: "Encuentra todas las personas mayores de 25 años. Encuentra amigos de amigos.",
-                ex4Title: "Agregación y ordenamiento",
-                ex4Desc: "Agrupa y agrega datos con Cypher.",
-                ex4Task: "Cuenta productos por categoría. Ordena clientes por número de compras.",
-                ex5Title: "Explorando el gráfico MegaStore",
-                ex5Desc: "Trabaja con un gráfico de cliente realista.",
-                ex5Task: "Encuentra los productos más comprados. Analiza los patrones de compra de clientes.",
-                ex6Title: "Generar recomendaciones",
-                ex6Desc: "Usa patrones de gráficos para lógica de recomendación.",
-                ex6Task: "Implementa: 'Los clientes que compraron X también compraron Y'.",
-                challengeTitle: "Desafío: Detección de fraude",
-                challengeDesc: "Encuentra patrones de transacciones sospechosas en un gráfico de transacciones.",
-                quizTitle: "Prueba de conocimiento",
-                q1: "¿Qué es un nodo en Neo4j?",
-                q1a: "Una entidad o punto de datos en el gráfico",
-                q1b: "Una tabla SQL",
-                q1c: "Un parámetro en Cypher",
-                q1ans: "Una entidad o punto de datos en el gráfico",
-                q2: "¿Qué describe una relación?",
-                q2a: "Una columna en una tabla",
-                q2b: "Conexión entre dos nodos con tipo y dirección",
-                q2c: "Un índice en la base de datos",
-                q2ans: "Conexión entre dos nodos con tipo y dirección",
-                q3: "¿Qué hace MATCH en Cypher?",
-                q3a: "Elimina datos del gráfico",
-                q3b: "Busca patrones en el gráfico",
-                q3c: "Crea nuevos nodos",
-                q3ans: "Busca patrones en el gráfico",
-                q4: "¿Cuándo deberías usar una base de datos de grafos en lugar de SQL?",
-                q4a: "Siempre",
-                q4b: "Cuando hay muchas relaciones entre datos",
-                q4c: "Para datos de tabla simple",
-                q4ans: "Cuando hay muchas relaciones entre datos",
-                q5: "¿Qué muestra MATCH (a)-[:PURCHASED]->(p) RETURN a, p?",
-                q5a: "Solo productos",
-                q5b: "Todos los clientes y sus productos comprados",
-                q5c: "Solo clientes",
-                q5ans: "Todos los clientes y sus productos comprados",
-                q6: "¿Cuál es una ventaja del recorrido de gráficos?",
-                q6a: "Almacenamiento más rápido",
-                q6b: "Mejor encriptación",
-                q6c: "Navegación eficiente sobre relaciones sin combinaciones",
-                q6ans: "Navegación eficiente sobre relaciones sin combinaciones",
+                exercise1: "Ejercicio 1",
+                exercise2: "Ejercicio 2",
+                exercise3: "Ejercicio 3",
+                exercise4: "Ejercicio 4",
+                exercise5: "Ejercicio 5",
+                exercise6: "Ejercicio 6",
+                challenge: "Desafío",
+                quiz: "Prueba",
+                outlook: "Perspectivas",
+                troubleshooting: "Soporte",
+                copy: "Copiar",
                 correct: "¡Correcto!",
-                incorrect: "No exactamente. La respuesta correcta es:",
-                outlookAdvanced: "Temas avanzados",
-                outlookGDS: "Biblioteca de ciencia de grafos - Algoritmos para análisis de redes",
-                outlookCommunity: "Detección de comunidades - Descubrimiento de grupos en el gráfico",
-                outlookPageRank: "PageRank - Calificación de importancia de nodos",
-                outlookShortestPath: "Ruta más corta - Búsqueda eficiente de ruta",
-                outlookAI: "Integración de IA",
-                outlookAIDesc: "Neo4j se puede combinar con LLMs para:",
-                outlookExample1: "Ejemplo 1: Contexto de gráfico para mejores recomendaciones",
-                outlookExample2: "Ejemplo 2: Detección de anomalías mediante análisis de patrones",
-                outlookExample3: "Ejemplo 3: Consultas de gráficos en lenguaje natural",
-                troubleshootTitle: "Problemas comunes",
-                troubleshoot1Title: "Neo4j no se inicia",
-                troubleshoot1: "Comprueba si Docker está en ejecución. Intenta: docker restart neo4j",
-                troubleshoot2Title: "El navegador no puede conectarse",
-                troubleshoot2: "Asegúrate de que http://localhost:7474 sea accesible. Comprueba los puertos.",
-                troubleshoot3Title: "Error de autenticación",
-                troubleshoot3: "Credenciales predeterminadas: neo4j / neo4j. La contraseña debe cambiarse en el primer inicio de sesión.",
-                troubleshoot4Title: "Error de sintaxis en Cypher",
-                troubleshoot4: "Usa el editor de código del navegador con resaltado de sintaxis.",
-                whatYouLearn: "Lo que aprenderás",
-                realWorldMotivation: "Neo4j es utilizado por empresas líderes como NASA, Walmart y eBay para gestionar relaciones complejas en grandes conjuntos de datos.",
-                nasaDesc: "Gestiona misiones espaciales y relaciones de satélites",
-                walmartDesc: "Optimiza redes de cadena de suministro y relaciones con clientes",
-                ebayDesc: "Mejora recomendaciones de productos a través del análisis de grafos",
-                neo4jIs: "¿Qué es Neo4j?",
-                graphDatabase: "Base de datos de grafos - Almacena datos como nodos y relaciones interconectadas",
-                cypherLanguage: "Lenguaje de consulta Cypher - Lenguaje de consulta especializado para grafos",
-                acidCompliant: "Cumplimiento de ACID - Transacciones de datos seguras y consistentes",
-                estimatedTime: "Tiempo estimado",
-                timeValue: "60-90 minutos",
-                prerequisites: "Requisitos previos",
-                prereqValue: "Conocimientos básicos de bases de datos, Docker instalado",
+                incorrect: "Incorrecto",
             },
             tr: {
-                back: "← Ana sayfaya geri dön",
-                welcome: "Neo4j Laboratuvarına Hoş Geldiniz",
+                back: "← Geri",
                 overview: "Genel Bakış",
-                setup: "Kurulum ve Yükleme",
+                setup: "Kurulum",
                 fundamentals: "Temel Bilgiler",
-                exercise1: "Alıştırma 1: Düğüm Oluşturma",
-                exercise2: "Alıştırma 2: İlişki Oluşturma",
-                exercise3: "Alıştırma 3: Veri Sorgusu",
-                exercise4: "Alıştırma 4: Toplama ve Sıralama",
-                exercise5: "Alıştırma 5: MegaStore Grafiği",
-                exercise6: "Alıştırma 6: Öneriler",
-                challenge: "Zorluk: Sahtekarlık Tespiti",
-                quiz: "Bilgi Testi",
-                outlook: "Görünüm ve Yapay Zeka",
-                troubleshooting: "Sorun Giderme",
-                overviewContent: "Neo4j, verileri düğümler ve ilişkiler olarak depolayan bir grafik veritabanıdır. Grafik veritabanları, veriler arasında birçok bağlantısı olan uygulamalar için idealdir. Bu laboratuvarda şunları öğreneceksiniz:",
-                overviewList: ["Grafik veritabanlarının temel kavramları", "Cypher sorgu dili", "Düğüm ve ilişkiler oluşturma ve sorgulama", "Desen eşleştirme", "Karmaşık sorgular için grafik geçişi"],
-                setupTitle: "Neo4j için Docker Kurulumu",
-                setupSteps: "Neo4j'yi yerel olarak başlatmak için şu adımları izleyin:",
-                step1: "Docker görüntüsünü başlat",
-                step2: "Neo4j Tarayıcısını aç",
-                step3: "Varsayılan kimlik bilgileriyle oturum aç",
-                step4: "İlk Cypher komutunu çalıştır",
-                fundamentalsTitle: "Neo4j Temelleri",
-                nodesLabel: "Düğümler",
-                nodesDesc: "Düğümler grafikteki varlıklardır. Özellikleri olabilir.",
-                relationshipsLabel: "İlişkiler",
-                relationshipsDesc: "Düğümler arasında tür ve yön içeren bağlantılar.",
-                cypherLabel: "Cypher",
-                cypherDesc: "Neo4j için bildirimsel sorgu dili, ilişkisel veritabanları için SQL'e benzer.",
-                exerciseTitle: "Alıştırma",
-                yourTask: "Göreviniz:",
-                expectedOutput: "Beklenen çıktı:",
-                try: "Kendiniz deneyin!",
-                solution: "Çözümü göster",
-                ex1Title: "Düğüm Oluşturma",
-                ex1Desc: "Farklı düğüm türleri oluşturun ve keşfedin.",
-                ex1Task: "'Alice' için bir Person düğümü (yaş: 30) ve 'Laptop' için bir Product düğümü (fiyat: 999) oluşturun. Ardından tüm düğümleri sorgulayın.",
-                ex2Title: "İlişki Oluşturma",
-                ex2Desc: "Düğümleri ilişkilerle bağlayın.",
-                ex2Task: "Alice ile Laptop arasında bir PURCHASED ilişkisi oluşturun. Ardından tüm ilişkileri sorgulayın.",
-                ex3Title: "Veri Sorgusu",
-                ex3Desc: "WHERE cümleleriyle desen eşleştirmesi kullanın.",
-                ex3Task: "25 yaşından büyük tüm kişileri bulun. Arkadaşların arkadaşlarını bulun.",
-                ex4Title: "Toplama ve Sıralama",
-                ex4Desc: "Cypher ile verileri gruplandırın ve toplayın.",
-                ex4Task: "Ürünleri kategoriye göre sayın. Müşterileri satın alma sayısına göre sıralayın.",
-                ex5Title: "MegaStore Grafiğini Keşfetme",
-                ex5Desc: "Gerçekçi bir müşteri grafiğiyle çalışın.",
-                ex5Task: "En çok satın alınan ürünleri bulun. Müşteri satın alma desenlerini analiz edin.",
-                ex6Title: "Öneriler Oluşturma",
-                ex6Desc: "Tavsiye mantığı için grafik desenlerini kullanın.",
-                ex6Task: "Uygulayın: 'X satın alan müşteriler Y de satın aldı'.",
-                challengeTitle: "Zorluk: Sahtekarlık Tespiti",
-                challengeDesc: "İşlem grafiğinde şüpheli işlem desenlerini bulun.",
-                quizTitle: "Bilgi Testi",
-                q1: "Neo4j'de düğüm nedir?",
-                q1a: "Grafikteki bir varlık veya veri noktası",
-                q1b: "Bir SQL tablosu",
-                q1c: "Cypher'de bir parametre",
-                q1ans: "Grafikteki bir varlık veya veri noktası",
-                q2: "İlişki neyi tanımlar?",
-                q2a: "Tablodaki bir sütun",
-                q2b: "Türü ve yönü olan iki düğüm arasındaki bağlantı",
-                q2c: "Veritabanındaki bir dizin",
-                q2ans: "Türü ve yönü olan iki düğüm arasındaki bağlantı",
-                q3: "Cypher'de MATCH ne yapar?",
-                q3a: "Grafikteki verileri siler",
-                q3b: "Grafikteki desenleri arar",
-                q3c: "Yeni düğümler oluşturur",
-                q3ans: "Grafikteki desenleri arar",
-                q4: "Grafik veritabanını SQL yerine ne zaman kullanmalısınız?",
-                q4a: "Her zaman",
-                q4b: "Veriler arasında birçok ilişki olduğunda",
-                q4c: "Basit tablo verileri için",
-                q4ans: "Veriler arasında birçok ilişki olduğunda",
-                q5: "MATCH (a)-[:PURCHASED]->(p) RETURN a, p ne gösterir?",
-                q5a: "Sadece ürünler",
-                q5b: "Tüm müşteriler ve satın aldıkları ürünler",
-                q5c: "Sadece müşteriler",
-                q5ans: "Tüm müşteriler ve satın aldıkları ürünler",
-                q6: "Grafik geçişinin avantajı nedir?",
-                q6a: "Daha hızlı depolama",
-                q6b: "Daha iyi şifreleme",
-                q6c: "Birleştirme olmadan ilişkiler üzerinde verimli gezinti",
-                q6ans: "Birleştirme olmadan ilişkiler üzerinde verimli gezinti",
+                exercise1: "Alıştırma 1",
+                exercise2: "Alıştırma 2",
+                exercise3: "Alıştırma 3",
+                exercise4: "Alıştırma 4",
+                exercise5: "Alıştırma 5",
+                exercise6: "Alıştırma 6",
+                challenge: "Zorluk",
+                quiz: "Test",
+                outlook: "Görünüm",
+                troubleshooting: "Destek",
+                copy: "Kopyala",
                 correct: "Doğru!",
-                incorrect: "Çok doğru değil. Doğru cevap:",
-                outlookAdvanced: "İleri Konular",
-                outlookGDS: "Grafik Veri Bilimi Kitaplığı - Ağ analizi algoritmaları",
-                outlookCommunity: "Topluluk Tespiti - Grafikteki grupları keşfetme",
-                outlookPageRank: "PageRank - Düğümlerin önemini derecelendirme",
-                outlookShortestPath: "En Kısa Yol - Verimli yol bulma",
-                outlookAI: "Yapay Zeka Entegrasyonu",
-                outlookAIDesc: "Neo4j, LLM'lerle birleştirilebilir:",
-                outlookExample1: "Örnek 1: Daha iyi öneriler için grafik bağlamı",
-                outlookExample2: "Örnek 2: Desen analizi aracılığıyla anomali tespiti",
-                outlookExample3: "Örnek 3: Doğal dil grafik sorguları",
-                troubleshootTitle: "Yaygın Sorunlar",
-                troubleshoot1Title: "Neo4j başlamıyor",
-                troubleshoot1: "Docker'ın çalışıp çalışmadığını kontrol edin. Deneyin: docker restart neo4j",
-                troubleshoot2Title: "Tarayıcı bağlanmıyor",
-                troubleshoot2: "http://localhost:7474 erişilebilir olduğundan emin olun. Bağlantı noktalarını kontrol edin.",
-                troubleshoot3Title: "Kimlik doğrulama hatası",
-                troubleshoot3: "Varsayılan kimlik bilgileri: neo4j / neo4j. Şifre ilk girişte değiştirilmelidir.",
-                troubleshoot4Title: "Cypher'de sözdizimi hatası",
-                troubleshoot4: "Tarayıcının kod editörünü sözdizimi vurgulaması ile kullanın.",
-                whatYouLearn: "Öğrenecekleriniz",
-                realWorldMotivation: "Neo4j, NASA, Walmart ve eBay gibi önde gelen şirketler tarafından büyük veri setlerindeki karmaşık ilişkileri yönetmek için kullanılır.",
-                nasaDesc: "Uzay görevlerini ve uydu ilişkilerini yönetir",
-                walmartDesc: "Tedarik zinciri ağlarını ve müşteri ilişkilerini optimize eder",
-                ebayDesc: "Grafik analizi aracılığıyla ürün önerilerini iyileştirir",
-                neo4jIs: "Neo4j Nedir?",
-                graphDatabase: "Grafik Veritabanı - Verileri bağlantılı düğümler ve ilişkiler olarak depolar",
-                cypherLanguage: "Cypher Sorgu Dili - Grafikler için uzmanlaşmış sorgu dili",
-                acidCompliant: "ACID Uyumlu - Güvenli ve tutarlı veri işlemleri",
-                estimatedTime: "Tahmini Zaman",
-                timeValue: "60-90 dakika",
-                prerequisites: "Ön Koşullar",
-                prereqValue: "Temel veritabanı bilgisi, Docker yüklenmiş",
+                incorrect: "Yanlış",
             },
         };
 
@@ -974,24 +685,26 @@
         }
 
         function App() {
-            const [lang, setLang] = useState('de');
+            const [language, setLanguage] = useState('de');
             const [activeSection, setActiveSection] = useState('overview');
-            const [expandedExercises, setExpandedExercises] = useState({});
+            const [expandedItems, setExpandedItems] = useState({});
             const [quizAnswers, setQuizAnswers] = useState({});
 
-            const t = new Proxy(translations[lang], { get: (target, prop) => target[prop] !== undefined ? target[prop] : translations['de'][prop] });
+            const t = new Proxy(translations[language], {
+                get: (target, prop) => target[prop] !== undefined ? target[prop] : translations['de'][prop]
+            });
 
-            const toggleExpandable = (id) => {
-                setExpandedExercises(prev => ({
+            const toggleExpanded = (id) => {
+                setExpandedItems(prev => ({
                     ...prev,
                     [id]: !prev[id]
                 }));
             };
 
-            const answerQuiz = (questionNum, isCorrect) => {
+            const answerQuiz = (qNum, isCorrect) => {
                 setQuizAnswers(prev => ({
                     ...prev,
-                    [questionNum]: isCorrect
+                    [qNum]: isCorrect
                 }));
             };
 
@@ -1011,449 +724,337 @@
                 { id: 'troubleshooting', label: t.troubleshooting },
             ];
 
+            const renderCodeBlock = (code, label) => (
+                <div className="code-block">
+                    <button className="copy-btn" onClick={() => copyToClipboard(code)}>
+                        {t.copy}
+                    </button>
+                    <code>{code}</code>
+                </div>
+            );
+
+            const renderExercise = (num, title, time, goal, showCode, output, explain, task, hint, solution, verify) => (
+                <div className="section" style={{display: activeSection === `exercise${num}` ? 'block' : 'none'}}>
+                    <h2 className="section-header">{title}</h2>
+                    <div className="card">
+                        <span className="badge badge-beginner">{t.exerciseTitle} {num}</span>
+                        <span className="badge badge-intermediate">{time}</span>
+                        <p><strong>{t.ex1Goal}:</strong> {goal}</p>
+                    </div>
+
+                    <div className="card">
+                        <h3 className="subsection-header">Beispiel (Show)</h3>
+                        {renderCodeBlock(showCode, `Example ${num}`)}
+                        <div className="output-box">{output}</div>
+                    </div>
+
+                    <div className="card">
+                        <h3 className="subsection-header">Erklärung (Explain)</h3>
+                        <p>{explain}</p>
+                    </div>
+
+                    <div className="card">
+                        <h3 className="subsection-header">{t.yourTask}</h3>
+                        <p>{task}</p>
+                    </div>
+
+                    <div className="hint-box">
+                        <div className="hint-title">Hinweis:</div>
+                        <p>{hint}</p>
+                    </div>
+
+                    <div className="expandable" onClick={() => toggleExpanded(`ex${num}sol`)} style={{cursor: 'pointer'}}>
+                        <div className="expandable-header">
+                            {t.solution}
+                            <span className="expandable-chevron">▼</span>
+                        </div>
+                        {expandedItems[`ex${num}sol`] && (
+                            <div className="expandable-content">
+                                {renderCodeBlock(solution, `Solution ${num}`)}
+                            </div>
+                        )}
+                    </div>
+
+                    <div className="card">
+                        <h3 className="subsection-header">Überprüfung (Verify)</h3>
+                        <p>{verify}</p>
+                    </div>
+
+                    <div className="next-button">
+                        <button className="btn-accent" onClick={() => setActiveSection(`exercise${num === 6 ? 'challenge' : num + 1}`)}>
+                            {t.nextExercise}
+                        </button>
+                    </div>
+                </div>
+            );
+
             return (
-                <div dir={lang === 'ar' ? 'rtl' : 'ltr'}>
-                    <div className="header">
+                <div>
+                    <header className="header">
                         <div className="header-left">
-                            <button className="back-btn" onClick={() => window.location.href = '/'}>←</button>
-                            <div className="header-title">{t.welcome}</div>
+                            <button className="back-btn" onClick={() => window.history.back()}>←</button>
+                            <h1 className="header-title">{t.welcome}</h1>
                         </div>
                         <div className="lang-switcher">
-                            {['de', 'en', 'ar', 'uk', 'es', 'tr'].map(lang_code => (
+                            {['de', 'en', 'ar', 'uk', 'es', 'tr'].map(lang => (
                                 <button
-                                    key={lang_code}
-                                    className={`lang-btn ${lang === lang_code ? 'active' : ''}`}
-                                    onClick={() => setLang(lang_code)}
+                                    key={lang}
+                                    className={`lang-btn ${language === lang ? 'active' : ''}`}
+                                    onClick={() => setLanguage(lang)}
                                 >
-                                    {lang_code.toUpperCase()}
+                                    {lang.toUpperCase()}
                                 </button>
                             ))}
                         </div>
-                    </div>
+                    </header>
 
-                    <div className="sidebar">
+                    <aside className="sidebar">
                         {menuItems.map(item => (
-                            <div
+                            <button
                                 key={item.id}
                                 className={`sidebar-item ${activeSection === item.id ? 'active' : ''}`}
                                 onClick={() => setActiveSection(item.id)}
                             >
                                 {item.label}
-                            </div>
+                            </button>
                         ))}
-                    </div>
+                    </aside>
 
-                    <div className="main-content">
+                    <main className="main-content">
                         {/* OVERVIEW */}
-                        <div className={`section ${activeSection === 'overview' ? 'active' : ''}`}>
-                            <h1 className="section-header">{t.overview}</h1>
+                        <div className="section" style={{display: activeSection === 'overview' ? 'block' : 'none'}}>
+                            <h2 className="section-header">{t.overview}</h2>
+
                             <div className="lesson-box">
-                                <h3 style={{ color: '#E8792F', marginBottom: '1rem' }}>{t.whatYouLearn}</h3>
-                                <p>{t.realWorldMotivation}</p>
-                                <ul style={{ listStyle: 'none', paddingLeft: 0, marginTop: '1rem' }}>
-                                    <li style={{ marginBottom: '0.5rem' }}><strong>NASA:</strong> {t.nasaDesc}</li>
-                                    <li style={{ marginBottom: '0.5rem' }}><strong>Walmart:</strong> {t.walmartDesc}</li>
-                                    <li><strong>eBay:</strong> {t.ebayDesc}</li>
+                                <h3 className="subsection-header">{t.whatYouLearn}</h3>
+                                <ul style={{marginLeft: '1.5rem'}}>
+                                    <li>Grundkonzepte von Graph-Datenbanken verstehen</li>
+                                    <li>Cypher-Abfragesprache beherrschen</li>
+                                    <li>Knoten und Beziehungen erstellen und abfragen</li>
+                                    <li>Pattern Matching für komplexe Abfragen nutzen</li>
+                                    <li>Graph-Traversierung für Empfehlungssysteme implementieren</li>
                                 </ul>
                             </div>
+
                             <div className="card">
                                 <h3 className="subsection-header">{t.neo4jIs}</h3>
-                                <ul style={{ listStyle: 'none', paddingLeft: 0 }}>
-                                    <li style={{ marginBottom: '0.75rem' }}><strong>{t.graphDatabase}</strong></li>
-                                    <li style={{ marginBottom: '0.75rem' }}><strong>{t.cypherLanguage}</strong></li>
+                                <ul style={{marginLeft: '1.5rem'}}>
+                                    <li><strong>{t.graphDatabase}</strong></li>
+                                    <li><strong>{t.cypherLanguage}</strong></li>
                                     <li><strong>{t.acidCompliant}</strong></li>
                                 </ul>
                             </div>
+
+                            <div className="card">
+                                <h3 className="subsection-header">Warum Neo4j?</h3>
+                                <p>{t.realWorldMotivation}</p>
+                                <ul style={{marginLeft: '1.5rem', marginTop: '1rem'}}>
+                                    <li><strong>NASA:</strong> {t.nasaDesc}</li>
+                                    <li><strong>Walmart:</strong> {t.walmartDesc}</li>
+                                    <li><strong>eBay:</strong> {t.ebayDesc}</li>
+                                </ul>
+                            </div>
+
                             <div className="card">
                                 <h3 className="subsection-header">{t.estimatedTime}</h3>
-                                <p><strong>{t.timeValue}</strong></p>
-                                <p style={{ marginTop: '1rem' }}><strong>{t.prerequisites}</strong> {t.prereqValue}</p>
+                                <p>{t.timeValue}</p>
+                            </div>
+
+                            <div className="card">
+                                <h3 className="subsection-header">{t.prerequisites}</h3>
+                                <p>{t.prereqValue}</p>
+                            </div>
+
+                            <div className="card">
+                                <h3 className="subsection-header">MegaStore Szenario</h3>
+                                <p>In diesem Labor arbeiten Sie mit einem E-Commerce-Datensatz namens MegaStore:</p>
+                                <div className="table-responsive">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>Tabelle</th>
+                                                <th>Spalten</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>customers</td>
+                                                <td>customer_id, name, email, city, country, registration_date</td>
+                                            </tr>
+                                            <tr>
+                                                <td>products</td>
+                                                <td>product_id, name, category, unit_price, stock_quantity</td>
+                                            </tr>
+                                            <tr>
+                                                <td>orders</td>
+                                                <td>order_id, customer_id, order_date, order_total, status</td>
+                                            </tr>
+                                            <tr>
+                                                <td>order_items</td>
+                                                <td>order_item_id, order_id, product_id, quantity, unit_price</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
 
                         {/* SETUP */}
-                        <div className={`section ${activeSection === 'setup' ? 'active' : ''}`}>
-                            <h1 className="section-header">{t.setup}</h1>
+                        <div className="section" style={{display: activeSection === 'setup' ? 'block' : 'none'}}>
+                            <h2 className="section-header">{t.setup}</h2>
+                            <p>{t.setupSteps}</p>
+
                             <div className="card">
-                                <h2 className="subsection-header">{t.setupTitle}</h2>
-                                <p>{t.setupSteps}</p>
-                                <div className="numbered-list" style={{ marginTop: '1rem' }}>
-                                    <div className="numbered-list" style={{ listStyleType: 'decimal', marginLeft: '1.5rem' }}>
-                                        <p><strong>{t.step1}:</strong></p>
-                                        <div className="code-block">
-                                            <code>docker run --name neo4j -p 7474:7474 -p 7687:7687 -e NEO4J_AUTH=neo4j/neo4j neo4j:latest</code>
-                                            <button className="copy-btn" onClick={() => copyToClipboard('docker run --name neo4j -p 7474:7474 -p 7687:7687 -e NEO4J_AUTH=neo4j/neo4j neo4j:latest')}>Copy</button>
-                                        </div>
+                                <h3 className="subsection-header">Schritt 1: {t.step1}</h3>
+                                <p>{t.step1Desc}</p>
+                                {renderCodeBlock(t.step1Cmd, 'Setup Step 1')}
+                            </div>
 
-                                        <p style={{ marginTop: '1rem' }}><strong>{t.step2}:</strong></p>
-                                        <p>Open http://localhost:7474</p>
+                            <div className="card">
+                                <h3 className="subsection-header">Schritt 2: {t.step2}</h3>
+                                <p>{t.step2Desc}</p>
+                                {renderCodeBlock(t.step2Cmd, 'Setup Step 2')}
+                            </div>
 
-                                        <p style={{ marginTop: '1rem' }}><strong>{t.step3}:</strong></p>
-                                        <p>Username: neo4j | Password: neo4j</p>
+                            <div className="card">
+                                <h3 className="subsection-header">Schritt 3: {t.step3}</h3>
+                                <p>{t.step3Desc}</p>
+                                {renderCodeBlock(t.step3Cmd, 'Setup Step 3')}
+                            </div>
 
-                                        <p style={{ marginTop: '1rem' }}><strong>{t.step4}:</strong></p>
-                                        <div className="code-block">
-                                            <code>MATCH (n) RETURN n LIMIT 5</code>
-                                            <button className="copy-btn" onClick={() => copyToClipboard('MATCH (n) RETURN n LIMIT 5')}>Copy</button>
-                                        </div>
-                                    </div>
-                                </div>
+                            <div className="card">
+                                <h3 className="subsection-header">Schritt 4: {t.step4}</h3>
+                                <p>{t.step4Desc}</p>
+                                {renderCodeBlock(t.step4Cmd, 'Setup Step 4')}
+                            </div>
+
+                            <div className="lesson-box">
+                                <h3 className="subsection-header">{t.verifySetup}</h3>
+                                <ul style={{marginLeft: '1.5rem'}}>
+                                    <li>✓ {t.verifyStep1}</li>
+                                    <li>✓ {t.verifyStep2}</li>
+                                    <li>✓ {t.verifyStep3}</li>
+                                </ul>
                             </div>
                         </div>
 
                         {/* FUNDAMENTALS */}
-                        <div className={`section ${activeSection === 'fundamentals' ? 'active' : ''}`}>
-                            <h1 className="section-header">{t.fundamentals}</h1>
+                        <div className="section" style={{display: activeSection === 'fundamentals' ? 'block' : 'none'}}>
+                            <h2 className="section-header">{t.fundamentals}</h2>
+
                             <div className="card">
-                                <h2 className="subsection-header">{t.fundamentalsTitle}</h2>
-                                <div style={{ marginTop: '1.5rem' }}>
-                                    <h3 style={{ fontSize: '1.1rem', fontWeight: '600', marginBottom: '0.5rem', color: '#E8792F' }}>{t.nodesLabel}</h3>
-                                    <p>{t.nodesDesc}</p>
-                                    <div className="code-block" style={{ marginTop: '1rem' }}>
-                                        <code>{'CREATE (p:Person {name: "Alice", age: 30})'}</code>
-                                        <button className="copy-btn" onClick={() => copyToClipboard('CREATE (p:Person {name: "Alice", age: 30})')}>Copy</button>
-                                    </div>
-                                </div>
+                                <h3 className="subsection-header">{t.nodesLabel}</h3>
+                                <p>{t.nodesDesc}</p>
+                                {renderCodeBlock(t.nodesCode, 'Nodes Example')}
+                            </div>
 
-                                <div style={{ marginTop: '2rem' }}>
-                                    <h3 style={{ fontSize: '1.1rem', fontWeight: '600', marginBottom: '0.5rem', color: '#E8792F' }}>{t.relationshipsLabel}</h3>
-                                    <p>{t.relationshipsDesc}</p>
-                                    <div className="code-block" style={{ marginTop: '1rem' }}>
-                                        <code>{'MATCH (a:Person), (p:Product) CREATE (a)-[:PURCHASED]->(p)'}</code>
-                                        <button className="copy-btn" onClick={() => copyToClipboard('MATCH (a:Person), (p:Product) CREATE (a)-[:PURCHASED]->(p)')}>Copy</button>
-                                    </div>
-                                </div>
+                            <div className="card">
+                                <h3 className="subsection-header">{t.relationshipsLabel}</h3>
+                                <p>{t.relationshipsDesc}</p>
+                                {renderCodeBlock(t.relationshipsCode, 'Relationships Example')}
+                            </div>
 
-                                <div style={{ marginTop: '2rem' }}>
-                                    <h3 style={{ fontSize: '1.1rem', fontWeight: '600', marginBottom: '0.5rem', color: '#E8792F' }}>{t.cypherLabel}</h3>
-                                    <p>{t.cypherDesc}</p>
-                                </div>
+                            <div className="card">
+                                <h3 className="subsection-header">{t.cypherLabel}</h3>
+                                <p>{t.cypherDesc}</p>
+                                {renderCodeBlock(t.cypherCode, 'Cypher Example')}
                             </div>
                         </div>
 
-                        {/* EXERCISE 1 */}
-                        <div className={`section ${activeSection === 'exercise1' ? 'active' : ''}`}>
-                            <h1 className="section-header">{t.exercise1}</h1>
-                            <div className="card">
-                                <span className="badge badge-beginner">Beginner</span>
-                                <h2 className="subsection-header" style={{ marginTop: '1rem' }}>{t.ex1Title}</h2>
-                                <p>{t.ex1Desc}</p>
-                                <div className="lesson-box">
-                                    <strong>{t.yourTask}</strong>
-                                    <p style={{ marginTop: '0.5rem' }}>{t.ex1Task}</p>
-                                </div>
-                                <div className="code-block" style={{ marginTop: '1rem' }}>
-                                    <code>{'CREATE (p:Person {name: "Alice", age: 30})\nCREATE (pr:Product {name: "Laptop", price: 999})\nMATCH (n) RETURN n LIMIT 10'}</code>
-                                    <button className="copy-btn" onClick={() => copyToClipboard('CREATE (p:Person {name: "Alice", age: 30})\nCREATE (pr:Product {name: "Laptop", price: 999})\nMATCH (n) RETURN n LIMIT 10')}>Copy</button>
-                                </div>
-                                <button
-                                    className="expandable"
-                                    style={{ cursor: 'pointer', marginTop: '1rem' }}
-                                    onClick={() => toggleExpandable('ex1')}
-                                >
-                                    <div className="expandable-header">
-                                        <span>{t.solution}</span>
-                                        <span className="expandable-chevron">▼</span>
-                                    </div>
-                                </button>
-                                {expandedExercises['ex1'] && (
-                                    <div className="expandable-content">
-                                        <div className="code-block">
-                                            <code>{'CREATE (p:Person {name: "Alice", age: 30})\nCREATE (pr:Product {name: "Laptop", price: 999})\nMATCH (n) RETURN n'}</code>
-                                        </div>
-                                    </div>
-                                )}
-                            </div>
-                        </div>
-
-                        {/* EXERCISE 2 */}
-                        <div className={`section ${activeSection === 'exercise2' ? 'active' : ''}`}>
-                            <h1 className="section-header">{t.exercise2}</h1>
-                            <div className="card">
-                                <span className="badge badge-beginner">Beginner</span>
-                                <h2 className="subsection-header" style={{ marginTop: '1rem' }}>{t.ex2Title}</h2>
-                                <p>{t.ex2Desc}</p>
-                                <div className="lesson-box">
-                                    <strong>{t.yourTask}</strong>
-                                    <p style={{ marginTop: '0.5rem' }}>{t.ex2Task}</p>
-                                </div>
-                                <div className="code-block" style={{ marginTop: '1rem' }}>
-                                    <code>{'MATCH (a:Person {name: "Alice"}), (p:Product {name: "Laptop"})\nCREATE (a)-[:PURCHASED]->(p)\nMATCH (a)-[r]->(b) RETURN a, r, b LIMIT 10'}</code>
-                                    <button className="copy-btn" onClick={() => copyToClipboard('MATCH (a:Person {name: "Alice"}), (p:Product {name: "Laptop"})\nCREATE (a)-[:PURCHASED]->(p)\nMATCH (a)-[r]->(b) RETURN a, r, b LIMIT 10')}>Copy</button>
-                                </div>
-                                <button
-                                    className="expandable"
-                                    style={{ cursor: 'pointer', marginTop: '1rem' }}
-                                    onClick={() => toggleExpandable('ex2')}
-                                >
-                                    <div className="expandable-header">
-                                        <span>{t.solution}</span>
-                                        <span className="expandable-chevron">▼</span>
-                                    </div>
-                                </button>
-                                {expandedExercises['ex2'] && (
-                                    <div className="expandable-content">
-                                        <div className="code-block">
-                                            <code>{'MATCH (a:Person), (p:Product)\nCREATE (a)-[:PURCHASED]->(p)'}</code>
-                                        </div>
-                                    </div>
-                                )}
-                            </div>
-                        </div>
-
-                        {/* EXERCISE 3 */}
-                        <div className={`section ${activeSection === 'exercise3' ? 'active' : ''}`}>
-                            <h1 className="section-header">{t.exercise3}</h1>
-                            <div className="card">
-                                <span className="badge badge-beginner">Beginner</span>
-                                <h2 className="subsection-header" style={{ marginTop: '1rem' }}>{t.ex3Title}</h2>
-                                <p>{t.ex3Desc}</p>
-                                <div className="lesson-box">
-                                    <strong>{t.yourTask}</strong>
-                                    <p style={{ marginTop: '0.5rem' }}>{t.ex3Task}</p>
-                                </div>
-                                <div className="code-block" style={{ marginTop: '1rem' }}>
-                                    <code>{'MATCH (p:Person) WHERE p.age > 25 RETURN p\nMATCH (a:Person)-[:FRIEND]->(b:Person)-[:FRIEND]->(c:Person) RETURN a, b, c'}</code>
-                                    <button className="copy-btn" onClick={() => copyToClipboard('MATCH (p:Person) WHERE p.age > 25 RETURN p\nMATCH (a:Person)-[:FRIEND]->(b:Person)-[:FRIEND]->(c:Person) RETURN a, b, c')}>Copy</button>
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* EXERCISE 4 */}
-                        <div className={`section ${activeSection === 'exercise4' ? 'active' : ''}`}>
-                            <h1 className="section-header">{t.exercise4}</h1>
-                            <div className="card">
-                                <span className="badge badge-beginner">Beginner</span>
-                                <h2 className="subsection-header" style={{ marginTop: '1rem' }}>{t.ex4Title}</h2>
-                                <p>{t.ex4Desc}</p>
-                                <div className="lesson-box">
-                                    <strong>{t.yourTask}</strong>
-                                    <p style={{ marginTop: '0.5rem' }}>{t.ex4Task}</p>
-                                </div>
-                                <div className="code-block" style={{ marginTop: '1rem' }}>
-                                    <code>{'MATCH (p:Product)-[:IN_CATEGORY]->(c:Category) RETURN c.name, COUNT(p) as product_count ORDER BY product_count DESC\nMATCH (customer:Person)-[r:PURCHASED]->() RETURN customer.name, COUNT(r) as purchase_count ORDER BY purchase_count DESC'}</code>
-                                    <button className="copy-btn" onClick={() => copyToClipboard('MATCH (p:Product)-[:IN_CATEGORY]->(c:Category) RETURN c.name, COUNT(p) as product_count ORDER BY product_count DESC\nMATCH (customer:Person)-[r:PURCHASED]->() RETURN customer.name, COUNT(r) as purchase_count ORDER BY purchase_count DESC')}>Copy</button>
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* EXERCISE 5 */}
-                        <div className={`section ${activeSection === 'exercise5' ? 'active' : ''}`}>
-                            <h1 className="section-header">{t.exercise5}</h1>
-                            <div className="card">
-                                <span className="badge badge-beginner">Beginner</span>
-                                <h2 className="subsection-header" style={{ marginTop: '1rem' }}>{t.ex5Title}</h2>
-                                <p>{t.ex5Desc}</p>
-                                <div className="lesson-box">
-                                    <strong>{t.yourTask}</strong>
-                                    <p style={{ marginTop: '0.5rem' }}>{t.ex5Task}</p>
-                                </div>
-                                <div className="code-block" style={{ marginTop: '1rem' }}>
-                                    <code>{'MATCH (p:Product)<-[r:PURCHASED]-() RETURN p.name, COUNT(r) as times_purchased ORDER BY times_purchased DESC LIMIT 10\nMATCH (customer:Person)-[r:PURCHASED]->(product:Product) RETURN customer.name, COLLECT(product.name) as purchases'}</code>
-                                    <button className="copy-btn" onClick={() => copyToClipboard('MATCH (p:Product)<-[r:PURCHASED]-() RETURN p.name, COUNT(r) as times_purchased ORDER BY times_purchased DESC LIMIT 10\nMATCH (customer:Person)-[r:PURCHASED]->(product:Product) RETURN customer.name, COLLECT(product.name) as purchases')}>Copy</button>
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* EXERCISE 6 */}
-                        <div className={`section ${activeSection === 'exercise6' ? 'active' : ''}`}>
-                            <h1 className="section-header">{t.exercise6}</h1>
-                            <div className="card">
-                                <span className="badge badge-beginner">Beginner</span>
-                                <h2 className="subsection-header" style={{ marginTop: '1rem' }}>{t.ex6Title}</h2>
-                                <p>{t.ex6Desc}</p>
-                                <div className="lesson-box">
-                                    <strong>{t.yourTask}</strong>
-                                    <p style={{ marginTop: '0.5rem' }}>{t.ex6Task}</p>
-                                </div>
-                                <div className="code-block" style={{ marginTop: '1rem' }}>
-                                    <code>{'MATCH (customer:Person)-[:PURCHASED]->(product1:Product)<-[:PURCHASED]-(other:Person)-[:PURCHASED]->(product2:Product) WHERE product1.name = "Laptop" AND product2.name <> "Laptop" RETURN product2.name as recommendation, COUNT(*) as frequency ORDER BY frequency DESC'}</code>
-                                    <button className="copy-btn" onClick={() => copyToClipboard('MATCH (customer:Person)-[:PURCHASED]->(product1:Product)<-[:PURCHASED]-(other:Person)-[:PURCHASED]->(product2:Product) WHERE product1.name = "Laptop" AND product2.name <> "Laptop" RETURN product2.name as recommendation, COUNT(*) as frequency ORDER BY frequency DESC')}>Copy</button>
-                                </div>
-                            </div>
-                        </div>
+                        {/* EXERCISES */}
+                        {renderExercise(1, t.ex1Title, t.ex1Time, t.ex1Goal, t.ex1Show, t.ex1Output, t.ex1Explain, t.ex1Task, t.ex1Hint, t.ex1Solution, t.ex1Verify)}
+                        {renderExercise(2, t.ex2Title, t.ex2Time, t.ex2Goal, t.ex2Show, t.ex2Output, t.ex2Explain, t.ex2Task, t.ex2Hint, t.ex2Solution, t.ex2Verify)}
+                        {renderExercise(3, t.ex3Title, t.ex3Time, t.ex3Goal, t.ex3Show, t.ex3Output, t.ex3Explain, t.ex3Task, t.ex3Hint, t.ex3Solution, t.ex3Verify)}
+                        {renderExercise(4, t.ex4Title, t.ex4Time, t.ex4Goal, t.ex4Show, t.ex4Output, t.ex4Explain, t.ex4Task, t.ex4Hint, t.ex4Solution, t.ex4Verify)}
+                        {renderExercise(5, t.ex5Title, t.ex5Time, t.ex5Goal, t.ex5Show, t.ex5Output, t.ex5Explain, t.ex5Task, t.ex5Hint, t.ex5Solution, t.ex5Verify)}
+                        {renderExercise(6, t.ex6Title, t.ex6Time, t.ex6Goal, t.ex6Show, t.ex6Output, t.ex6Explain, t.ex6Task, t.ex6Hint, t.ex6Solution, t.ex6Verify)}
 
                         {/* CHALLENGE */}
-                        <div className={`section ${activeSection === 'challenge' ? 'active' : ''}`}>
-                            <h1 className="section-header">{t.challenge}</h1>
+                        <div className="section" style={{display: activeSection === 'challenge' ? 'block' : 'none'}}>
+                            <h2 className="section-header">{t.challengeTitle}</h2>
                             <div className="card">
                                 <span className="badge badge-challenge">Challenge</span>
-                                <h2 className="subsection-header" style={{ marginTop: '1rem' }}>{t.challengeTitle}</h2>
-                                <p>{t.challengeDesc}</p>
-                                <div className="hint-box" style={{ marginTop: '1rem' }}>
-                                    <p className="hint-title">Hint:</p>
-                                    <p>Look for transactions with unusually high frequency, unusual patterns of relationships, or anomalous spending amounts.</p>
+                                <p style={{marginTop: '1rem'}}>{t.challengeDesc}</p>
+                            </div>
+
+                            <div className="card">
+                                <h3 className="subsection-header">Schritte:</h3>
+                                <p style={{whiteSpace: 'pre-wrap'}}>{t.challengeSteps}</p>
+                            </div>
+
+                            <div className="hint-box">
+                                <div className="hint-title">Hinweis:</div>
+                                <p>{t.challengeHint}</p>
+                            </div>
+
+                            <div className="expandable" onClick={() => toggleExpanded('challsol')} style={{cursor: 'pointer'}}>
+                                <div className="expandable-header">
+                                    {t.solution}
+                                    <span className="expandable-chevron">▼</span>
                                 </div>
-                                <button
-                                    className="expandable"
-                                    style={{ cursor: 'pointer', marginTop: '1rem' }}
-                                    onClick={() => toggleExpandable('challenge')}
-                                >
-                                    <div className="expandable-header">
-                                        <span>{t.solution}</span>
-                                        <span className="expandable-chevron">▼</span>
-                                    </div>
-                                </button>
-                                {expandedExercises['challenge'] && (
+                                {expandedItems['challsol'] && (
                                     <div className="expandable-content">
-                                        <div className="code-block">
-                                            <code>{'MATCH (a:Account)-[t:TRANSFERS_TO]->(b:Account) WITH a, COUNT(t) as transfer_count WHERE transfer_count > 10 MATCH (a)-[t:TRANSFERS_TO]->(b) WHERE t.amount > 10000 RETURN a, b, t.amount ORDER BY t.amount DESC'}</code>
-                                        </div>
+                                        {renderCodeBlock(t.challengeSolution, 'Challenge Solution')}
                                     </div>
                                 )}
+                            </div>
+
+                            <div className="card">
+                                <h3 className="subsection-header">Erwartetes Ergebnis:</h3>
+                                <p>{t.challengeExpected}</p>
+                            </div>
+
+                            <div className="next-button">
+                                <button className="btn-accent" onClick={() => setActiveSection('quiz')}>
+                                    {t.nextExercise}
+                                </button>
                             </div>
                         </div>
 
                         {/* QUIZ */}
-                        <div className={`section ${activeSection === 'quiz' ? 'active' : ''}`}>
-                            <h1 className="section-header">{t.quiz}</h1>
-                            <div className="card">
-                                <div className="quiz-item expanded">
-                                    <div className="quiz-item-question">{t.q1}</div>
-                                    <div className="quiz-options">
-                                        <div className={`quiz-option ${quizAnswers[1] === true ? 'correct' : ''}`} onClick={() => answerQuiz(1, true)}>
-                                            {quizAnswers[1] === true && <span style={{ marginRight: '0.5rem' }}>✓</span>}
-                                            {t.q1a}
-                                        </div>
-                                        <div className={`quiz-option ${quizAnswers[1] === false ? 'incorrect' : ''}`} onClick={() => answerQuiz(1, false)}>
-                                            {quizAnswers[1] === false && <span style={{ marginRight: '0.5rem' }}>✗</span>}
-                                            {t.q1b}
-                                        </div>
-                                        <div className={`quiz-option ${quizAnswers[1] === false ? 'incorrect' : ''}`} onClick={() => answerQuiz(1, false)}>
-                                            {quizAnswers[1] === false && <span style={{ marginRight: '0.5rem' }}>✗</span>}
-                                            {t.q1c}
-                                        </div>
-                                    </div>
-                                    {quizAnswers[1] !== undefined && (
-                                        <div style={{ marginTop: '1rem', color: quizAnswers[1] ? '#059669' : '#dc2626' }}>
-                                            {quizAnswers[1] ? t.correct : t.incorrect + ' ' + t.q1ans}
-                                        </div>
-                                    )}
-                                </div>
+                        <div className="section" style={{display: activeSection === 'quiz' ? 'block' : 'none'}}>
+                            <h2 className="section-header">{t.quizTitle}</h2>
 
-                                <div className="quiz-item expanded" style={{ marginTop: '1rem' }}>
-                                    <div className="quiz-item-question">{t.q2}</div>
-                                    <div className="quiz-options">
-                                        <div className={`quiz-option ${quizAnswers[2] === false ? 'incorrect' : ''}`} onClick={() => answerQuiz(2, false)}>
-                                            {quizAnswers[2] === false && <span style={{ marginRight: '0.5rem' }}>✗</span>}
-                                            {t.q2a}
-                                        </div>
-                                        <div className={`quiz-option ${quizAnswers[2] === true ? 'correct' : ''}`} onClick={() => answerQuiz(2, true)}>
-                                            {quizAnswers[2] === true && <span style={{ marginRight: '0.5rem' }}>✓</span>}
-                                            {t.q2b}
-                                        </div>
-                                        <div className={`quiz-option ${quizAnswers[2] === false ? 'incorrect' : ''}`} onClick={() => answerQuiz(2, false)}>
-                                            {quizAnswers[2] === false && <span style={{ marginRight: '0.5rem' }}>✗</span>}
-                                            {t.q2c}
-                                        </div>
+                            {[1, 2, 3, 4, 5, 6].map(q => (
+                                <div key={q} className="quiz-item">
+                                    <div className="quiz-item-question">
+                                        <span>Frage {q}: {t[`q${q}`]}</span>
                                     </div>
-                                    {quizAnswers[2] !== undefined && (
-                                        <div style={{ marginTop: '1rem', color: quizAnswers[2] ? '#059669' : '#dc2626' }}>
-                                            {quizAnswers[2] ? t.correct : t.incorrect + ' ' + t.q2ans}
-                                        </div>
-                                    )}
+                                    <div className="quiz-options">
+                                        {['a', 'b', 'c'].map(opt => {
+                                            const isCorrect = t[`q${q}${opt}`] === t[`q${q}ans`];
+                                            const answered = quizAnswers[`q${q}${opt}`];
+                                            return (
+                                                <div
+                                                    key={opt}
+                                                    className={`quiz-option ${answered ? (isCorrect ? 'correct' : 'incorrect') : ''}`}
+                                                    onClick={() => answerQuiz(`q${q}${opt}`, isCorrect)}
+                                                    style={{cursor: 'pointer'}}
+                                                >
+                                                    <strong>{opt})</strong> {t[`q${q}${opt}`]}
+                                                    {answered && isCorrect && ` ✓ ${t.correct}`}
+                                                    {answered && !isCorrect && ` ✗ ${t.incorrect} ${t[`q${q}ans`]}`}
+                                                </div>
+                                            );
+                                        })}
+                                    </div>
                                 </div>
+                            ))}
 
-                                <div className="quiz-item expanded" style={{ marginTop: '1rem' }}>
-                                    <div className="quiz-item-question">{t.q3}</div>
-                                    <div className="quiz-options">
-                                        <div className={`quiz-option ${quizAnswers[3] === false ? 'incorrect' : ''}`} onClick={() => answerQuiz(3, false)}>
-                                            {quizAnswers[3] === false && <span style={{ marginRight: '0.5rem' }}>✗</span>}
-                                            {t.q3a}
-                                        </div>
-                                        <div className={`quiz-option ${quizAnswers[3] === true ? 'correct' : ''}`} onClick={() => answerQuiz(3, true)}>
-                                            {quizAnswers[3] === true && <span style={{ marginRight: '0.5rem' }}>✓</span>}
-                                            {t.q3b}
-                                        </div>
-                                        <div className={`quiz-option ${quizAnswers[3] === false ? 'incorrect' : ''}`} onClick={() => answerQuiz(3, false)}>
-                                            {quizAnswers[3] === false && <span style={{ marginRight: '0.5rem' }}>✗</span>}
-                                            {t.q3c}
-                                        </div>
-                                    </div>
-                                    {quizAnswers[3] !== undefined && (
-                                        <div style={{ marginTop: '1rem', color: quizAnswers[3] ? '#059669' : '#dc2626' }}>
-                                            {quizAnswers[3] ? t.correct : t.incorrect + ' ' + t.q3ans}
-                                        </div>
-                                    )}
-                                </div>
-
-                                <div className="quiz-item expanded" style={{ marginTop: '1rem' }}>
-                                    <div className="quiz-item-question">{t.q4}</div>
-                                    <div className="quiz-options">
-                                        <div className={`quiz-option ${quizAnswers[4] === false ? 'incorrect' : ''}`} onClick={() => answerQuiz(4, false)}>
-                                            {quizAnswers[4] === false && <span style={{ marginRight: '0.5rem' }}>✗</span>}
-                                            {t.q4a}
-                                        </div>
-                                        <div className={`quiz-option ${quizAnswers[4] === true ? 'correct' : ''}`} onClick={() => answerQuiz(4, true)}>
-                                            {quizAnswers[4] === true && <span style={{ marginRight: '0.5rem' }}>✓</span>}
-                                            {t.q4b}
-                                        </div>
-                                        <div className={`quiz-option ${quizAnswers[4] === false ? 'incorrect' : ''}`} onClick={() => answerQuiz(4, false)}>
-                                            {quizAnswers[4] === false && <span style={{ marginRight: '0.5rem' }}>✗</span>}
-                                            {t.q4c}
-                                        </div>
-                                    </div>
-                                    {quizAnswers[4] !== undefined && (
-                                        <div style={{ marginTop: '1rem', color: quizAnswers[4] ? '#059669' : '#dc2626' }}>
-                                            {quizAnswers[4] ? t.correct : t.incorrect + ' ' + t.q4ans}
-                                        </div>
-                                    )}
-                                </div>
-
-                                <div className="quiz-item expanded" style={{ marginTop: '1rem' }}>
-                                    <div className="quiz-item-question">{t.q5}</div>
-                                    <div className="quiz-options">
-                                        <div className={`quiz-option ${quizAnswers[5] === false ? 'incorrect' : ''}`} onClick={() => answerQuiz(5, false)}>
-                                            {quizAnswers[5] === false && <span style={{ marginRight: '0.5rem' }}>✗</span>}
-                                            {t.q5a}
-                                        </div>
-                                        <div className={`quiz-option ${quizAnswers[5] === true ? 'correct' : ''}`} onClick={() => answerQuiz(5, true)}>
-                                            {quizAnswers[5] === true && <span style={{ marginRight: '0.5rem' }}>✓</span>}
-                                            {t.q5b}
-                                        </div>
-                                        <div className={`quiz-option ${quizAnswers[5] === false ? 'incorrect' : ''}`} onClick={() => answerQuiz(5, false)}>
-                                            {quizAnswers[5] === false && <span style={{ marginRight: '0.5rem' }}>✗</span>}
-                                            {t.q5c}
-                                        </div>
-                                    </div>
-                                    {quizAnswers[5] !== undefined && (
-                                        <div style={{ marginTop: '1rem', color: quizAnswers[5] ? '#059669' : '#dc2626' }}>
-                                            {quizAnswers[5] ? t.correct : t.incorrect + ' ' + t.q5ans}
-                                        </div>
-                                    )}
-                                </div>
-
-                                <div className="quiz-item expanded" style={{ marginTop: '1rem' }}>
-                                    <div className="quiz-item-question">{t.q6}</div>
-                                    <div className="quiz-options">
-                                        <div className={`quiz-option ${quizAnswers[6] === false ? 'incorrect' : ''}`} onClick={() => answerQuiz(6, false)}>
-                                            {quizAnswers[6] === false && <span style={{ marginRight: '0.5rem' }}>✗</span>}
-                                            {t.q6a}
-                                        </div>
-                                        <div className={`quiz-option ${quizAnswers[6] === false ? 'incorrect' : ''}`} onClick={() => answerQuiz(6, false)}>
-                                            {quizAnswers[6] === false && <span style={{ marginRight: '0.5rem' }}>✗</span>}
-                                            {t.q6b}
-                                        </div>
-                                        <div className={`quiz-option ${quizAnswers[6] === true ? 'correct' : ''}`} onClick={() => answerQuiz(6, true)}>
-                                            {quizAnswers[6] === true && <span style={{ marginRight: '0.5rem' }}>✓</span>}
-                                            {t.q6c}
-                                        </div>
-                                    </div>
-                                    {quizAnswers[6] !== undefined && (
-                                        <div style={{ marginTop: '1rem', color: quizAnswers[6] ? '#059669' : '#dc2626' }}>
-                                            {quizAnswers[6] ? t.correct : t.incorrect + ' ' + t.q6ans}
-                                        </div>
-                                    )}
-                                </div>
+                            <div className="next-button">
+                                <button className="btn-accent" onClick={() => setActiveSection('outlook')}>
+                                    {t.nextExercise}
+                                </button>
                             </div>
                         </div>
 
                         {/* OUTLOOK */}
-                        <div className={`section ${activeSection === 'outlook' ? 'active' : ''}`}>
-                            <h1 className="section-header">{t.outlook}</h1>
+                        <div className="section" style={{display: activeSection === 'outlook' ? 'block' : 'none'}}>
+                            <h2 className="section-header">{t.outlook}</h2>
+
                             <div className="outlook-section">
                                 <div className="outlook-part">
-                                    <h2 className="outlook-title">{t.outlookAdvanced}</h2>
+                                    <h3 className="outlook-title">{t.outlookAdvanced}</h3>
                                     <ul className="outlook-list">
                                         <li>{t.outlookGDS}</li>
                                         <li>{t.outlookCommunity}</li>
@@ -1463,56 +1064,45 @@
                                 </div>
 
                                 <div className="outlook-part">
-                                    <h2 className="outlook-title">{t.outlookAI}</h2>
+                                    <h3 className="outlook-title">{t.outlookAI}</h3>
                                     <p>{t.outlookAIDesc}</p>
-                                    <ul className="outlook-list" style={{ marginTop: '1rem' }}>
-                                        <li>
-                                            <strong>{t.outlookExample1}</strong>
-                                            <div className="prompt-example">
-                                                "Analyze this customer graph and suggest products for user [user_id] based on similar customer purchase patterns"
-                                            </div>
-                                        </li>
-                                        <li style={{ marginTop: '1rem' }}>
-                                            <strong>{t.outlookExample2}</strong>
-                                            <div className="prompt-example">
-                                                "Find transaction patterns in this graph that deviate from normal behavior and could indicate fraud"
-                                            </div>
-                                        </li>
-                                        <li style={{ marginTop: '1rem' }}>
-                                            <strong>{t.outlookExample3}</strong>
-                                            <div className="prompt-example">
-                                                "Convert this natural language query into Cypher: 'Show me all customers who bought the same products as customer Alice'"
-                                            </div>
-                                        </li>
+                                    <ul className="outlook-list">
+                                        <li>{t.outlookExample1}</li>
+                                        <li>{t.outlookExample2}</li>
+                                        <li>{t.outlookExample3}</li>
                                     </ul>
                                 </div>
+
+                                <div className="outlook-part">
+                                    <h3 className="outlook-title">Weiterführende Ressourcen</h3>
+                                    <ul className="outlook-list">
+                                        <li><a href="https://neo4j.com/docs/" target="_blank" rel="noopener noreferrer">Neo4j Dokumentation</a></li>
+                                        <li><a href="https://neo4j.com/graphacademy/" target="_blank" rel="noopener noreferrer">Neo4j GraphAcademy</a></li>
+                                        <li><a href="https://community.neo4j.com/" target="_blank" rel="noopener noreferrer">Neo4j Community</a></li>
+                                        <li><a href="https://github.com/neo4j/neo4j" target="_blank" rel="noopener noreferrer">Neo4j GitHub</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div className="next-button">
+                                <button className="btn-accent" onClick={() => setActiveSection('troubleshooting')}>
+                                    {t.nextExercise}
+                                </button>
                             </div>
                         </div>
 
                         {/* TROUBLESHOOTING */}
-                        <div className={`section ${activeSection === 'troubleshooting' ? 'active' : ''}`}>
-                            <h1 className="section-header">{t.troubleshooting}</h1>
-                            <div className="card">
-                                <h2 className="subsection-header">{t.troubleshootTitle}</h2>
-                                <div style={{ marginTop: '1.5rem' }}>
-                                    <h3 style={{ fontSize: '1.1rem', fontWeight: '600', marginBottom: '0.5rem', color: '#E8792F' }}>{t.troubleshoot1Title}</h3>
-                                    <p>{t.troubleshoot1}</p>
+                        <div className="section" style={{display: activeSection === 'troubleshooting' ? 'block' : 'none'}}>
+                            <h2 className="section-header">{t.troubleshootTitle}</h2>
+
+                            {[1, 2, 3, 4, 5].map(i => (
+                                <div key={i} className="card">
+                                    <h3 className="subsection-header">{t[`troubleshoot${i}Title`]}</h3>
+                                    <p>{t[`troubleshoot${i}`]}</p>
                                 </div>
-                                <div style={{ marginTop: '1.5rem' }}>
-                                    <h3 style={{ fontSize: '1.1rem', fontWeight: '600', marginBottom: '0.5rem', color: '#E8792F' }}>{t.troubleshoot2Title}</h3>
-                                    <p>{t.troubleshoot2}</p>
-                                </div>
-                                <div style={{ marginTop: '1.5rem' }}>
-                                    <h3 style={{ fontSize: '1.1rem', fontWeight: '600', marginBottom: '0.5rem', color: '#E8792F' }}>{t.troubleshoot3Title}</h3>
-                                    <p>{t.troubleshoot3}</p>
-                                </div>
-                                <div style={{ marginTop: '1.5rem' }}>
-                                    <h3 style={{ fontSize: '1.1rem', fontWeight: '600', marginBottom: '0.5rem', color: '#E8792F' }}>{t.troubleshoot4Title}</h3>
-                                    <p>{t.troubleshoot4}</p>
-                                </div>
-                            </div>
+                            ))}
                         </div>
-                    </div>
+                    </main>
                 </div>
             );
         }

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -33,150 +33,237 @@
             border: none;
             cursor: pointer;
             font-weight: 600;
-            transition: all 0.2s;
+            transition: background-color 0.3s;
         }
-        .btn-accent:hover { opacity: 0.9; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(232, 121, 47, 0.3); }
-        .card { background: white; border-radius: 0.75rem; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); padding: 1.5rem; margin-bottom: 1.5rem; }
-        .card:hover { box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); }
-        .code-block {
-            background: #1B3A5C;
-            border-left: 4px solid #E8792F;
-            border-radius: 0.5rem;
-            padding: 1rem;
-            overflow-x: auto;
-            margin: 1rem 0;
-            position: relative;
-        }
-        .code-block pre { color: #E8E8E8; font-family: 'Monaco', 'Courier New', monospace; font-size: 0.9rem; margin: 0; }
-        .copy-btn {
-            position: absolute;
-            top: 0.5rem;
-            right: 0.5rem;
-            background: #E8792F;
+        .btn-accent:hover { background-color: #d16d23; }
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4rem;
+            background-color: #1B3A5C;
             color: white;
-            border: none;
-            padding: 0.5rem 1rem;
-            border-radius: 0.25rem;
-            cursor: pointer;
-            font-size: 0.875rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 2rem;
+            z-index: 50;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         }
-        .copy-btn:hover { opacity: 0.9; }
         .sidebar {
             position: fixed;
             left: 0;
             top: 4rem;
             width: 280px;
-            height: calc(100vh - 4rem);
-            background: white;
-            overflow-y: auto;
-            z-index: 40;
+            max-height: calc(100vh - 4rem);
+            background-color: white;
             border-right: 1px solid #e0e0e0;
-            padding: 1.5rem 0;
-        }
-        .header {
-            background-color: #1B3A5C;
-            color: white;
-            padding: 0.75rem 1.5rem;
-            position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 50;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .header-left { display: flex; align-items: center; gap: 1rem; }
-        .back-btn { background: none; border: none; color: #E8792F; font-size: 1rem; cursor: pointer; font-weight: bold; text-decoration: none; }
-        .header-title { color: white; font-size: 1.5rem; font-weight: 700; }
-        .lang-switcher { display: flex; gap: 0.5rem; }
-        .lang-btn {
-            background: rgba(255,255,255,0.15);
-            border: 1px solid rgba(255,255,255,0.3);
-            color: white;
-            padding: 0.25rem 0.5rem;
-            border-radius: 0.25rem;
-            cursor: pointer;
-            font-size: 0.8rem;
-            transition: all 0.2s;
-        }
-        .lang-btn.active { background: #E8792F; color: white; }
-        .lang-btn:hover { opacity: 0.9; }
-        .main-content {
-            margin-left: 280px;
-            padding-top: 5rem;
-            padding: 5rem 2rem 2rem 2rem;
+            z-index: 40;
+            overflow-y: auto;
         }
         .sidebar-item {
-            padding: 0.75rem 1rem;
-            cursor: pointer;
-            transition: all 0.2s;
+            display: block;
+            padding: 1rem 1.5rem;
+            color: #1B3A5C;
+            text-decoration: none;
             border-left: 4px solid transparent;
+            transition: all 0.3s;
+            font-size: 0.95rem;
         }
-        .sidebar-item:hover { background-color: #f5f5f5; }
-        .sidebar-item.active {
+        .sidebar-item:hover {
             background-color: #f5f5f5;
             border-left-color: #E8792F;
+        }
+        .sidebar-item.active {
+            background-color: #fef5f1;
+            border-left-color: #E8792F;
+            font-weight: 600;
             color: #E8792F;
-            font-weight: 600;
         }
-        .badge {
-            display: inline-block;
-            background-color: #E8792F;
+        .main-content {
+            margin-left: 280px;
+            padding: 5rem 3rem 2rem 3rem;
+            max-width: 1200px;
+        }
+        .header-title { font-size: 1.5rem; font-weight: 700; }
+        .lang-select {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+        .lang-btn {
+            padding: 0.5rem 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            background-color: transparent;
             color: white;
-            padding: 0.25rem 0.75rem;
-            border-radius: 1rem;
-            font-size: 0.75rem;
-            font-weight: 600;
-            margin-left: 0.5rem;
+            cursor: pointer;
+            border-radius: 0.375rem;
+            font-size: 0.875rem;
+            transition: all 0.3s;
         }
-        .badge-beginner { background-color: #4CAF50; }
-        .badge-intermediate { background-color: #FF9800; }
-        .badge-advanced { background-color: #F44336; }
-        .expandable {
-            border: 1px solid #e0e0e0;
+        .lang-btn.active {
+            background-color: #E8792F;
+            border-color: #E8792F;
+        }
+        .lang-btn:hover { background-color: rgba(255, 255, 255, 0.1); }
+        h2 { font-size: 2rem; font-weight: 700; margin: 2rem 0 1rem 0; }
+        h3 { font-size: 1.5rem; font-weight: 600; margin: 1.5rem 0 0.75rem 0; }
+        h4 { font-size: 1.25rem; font-weight: 600; margin: 1rem 0 0.5rem 0; }
+        p { margin: 0.75rem 0; }
+        .lesson-box {
+            background-color: #fef5f1;
+            border-left: 4px solid #E8792F;
+            padding: 1.5rem;
             border-radius: 0.5rem;
             margin: 1rem 0;
         }
-        .expandable-header {
+        .lesson-box h4 { margin-top: 0; }
+        .lesson-box ul { margin-left: 1.5rem; margin-top: 0.5rem; }
+        .lesson-box li { margin: 0.5rem 0; }
+        .hint-box {
+            background-color: #E3F2FD;
+            border-left: 4px solid #2196F3;
             padding: 1rem;
-            background: #f9f9f9;
+            border-radius: 0.5rem;
+            margin: 1rem 0;
+            font-size: 0.95rem;
+        }
+        .output-box {
+            background-color: #f5f5f5;
+            border: 1px solid #ddd;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin: 1rem 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            white-space: pre-wrap;
+            overflow-x: auto;
+        }
+        .code-block {
+            background-color: #f5f5f5;
+            border: 1px solid #ddd;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin: 1rem 0;
+            position: relative;
+            overflow-x: auto;
+        }
+        .code-block code {
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+        }
+        .copy-btn {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            padding: 0.5rem 0.75rem;
+            background-color: #E8792F;
+            color: white;
+            border: none;
+            border-radius: 0.375rem;
             cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            font-size: 0.8rem;
+            transition: background-color 0.3s;
+        }
+        .copy-btn:hover { background-color: #d16d23; }
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            margin-right: 0.5rem;
+            border-radius: 0.375rem;
+            font-size: 0.8rem;
             font-weight: 600;
         }
-        .expandable-header:hover { background: #f0f0f0; }
+        .badge-beginner { background-color: #4CAF50; color: white; }
+        .badge-challenge { background-color: #f44336; color: white; }
+        .badge-time { background-color: #2196F3; color: white; }
+        .expandable-header {
+            cursor: pointer;
+            user-select: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 0.5rem;
+            margin: 1rem 0;
+            transition: background-color 0.3s;
+        }
+        .expandable-header:hover { background-color: #f0f0f0; }
+        .expandable-header .arrow {
+            display: inline-block;
+            transition: transform 0.3s;
+        }
+        .expandable-header.open .arrow { transform: rotate(90deg); }
         .expandable-content {
             padding: 1rem;
-            display: none;
+            background-color: #fafafa;
+            border: 1px solid #ddd;
+            border-top: none;
+            border-radius: 0 0 0.5rem 0.5rem;
+            margin: 0 0 1rem 0;
         }
-        .expandable-content.open { display: block; }
+        .next-exercise-btn {
+            display: inline-block;
+            margin-top: 1.5rem;
+            padding: 0.75rem 1.5rem;
+            background-color: #E8792F;
+            color: white;
+            text-decoration: none;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+        .next-exercise-btn:hover { background-color: #d16d23; }
+        .quiz-question {
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        .quiz-question h4 { margin-top: 0; }
+        .quiz-options {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 0.75rem;
+            margin-top: 1rem;
+        }
         .quiz-option {
             padding: 1rem;
-            margin: 0.5rem 0;
-            border: 2px solid #e0e0e0;
-            border-radius: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 0.375rem;
             cursor: pointer;
-            transition: all 0.2s;
+            transition: all 0.3s;
+            background-color: white;
         }
-        .quiz-option:hover { border-color: #E8792F; }
-        .quiz-option.selected { border-color: #E8792F; background: #FFF3E0; }
-        .quiz-option.correct { border-color: #4CAF50; background: #E8F5E9; }
-        .quiz-option.incorrect { border-color: #F44336; background: #FFEBEE; }
+        .quiz-option:hover { background-color: #f9f9f9; border-color: #E8792F; }
+        .quiz-option.selected { border-color: #E8792F; background-color: #fef5f1; }
+        .quiz-option.correct { border-color: #4CAF50; background-color: #e8f5e9; }
+        .quiz-option.incorrect { border-color: #f44336; background-color: #ffebee; }
         .quiz-feedback {
-            padding: 1rem;
-            border-radius: 0.5rem;
             margin-top: 1rem;
-            font-weight: 600;
+            padding: 1rem;
+            border-radius: 0.375rem;
+            font-weight: 500;
         }
-        .feedback-correct { background: #E8F5E9; color: #2E7D32; }
-        .feedback-incorrect { background: #FFEBEE; color: #C62828; }
-        .lesson-box { background: #FFF3E0; border-left: 4px solid #E8792F; padding: 1.5rem; border-radius: 0.5rem; margin-bottom: 1.5rem; }
-        @media (max-width: 768px) {
-            .sidebar { width: 0; transform: translateX(-100%); }
-            .main-content { margin-left: 0; }
-            .sidebar.open { transform: translateX(0); width: 280px; z-index: 45; }
+        .quiz-feedback.correct { background-color: #e8f5e9; color: #2e7d32; }
+        .quiz-feedback.incorrect { background-color: #ffebee; color: #c62828; }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+        table th, table td {
+            padding: 0.75rem;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+        table th {
+            background-color: #f5f5f5;
+            font-weight: 600;
         }
     </style>
 </head>
@@ -184,1097 +271,631 @@
     <div id="root"></div>
 
     <script type="text/babel">
-        const { useState, useEffect } = React;
-
-        // Translation object for 6 languages
         const translations = {
             de: {
-                back: "← Zurück zur Startseite",
-                title: "DuckDB Labor",
-                overview: "Überblick",
-                setup: "Einrichtung",
-                fundamentals: "Grundlagen",
-                exercise1: "Übung 1: Erste Schritte",
-                exercise2: "Übung 2: Filtern & Sortieren",
-                exercise3: "Übung 3: Aggregationen",
-                exercise4: "Übung 4: Joins",
-                exercise5: "Übung 5: Subqueries & CTEs",
-                exercise6: "Übung 6: MegaStore-Analyse",
-                challenge: "Challenge: Window Functions",
-                quiz: "Wissenstest",
-                outlook: "Ausblick & KI",
-                troubleshooting: "Problembehandlung",
-                gettingStarted: "Erste Schritte mit DuckDB",
-                connectDatabase: "Mit DuckDB verbinden",
-                loadCSV: "CSV-Datei laden",
-                queryBasics: "AbfrageGrundlagen",
-                filtering: "Filtern & Sortieren",
-                selectWhere: "SELECT mit WHERE-Klausel",
-                orderByLimit: "ORDER BY und LIMIT",
-                betweenOperator: "BETWEEN-Operator",
-                aggregations: "Aggregationen",
-                groupBy: "GROUP BY Klausel",
-                countFunction: "COUNT Funktion",
-                avgSum: "AVG und SUM Funktionen",
-                having: "HAVING-Klausel",
-                joins: "Joins",
-                innerJoin: "INNER JOIN Grundlagen",
-                leftJoin: "LEFT JOIN - alle Zeilen beibehalten",
-                joinSyntax: "JOIN-Syntax",
-                subqueries: "Subqueries & CTEs",
-                subqueryBasics: "Subquery-Grundlagen",
-                cteWith: "CTE mit WITH-Klausel",
-                megastoreAnalysis: "MegaStore-Analyse",
-                revenueByCategory: "Umsatz nach Kategorie",
-                monthlyRevenue: "Monatlicher Umsatz-Trend",
-                topCustomers: "Top 10 Kunden nach Spending",
-                windowFunctions: "Window Functions",
-                umsatzTrend: "Umsatz-Trend-Analyse",
-                solution: "Lösung",
-                hint: "Hinweis",
-                testYourKnowledge: "Testen Sie Ihr Wissen",
-                whatIs: "Was ist DuckDB?",
-                option1: "Eine NoSQL-Dokumentendatenbank",
-                option2: "Eine analytische In-Process SQL-Datenbank",
-                option3: "Ein verteiltes Hadoop-System",
-                correct: "Korrekt!",
-                incorrect: "Leider falsch!",
-                explanation: "Erklärung:",
-                duckdbExplanation: "DuckDB ist eine schnelle, in-process analytische SQL-Datenbank, perfekt für OLAP-Arbeitslasten.",
-                groupByQuestion: "Was macht GROUP BY?",
-                groupByOpt1: "Sortiert Zeilen alphabetisch",
-                groupByOpt2: "Gruppiert Zeilen für Aggregationen",
-                groupByOpt3: "Begrenzt die Anzahl der Rückgabezeilen",
-                groupByExpl: "GROUP BY kombiniert Zeilen mit gleichem Wert in einer oder mehreren Spalten und ermöglicht Aggregationen wie COUNT, SUM, AVG.",
-                joinDiffQuestion: "Unterschied INNER JOIN vs LEFT JOIN?",
-                joinOpt1: "Kein Unterschied - sie sind identisch",
-                joinOpt2: "INNER JOIN behält nur übereinstimmende Zeilen",
-                joinOpt3: "LEFT JOIN behält alle Zeilen der linken Tabelle",
-                joinExpl: "INNER JOIN zeigt nur Zeilen, die in beiden Tabellen vorhanden sind. LEFT JOIN zeigt alle Zeilen der linken Tabelle und fügt Übereinstimmungen von rechts hinzu.",
-                cteQuestion: "Was ist ein CTE?",
-                cteOpt1: "Eine Tabelle in der Datenbank",
-                cteOpt2: "Temporäre benannte Abfrage mit WITH",
-                cteOpt3: "Ein SQL-Kommentar",
-                cteExpl: "Ein Common Table Expression (CTE) ist eine benannte Subquery, die mit der WITH-Klausel definiert wird und wiederverwendet werden kann.",
-                orderQuestion: "Was macht ORDER BY DESC LIMIT 5?",
-                orderOpt1: "Sortiert die Tabelle in Echtzeit",
-                orderOpt2: "Top 5 in absteigender Reihenfolge",
-                orderOpt3: "Löscht die ersten 5 Zeilen",
-                orderExpl: "ORDER BY DESC LIMIT 5 sortiert Zeilen in absteigender Reihenfolge und gibt nur die ersten (höchsten) 5 Zeilen zurück.",
-                duckdbQuestion: "Wann sollte man DuckDB statt MongoDB verwenden?",
-                duckdbOpt1: "Für unstrukturierte Dokumente",
-                duckdbOpt2: "Für analytische SQL-Abfragen auf strukturierten Daten",
-                duckdbOpt3: "Für große verteilte Systeme",
-                duckdbExpl: "DuckDB ist ideal für analytische Abfragen auf strukturierten Daten in einer Datei oder lokal. MongoDB ist besser für dokumentenorientierte, unstrukturierte Daten geeignet.",
-                advancedTopics: "Erweiterte Themen",
-                windowFunctionsList: "Window Functions für Rankings und Trends",
-                partitionedParquet: "Partitionierte Parquet-Dateien mit DuckDB",
-                remoteQueries: "Remote Queries: S3, Cloud Storage",
-                webAssembly: "DuckDB in WebAssembly (Browser)",
-                aiIntegration: "KI-Integration",
-                aiIntegrationDesc: "DuckDB kann mit LLMs für intelligente Datenanalyse kombiniert werden:",
-                prompt1: "Analysiere Verkaufstrends mit Window Functions",
-                prompt2: "Erstelle Cohort-Analysen mit CTEs",
-                prompt3: "Optimiere komplexe Joins automatisch",
-                mcp: "Model Context Protocol (MCP)",
-                mcpDesc: "DuckDB kann über MCP-Server bereitgestellt werden für AI-gestützte Abfragegenerierung.",
-                commonIssues: "Häufige Probleme",
-                issue1: "CSV-Datei wird nicht geladen",
-                issue1Desc: "Stellen Sie sicher, dass der Dateipfad korrekt ist und DuckDB die erforderlichen Berechtigungen hat.",
-                issue2: "Speicher-Fehler bei großen Dateien",
-                issue2Desc: "DuckDB optimiert automatisch für große Dateien, aber stellen Sie sicher, dass Sie die Datei korrekt laden.",
-                issue3: "Docker-Container-Fehler",
-                issue3Desc: "Stellen Sie sicher, dass der DuckDB Docker-Container korrekt gestartet wurde und das richtige Image verwendet wird.",
-                copyCode: "Code kopieren",
-                codeCopied: "Kopiert!",
-                beginnerBadge: "ANFÄNGER",
-                bestPractices: "Best Practices",
-                practice1: "Verwenden Sie CTEs für Lesbarkeit",
-                practice2: "Indizieren Sie häufig gefilterte Spalten",
-                practice3: "Verwenden Sie EXPLAIN, um Abfragen zu analysieren",
-                whatYouLearn: "Was Sie lernen werden",
-                realWorldMotivation: "DuckDB wird von führenden Unternehmen für analytische Datenverarbeitung eingesetzt:",
-                motherDuckDesc: "MotherDuck: Bereitstellung von DuckDB als Cloud-Service für schnelle Analytik",
-                dbtDesc: "dbt Labs: Integration von DuckDB für SQL-basierte Datentransformation",
-                observableDesc: "Observable: Einsatz von DuckDB für interaktive Datenvisualisierungen",
-                duckdbIs: "Was ist DuckDB?",
-                inProcessDb: "In-Process Datenbank: DuckDB läuft im Speicher einer einzelnen Maschine ohne Server",
-                columnarStorage: "Spaltenorientierte Speicherung: Optimiert für analytische Abfragen mit High-Performance Columnar Format",
-                sqlNative: "SQL-Native: Vollständige SQL-Unterstützung für OLAP-Workloads",
-                estimatedTime: "Geschätzte Zeit",
-                timeValue: "60-90 Minuten",
-                prerequisites: "Voraussetzungen",
-                prereqValue: "SQL-Grundkenntnisse, Python installiert",
+                back: 'Zurück',
+                copy: 'Kopieren',
+                copied: 'Kopiert!',
+                overview: 'Überblick',
+                setup: 'Installation & Setup',
+                fundamentals: 'Grundlagen',
+                exercise1: 'Übung 1: Erste Schritte',
+                exercise2: 'Übung 2: Daten laden & erkunden',
+                exercise3: 'Übung 3: Abfragen mit Filtern',
+                exercise4: 'Übung 4: Sortieren & Begrenzen',
+                exercise5: 'Übung 5: Aggregationen',
+                exercise6: 'Übung 6: MegaStore-Analyse',
+                challenge: 'Challenge',
+                quiz: 'Wissenstest',
+                outlook: 'Ausblick & KI-Integration',
+                troubleshooting: 'Fehlerbehebung',
+
+                // Overview
+                welcomeTitle: 'Was Sie lernen werden',
+                welcomeGoals: 'Nach diesem Lab verstehen Sie:',
+                whatIsDuckDB: 'Was ist DuckDB?',
+                inProcessDB: 'In-Process Datenbank — Läuft direkt in Ihrem Python-Prozess, kein Server nötig',
+                columnarStorage: 'Spalten-orientierte Speicherung — Extrem schnell für analytische Abfragen',
+                sqlNative: 'SQL-nativ — Vollständige SQL-Unterstützung mit analytischen Erweiterungen',
+                whyDuckDB: 'Warum DuckDB?',
+                motherduck: 'MotherDuck: Sichere Cloud-Analytik für Startups und Unternehmen',
+                dbtLabs: 'dbt Labs: Integration in Daten-Transformations-Pipelines',
+                observable: 'Observable: Interaktive Datenvisualisierung und Datenanalyse',
+                estimatedTime: 'Geschätzte Zeit',
+                estimatedTimeValue: '90-120 Minuten für alle Übungen',
+                requirements: 'Voraussetzungen',
+                requirementsText: 'Python 3.7+, ein Texteditor und 2-3 CSV-Dateien',
+                megaStoreScenario: 'MegaStore E-Commerce Szenario',
+                megaStoreDesc: 'Ein fiktives E-Commerce-Unternehmen mit Kundendaten, Produktkatalog, Bestellungen und Artikel. Sie werden echte Geschäftsfragen analysieren.',
+                dataSchema: 'Datenschema',
+                table: 'Tabelle',
+                columns: 'Spalten',
+                customers: 'Kunden',
+                customersColumns: 'customer_id, name, email, city, country, registration_date',
+                products: 'Produkte',
+                productsColumns: 'product_id, name, category, unit_price, stock_quantity',
+                orders: 'Bestellungen',
+                ordersColumns: 'order_id, customer_id, order_date, order_total, status',
+                orderItems: 'Bestellpositionen',
+                orderItemsColumns: 'order_item_id, order_id, product_id, quantity, unit_price',
+
+                // Setup
+                setupTitle: 'Installation & Setup',
+                step: 'Schritt',
+                verification: 'Verifikation',
+                verifyInstallation: 'So prüfen Sie, ob alles funktioniert:',
+                step1Title: 'Python-Package installieren',
+                step1Code: 'pip install duckdb',
+                step2Title: 'Installation testen',
+                step2Code: 'python3 -c "import duckdb; print(duckdb.query(\'SELECT 42 AS answer\').fetchall())"',
+                step2Expected: 'Erwartetes Ergebnis: [(42,)]',
+                step3Title: 'CSV-Dateien vorbereiten',
+                step3Code: 'mkdir megastore_data\ncd megastore_data\n# Erstellen Sie customers.csv, products.csv, orders.csv, order_items.csv',
+                step4Title: 'Python-Skript erstellen',
+                step4Code: 'import duckdb\n\nconn = duckdb.connect(\':memory:\')\nresult = conn.execute(\'SELECT 42 AS answer\').fetchall()\nprint(result)',
+                setupComplete: 'Herzlichen Glückwunsch! DuckDB ist installiert und funktioniert.',
+
+                // Fundamentals
+                fundamentalsTitle: 'Grundlagen',
+                conceptsTitle: 'Kernkonzepte',
+                concept1: 'In-Process Datenbank',
+                concept1Desc: 'DuckDB läuft direkt in Ihrem Python-Prozess ohne separaten Server. Das macht es perfekt für schnelle Analysen und Datenverarbeitung.',
+                concept2: 'Spalten-orientierte Speicherung',
+                concept2Desc: 'Im Gegensatz zu traditionellen Zeilendatenbanken speichert DuckDB Daten spaltenweise. Das ermöglicht schnellere analytische Abfragen.',
+                concept3: 'CSV-Integration',
+                concept3Desc: 'Mit read_csv_auto() laden Sie CSV-Dateien direkt als Tabellen. DuckDB erkennt automatisch Datentypen.',
+                whenToUse: 'Wann sollten Sie DuckDB verwenden?',
+                technologyComparison: 'Technologie',
+                pros: 'Vorteile',
+                cons: 'Nachteile',
+                duckdbPros: 'Schnell, In-Process, Einfach, Vollständiges SQL',
+                duckdbCons: 'Nur analytisch, Nicht für OLTP',
+                sqlitePros: 'Leicht, Weit verbreitet',
+                sqliteCons: 'Zeilenorientiert, Langsam für große Analysen',
+                postgresPros: 'Robust, Umfangreich',
+                postgresCons: 'Komplexer, Server nötig',
+
+                // Exercises
+                beginner: 'Anfänger',
+                time: 'Zeit',
+                learningGoal: 'Lernziel',
+                example: 'Beispiel',
+                expectedOutput: 'Erwartete Ausgabe',
+                explanation: 'Erklärung',
+                yourTask: 'Ihre Aufgabe',
+                hint: 'Hinweis',
+                showSolution: 'Lösung anzeigen',
+                hideSolution: 'Lösung verbergen',
+                verification: 'Überprüfung',
+                nextExercise: 'Nächste Übung →',
+
+                // Exercise 1
+                exercise1Title: 'Erste Schritte mit DuckDB',
+                exercise1Goal: 'Lernen Sie, sich mit DuckDB zu verbinden und erste Abfragen durchzuführen.',
+                exercise1Code: 'import duckdb\n\nconn = duckdb.connect(\':memory:\')\nresult = conn.execute(\'SELECT 42 AS answer\').fetchall()\nprint(result)',
+                exercise1Output: '[(42,)]',
+                exercise1Explain: 'Zeile 1-2: Importieren Sie duckdb und erstellen eine In-Memory-Verbindung (Daten sind nach Programmende weg)\nZeile 3: Führen Sie eine einfache SQL-Abfrage aus\nZeile 4: Rufen Sie alle Ergebnisse ab und geben sie aus',
+                exercise1Task: 'Erstellen Sie eine neue Datenbankverbindung und führen Sie eine Abfrage aus, die 100 zurückgibt.',
+                exercise1Hint: 'Ändern Sie einfach die Zahl 42 in 100.',
+                exercise1Solution: 'import duckdb\n\nconn = duckdb.connect(\':memory:\')\nresult = conn.execute(\'SELECT 100 AS answer\').fetchall()\nprint(result)',
+                exercise1Verify: 'Ihr Ergebnis sollte [(100,)] sein.',
+
+                // Exercise 2
+                exercise2Title: 'Daten laden & erkunden',
+                exercise2Goal: 'Lernen Sie, CSV-Dateien zu laden und Tabellenstruktur zu erforschen.',
+                exercise2Code: 'import duckdb\n\nconn = duckdb.connect(\':memory:\')\n\n# CSV laden\ncustomers = conn.execute(\'SELECT * FROM read_csv_auto(\"customers.csv\")\').fetchall()\n\n# Tabellenschema anzeigen\nschema = conn.execute(\'DESCRIBE read_csv_auto("customers.csv")\').fetchall()\nprint(schema)',
+                exercise2Output: '[(\'customer_id\', \'BIGINT\'), (\'name\', \'VARCHAR\'), (\'email\', \'VARCHAR\'), ...]',
+                exercise2Explain: 'Zeile 1-2: Importieren und verbinden\nZeile 5: read_csv_auto() erkennt automatisch Datentypen der CSV\nZeile 8: DESCRIBE zeigt das Schema (Spaltennamen + Typen)\nZeile 9: Geben Sie das Schema aus',
+                exercise2Task: 'Laden Sie products.csv und zeigen Sie die ersten 3 Zeilen (LIMIT 3).',
+                exercise2Hint: 'Verwenden Sie SELECT * FROM read_csv_auto("products.csv") LIMIT 3',
+                exercise2Solution: 'import duckdb\n\nconn = duckdb.connect(\':memory:\')\nresult = conn.execute(\'SELECT * FROM read_csv_auto("products.csv") LIMIT 3\').fetchall()\nprint(result)',
+                exercise2Verify: 'Sie sollten 3 Produktzeilen mit allen Spalten sehen.',
+
+                // Exercise 3
+                exercise3Title: 'Abfragen mit Filtern',
+                exercise3Goal: 'Lernen Sie, Daten mit WHERE-Bedingungen zu filtern.',
+                exercise3Code: 'import duckdb\n\nconn = duckdb.connect(\':memory:\')\n\n# Kunden aus Deutschland\nresult = conn.execute(\n  \'SELECT name, city FROM read_csv_auto("customers.csv") WHERE country = "Germany"\'\n).fetchall()\nprint(result)',
+                exercise3Output: '[(\'Anna Mueller\', \'Berlin\'), (\'Klaus Schmidt\', \'Munich\'), ...]',
+                exercise3Explain: 'Zeile 5-7: Wählen Sie Namen und Städte von Kunden deren Land = "Germany" ist\nWHERE filtert die Zeilen nach der Bedingung\nNur passende Zeilen werden zurückgegeben',
+                exercise3Task: 'Filtern Sie Kunden nach Stadt = "London".',
+                exercise3Hint: 'Ändern Sie die WHERE-Bedingung zu city = "London"',
+                exercise3Solution: 'import duckdb\n\nconn = duckdb.connect(\':memory:\')\nresult = conn.execute(\n  \'SELECT name, city FROM read_csv_auto("customers.csv") WHERE city = "London"\'\n).fetchall()\nprint(result)',
+                exercise3Verify: 'Sie sollten nur Kunden aus London sehen.',
+
+                // Exercise 4
+                exercise4Title: 'Sortieren & Begrenzen',
+                exercise4Goal: 'Lernen Sie ORDER BY und LIMIT zum Sortieren und Begrenzen von Ergebnissen.',
+                exercise4Code: 'import duckdb\n\nconn = duckdb.connect(\':memory:\')\n\n# Top 5 teuerste Produkte\nresult = conn.execute(\n  \'SELECT name, unit_price FROM read_csv_auto("products.csv") ORDER BY unit_price DESC LIMIT 5\'\n).fetchall()\nprint(result)',
+                exercise4Output: '[(\'Laptop\', 1200.00), (\'Monitor\', 450.00), (\'Keyboard\', 120.00), ...]',
+                exercise4Explain: 'Zeile 5-7: ORDER BY sortiert nach unit_price in DESC (absteigend)\nLIMIT 5 begrenzt auf 5 Zeilen\nZusammen: Die 5 teuersten Produkte',
+                exercise4Task: 'Finden Sie die 10 günstigsten Produkte (ASC = aufsteigend).',
+                exercise4Hint: 'Verwenden Sie ORDER BY unit_price ASC LIMIT 10',
+                exercise4Solution: 'import duckdb\n\nconn = duckdb.connect(\':memory:\')\nresult = conn.execute(\n  \'SELECT name, unit_price FROM read_csv_auto("products.csv") ORDER BY unit_price ASC LIMIT 10\'\n).fetchall()\nprint(result)',
+                exercise4Verify: 'Sie sollten 10 Produkte sehen, von billig zu teuer sortiert.',
+
+                // Exercise 5
+                exercise5Title: 'Aggregationen',
+                exercise5Goal: 'Lernen Sie GROUP BY, COUNT, SUM und AVG für Datenzusammenfassungen.',
+                exercise5Code: 'import duckdb\n\nconn = duckdb.connect(\':memory:\')\n\n# Durchschnittlicher Preis pro Kategorie\nresult = conn.execute(\n  \'SELECT category, AVG(unit_price) as avg_price, COUNT(*) as product_count\n   FROM read_csv_auto("products.csv") GROUP BY category\'\n).fetchall()\nprint(result)',
+                exercise5Output: '[(\'Electronics\', 450.00, 12), (\'Clothing\', 45.50, 8), ...]',
+                exercise5Explain: 'Zeile 6-9: GROUP BY category gruppiert Produkte nach Kategorie\nAVG() berechnet den Durchschnittspreis pro Gruppe\nCOUNT(*) zählt Produkte pro Kategorie\nGesamtergebnis: Statistiken pro Kategorie',
+                exercise5Task: 'Berechnen Sie die Summe und Anzahl der Bestellungen pro Kunde.',
+                exercise5Hint: 'Verwenden Sie GROUP BY customer_id und SUM(order_total), COUNT(*)',
+                exercise5Solution: 'import duckdb\n\nconn = duckdb.connect(\':memory:\')\nresult = conn.execute(\n  \'SELECT customer_id, SUM(order_total) as total_spent, COUNT(*) as order_count\n   FROM read_csv_auto("orders.csv") GROUP BY customer_id\'\n).fetchall()\nprint(result)',
+                exercise5Verify: 'Sie sollten pro Kunde die Gesamtausgaben und Bestellanzahl sehen.',
+
+                // Exercise 6
+                exercise6Title: 'MegaStore-Analyse',
+                exercise6Goal: 'Kombinieren Sie JOINs und Aggregationen für eine echte Geschäftsanalyse.',
+                exercise6Code: 'import duckdb\n\nconn = duckdb.connect(\':memory:\')\n\n# Umsatz nach Produktkategorie\nresult = conn.execute(\n  \'SELECT p.category, SUM(oi.quantity * oi.unit_price) as revenue\n   FROM read_csv_auto("order_items.csv") oi\n   JOIN read_csv_auto("products.csv") p ON oi.product_id = p.product_id\n   GROUP BY p.category ORDER BY revenue DESC\'\n).fetchall()\nprint(result)',
+                exercise6Output: '[(\'Electronics\', 150000.00), (\'Clothing\', 45000.00), ...]',
+                exercise6Explain: 'Zeile 6-11: JOIN verbindet order_items mit products über product_id\nSUM berechnet Gesamtumsatz pro Kategorie\nGROUP BY fasst nach Kategorie zusammen\nORDER BY DESC zeigt die umsatzstärksten Kategorien oben',
+                exercise6Task: 'Finden Sie die Top 5 Kunden nach Ausgaben.',
+                exercise6Hint: 'Verbinden Sie customers mit orders, summieren order_total, und ordnen nach Ausgaben.',
+                exercise6Solution: 'import duckdb\n\nconn = duckdb.connect(\':memory:\')\nresult = conn.execute(\n  \'SELECT c.name, SUM(o.order_total) as total_spent\n   FROM read_csv_auto("orders.csv") o\n   JOIN read_csv_auto("customers.csv") c ON o.customer_id = c.customer_id\n   GROUP BY c.name ORDER BY total_spent DESC LIMIT 5\'\n).fetchall()\nprint(result)',
+                exercise6Verify: 'Sie sollten 5 Kunden mit ihren Gesamtausgaben sehen, absteigend sortiert.',
+
+                // Challenge
+                challengeTitle: 'Challenge: Kohorten-Analyse',
+                challengeIntro: 'Erstellen Sie eine Kohorten-Analyse: Gruppieren Sie Kunden nach Registrierungsmonat und verfolgen Sie ihre Bestellungen über die Zeit.',
+                challengeSteps: 'Ihre Schritte:',
+                challengeStep1: 'Extrahieren Sie das Registrierungsjahr und -monat aus registration_date (DATEPART oder DATE_TRUNC)',
+                challengeStep2: 'Extrahieren Sie das Bestelljahr und -monat aus order_date',
+                challengeStep3: 'Verbinden Sie customers mit orders',
+                challengeStep4: 'Berechnen Sie die Anzahl der Bestellungen pro Kohorte und Bestellmonat',
+                challengeStep5: 'Sortieren Sie die Ergebnisse',
+                challengeHint: 'Verwenden Sie DATE_TRUNC(\'month\', column) zur Datengruppeung',
+                challengeSolution: 'SELECT\n  DATE_TRUNC(\'month\', c.registration_date) as cohort,\n  DATE_TRUNC(\'month\', o.order_date) as order_month,\n  COUNT(*) as order_count\nFROM read_csv_auto("customers.csv") c\nLEFT JOIN read_csv_auto("orders.csv") o ON c.customer_id = o.customer_id\nGROUP BY 1, 2\nORDER BY 1, 2;',
+                challengeExpected: 'Sie sollten eine Matrix sehen, die Kohorten (Registrierungsmonate) gegen Bestellmonate zeigt.',
+
+                // Quiz
+                quizTitle: 'Wissenstest',
+                quizIntro: 'Testen Sie Ihr DuckDB-Wissen! Beantworten Sie alle Fragen korrekt.',
+                q1: 'Was ist DuckDB?',
+                q1a: 'Ein Web-Framework',
+                q1b: 'Eine In-Process analytische SQL-Datenbank',
+                q1c: 'Ein NoSQL-Datenspeicher',
+                q1d: 'Ein Daten-Visualization-Tool',
+                q1Correct: 'Korrekt! DuckDB ist eine in den Prozess integrierte Datenbank.',
+                q1Incorrect: 'Falsch. DuckDB ist eine In-Process analytische Datenbank.',
+                q2: 'Welcher Befehl lädt eine CSV-Datei in DuckDB?',
+                q2a: 'LOAD CSV',
+                q2b: 'IMPORT FROM',
+                q2c: 'read_csv_auto()',
+                q2d: 'COPY FROM',
+                q2Correct: 'Korrekt! read_csv_auto() erkennt automatisch Datentypen.',
+                q2Incorrect: 'Falsch. read_csv_auto() ist die richtige Funktion.',
+                q3: 'Welcher SQL-Befehl filtert Zeilen?',
+                q3a: 'GROUP BY',
+                q3b: 'WHERE',
+                q3c: 'ORDER BY',
+                q3d: 'LIMIT',
+                q3Correct: 'Korrekt! WHERE filtert Zeilen nach Bedingungen.',
+                q3Incorrect: 'Falsch. WHERE ist der richtige Befehl zum Filtern.',
+                q4: 'Was ist der Vorteil von DuckDB gegenüber SQLite?',
+                q4a: 'DuckDB hat eine grafische Benutzeroberfläche',
+                q4b: 'DuckDB ist zeilenorientiert',
+                q4c: 'DuckDB ist spaltenorientiert und schneller für Analysen',
+                q4d: 'DuckDB braucht einen Server',
+                q4Correct: 'Korrekt! Spalten-Orientierung macht analytische Abfragen viel schneller.',
+                q4Incorrect: 'Falsch. DuckDB ist spaltenorientiert und effizienter für Analysen.',
+                q5: 'Welche Funktion aggregiert Daten in SQL?',
+                q5a: 'SELECT mit WHERE',
+                q5b: 'GROUP BY mit Aggregationsfunktionen',
+                q5c: 'ORDER BY',
+                q5d: 'JOIN',
+                q5Correct: 'Korrekt! GROUP BY mit COUNT, SUM, AVG etc. aggregiert Daten.',
+                q5Incorrect: 'Falsch. GROUP BY ist der richtige Weg zu aggregieren.',
+                q6: 'Was ist ein JOIN in SQL?',
+                q6a: 'Ein Befehl zum Sortieren von Daten',
+                q6b: 'Ein Befehl zum Verbinden von zwei Tabellen',
+                q6c: 'Ein Befehl zum Filtern von Zeilen',
+                q6d: 'Ein Befehl zum Löschen von Daten',
+                q6Correct: 'Korrekt! JOIN verbindet zwei oder mehr Tabellen.',
+                q6Incorrect: 'Falsch. JOIN verbindet Tabellen miteinander.',
+
+                // Outlook
+                outlookTitle: 'Ausblick & KI-Integration',
+                advancedTopics: 'Fortgeschrittene Themen',
+                extensions: 'DuckDB-Erweiterungen: Parquet, JSON, Arrow-Support',
+                pandas: 'Pandas/Polars-Integration: Nahtlose Datenkonvertierung',
+                advanced: 'Fortgeschrittenes SQL: Window Functions, CTEs, Recursive Queries',
+                performance: 'Performance-Optimierung: Index-Strategien und Query-Tuning',
+                aiIntegration: 'KI-Integration mit Claude Code + MCP',
+                aiDescription: 'Claude Code integriert mit der Model Context Protocol (MCP) um intelligente Datenanalyse-Assistenten zu schaffen.',
+                promptExample1: 'Schreiben Sie eine DuckDB-Abfrage, die Kunden in Kohorten gruppiert',
+                promptExample2: 'Analysieren Sie diese CSV-Datei auf Anomalien',
+                promptExample3: 'Generieren Sie einen Bericht der Top 10 Produkte nach Umsatz',
+                furtherResources: 'Weiterführende Ressourcen',
+                resource1: 'DuckDB Dokumentation: https://duckdb.org/docs',
+                resource2: 'DuckDB Community: https://discord.gg/duckdb',
+                resource3: 'Parquet Guide: https://parquet.apache.org/',
+
+                // Troubleshooting
+                troubleshootingTitle: 'Fehlerbehebung',
+                problem1: 'ModuleNotFoundError: No module named \'duckdb\'',
+                solution1: 'DuckDB ist nicht installiert. Führen Sie aus: pip install duckdb',
+                problem2: 'FileNotFoundError: [Errno 2] No such file or directory: \'customers.csv\'',
+                solution2: 'CSV-Dateien wurden nicht gefunden. Stellen Sie sicher, dass die Dateien im gleichen Verzeichnis wie Ihr Skript liegen.',
+                problem3: 'UnicodeDecodeError: UTF-8 Encoding Error',
+                solution3: 'CSV-Datei hat falsche Kodierung. Versuchen Sie: read_csv_auto("file.csv", encoding="latin1")',
+                problem4: 'Memory Error bei großen Dateien',
+                solution4: 'DuckDB speichert alles im RAM. Verwenden Sie streaming oder verarbeiten Sie Daten in Chunks.',
+                problem5: 'SQL Syntax Error in Abfrage',
+                solution5: 'Überprüfen Sie Ihre SQL-Syntax. Klammern, Kommas und Schlüsselwörter müssen korrekt sein.',
             },
             en: {
-                back: "← Back to Home",
-                title: "DuckDB Lab",
-                overview: "Overview",
-                setup: "Setup",
-                fundamentals: "Fundamentals",
-                exercise1: "Exercise 1: Getting Started",
-                exercise2: "Exercise 2: Filtering & Sorting",
-                exercise3: "Exercise 3: Aggregations",
-                exercise4: "Exercise 4: Joins",
-                exercise5: "Exercise 5: Subqueries & CTEs",
-                exercise6: "Exercise 6: MegaStore Analysis",
-                challenge: "Challenge: Window Functions",
-                quiz: "Knowledge Test",
-                outlook: "Outlook & AI",
-                troubleshooting: "Troubleshooting",
-                gettingStarted: "Getting Started with DuckDB",
-                connectDatabase: "Connect to DuckDB",
-                loadCSV: "Load CSV File",
-                queryBasics: "Query Basics",
-                filtering: "Filtering & Sorting",
-                selectWhere: "SELECT with WHERE Clause",
-                orderByLimit: "ORDER BY and LIMIT",
-                betweenOperator: "BETWEEN Operator",
-                aggregations: "Aggregations",
-                groupBy: "GROUP BY Clause",
-                countFunction: "COUNT Function",
-                avgSum: "AVG and SUM Functions",
-                having: "HAVING Clause",
-                joins: "Joins",
-                innerJoin: "INNER JOIN Basics",
-                leftJoin: "LEFT JOIN - Keep All Left Rows",
-                joinSyntax: "JOIN Syntax",
-                subqueries: "Subqueries & CTEs",
-                subqueryBasics: "Subquery Basics",
-                cteWith: "CTE with WITH Clause",
-                megastoreAnalysis: "MegaStore Analysis",
-                revenueByCategory: "Revenue by Category",
-                monthlyRevenue: "Monthly Revenue Trend",
-                topCustomers: "Top 10 Customers by Spending",
-                windowFunctions: "Window Functions",
-                umsatzTrend: "Sales Trend Analysis",
-                solution: "Solution",
-                hint: "Hint",
-                testYourKnowledge: "Test Your Knowledge",
-                whatIs: "What is DuckDB?",
-                option1: "A NoSQL document database",
-                option2: "An analytical in-process SQL database",
-                option3: "A distributed Hadoop system",
-                correct: "Correct!",
-                incorrect: "Incorrect!",
-                explanation: "Explanation:",
-                duckdbExplanation: "DuckDB is a fast, in-process analytical SQL database, perfect for OLAP workloads.",
-                groupByQuestion: "What does GROUP BY do?",
-                groupByOpt1: "Sorts rows alphabetically",
-                groupByOpt2: "Groups rows for aggregations",
-                groupByOpt3: "Limits the number of returned rows",
-                groupByExpl: "GROUP BY combines rows with the same value in one or more columns and enables aggregations like COUNT, SUM, AVG.",
-                joinDiffQuestion: "Difference between INNER JOIN and LEFT JOIN?",
-                joinOpt1: "No difference - they are identical",
-                joinOpt2: "INNER JOIN keeps only matching rows",
-                joinOpt3: "LEFT JOIN keeps all rows from left table",
-                joinExpl: "INNER JOIN shows only rows that exist in both tables. LEFT JOIN shows all rows from the left table and adds matches from the right.",
-                cteQuestion: "What is a CTE?",
-                cteOpt1: "A table in the database",
-                cteOpt2: "Temporary named query with WITH",
-                cteOpt3: "A SQL comment",
-                cteExpl: "A Common Table Expression (CTE) is a named subquery defined with the WITH clause and can be reused.",
-                orderQuestion: "What does ORDER BY DESC LIMIT 5 do?",
-                orderOpt1: "Sorts the table in real-time",
-                orderOpt2: "Top 5 in descending order",
-                orderOpt3: "Deletes the first 5 rows",
-                orderExpl: "ORDER BY DESC LIMIT 5 sorts rows in descending order and returns only the first (highest) 5 rows.",
-                duckdbQuestion: "When to use DuckDB instead of MongoDB?",
-                duckdbOpt1: "For unstructured documents",
-                duckdbOpt2: "For analytical SQL queries on structured data",
-                duckdbOpt3: "For large distributed systems",
-                duckdbExpl: "DuckDB is ideal for analytical queries on structured data in a file or locally. MongoDB is better for document-oriented, unstructured data.",
-                advancedTopics: "Advanced Topics",
-                windowFunctionsList: "Window Functions for Rankings and Trends",
-                partitionedParquet: "Partitioned Parquet Files with DuckDB",
-                remoteQueries: "Remote Queries: S3, Cloud Storage",
-                webAssembly: "DuckDB in WebAssembly (Browser)",
-                aiIntegration: "AI Integration",
-                aiIntegrationDesc: "DuckDB can be combined with LLMs for intelligent data analysis:",
-                prompt1: "Analyze sales trends with Window Functions",
-                prompt2: "Create cohort analyses with CTEs",
-                prompt3: "Automatically optimize complex joins",
-                mcp: "Model Context Protocol (MCP)",
-                mcpDesc: "DuckDB can be provided via MCP servers for AI-powered query generation.",
-                commonIssues: "Common Issues",
-                issue1: "CSV file not loading",
-                issue1Desc: "Make sure the file path is correct and DuckDB has the required permissions.",
-                issue2: "Memory error with large files",
-                issue2Desc: "DuckDB automatically optimizes for large files, but make sure you load the file correctly.",
-                issue3: "Docker container error",
-                issue3Desc: "Make sure the DuckDB Docker container started correctly and uses the right image.",
-                copyCode: "Copy Code",
-                codeCopied: "Copied!",
-                beginnerBadge: "BEGINNER",
-                bestPractices: "Best Practices",
-                practice1: "Use CTEs for readability",
-                practice2: "Index frequently filtered columns",
-                practice3: "Use EXPLAIN to analyze queries",
-                whatYouLearn: "What You'll Learn",
-                realWorldMotivation: "DuckDB is used by leading companies for analytical data processing:",
-                motherDuckDesc: "MotherDuck: Provides DuckDB as a cloud service for fast analytics",
-                dbtDesc: "dbt Labs: Integrates DuckDB for SQL-based data transformation",
-                observableDesc: "Observable: Uses DuckDB for interactive data visualizations",
-                duckdbIs: "What is DuckDB?",
-                inProcessDb: "In-Process Database: DuckDB runs in memory of a single machine without a server",
-                columnarStorage: "Columnar Storage: Optimized for analytical queries with High-Performance Columnar Format",
-                sqlNative: "SQL-Native: Full SQL support for OLAP workloads",
-                estimatedTime: "Estimated Time",
-                timeValue: "60-90 Minutes",
-                prerequisites: "Prerequisites",
-                prereqValue: "Basic SQL knowledge, Python installed",
+                back: 'Back',
+                copy: 'Copy',
+                copied: 'Copied!',
+                overview: 'Overview',
+                setup: 'Installation & Setup',
+                fundamentals: 'Fundamentals',
+                exercise1: 'Exercise 1: Getting Started',
+                exercise2: 'Exercise 2: Loading & Exploring Data',
+                exercise3: 'Exercise 3: Filtering Queries',
+                exercise4: 'Exercise 4: Sorting & Limiting',
+                exercise5: 'Exercise 5: Aggregations',
+                exercise6: 'Exercise 6: MegaStore Analysis',
+                challenge: 'Challenge',
+                quiz: 'Quiz',
+                outlook: 'Outlook & AI Integration',
+                troubleshooting: 'Troubleshooting',
+
+                // Overview
+                welcomeTitle: 'What You\'ll Learn',
+                welcomeGoals: 'After this lab you\'ll understand:',
+                whatIsDuckDB: 'What is DuckDB?',
+                inProcessDB: 'In-Process Database — Runs directly in your Python process, no server needed',
+                columnarStorage: 'Columnar Storage — Extremely fast for analytical queries',
+                sqlNative: 'SQL-Native — Full SQL support with analytical extensions',
+                whyDuckDB: 'Why DuckDB?',
+                motherduck: 'MotherDuck: Secure cloud analytics for startups and enterprises',
+                dbtLabs: 'dbt Labs: Integration into data transformation pipelines',
+                observable: 'Observable: Interactive data visualization and analysis',
+                estimatedTime: 'Estimated Time',
+                estimatedTimeValue: '90-120 minutes for all exercises',
+                requirements: 'Requirements',
+                requirementsText: 'Python 3.7+, a text editor, and 2-3 CSV files',
+                megaStoreScenario: 'MegaStore E-Commerce Scenario',
+                megaStoreDesc: 'A fictional e-commerce company with customer data, product catalog, orders, and line items. You\'ll analyze real business questions.',
+                dataSchema: 'Data Schema',
+                table: 'Table',
+                columns: 'Columns',
+                customers: 'Customers',
+                customersColumns: 'customer_id, name, email, city, country, registration_date',
+                products: 'Products',
+                productsColumns: 'product_id, name, category, unit_price, stock_quantity',
+                orders: 'Orders',
+                ordersColumns: 'order_id, customer_id, order_date, order_total, status',
+                orderItems: 'Order Items',
+                orderItemsColumns: 'order_item_id, order_id, product_id, quantity, unit_price',
+
+                // Setup
+                setupTitle: 'Installation & Setup',
+                step: 'Step',
+                verification: 'Verification',
+                verifyInstallation: 'How to verify everything works:',
+                step1Title: 'Install Python Package',
+                step1Code: 'pip install duckdb',
+                step2Title: 'Test Installation',
+                step2Code: 'python3 -c "import duckdb; print(duckdb.query(\'SELECT 42 AS answer\').fetchall())"',
+                step2Expected: 'Expected result: [(42,)]',
+                step3Title: 'Prepare CSV Files',
+                step3Code: 'mkdir megastore_data\ncd megastore_data\n# Create customers.csv, products.csv, orders.csv, order_items.csv',
+                step4Title: 'Create Python Script',
+                step4Code: 'import duckdb\n\nconn = duckdb.connect(\':memory:\')\nresult = conn.execute(\'SELECT 42 AS answer\').fetchall()\nprint(result)',
+                setupComplete: 'Congratulations! DuckDB is installed and working.',
+
+                // Fundamentals
+                fundamentalsTitle: 'Fundamentals',
+                conceptsTitle: 'Core Concepts',
+                concept1: 'In-Process Database',
+                concept1Desc: 'DuckDB runs directly in your Python process without a separate server. Perfect for fast analysis and data processing.',
+                concept2: 'Columnar Storage',
+                concept2Desc: 'Unlike traditional row-oriented databases, DuckDB stores data by column. This enables faster analytical queries.',
+                concept3: 'CSV Integration',
+                concept3Desc: 'With read_csv_auto() you can load CSV files directly as tables. DuckDB auto-detects data types.',
+                whenToUse: 'When should you use DuckDB?',
+                technologyComparison: 'Technology',
+                pros: 'Pros',
+                cons: 'Cons',
+                duckdbPros: 'Fast, In-Process, Simple, Full SQL',
+                duckdbCons: 'Analytical only, Not for OLTP',
+                sqlitePros: 'Lightweight, Widely used',
+                sqliteCons: 'Row-oriented, Slow for large analytics',
+                postgresPros: 'Robust, Feature-rich',
+                postgresCons: 'Complex, Server required',
+
+                // Exercises
+                beginner: 'Beginner',
+                time: 'Time',
+                learningGoal: 'Learning Goal',
+                example: 'Example',
+                expectedOutput: 'Expected Output',
+                explanation: 'Explanation',
+                yourTask: 'Your Task',
+                hint: 'Hint',
+                showSolution: 'Show Solution',
+                hideSolution: 'Hide Solution',
+                verification: 'Verification',
+                nextExercise: 'Next Exercise →',
+
+                // Exercise 1
+                exercise1Title: 'Getting Started with DuckDB',
+                exercise1Goal: 'Learn how to connect to DuckDB and run your first queries.',
+                exercise1Code: 'import duckdb\n\nconn = duckdb.connect(\':memory:\')\nresult = conn.execute(\'SELECT 42 AS answer\').fetchall()\nprint(result)',
+                exercise1Output: '[(42,)]',
+                exercise1Explain: 'Line 1-2: Import duckdb and create an in-memory connection (data is lost after program ends)\nLine 3: Execute a simple SQL query\nLine 4: Fetch and print all results',
+                exercise1Task: 'Create a new database connection and run a query that returns 100.',
+                exercise1Hint: 'Just change the number 42 to 100.',
+                exercise1Solution: 'import duckdb\n\nconn = duckdb.connect(\':memory:\')\nresult = conn.execute(\'SELECT 100 AS answer\').fetchall()\nprint(result)',
+                exercise1Verify: 'Your result should be [(100,)].',
+
+                // Exercise 2
+                exercise2Title: 'Loading & Exploring Data',
+                exercise2Goal: 'Learn how to load CSV files and explore table structure.',
+                exercise2Code: 'import duckdb\n\nconn = duckdb.connect(\':memory:\')\n\n# Load CSV\ncustomers = conn.execute(\'SELECT * FROM read_csv_auto("customers.csv")\').fetchall()\n\n# Show table schema\nschema = conn.execute(\'DESCRIBE read_csv_auto("customers.csv")\').fetchall()\nprint(schema)',
+                exercise2Output: '[(\'customer_id\', \'BIGINT\'), (\'name\', \'VARCHAR\'), (\'email\', \'VARCHAR\'), ...]',
+                exercise2Explain: 'Line 1-2: Import and connect\nLine 5: read_csv_auto() auto-detects data types\nLine 8: DESCRIBE shows schema (column names + types)\nLine 9: Print the schema',
+                exercise2Task: 'Load products.csv and show the first 3 rows (LIMIT 3).',
+                exercise2Hint: 'Use SELECT * FROM read_csv_auto("products.csv") LIMIT 3',
+                exercise2Solution: 'import duckdb\n\nconn = duckdb.connect(\':memory:\')\nresult = conn.execute(\'SELECT * FROM read_csv_auto("products.csv") LIMIT 3\').fetchall()\nprint(result)',
+                exercise2Verify: 'You should see 3 product rows with all columns.',
+
+                // Exercise 3
+                exercise3Title: 'Filtering Queries',
+                exercise3Goal: 'Learn how to filter data with WHERE clauses.',
+                exercise3Code: 'import duckdb\n\nconn = duckdb.connect(\':memory:\')\n\n# Customers from Germany\nresult = conn.execute(\n  \'SELECT name, city FROM read_csv_auto("customers.csv") WHERE country = "Germany"\'\n).fetchall()\nprint(result)',
+                exercise3Output: '[(\'Anna Mueller\', \'Berlin\'), (\'Klaus Schmidt\', \'Munich\'), ...]',
+                exercise3Explain: 'Line 5-7: Select names and cities of customers whose country = "Germany"\nWHERE filters rows by condition\nOnly matching rows are returned',
+                exercise3Task: 'Filter customers by city = "London".',
+                exercise3Hint: 'Change the WHERE clause to city = "London"',
+                exercise3Solution: 'import duckdb\n\nconn = duckdb.connect(\':memory:\')\nresult = conn.execute(\n  \'SELECT name, city FROM read_csv_auto("customers.csv") WHERE city = "London"\'\n).fetchall()\nprint(result)',
+                exercise3Verify: 'You should see only customers from London.',
+
+                // Exercise 4
+                exercise4Title: 'Sorting & Limiting',
+                exercise4Goal: 'Learn ORDER BY and LIMIT to sort and limit results.',
+                exercise4Code: 'import duckdb\n\nconn = duckdb.connect(\':memory:\')\n\n# Top 5 most expensive products\nresult = conn.execute(\n  \'SELECT name, unit_price FROM read_csv_auto("products.csv") ORDER BY unit_price DESC LIMIT 5\'\n).fetchall()\nprint(result)',
+                exercise4Output: '[(\'Laptop\', 1200.00), (\'Monitor\', 450.00), (\'Keyboard\', 120.00), ...]',
+                exercise4Explain: 'Line 5-7: ORDER BY sorts by unit_price in DESC (descending)\nLIMIT 5 limits to 5 rows\nTogether: The 5 most expensive products',
+                exercise4Task: 'Find the 10 cheapest products (ASC = ascending).',
+                exercise4Hint: 'Use ORDER BY unit_price ASC LIMIT 10',
+                exercise4Solution: 'import duckdb\n\nconn = duckdb.connect(\':memory:\')\nresult = conn.execute(\n  \'SELECT name, unit_price FROM read_csv_auto("products.csv") ORDER BY unit_price ASC LIMIT 10\'\n).fetchall()\nprint(result)',
+                exercise4Verify: 'You should see 10 products, sorted from cheap to expensive.',
+
+                // Exercise 5
+                exercise5Title: 'Aggregations',
+                exercise5Goal: 'Learn GROUP BY, COUNT, SUM and AVG for data summaries.',
+                exercise5Code: 'import duckdb\n\nconn = duckdb.connect(\':memory:\')\n\n# Average price per category\nresult = conn.execute(\n  \'SELECT category, AVG(unit_price) as avg_price, COUNT(*) as product_count\n   FROM read_csv_auto("products.csv") GROUP BY category\'\n).fetchall()\nprint(result)',
+                exercise5Output: '[(\'Electronics\', 450.00, 12), (\'Clothing\', 45.50, 8), ...]',
+                exercise5Explain: 'Line 6-9: GROUP BY category groups products by category\nAVG() calculates average price per group\nCOUNT(*) counts products per category\nOverall result: Statistics per category',
+                exercise5Task: 'Calculate the total and count of orders per customer.',
+                exercise5Hint: 'Use GROUP BY customer_id and SUM(order_total), COUNT(*)',
+                exercise5Solution: 'import duckdb\n\nconn = duckdb.connect(\':memory:\')\nresult = conn.execute(\n  \'SELECT customer_id, SUM(order_total) as total_spent, COUNT(*) as order_count\n   FROM read_csv_auto("orders.csv") GROUP BY customer_id\'\n).fetchall()\nprint(result)',
+                exercise5Verify: 'You should see per customer their total spending and order count.',
+
+                // Exercise 6
+                exercise6Title: 'MegaStore Analysis',
+                exercise6Goal: 'Combine JOINs and aggregations for real business analysis.',
+                exercise6Code: 'import duckdb\n\nconn = duckdb.connect(\':memory:\')\n\n# Revenue by product category\nresult = conn.execute(\n  \'SELECT p.category, SUM(oi.quantity * oi.unit_price) as revenue\n   FROM read_csv_auto("order_items.csv") oi\n   JOIN read_csv_auto("products.csv") p ON oi.product_id = p.product_id\n   GROUP BY p.category ORDER BY revenue DESC\'\n).fetchall()\nprint(result)',
+                exercise6Output: '[(\'Electronics\', 150000.00), (\'Clothing\', 45000.00), ...]',
+                exercise6Explain: 'Line 6-11: JOIN connects order_items with products via product_id\nSUM calculates total revenue per category\nGROUP BY summarizes by category\nORDER BY DESC shows highest revenue categories first',
+                exercise6Task: 'Find the top 5 customers by spending.',
+                exercise6Hint: 'Join customers with orders, sum order_total, and order by spending.',
+                exercise6Solution: 'import duckdb\n\nconn = duckdb.connect(\':memory:\')\nresult = conn.execute(\n  \'SELECT c.name, SUM(o.order_total) as total_spent\n   FROM read_csv_auto("orders.csv") o\n   JOIN read_csv_auto("customers.csv") c ON o.customer_id = c.customer_id\n   GROUP BY c.name ORDER BY total_spent DESC LIMIT 5\'\n).fetchall()\nprint(result)',
+                exercise6Verify: 'You should see 5 customers with their total spending sorted descending.',
+
+                // Challenge
+                challengeTitle: 'Challenge: Cohort Analysis',
+                challengeIntro: 'Create a cohort analysis: Group customers by registration month and track their orders over time.',
+                challengeSteps: 'Your steps:',
+                challengeStep1: 'Extract registration year and month from registration_date (DATEPART or DATE_TRUNC)',
+                challengeStep2: 'Extract order year and month from order_date',
+                challengeStep3: 'Join customers with orders',
+                challengeStep4: 'Calculate order count per cohort and order month',
+                challengeStep5: 'Sort the results',
+                challengeHint: 'Use DATE_TRUNC(\'month\', column) for date grouping',
+                challengeSolution: 'SELECT\n  DATE_TRUNC(\'month\', c.registration_date) as cohort,\n  DATE_TRUNC(\'month\', o.order_date) as order_month,\n  COUNT(*) as order_count\nFROM read_csv_auto("customers.csv") c\nLEFT JOIN read_csv_auto("orders.csv") o ON c.customer_id = o.customer_id\nGROUP BY 1, 2\nORDER BY 1, 2;',
+                challengeExpected: 'You should see a matrix showing cohorts (registration months) vs order months.',
+
+                // Quiz
+                quizTitle: 'Quiz',
+                quizIntro: 'Test your DuckDB knowledge! Answer all questions correctly.',
+                q1: 'What is DuckDB?',
+                q1a: 'A web framework',
+                q1b: 'An in-process analytical SQL database',
+                q1c: 'A NoSQL data store',
+                q1d: 'A data visualization tool',
+                q1Correct: 'Correct! DuckDB is an in-process database.',
+                q1Incorrect: 'Incorrect. DuckDB is an in-process analytical database.',
+                q2: 'Which command loads a CSV file in DuckDB?',
+                q2a: 'LOAD CSV',
+                q2b: 'IMPORT FROM',
+                q2c: 'read_csv_auto()',
+                q2d: 'COPY FROM',
+                q2Correct: 'Correct! read_csv_auto() auto-detects data types.',
+                q2Incorrect: 'Incorrect. read_csv_auto() is the right function.',
+                q3: 'Which SQL command filters rows?',
+                q3a: 'GROUP BY',
+                q3b: 'WHERE',
+                q3c: 'ORDER BY',
+                q3d: 'LIMIT',
+                q3Correct: 'Correct! WHERE filters rows by conditions.',
+                q3Incorrect: 'Incorrect. WHERE is the command to filter.',
+                q4: 'What is DuckDB\'s advantage over SQLite?',
+                q4a: 'DuckDB has a graphical user interface',
+                q4b: 'DuckDB is row-oriented',
+                q4c: 'DuckDB is columnar and faster for analytics',
+                q4d: 'DuckDB requires a server',
+                q4Correct: 'Correct! Columnar orientation makes analytical queries much faster.',
+                q4Incorrect: 'Incorrect. DuckDB is columnar and more efficient for analytics.',
+                q5: 'Which function aggregates data in SQL?',
+                q5a: 'SELECT with WHERE',
+                q5b: 'GROUP BY with aggregate functions',
+                q5c: 'ORDER BY',
+                q5d: 'JOIN',
+                q5Correct: 'Correct! GROUP BY with COUNT, SUM, AVG etc. aggregates data.',
+                q5Incorrect: 'Incorrect. GROUP BY is the right way to aggregate.',
+                q6: 'What is a JOIN in SQL?',
+                q6a: 'A command to sort data',
+                q6b: 'A command to combine two tables',
+                q6c: 'A command to filter rows',
+                q6d: 'A command to delete data',
+                q6Correct: 'Correct! JOIN combines two or more tables.',
+                q6Incorrect: 'Incorrect. JOIN combines tables together.',
+
+                // Outlook
+                outlookTitle: 'Outlook & AI Integration',
+                advancedTopics: 'Advanced Topics',
+                extensions: 'DuckDB Extensions: Parquet, JSON, Arrow support',
+                pandas: 'Pandas/Polars Integration: Seamless data conversion',
+                advanced: 'Advanced SQL: Window Functions, CTEs, Recursive Queries',
+                performance: 'Performance Tuning: Index strategies and query optimization',
+                aiIntegration: 'AI Integration with Claude Code + MCP',
+                aiDescription: 'Claude Code integrates with Model Context Protocol (MCP) to create intelligent data analysis assistants.',
+                promptExample1: 'Write a DuckDB query to group customers by cohort',
+                promptExample2: 'Analyze this CSV file for anomalies',
+                promptExample3: 'Generate a report of top 10 products by revenue',
+                furtherResources: 'Further Resources',
+                resource1: 'DuckDB Documentation: https://duckdb.org/docs',
+                resource2: 'DuckDB Community: https://discord.gg/duckdb',
+                resource3: 'Parquet Guide: https://parquet.apache.org/',
+
+                // Troubleshooting
+                troubleshootingTitle: 'Troubleshooting',
+                problem1: 'ModuleNotFoundError: No module named \'duckdb\'',
+                solution1: 'DuckDB is not installed. Run: pip install duckdb',
+                problem2: 'FileNotFoundError: [Errno 2] No such file or directory: \'customers.csv\'',
+                solution2: 'CSV files not found. Make sure files are in the same directory as your script.',
+                problem3: 'UnicodeDecodeError: UTF-8 Encoding Error',
+                solution3: 'CSV file has wrong encoding. Try: read_csv_auto("file.csv", encoding="latin1")',
+                problem4: 'Memory Error with large files',
+                solution4: 'DuckDB stores everything in RAM. Use streaming or process data in chunks.',
+                problem5: 'SQL Syntax Error in query',
+                solution5: 'Check your SQL syntax. Parentheses, commas, and keywords must be correct.',
             },
-            ar: {
-                back: "← العودة للرئيسية",
-                title: "معمل DuckDB",
-                overview: "نظرة عامة",
-                setup: "الإعداد",
-                fundamentals: "الأساسيات",
-                exercise1: "التمرين 1: البدء",
-                exercise2: "التمرين 2: التصفية والفرز",
-                exercise3: "التمرين 3: التجميعات",
-                exercise4: "التمرين 4: الربط",
-                exercise5: "التمرين 5: Subqueries و CTEs",
-                exercise6: "التمرين 6: تحليل MegaStore",
-                challenge: "التحدي: وظائف النافذة",
-                quiz: "اختبار المعرفة",
-                outlook: "المنظور والذكاء الاصطناعي",
-                troubleshooting: "استكشاف الأخطاء",
-                gettingStarted: "البدء مع DuckDB",
-                connectDatabase: "الاتصال بـ DuckDB",
-                loadCSV: "تحميل ملف CSV",
-                queryBasics: "أساسيات الاستعلام",
-                filtering: "التصفية والفرز",
-                selectWhere: "SELECT مع WHERE",
-                orderByLimit: "ORDER BY و LIMIT",
-                betweenOperator: "عامل BETWEEN",
-                aggregations: "التجميعات",
-                groupBy: "جملة GROUP BY",
-                countFunction: "دالة COUNT",
-                avgSum: "دوال AVG و SUM",
-                having: "جملة HAVING",
-                joins: "الربط",
-                innerJoin: "أساسيات INNER JOIN",
-                leftJoin: "LEFT JOIN - الاحتفاظ بجميع الصفوف",
-                joinSyntax: "بناء جملة JOIN",
-                subqueries: "Subqueries و CTEs",
-                subqueryBasics: "أساسيات Subquery",
-                cteWith: "CTE مع WITH",
-                megastoreAnalysis: "تحليل MegaStore",
-                revenueByCategory: "الإيرادات حسب الفئة",
-                monthlyRevenue: "اتجاه الإيرادات الشهري",
-                topCustomers: "أفضل 10 عملاء حسب الإنفاق",
-                windowFunctions: "وظائف النافذة",
-                umsatzTrend: "تحليل اتجاه الإيرادات",
-                solution: "الحل",
-                hint: "تلميح",
-                testYourKnowledge: "اختبر معرفتك",
-                whatIs: "ما هو DuckDB؟",
-                option1: "قاعدة بيانات مستند NoSQL",
-                option2: "قاعدة بيانات SQL تحليلية في العملية",
-                option3: "نظام Hadoop موزع",
-                correct: "صحيح!",
-                incorrect: "خاطئ!",
-                explanation: "الشرح:",
-                duckdbExplanation: "DuckDB هي قاعدة بيانات SQL تحليلية سريعة وفي العملية، مثالية لأحمال العمل OLAP.",
-                groupByQuestion: "ما الذي يفعله GROUP BY؟",
-                groupByOpt1: "يفرز الصفوف أبجديًا",
-                groupByOpt2: "يجمع الصفوف للتجميع",
-                groupByOpt3: "يحد من عدد الصفوف المرجعة",
-                groupByExpl: "GROUP BY يجمع الصفوف بنفس القيمة في عمود واحد أو أكثر ويتيح التجميعات مثل COUNT و SUM و AVG.",
-                joinDiffQuestion: "الفرق بين INNER JOIN و LEFT JOIN؟",
-                joinOpt1: "لا فرق - متطابقة",
-                joinOpt2: "INNER JOIN يحتفظ بصفوف المطابقة فقط",
-                joinOpt3: "LEFT JOIN يحتفظ بجميع صفوف الجدول الأيسر",
-                joinExpl: "INNER JOIN يعرض فقط الصفوف الموجودة في كلا الجدولين. LEFT JOIN يعرض جميع الصفوف من الجدول الأيسر ويضيف المطابقات من اليمين.",
-                cteQuestion: "ما هو CTE؟",
-                cteOpt1: "جدول في قاعدة البيانات",
-                cteOpt2: "استعلام مسمى مؤقت مع WITH",
-                cteOpt3: "تعليق SQL",
-                cteExpl: "Common Table Expression (CTE) هو استعلام فرعي مسمى يتم تحديده باستخدام جملة WITH ويمكن إعادة استخدامه.",
-                orderQuestion: "ما الذي يفعله ORDER BY DESC LIMIT 5؟",
-                orderOpt1: "يفرز الجدول في الوقت الفعلي",
-                orderOpt2: "أفضل 5 بترتيب تنازلي",
-                orderOpt3: "يحذف أول 5 صفوف",
-                orderExpl: "ORDER BY DESC LIMIT 5 يفرز الصفوف بترتيب تنازلي ويرجع فقط أول (أعلى) 5 صفوف.",
-                duckdbQuestion: "متى تستخدم DuckDB بدلاً من MongoDB؟",
-                duckdbOpt1: "للمستندات غير المنظمة",
-                duckdbOpt2: "لاستعلامات SQL تحليلية على البيانات المنظمة",
-                duckdbOpt3: "للأنظمة الموزعة الكبيرة",
-                duckdbExpl: "DuckDB مثالية لاستعلامات تحليلية على بيانات منظمة في ملف أو محليًا. MongoDB أفضل للبيانات الموجهة للمستندات وغير المنظمة.",
-                advancedTopics: "مواضيع متقدمة",
-                windowFunctionsList: "وظائف النافذة للتصنيفات والاتجاهات",
-                partitionedParquet: "ملفات Parquet المقسمة مع DuckDB",
-                remoteQueries: "الاستعلامات البعيدة: S3 والتخزين السحابي",
-                webAssembly: "DuckDB في WebAssembly",
-                aiIntegration: "تكامل الذكاء الاصطناعي",
-                aiIntegrationDesc: "يمكن دمج DuckDB مع LLMs لتحليل البيانات الذكي:",
-                prompt1: "تحليل اتجاهات المبيعات باستخدام وظائف النافذة",
-                prompt2: "إنشاء تحليلات المجموعة مع CTEs",
-                prompt3: "تحسين ربط معقد تلقائيًا",
-                mcp: "Model Context Protocol (MCP)",
-                mcpDesc: "يمكن توفير DuckDB عبر خوادم MCP لإنشاء استعلامات مدعومة بالذكاء الاصطناعي.",
-                commonIssues: "المشاكل الشائعة",
-                issue1: "لا يتم تحميل ملف CSV",
-                issue1Desc: "تأكد من أن مسار الملف صحيح وأن DuckDB لديها الأذونات المطلوبة.",
-                issue2: "خطأ الذاكرة مع الملفات الكبيرة",
-                issue2Desc: "تحسّن DuckDB تلقائيًا للملفات الكبيرة، لكن تأكد من تحميل الملف بشكل صحيح.",
-                issue3: "خطأ حاوية Docker",
-                issue3Desc: "تأكد من أن حاوية DuckDB Docker بدأت بشكل صحيح واستخدم الصورة الصحيحة.",
-                copyCode: "نسخ الكود",
-                codeCopied: "تم النسخ!",
-                beginnerBadge: "مبتدئ",
-                bestPractices: "أفضل الممارسات",
-                practice1: "استخدم CTEs للوضوح",
-                practice2: "فهرس الأعمدة التي يتم تصفيتها بشكل متكرر",
-                practice3: "استخدم EXPLAIN لتحليل الاستعلامات",
-                whatYouLearn: "ما ستتعلمه",
-                realWorldMotivation: "تستخدم DuckDB من قبل الشركات الرائدة لمعالجة البيانات التحليلية:",
-                motherDuckDesc: "MotherDuck: توفر DuckDB كخدمة سحابية للتحليلات السريعة",
-                dbtDesc: "dbt Labs: تدمج DuckDB لتحويل البيانات القائم على SQL",
-                observableDesc: "Observable: تستخدم DuckDB للتصورات البيانية التفاعلية",
-                duckdbIs: "ما هي DuckDB؟",
-                inProcessDb: "قاعدة البيانات داخل العملية: تعمل DuckDB في ذاكرة جهاز واحد بدون خادم",
-                columnarStorage: "التخزين العمودي: محسّن للاستعلامات التحليلية بصيغة العمود عالية الأداء",
-                sqlNative: "SQL-أصلي: دعم SQL كامل لأحمال عمل OLAP",
-                estimatedTime: "الوقت المقدر",
-                timeValue: "60-90 دقيقة",
-                prerequisites: "المتطلبات الأساسية",
-                prereqValue: "معرفة SQL أساسية، Python مثبت",
-            },
-            uk: {
-                back: "← На головну",
-                title: "Лабораторія DuckDB",
-                overview: "Огляд",
-                setup: "Налаштування",
-                fundamentals: "Основи",
-                exercise1: "Вправа 1: Початок роботи",
-                exercise2: "Вправа 2: Фільтрування та сортування",
-                exercise3: "Вправа 3: Агрегації",
-                exercise4: "Вправа 4: Об'єднання",
-                exercise5: "Вправа 5: Підзапити та CTE",
-                exercise6: "Вправа 6: Аналіз MegaStore",
-                challenge: "Виклик: Оконні функції",
-                quiz: "Тест знань",
-                outlook: "Перспективи та ШІ",
-                troubleshooting: "Усунення неполадок",
-                gettingStarted: "Початок роботи з DuckDB",
-                connectDatabase: "Підключення до DuckDB",
-                loadCSV: "Завантаження CSV файлу",
-                queryBasics: "Основи запитів",
-                filtering: "Фільтрування та сортування",
-                selectWhere: "SELECT з WHERE",
-                orderByLimit: "ORDER BY та LIMIT",
-                betweenOperator: "Оператор BETWEEN",
-                aggregations: "Агрегації",
-                groupBy: "Пункт GROUP BY",
-                countFunction: "Функція COUNT",
-                avgSum: "Функції AVG та SUM",
-                having: "Пункт HAVING",
-                joins: "Об'єднання",
-                innerJoin: "Основи INNER JOIN",
-                leftJoin: "LEFT JOIN - збереження всіх рядків",
-                joinSyntax: "Синтаксис JOIN",
-                subqueries: "Підзапити та CTE",
-                subqueryBasics: "Основи підзапитів",
-                cteWith: "CTE з WITH",
-                megastoreAnalysis: "Аналіз MegaStore",
-                revenueByCategory: "Дохід за категоріями",
-                monthlyRevenue: "Тренд місячного доходу",
-                topCustomers: "Топ 10 клієнтів за витратами",
-                windowFunctions: "Оконні функції",
-                umsatzTrend: "Аналіз тренду продажів",
-                solution: "Рішення",
-                hint: "Підказка",
-                testYourKnowledge: "Перевірте свої знання",
-                whatIs: "Що таке DuckDB?",
-                option1: "База даних документів NoSQL",
-                option2: "Аналітична в процесі база даних SQL",
-                option3: "Розподілена система Hadoop",
-                correct: "Правильно!",
-                incorrect: "Неправильно!",
-                explanation: "Пояснення:",
-                duckdbExplanation: "DuckDB - це швидка в процесі аналітична база даних SQL, ідеальна для робочих навантажень OLAP.",
-                groupByQuestion: "Що робить GROUP BY?",
-                groupByOpt1: "Сортує рядки в алфавітному порядку",
-                groupByOpt2: "Групує рядки для агрегацій",
-                groupByOpt3: "Обмежує кількість повернутих рядків",
-                groupByExpl: "GROUP BY об'єднує рядки з однаковим значенням в одному або кількох стовпцях і дозволяє агрегувати як COUNT, SUM, AVG.",
-                joinDiffQuestion: "Різниця між INNER JOIN та LEFT JOIN?",
-                joinOpt1: "Немає різниці - вони однакові",
-                joinOpt2: "INNER JOIN зберігає тільки відповідні рядки",
-                joinOpt3: "LEFT JOIN зберігає всі рядки з лівої таблиці",
-                joinExpl: "INNER JOIN показує тільки рядки, які існують в обох таблицях. LEFT JOIN показує всі рядки з лівої таблиці та додає збіги з правої.",
-                cteQuestion: "Що таке CTE?",
-                cteOpt1: "Таблиця в базі даних",
-                cteOpt2: "Тимчасовий іменований запит з WITH",
-                cteOpt3: "Коментар SQL",
-                cteExpl: "Common Table Expression (CTE) - це іменований підзапит, визначений з пункту WITH, який можна повторно використовувати.",
-                orderQuestion: "Що робить ORDER BY DESC LIMIT 5?",
-                orderOpt1: "Сортує таблицю в реальному часі",
-                orderOpt2: "Топ 5 в спадаючому порядку",
-                orderOpt3: "Видаляє перші 5 рядків",
-                orderExpl: "ORDER BY DESC LIMIT 5 сортує рядки в спадаючому порядку та повертає лише перші (найвищі) 5 рядків.",
-                duckdbQuestion: "Коли використовувати DuckDB замість MongoDB?",
-                duckdbOpt1: "Для неструктурованих документів",
-                duckdbOpt2: "Для аналітичних SQL запитів на структурованих даних",
-                duckdbOpt3: "Для великих розподілених систем",
-                duckdbExpl: "DuckDB ідеальна для аналітичних запитів на структурованих даних у файлі або локально. MongoDB краща для орієнтованих на документи, неструктурованих даних.",
-                advancedTopics: "Розширені теми",
-                windowFunctionsList: "Оконні функції для рейтингів та трендів",
-                partitionedParquet: "Розділені файли Parquet з DuckDB",
-                remoteQueries: "Віддалені запити: S3, хмарне сховище",
-                webAssembly: "DuckDB у WebAssembly",
-                aiIntegration: "Інтеграція ШІ",
-                aiIntegrationDesc: "DuckDB можна поєднувати з LLMs для розумного аналізу даних:",
-                prompt1: "Аналізуйте тренди продажів за допомогою оконних функцій",
-                prompt2: "Створюйте аналізи когорт за допомогою CTE",
-                prompt3: "Автоматично оптимізуйте складні об'єднання",
-                mcp: "Model Context Protocol (MCP)",
-                mcpDesc: "DuckDB можна надавати через сервери MCP для генерування запитів з підтримкою ШІ.",
-                commonIssues: "Поширені проблеми",
-                issue1: "CSV файл не завантажується",
-                issue1Desc: "Переконайтеся, що шлях файлу правильний і DuckDB має необхідні дозволи.",
-                issue2: "Помилка пам'яті з великими файлами",
-                issue2Desc: "DuckDB автоматично оптимізується для великих файлів, але переконайтеся, що ви завантажуєте файл правильно.",
-                issue3: "Помилка контейнера Docker",
-                issue3Desc: "Переконайтеся, що контейнер DuckDB Docker запустився правильно та використовує правильний образ.",
-                copyCode: "Копіювати код",
-                codeCopied: "Скопійовано!",
-                beginnerBadge: "ПОЧАТКІВЕЦЬ",
-                bestPractices: "Найкращі практики",
-                practice1: "Використовуйте CTE для ясності",
-                practice2: "Індексуйте часто фільтровані стовпці",
-                practice3: "Використовуйте EXPLAIN для аналізу запитів",
-                whatYouLearn: "Що ви навчитеся",
-                realWorldMotivation: "DuckDB використовується провідними компаніями для аналітичної обробки даних:",
-                motherDuckDesc: "MotherDuck: надає DuckDB як хмарний сервіс для швидкої аналітики",
-                dbtDesc: "dbt Labs: інтегрує DuckDB для трансформації даних на основі SQL",
-                observableDesc: "Observable: використовує DuckDB для інтерактивних візуалізацій даних",
-                duckdbIs: "Що таке DuckDB?",
-                inProcessDb: "База даних у процесі: DuckDB працює в пам'яті однієї машини без сервера",
-                columnarStorage: "Колонкове сховище: оптимізоване для аналітичних запитів з форматом High-Performance Columnar Format",
-                sqlNative: "SQL-Native: повна підтримка SQL для OLAP робочих навантажень",
-                estimatedTime: "Приблизний час",
-                timeValue: "60-90 хвилин",
-                prerequisites: "Передумови",
-                prereqValue: "Базові знання SQL, встановлено Python",
-            },
-            es: {
-                back: "← Volver al inicio",
-                title: "Laboratorio DuckDB",
-                overview: "Descripción general",
-                setup: "Configuración",
-                fundamentals: "Fundamentos",
-                exercise1: "Ejercicio 1: Primeros pasos",
-                exercise2: "Ejercicio 2: Filtrado y ordenamiento",
-                exercise3: "Ejercicio 3: Agregaciones",
-                exercise4: "Ejercicio 4: Uniones",
-                exercise5: "Ejercicio 5: Subconsultas y CTE",
-                exercise6: "Ejercicio 6: Análisis MegaStore",
-                challenge: "Desafío: Funciones de ventana",
-                quiz: "Prueba de conocimiento",
-                outlook: "Perspectivas e IA",
-                troubleshooting: "Solución de problemas",
-                gettingStarted: "Primeros pasos con DuckDB",
-                connectDatabase: "Conectar a DuckDB",
-                loadCSV: "Cargar archivo CSV",
-                queryBasics: "Conceptos básicos de consultas",
-                filtering: "Filtrado y ordenamiento",
-                selectWhere: "SELECT con WHERE",
-                orderByLimit: "ORDER BY y LIMIT",
-                betweenOperator: "Operador BETWEEN",
-                aggregations: "Agregaciones",
-                groupBy: "Cláusula GROUP BY",
-                countFunction: "Función COUNT",
-                avgSum: "Funciones AVG y SUM",
-                having: "Cláusula HAVING",
-                joins: "Uniones",
-                innerJoin: "Conceptos básicos de INNER JOIN",
-                leftJoin: "LEFT JOIN - Mantener todas las filas",
-                joinSyntax: "Sintaxis de JOIN",
-                subqueries: "Subconsultas y CTE",
-                subqueryBasics: "Conceptos básicos de subconsultas",
-                cteWith: "CTE con WITH",
-                megastoreAnalysis: "Análisis MegaStore",
-                revenueByCategory: "Ingresos por categoría",
-                monthlyRevenue: "Tendencia de ingresos mensuales",
-                topCustomers: "Top 10 clientes por gastos",
-                windowFunctions: "Funciones de ventana",
-                umsatzTrend: "Análisis de tendencias de ventas",
-                solution: "Solución",
-                hint: "Pista",
-                testYourKnowledge: "Prueba tu conocimiento",
-                whatIs: "¿Qué es DuckDB?",
-                option1: "Una base de datos de documentos NoSQL",
-                option2: "Una base de datos SQL analítica en proceso",
-                option3: "Un sistema Hadoop distribuido",
-                correct: "¡Correcto!",
-                incorrect: "¡Incorrecto!",
-                explanation: "Explicación:",
-                duckdbExplanation: "DuckDB es una base de datos SQL analítica rápida en proceso, perfecta para cargas de trabajo OLAP.",
-                groupByQuestion: "¿Qué hace GROUP BY?",
-                groupByOpt1: "Ordena las filas alfabéticamente",
-                groupByOpt2: "Agrupa filas para agregaciones",
-                groupByOpt3: "Limita el número de filas devueltas",
-                groupByExpl: "GROUP BY combina filas con el mismo valor en una o más columnas y habilita agregaciones como COUNT, SUM, AVG.",
-                joinDiffQuestion: "¿Diferencia entre INNER JOIN y LEFT JOIN?",
-                joinOpt1: "Sin diferencia - son idénticas",
-                joinOpt2: "INNER JOIN mantiene solo filas coincidentes",
-                joinOpt3: "LEFT JOIN mantiene todas las filas de la tabla izquierda",
-                joinExpl: "INNER JOIN muestra solo las filas que existen en ambas tablas. LEFT JOIN muestra todas las filas de la tabla izquierda y agrega coincidencias de la derecha.",
-                cteQuestion: "¿Qué es un CTE?",
-                cteOpt1: "Una tabla en la base de datos",
-                cteOpt2: "Consulta nombrada temporal con WITH",
-                cteOpt3: "Un comentario SQL",
-                cteExpl: "Una Expresión de tabla común (CTE) es una subconsulta nombrada definida con la cláusula WITH y se puede reutilizar.",
-                orderQuestion: "¿Qué hace ORDER BY DESC LIMIT 5?",
-                orderOpt1: "Ordena la tabla en tiempo real",
-                orderOpt2: "Top 5 en orden descendente",
-                orderOpt3: "Elimina las primeras 5 filas",
-                orderExpl: "ORDER BY DESC LIMIT 5 ordena las filas en orden descendente y devuelve solo las primeras (más altas) 5 filas.",
-                duckdbQuestion: "¿Cuándo usar DuckDB en lugar de MongoDB?",
-                duckdbOpt1: "Para documentos no estructurados",
-                duckdbOpt2: "Para consultas SQL analíticas sobre datos estructurados",
-                duckdbOpt3: "Para sistemas distribuidos grandes",
-                duckdbExpl: "DuckDB es ideal para consultas analíticas sobre datos estructurados en un archivo o localmente. MongoDB es mejor para datos orientados a documentos y no estructurados.",
-                advancedTopics: "Temas avanzados",
-                windowFunctionsList: "Funciones de ventana para rankings y tendencias",
-                partitionedParquet: "Archivos Parquet particionados con DuckDB",
-                remoteQueries: "Consultas remotas: S3, almacenamiento en la nube",
-                webAssembly: "DuckDB en WebAssembly",
-                aiIntegration: "Integración de IA",
-                aiIntegrationDesc: "DuckDB se puede combinar con LLMs para análisis de datos inteligente:",
-                prompt1: "Analizar tendencias de ventas con funciones de ventana",
-                prompt2: "Crear análisis de cohortes con CTE",
-                prompt3: "Optimizar automáticamente uniones complejas",
-                mcp: "Model Context Protocol (MCP)",
-                mcpDesc: "DuckDB se puede proporcionar a través de servidores MCP para generación de consultas impulsada por IA.",
-                commonIssues: "Problemas comunes",
-                issue1: "Archivo CSV no se carga",
-                issue1Desc: "Asegúrate de que la ruta del archivo sea correcta y DuckDB tenga los permisos necesarios.",
-                issue2: "Error de memoria con archivos grandes",
-                issue2Desc: "DuckDB se optimiza automáticamente para archivos grandes, pero asegúrate de cargar el archivo correctamente.",
-                issue3: "Error del contenedor Docker",
-                issue3Desc: "Asegúrate de que el contenedor Docker de DuckDB se inició correctamente y usa la imagen correcta.",
-                copyCode: "Copiar código",
-                codeCopied: "¡Copiado!",
-                beginnerBadge: "PRINCIPIANTE",
-                bestPractices: "Mejores prácticas",
-                practice1: "Usa CTE para mayor claridad",
-                practice2: "Indexa columnas que se filtran frecuentemente",
-                practice3: "Usa EXPLAIN para analizar consultas",
-                whatYouLearn: "Lo que aprenderás",
-                realWorldMotivation: "DuckDB es utilizado por empresas líderes para procesamiento analítico de datos:",
-                motherDuckDesc: "MotherDuck: proporciona DuckDB como servicio en la nube para análisis rápido",
-                dbtDesc: "dbt Labs: integra DuckDB para transformación de datos basada en SQL",
-                observableDesc: "Observable: utiliza DuckDB para visualizaciones de datos interactivas",
-                duckdbIs: "¿Qué es DuckDB?",
-                inProcessDb: "Base de datos en proceso: DuckDB se ejecuta en la memoria de una sola máquina sin servidor",
-                columnarStorage: "Almacenamiento columnar: optimizado para consultas analíticas con formato de columna de alto rendimiento",
-                sqlNative: "SQL-Nativo: soporte SQL completo para cargas de trabajo OLAP",
-                estimatedTime: "Tiempo estimado",
-                timeValue: "60-90 minutos",
-                prerequisites: "Requisitos previos",
-                prereqValue: "Conocimientos básicos de SQL, Python instalado",
-            },
-            tr: {
-                back: "← Ana sayfaya dön",
-                title: "DuckDB Laboratuvarı",
-                overview: "Genel bakış",
-                setup: "Kurulum",
-                fundamentals: "Temel Bilgiler",
-                exercise1: "Alıştırma 1: Başlangıç",
-                exercise2: "Alıştırma 2: Filtreleme ve sıralama",
-                exercise3: "Alıştırma 3: Toplamlar",
-                exercise4: "Alıştırma 4: Birleştirmeler",
-                exercise5: "Alıştırma 5: Alt sorgular ve CTE",
-                exercise6: "Alıştırma 6: MegaStore Analizi",
-                challenge: "Zorluk: Pencere İşlevleri",
-                quiz: "Bilgi Testi",
-                outlook: "Görünüm ve YZ",
-                troubleshooting: "Sorun Giderme",
-                gettingStarted: "DuckDB ile Başlarken",
-                connectDatabase: "DuckDB'ye Bağlanma",
-                loadCSV: "CSV Dosyası Yükleme",
-                queryBasics: "Sorgu Temelleri",
-                filtering: "Filtreleme ve Sıralama",
-                selectWhere: "SELECT ve WHERE",
-                orderByLimit: "ORDER BY ve LIMIT",
-                betweenOperator: "BETWEEN Operatörü",
-                aggregations: "Toplamlar",
-                groupBy: "GROUP BY Cümlesi",
-                countFunction: "COUNT İşlevi",
-                avgSum: "AVG ve SUM İşlevleri",
-                having: "HAVING Cümlesi",
-                joins: "Birleştirmeler",
-                innerJoin: "INNER JOIN Temelleri",
-                leftJoin: "LEFT JOIN - Tüm satırları tutma",
-                joinSyntax: "JOIN Söz dizimi",
-                subqueries: "Alt sorgular ve CTE",
-                subqueryBasics: "Alt sorgu temelleri",
-                cteWith: "CTE ile WITH",
-                megastoreAnalysis: "MegaStore Analizi",
-                revenueByCategory: "Kategoriye göre gelir",
-                monthlyRevenue: "Aylık gelir trendi",
-                topCustomers: "Harcama açısından ilk 10 müşteri",
-                windowFunctions: "Pencere İşlevleri",
-                umsatzTrend: "Satış eğilimi analizi",
-                solution: "Çözüm",
-                hint: "İpucu",
-                testYourKnowledge: "Bilginizi test edin",
-                whatIs: "DuckDB nedir?",
-                option1: "Bir NoSQL belge veritabanı",
-                option2: "Analitik bir işlem içi SQL veritabanı",
-                option3: "Dağıtılmış bir Hadoop sistemi",
-                correct: "Doğru!",
-                incorrect: "Yanlış!",
-                explanation: "Açıklama:",
-                duckdbExplanation: "DuckDB, OLAP iş yükleri için ideal olan hızlı, işlem içi analitik SQL veritabanıdır.",
-                groupByQuestion: "GROUP BY ne yapar?",
-                groupByOpt1: "Satırları alfabetik olarak sıralar",
-                groupByOpt2: "Toplamlar için satırları gruplandırır",
-                groupByOpt3: "Döndürülen satır sayısını sınırlandırır",
-                groupByExpl: "GROUP BY, bir veya daha fazla sütunda aynı değere sahip satırları birleştirir ve COUNT, SUM, AVG gibi toplamlar sağlar.",
-                joinDiffQuestion: "INNER JOIN ile LEFT JOIN arasındaki fark?",
-                joinOpt1: "Fark yok - özdeştirler",
-                joinOpt2: "INNER JOIN yalnızca eşleşen satırları tutar",
-                joinOpt3: "LEFT JOIN sol tablonun tüm satırlarını tutar",
-                joinExpl: "INNER JOIN yalnızca her iki tabloda da bulunan satırları gösterir. LEFT JOIN sol tablonun tüm satırlarını gösterir ve sağdan eşleşmeleri ekler.",
-                cteQuestion: "CTE nedir?",
-                cteOpt1: "Veritabanında bir tablo",
-                cteOpt2: "WITH ile adlandırılmış geçici sorgu",
-                cteOpt3: "Bir SQL yorumu",
-                cteExpl: "Common Table Expression (CTE), WITH cümlesi ile tanımlanan ve yeniden kullanılabilen adlandırılmış bir alt sorgudur.",
-                orderQuestion: "ORDER BY DESC LIMIT 5 ne yapar?",
-                orderOpt1: "Tabloyu gerçek zamanlı olarak sıralar",
-                orderOpt2: "İlk 5 azalan sırada",
-                orderOpt3: "İlk 5 satırı siler",
-                orderExpl: "ORDER BY DESC LIMIT 5, satırları azalan sırada sıralar ve yalnızca ilk (en yüksek) 5 satırı döndürür.",
-                duckdbQuestion: "MongoDB yerine ne zaman DuckDB kullanılmalı?",
-                duckdbOpt1: "Yapılandırılmamış belgeler için",
-                duckdbOpt2: "Yapılandırılmış veriler üzerinde analitik SQL sorguları için",
-                duckdbOpt3: "Büyük dağıtılmış sistemler için",
-                duckdbExpl: "DuckDB, bir dosya veya yerel olarak yapılandırılmış veriler üzerinde analitik sorgular için idealdir. MongoDB, belgeye yöneliktir, yapılandırılmamış veriler için daha uygundur.",
-                advancedTopics: "İleri konular",
-                windowFunctionsList: "Sıralamaları ve eğilimleri için pencere işlevleri",
-                partitionedParquet: "DuckDB ile bölümlü Parquet dosyaları",
-                remoteQueries: "Uzak sorgular: S3, bulut depolama",
-                webAssembly: "DuckDB in WebAssembly",
-                aiIntegration: "YZ Entegrasyonu",
-                aiIntegrationDesc: "DuckDB, akıllı veri analizi için LLM'ler ile birleştirilebilir:",
-                prompt1: "Pencere işlevleri ile satış eğilimlerini analiz edin",
-                prompt2: "CTE ile kohort analizleri oluşturun",
-                prompt3: "Karmaşık birleştirmeleri otomatik olarak optimize edin",
-                mcp: "Model Context Protocol (MCP)",
-                mcpDesc: "DuckDB, YZ tarafından desteklenen sorgu oluşturma için MCP sunucuları aracılığıyla sağlanabilir.",
-                commonIssues: "Yaygın sorunlar",
-                issue1: "CSV dosyası yüklenmiyor",
-                issue1Desc: "Dosya yolunun doğru olduğundan ve DuckDB'nin gerekli izinlere sahip olduğundan emin olun.",
-                issue2: "Büyük dosyalarla bellek hatası",
-                issue2Desc: "DuckDB büyük dosyalar için otomatik olarak optimize eder, ancak dosyayı doğru yüklediğinizden emin olun.",
-                issue3: "Docker konteyner hatası",
-                issue3Desc: "DuckDB Docker konteynerinin doğru şekilde başlatıldığından ve doğru görüntüyü kullandığından emin olun.",
-                copyCode: "Kodu kopyala",
-                codeCopied: "Kopyalandı!",
-                beginnerBadge: "BAŞLANGIÇ",
-                bestPractices: "En İyi Uygulamalar",
-                practice1: "Okunabilirlik için CTE kullanın",
-                practice2: "Sık filtrelenen sütunları indeksleyin",
-                practice3: "Sorguları analiz etmek için EXPLAIN kullanın",
-                whatYouLearn: "Öğrenecekleriniz",
-                realWorldMotivation: "DuckDB, analitik veri işleme için önde gelen şirketler tarafından kullanılmaktadır:",
-                motherDuckDesc: "MotherDuck: hızlı analitik için bulut hizmeti olarak DuckDB sağlar",
-                dbtDesc: "dbt Labs: SQL tabanlı veri dönüşümü için DuckDB'yi entegre eder",
-                observableDesc: "Observable: etkileşimli veri görselleştirmeleri için DuckDB kullanır",
-                duckdbIs: "DuckDB Nedir?",
-                inProcessDb: "İşlem İçi Veritabanı: DuckDB sunucu olmadan tek bir makinenin belleğinde çalışır",
-                columnarStorage: "Sütunlu Depolama: Yüksek performanslı sütunlu format ile analitik sorgular için optimize edilmiştir",
-                sqlNative: "SQL Yerel: OLAP iş yükleri için tam SQL desteği",
-                estimatedTime: "Tahmini Süre",
-                timeValue: "60-90 Dakika",
-                prerequisites: "Ön Koşullar",
-                prereqValue: "Temel SQL bilgisi, Python yüklenmiş",
-            }
+            ar: { back: 'الخلف', copy: 'نسخ', overview: 'نظرة عامة', setup: 'الإعداد', fundamentals: 'الأساسيات', exercise1: 'التمرين 1', exercise2: 'التمرين 2', exercise3: 'التمرين 3', exercise4: 'التمرين 4', exercise5: 'التمرين 5', exercise6: 'التمرين 6', challenge: 'التحدي', quiz: 'الاختبار', outlook: 'النظرة المستقبلية', troubleshooting: 'استكشاف الأخطاء' },
+            uk: { back: 'Назад', copy: 'Копіювати', overview: 'Огляд', setup: 'Налаштування', fundamentals: 'Основи', exercise1: 'Вправа 1', exercise2: 'Вправа 2', exercise3: 'Вправа 3', exercise4: 'Вправа 4', exercise5: 'Вправа 5', exercise6: 'Вправа 6', challenge: 'Виклик', quiz: 'Вікторина', outlook: 'Перспектива', troubleshooting: 'Усунення несправностей' },
+            es: { back: 'Atrás', copy: 'Copiar', overview: 'Descripción general', setup: 'Configuración', fundamentals: 'Fundamentos', exercise1: 'Ejercicio 1', exercise2: 'Ejercicio 2', exercise3: 'Ejercicio 3', exercise4: 'Ejercicio 4', exercise5: 'Ejercicio 5', exercise6: 'Ejercicio 6', challenge: 'Desafío', quiz: 'Prueba', outlook: 'Perspectivas', troubleshooting: 'Solución de problemas' },
+            tr: { back: 'Geri', copy: 'Kopyala', overview: 'Genel Bakış', setup: 'Kurulum', fundamentals: 'Temel Bilgiler', exercise1: 'Alıştırma 1', exercise2: 'Alıştırma 2', exercise3: 'Alıştırma 3', exercise4: 'Alıştırma 4', exercise5: 'Alıştırma 5', exercise6: 'Alıştırma 6', challenge: 'Meydan Okuma', quiz: 'Sınav', outlook: 'Görünüm', troubleshooting: 'Sorun Giderme' },
         };
 
-        // Main App Component
-        const DuckDBLab = () => {
-            const [language, setLanguage] = useState('de');
-            const [activeSection, setActiveSection] = useState('overview');
-            const [sidebarOpen, setSidebarOpen] = useState(true);
-            const [rtl, setRtl] = useState(language === 'ar');
-            const [copiedCode, setCopiedCode] = useState(null);
+        const useTranslation = (lang) => {
+            const t = new Proxy(translations[lang], {
+                get: (target, prop) => target[prop] !== undefined ? target[prop] : translations['de'][prop]
+            });
+            return t;
+        };
 
-            const t = new Proxy(translations[language], { get: (target, prop) => target[prop] !== undefined ? target[prop] : translations['de'][prop] });
+        function Exercise({ number, title, goal, code, output, explain, task, hint, solution, verify, t }) {
+            const [showSolution, setShowSolution] = React.useState(false);
 
-            useEffect(() => {
-                setRtl(language === 'ar');
-                document.documentElement.dir = language === 'ar' ? 'rtl' : 'ltr';
-            }, [language]);
+            return (
+                <section className="exercise-section" id={`exercise${number}`}>
+                    <h3>{t[`exercise${number}Title`]}</h3>
+                    <div style={{ marginBottom: '1rem' }}>
+                        <span className="badge badge-beginner">{t.beginner}</span>
+                        <span className="badge badge-time">~15 {t.time.toLowerCase()}</span>
+                    </div>
+                    <p><strong>{t.learningGoal}:</strong> {t[`exercise${number}Goal`]}</p>
 
-            const copyToClipboard = (code, id) => {
-                navigator.clipboard.writeText(code);
-                setCopiedCode(id);
-                setTimeout(() => setCopiedCode(null), 2000);
-            };
-
-            const CodeBlock = ({ code, language: lang = 'sql', id }) => {
-                return (
+                    <h4>{t.example}</h4>
                     <div className="code-block">
-                        <button
-                            className="copy-btn"
-                            onClick={() => copyToClipboard(code, id)}
-                        >
-                            {copiedCode === id ? t.codeCopied : t.copyCode}
-                        </button>
-                        <pre><code className={`language-${lang}`}>{code}</code></pre>
+                        <button className="copy-btn" onClick={() => {
+                            navigator.clipboard.writeText(code);
+                            alert(t.copied);
+                        }}>{t.copy}</button>
+                        <code>{code}</code>
                     </div>
-                );
-            };
 
-            const QuizQuestion = ({ question, options, correct, explanation }) => {
-                const [selected, setSelected] = useState(null);
-                const [answered, setAnswered] = useState(false);
+                    <h4>{t.expectedOutput}</h4>
+                    <div className="output-box">{t[`exercise${number}Output`]}</div>
 
-                const handleAnswer = (index) => {
-                    setSelected(index);
-                    setAnswered(true);
-                };
+                    <h4>{t.explanation}</h4>
+                    <p>{t[`exercise${number}Explain`]}</p>
 
-                const isCorrect = selected === correct;
+                    <h4>{t.yourTask}</h4>
+                    <p>{t[`exercise${number}Task`]}</p>
 
-                return (
-                    <div className="card">
-                        <h4 className="font-bold mb-4">{question}</h4>
-                        {options.map((opt, idx) => (
-                            <div
-                                key={idx}
-                                className={`quiz-option ${selected === idx ? 'selected' : ''} ${
-                                    answered && idx === correct ? 'correct' : ''
-                                } ${answered && idx === selected && !isCorrect ? 'incorrect' : ''}`}
-                                onClick={() => !answered && handleAnswer(idx)}
-                            >
-                                {opt}
-                            </div>
-                        ))}
-                        {answered && (
-                            <div className={`quiz-feedback ${isCorrect ? 'feedback-correct' : 'feedback-incorrect'}`}>
-                                {isCorrect ? t.correct : t.incorrect}
-                                <p className="mt-2 font-normal">{t.explanation} {explanation}</p>
-                            </div>
-                        )}
+                    <div className="hint-box"><strong>{t.hint}:</strong> {t[`exercise${number}Hint`]}</div>
+
+                    <div className="expandable-header" onClick={() => setShowSolution(!showSolution)}>
+                        <span className="arrow">▶</span>
+                        <span>{showSolution ? t.hideSolution : t.showSolution}</span>
                     </div>
-                );
-            };
-
-            const Expandable = ({ title, children }) => {
-                const [open, setOpen] = useState(false);
-                return (
-                    <div className="expandable">
-                        <div className="expandable-header" onClick={() => setOpen(!open)}>
-                            {title}
-                            <span>{open ? '▼' : '▶'}</span>
+                    {showSolution && (
+                        <div className="expandable-content">
+                            <div className="code-block">
+                                <button className="copy-btn" onClick={() => {
+                                    navigator.clipboard.writeText(t[`exercise${number}Solution`]);
+                                    alert(t.copied);
+                                }}>{t.copy}</button>
+                                <code>{t[`exercise${number}Solution`]}</code>
+                            </div>
                         </div>
-                        {open && <div className="expandable-content open">{children}</div>}
+                    )}
+
+                    <h4>{t.verification}</h4>
+                    <p>{t[`exercise${number}Verify`]}</p>
+
+                    <button className="next-exercise-btn" onClick={() => {
+                        const nextNum = number < 6 ? number + 1 : null;
+                        if (nextNum) document.getElementById(`exercise${nextNum}`).scrollIntoView({ behavior: 'smooth' });
+                    }}>
+                        {t.nextExercise}
+                    </button>
+                </section>
+            );
+        }
+
+        function QuizQuestion({ number, question, options, correct, t }) {
+            const [selected, setSelected] = React.useState(null);
+            const [answered, setAnswered] = React.useState(false);
+
+            const handleClick = (option) => {
+                setSelected(option);
+                setAnswered(true);
+            };
+
+            const isCorrect = selected === correct;
+
+            return (
+                <div className="quiz-question">
+                    <h4>{number}. {question}</h4>
+                    <div className="quiz-options">
+                        {options.map((opt, idx) => {
+                            const key = String.fromCharCode(97 + idx);
+                            let className = 'quiz-option';
+                            if (answered) {
+                                if (opt === correct) className += ' correct';
+                                else if (opt === selected && selected !== correct) className += ' incorrect';
+                            } else if (opt === selected) {
+                                className += ' selected';
+                            }
+                            return (
+                                <div key={idx} className={className} onClick={() => !answered && handleClick(opt)}>
+                                    <strong>{key})</strong> {opt}
+                                </div>
+                            );
+                        })}
                     </div>
-                );
-            };
+                    {answered && (
+                        <div className={`quiz-feedback ${isCorrect ? 'correct' : 'incorrect'}`}>
+                            {isCorrect ? t[`q${number}Correct`] : t[`q${number}Incorrect`]}
+                        </div>
+                    )}
+                </div>
+            );
+        }
 
-            const renderSection = () => {
-                switch(activeSection) {
-                    case 'overview':
-                        return (
-                            <div>
-                                <h2 className="text-3xl font-bold mb-4 accent-line pb-3">{t.overview}</h2>
-                                <div className="lesson-box">
-                                    <h3 style={{ color: '#E8792F', marginBottom: '1rem' }}>{t.whatYouLearn}</h3>
-                                    <p>{t.realWorldMotivation}</p>
-                                    <ul style={{ listStyle: 'none', paddingLeft: 0, marginTop: '1rem' }}>
-                                        <li style={{ marginBottom: '0.5rem' }}><strong>MotherDuck:</strong> {t.motherDuckDesc}</li>
-                                        <li style={{ marginBottom: '0.5rem' }}><strong>dbt Labs:</strong> {t.dbtDesc}</li>
-                                        <li><strong>Observable:</strong> {t.observableDesc}</li>
-                                    </ul>
-                                </div>
-                                <div className="card">
-                                    <h3 className="text-xl font-bold mb-3" style={{ color: '#1B3A5C' }}>{t.duckdbIs}</h3>
-                                    <ul style={{ listStyle: 'none', paddingLeft: 0 }}>
-                                        <li style={{ marginBottom: '0.75rem' }}><strong>{t.inProcessDb}</strong></li>
-                                        <li style={{ marginBottom: '0.75rem' }}><strong>{t.columnarStorage}</strong></li>
-                                        <li><strong>{t.sqlNative}</strong></li>
-                                    </ul>
-                                </div>
-                                <div className="card">
-                                    <h3 className="text-xl font-bold mb-3" style={{ color: '#1B3A5C' }}>{t.estimatedTime}</h3>
-                                    <p><strong>{t.timeValue}</strong></p>
-                                    <p style={{ marginTop: '1rem' }}><strong>{t.prerequisites}</strong> {t.prereqValue}</p>
-                                </div>
-                            </div>
-                        );
-                    case 'setup':
-                        return (
-                            <div>
-                                <h2 className="text-3xl font-bold mb-4 accent-line pb-3">{t.setup}</h2>
-                                <div className="card">
-                                    <h3 className="text-xl font-bold mb-3">Installation</h3>
-                                    <CodeBlock
-                                        code={`pip install duckdb\npip install pandas`}
-                                        id="setup-1"
-                                    />
-                                </div>
-                                <div className="card">
-                                    <h3 className="text-xl font-bold mb-3">Docker Setup</h3>
-                                    <CodeBlock
-                                        code={`docker run -it duckdb/duckdb`}
-                                        id="setup-2"
-                                    />
-                                </div>
-                            </div>
-                        );
-                    case 'fundamentals':
-                        return (
-                            <div>
-                                <h2 className="text-3xl font-bold mb-4 accent-line pb-3">{t.fundamentals}</h2>
-                                <div className="card">
-                                    <h3 className="text-xl font-bold mb-3">{t.queryBasics}</h3>
-                                    <p className="mb-3">SQL Grundlagen mit DuckDB:</p>
-                                    <CodeBlock
-                                        code={`SELECT column1, column2\nFROM table_name\nWHERE condition\nORDER BY column1;`}
-                                        id="fund-1"
-                                    />
-                                </div>
-                            </div>
-                        );
-                    case 'exercise1':
-                        return (
-                            <div>
-                                <h2 className="text-3xl font-bold mb-4 accent-line pb-3">{t.exercise1} <span className="badge badge-beginner">{t.beginnerBadge}</span></h2>
-                                <div className="card">
-                                    <h3 className="text-xl font-bold mb-3">{t.loadCSV}</h3>
-                                    <CodeBlock
-                                        code={`SELECT * FROM 'customers.csv' LIMIT 5;`}
-                                        id="ex1-1"
-                                    />
-                                </div>
-                                <div className="card">
-                                    <h3 className="text-xl font-bold mb-3">DESCRIBE Query</h3>
-                                    <CodeBlock
-                                        code={`DESCRIBE SELECT * FROM 'customers.csv';`}
-                                        id="ex1-2"
-                                    />
-                                </div>
-                            </div>
-                        );
-                    case 'exercise2':
-                        return (
-                            <div>
-                                <h2 className="text-3xl font-bold mb-4 accent-line pb-3">{t.exercise2} <span className="badge badge-beginner">{t.beginnerBadge}</span></h2>
-                                <div className="card">
-                                    <h3 className="text-xl font-bold mb-3">{t.selectWhere}</h3>
-                                    <CodeBlock
-                                        code={`SELECT * FROM 'customers.csv'\nWHERE age > 30\nORDER BY total DESC\nLIMIT 10;`}
-                                        id="ex2-1"
-                                    />
-                                </div>
-                                <div className="card">
-                                    <h3 className="text-xl font-bold mb-3">{t.betweenOperator}</h3>
-                                    <CodeBlock
-                                        code={`SELECT * FROM 'customers.csv'\nWHERE city = 'Berlin' AND age BETWEEN 25 AND 35;`}
-                                        id="ex2-2"
-                                    />
-                                </div>
-                            </div>
-                        );
-                    case 'exercise3':
-                        return (
-                            <div>
-                                <h2 className="text-3xl font-bold mb-4 accent-line pb-3">{t.exercise3} <span className="badge badge-beginner">{t.beginnerBadge}</span></h2>
-                                <div className="card">
-                                    <h3 className="text-xl font-bold mb-3">{t.groupBy}</h3>
-                                    <CodeBlock
-                                        code={`SELECT city, COUNT(*) as customer_count, AVG(age) as avg_age\nFROM 'customers.csv'\nGROUP BY city;`}
-                                        id="ex3-1"
-                                    />
-                                </div>
-                                <div className="card">
-                                    <h3 className="text-xl font-bold mb-3">{t.having}</h3>
-                                    <CodeBlock
-                                        code={`SELECT product_category, SUM(total) as revenue\nFROM 'orders.csv'\nGROUP BY product_category\nHAVING SUM(total) > 10000;`}
-                                        id="ex3-2"
-                                    />
-                                </div>
-                            </div>
-                        );
-                    case 'exercise4':
-                        return (
-                            <div>
-                                <h2 className="text-3xl font-bold mb-4 accent-line pb-3">{t.exercise4} <span className="badge badge-beginner">{t.beginnerBadge}</span></h2>
-                                <div className="card">
-                                    <h3 className="text-xl font-bold mb-3">{t.innerJoin}</h3>
-                                    <CodeBlock
-                                        code={`SELECT c.name, o.order_id, o.total\nFROM 'customers.csv' c\nINNER JOIN 'orders.csv' o ON c.id = o.customer_id;`}
-                                        id="ex4-1"
-                                    />
-                                </div>
-                                <div className="card">
-                                    <h3 className="text-xl font-bold mb-3">{t.leftJoin}</h3>
-                                    <CodeBlock
-                                        code={`SELECT c.name, COUNT(o.order_id) as order_count\nFROM 'customers.csv' c\nLEFT JOIN 'orders.csv' o ON c.id = o.customer_id\nGROUP BY c.name;`}
-                                        id="ex4-2"
-                                    />
-                                </div>
-                            </div>
-                        );
-                    case 'exercise5':
-                        return (
-                            <div>
-                                <h2 className="text-3xl font-bold mb-4 accent-line pb-3">{t.exercise5} <span className="badge badge-beginner">{t.beginnerBadge}</span></h2>
-                                <div className="card">
-                                    <h3 className="text-xl font-bold mb-3">{t.subqueryBasics}</h3>
-                                    <CodeBlock
-                                        code={`SELECT * FROM 'customers.csv'\nWHERE total > (SELECT AVG(total) FROM 'customers.csv');`}
-                                        id="ex5-1"
-                                    />
-                                </div>
-                                <div className="card">
-                                    <h3 className="text-xl font-bold mb-3">{t.cteWith}</h3>
-                                    <CodeBlock
-                                        code={`WITH top_customers AS (\n  SELECT name, total\n  FROM 'customers.csv'\n  WHERE total > 5000\n)\nSELECT * FROM top_customers ORDER BY total DESC;`}
-                                        id="ex5-2"
-                                    />
-                                </div>
-                            </div>
-                        );
-                    case 'exercise6':
-                        return (
-                            <div>
-                                <h2 className="text-3xl font-bold mb-4 accent-line pb-3">{t.exercise6} <span className="badge badge-beginner">{t.beginnerBadge}</span></h2>
-                                <div className="card">
-                                    <h3 className="text-xl font-bold mb-3">{t.revenueByCategory}</h3>
-                                    <CodeBlock
-                                        code={`SELECT product_category, SUM(total) as revenue\nFROM 'orders.csv'\nGROUP BY product_category\nORDER BY revenue DESC;`}
-                                        id="ex6-1"
-                                    />
-                                </div>
-                                <div className="card">
-                                    <h3 className="text-xl font-bold mb-3">{t.topCustomers}</h3>
-                                    <CodeBlock
-                                        code={`SELECT name, SUM(total) as total_spending\nFROM 'customers.csv' c\nLEFT JOIN 'orders.csv' o ON c.id = o.customer_id\nGROUP BY c.name\nORDER BY total_spending DESC\nLIMIT 10;`}
-                                        id="ex6-2"
-                                    />
-                                </div>
-                            </div>
-                        );
-                    case 'challenge':
-                        return (
-                            <div>
-                                <h2 className="text-3xl font-bold mb-4 accent-line pb-3">{t.challenge}</h2>
-                                <div className="card">
-                                    <h3 className="text-xl font-bold mb-3">{t.umsatzTrend}</h3>
-                                    <p className="mb-4">Verwende Window Functions um monatliche Umsätze und Trends zu analysieren:</p>
-                                    <Expandable title={t.hint}>
-                                        <p>Nutze ROW_NUMBER(), LAG() oder RANK() Window Functions</p>
-                                    </Expandable>
-                                    <Expandable title={t.solution}>
-                                        <CodeBlock
-                                            code={`WITH monthly_revenue AS (\n  SELECT DATE_TRUNC('month', order_date) as month, SUM(total) as revenue\n  FROM 'orders.csv'\n  GROUP BY DATE_TRUNC('month', order_date)\n)\nSELECT month, revenue,\n       LAG(revenue) OVER (ORDER BY month) as prev_month_revenue,\n       ROUND((revenue - LAG(revenue) OVER (ORDER BY month)) / LAG(revenue) OVER (ORDER BY month) * 100, 2) as growth_percent\nFROM monthly_revenue\nORDER BY month;`}
-                                            id="challenge-1"
-                                        />
-                                    </Expandable>
-                                </div>
-                            </div>
-                        );
-                    case 'quiz':
-                        return (
-                            <div>
-                                <h2 className="text-3xl font-bold mb-4 accent-line pb-3">{t.testYourKnowledge}</h2>
-                                <QuizQuestion
-                                    question={t.whatIs}
-                                    options={[t.option1, t.option2, t.option3]}
-                                    correct={1}
-                                    explanation={t.duckdbExplanation}
-                                />
-                                <QuizQuestion
-                                    question={t.groupByQuestion}
-                                    options={[t.groupByOpt1, t.groupByOpt2, t.groupByOpt3]}
-                                    correct={1}
-                                    explanation={t.groupByExpl}
-                                />
-                                <QuizQuestion
-                                    question={t.joinDiffQuestion}
-                                    options={[t.joinOpt1, t.joinOpt2, t.joinOpt3]}
-                                    correct={2}
-                                    explanation={t.joinExpl}
-                                />
-                                <QuizQuestion
-                                    question={t.cteQuestion}
-                                    options={[t.cteOpt1, t.cteOpt2, t.cteOpt3]}
-                                    correct={1}
-                                    explanation={t.cteExpl}
-                                />
-                                <QuizQuestion
-                                    question={t.orderQuestion}
-                                    options={[t.orderOpt1, t.orderOpt2, t.orderOpt3]}
-                                    correct={1}
-                                    explanation={t.orderExpl}
-                                />
-                                <QuizQuestion
-                                    question={t.duckdbQuestion}
-                                    options={[t.duckdbOpt1, t.duckdbOpt2, t.duckdbOpt3]}
-                                    correct={1}
-                                    explanation={t.duckdbExpl}
-                                />
-                            </div>
-                        );
-                    case 'outlook':
-                        return (
-                            <div>
-                                <h2 className="text-3xl font-bold mb-4 accent-line pb-3">{t.outlook}</h2>
-                                <div className="card">
-                                    <h3 className="text-xl font-bold mb-3">{t.advancedTopics}</h3>
-                                    <ul className="space-y-2">
-                                        <li><strong>{t.windowFunctionsList}</strong> - ROW_NUMBER, RANK, DENSE_RANK, LAG, LEAD</li>
-                                        <li><strong>{t.partitionedParquet}</strong> - Effiziente Abfragen auf großen Datenmengen</li>
-                                        <li><strong>{t.remoteQueries}</strong> - Direktes Abfragen von Cloud-Dateien</li>
-                                        <li><strong>{t.webAssembly}</strong> - DuckDB im Browser</li>
-                                    </ul>
-                                </div>
-                                <div className="card">
-                                    <h3 className="text-xl font-bold mb-3">{t.aiIntegration}</h3>
-                                    <p className="mb-4">{t.aiIntegrationDesc}</p>
-                                    <ol className="space-y-3">
-                                        <li>1. {t.prompt1}</li>
-                                        <li>2. {t.prompt2}</li>
-                                        <li>3. {t.prompt3}</li>
-                                    </ol>
-                                    <p className="mt-4 font-semibold">{t.mcp}: {t.mcpDesc}</p>
-                                </div>
-                            </div>
-                        );
-                    case 'troubleshooting':
-                        return (
-                            <div>
-                                <h2 className="text-3xl font-bold mb-4 accent-line pb-3">{t.troubleshooting}</h2>
-                                <div className="card">
-                                    <h4 className="font-bold mb-2">{t.issue1}</h4>
-                                    <p>{t.issue1Desc}</p>
-                                </div>
-                                <div className="card">
-                                    <h4 className="font-bold mb-2">{t.issue2}</h4>
-                                    <p>{t.issue2Desc}</p>
-                                </div>
-                                <div className="card">
-                                    <h4 className="font-bold mb-2">{t.issue3}</h4>
-                                    <p>{t.issue3Desc}</p>
-                                </div>
-                            </div>
-                        );
-                    default:
-                        return null;
-                }
-            };
+        function App() {
+            const [language, setLanguage] = React.useState('de');
+            const [activeSection, setActiveSection] = React.useState('overview');
+            const t = useTranslation(language);
 
-            const sections = [
+            const sidebarItems = [
                 { id: 'overview', label: t.overview },
                 { id: 'setup', label: t.setup },
                 { id: 'fundamentals', label: t.fundamentals },
@@ -1291,43 +912,289 @@
             ];
 
             return (
-                <>
-                    <div className="header">
-                        <div className="header-left">
-                            <a className="back-btn" href="index.html">{t.back}</a>
-                            <div className="header-title">DuckDB Lab</div>
-                        </div>
-                        <div className="lang-switcher">
+                <div>
+                    <header>
+                        <div className="header-title">DuckDB Lab</div>
+                        <div className="lang-select">
                             {['de', 'en', 'ar', 'uk', 'es', 'tr'].map(lang => (
-                                <button key={lang} className={'lang-btn ' + (language === lang ? 'active' : '')} onClick={() => setLanguage(lang)}>
+                                <button
+                                    key={lang}
+                                    className={`lang-btn ${language === lang ? 'active' : ''}`}
+                                    onClick={() => setLanguage(lang)}
+                                >
                                     {lang.toUpperCase()}
                                 </button>
                             ))}
                         </div>
-                    </div>
+                    </header>
 
                     <div className="sidebar">
-                        <div className="p-4">
-                            {sections.map((section) => (
-                                <div
-                                    key={section.id}
-                                    className={`sidebar-item ${activeSection === section.id ? 'active' : ''}`}
-                                    onClick={() => setActiveSection(section.id)}
-                                >
-                                    {section.label}
+                        {sidebarItems.map(item => (
+                            <a
+                                key={item.id}
+                                href={`#${item.id}`}
+                                className={`sidebar-item ${activeSection === item.id ? 'active' : ''}`}
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    setActiveSection(item.id);
+                                    document.getElementById(item.id).scrollIntoView({ behavior: 'smooth' });
+                                }}
+                            >
+                                {item.label}
+                            </a>
+                        ))}
+                    </div>
+
+                    <main className="main-content">
+                        <section id="overview">
+                            <h2>{t.overview}</h2>
+                            <div className="lesson-box">
+                                <h4>{t.welcomeTitle}</h4>
+                                <ul>
+                                    <li>✓ {t.whatIsDuckDB}</li>
+                                    <li>✓ {t.inProcessDB}</li>
+                                    <li>✓ {t.columnarStorage}</li>
+                                    <li>✓ {t.sqlNative}</li>
+                                    <li>✓ {t.estimatedTime}</li>
+                                </ul>
+                            </div>
+
+                            <h3>{t.whatIsDuckDB}</h3>
+                            <p><strong>{t.inProcessDB}</strong></p>
+                            <p><strong>{t.columnarStorage}</strong></p>
+                            <p><strong>{t.sqlNative}</strong></p>
+
+                            <h3>{t.whyDuckDB}</h3>
+                            <p>• {t.motherduck}</p>
+                            <p>• {t.dbtLabs}</p>
+                            <p>• {t.observable}</p>
+
+                            <h3>{t.estimatedTime}</h3>
+                            <p>{t.estimatedTimeValue}</p>
+
+                            <h3>{t.requirements}</h3>
+                            <p>{t.requirementsText}</p>
+
+                            <h3>{t.megaStoreScenario}</h3>
+                            <p>{t.megaStoreDesc}</p>
+
+                            <h3>{t.dataSchema}</h3>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>{t.table}</th>
+                                        <th>{t.columns}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>{t.customers}</td>
+                                        <td>{t.customersColumns}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>{t.products}</td>
+                                        <td>{t.productsColumns}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>{t.orders}</td>
+                                        <td>{t.ordersColumns}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>{t.orderItems}</td>
+                                        <td>{t.orderItemsColumns}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </section>
+
+                        <section id="setup">
+                            <h2>{t.setup}</h2>
+                            <h3>{t.step} 1: {t.step1Title}</h3>
+                            <div className="code-block">
+                                <button className="copy-btn" onClick={() => {
+                                    navigator.clipboard.writeText(t.step1Code);
+                                    alert(t.copied);
+                                }}>{t.copy}</button>
+                                <code>{t.step1Code}</code>
+                            </div>
+
+                            <h3>{t.step} 2: {t.step2Title}</h3>
+                            <div className="code-block">
+                                <button className="copy-btn" onClick={() => {
+                                    navigator.clipboard.writeText(t.step2Code);
+                                    alert(t.copied);
+                                }}>{t.copy}</button>
+                                <code>{t.step2Code}</code>
+                            </div>
+                            <p>{t.step2Expected}</p>
+
+                            <h3>{t.step} 3: {t.step3Title}</h3>
+                            <div className="code-block">
+                                <button className="copy-btn" onClick={() => {
+                                    navigator.clipboard.writeText(t.step3Code);
+                                    alert(t.copied);
+                                }}>{t.copy}</button>
+                                <code>{t.step3Code}</code>
+                            </div>
+
+                            <h3>{t.step} 4: {t.step4Title}</h3>
+                            <div className="code-block">
+                                <button className="copy-btn" onClick={() => {
+                                    navigator.clipboard.writeText(t.step4Code);
+                                    alert(t.copied);
+                                }}>{t.copy}</button>
+                                <code>{t.step4Code}</code>
+                            </div>
+
+                            <h3>{t.verification}</h3>
+                            <p>{t.verifyInstallation}</p>
+                            <div className="output-box">{t.setupComplete}</div>
+                        </section>
+
+                        <section id="fundamentals">
+                            <h2>{t.fundamentalsTitle}</h2>
+                            <h3>{t.conceptsTitle}</h3>
+                            <h4>{t.concept1}</h4>
+                            <p>{t.concept1Desc}</p>
+                            <h4>{t.concept2}</h4>
+                            <p>{t.concept2Desc}</p>
+                            <h4>{t.concept3}</h4>
+                            <p>{t.concept3Desc}</p>
+
+                            <h3>{t.whenToUse}</h3>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>{t.technologyComparison}</th>
+                                        <th>{t.pros}</th>
+                                        <th>{t.cons}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>DuckDB</td>
+                                        <td>{t.duckdbPros}</td>
+                                        <td>{t.duckdbCons}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>SQLite</td>
+                                        <td>{t.sqlitePros}</td>
+                                        <td>{t.sqliteCons}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>PostgreSQL</td>
+                                        <td>{t.postgresPros}</td>
+                                        <td>{t.postgresCons}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </section>
+
+                        <Exercise number={1} t={t} />
+                        <Exercise number={2} t={t} />
+                        <Exercise number={3} t={t} />
+                        <Exercise number={4} t={t} />
+                        <Exercise number={5} t={t} />
+                        <Exercise number={6} t={t} />
+
+                        <section id="challenge">
+                            <h2>{t.challenge}</h2>
+                            <div style={{ marginBottom: '1rem' }}>
+                                <span className="badge badge-challenge">{t.challenge}</span>
+                            </div>
+                            <p><strong>{t.challengeTitle}</strong></p>
+                            <p>{t.challengeIntro}</p>
+                            <h3>{t.challengeSteps}</h3>
+                            <ol style={{ marginLeft: '1.5rem', marginTop: '0.5rem' }}>
+                                <li>{t.challengeStep1}</li>
+                                <li>{t.challengeStep2}</li>
+                                <li>{t.challengeStep3}</li>
+                                <li>{t.challengeStep4}</li>
+                                <li>{t.challengeStep5}</li>
+                            </ol>
+                            <div className="hint-box"><strong>{t.hint}:</strong> {t.challengeHint}</div>
+                            <div className="expandable-header" onClick={function() {
+                                const content = this.nextElementSibling;
+                                content.style.display = content.style.display === 'none' ? 'block' : 'none';
+                            }}>
+                                <span className="arrow">▶</span>
+                                <span>{t.showSolution}</span>
+                            </div>
+                            <div className="expandable-content" style={{ display: 'none' }}>
+                                <div className="code-block">
+                                    <button className="copy-btn" onClick={() => {
+                                        navigator.clipboard.writeText(t.challengeSolution);
+                                        alert(t.copied);
+                                    }}>{t.copy}</button>
+                                    <code>{t.challengeSolution}</code>
                                 </div>
-                            ))}
-                        </div>
-                    </div>
+                            </div>
+                            <h3>{t.verification}</h3>
+                            <p>{t.challengeExpected}</p>
+                        </section>
 
-                    <div className="main-content">
-                        {renderSection()}
-                    </div>
-                </>
+                        <section id="quiz">
+                            <h2>{t.quizTitle}</h2>
+                            <p>{t.quizIntro}</p>
+                            <QuizQuestion number={1} question={t.q1} options={[t.q1a, t.q1b, t.q1c, t.q1d]} correct={t.q1b} t={t} />
+                            <QuizQuestion number={2} question={t.q2} options={[t.q2a, t.q2b, t.q2c, t.q2d]} correct={t.q2c} t={t} />
+                            <QuizQuestion number={3} question={t.q3} options={[t.q3a, t.q3b, t.q3c, t.q3d]} correct={t.q3b} t={t} />
+                            <QuizQuestion number={4} question={t.q4} options={[t.q4a, t.q4b, t.q4c, t.q4d]} correct={t.q4c} t={t} />
+                            <QuizQuestion number={5} question={t.q5} options={[t.q5a, t.q5b, t.q5c, t.q5d]} correct={t.q5b} t={t} />
+                            <QuizQuestion number={6} question={t.q6} options={[t.q6a, t.q6b, t.q6c, t.q6d]} correct={t.q6b} t={t} />
+                        </section>
+
+                        <section id="outlook">
+                            <h2>{t.outlook}</h2>
+                            <h3>{t.advancedTopics}</h3>
+                            <ul style={{ marginLeft: '1.5rem', marginTop: '0.5rem' }}>
+                                <li>{t.extensions}</li>
+                                <li>{t.pandas}</li>
+                                <li>{t.advanced}</li>
+                                <li>{t.performance}</li>
+                            </ul>
+
+                            <h3>{t.aiIntegration}</h3>
+                            <p>{t.aiDescription}</p>
+
+                            <h4>Prompt Examples:</h4>
+                            <ul style={{ marginLeft: '1.5rem', marginTop: '0.5rem' }}>
+                                <li>"{t.promptExample1}"</li>
+                                <li>"{t.promptExample2}"</li>
+                                <li>"{t.promptExample3}"</li>
+                            </ul>
+
+                            <h3>{t.furtherResources}</h3>
+                            <ul style={{ marginLeft: '1.5rem', marginTop: '0.5rem' }}>
+                                <li>{t.resource1}</li>
+                                <li>{t.resource2}</li>
+                                <li>{t.resource3}</li>
+                            </ul>
+                        </section>
+
+                        <section id="troubleshooting">
+                            <h2>{t.troubleshootingTitle}</h2>
+                            <h3>{t.problem1}</h3>
+                            <p>{t.solution1}</p>
+                            <h3>{t.problem2}</h3>
+                            <p>{t.solution2}</p>
+                            <h3>{t.problem3}</h3>
+                            <p>{t.solution3}</p>
+                            <h3>{t.problem4}</h3>
+                            <p>{t.solution4}</p>
+                            <h3>{t.problem5}</h3>
+                            <p>{t.solution5}</p>
+                        </section>
+
+                        <footer style={{ marginTop: '3rem', paddingTop: '2rem', borderTop: '1px solid #ddd', textAlign: 'center', color: '#666' }}>
+                            <p>© 2026 Big Data Lab - DuckDB Tutorial</p>
+                        </footer>
+                    </main>
+                </div>
             );
-        };
+        }
 
-        ReactDOM.render(<DuckDBLab />, document.getElementById('root'));
+        ReactDOM.render(<App />, document.getElementById('root'));
     </script>
 </body>
 </html>

@@ -32,1245 +32,1363 @@
             transition: all 0.2s;
         }
         .btn-accent:hover { opacity: 0.9; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(232, 121, 47, 0.3); }
-        .card { background: white; border-radius: 0.75rem; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); padding: 1.5rem; margin-bottom: 1.5rem; }
-        .card:hover { box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); }
-        .code-block {
-            background: #1B3A5C;
-            border-left: 4px solid #E8792F;
-            border-radius: 0.5rem;
-            padding: 1rem;
-            margin: 1rem 0;
-            position: relative;
-            overflow: auto;
-        }
-        .code-block code {
-            color: #00d084;
-            font-family: 'Monaco', 'Courier New', monospace;
-            font-size: 0.9rem;
-            line-height: 1.5;
-            display: block;
-            white-space: pre;
-        }
-        .copy-btn {
-            position: absolute;
-            top: 0.5rem;
-            right: 0.5rem;
-            background: #E8792F;
-            color: white;
-            border: none;
-            padding: 0.4rem 0.8rem;
-            border-radius: 0.35rem;
+        .btn-outline {
+            background-color: transparent;
+            color: #E8792F;
+            border: 2px solid #E8792F;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.75rem;
             cursor: pointer;
-            font-size: 0.8rem;
             font-weight: 600;
             transition: all 0.2s;
         }
-        .copy-btn:hover { opacity: 0.85; }
+        .btn-outline:hover { background-color: #E8792F; color: white; }
         .header {
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
-            background: #1B3A5C;
-            z-index: 50;
+            background-color: #1B3A5C;
+            color: white;
+            height: 4rem;
+            padding: 0 2rem;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 1rem 2rem;
-            height: 4rem;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            z-index: 50;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         }
-        .header-left { display: flex; align-items: center; gap: 1rem; }
-        .back-btn { background: none; border: none; color: #E8792F; font-size: 1.5rem; cursor: pointer; font-weight: bold; }
-        .header-title { color: white; font-size: 1.5rem; font-weight: 700; }
-        .lang-switcher { display: flex; gap: 0.5rem; }
-        .lang-btn {
-            background: transparent;
-            color: #E8792F;
-            border: 1px solid #E8792F;
-            padding: 0.4rem 0.8rem;
-            border-radius: 0.35rem;
+        .header h1 { font-size: 1.5rem; font-weight: 700; }
+        .lang-selector {
+            display: flex;
+            gap: 0.5rem;
+        }
+        .lang-selector button {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 0.25rem;
             cursor: pointer;
+            background-color: rgba(255, 255, 255, 0.2);
+            color: white;
             font-weight: 600;
-            font-size: 0.8rem;
             transition: all 0.2s;
         }
-        .lang-btn.active { background: #E8792F; color: white; }
-        .lang-btn:hover { opacity: 0.9; }
+        .lang-selector button.active {
+            background-color: #E8792F;
+        }
+        .lang-selector button:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+        }
         .sidebar {
             position: fixed;
             left: 0;
             top: 4rem;
             width: 280px;
             height: calc(100vh - 4rem);
-            background: white;
-            border-right: 1px solid #e5e7eb;
-            padding: 1.5rem 0;
+            background-color: #f0f4f8;
+            border-right: 1px solid #ddd;
             overflow-y: auto;
+            padding: 1.5rem 0;
             z-index: 40;
         }
         .sidebar-item {
-            display: block;
             padding: 0.75rem 1.5rem;
-            color: #1B3A5C;
             cursor: pointer;
+            transition: all 0.2s;
             border-left: 4px solid transparent;
-            transition: all 0.2s;
-            font-size: 0.95rem;
-        }
-        .sidebar-item:hover { background: #f3f4f6; border-left-color: #E8792F; }
-        .sidebar-item.active { background: rgba(232, 121, 47, 0.1); border-left-color: #E8792F; color: #E8792F; font-weight: 600; }
-        .main-content { margin-left: 280px; padding: 5rem 3rem 2rem 3rem; background: #fafbfc; min-height: 100vh; }
-        .section { display: none; }
-        .section.active { display: block; animation: fadeIn 0.3s; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        .section-header { font-size: 2rem; font-weight: 700; color: #1B3A5C; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 4px solid #E8792F; }
-        .subsection-header { font-size: 1.25rem; font-weight: 600; color: #1B3A5C; margin-top: 1.5rem; margin-bottom: 1rem; }
-        .badge {
-            display: inline-block;
-            padding: 0.25rem 0.75rem;
-            border-radius: 9999px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            margin-right: 0.5rem;
-            margin-bottom: 0.5rem;
-        }
-        .badge-beginner { background: #c7f0d8; color: #0b663c; }
-        .badge-intermediate { background: #fef08a; color: #7c2d12; }
-        .badge-advanced { background: #fed7aa; color: #7c2d12; }
-        .badge-challenge { background: #fecaca; color: #7f1d1d; }
-        .expandable {
-            background: #f9fafb;
-            border: 1px solid #e5e7eb;
-            border-radius: 0.5rem;
-            padding: 1rem;
-            margin: 1rem 0;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        .expandable:hover { background: #f3f4f6; }
-        .expandable-header { font-weight: 600; color: #E8792F; display: flex; align-items: center; justify-content: space-between; }
-        .expandable-content { margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #e5e7eb; }
-        .expandable-chevron { transition: transform 0.2s; }
-        .expandable.expanded .expandable-chevron { transform: rotate(180deg); }
-        .output-box {
-            background: #1B3A5C;
-            color: #00d084;
-            padding: 1rem;
-            border-radius: 0.5rem;
-            font-family: 'Monaco', 'Courier New', monospace;
+            font-weight: 500;
             font-size: 0.9rem;
-            overflow-x: auto;
-            margin: 1rem 0;
-            border-left: 4px solid #E8792F;
         }
-        .quiz-item {
-            background: white;
-            border: 1px solid #e5e7eb;
-            border-radius: 0.5rem;
-            padding: 1rem;
-            margin: 1rem 0;
-            cursor: pointer;
+        .sidebar-item:hover { background-color: #e1eaf5; }
+        .sidebar-item.active {
+            background-color: #E8792F;
+            color: white;
+            border-left-color: #E8792F;
         }
-        .quiz-item-question { font-weight: 600; color: #1B3A5C; margin-bottom: 0.5rem; display: flex; align-items: center; justify-content: space-between; }
-        .quiz-options { margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #e5e7eb; }
-        .quiz-option {
-            padding: 0.5rem 0;
-            margin: 0.5rem 0;
-            cursor: pointer;
-            padding-left: 0.5rem;
-            border-left: 2px solid transparent;
-            transition: all 0.2s;
+        .main-content {
+            margin-left: 280px;
+            padding: 5rem 3rem 2rem 3rem;
+            max-width: 1200px;
         }
-        .quiz-option:hover { border-left-color: #E8792F; background: #f9fafb; }
-        .quiz-option.correct { color: #059669; font-weight: 600; border-left-color: #059669; background: #ecfdf5; }
-        .quiz-option.incorrect { color: #dc2626; font-weight: 600; border-left-color: #dc2626; background: #fef2f2; }
+        .section { display: none; }
+        .section.active { display: block; animation: fadeIn 0.3s ease-in; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         .lesson-box {
-            background: #fef5f1;
+            background-color: #fef5f1;
             border-left: 4px solid #E8792F;
             padding: 1.5rem;
             border-radius: 0.5rem;
-            margin: 1rem 0;
+            margin: 2rem 0;
         }
+        .lesson-box h3 { color: #E8792F; margin-bottom: 1rem; font-weight: 700; }
+        .lesson-box ul { list-style: none; }
+        .lesson-box li {
+            margin: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+        .lesson-box li:before { content: "✓"; position: absolute; left: 0; color: #E8792F; font-weight: bold; }
+        .badge {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            border-radius: 0.25rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-right: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        .badge-beginner { background-color: #d4edda; color: #155724; }
+        .badge-challenge { background-color: #f8d7da; color: #721c24; }
+        .badge-time { background-color: #d1ecf1; color: #0c5460; }
+        .card {
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        .card h4 { color: #1B3A5C; margin-bottom: 1rem; font-weight: 700; }
         .hint-box {
-            background: #fffbeb;
-            border-left: 4px solid #E8792F;
+            background-color: #e7f3ff;
+            border-left: 4px solid #2196F3;
             padding: 1rem;
-            border-radius: 0.5rem;
+            border-radius: 0.25rem;
             margin: 1rem 0;
+            font-size: 0.95rem;
         }
-        .hint-title { font-weight: 600; color: #E8792F; margin-bottom: 0.5rem; }
-        [dir="rtl"] { direction: rtl; text-align: right; }
-        [dir="rtl"] .sidebar { left: auto; right: 0; border-right: none; border-left: 1px solid #e0e0e0; }
-        [dir="rtl"] .main-content { margin-left: 0; margin-right: 280px; }
-        [dir="rtl"] .back-btn { margin-left: 0; margin-right: 1rem; }
-        [dir="rtl"] .sidebar-item { border-left: none; border-right: 4px solid transparent; padding-left: 0; padding-right: 1.5rem; }
-        [dir="rtl"] .sidebar-item.active { border-right-color: #E8792F; }
-        [dir="rtl"] .code-block { border-left: none; border-right: 4px solid #E8792F; }
-        [dir="rtl"] .copy-btn { right: auto; left: 0.5rem; }
-        .outlook-section { margin-top: 2rem; }
-        .outlook-part { background: white; padding: 1.5rem; border-radius: 0.5rem; margin-bottom: 1.5rem; }
-        .outlook-title { font-size: 1.25rem; font-weight: 600; color: #1B3A5C; margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid #E8792F; }
-        .outlook-list { list-style: none; padding: 0; }
-        .outlook-list li { padding: 0.5rem 0; padding-left: 1.5rem; position: relative; }
-        .outlook-list li:before { content: "•"; position: absolute; left: 0; color: #E8792F; font-weight: bold; }
-        .prompt-example {
-            background: #f9fafb;
-            border: 1px solid #e5e7eb;
+        .hint-box strong { color: #2196F3; }
+        .code-block {
+            background-color: #f5f5f5;
+            border: 1px solid #ddd;
             border-radius: 0.5rem;
             padding: 1rem;
             margin: 1rem 0;
-            font-family: 'Monaco', 'Courier New', monospace;
-            font-size: 0.9rem;
-            color: #1B3A5C;
+            position: relative;
             overflow-x: auto;
         }
+        .code-block code {
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            color: #1B3A5C;
+        }
+        .copy-btn {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            padding: 0.5rem 1rem;
+            background-color: #E8792F;
+            color: white;
+            border: none;
+            border-radius: 0.25rem;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+        .copy-btn:hover { opacity: 0.9; }
+        .output-box {
+            background-color: #f9f9f9;
+            border-left: 4px solid #28a745;
+            padding: 1rem;
+            border-radius: 0.25rem;
+            margin: 1rem 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        .expandable-header {
+            cursor: pointer;
+            padding: 1rem;
+            background-color: #f5f5f5;
+            border: 1px solid #ddd;
+            border-radius: 0.25rem;
+            font-weight: 600;
+            color: #E8792F;
+            user-select: none;
+            transition: all 0.2s;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .expandable-header:hover { background-color: #efefef; }
+        .expandable-content {
+            background-color: white;
+            border: 1px solid #ddd;
+            border-top: none;
+            border-radius: 0 0 0.25rem 0.25rem;
+            padding: 1.5rem;
+        }
+        .next-button {
+            display: inline-block;
+            margin-top: 2rem;
+            padding: 0.75rem 1.5rem;
+            background-color: #E8792F;
+            color: white;
+            border: none;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+        .next-button:hover { opacity: 0.9; transform: translateY(-2px); }
+        .schema-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+        .schema-table th,
+        .schema-table td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        .schema-table th {
+            background-color: #f5f5f5;
+            font-weight: 700;
+            color: #1B3A5C;
+        }
+        .schema-table tr:hover { background-color: #f9f9f9; }
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+        .quiz-option {
+            padding: 1rem;
+            border: 2px solid #ddd;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            background-color: white;
+        }
+        .quiz-option:hover { border-color: #E8792F; background-color: #fff5f0; }
+        .quiz-option.selected { border-color: #E8792F; background-color: #fff5f0; }
+        .quiz-option.correct { border-color: #28a745; background-color: #d4edda; }
+        .quiz-option.incorrect { border-color: #dc3545; background-color: #f8d7da; }
+        .quiz-feedback {
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+        }
+        .quiz-feedback.correct { background-color: #d4edda; color: #155724; border-left: 4px solid #28a745; }
+        .quiz-feedback.incorrect { background-color: #f8d7da; color: #721c24; border-left: 4px solid #dc3545; }
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+        .comparison-table th,
+        .comparison-table td {
+            padding: 1rem;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+        .comparison-table th {
+            background-color: #f5f5f5;
+            font-weight: 700;
+            color: #1B3A5C;
+        }
+        .comparison-table tr:nth-child(even) { background-color: #f9f9f9; }
     </style>
 </head>
 <body>
-    <div id="root"></div>
-    <script type="text/babel">
-        const { useState, useEffect } = React;
+<div id="root"></div>
+<script type="text/babel">
+const { useState } = React;
 
-        const translations = {
-            de: {
-                back: "← Zurück zur Startseite",
-                welcome: "Willkommen zum MongoDB Labor",
-                overview: "Überblick",
-                setup: "Setup & Installation",
-                fundamentals: "Grundlagen",
-                exercise1: "Übung 1: Erste Schritte",
-                exercise2: "Übung 2: CRUD Basics",
-                exercise3: "Übung 3: Abfragen mit Filtern",
-                exercise4: "Übung 4: Sortieren & Projizieren",
-                exercise5: "Übung 5: Einfache Aggregation",
-                exercise6: "Übung 6: MegaStore-Daten erkunden",
-                challenge: "Challenge: Kundensegmentierung",
-                quiz: "Wissenstest",
-                outlook: "Ausblick & KI",
-                troubleshooting: "Fehlerbehebung",
-                whatYouLearn: "Was Sie lernen werden",
-                realWorldMotivation: "Warum MongoDB? Unternehmen wie Uber, Spotify und Airbnb nutzen MongoDB täglich:",
-                uberDesc: "Uber: Flexible Datenschemas für Fahrtinformationen in 70+ Ländern",
-                spotifyDesc: "Spotify: Speichert Millionen Playlists mit verschachtelten Dokumenten",
-                airbnbDesc: "Airbnb: Verwaltung von Listings mit variablem Schema pro Region",
-                mongodbDesc: "MongoDB: Speichert flexible JSON-ähnliche Dokumente für moderne Apps",
-                mongodbIs: "Was ist MongoDB?",
-                documentDatabase: "Dokumentendatenbank: MongoDB speichert Daten als JSON-ähnliche Dokumente",
-                flexibleSchema: "Flexibles Schema: Jedes Dokument kann unterschiedliche Felder haben",
-                scaleHorizontal: "Horizontale Skalierung: Sharding über mehrere Server",
-                estimatedTime: "⏱ Geschätzte Zeit:",
-                timeValue: "2-3 Stunden für alle 6 Übungen + Challenge",
-                prerequisites: "Voraussetzungen:",
-                prereqValue: "Grundlagen von JSON und Datenbanken empfohlen",
-                chapter: "Kapitel:",
-                chapterValue: "Kapitel 7 – NoSQL Datenbanken (Butscher: Big Data & Applications, THWS)",
-                dbsLearn: "Datenbanken anzeigen",
-                collectionsLearn: "Collections und Dokumente verstehen",
-                crudLearn: "CRUD-Operationen (Create, Read, Update, Delete)",
-                queryLearn: "Abfragen mit Filtern und Operatoren",
-                aggregationLearn: "Aggregations-Pipeline und Datenanalyse",
-                megastoreLearn: "Realweltdaten erkunden und analysieren",
-                mongodbPopular: "MongoDB ist eine NoSQL-Dokumentendatenbank, die flexible, skalierbare Datenspeicherung für moderne Web- und Mobile-Anwendungen ermöglicht.",
-                whenToUseMongodb: "Wann MongoDB verwenden?",
-                useCase: "Anwendungsfall",
-                excellent: "Ausgezeichnet",
-                notIdeal: "Nicht ideal",
-                flexibleData: "Flexible Datenstrukturen",
-                builtInSupport: "Native Unterstützung",
-                requiresCustomCode: "Benötigt Custom-Code",
-                nestedDocuments: "Verschachtelte Dokumente",
-                efficientStorage: "Effiziente Speicherung",
-                relationalDesign: "Relationales Design besser",
-                highTransactions: "Viele Transaktionen",
-                basicSupport: "Grund-Unterstützung",
-                acidRequired: "ACID zwingend erforderlich",
-                estimate: "Geschätzte Zeit:",
-                estimateValue: "20-30 Minuten für diese Übung",
-                objective: "Ziel",
-                steps: "Schritte",
-                hint: "Hinweis",
-                copy: "Kopieren",
-                nextExercise: "Nächste Übung →",
-                fundamentalsIntro: "MongoDB-Grundlagen verstehen",
-                whatIsDocument: "Was ist ein Document?",
-                documentDesc: "Ein Document ist ein JSON-ähnliches Objekt mit Feldern und Werten, z.B. { '_id': 1, 'name': 'Alice', 'city': 'Berlin' }",
-                collections: "Collections",
-                collectionsDesc: "Eine Collection ist eine Gruppe von Dokumenten, ähnlich wie eine Tabelle in SQL-Datenbanken, aber ohne festes Schema.",
-                database: "Datenbank",
-                databaseDesc: "Eine Datenbank enthält mehrere Collections. Eine MongoDB-Instanz kann mehrere Datenbanken verwalten.",
-                setupIntro: "Docker-Setup für MongoDB mit Compass",
-                step1: "Schritt 1: Docker installieren",
-                step1Desc: "Herunterladen von https://www.docker.com/products/docker-desktop",
-                step2: "Schritt 2: MongoDB-Image abrufen",
-                step2Code: "docker pull mongo:latest",
-                step3: "Schritt 3: MongoDB-Container starten",
-                step3Code: "docker run -d --name mongodb -p 27017:27017 mongo:latest",
-                step4: "Schritt 4: MongoDB Compass öffnen",
-                step4Desc: "Verbinden Sie sich mit mongodb://localhost:27017",
-                ex1Title: "Übung 1: Erste Schritte - Datenbanken und Collections",
-                ex1Intro: "Verbinden Sie sich mit MongoDB und erkunden Sie die MegaStore-Datenbank.",
-                ex1Objective: "Ziel: Vertrautheit mit den Datenbanken und Collections entwickeln",
-                ex1Steps: "Schritte:",
-                ex1Step1: "Verwenden Sie 'use megastore' um die MegaStore-Datenbank zu wählen",
-                ex1Step2: "Zeigen Sie alle Collections mit 'show collections' an",
-                ex1Step3: "Zählen Sie die Dokumente in der 'customers' Collection",
-                ex1Step4: "Zeigen Sie das erste Kundendokument mit 'findOne()'",
-                ex1Verify: "Überprüfung: Wie viele Felder hat ein Kundendokument?",
-                ex1Expected: "Erwartet: 5-6 Felder (z.B. _id, name, email, city, country)",
-                ex2Title: "Übung 2: CRUD Basics (Einfügen, Lesen, Aktualisieren, Löschen)",
-                ex2Intro: "Lernen Sie grundlegende CRUD-Operationen in MongoDB.",
-                ex2Objective: "Ziel: insertOne, findOne, updateOne, deleteOne praktizieren",
-                ex2Steps: "Schritte:",
-                ex2Step1: "Einfügen: Fügen Sie einen neuen Kunden mit insertOne() ein",
-                ex2Step2: "Lesen: Finden Sie den Kunden mit findOne() nach Email",
-                ex2Step3: "Aktualisieren: Aktualisieren Sie das Feld 'city' mit updateOne()",
-                ex2Step4: "Löschen: Löschen Sie das Testdokument mit deleteOne()",
-                ex2Verify: "Überprüfung: Können Sie einen Kunden korrekt einfügen und aktualisieren?",
-                ex2Expected: "Erwartet: Alle CRUD-Operationen funktionieren fehlerfrei",
-                ex3Title: "Übung 3: Abfragen mit Filtern",
-                ex3Intro: "Lernen Sie MongoDB-Abfragen mit verschiedenen Filtern.",
-                ex3Objective: "Ziel: $gt, $regex, mehrere Bedingungen verwenden",
-                ex3Steps: "Schritte:",
-                ex3Step1: "Finden Sie Kunden aus 'Germany' mit find()",
-                ex3Step2: "Finden Sie Kunden mit Alter > 25 mit find() und $gt",
-                ex3Step3: "Finden Sie Kunden, deren Name 'Max' enthält, mit $regex",
-                ex3Step4: "Kombinieren Sie mehrere Bedingungen mit $and",
-                ex3Verify: "Überprüfung: Wie viele Kunden sind älter als 25?",
-                ex3Expected: "Erwartet: ca. 40-50% der Kunden",
-                ex4Title: "Übung 4: Sortieren & Projizieren",
-                ex4Intro: "Lernen Sie Ergebnisse zu sortieren und Felder zu selektieren.",
-                ex4Objective: "Ziel: sort(), limit(), projection nutzen",
-                ex4Steps: "Schritte:",
-                ex4Step1: "Finden Sie die Top 5 Kunden nach Registrationsdatum mit sort()",
-                ex4Step2: "Zeigen Sie nur 'name' und 'email' Felder mit Projektion",
-                ex4Step3: "Begrenzen Sie Ergebnisse auf 10 mit limit()",
-                ex4Step4: "Kombinieren Sie sort(), limit() und Projektion",
-                ex4Verify: "Überprüfung: Welcher Kunde wurde zuerst registriert?",
-                ex4Expected: "Erwartet: Der Kunde mit dem ältesten registration_date",
-                ex5Title: "Übung 5: Einfache Aggregation",
-                ex5Intro: "Nutzen Sie die Aggregations-Pipeline für Datenanalyse.",
-                ex5Objective: "Ziel: $group, $avg, $sum in einer Pipeline",
-                ex5Steps: "Schritte:",
-                ex5Step1: "Gruppieren Sie Kunden nach 'city' mit $group",
-                ex5Step2: "Zählen Sie Kunden pro Stadt mit $sum: 1",
-                ex5Step3: "Berechnen Sie den durchschnittlichen Bestellwert pro Stadt",
-                ex5Step4: "Sortieren Sie Ergebnisse nach Kundenanzahl absteigend",
-                ex5Verify: "Überprüfung: Welche Stadt hat die meisten Kunden?",
-                ex5Expected: "Erwartet: Berlin oder München typischerweise",
-                ex6Title: "Übung 6: MegaStore-Daten erkunden",
-                ex6Intro: "Analysieren Sie reale E-Commerce-Daten mit mehreren Collections.",
-                ex6Objective: "Ziel: Mehrere Collections kombinieren und analysieren",
-                ex6Steps: "Schritte:",
-                ex6Step1: "Finden Sie die Top-Bestellungen nach Betrag",
-                ex6Step2: "Zählen Sie Bestellungen pro Kunde",
-                ex6Step3: "Berechnen Sie Gesamtumsatz nach Produktkategorie",
-                ex6Step4: "Finden Sie die Top 10 besten Kunden nach Ausgaben",
-                ex6Verify: "Überprüfung: Wer ist der beste Kunde?",
-                ex6Expected: "Erwartet: Ein Kunde mit hohem Gesamtumsatz",
-                challengeTitle: "Challenge: Kundensegmentierung (RFM-Analyse)",
-                challengeIntro: "Nutzen Sie MongoDB-Aggregation für Customer Segmentation mit RFM-Metriken.",
-                challengeObjective: "Ziel: Kunden in VIP, Regular und At-Risk segmentieren",
-                challengeSteps: "Schritte:",
-                challengeStep1: "Berechnen Sie für jeden Kunden: Recency (Tage seit letzter Bestellung)",
-                challengeStep2: "Berechnen Sie Frequency (Gesamtanzahl Bestellungen)",
-                challengeStep3: "Berechnen Sie Monetary (Gesamtumsatz)",
-                challengeStep4: "Segmentieren Sie Kunden: VIP (high value), Regular, At-Risk (lange inaktiv)",
-                challengeStep5: "Zählen Sie Kunden pro Segment",
-                challengeVerify: "Überprüfung: Wie viele At-Risk-Kunden gibt es (>60 Tage)?",
-                challengeExpected: "Erwartet: 20-30% der Kunden",
-                challengeHint: "Tipp: Nutzen Sie $$NOW und $subtract für Datum-Differenzen",
-                solutionLabel: "Lösung anzeigen",
-                quizTitle: "Wissenstest: MongoDB-Konzepte",
-                quizIntro: "Testen Sie Ihr Verständnis von MongoDB mit Multiple-Choice-Fragen.",
-                q1: "Was ist ein Document in MongoDB?",
-                q1a: "Eine Tabelle in SQL",
-                q1b: "Ein JSON-ähnliches Datenobjekt mit Feldern",
-                q1c: "Eine eindeutige Dateikennung",
-                q1d: "Eine Sicherheitsrichtlinie",
-                q1Correct: "Antwort B",
-                q1Explanation: "Ein Document ist ein JSON-ähnliches Objekt, das Felder und Werte enthält.",
-                q2: "Welcher Befehl fügt ein neues Document ein?",
-                q2a: "insert()",
-                q2b: "add()",
-                q2c: "insertOne()",
-                q2d: "write()",
-                q2Correct: "Antwort C",
-                q2Explanation: "insertOne() fügt ein einzelnes Document ein, insert() ist in modernen Versionen deprecated.",
-                q3: "Was macht $group in der Aggregations-Pipeline?",
-                q3a: "Teilt Dokumente in mehrere Dateien auf",
-                q3b: "Sucht nach ähnlichen Dokumenten",
-                q3c: "Fasst Dokumente zusammen und aggregiert Werte",
-                q3d: "Löscht doppelte Dokumente",
-                q3Correct: "Antwort C",
-                q3Explanation: "$group fasst Dokumente zusammen und ermöglicht Aggregationen wie count, sum, avg.",
-                q4: "Wann ist MongoDB besser als SQL?",
-                q4a: "Immer schneller",
-                q4b: "Bei flexiblen, verschachtelten Datenstrukturen",
-                q4c: "Nur für große Datenmengen",
-                q4d: "MongoDB ist immer besser",
-                q4Correct: "Antwort B",
-                q4Explanation: "MongoDB ist ideal für flexible Schemas und verschachtelte Daten, nicht für alle Anwendungsfälle.",
-                q5: "Was passiert bei updateOne() mit $set?",
-                q5a: "Das Feld wird gelöscht",
-                q5b: "Ein neues Dokument wird eingefügt",
-                q5c: "Das Feld wird auf den neuen Wert geändert",
-                q5d: "Das Dokument wird ersetzt",
-                q5Correct: "Antwort C",
-                q5Explanation: "$set aktualisiert nur die angegebenen Felder, lässt andere Felder unverändert.",
-                q6: "Was zeigt find({ age: { $gt: 30 } }).limit(5)?",
-                q6a: "Alle Dokumente mit age=30",
-                q6b: "Die ersten 5 Dokumente mit age > 30",
-                q6c: "Maximal 5 Kunden insgesamt",
-                q6d: "Alle Dokumente über 30 Jahre",
-                q6Correct: "Antwort B",
-                q6Explanation: "Das zeigt die ersten 5 Dokumente, die die Bedingung age > 30 erfüllen.",
-                correctAnswer: "Korrekt!",
-                incorrectAnswer: "Falsch. Versuchen Sie es erneut.",
-                submittedAnswers: "Eingereichte Antworten:",
-                youScored: "Sie haben erreicht:",
-                outlookTitle: "Ausblick & KI-Integration",
-                advancedTopics: "Fortgeschrittene Themen",
-                advancedDesc: "Nachdem Sie MongoDB beherrschen, gibt es viele Spezialisierungen:",
-                mongoAtlas: "MongoDB Atlas: Cloud-Hosting mit automatischer Skalierung und Backups",
-                changeStreams: "Change Streams: Echtzeit-Reaktion auf Datenänderungen",
-                atlasSearch: "Atlas Search: Volltext-Suche auf Dokumenten",
-                timeSeries: "Time Series Collections: Optimiert für Sensordaten und Metriken",
-                aiIntegration: "KI-Unterstützte Entwicklung",
-                aiDesc: "Mit Claude Code und MCP kannst du MongoDB-Entwicklung durch KI beschleunigen:",
-                mcpExplained: "MCP (Model Context Protocol): Standardisierte API für KI-Tools zur Zusammenarbeit",
-                claudeExplained: "Claude Code: KI-Assistent, der korrekte MongoDB-Queries schreiben kann",
-                aiPrompts: "Beispiele für AI-unterstützte MongoDB-Aufgaben:",
-                aiPrompt1Title: "Schema-Design optimieren",
-                aiPrompt1: "Entwerfе ein MongoDB-Schema für eine E-Commerce-App mit Kunden, Produkten und Bestellungen. Nutze Denormalisierung wo sinnvoll für Performance.",
-                aiPrompt2Title: "Aggregation-Pipeline generieren",
-                aiPrompt2: "Schreibe eine MongoDB-Aggregations-Pipeline, die RFM-Metriken berechnet: Recency, Frequency, Monetary für Kundensegmentierung.",
-                aiPrompt3Title: "Index-Strategie entwickeln",
-                aiPrompt3: "Analysiere diese MongoDB-Queries und empfehle geeignete Indizes für bessere Performance. Erkläre die Index-Struktur.",
-                troubleshootingTitle: "Fehlerbehebung",
-                commonProblems: "Häufige Probleme und Lösungen",
-                error1Problem: "MongoDB-Container startet nicht",
-                error1Solution: "Überprüfen Sie Logs: docker logs mongodb. Stellen Sie sicher, dass Port 27017 nicht blockiert ist.",
-                error2Problem: "Verbindung zu localhost:27017 fehlgeschlagen",
-                error2Solution: "Überprüfen Sie, dass Container läuft: docker ps. Starten Sie neu falls nötig: docker start mongodb",
-                error3Problem: "insertOne() schlägt mit ValidationError fehl",
-                error3Solution: "Überprüfen Sie das Document-Format. Es muss gültiges JSON sein: { 'field': 'value' }",
-                error4Problem: "find() gibt leere Ergebnisse zurück",
-                error4Solution: "Überprüfen Sie die Collection und Query. Nutzen Sie find() ohne Filter um alle Dokumente anzuzeigen.",
-                error5Problem: "Aggregation-Pipeline läuft sehr langsam",
-                error5Solution: "Nutzen Sie explain() um Bottlenecks zu finden. Fügen Sie Indizes auf group-Feldern hinzu.",
-            },
-            en: {
-                back: "← Back to Landing Page",
-                welcome: "Welcome to MongoDB Lab",
-                overview: "Overview",
-                setup: "Setup & Installation",
-                fundamentals: "Fundamentals",
-                exercise1: "Exercise 1: Getting Started",
-                exercise2: "Exercise 2: CRUD Basics",
-                exercise3: "Exercise 3: Queries with Filters",
-                exercise4: "Exercise 4: Sorting & Projection",
-                exercise5: "Exercise 5: Simple Aggregation",
-                exercise6: "Exercise 6: Explore MegaStore Data",
-                challenge: "Challenge: Customer Segmentation",
-                quiz: "Knowledge Test",
-                outlook: "Outlook & AI",
-                troubleshooting: "Troubleshooting",
-                whatYouLearn: "What You Will Learn",
-                realWorldMotivation: "Why MongoDB? Companies like Uber, Spotify, and Airbnb use MongoDB daily:",
-                uberDesc: "Uber: Flexible schemas for trip information across 70+ countries",
-                spotifyDesc: "Spotify: Stores millions of playlists with nested documents",
-                airbnbDesc: "Airbnb: Manages listings with variable schema per region",
-                mongodbDesc: "MongoDB: Stores flexible JSON-like documents for modern apps",
-                mongodbIs: "What is MongoDB?",
-                documentDatabase: "Document Database: MongoDB stores data as JSON-like documents",
-                flexibleSchema: "Flexible Schema: Each document can have different fields",
-                scaleHorizontal: "Horizontal Scaling: Sharding across multiple servers",
-                estimatedTime: "⏱ Estimated time:",
-                timeValue: "2-3 hours for all 6 exercises + challenge",
-                prerequisites: "Prerequisites:",
-                prereqValue: "Basic JSON and database knowledge recommended",
-                chapter: "Chapter:",
-                chapterValue: "Chapter 7 – NoSQL Databases (Butscher: Big Data & Applications, THWS)",
-                dbsLearn: "Display databases",
-                collectionsLearn: "Understand collections and documents",
-                crudLearn: "CRUD operations (Create, Read, Update, Delete)",
-                queryLearn: "Queries with filters and operators",
-                aggregationLearn: "Aggregation pipeline and data analysis",
-                megastoreLearn: "Explore and analyze real-world data",
-                mongodbPopular: "MongoDB is a NoSQL document database that enables flexible, scalable data storage for modern web and mobile applications.",
-                whenToUseMongodb: "When to Use MongoDB?",
-                useCase: "Use Case",
-                excellent: "Excellent",
-                notIdeal: "Not Ideal",
-                flexibleData: "Flexible Data Structures",
-                builtInSupport: "Built-in Support",
-                requiresCustomCode: "Requires Custom Code",
-                nestedDocuments: "Nested Documents",
-                efficientStorage: "Efficient Storage",
-                relationalDesign: "Relational Design Better",
-                highTransactions: "Many Transactions",
-                basicSupport: "Basic Support",
-                acidRequired: "ACID Strongly Required",
-                estimate: "Estimated time:",
-                estimateValue: "20-30 minutes for this exercise",
-                objective: "Objective",
-                steps: "Steps",
-                hint: "Hint",
-                copy: "Copy",
-                nextExercise: "Next Exercise →",
-                fundamentalsIntro: "Understanding MongoDB Fundamentals",
-                whatIsDocument: "What is a Document?",
-                documentDesc: "A document is a JSON-like object with fields and values, e.g., { '_id': 1, 'name': 'Alice', 'city': 'Berlin' }",
-                collections: "Collections",
-                collectionsDesc: "A collection is a group of documents, similar to a table in SQL databases, but without fixed schema.",
-                database: "Database",
-                databaseDesc: "A database contains multiple collections. One MongoDB instance can manage multiple databases.",
-                setupIntro: "Docker Setup for MongoDB with Compass",
-                step1: "Step 1: Install Docker",
-                step1Desc: "Download from https://www.docker.com/products/docker-desktop",
-                step2: "Step 2: Pull MongoDB Image",
-                step2Code: "docker pull mongo:latest",
-                step3: "Step 3: Start MongoDB Container",
-                step3Code: "docker run -d --name mongodb -p 27017:27017 mongo:latest",
-                step4: "Step 4: Open MongoDB Compass",
-                step4Desc: "Connect to mongodb://localhost:27017",
-                ex1Title: "Exercise 1: Getting Started - Databases and Collections",
-                ex1Intro: "Connect to MongoDB and explore the MegaStore database.",
-                ex1Objective: "Objective: Get familiar with databases and collections",
-                ex1Steps: "Steps:",
-                ex1Step1: "Use 'use megastore' to select the MegaStore database",
-                ex1Step2: "Display all collections with 'show collections'",
-                ex1Step3: "Count documents in the 'customers' collection",
-                ex1Step4: "Show the first customer document with 'findOne()'",
-                ex1Verify: "Verification: How many fields does a customer document have?",
-                ex1Expected: "Expected: 5-6 fields (e.g., _id, name, email, city, country)",
-                ex2Title: "Exercise 2: CRUD Basics (Insert, Read, Update, Delete)",
-                ex2Intro: "Learn basic CRUD operations in MongoDB.",
-                ex2Objective: "Objective: Practice insertOne, findOne, updateOne, deleteOne",
-                ex2Steps: "Steps:",
-                ex2Step1: "Insert: Add a new customer with insertOne()",
-                ex2Step2: "Read: Find the customer with findOne() by email",
-                ex2Step3: "Update: Change the 'city' field with updateOne()",
-                ex2Step4: "Delete: Remove the test document with deleteOne()",
-                ex2Verify: "Verification: Can you correctly insert and update a customer?",
-                ex2Expected: "Expected: All CRUD operations work without errors",
-                ex3Title: "Exercise 3: Queries with Filters",
-                ex3Intro: "Learn MongoDB queries with different filters.",
-                ex3Objective: "Objective: Use $gt, $regex, multiple conditions",
-                ex3Steps: "Steps:",
-                ex3Step1: "Find customers from 'Germany' with find()",
-                ex3Step2: "Find customers with age > 25 using $gt",
-                ex3Step3: "Find customers whose name contains 'Max' with $regex",
-                ex3Step4: "Combine multiple conditions with $and",
-                ex3Verify: "Verification: How many customers are older than 25?",
-                ex3Expected: "Expected: approximately 40-50% of customers",
-                ex4Title: "Exercise 4: Sorting & Projection",
-                ex4Intro: "Learn to sort results and select fields.",
-                ex4Objective: "Objective: Use sort(), limit(), projection",
-                ex4Steps: "Steps:",
-                ex4Step1: "Find top 5 customers by registration date with sort()",
-                ex4Step2: "Show only 'name' and 'email' fields with projection",
-                ex4Step3: "Limit results to 10 with limit()",
-                ex4Step4: "Combine sort(), limit() and projection",
-                ex4Verify: "Verification: Which customer was registered first?",
-                ex4Expected: "Expected: The customer with oldest registration_date",
-                ex5Title: "Exercise 5: Simple Aggregation",
-                ex5Intro: "Use the aggregation pipeline for data analysis.",
-                ex5Objective: "Objective: Use $group, $avg, $sum in a pipeline",
-                ex5Steps: "Steps:",
-                ex5Step1: "Group customers by 'city' with $group",
-                ex5Step2: "Count customers per city with $sum: 1",
-                ex5Step3: "Calculate average order value per city",
-                ex5Step4: "Sort results by customer count descending",
-                ex5Verify: "Verification: Which city has the most customers?",
-                ex5Expected: "Expected: Berlin or Munich typically",
-                ex6Title: "Exercise 6: Explore MegaStore Data",
-                ex6Intro: "Analyze real e-commerce data with multiple collections.",
-                ex6Objective: "Objective: Combine and analyze multiple collections",
-                ex6Steps: "Steps:",
-                ex6Step1: "Find top orders by amount",
-                ex6Step2: "Count orders per customer",
-                ex6Step3: "Calculate total revenue by product category",
-                ex6Step4: "Find top 10 best customers by spending",
-                ex6Verify: "Verification: Who is the best customer?",
-                ex6Expected: "Expected: A customer with high total spending",
-                challengeTitle: "Challenge: Customer Segmentation (RFM Analysis)",
-                challengeIntro: "Use MongoDB aggregation for customer segmentation with RFM metrics.",
-                challengeObjective: "Objective: Segment customers into VIP, Regular, and At-Risk",
-                challengeSteps: "Steps:",
-                challengeStep1: "Calculate for each customer: Recency (days since last order)",
-                challengeStep2: "Calculate Frequency (total number of orders)",
-                challengeStep3: "Calculate Monetary (total revenue)",
-                challengeStep4: "Segment customers: VIP (high value), Regular, At-Risk (long inactive)",
-                challengeStep5: "Count customers per segment",
-                challengeVerify: "Verification: How many at-risk customers (>60 days)?",
-                challengeExpected: "Expected: 20-30% of customers",
-                challengeHint: "Hint: Use $$NOW and $subtract for date differences",
-                solutionLabel: "Show Solution",
-                quizTitle: "Knowledge Test: MongoDB Concepts",
-                quizIntro: "Test your understanding of MongoDB with multiple-choice questions.",
-                q1: "What is a Document in MongoDB?",
-                q1a: "A table in SQL",
-                q1b: "A JSON-like object with fields",
-                q1c: "A unique file identifier",
-                q1d: "A security policy",
-                q1Correct: "Answer B",
-                q1Explanation: "A document is a JSON-like object containing fields and values.",
-                q2: "Which command inserts a new document?",
-                q2a: "insert()",
-                q2b: "add()",
-                q2c: "insertOne()",
-                q2d: "write()",
-                q2Correct: "Answer C",
-                q2Explanation: "insertOne() inserts a single document, insert() is deprecated in modern versions.",
-                q3: "What does $group do in the aggregation pipeline?",
-                q3a: "Splits documents into multiple files",
-                q3b: "Searches for similar documents",
-                q3c: "Summarizes documents and aggregates values",
-                q3d: "Deletes duplicate documents",
-                q3Correct: "Answer C",
-                q3Explanation: "$group summarizes documents and enables aggregations like count, sum, avg.",
-                q4: "When is MongoDB better than SQL?",
-                q4a: "Always faster",
-                q4b: "With flexible, nested data structures",
-                q4c: "Only for large datasets",
-                q4d: "MongoDB is always better",
-                q4Correct: "Answer B",
-                q4Explanation: "MongoDB is ideal for flexible schemas and nested data, not for all use cases.",
-                q5: "What happens with updateOne() and $set?",
-                q5a: "The field is deleted",
-                q5b: "A new document is inserted",
-                q5c: "The field is changed to the new value",
-                q5d: "The document is replaced",
-                q5Correct: "Answer C",
-                q5Explanation: "$set updates only specified fields, leaving others unchanged.",
-                q6: "What does find({ age: { $gt: 30 } }).limit(5) show?",
-                q6a: "All documents with age=30",
-                q6b: "First 5 documents with age > 30",
-                q6c: "Maximum 5 customers total",
-                q6d: "All documents over 30 years",
-                q6Correct: "Answer B",
-                q6Explanation: "This shows the first 5 documents matching the condition age > 30.",
-                correctAnswer: "Correct!",
-                incorrectAnswer: "Wrong. Try again.",
-                submittedAnswers: "Your Answers:",
-                youScored: "You Scored:",
-                outlookTitle: "Outlook & AI Integration",
-                advancedTopics: "Advanced Topics",
-                advancedDesc: "After mastering MongoDB, there are many specializations:",
-                mongoAtlas: "MongoDB Atlas: Cloud hosting with automatic scaling and backups",
-                changeStreams: "Change Streams: Real-time reactions to data changes",
-                atlasSearch: "Atlas Search: Full-text search on documents",
-                timeSeries: "Time Series Collections: Optimized for sensor data and metrics",
-                aiIntegration: "AI-Assisted Development",
-                aiDesc: "With Claude Code and MCP, you can accelerate MongoDB development through AI:",
-                mcpExplained: "MCP (Model Context Protocol): Standard API for AI tools to collaborate",
-                claudeExplained: "Claude Code: AI assistant that can write correct MongoDB queries",
-                aiPrompts: "Examples of AI-assisted MongoDB tasks:",
-                aiPrompt1Title: "Optimize Schema Design",
-                aiPrompt1: "Design a MongoDB schema for an e-commerce app with customers, products, and orders. Use denormalization where appropriate for performance.",
-                aiPrompt2Title: "Generate Aggregation Pipeline",
-                aiPrompt2: "Write a MongoDB aggregation pipeline that calculates RFM metrics: Recency, Frequency, Monetary for customer segmentation.",
-                aiPrompt3Title: "Develop Index Strategy",
-                aiPrompt3: "Analyze these MongoDB queries and recommend appropriate indexes for better performance. Explain the index structure.",
-                troubleshootingTitle: "Troubleshooting",
-                commonProblems: "Common Problems and Solutions",
-                error1Problem: "MongoDB container not starting",
-                error1Solution: "Check logs: docker logs mongodb. Ensure port 27017 is not blocked.",
-                error2Problem: "Connection to localhost:27017 failed",
-                error2Solution: "Check that container is running: docker ps. Restart if needed: docker start mongodb",
-                error3Problem: "insertOne() fails with ValidationError",
-                error3Solution: "Verify document format. Must be valid JSON: { 'field': 'value' }",
-                error4Problem: "find() returns empty results",
-                error4Solution: "Check collection and query. Use find() without filter to show all documents.",
-                error5Problem: "Aggregation pipeline runs very slowly",
-                error5Solution: "Use explain() to find bottlenecks. Add indexes on group fields.",
-            },
-            ar: { back: "← العودة إلى الصفحة الرئيسية", copy: "نسخ" },
-            uk: { back: "← Повернутися на головну сторінку", copy: "Копіювати" },
-            es: { back: "← Volver a la página de inicio", copy: "Copiar" },
-            tr: { back: "← Ana Sayfaya Dön", copy: "Kopyala" }
-        };
+const translations = {
+    de: {
+        back: '← Zurück',
+        copy: 'Kopieren',
+        copied: 'Kopiert!',
+        overview: 'Überblick',
+        setup: 'Setup & Installation',
+        fundamentals: 'Grundlagen',
+        exercise1: 'Übung 1: Erste Schritte',
+        exercise2: 'Übung 2: Daten einfügen',
+        exercise3: 'Übung 3: Abfragen mit Filtern',
+        exercise4: 'Übung 4: Sortieren & Projektion',
+        exercise5: 'Übung 5: Aggregationen',
+        exercise6: 'Übung 6: MegaStore-Analyse',
+        challenge: 'Challenge: RFM-Segmentierung',
+        quiz: 'Wissenstest',
+        outlook: 'Ausblick & KI',
+        troubleshooting: 'Fehlerbehebung',
+        correct: 'Richtig!',
+        incorrect: 'Falsch',
+        mongodbTitle: 'MongoDB Lab — Document Database',
+        mongodbSubtitle: 'Lernen Sie NoSQL und dokumentenbasierte Datenspeicherung',
+        whatYouWillLearn: 'Was Sie lernen werden',
+        mongodbLearning: 'Wie MongoDB-Dokumente in JSON-ähnlichen Strukturen gespeichert werden\nWie Sie Daten mit den CRUD-Operationen einfügen, lesen, aktualisieren und löschen\nWie Sie flexible Abfragen mit Filtern und Operatoren durchführen\nWie Sie Daten mit Sortierung, Projektion und Begrenzung optimieren\nWie Sie Aggregationen für komplexe Datenanalysen nutzen',
+        whatIsMongoDB: 'Was ist MongoDB?',
+        mongodbDesc1: 'Document Database: MongoDB speichert Daten in flexiblen JSON-ähnlichen Dokumenten statt in starren Tabellen. Jedes Dokument kann eine unterschiedliche Struktur haben.',
+        mongodbDesc2: 'Flexible Schema: Im Gegensatz zu SQL-Datenbanken müssen Sie keine Spalten voraus definieren. Sie können Felder jederzeit hinzufügen oder ändern.',
+        mongodbDesc3: 'Horizontal Skalierbar: MongoDB ist für die Skalierung auf mehrere Server ausgelegt und unterstützt automatische Datenverteilung (Sharding).',
+        whyMongoDB: 'Warum MongoDB?',
+        uberCase: 'Uber: Speichert Fahrten-Daten (Trips) mit variablen Informationen wie Route, Zeitstempel, Fahrerdetails — perfekt für MongoDB\'s flexible Struktur.',
+        spotifyCase: 'Spotify: Verwaltet Playlist-Daten mit unterschiedlichen Metadaten pro Song — MongoDB ermöglicht schnelle Abfragen auf große Datenmengen.',
+        airbnbCase: 'Airbnb: Speichert Angebots-Daten (Listings) mit vielen optionalen Feldern — MongoDB\'s Schema-Flexibilität ist ideal für diverse Unterkunftstypen.',
+        estimatedTime: 'Geschätzte Zeit: 90–120 Minuten für alle Übungen',
+        prerequisites: 'Voraussetzungen: Docker installiert und ein Terminal, um die MongoDB-Container zu starten',
+        megastoreScenario: 'MegaStore E-Commerce Szenario',
+        megastoreDesc: 'Alle Übungen verwenden einen konsistenten E-Commerce-Datensatz mit 4 Collections: customers (Kunden mit Kontaktdaten), products (Produkte mit Preisen), orders (Bestellungen mit Status), und order_items (Bestellpositionen mit Mengen und Preisen). Sie werden realistische Business-Szenarien wie Kundenanalysen, Verkaufsberichte und Segmentierungen durchführen.',
+        dataSchema: 'Datenschema',
+        collection: 'Collection',
+        fields: 'Felder',
+        customersDesc: 'customer_id, name, email, city, country, registration_date',
+        productsDesc: 'product_id, name, category, unit_price, stock_quantity',
+        ordersDesc: 'order_id, customer_id, order_date, order_total, status',
+        orderItemsDesc: 'order_item_id, order_id, product_id, quantity, unit_price',
+        setupTitle: 'Setup & Installation',
+        setupDesc: 'Folgen Sie diesen 4 Schritten, um MongoDB mit Docker zu installieren und zu starten.',
+        step1: 'Schritt 1: MongoDB Docker-Image herunterladen',
+        step1Code: 'docker pull mongodb/mongodb-community-server:latest',
+        step1Explain: 'Dieser Befehl lädt das offizielle MongoDB Community Server Image von Docker Hub herunter. Das Image enthält MongoDB und alle benötigten Abhängigkeiten.',
+        step2: 'Schritt 2: MongoDB-Container starten',
+        step2Code: 'docker run --name mongodb-lab -d -p 27017:27017 mongodb/mongodb-community-server:latest',
+        step2Explain: 'Dieser Befehl startet einen neuen Container namens "mongodb-lab" im Hintergrund (-d). Die Option -p 27017:27017 verbindet Port 27017 des Containers mit Ihrem lokalen Port 27017.',
+        step3: 'Schritt 3: In die MongoDB Shell eintreten',
+        step3Code: 'docker exec -it mongodb-lab mongosh',
+        step3Explain: 'Dieser Befehl verbindet Sie mit dem laufenden MongoDB-Container und öffnet die mongosh CLI (MongoDB Shell), in der Sie Befehle ausführen können.',
+        step4: 'Schritt 4: Funktionalität überprüfen',
+        step4Code: 'show dbs',
+        step4Explain: 'Dieser Befehl zeigt alle verfügbaren Datenbanken an. Sie sollten mindestens die "admin" und "config" Datenbanken sehen.',
+        fundamentalsTitle: 'Grundlagen von MongoDB',
+        documents: 'Documents (Dokumente)',
+        documentsDesc: 'MongoDB speichert Daten als Dokumente im BSON-Format (Binary JSON). Ein Dokument ist ähnlich wie ein JSON-Objekt mit Schlüssel-Wert-Paaren. Beispiel:\n{\n  "_id": ObjectId("..."),\n  "name": "Alice Schmidt",\n  "email": "alice@example.com",\n  "city": "Berlin"\n}',
+        collections: 'Collections (Sammlungen)',
+        collectionsDesc: 'Eine Collection ist eine Gruppe von Dokumenten, ähnlich wie eine Tabelle in SQL. Im Gegensatz zu Tabellen müssen alle Dokumente in einer Collection nicht die gleiche Struktur haben.',
+        bson: 'BSON Datentypen',
+        bsonDesc: 'BSON unterstützt mehr Datentypen als JSON: String, Number, Boolean, Date, ObjectId, Array, Nested Document, null, etc. Dies ermöglicht flexible und präzise Datenmodellierung.',
+        crud: 'CRUD Operationen',
+        crudDesc: 'Create: insertOne() / insertMany() - Daten einfügen\nRead: find() / findOne() - Daten abfragen\nUpdate: updateOne() / updateMany() - Daten ändern\nDelete: deleteOne() / deleteMany() - Daten löschen',
+        queryOperators: 'Query Operatoren',
+        queryOperatorsDesc: '$gt (größer als), $lt (kleiner als), $eq (gleich), $ne (nicht gleich), $in (in Liste), $regex (Text-Match), $and, $or (logische Operatoren)',
+        whenToUse: 'Wann MongoDB vs. Alternativen verwenden?',
+        vs: 'vs',
+        flexible: 'Flexible Schema',
+        hierarchical: 'Hierarchische Daten',
+        scalable: 'Einfach skalierbar',
+        realtime: 'Echtzeit-Anforderungen',
+        mongodb: 'MongoDB',
+        sql: 'SQL (z.B. PostgreSQL)',
+        exercise1Title: 'Übung 1: Erste Schritte',
+        exercise1Goal: 'Verbinden Sie sich mit MongoDB und führen Sie eine erste einfache Abfrage durch.',
+        exercise1Show: 'Beispiel',
+        exercise1Code: 'use megastore\nshow collections\ndb.customers.findOne()',
+        exercise1Output: 'megastore\n[\n  "customers",\n  "products",\n  "orders",\n  "order_items"\n]\n{\n  "_id": ObjectId("..."),\n  "customer_id": 1,\n  "name": "Alice Schmidt",\n  "email": "alice@example.com",\n  "city": "Berlin",\n  "country": "Germany",\n  "registration_date": "2023-01-15"\n}',
+        exercise1Explain: 'Erklärung',
+        exercise1Line1: 'use megastore: Wechselt zur "megastore" Datenbank',
+        exercise1Line2: 'show collections: Listet alle Collections in der aktuellen Datenbank auf',
+        exercise1Line3: 'db.customers.findOne(): Ruft das erste Dokument aus der customers-Collection ab',
+        exercise1Task: 'Ihre Aufgabe',
+        exercise1TaskDesc: 'Verbinden Sie sich mit MongoDB und geben Sie alle Collections aus. Führen Sie dann eine Abfrage aus, um das erste Dokument aus der products-Collection anzuzeigen.',
+        exercise1Hint: 'Hinweis: Verwenden Sie db.products.findOne() um das erste Produkt anzuzeigen.',
+        exercise1Solution: 'Lösung anzeigen',
+        exercise1SolutionCode: 'use megastore\nshow collections\ndb.products.findOne()',
+        exercise1Verify: 'Überprüfung',
+        exercise1VerifyDesc: 'Das Ergebnis sollte ein Dokument mit den Feldern product_id, name, category, unit_price und stock_quantity sein.',
+        nextExercise: 'Nächste Übung →',
+        exercise2Title: 'Übung 2: Daten einfügen',
+        exercise2Goal: 'Lernen Sie, wie Sie neue Daten mit insertOne() und insertMany() in MongoDB einfügen.',
+        exercise2Code: 'db.customers.insertOne({\n  customer_id: 999,\n  name: "Bob Mueller",\n  email: "bob@example.com",\n  city: "Munich",\n  country: "Germany",\n  registration_date: "2024-03-01"\n})\n\ndb.customers.insertMany([\n  { customer_id: 1000, name: "Carol Wagner", email: "carol@example.com", city: "Hamburg", country: "Germany", registration_date: "2024-02-15" },\n  { customer_id: 1001, name: "David Fischer", email: "david@example.com", city: "Cologne", country: "Germany", registration_date: "2024-03-05" }\n])',
+        exercise2Output: '{ acknowledged: true, insertedId: ObjectId("...") }\n{ acknowledged: true, insertedIds: [ ObjectId("..."), ObjectId("...") ] }',
+        exercise2Line1: 'db.customers.insertOne({...}): Fügt ein einzelnes Dokument in die customers-Collection ein',
+        exercise2Line2: 'db.customers.insertMany([...]): Fügt mehrere Dokumente auf einmal ein',
+        exercise2TaskDesc: 'Fügen Sie ein neues Produkt mit insertOne() in die products-Collection ein. Verwenden Sie einen eindeutigen product_id, Namen, Kategorie, Preis und Lagermenge.',
+        exercise2Hint: 'Hinweis: Das Produktdokument sollte mindestens die Felder product_id, name, category, unit_price und stock_quantity enthalten.',
+        exercise2SolutionCode: 'db.products.insertOne({\n  product_id: 999,\n  name: "Wireless Headphones",\n  category: "Electronics",\n  unit_price: 79.99,\n  stock_quantity: 50\n})',
+        exercise2VerifyDesc: 'Das Ergebnis sollte eine bestätigte Einfügung mit einer insertedId zeigen.',
+        exercise3Title: 'Übung 3: Abfragen mit Filtern',
+        exercise3Goal: 'Lernen Sie, wie Sie Daten mit Filterkriterien und Query-Operatoren abrufen.',
+        exercise3Code: 'db.customers.find({ city: "Berlin" })\n\ndb.products.find({ unit_price: { $gt: 50 } })\n\ndb.customers.find({\n  $and: [\n    { country: "Germany" },\n    { registration_date: { $gte: "2023-01-01" } }\n  ]\n})',
+        exercise3Output: '[Alle Kunden aus Berlin mit ihren Feldern]\n[Alle Produkte mit Preis > 50]\n[Alle deutschen Kunden registriert nach 2023-01-01]',
+        exercise3Line1: 'find({ city: "Berlin" }): Findet alle Dokumente mit city = "Berlin"',
+        exercise3Line2: 'find({ unit_price: { $gt: 50 } }): Findet alle Produkte mit unit_price größer als 50',
+        exercise3Line3: '$and: Kombiniert mehrere Bedingungen mit logischem UND',
+        exercise3TaskDesc: 'Finden Sie alle Bestellungen mit einem order_total größer als 100. Verwenden Sie den $gt Operator.',
+        exercise3Hint: 'Hinweis: Verwenden Sie db.orders.find({ order_total: { $gt: 100 } })',
+        exercise3SolutionCode: 'db.orders.find({ order_total: { $gt: 100 } })',
+        exercise3VerifyDesc: 'Sie sollten alle Bestellungen mit order_total > 100 sehen.',
+        exercise4Title: 'Übung 4: Sortieren & Projektion',
+        exercise4Goal: 'Lernen Sie, wie Sie Ergebnisse sortieren, begrenzen und nur bestimmte Felder auswählen.',
+        exercise4Code: 'db.customers.find(\n  { city: "Berlin" },\n  { name: 1, email: 1, city: 1 }\n).sort({ name: 1 }).limit(5)\n\ndb.orders.find()\n  .sort({ order_total: -1 })\n  .limit(10)',
+        exercise4Output: '[Top 5 Berliner Kunden nach Name sortiert, nur name, email, city Felder]\n[Top 10 Bestellungen nach Gesamtbetrag absteigend]',
+        exercise4Line1: '{ name: 1, email: 1 }: Projektion — zeigt nur diese Felder an (1 = show, 0 = hide)',
+        exercise4Line2: '.sort({ name: 1 }): Sortiert aufsteigend nach Name (1 = asc, -1 = desc)',
+        exercise4Line3: '.limit(5): Begrenzt das Ergebnis auf maximal 5 Dokumente',
+        exercise4TaskDesc: 'Rufen Sie die 3 teuersten Produkte ab und zeigen Sie nur die Felder name und unit_price an.',
+        exercise4Hint: 'Hinweis: Verwenden Sie .sort({ unit_price: -1 }).limit(3) und eine Projektion.',
+        exercise4SolutionCode: 'db.products.find(\n  {},\n  { name: 1, unit_price: 1 }\n).sort({ unit_price: -1 }).limit(3)',
+        exercise4VerifyDesc: 'Sie sollten 3 Produkte mit den höchsten Preisen sehen, aber nur name und unit_price Felder.',
+        exercise5Title: 'Übung 5: Aggregationen',
+        exercise5Goal: 'Lernen Sie, wie Sie komplexe Datenanalysen mit der Aggregation Pipeline durchführen.',
+        exercise5Code: 'db.orders.aggregate([\n  { $match: { status: "completed" } },\n  { $group: { _id: "$customer_id", total_spent: { $sum: "$order_total" }, order_count: { $sum: 1 } } },\n  { $sort: { total_spent: -1 } },\n  { $limit: 5 }\n])',
+        exercise5Output: '[Top 5 Kunden nach Gesamtausgaben, mit Bestellanzahl]',
+        exercise5Line1: '$match: Filtert Daten vor der Aggregation (wie WHERE in SQL)',
+        exercise5Line2: '$group: Gruppiert Dokumente nach Feld und berechnet Metriken',
+        exercise5Line3: '$sum "$order_total": Summiert alle order_total Werte pro Gruppe',
+        exercise5TaskDesc: 'Finden Sie alle Produkte und deren Durchschnittspreis (avg) über alle Bestellpositionen.',
+        exercise5Hint: 'Hinweis: Verwenden Sie $group mit _id: "$product_id" und average_price: { $avg: "$unit_price" }',
+        exercise5SolutionCode: 'db.order_items.aggregate([\n  { $group: { _id: "$product_id", average_price: { $avg: "$unit_price" } } },\n  { $sort: { average_price: -1 } }\n])',
+        exercise5VerifyDesc: 'Sie sollten alle Produkte mit ihrem Durchschnittspreis sehen.',
+        exercise6Title: 'Übung 6: MegaStore-Analyse',
+        exercise6Goal: 'Kombinieren Sie alle Techniken: Aggregationen, Joins ($lookup) und komplexe Analysefragen.',
+        exercise6Code: 'db.orders.aggregate([\n  { $match: { status: "completed" } },\n  { $lookup: { from: "customers", localField: "customer_id", foreignField: "customer_id", as: "customer_info" } },\n  { $unwind: "$customer_info" },\n  { $group: { _id: "$customer_id", customer_name: { $first: "$customer_info.name" }, total_revenue: { $sum: "$order_total" }, orders: { $sum: 1 } } },\n  { $sort: { total_revenue: -1 } },\n  { $limit: 5 }\n])',
+        exercise6Output: '[Top 5 Kunden mit Name, Gesamtumsatz und Bestellanzahl]',
+        exercise6Line1: '$lookup: Verbindet Daten aus einer anderen Collection (SQL JOIN)',
+        exercise6Line2: '$unwind: Expandiert ein Array in separaten Dokumenten',
+        exercise6Line3: '$first: Holt den ersten Wert aus einer Gruppe',
+        exercise6TaskDesc: 'Analysieren Sie, welche Produktkategorie am meisten Umsatz generiert hat. Nutzen Sie $lookup, um Products-Daten zu verbinden, und aggregieren Sie nach Kategorie.',
+        exercise6Hint: 'Hinweis: Verwenden Sie $lookup um order_items mit products zu verbinden und aggregieren Sie den Umsatz nach category.',
+        exercise6SolutionCode: 'db.order_items.aggregate([\n  { $lookup: { from: "products", localField: "product_id", foreignField: "product_id", as: "product_info" } },\n  { $unwind: "$product_info" },\n  { $group: { _id: "$product_info.category", total_revenue: { $sum: { $multiply: ["$quantity", "$unit_price"] } } } },\n  { $sort: { total_revenue: -1 } }\n])',
+        exercise6VerifyDesc: 'Sie sollten Produktkategorien mit ihrem Gesamtumsatz sehen, sortiert nach Umsatz.',
+        challengeTitle: 'Challenge: RFM-Kundensegmentierung',
+        challengeDesc: 'Führen Sie eine Recency-Frequency-Monetary (RFM) Analyse durch um Kunden zu segmentieren. RFM ist eine klassische Methode im Marketing: Recency (wie lange ist die letzte Bestellung her), Frequency (wie viele Bestellungen), Monetary (wie viel Umsatz).',
+        step1Challenge: 'Schritt 1: Berechnen Sie für jeden Kunden das Recency (Tage seit letzter Bestellung)',
+        step2Challenge: 'Schritt 2: Zählen Sie die Frequency (Anzahl der Bestellungen) pro Kunde',
+        step3Challenge: 'Schritt 3: Summieren Sie das Monetary (Gesamtumsatz) pro Kunde',
+        step4Challenge: 'Schritt 4: Erstellen Sie RFM-Scores (1-5 Punkte pro Kategorie)',
+        step5Challenge: 'Schritt 5: Segmentieren Sie Kunden in Kategorien wie "Champions" (hohe RFM-Scores) oder "At-Risk" (niedrige RFM)',
+        challengeHint: 'Hinweis: Verwenden Sie $dateSubtract um Tage zu berechnen, $group für Aggregationen, und $cond um Scores zuzuweisen.',
+        challengeSolution: 'Lösung anzeigen',
+        challengeSolutionCode: 'db.orders.aggregate([\n  { $match: { status: "completed" } },\n  { $group: {\n    _id: "$customer_id",\n    last_order_date: { $max: "$order_date" },\n    frequency: { $sum: 1 },\n    monetary: { $sum: "$order_total" }\n  } },\n  { $addFields: {\n    recency_score: {\n      $cond: [\n        { $lt: [{ $dateDiff: { startDate: "$last_order_date", endDate: new Date(), unit: "day" } }, 30] },\n        5,\n        { $cond: [{ $lt: [{ $dateDiff: { startDate: "$last_order_date", endDate: new Date(), unit: "day" } }, 90] }, 3, 1] }\n      ]\n    },\n    frequency_score: { $cond: [{ $gte: ["$frequency", 5] }, 5, { $cond: [{ $gte: ["$frequency", 2] }, 3, 1] }] },\n    monetary_score: { $cond: [{ $gte: ["$monetary", 500] }, 5, { $cond: [{ $gte: ["$monetary", 200] }, 3, 1] }] }\n  } },\n  { $addFields: {\n    rfm_score: { $avg: ["$recency_score", "$frequency_score", "$monetary_score"] },\n    segment: {\n      $cond: [\n        { $gte: ["$rfm_score", 4] },\n        "Champions",\n        { $cond: [{ $gte: ["$rfm_score", 3] }, "Loyal Customers", "At-Risk"] }\n      ]\n    }\n  } },\n  { $sort: { rfm_score: -1 } }\n])',
+        challengeExpected: 'Erwartetes Ergebnis: Kunden mit RFM-Scores und Segmenten (Champions, Loyal, At-Risk)',
+        quizTitle: 'Wissenstest: MongoDB Grundlagen',
+        question1: 'Frage 1: Was ist das Hauptmerkmal einer MongoDB Document Database?',
+        question1a: 'Alle Dokumente müssen die gleiche Struktur haben',
+        question1b: 'Dokumente können flexible, unterschiedliche Strukturen haben',
+        question1c: 'Nur String-Daten werden gespeichert',
+        question1d: 'Dokumente werden in CSV-Format gespeichert',
+        question1Correct: 'b',
+        question1Explain: 'MongoDB erlaubt flexible Schemas — Dokumente in einer Collection können unterschiedliche Felder und Strukturen haben.',
+        question2: 'Frage 2: Welcher Befehl fügt ein neues Dokument in MongoDB ein?',
+        question2a: 'db.collection.add({})',
+        question2b: 'db.collection.insert({})',
+        question2c: 'db.collection.insertOne({})',
+        question2d: 'db.collection.create({})',
+        question2Correct: 'c',
+        question2Explain: 'insertOne() ist die Standard-Methode zum Einfügen eines einzelnen Dokuments. insert() ist veraltet.',
+        question3: 'Frage 3: Was macht der $group Operator in einer Aggregation?',
+        question3a: 'Sortiert Dokumente aufsteigend',
+        question3b: 'Gruppiert Dokumente nach einem Feld und berechnet Aggregationen (sum, avg, count)',
+        question3c: 'Löscht doppelte Dokumente',
+        question3d: 'Verbindet zwei Collections',
+        question3Correct: 'b',
+        question3Explain: '$group ist ein Pipeline-Stage-Operator, der Dokumente nach Feldern gruppiert und Metriken wie $sum oder $avg berechnet — ähnlich wie GROUP BY in SQL.',
+        question4: 'Frage 4: Wie schreiben Sie eine Abfrage, um alle Produkte mit unit_price > 100 zu finden?',
+        question4a: 'db.products.find({ unit_price > 100 })',
+        question4b: 'db.products.find({ unit_price: { $gt: 100 } })',
+        question4c: 'db.products.where("unit_price > 100")',
+        question4d: 'db.products.filter(unit_price: 100)',
+        question4Correct: 'b',
+        question4Explain: 'Der $gt (greater than) Operator wird in MongoDB zum Vergleichen verwendet. Die Syntax ist { field: { $operator: value } }.',
+        question5: 'Frage 5: Was ist der Unterschied zwischen find() und findOne()?',
+        question5a: 'find() gibt mehrere Dokumente zurück, findOne() gibt höchstens 1 Dokument zurück',
+        question5b: 'findOne() ist schneller und sollte immer verwendet werden',
+        question5c: 'find() ist veraltet',
+        question5d: 'Es gibt keinen Unterschied',
+        question5Correct: 'a',
+        question5Explain: 'find() gibt einen Cursor mit allen passenden Dokumenten zurück, findOne() stoppt nach dem ersten Treffer und gibt nur ein Dokument zurück.',
+        question6: 'Frage 6: Mit welcher Pipeline-Stage verbinden Sie zwei Collections in einer Aggregation?',
+        question6a: '$match',
+        question6b: '$group',
+        question6c: '$lookup',
+        question6d: '$sort',
+        question6Correct: 'c',
+        question6Explain: '$lookup führt einen LEFT JOIN mit einer anderen Collection durch — ähnlich wie ein SQL JOIN.',
+        outlookTitle: 'Ausblick: Fortgeschrittene Techniken & KI-Integration',
+        advancedTopics: 'Fortgeschrittene Themen',
+        advancedTopic1: 'MongoDB Atlas: Cloud-gehostete MongoDB mit automatischem Backup, Monitoring und globaler Verteilung',
+        advancedTopic2: 'Change Streams: Echtzeit-Updates auf Datenänderungen abonnieren — ideal für Live-Dashboards und Benachrichtigungen',
+        advancedTopic3: 'Atlas Search: Volltext-Suchfunktion mit Relevanz-Ranking und Such-Suggestions',
+        advancedTopic4: 'Indexes und Performance-Optimierung: Erstellen Sie Indizes auf häufig abgefragten Feldern für schnellere Queries',
+        aiIntegration: 'KI-Integration mit Claude Code + MCP',
+        aiExplain: 'MongoDB und Claude Code können zusammen eingesetzt werden um komplexe Datenanalyseprozesse zu automatisieren. Mit MCP (Model Context Protocol) können Sie MongoDB-Abfragen von Claude aus ausführen, Ergebnisse verarbeiten und Berichte generieren lassen.',
+        promptExample1Title: 'Beispiel-Prompt 1: Automatische Kundensegmentierung',
+        promptExample1: 'Führe eine RFM-Analyse auf unserer MongoDB customers/orders Collection durch. Berechne für jeden Kunden Recency (Tage seit letzter Bestellung), Frequency (Anzahl Bestellungen) und Monetary (Gesamtumsatz). Segmentiere sie in High-Value, Regular, At-Risk. Gebe mir einen CSV-Report mit Kundennamen, RFM-Scores und Segment.',
+        promptExample2Title: 'Beispiel-Prompt 2: Anomalieerkennung',
+        promptExample2: 'Finde Anomalien in unserer MongoDB orders Collection: Bestellungen mit ungewöhnlich hohen Beträgen, auffällige Muster, oder Kunden mit plötzlichen Verhaltensänderungen. Nutze statistische Methoden (z.B. 3-Sigma-Regel). Gebe Alerts mit verdächtigen order_ids und Details.',
+        promptExample3Title: 'Beispiel-Prompt 3: Predictive Analytics',
+        promptExample3: 'Nutze historische Daten aus MongoDB um zu vorhersagen, welche Kunden in den nächsten 3 Monaten wahrscheinlich churnen (nicht mehr bestellen). Trainiere ein einfaches ML-Modell auf Recency, Frequency, Monetary und anderen Features. Gebe eine Churn-Wahrscheinlichkeit pro Kunde und Empfehlungen wie man sie halten könnte.',
+        furtherResources: 'Weiterführende Ressourcen',
+        resource1: 'MongoDB Dokumentation: https://docs.mongodb.com/',
+        resource2: 'MongoDB University (Kostenlose Kurse): https://university.mongodb.com/',
+        resource3: 'MongoDB Aggregation Framework Guide: https://docs.mongodb.com/manual/aggregation/',
+        resource4: 'Book: "MongoDB in Action" von Kyle Banker et al.',
+        troubleshootingTitle: 'Fehlerbehebung',
+        problem1: 'Problem: "Connection refused" beim Verbinden mit MongoDB',
+        solution1: 'Überprüfen Sie, ob der MongoDB-Container läuft (docker ps). Falls nicht, starten Sie ihn mit: docker run --name mongodb-lab -d -p 27017:27017 mongodb/mongodb-community-server:latest\nüberprüfen Sie, ob Port 27017 nicht von einem anderen Prozess belegt ist.',
+        problem2: 'Problem: "MongoError: authentication failed"',
+        solution2: 'Falls Sie Authentifizierung aktiviert haben, überprüfen Sie Benutzername und Passwort. Falls Sie Authentifizierung nicht benötigen (lokale Entwicklung), verwenden Sie einen Container ohne Authentifizierung.',
+        problem3: 'Problem: "docker: command not found"',
+        solution3: 'Installieren Sie Docker von https://www.docker.com/products/docker-desktop/. Nach der Installation starten Sie Ihren Computer neu und verifizieren Sie mit: docker --version',
+        problem4: 'Problem: "Datenbank wird nach Container-Stopp gelöscht"',
+        solution4: 'Verwenden Sie Docker Volumes um Daten persistent zu speichern: docker run --name mongodb-lab -d -v mongodb-data:/data/db -p 27017:27017 mongodb/mongodb-community-server:latest',
+        problem5: 'Problem: "mongosh: command not found"',
+        solution5: 'mongosh ist Teil des MongoDB Community Server Images. Falls Sie es lokal installieren möchten: npm install -g mongosh oder folgen Sie https://www.mongodb.com/docs/mongodb-shell/install/',
+        beginner: 'Anfänger',
+        time: 'Zeit',
+        explanation: 'Erklärung',
+        yourTask: 'Ihre Aufgabe',
+        hint: 'Hinweis',
+        showSolution: 'Lösung anzeigen',
+        hideSolution: 'Lösung verstecken',
+        verification: 'Überprüfung'
+    },
+    en: {
+        back: '← Back',
+        copy: 'Copy',
+        copied: 'Copied!',
+        overview: 'Overview',
+        setup: 'Setup & Installation',
+        fundamentals: 'Fundamentals',
+        exercise1: 'Exercise 1: Getting Started',
+        exercise2: 'Exercise 2: Inserting Data',
+        exercise3: 'Exercise 3: Querying with Filters',
+        exercise4: 'Exercise 4: Sorting & Projection',
+        exercise5: 'Exercise 5: Aggregations',
+        exercise6: 'Exercise 6: MegaStore Analysis',
+        challenge: 'Challenge: RFM Segmentation',
+        quiz: 'Quiz',
+        outlook: 'Outlook & AI',
+        troubleshooting: 'Troubleshooting',
+        correct: 'Correct!',
+        incorrect: 'Incorrect',
+        mongodbTitle: 'MongoDB Lab — Document Database',
+        mongodbSubtitle: 'Learn NoSQL and document-based data storage',
+        whatYouWillLearn: 'What You Will Learn',
+        mongodbLearning: 'How MongoDB stores documents in JSON-like structures\nHow to insert, read, update, and delete data with CRUD operations\nHow to perform flexible queries with filters and operators\nHow to optimize data with sorting, projection, and limiting\nHow to use aggregations for complex data analysis',
+        whatIsMongoDB: 'What is MongoDB?',
+        mongodbDesc1: 'Document Database: MongoDB stores data in flexible JSON-like documents instead of rigid tables. Each document can have a different structure.',
+        mongodbDesc2: 'Flexible Schema: Unlike SQL databases, you do not need to pre-define columns. You can add or change fields anytime.',
+        mongodbDesc3: 'Horizontally Scalable: MongoDB is designed to scale across multiple servers and supports automatic data distribution (sharding).',
+        whyMongoDB: 'Why MongoDB?',
+        uberCase: 'Uber: Stores trip data with variable information like route, timestamp, driver details — perfect for MongoDB\'s flexible structure.',
+        spotifyCase: 'Spotify: Manages playlist data with different metadata per song — MongoDB enables fast queries on large datasets.',
+        airbnbCase: 'Airbnb: Stores listing data with many optional fields — MongoDB\'s schema flexibility is ideal for diverse accommodation types.',
+        estimatedTime: 'Estimated Time: 90–120 minutes for all exercises',
+        prerequisites: 'Prerequisites: Docker installed and a terminal to start the MongoDB container',
+        megastoreScenario: 'MegaStore E-Commerce Scenario',
+        megastoreDesc: 'All exercises use a consistent e-commerce dataset with 4 collections: customers (clients with contact data), products (items with prices), orders (orders with status), and order_items (line items with quantities and prices). You will perform realistic business scenarios such as customer analysis, sales reports, and segmentation.',
+        dataSchema: 'Data Schema',
+        collection: 'Collection',
+        fields: 'Fields',
+        customersDesc: 'customer_id, name, email, city, country, registration_date',
+        productsDesc: 'product_id, name, category, unit_price, stock_quantity',
+        ordersDesc: 'order_id, customer_id, order_date, order_total, status',
+        orderItemsDesc: 'order_item_id, order_id, product_id, quantity, unit_price',
+        setupTitle: 'Setup & Installation',
+        setupDesc: 'Follow these 4 steps to install and start MongoDB with Docker.',
+        step1: 'Step 1: Download MongoDB Docker Image',
+        step1Code: 'docker pull mongodb/mongodb-community-server:latest',
+        step1Explain: 'This command downloads the official MongoDB Community Server image from Docker Hub. The image contains MongoDB and all required dependencies.',
+        step2: 'Step 2: Start MongoDB Container',
+        step2Code: 'docker run --name mongodb-lab -d -p 27017:27017 mongodb/mongodb-community-server:latest',
+        step2Explain: 'This command starts a new container named "mongodb-lab" in the background (-d). The option -p 27017:27017 maps port 27017 of the container to your local port 27017.',
+        step3: 'Step 3: Enter MongoDB Shell',
+        step3Code: 'docker exec -it mongodb-lab mongosh',
+        step3Explain: 'This command connects you to the running MongoDB container and opens the mongosh CLI (MongoDB Shell), where you can execute commands.',
+        step4: 'Step 4: Verify Functionality',
+        step4Code: 'show dbs',
+        step4Explain: 'This command displays all available databases. You should see at least the "admin" and "config" databases.',
+        fundamentalsTitle: 'MongoDB Fundamentals',
+        documents: 'Documents',
+        documentsDesc: 'MongoDB stores data as documents in BSON format (Binary JSON). A document is similar to a JSON object with key-value pairs. Example:\n{\n  "_id": ObjectId("..."),\n  "name": "Alice Schmidt",\n  "email": "alice@example.com",\n  "city": "Berlin"\n}',
+        collections: 'Collections',
+        collectionsDesc: 'A collection is a group of documents, similar to a table in SQL. Unlike tables, all documents in a collection do not need to have the same structure.',
+        bson: 'BSON Data Types',
+        bsonDesc: 'BSON supports more data types than JSON: String, Number, Boolean, Date, ObjectId, Array, Nested Document, null, etc. This enables flexible and precise data modeling.',
+        crud: 'CRUD Operations',
+        crudDesc: 'Create: insertOne() / insertMany() - Insert data\nRead: find() / findOne() - Query data\nUpdate: updateOne() / updateMany() - Modify data\nDelete: deleteOne() / deleteMany() - Delete data',
+        queryOperators: 'Query Operators',
+        queryOperatorsDesc: '$gt (greater than), $lt (less than), $eq (equal), $ne (not equal), $in (in list), $regex (text match), $and, $or (logical operators)',
+        whenToUse: 'When to Use MongoDB vs. Alternatives?',
+        vs: 'vs',
+        flexible: 'Flexible Schema',
+        hierarchical: 'Hierarchical Data',
+        scalable: 'Easy to Scale',
+        realtime: 'Real-Time Requirements',
+        mongodb: 'MongoDB',
+        sql: 'SQL (e.g., PostgreSQL)',
+        exercise1Title: 'Exercise 1: Getting Started',
+        exercise1Goal: 'Connect to MongoDB and execute your first simple query.',
+        exercise1Show: 'Example',
+        exercise1Code: 'use megastore\nshow collections\ndb.customers.findOne()',
+        exercise1Output: 'megastore\n[\n  "customers",\n  "products",\n  "orders",\n  "order_items"\n]\n{\n  "_id": ObjectId("..."),\n  "customer_id": 1,\n  "name": "Alice Schmidt",\n  "email": "alice@example.com",\n  "city": "Berlin",\n  "country": "Germany",\n  "registration_date": "2023-01-15"\n}',
+        exercise1Explain: 'Explanation',
+        exercise1Line1: 'use megastore: Switches to the "megastore" database',
+        exercise1Line2: 'show collections: Lists all collections in the current database',
+        exercise1Line3: 'db.customers.findOne(): Retrieves the first document from the customers collection',
+        exercise1Task: 'Your Task',
+        exercise1TaskDesc: 'Connect to MongoDB and display all collections. Then execute a query to show the first document from the products collection.',
+        exercise1Hint: 'Hint: Use db.products.findOne() to display the first product.',
+        exercise1Solution: 'Show Solution',
+        exercise1SolutionCode: 'use megastore\nshow collections\ndb.products.findOne()',
+        exercise1Verify: 'Verification',
+        exercise1VerifyDesc: 'The result should be a document with the fields product_id, name, category, unit_price, and stock_quantity.',
+        nextExercise: 'Next Exercise →',
+        exercise2Title: 'Exercise 2: Inserting Data',
+        exercise2Goal: 'Learn how to insert new data into MongoDB using insertOne() and insertMany().',
+        exercise2Code: 'db.customers.insertOne({\n  customer_id: 999,\n  name: "Bob Mueller",\n  email: "bob@example.com",\n  city: "Munich",\n  country: "Germany",\n  registration_date: "2024-03-01"\n})\n\ndb.customers.insertMany([\n  { customer_id: 1000, name: "Carol Wagner", email: "carol@example.com", city: "Hamburg", country: "Germany", registration_date: "2024-02-15" },\n  { customer_id: 1001, name: "David Fischer", email: "david@example.com", city: "Cologne", country: "Germany", registration_date: "2024-03-05" }\n])',
+        exercise2Output: '{ acknowledged: true, insertedId: ObjectId("...") }\n{ acknowledged: true, insertedIds: [ ObjectId("..."), ObjectId("...") ] }',
+        exercise2Line1: 'db.customers.insertOne({...}): Inserts a single document into the customers collection',
+        exercise2Line2: 'db.customers.insertMany([...]): Inserts multiple documents at once',
+        exercise2TaskDesc: 'Insert a new product with insertOne() into the products collection. Use a unique product_id, name, category, price, and stock quantity.',
+        exercise2Hint: 'Hint: The product document should contain at least the fields product_id, name, category, unit_price, and stock_quantity.',
+        exercise2SolutionCode: 'db.products.insertOne({\n  product_id: 999,\n  name: "Wireless Headphones",\n  category: "Electronics",\n  unit_price: 79.99,\n  stock_quantity: 50\n})',
+        exercise2VerifyDesc: 'The result should show a confirmed insertion with an insertedId.',
+        exercise3Title: 'Exercise 3: Querying with Filters',
+        exercise3Goal: 'Learn how to retrieve data with filter criteria and query operators.',
+        exercise3Code: 'db.customers.find({ city: "Berlin" })\n\ndb.products.find({ unit_price: { $gt: 50 } })\n\ndb.customers.find({\n  $and: [\n    { country: "Germany" },\n    { registration_date: { $gte: "2023-01-01" } }\n  ]\n})',
+        exercise3Output: '[All customers from Berlin with their fields]\n[All products with price > 50]\n[All German customers registered after 2023-01-01]',
+        exercise3Line1: 'find({ city: "Berlin" }): Finds all documents with city = "Berlin"',
+        exercise3Line2: 'find({ unit_price: { $gt: 50 } }): Finds all products with unit_price greater than 50',
+        exercise3Line3: '$and: Combines multiple conditions with logical AND',
+        exercise3TaskDesc: 'Find all orders with an order_total greater than 100. Use the $gt operator.',
+        exercise3Hint: 'Hint: Use db.orders.find({ order_total: { $gt: 100 } })',
+        exercise3SolutionCode: 'db.orders.find({ order_total: { $gt: 100 } })',
+        exercise3VerifyDesc: 'You should see all orders with order_total > 100.',
+        exercise4Title: 'Exercise 4: Sorting & Projection',
+        exercise4Goal: 'Learn how to sort results, limit them, and select only specific fields.',
+        exercise4Code: 'db.customers.find(\n  { city: "Berlin" },\n  { name: 1, email: 1, city: 1 }\n).sort({ name: 1 }).limit(5)\n\ndb.orders.find()\n  .sort({ order_total: -1 })\n  .limit(10)',
+        exercise4Output: '[Top 5 Berlin customers sorted by name, showing only name, email, city fields]\n[Top 10 orders sorted by total amount in descending order]',
+        exercise4Line1: '{ name: 1, email: 1 }: Projection — shows only these fields (1 = show, 0 = hide)',
+        exercise4Line2: '.sort({ name: 1 }): Sorts in ascending order by name (1 = asc, -1 = desc)',
+        exercise4Line3: '.limit(5): Limits the result to a maximum of 5 documents',
+        exercise4TaskDesc: 'Retrieve the 3 most expensive products and show only the name and unit_price fields.',
+        exercise4Hint: 'Hint: Use .sort({ unit_price: -1 }).limit(3) with a projection.',
+        exercise4SolutionCode: 'db.products.find(\n  {},\n  { name: 1, unit_price: 1 }\n).sort({ unit_price: -1 }).limit(3)',
+        exercise4VerifyDesc: 'You should see 3 products with the highest prices, but only name and unit_price fields.',
+        exercise5Title: 'Exercise 5: Aggregations',
+        exercise5Goal: 'Learn how to perform complex data analysis using the aggregation pipeline.',
+        exercise5Code: 'db.orders.aggregate([\n  { $match: { status: "completed" } },\n  { $group: { _id: "$customer_id", total_spent: { $sum: "$order_total" }, order_count: { $sum: 1 } } },\n  { $sort: { total_spent: -1 } },\n  { $limit: 5 }\n])',
+        exercise5Output: '[Top 5 customers by total spending with order count]',
+        exercise5Line1: '$match: Filters data before aggregation (like WHERE in SQL)',
+        exercise5Line2: '$group: Groups documents by field and computes metrics',
+        exercise5Line3: '$sum "$order_total": Sums all order_total values per group',
+        exercise5TaskDesc: 'Find all products and their average price across all order items.',
+        exercise5Hint: 'Hint: Use $group with _id: "$product_id" and average_price: { $avg: "$unit_price" }',
+        exercise5SolutionCode: 'db.order_items.aggregate([\n  { $group: { _id: "$product_id", average_price: { $avg: "$unit_price" } } },\n  { $sort: { average_price: -1 } }\n])',
+        exercise5VerifyDesc: 'You should see all products with their average price.',
+        exercise6Title: 'Exercise 6: MegaStore Analysis',
+        exercise6Goal: 'Combine all techniques: aggregations, joins ($lookup), and complex analytical questions.',
+        exercise6Code: 'db.orders.aggregate([\n  { $match: { status: "completed" } },\n  { $lookup: { from: "customers", localField: "customer_id", foreignField: "customer_id", as: "customer_info" } },\n  { $unwind: "$customer_info" },\n  { $group: { _id: "$customer_id", customer_name: { $first: "$customer_info.name" }, total_revenue: { $sum: "$order_total" }, orders: { $sum: 1 } } },\n  { $sort: { total_revenue: -1 } },\n  { $limit: 5 }\n])',
+        exercise6Output: '[Top 5 customers with name, total revenue, and order count]',
+        exercise6Line1: '$lookup: Joins data from another collection (SQL JOIN)',
+        exercise6Line2: '$unwind: Expands an array into separate documents',
+        exercise6Line3: '$first: Gets the first value from a group',
+        exercise6TaskDesc: 'Analyze which product category generated the most revenue. Use $lookup to join products data and aggregate revenue by category.',
+        exercise6Hint: 'Hint: Use $lookup to join order_items with products and aggregate revenue by category.',
+        exercise6SolutionCode: 'db.order_items.aggregate([\n  { $lookup: { from: "products", localField: "product_id", foreignField: "product_id", as: "product_info" } },\n  { $unwind: "$product_info" },\n  { $group: { _id: "$product_info.category", total_revenue: { $sum: { $multiply: ["$quantity", "$unit_price"] } } } },\n  { $sort: { total_revenue: -1 } }\n])',
+        exercise6VerifyDesc: 'You should see product categories with their total revenue, sorted by revenue.',
+        challengeTitle: 'Challenge: RFM Customer Segmentation',
+        challengeDesc: 'Perform a Recency-Frequency-Monetary (RFM) analysis to segment customers. RFM is a classic marketing method: Recency (how long since last order), Frequency (number of orders), Monetary (total revenue).',
+        step1Challenge: 'Step 1: Calculate Recency (days since last order) for each customer',
+        step2Challenge: 'Step 2: Count Frequency (number of orders) per customer',
+        step3Challenge: 'Step 3: Sum Monetary (total revenue) per customer',
+        step4Challenge: 'Step 4: Create RFM scores (1-5 points per category)',
+        step5Challenge: 'Step 5: Segment customers into categories like "Champions" (high RFM scores) or "At-Risk" (low RFM)',
+        challengeHint: 'Hint: Use $dateSubtract to calculate days, $group for aggregations, and $cond to assign scores.',
+        challengeSolution: 'Show Solution',
+        challengeSolutionCode: 'db.orders.aggregate([\n  { $match: { status: "completed" } },\n  { $group: {\n    _id: "$customer_id",\n    last_order_date: { $max: "$order_date" },\n    frequency: { $sum: 1 },\n    monetary: { $sum: "$order_total" }\n  } },\n  { $addFields: {\n    recency_score: {\n      $cond: [\n        { $lt: [{ $dateDiff: { startDate: "$last_order_date", endDate: new Date(), unit: "day" } }, 30] },\n        5,\n        { $cond: [{ $lt: [{ $dateDiff: { startDate: "$last_order_date", endDate: new Date(), unit: "day" } }, 90] }, 3, 1] }\n      ]\n    },\n    frequency_score: { $cond: [{ $gte: ["$frequency", 5] }, 5, { $cond: [{ $gte: ["$frequency", 2] }, 3, 1] }] },\n    monetary_score: { $cond: [{ $gte: ["$monetary", 500] }, 5, { $cond: [{ $gte: ["$monetary", 200] }, 3, 1] }] }\n  } },\n  { $addFields: {\n    rfm_score: { $avg: ["$recency_score", "$frequency_score", "$monetary_score"] },\n    segment: {\n      $cond: [\n        { $gte: ["$rfm_score", 4] },\n        "Champions",\n        { $cond: [{ $gte: ["$rfm_score", 3] }, "Loyal Customers", "At-Risk"] }\n      ]\n    }\n  } },\n  { $sort: { rfm_score: -1 } }\n])',
+        challengeExpected: 'Expected Result: Customers with RFM scores and segments (Champions, Loyal, At-Risk)',
+        quizTitle: 'Quiz: MongoDB Basics',
+        question1: 'Question 1: What is the main feature of a MongoDB document database?',
+        question1a: 'All documents must have the same structure',
+        question1b: 'Documents can have flexible, different structures',
+        question1c: 'Only string data is stored',
+        question1d: 'Documents are stored in CSV format',
+        question1Correct: 'b',
+        question1Explain: 'MongoDB allows flexible schemas — documents in a collection can have different fields and structures.',
+        question2: 'Question 2: Which command inserts a new document in MongoDB?',
+        question2a: 'db.collection.add({})',
+        question2b: 'db.collection.insert({})',
+        question2c: 'db.collection.insertOne({})',
+        question2d: 'db.collection.create({})',
+        question2Correct: 'c',
+        question2Explain: 'insertOne() is the standard method for inserting a single document. insert() is deprecated.',
+        question3: 'Question 3: What does the $group operator do in an aggregation?',
+        question3a: 'Sorts documents in ascending order',
+        question3b: 'Groups documents by a field and computes aggregations (sum, avg, count)',
+        question3c: 'Deletes duplicate documents',
+        question3d: 'Joins two collections',
+        question3Correct: 'b',
+        question3Explain: '$group is a pipeline stage operator that groups documents by fields and computes metrics like $sum or $avg — similar to GROUP BY in SQL.',
+        question4: 'Question 4: How do you write a query to find all products with unit_price > 100?',
+        question4a: 'db.products.find({ unit_price > 100 })',
+        question4b: 'db.products.find({ unit_price: { $gt: 100 } })',
+        question4c: 'db.products.where("unit_price > 100")',
+        question4d: 'db.products.filter(unit_price: 100)',
+        question4Correct: 'b',
+        question4Explain: 'The $gt (greater than) operator is used for comparisons in MongoDB. The syntax is { field: { $operator: value } }.',
+        question5: 'Question 5: What is the difference between find() and findOne()?',
+        question5a: 'find() returns multiple documents, findOne() returns at most 1 document',
+        question5b: 'findOne() is faster and should always be used',
+        question5c: 'find() is deprecated',
+        question5d: 'There is no difference',
+        question5Correct: 'a',
+        question5Explain: 'find() returns a cursor with all matching documents, findOne() stops after the first match and returns only one document.',
+        question6: 'Question 6: Which pipeline stage joins two collections in an aggregation?',
+        question6a: '$match',
+        question6b: '$group',
+        question6c: '$lookup',
+        question6d: '$sort',
+        question6Correct: 'c',
+        question6Explain: '$lookup performs a LEFT JOIN with another collection — similar to a SQL JOIN.',
+        outlookTitle: 'Outlook: Advanced Techniques & AI Integration',
+        advancedTopics: 'Advanced Topics',
+        advancedTopic1: 'MongoDB Atlas: Cloud-hosted MongoDB with automatic backup, monitoring, and global distribution',
+        advancedTopic2: 'Change Streams: Subscribe to real-time data changes — ideal for live dashboards and notifications',
+        advancedTopic3: 'Atlas Search: Full-text search with relevance ranking and search suggestions',
+        advancedTopic4: 'Indexes and Performance Optimization: Create indexes on frequently queried fields for faster queries',
+        aiIntegration: 'AI Integration with Claude Code + MCP',
+        aiExplain: 'MongoDB and Claude Code can be combined to automate complex data analysis processes. With MCP (Model Context Protocol), you can execute MongoDB queries from Claude, process results, and generate reports.',
+        promptExample1Title: 'Prompt Example 1: Automated Customer Segmentation',
+        promptExample1: 'Perform an RFM analysis on our MongoDB customers/orders collection. Calculate Recency (days since last order), Frequency (number of orders), and Monetary (total revenue) for each customer. Segment them into High-Value, Regular, At-Risk. Give me a CSV report with customer names, RFM scores, and segment.',
+        promptExample2Title: 'Prompt Example 2: Anomaly Detection',
+        promptExample2: 'Find anomalies in our MongoDB orders collection: orders with unusually high amounts, unusual patterns, or customers with sudden behavior changes. Use statistical methods (e.g., 3-sigma rule). Give me alerts with suspicious order_ids and details.',
+        promptExample3Title: 'Prompt Example 3: Predictive Analytics',
+        promptExample3: 'Use historical data from MongoDB to predict which customers are likely to churn in the next 3 months. Train a simple ML model on Recency, Frequency, Monetary, and other features. Give me a churn probability per customer and recommendations on how to retain them.',
+        furtherResources: 'Further Resources',
+        resource1: 'MongoDB Documentation: https://docs.mongodb.com/',
+        resource2: 'MongoDB University (Free Courses): https://university.mongodb.com/',
+        resource3: 'MongoDB Aggregation Framework Guide: https://docs.mongodb.com/manual/aggregation/',
+        resource4: 'Book: "MongoDB in Action" by Kyle Banker et al.',
+        troubleshootingTitle: 'Troubleshooting',
+        problem1: 'Problem: "Connection refused" when connecting to MongoDB',
+        solution1: 'Check if the MongoDB container is running (docker ps). If not, start it with: docker run --name mongodb-lab -d -p 27017:27017 mongodb/mongodb-community-server:latest\nVerify that port 27017 is not being used by another process.',
+        problem2: 'Problem: "MongoError: authentication failed"',
+        solution2: 'If you have authentication enabled, verify username and password. If you don\'t need authentication (local development), use a container without authentication.',
+        problem3: 'Problem: "docker: command not found"',
+        solution3: 'Install Docker from https://www.docker.com/products/docker-desktop/. After installation, restart your computer and verify with: docker --version',
+        problem4: 'Problem: "Database deleted after container stops"',
+        solution4: 'Use Docker volumes to persist data: docker run --name mongodb-lab -d -v mongodb-data:/data/db -p 27017:27017 mongodb/mongodb-community-server:latest',
+        problem5: 'Problem: "mongosh: command not found"',
+        solution5: 'mongosh is part of the MongoDB Community Server image. If you want to install it locally: npm install -g mongosh or visit https://www.mongodb.com/docs/mongodb-shell/install/',
+        beginner: 'Beginner',
+        time: 'Time',
+        explanation: 'Explanation',
+        yourTask: 'Your Task',
+        hint: 'Hint',
+        showSolution: 'Show Solution',
+        hideSolution: 'Hide Solution',
+        verification: 'Verification'
+    },
+    ar: { back: 'back', copy: 'copy', overview: 'overview', setup: 'setup', fundamentals: 'fundamentals', exercise1: 'exercise1', exercise2: 'exercise2', exercise3: 'exercise3', exercise4: 'exercise4', exercise5: 'exercise5', exercise6: 'exercise6', challenge: 'challenge', quiz: 'quiz', outlook: 'outlook', troubleshooting: 'troubleshooting', correct: 'correct', incorrect: 'incorrect' },
+    uk: { back: 'back', copy: 'copy', overview: 'overview', setup: 'setup', fundamentals: 'fundamentals', exercise1: 'exercise1', exercise2: 'exercise2', exercise3: 'exercise3', exercise4: 'exercise4', exercise5: 'exercise5', exercise6: 'exercise6', challenge: 'challenge', quiz: 'quiz', outlook: 'outlook', troubleshooting: 'troubleshooting', correct: 'correct', incorrect: 'incorrect' },
+    es: { back: 'back', copy: 'copy', overview: 'overview', setup: 'setup', fundamentals: 'fundamentals', exercise1: 'exercise1', exercise2: 'exercise2', exercise3: 'exercise3', exercise4: 'exercise4', exercise5: 'exercise5', exercise6: 'exercise6', challenge: 'challenge', quiz: 'quiz', outlook: 'outlook', troubleshooting: 'troubleshooting', correct: 'correct', incorrect: 'incorrect' },
+    tr: { back: 'back', copy: 'copy', overview: 'overview', setup: 'setup', fundamentals: 'fundamentals', exercise1: 'exercise1', exercise2: 'exercise2', exercise3: 'exercise3', exercise4: 'exercise4', exercise5: 'exercise5', exercise6: 'exercise6', challenge: 'challenge', quiz: 'quiz', outlook: 'outlook', troubleshooting: 'troubleshooting', correct: 'correct', incorrect: 'incorrect' }
+};
 
-        function App() {
-            const [language, setLanguage] = useState('de');
-            const [activeSection, setActiveSection] = useState('overview');
-            const [expandedHints, setExpandedHints] = useState({});
-            const [quizAnswers, setQuizAnswers] = useState({});
-            const t = new Proxy(translations[language], { get: (target, prop) => target[prop] !== undefined ? target[prop] : translations['de'][prop] });
+function App() {
+    const [language, setLanguage] = useState('de');
+    const [activeSection, setActiveSection] = useState('overview');
+    const [expandedItems, setExpandedItems] = useState({});
+    const [quizAnswers, setQuizAnswers] = useState({});
 
-            const copyToClipboard = (text) => {
-                navigator.clipboard.writeText(text);
-                alert(t.copy);
-            };
+    const t = new Proxy(translations[language], {
+        get: (target, prop) => target[prop] !== undefined ? target[prop] : translations['de'][prop]
+    });
 
-            const toggleHint = (hintId) => {
-                setExpandedHints(prev => ({ ...prev, [hintId]: !prev[hintId] }));
-            };
+    const toggleExpanded = (key) => {
+        setExpandedItems(prev => ({ ...prev, [key]: !prev[key] }));
+    };
 
-            const handleQuizAnswer = (questionId, answer) => {
-                setQuizAnswers(prev => ({ ...prev, [questionId]: answer }));
-            };
+    const copyToClipboard = (code) => {
+        navigator.clipboard.writeText(code);
+        alert(t.copied);
+    };
 
-            const isQuizAnswerCorrect = (questionId, answer) => {
-                const correctAnswers = {
-                    q1: 'b', q2: 'c', q3: 'c', q4: 'b', q5: 'c', q6: 'b'
-                };
-                return correctAnswers[questionId] === answer;
-            };
+    const handleQuizAnswer = (questionNum, answer) => {
+        setQuizAnswers(prev => ({ ...prev, [questionNum]: answer }));
+    };
 
-            return (
-                <div dir={language === 'ar' ? 'rtl' : 'ltr'}>
-                    <div className="header">
-                        <div className="header-left">
-                            <button className="back-btn" onClick={() => window.history.back()}>{t.back}</button>
-                            <div className="header-title">MongoDB Lab</div>
-                        </div>
-                        <div className="lang-switcher">
-                            {['de', 'en', 'ar', 'uk', 'es', 'tr'].map(lang => (
-                                <button key={lang} className={'lang-btn ' + (language === lang ? 'active' : '')} onClick={() => setLanguage(lang)}>
-                                    {lang.toUpperCase()}
-                                </button>
-                            ))}
-                        </div>
+    const getQuizFeedback = (questionNum, answer) => {
+        const correctAnswer = t[`question${questionNum}Correct`];
+        if (answer === correctAnswer) {
+            return { correct: true, explain: t[`question${questionNum}Explain`] };
+        }
+        return { correct: false, explain: t[`question${questionNum}Explain`] };
+    };
+
+    const CodeBlock = ({ code, showCopy = true }) => (
+        <div className="code-block" style={{ position: 'relative' }}>
+            {showCopy && (
+                <button className="copy-btn" onClick={() => copyToClipboard(code)}>
+                    {t.copy}
+                </button>
+            )}
+            <code>{code}</code>
+        </div>
+    );
+
+    const Expandable = ({ id, title, children }) => (
+        <div style={{ marginTop: '1rem' }}>
+            <div className="expandable-header" onClick={() => toggleExpanded(id)}>
+                <span>{title}</span>
+                <span>{expandedItems[id] ? '▼' : '▶'}</span>
+            </div>
+            {expandedItems[id] && (
+                <div className="expandable-content">
+                    {children}
+                </div>
+            )}
+        </div>
+    );
+
+    return (
+        <div>
+            <header className="header">
+                <h1>{t.mongodbTitle}</h1>
+                <div className="lang-selector">
+                    {['de', 'en', 'ar', 'uk', 'es', 'tr'].map(lang => (
+                        <button
+                            key={lang}
+                            onClick={() => setLanguage(lang)}
+                            className={language === lang ? 'active' : ''}
+                        >
+                            {lang.toUpperCase()}
+                        </button>
+                    ))}
+                </div>
+            </header>
+
+            <aside className="sidebar">
+                {['overview', 'setup', 'fundamentals', 'exercise1', 'exercise2', 'exercise3', 'exercise4', 'exercise5', 'exercise6', 'challenge', 'quiz', 'outlook', 'troubleshooting'].map(section => (
+                    <div
+                        key={section}
+                        className={`sidebar-item ${activeSection === section ? 'active' : ''}`}
+                        onClick={() => setActiveSection(section)}
+                    >
+                        {t[section]}
                     </div>
+                ))}
+            </aside>
 
-                    <div className="sidebar">
-                        {[
-                            { id: 'overview', label: t.overview },
-                            { id: 'setup', label: t.setup },
-                            { id: 'fundamentals', label: t.fundamentals },
-                            { id: 'exercise1', label: t.exercise1 },
-                            { id: 'exercise2', label: t.exercise2 },
-                            { id: 'exercise3', label: t.exercise3 },
-                            { id: 'exercise4', label: t.exercise4 },
-                            { id: 'exercise5', label: t.exercise5 },
-                            { id: 'exercise6', label: t.exercise6 },
-                            { id: 'challenge', label: t.challenge },
-                            { id: 'quiz', label: t.quiz },
-                            { id: 'outlook', label: t.outlook },
-                            { id: 'troubleshooting', label: t.troubleshooting }
-                        ].map(item => (
-                            <div key={item.id} className={'sidebar-item ' + (activeSection === item.id ? 'active' : '')} onClick={() => setActiveSection(item.id)}>
-                                {item.label}
+            <main className="main-content">
+                {activeSection === 'overview' && (
+                    <section className="section active">
+                        <h2>{t.mongodbTitle}</h2>
+                        <p>{t.mongodbSubtitle}</p>
+
+                        <div className="lesson-box">
+                            <h3>{t.whatYouWillLearn}</h3>
+                            <ul>
+                                {t.mongodbLearning.split('\n').map((item, i) => (
+                                    <li key={i}>{item}</li>
+                                ))}
+                            </ul>
+                        </div>
+
+                        <h3>{t.whatIsMongoDB}</h3>
+                        <div className="card">
+                            <h4>1. {t.flexible}</h4>
+                            <p>{t.mongodbDesc1}</p>
+                        </div>
+                        <div className="card">
+                            <h4>2. {t.hierarchical}</h4>
+                            <p>{t.mongodbDesc2}</p>
+                        </div>
+                        <div className="card">
+                            <h4>3. {t.scalable}</h4>
+                            <p>{t.mongodbDesc3}</p>
+                        </div>
+
+                        <h3>{t.whyMongoDB}</h3>
+                        <div className="card">
+                            <h4>Uber</h4>
+                            <p>{t.uberCase}</p>
+                        </div>
+                        <div className="card">
+                            <h4>Spotify</h4>
+                            <p>{t.spotifyCase}</p>
+                        </div>
+                        <div className="card">
+                            <h4>Airbnb</h4>
+                            <p>{t.airbnbCase}</p>
+                        </div>
+
+                        <h3>{t.estimatedTime}</h3>
+                        <p>{t.prerequisites}</p>
+
+                        <h3>{t.megastoreScenario}</h3>
+                        <p>{t.megastoreDesc}</p>
+
+                        <h3>{t.dataSchema}</h3>
+                        <table className="schema-table">
+                            <thead>
+                                <tr>
+                                    <th>{t.collection}</th>
+                                    <th>{t.fields}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>customers</td>
+                                    <td>{t.customersDesc}</td>
+                                </tr>
+                                <tr>
+                                    <td>products</td>
+                                    <td>{t.productsDesc}</td>
+                                </tr>
+                                <tr>
+                                    <td>orders</td>
+                                    <td>{t.ordersDesc}</td>
+                                </tr>
+                                <tr>
+                                    <td>order_items</td>
+                                    <td>{t.orderItemsDesc}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </section>
+                )}
+
+                {activeSection === 'setup' && (
+                    <section className="section active">
+                        <h2>{t.setupTitle}</h2>
+                        <p>{t.setupDesc}</p>
+
+                        <div className="card">
+                            <h4>{t.step1}</h4>
+                            <CodeBlock code={t.step1Code} />
+                            <p>{t.step1Explain}</p>
+                        </div>
+
+                        <div className="card">
+                            <h4>{t.step2}</h4>
+                            <CodeBlock code={t.step2Code} />
+                            <p>{t.step2Explain}</p>
+                        </div>
+
+                        <div className="card">
+                            <h4>{t.step3}</h4>
+                            <CodeBlock code={t.step3Code} />
+                            <p>{t.step3Explain}</p>
+                        </div>
+
+                        <div className="card">
+                            <h4>{t.step4}</h4>
+                            <CodeBlock code={t.step4Code} />
+                            <p>{t.step4Explain}</p>
+                        </div>
+                    </section>
+                )}
+
+                {activeSection === 'fundamentals' && (
+                    <section className="section active">
+                        <h2>{t.fundamentalsTitle}</h2>
+
+                        <div className="card">
+                            <h4>{t.documents}</h4>
+                            <p>{t.documentsDesc.split('\n').map((line, i) => <React.Fragment key={i}>{line}<br/></React.Fragment>)}</p>
+                        </div>
+
+                        <div className="card">
+                            <h4>{t.collections}</h4>
+                            <p>{t.collectionsDesc}</p>
+                        </div>
+
+                        <div className="card">
+                            <h4>{t.bson}</h4>
+                            <p>{t.bsonDesc}</p>
+                        </div>
+
+                        <div className="card">
+                            <h4>{t.crud}</h4>
+                            <p>{t.crudDesc.split('\n').map((line, i) => <React.Fragment key={i}>{line}<br/></React.Fragment>)}</p>
+                        </div>
+
+                        <div className="card">
+                            <h4>{t.queryOperators}</h4>
+                            <p>{t.queryOperatorsDesc}</p>
+                        </div>
+
+                        <h3>{t.whenToUse}</h3>
+                        <table className="comparison-table">
+                            <thead>
+                                <tr>
+                                    <th>{t.mongodb}</th>
+                                    <th>{t.vs}</th>
+                                    <th>{t.sql}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>{t.flexible}</td>
+                                    <td>Best for</td>
+                                    <td>Fixed Schema</td>
+                                </tr>
+                                <tr>
+                                    <td>{t.hierarchical}</td>
+                                    <td>Good for</td>
+                                    <td>Relational Data</td>
+                                </tr>
+                                <tr>
+                                    <td>{t.scalable}</td>
+                                    <td>Good for</td>
+                                    <td>Complex Transactions</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </section>
+                )}
+
+                {activeSection === 'exercise1' && (
+                    <section className="section active">
+                        <h2>{t.exercise1Title}</h2>
+                        <span className="badge badge-beginner">{t.beginner}</span>
+                        <span className="badge badge-time">~15 {t.time}</span>
+                        <p><strong>{t.exercise1Goal}</strong></p>
+
+                        <h3>{t.exercise1Show}</h3>
+                        <CodeBlock code={t.exercise1Code} />
+                        <div className="output-box">{t.exercise1Output}</div>
+
+                        <h3>{t.explanation}</h3>
+                        <div className="card">
+                            <p><strong>1.</strong> {t.exercise1Line1}</p>
+                            <p><strong>2.</strong> {t.exercise1Line2}</p>
+                            <p><strong>3.</strong> {t.exercise1Line3}</p>
+                        </div>
+
+                        <h3>{t.yourTask}</h3>
+                        <div className="card">
+                            <p>{t.exercise1TaskDesc}</p>
+                        </div>
+
+                        <div className="hint-box"><strong>{t.hint}:</strong> {t.exercise1Hint}</div>
+
+                        <Expandable id="ex1-sol" title={t.showSolution}>
+                            <CodeBlock code={t.exercise1SolutionCode} />
+                            <p><strong>{t.verification}:</strong> {t.exercise1VerifyDesc}</p>
+                        </Expandable>
+
+                        <button className="next-button" onClick={() => setActiveSection('exercise2')}>
+                            {t.nextExercise}
+                        </button>
+                    </section>
+                )}
+
+                {activeSection === 'exercise2' && (
+                    <section className="section active">
+                        <h2>{t.exercise2Title}</h2>
+                        <span className="badge badge-beginner">{t.beginner}</span>
+                        <span className="badge badge-time">~15 {t.time}</span>
+                        <p><strong>{t.exercise2Goal}</strong></p>
+
+                        <h3>{t.exercise1Show}</h3>
+                        <CodeBlock code={t.exercise2Code} />
+                        <div className="output-box">{t.exercise2Output}</div>
+
+                        <h3>{t.explanation}</h3>
+                        <div className="card">
+                            <p><strong>1.</strong> {t.exercise2Line1}</p>
+                            <p><strong>2.</strong> {t.exercise2Line2}</p>
+                        </div>
+
+                        <h3>{t.yourTask}</h3>
+                        <div className="card">
+                            <p>{t.exercise2TaskDesc}</p>
+                        </div>
+
+                        <div className="hint-box"><strong>{t.hint}:</strong> {t.exercise2Hint}</div>
+
+                        <Expandable id="ex2-sol" title={t.showSolution}>
+                            <CodeBlock code={t.exercise2SolutionCode} />
+                            <p><strong>{t.verification}:</strong> {t.exercise2VerifyDesc}</p>
+                        </Expandable>
+
+                        <button className="next-button" onClick={() => setActiveSection('exercise3')}>
+                            {t.nextExercise}
+                        </button>
+                    </section>
+                )}
+
+                {activeSection === 'exercise3' && (
+                    <section className="section active">
+                        <h2>{t.exercise3Title}</h2>
+                        <span className="badge badge-beginner">{t.beginner}</span>
+                        <span className="badge badge-time">~15 {t.time}</span>
+                        <p><strong>{t.exercise3Goal}</strong></p>
+
+                        <h3>{t.exercise1Show}</h3>
+                        <CodeBlock code={t.exercise3Code} />
+                        <div className="output-box">{t.exercise3Output}</div>
+
+                        <h3>{t.explanation}</h3>
+                        <div className="card">
+                            <p><strong>1.</strong> {t.exercise3Line1}</p>
+                            <p><strong>2.</strong> {t.exercise3Line2}</p>
+                            <p><strong>3.</strong> {t.exercise3Line3}</p>
+                        </div>
+
+                        <h3>{t.yourTask}</h3>
+                        <div className="card">
+                            <p>{t.exercise3TaskDesc}</p>
+                        </div>
+
+                        <div className="hint-box"><strong>{t.hint}:</strong> {t.exercise3Hint}</div>
+
+                        <Expandable id="ex3-sol" title={t.showSolution}>
+                            <CodeBlock code={t.exercise3SolutionCode} />
+                            <p><strong>{t.verification}:</strong> {t.exercise3VerifyDesc}</p>
+                        </Expandable>
+
+                        <button className="next-button" onClick={() => setActiveSection('exercise4')}>
+                            {t.nextExercise}
+                        </button>
+                    </section>
+                )}
+
+                {activeSection === 'exercise4' && (
+                    <section className="section active">
+                        <h2>{t.exercise4Title}</h2>
+                        <span className="badge badge-beginner">{t.beginner}</span>
+                        <span className="badge badge-time">~15 {t.time}</span>
+                        <p><strong>{t.exercise4Goal}</strong></p>
+
+                        <h3>{t.exercise1Show}</h3>
+                        <CodeBlock code={t.exercise4Code} />
+                        <div className="output-box">{t.exercise4Output}</div>
+
+                        <h3>{t.explanation}</h3>
+                        <div className="card">
+                            <p><strong>1.</strong> {t.exercise4Line1}</p>
+                            <p><strong>2.</strong> {t.exercise4Line2}</p>
+                            <p><strong>3.</strong> {t.exercise4Line3}</p>
+                        </div>
+
+                        <h3>{t.yourTask}</h3>
+                        <div className="card">
+                            <p>{t.exercise4TaskDesc}</p>
+                        </div>
+
+                        <div className="hint-box"><strong>{t.hint}:</strong> {t.exercise4Hint}</div>
+
+                        <Expandable id="ex4-sol" title={t.showSolution}>
+                            <CodeBlock code={t.exercise4SolutionCode} />
+                            <p><strong>{t.verification}:</strong> {t.exercise4VerifyDesc}</p>
+                        </Expandable>
+
+                        <button className="next-button" onClick={() => setActiveSection('exercise5')}>
+                            {t.nextExercise}
+                        </button>
+                    </section>
+                )}
+
+                {activeSection === 'exercise5' && (
+                    <section className="section active">
+                        <h2>{t.exercise5Title}</h2>
+                        <span className="badge badge-beginner">{t.beginner}</span>
+                        <span className="badge badge-time">~15 {t.time}</span>
+                        <p><strong>{t.exercise5Goal}</strong></p>
+
+                        <h3>{t.exercise1Show}</h3>
+                        <CodeBlock code={t.exercise5Code} />
+                        <div className="output-box">{t.exercise5Output}</div>
+
+                        <h3>{t.explanation}</h3>
+                        <div className="card">
+                            <p><strong>1.</strong> {t.exercise5Line1}</p>
+                            <p><strong>2.</strong> {t.exercise5Line2}</p>
+                            <p><strong>3.</strong> {t.exercise5Line3}</p>
+                        </div>
+
+                        <h3>{t.yourTask}</h3>
+                        <div className="card">
+                            <p>{t.exercise5TaskDesc}</p>
+                        </div>
+
+                        <div className="hint-box"><strong>{t.hint}:</strong> {t.exercise5Hint}</div>
+
+                        <Expandable id="ex5-sol" title={t.showSolution}>
+                            <CodeBlock code={t.exercise5SolutionCode} />
+                            <p><strong>{t.verification}:</strong> {t.exercise5VerifyDesc}</p>
+                        </Expandable>
+
+                        <button className="next-button" onClick={() => setActiveSection('exercise6')}>
+                            {t.nextExercise}
+                        </button>
+                    </section>
+                )}
+
+                {activeSection === 'exercise6' && (
+                    <section className="section active">
+                        <h2>{t.exercise6Title}</h2>
+                        <span className="badge badge-beginner">{t.beginner}</span>
+                        <span className="badge badge-time">~15 {t.time}</span>
+                        <p><strong>{t.exercise6Goal}</strong></p>
+
+                        <h3>{t.exercise1Show}</h3>
+                        <CodeBlock code={t.exercise6Code} />
+                        <div className="output-box">{t.exercise6Output}</div>
+
+                        <h3>{t.explanation}</h3>
+                        <div className="card">
+                            <p><strong>1.</strong> {t.exercise6Line1}</p>
+                            <p><strong>2.</strong> {t.exercise6Line2}</p>
+                            <p><strong>3.</strong> {t.exercise6Line3}</p>
+                        </div>
+
+                        <h3>{t.yourTask}</h3>
+                        <div className="card">
+                            <p>{t.exercise6TaskDesc}</p>
+                        </div>
+
+                        <div className="hint-box"><strong>{t.hint}:</strong> {t.exercise6Hint}</div>
+
+                        <Expandable id="ex6-sol" title={t.showSolution}>
+                            <CodeBlock code={t.exercise6SolutionCode} />
+                            <p><strong>{t.verification}:</strong> {t.exercise6VerifyDesc}</p>
+                        </Expandable>
+
+                        <button className="next-button" onClick={() => setActiveSection('challenge')}>
+                            {t.nextExercise}
+                        </button>
+                    </section>
+                )}
+
+                {activeSection === 'challenge' && (
+                    <section className="section active">
+                        <h2>{t.challengeTitle}</h2>
+                        <span className="badge badge-challenge">Challenge</span>
+                        <p>{t.challengeDesc}</p>
+
+                        <h3>{t.challenge}</h3>
+                        <ol style={{ marginLeft: '2rem', marginTop: '1rem' }}>
+                            <li style={{ marginBottom: '0.5rem' }}>{t.step1Challenge}</li>
+                            <li style={{ marginBottom: '0.5rem' }}>{t.step2Challenge}</li>
+                            <li style={{ marginBottom: '0.5rem' }}>{t.step3Challenge}</li>
+                            <li style={{ marginBottom: '0.5rem' }}>{t.step4Challenge}</li>
+                            <li style={{ marginBottom: '0.5rem' }}>{t.step5Challenge}</li>
+                        </ol>
+
+                        <div className="hint-box"><strong>{t.hint}:</strong> {t.challengeHint}</div>
+
+                        <Expandable id="challenge-sol" title={t.challengeSolution}>
+                            <CodeBlock code={t.challengeSolutionCode} />
+                            <p><strong>{t.verification}:</strong> {t.challengeExpected}</p>
+                        </Expandable>
+
+                        <button className="next-button" onClick={() => setActiveSection('quiz')}>
+                            {t.nextExercise}
+                        </button>
+                    </section>
+                )}
+
+                {activeSection === 'quiz' && (
+                    <section className="section active">
+                        <h2>{t.quizTitle}</h2>
+
+                        {[1, 2, 3, 4, 5, 6].map(qNum => (
+                            <div className="card" key={`q${qNum}`}>
+                                <h4>{t[`question${qNum}`]}</h4>
+                                <div className="quiz-options">
+                                    {['a', 'b', 'c', 'd'].map(opt => {
+                                        const isSelected = quizAnswers[qNum] === opt;
+                                        const feedback = quizAnswers[qNum] ? getQuizFeedback(qNum, opt) : null;
+                                        let className = 'quiz-option';
+                                        if (isSelected && feedback) {
+                                            className += feedback.correct ? ' correct' : ' incorrect';
+                                        }
+                                        return (
+                                            <div
+                                                key={opt}
+                                                className={className}
+                                                onClick={() => handleQuizAnswer(qNum, opt)}
+                                            >
+                                                <strong>{opt})</strong> {t[`question${qNum}${opt}`]}
+                                            </div>
+                                        );
+                                    })}
+                                </div>
+                                {quizAnswers[qNum] && (
+                                    <div className={`quiz-feedback ${getQuizFeedback(qNum, quizAnswers[qNum]).correct ? 'correct' : 'incorrect'}`}>
+                                        <strong>{getQuizFeedback(qNum, quizAnswers[qNum]).correct ? t.correct : t.incorrect}</strong><br/>
+                                        {getQuizFeedback(qNum, quizAnswers[qNum]).explain}
+                                    </div>
+                                )}
                             </div>
                         ))}
-                    </div>
 
-                    <div className="main-content">
-                        {activeSection === 'overview' && (
-                            <section className="section active">
-                                <h2 className="section-header">{t.overview}</h2>
-                                <div className="lesson-box">
-                                    <h3 style={{ color: '#E8792F', marginBottom: '1rem' }}>{t.whatYouLearn}</h3>
-                                    <p>{t.realWorldMotivation}</p>
-                                    <ul style={{ listStyle: 'none', paddingLeft: 0, marginTop: '1rem' }}>
-                                        <li style={{ marginBottom: '0.5rem' }}><strong>Uber:</strong> {t.uberDesc}</li>
-                                        <li style={{ marginBottom: '0.5rem' }}><strong>Spotify:</strong> {t.spotifyDesc}</li>
-                                        <li><strong>Airbnb:</strong> {t.airbnbDesc}</li>
-                                    </ul>
-                                </div>
-
-                                <div className="card">
-                                    <h3 className="subsection-header">{t.mongodbIs}</h3>
-                                    <ul style={{ listStyle: 'none', paddingLeft: 0 }}>
-                                        <li style={{ marginBottom: '0.75rem' }}><strong>• {t.documentDatabase}</strong></li>
-                                        <li style={{ marginBottom: '0.75rem' }}><strong>• {t.flexibleSchema}</strong></li>
-                                        <li><strong>• {t.scaleHorizontal}</strong></li>
-                                    </ul>
-                                </div>
-
-                                <div className="card">
-                                    <h3 className="subsection-header">{t.estimatedTime}</h3>
-                                    <p><strong>{t.timeValue}</strong></p>
-                                    <p style={{ marginTop: '1rem' }}><strong>{t.prerequisites}</strong> {t.prereqValue}</p>
-                                    <p style={{ marginTop: '1rem' }}><strong>{t.chapter}</strong> {t.chapterValue}</p>
-                                </div>
-
-                                <div className="card">
-                                    <h3 className="subsection-header" style={{ marginTop: 0 }}>{t.mongodbPopular}</h3>
-                                    <h4 style={{ marginTop: '1.5rem', marginBottom: '0.5rem', fontWeight: 600, color: '#1B3A5C' }}>Was Sie lernen werden:</h4>
-                                    <ul style={{ lineHeight: '1.8', marginLeft: 0, listStyle: 'none', paddingLeft: 0 }}>
-                                        <li>• {t.dbsLearn}</li>
-                                        <li>• {t.collectionsLearn}</li>
-                                        <li>• {t.crudLearn}</li>
-                                        <li>• {t.queryLearn}</li>
-                                        <li>• {t.aggregationLearn}</li>
-                                        <li>• {t.megastoreLearn}</li>
-                                    </ul>
-                                </div>
-                            </section>
-                        )}
-
-                        {activeSection === 'setup' && (
-                            <section className="section active">
-                                <h2 className="section-header">{t.setup}</h2>
-                                <p>{t.setupIntro}</p>
-
-                                <div className="card">
-                                    <h4 className="subsection-header" style={{ marginTop: 0 }}>{t.step1}</h4>
-                                    <p>{t.step1Desc}</p>
-                                </div>
-
-                                <div className="card">
-                                    <h4 className="subsection-header" style={{ marginTop: 0 }}>{t.step2}</h4>
-                                    <div className="code-block" style={{ position: 'relative' }}>
-                                        <button className="copy-btn" onClick={() => copyToClipboard('docker pull mongo:latest')}>{t.copy}</button>
-                                        <code>{t.step2Code}</code>
-                                    </div>
-                                </div>
-
-                                <div className="card">
-                                    <h4 className="subsection-header" style={{ marginTop: 0 }}>{t.step3}</h4>
-                                    <div className="code-block" style={{ position: 'relative' }}>
-                                        <button className="copy-btn" onClick={() => copyToClipboard('docker run -d --name mongodb -p 27017:27017 mongo:latest')}>{t.copy}</button>
-                                        <code>{t.step3Code}</code>
-                                    </div>
-                                </div>
-
-                                <div className="card">
-                                    <h4 className="subsection-header" style={{ marginTop: 0 }}>{t.step4}</h4>
-                                    <p>{t.step4Desc}</p>
-                                </div>
-                            </section>
-                        )}
-
-                        {activeSection === 'fundamentals' && (
-                            <section className="section active">
-                                <h2 className="section-header">{t.fundamentals}</h2>
-
-                                <div className="card">
-                                    <h3 className="subsection-header">{t.whatIsDocument}</h3>
-                                    <p>{t.documentDesc}</p>
-                                </div>
-
-                                <div className="card">
-                                    <h3 className="subsection-header">{t.collections}</h3>
-                                    <p>{t.collectionsDesc}</p>
-                                </div>
-
-                                <div className="card">
-                                    <h3 className="subsection-header">{t.database}</h3>
-                                    <p>{t.databaseDesc}</p>
-                                </div>
-                            </section>
-                        )}
-
-                        {activeSection === 'exercise1' && (
-                            <section className="section active">
-                                <h2 className="section-header">{t.ex1Title}</h2>
-                                <p>{t.ex1Intro}</p>
-                                <div className="badge badge-beginner">{t.exercise1}</div>
-                                <div className="badge" style={{ background: '#e0e7ff', color: '#3730a3' }}>{t.estimate} {t.estimateValue}</div>
-
-                                <div className="card">
-                                    <h4 style={{ marginTop: 0, fontWeight: 600, color: '#1B3A5C' }}>{t.objective}</h4>
-                                    <p>{t.ex1Objective}</p>
-                                    <h4 style={{ fontWeight: 600, color: '#1B3A5C', marginTop: '1rem' }}>{t.ex1Steps}</h4>
-                                    <ol style={{ marginLeft: '1.5rem', lineHeight: '1.8' }}>
-                                        <li>{t.ex1Step1}</li>
-                                        <li>{t.ex1Step2}</li>
-                                        <li>{t.ex1Step3}</li>
-                                        <li>{t.ex1Step4}</li>
-                                    </ol>
-                                </div>
-
-                                <div className="code-block" style={{ position: 'relative' }}>
-                                    <button className="copy-btn" onClick={() => copyToClipboard('use megastore\nshow collections\ndb.customers.countDocuments()\ndb.customers.findOne()')}>{t.copy}</button>
-                                    <code>{'use megastore\nshow collections\ndb.customers.countDocuments()\ndb.customers.findOne()'}</code>
-                                </div>
-
-                                <div className="output-box">
-                                    {`// Output:
-MegaStore database has:
-- customers
-- products
-- orders
-
-_id: ObjectId(".."),
-name: "Alice Schmidt",
-email: "alice@example.com",
-city: "Berlin",
-country: "Germany"`}
-                                </div>
-
-                                <div className="card">
-                                    <h4 style={{ marginTop: 0, fontWeight: 600, color: '#1B3A5C' }}>{t.ex1Verify}</h4>
-                                    <p><strong>{t.ex1Expected}</strong></p>
-                                </div>
-
-                                <button className="btn-accent" onClick={() => setActiveSection('exercise2')} style={{ marginTop: '2rem' }}>{t.nextExercise}</button>
-                            </section>
-                        )}
-
-                        {activeSection === 'exercise2' && (
-                            <section className="section active">
-                                <h2 className="section-header">{t.ex2Title}</h2>
-                                <p>{t.ex2Intro}</p>
-                                <div className="badge badge-beginner">{t.exercise2}</div>
-
-                                <div className="card">
-                                    <h4 style={{ marginTop: 0, fontWeight: 600, color: '#1B3A5C' }}>{t.objective}</h4>
-                                    <p>{t.ex2Objective}</p>
-                                    <h4 style={{ fontWeight: 600, color: '#1B3A5C', marginTop: '1rem' }}>{t.ex2Steps}</h4>
-                                    <ol style={{ marginLeft: '1.5rem', lineHeight: '1.8' }}>
-                                        <li>{t.ex2Step1}</li>
-                                        <li>{t.ex2Step2}</li>
-                                        <li>{t.ex2Step3}</li>
-                                        <li>{t.ex2Step4}</li>
-                                    </ol>
-                                </div>
-
-                                <div className="code-block" style={{ position: 'relative' }}>
-                                    <button className="copy-btn" onClick={() => copyToClipboard('// Insert\ndb.customers.insertOne({ name: "Bob Meyer", email: "bob@test.de", city: "Munich", country: "Germany" })\n\n// Read\ndb.customers.findOne({ email: "bob@test.de" })\n\n// Update\ndb.customers.updateOne({ email: "bob@test.de" }, { $set: { city: "Hamburg" } })\n\n// Delete\ndb.customers.deleteOne({ email: "bob@test.de" })')}>{t.copy}</button>
-                                    <code>{'// Insert\ndb.customers.insertOne({ name: "Bob Meyer", email: "bob@test.de", city: "Munich", country: "Germany" })\n\n// Read\ndb.customers.findOne({ email: "bob@test.de" })\n\n// Update\ndb.customers.updateOne({ email: "bob@test.de" }, { $set: { city: "Hamburg" } })\n\n// Delete\ndb.customers.deleteOne({ email: "bob@test.de" })'}</code>
-                                </div>
-
-                                <div className="output-box">
-                                    {`// Insert Result:
-{{ "acknowledged": true, "insertedId": ObjectId("...") }}
-
-// Update Result:
-{{ "acknowledged": true, "modifiedCount": 1 }}
-
-// Delete Result:
-{{ "acknowledged": true, "deletedCount": 1 }}`}
-                                </div>
-
-                                <div className="card">
-                                    <h4 style={{ marginTop: 0, fontWeight: 600, color: '#1B3A5C' }}>{t.ex2Verify}</h4>
-                                    <p><strong>{t.ex2Expected}</strong></p>
-                                </div>
-
-                                <button className="btn-accent" onClick={() => setActiveSection('exercise3')} style={{ marginTop: '2rem' }}>{t.nextExercise}</button>
-                            </section>
-                        )}
-
-                        {activeSection === 'exercise3' && (
-                            <section className="section active">
-                                <h2 className="section-header">{t.ex3Title}</h2>
-                                <p>{t.ex3Intro}</p>
-                                <div className="badge badge-beginner">{t.exercise3}</div>
-
-                                <div className="card">
-                                    <h4 style={{ marginTop: 0, fontWeight: 600, color: '#1B3A5C' }}>{t.objective}</h4>
-                                    <p>{t.ex3Objective}</p>
-                                    <h4 style={{ fontWeight: 600, color: '#1B3A5C', marginTop: '1rem' }}>{t.ex3Steps}</h4>
-                                    <ol style={{ marginLeft: '1.5rem', lineHeight: '1.8' }}>
-                                        <li>{t.ex3Step1}</li>
-                                        <li>{t.ex3Step2}</li>
-                                        <li>{t.ex3Step3}</li>
-                                        <li>{t.ex3Step4}</li>
-                                    </ol>
-                                </div>
-
-                                <div className="code-block" style={{ position: 'relative' }}>
-                                    <button className="copy-btn" onClick={() => copyToClipboard('// Find by city\ndb.customers.find({ country: "Germany" })\n\n// Find with $gt (greater than)\ndb.customers.find({ age: { $gt: 25 } })\n\n// Find with $regex\ndb.customers.find({ name: { $regex: "Max" } })\n\n// Combine with $and\ndb.customers.find({ $and: [{ country: "Germany" }, { age: { $gt: 25 } }] })')}>{t.copy}</button>
-                                    <code>{'// Find by city\ndb.customers.find({ country: "Germany" })\n\n// Find with $gt (greater than)\ndb.customers.find({ age: { $gt: 25 } })\n\n// Find with $regex\ndb.customers.find({ name: { $regex: "Max" } })\n\n// Combine with $and\ndb.customers.find({ $and: [{ country: "Germany" }, { age: { $gt: 25 } }] })'}</code>
-                                </div>
-
-                                <div className="output-box">
-                                    {`// Germany results:
-5 documents found
-
-// age > 25:
-245 documents
-
-// Contains "Max":
-12 documents
-
-// Germany AND age > 25:
-89 documents`}
-                                </div>
-
-                                <div className="card">
-                                    <h4 style={{ marginTop: 0, fontWeight: 600, color: '#1B3A5C' }}>{t.ex3Verify}</h4>
-                                    <p><strong>{t.ex3Expected}</strong></p>
-                                </div>
-
-                                <button className="btn-accent" onClick={() => setActiveSection('exercise4')} style={{ marginTop: '2rem' }}>{t.nextExercise}</button>
-                            </section>
-                        )}
-
-                        {activeSection === 'exercise4' && (
-                            <section className="section active">
-                                <h2 className="section-header">{t.ex4Title}</h2>
-                                <p>{t.ex4Intro}</p>
-                                <div className="badge badge-beginner">{t.exercise4}</div>
-
-                                <div className="card">
-                                    <h4 style={{ marginTop: 0, fontWeight: 600, color: '#1B3A5C' }}>{t.objective}</h4>
-                                    <p>{t.ex4Objective}</p>
-                                    <h4 style={{ fontWeight: 600, color: '#1B3A5C', marginTop: '1rem' }}>{t.ex4Steps}</h4>
-                                    <ol style={{ marginLeft: '1.5rem', lineHeight: '1.8' }}>
-                                        <li>{t.ex4Step1}</li>
-                                        <li>{t.ex4Step2}</li>
-                                        <li>{t.ex4Step3}</li>
-                                        <li>{t.ex4Step4}</li>
-                                    </ol>
-                                </div>
-
-                                <div className="code-block" style={{ position: 'relative' }}>
-                                    <button className="copy-btn" onClick={() => copyToClipboard('// Sort by registration date\ndb.customers.find().sort({ registration_date: 1 }).limit(5)\n\n// Projection: only name and email\ndb.customers.find({}, { name: 1, email: 1, _id: 0 })\n\n// Combine all\ndb.customers.find({}, { name: 1, email: 1, _id: 0 }).sort({ registration_date: 1 }).limit(10)')}>{t.copy}</button>
-                                    <code>{'// Sort by registration date\ndb.customers.find().sort({ registration_date: 1 }).limit(5)\n\n// Projection: only name and email\ndb.customers.find({}, { name: 1, email: 1, _id: 0 })\n\n// Combine all\ndb.customers.find({}, { name: 1, email: 1, _id: 0 }).sort({ registration_date: 1 }).limit(10)'}</code>
-                                </div>
-
-                                <div className="output-box">
-                                    {`// Top 5 by registration:
-name: "Charlotte Müller", email: "charlotte@...", registration: 2019-01-15
-name: "Franz Weber", email: "franz@...", registration: 2019-02-03
-... (3 more)
-
-// Only name + email (no _id):
-name: "Alice Schmidt", email: "alice@example.com"
-name: "Bob Miller", email: "bob@example.com"
-...`}
-                                </div>
-
-                                <div className="card">
-                                    <h4 style={{ marginTop: 0, fontWeight: 600, color: '#1B3A5C' }}>{t.ex4Verify}</h4>
-                                    <p><strong>{t.ex4Expected}</strong></p>
-                                </div>
-
-                                <button className="btn-accent" onClick={() => setActiveSection('exercise5')} style={{ marginTop: '2rem' }}>{t.nextExercise}</button>
-                            </section>
-                        )}
-
-                        {activeSection === 'exercise5' && (
-                            <section className="section active">
-                                <h2 className="section-header">{t.ex5Title}</h2>
-                                <p>{t.ex5Intro}</p>
-                                <div className="badge badge-beginner">{t.exercise5}</div>
-
-                                <div className="card">
-                                    <h4 style={{ marginTop: 0, fontWeight: 600, color: '#1B3A5C' }}>{t.objective}</h4>
-                                    <p>{t.ex5Objective}</p>
-                                    <h4 style={{ fontWeight: 600, color: '#1B3A5C', marginTop: '1rem' }}>{t.ex5Steps}</h4>
-                                    <ol style={{ marginLeft: '1.5rem', lineHeight: '1.8' }}>
-                                        <li>{t.ex5Step1}</li>
-                                        <li>{t.ex5Step2}</li>
-                                        <li>{t.ex5Step3}</li>
-                                        <li>{t.ex5Step4}</li>
-                                    </ol>
-                                </div>
-
-                                <div className="code-block" style={{ position: 'relative' }}>
-                                    <button className="copy-btn" onClick={() => copyToClipboard('db.customers.aggregate([\n  { $group: { _id: "$city", count: { $sum: 1 }, avg_value: { $avg: "$lifetime_value" } } },\n  { $sort: { count: -1 } },\n  { $limit: 10 }\n])')}>{t.copy}</button>
-                                    <code>{'db.customers.aggregate([\n  { $group: { _id: "$city", count: { $sum: 1 }, avg_value: { $avg: "$lifetime_value" } } },\n  { $sort: { count: -1 } },\n  { $limit: 10 }\n])'}</code>
-                                </div>
-
-                                <div className="output-box">
-                                    {`// Results:
-_id: "Berlin", count: 245, avg_value: 1250.50
-_id: "Munich", count: 189, avg_value: 1520.75
-_id: "Hamburg", count: 156, avg_value: 980.30
-_id: "Cologne", count: 134, avg_value: 1100.00
-...`}
-                                </div>
-
-                                <div className="card">
-                                    <h4 style={{ marginTop: 0, fontWeight: 600, color: '#1B3A5C' }}>{t.ex5Verify}</h4>
-                                    <p><strong>{t.ex5Expected}</strong></p>
-                                </div>
-
-                                <button className="btn-accent" onClick={() => setActiveSection('exercise6')} style={{ marginTop: '2rem' }}>{t.nextExercise}</button>
-                            </section>
-                        )}
-
-                        {activeSection === 'exercise6' && (
-                            <section className="section active">
-                                <h2 className="section-header">{t.ex6Title}</h2>
-                                <p>{t.ex6Intro}</p>
-                                <div className="badge badge-beginner">{t.exercise6}</div>
-
-                                <div className="card">
-                                    <h4 style={{ marginTop: 0, fontWeight: 600, color: '#1B3A5C' }}>{t.objective}</h4>
-                                    <p>{t.ex6Objective}</p>
-                                    <h4 style={{ fontWeight: 600, color: '#1B3A5C', marginTop: '1rem' }}>{t.ex6Steps}</h4>
-                                    <ol style={{ marginLeft: '1.5rem', lineHeight: '1.8' }}>
-                                        <li>{t.ex6Step1}</li>
-                                        <li>{t.ex6Step2}</li>
-                                        <li>{t.ex6Step3}</li>
-                                        <li>{t.ex6Step4}</li>
-                                    </ol>
-                                </div>
-
-                                <div className="code-block" style={{ position: 'relative' }}>
-                                    <button className="copy-btn" onClick={() => copyToClipboard('// Top orders\ndb.orders.find().sort({ total: -1 }).limit(5)\n\n// Orders per customer\ndb.orders.aggregate([{ $group: { _id: "$customer_id", order_count: { $sum: 1 } } }, { $sort: { order_count: -1 } }])\n\n// Revenue by category\ndb.orders.aggregate([{ $group: { _id: "$category", revenue: { $sum: "$total" } } }, { $sort: { revenue: -1 } }])\n\n// Top 10 customers\ndb.orders.aggregate([{ $group: { _id: "$customer_id", total_spent: { $sum: "$total" } } }, { $sort: { total_spent: -1 } }, { $limit: 10 }])')}>{t.copy}</button>
-                                    <code>{'// Top orders\ndb.orders.find().sort({ total: -1 }).limit(5)\n\n// Orders per customer\ndb.orders.aggregate([{ $group: { _id: "$customer_id", order_count: { $sum: 1 } } }, { $sort: { order_count: -1 } }])\n\n// Revenue by category\ndb.orders.aggregate([{ $group: { _id: "$category", revenue: { $sum: "$total" } } }, { $sort: { revenue: -1 } }])\n\n// Top 10 customers\ndb.orders.aggregate([{ $group: { _id: "$customer_id", total_spent: { $sum: "$total" } } }, { $sort: { total_spent: -1 } }, { $limit: 10 }])'}</code>
-                                </div>
-
-                                <div className="output-box">
-                                    {`// Top orders:
-order_id: "ORD-10234", total: 2450.99, date: 2024-01-15
-order_id: "ORD-10189", total: 1995.50, date: 2024-01-20
-
-// Top customer (Alice Schmidt):
-customer_id: "CUST-456", total_spent: 12540.75
-orders_count: 18`}
-                                </div>
-
-                                <div className="card">
-                                    <h4 style={{ marginTop: 0, fontWeight: 600, color: '#1B3A5C' }}>{t.ex6Verify}</h4>
-                                    <p><strong>{t.ex6Expected}</strong></p>
-                                </div>
-
-                                <button className="btn-accent" onClick={() => setActiveSection('challenge')} style={{ marginTop: '2rem' }}>{t.nextExercise}</button>
-                            </section>
-                        )}
-
-                        {activeSection === 'challenge' && (
-                            <section className="section active">
-                                <h2 className="section-header">{t.challengeTitle}</h2>
-                                <p>{t.challengeIntro}</p>
-                                <div className="badge badge-challenge">Challenge</div>
-
-                                <div className="card">
-                                    <h4 style={{ marginTop: 0, fontWeight: 600, color: '#1B3A5C' }}>{t.objective}</h4>
-                                    <p>{t.challengeObjective}</p>
-                                    <h4 style={{ fontWeight: 600, color: '#1B3A5C', marginTop: '1rem' }}>{t.challengeSteps}</h4>
-                                    <ol style={{ marginLeft: '1.5rem', lineHeight: '1.8' }}>
-                                        <li>{t.challengeStep1}</li>
-                                        <li>{t.challengeStep2}</li>
-                                        <li>{t.challengeStep3}</li>
-                                        <li>{t.challengeStep4}</li>
-                                        <li>{t.challengeStep5}</li>
-                                    </ol>
-
-                                    <div className="hint-box" style={{ marginTop: '1.5rem' }}>
-                                        <div className="hint-title">{t.hint}</div>
-                                        <p>{t.challengeHint}</p>
-                                    </div>
-                                </div>
-
-                                <div className="card">
-                                    <h4 style={{ marginTop: 0, fontWeight: 600, color: '#1B3A5C' }}>{t.challengeVerify}</h4>
-                                    <p><strong>{t.challengeExpected}</strong></p>
-                                </div>
-
-                                <div className="expandable" onClick={() => toggleHint('solution')}>
-                                    <div className="expandable-header">
-                                        {t.solutionLabel}
-                                        <span className="expandable-chevron">▼</span>
-                                    </div>
-                                    {expandedHints['solution'] && (
-                                        <div className="expandable-content">
-                                            <div className="code-block" style={{ position: 'relative' }}>
-                                                <button className="copy-btn" onClick={() => copyToClipboard('db.customers.aggregate([\n  { $lookup: { from: "orders", localField: "_id", foreignField: "customer_id", as: "orders" } },\n  { $addFields: {\n    recency: { $subtract: [{ $toDate: "$$NOW" }, { $max: "$orders.order_date" }] },\n    frequency: { $size: "$orders" },\n    monetary: { $sum: "$orders.total" }\n  } },\n  { $addFields: {\n    recency_days: { $divide: ["$recency", 86400000] }\n  } },\n  { $addFields: {\n    segment: { $cond: [{ $gt: ["$recency_days", 60] }, "At-Risk", { $cond: [{ $gt: ["$monetary", 2000] }, "VIP", "Regular"] }] }\n  } },\n  { $group: { _id: "$segment", count: { $sum: 1 } } }\n])')}>{t.copy}</button>
-                                                <code>{'db.customers.aggregate([\n  { $lookup: { from: "orders", localField: "_id", foreignField: "customer_id", as: "orders" } },\n  { $addFields: {\n    recency: { $subtract: [{ $toDate: "$$NOW" }, { $max: "$orders.order_date" }] },\n    frequency: { $size: "$orders" },\n    monetary: { $sum: "$orders.total" }\n  } },\n  { $addFields: {\n    recency_days: { $divide: ["$recency", 86400000] }\n  } },\n  { $addFields: {\n    segment: { $cond: [{ $gt: ["$recency_days", 60] }, "At-Risk", { $cond: [{ $gt: ["$monetary", 2000] }, "VIP", "Regular"] }] }\n  } },\n  { $group: { _id: "$segment", count: { $sum: 1 } } }\n])'}</code>
-                                            </div>
-                                        </div>
-                                    )}
-                                </div>
-                            </section>
-                        )}
-
-                        {activeSection === 'quiz' && (
-                            <section className="section active">
-                                <h2 className="section-header">{t.quizTitle}</h2>
-                                <p>{t.quizIntro}</p>
-
-                                {['q1', 'q2', 'q3', 'q4', 'q5', 'q6'].map(qid => (
-                                    <div key={qid} className="card" style={{ marginBottom: '1.5rem' }}>
-                                        <h4 style={{ fontWeight: 600, color: '#1B3A5C', marginBottom: '1rem' }}>{t[qid]}</h4>
-                                        <div>
-                                            {['a', 'b', 'c', 'd'].map(opt => {
-                                                const isCorrect = isQuizAnswerCorrect(qid, opt);
-                                                const isSelected = quizAnswers[qid] === opt;
-                                                return (
-                                                    <div
-                                                        key={opt}
-                                                        className={'quiz-option ' + (isSelected ? (isCorrect ? 'correct' : 'incorrect') : '')}
-                                                        onClick={() => handleQuizAnswer(qid, opt)}
-                                                        style={{ cursor: 'pointer' }}
-                                                    >
-                                                        <strong>{opt.toUpperCase()}.</strong> {t[qid + opt]}
-                                                        {isSelected && (
-                                                            <span style={{ marginLeft: '0.5rem' }}>{isCorrect ? '✓' : '✗'}</span>
-                                                        )}
-                                                    </div>
-                                                );
-                                            })}
-                                        </div>
-                                        {quizAnswers[qid] && (
-                                            <div style={{ marginTop: '1rem', padding: '0.75rem', borderRadius: '0.5rem', background: isQuizAnswerCorrect(qid, quizAnswers[qid]) ? '#ecfdf5' : '#fef2f2', color: isQuizAnswerCorrect(qid, quizAnswers[qid]) ? '#059669' : '#dc2626' }}>
-                                                {isQuizAnswerCorrect(qid, quizAnswers[qid]) ? t.correct : t.incorrect}
-                                                {!isQuizAnswerCorrect(qid, quizAnswers[qid]) && <p style={{ marginTop: '0.5rem', fontSize: '0.85rem', color: '#666' }}>{t[qid + 'Explanation']}</p>}
-                                            </div>
-                                        )}
-                                    </div>
-                                ))}
-                            </section>
-                        )}
-
-                        {activeSection === 'outlook' && (
-                            <section className="section active">
-                                <h2 className="section-header">{t.outlookTitle}</h2>
-
-                                <div className="outlook-section">
-                                    <div className="outlook-part">
-                                        <h3 className="outlook-title">{t.advancedTopics}</h3>
-                                        <p>{t.advancedDesc}</p>
-                                        <ul className="outlook-list">
-                                            <li><strong>MongoDB Atlas:</strong> {t.mongoAtlas}</li>
-                                            <li><strong>Change Streams:</strong> {t.changeStreams}</li>
-                                            <li><strong>Atlas Search:</strong> {t.atlasSearch}</li>
-                                            <li><strong>Time Series:</strong> {t.timeSeries}</li>
-                                        </ul>
-                                    </div>
-
-                                    <div className="outlook-part">
-                                        <h3 className="outlook-title">{t.aiIntegration}</h3>
-                                        <p>{t.aiDesc}</p>
-                                        <ul className="outlook-list">
-                                            <li><strong>MCP:</strong> {t.mcpExplained}</li>
-                                            <li><strong>Claude Code:</strong> {t.claudeExplained}</li>
-                                        </ul>
-
-                                        <h4 style={{ marginTop: '1.5rem', fontWeight: 600, color: '#1B3A5C', marginBottom: '1rem' }}>{t.aiPrompts}</h4>
-                                        <div className="prompt-example">
-                                            <strong>{t.aiPrompt1Title}:</strong><br />
-                                            {t.aiPrompt1}
-                                        </div>
-                                        <div className="prompt-example">
-                                            <strong>{t.aiPrompt2Title}:</strong><br />
-                                            {t.aiPrompt2}
-                                        </div>
-                                        <div className="prompt-example">
-                                            <strong>{t.aiPrompt3Title}:</strong><br />
-                                            {t.aiPrompt3}
-                                        </div>
-                                    </div>
-                                </div>
-                            </section>
-                        )}
-
-                        {activeSection === 'troubleshooting' && (
-                            <section className="section active">
-                                <h2 className="section-header">{t.troubleshootingTitle}</h2>
-                                <p>{t.commonProblems}</p>
-
-                                {[
-                                    { problem: t.error1Problem, solution: t.error1Solution },
-                                    { problem: t.error2Problem, solution: t.error2Solution },
-                                    { problem: t.error3Problem, solution: t.error3Solution },
-                                    { problem: t.error4Problem, solution: t.error4Solution },
-                                    { problem: t.error5Problem, solution: t.error5Solution }
-                                ].map((err, idx) => (
-                                    <div key={idx} className="card">
-                                        <h4 style={{ marginTop: 0, color: '#E8792F', fontWeight: 600 }}>{err.problem}</h4>
-                                        <p><strong>Lösung:</strong> {err.solution}</p>
-                                    </div>
-                                ))}
-                            </section>
-                        )}
-                    </div>
-                </div>
-            );
-        }
-
-        ReactDOM.createRoot(document.getElementById('root')).render(<App />);
-    </script>
+                        <button className="next-button" onClick={() => setActiveSection('outlook')}>
+                            {t.nextExercise}
+                        </button>
+                    </section>
+                )}
+
+                {activeSection === 'outlook' && (
+                    <section className="section active">
+                        <h2>{t.outlookTitle}</h2>
+
+                        <h3>{t.advancedTopics}</h3>
+                        <div className="card">
+                            <ul>
+                                <li>{t.advancedTopic1}</li>
+                                <li>{t.advancedTopic2}</li>
+                                <li>{t.advancedTopic3}</li>
+                                <li>{t.advancedTopic4}</li>
+                            </ul>
+                        </div>
+
+                        <h3>{t.aiIntegration}</h3>
+                        <p>{t.aiExplain}</p>
+
+                        <div className="card">
+                            <h4>{t.promptExample1Title}</h4>
+                            <p><em>"{t.promptExample1}"</em></p>
+                        </div>
+
+                        <div className="card">
+                            <h4>{t.promptExample2Title}</h4>
+                            <p><em>"{t.promptExample2}"</em></p>
+                        </div>
+
+                        <div className="card">
+                            <h4>{t.promptExample3Title}</h4>
+                            <p><em>"{t.promptExample3}"</em></p>
+                        </div>
+
+                        <h3>{t.furtherResources}</h3>
+                        <div className="card">
+                            <ul>
+                                <li><a href="https://docs.mongodb.com/" target="_blank" rel="noopener noreferrer">{t.resource1}</a></li>
+                                <li><a href="https://university.mongodb.com/" target="_blank" rel="noopener noreferrer">{t.resource2}</a></li>
+                                <li><a href="https://docs.mongodb.com/manual/aggregation/" target="_blank" rel="noopener noreferrer">{t.resource3}</a></li>
+                                <li>{t.resource4}</li>
+                            </ul>
+                        </div>
+
+                        <button className="next-button" onClick={() => setActiveSection('troubleshooting')}>
+                            {t.nextExercise}
+                        </button>
+                    </section>
+                )}
+
+                {activeSection === 'troubleshooting' && (
+                    <section className="section active">
+                        <h2>{t.troubleshootingTitle}</h2>
+
+                        {[1, 2, 3, 4, 5].map(pNum => (
+                            <div className="card" key={`p${pNum}`}>
+                                <h4>{t[`problem${pNum}`]}</h4>
+                                <p>{t[`solution${pNum}`].split('\n').map((line, i) => <React.Fragment key={i}>{line}<br/></React.Fragment>)}</p>
+                            </div>
+                        ))}
+                    </section>
+                )}
+            </main>
+        </div>
+    );
+}
+
+ReactDOM.render(<App />, document.getElementById('root'));
+</script>
 </body>
 </html>

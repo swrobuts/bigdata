@@ -150,7 +150,6 @@
         }
         .expandable:hover { background: #f3f4f6; }
         .expandable-header { font-weight: 600; color: #E8792F; display: flex; align-items: center; justify-content: space-between; }
-        .expandable-content { margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #e5e7eb; }
         .expandable-chevron { transition: transform 0.2s; }
         .expandable.expanded .expandable-chevron { transform: rotate(180deg); }
         .output-box {
@@ -170,12 +169,10 @@
             border-radius: 0.5rem;
             padding: 1rem;
             margin: 1rem 0;
-            cursor: pointer;
         }
         .quiz-item-question { font-weight: 600; color: #1B3A5C; margin-bottom: 0.5rem; display: flex; align-items: center; justify-content: space-between; }
-        .quiz-options { margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #e5e7eb; }
         .quiz-option {
-            padding: 0.5rem 0;
+            padding: 0.5rem;
             margin: 0.5rem 0;
             cursor: pointer;
             padding-left: 0.5rem;
@@ -200,15 +197,6 @@
             margin: 1rem 0;
         }
         .hint-title { font-weight: 600; color: #E8792F; margin-bottom: 0.5rem; }
-        [dir="rtl"] { direction: rtl; text-align: right; }
-        [dir="rtl"] .sidebar { left: auto; right: 0; border-right: none; border-left: 1px solid #e0e0e0; }
-        [dir="rtl"] .main-content { margin-left: 0; margin-right: 280px; }
-        [dir="rtl"] .back-btn { margin-left: 0; margin-right: 1rem; }
-        [dir="rtl"] .sidebar-item { border-left: none; border-right: 4px solid transparent; padding-left: 0; padding-right: 1.5rem; }
-        [dir="rtl"] .sidebar-item.active { border-right-color: #E8792F; }
-        [dir="rtl"] .code-block { border-left: none; border-right: 4px solid #E8792F; }
-        [dir="rtl"] .copy-btn { right: auto; left: 0.5rem; }
-        .outlook-section { margin-top: 2rem; }
         .outlook-part { background: white; padding: 1.5rem; border-radius: 0.5rem; margin-bottom: 1.5rem; }
         .outlook-title { font-size: 1.25rem; font-weight: 600; color: #1B3A5C; margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid #E8792F; }
         .outlook-list { list-style: none; padding: 0; }
@@ -225,6 +213,14 @@
             color: #1B3A5C;
             overflow-x: auto;
         }
+        [dir="rtl"] { direction: rtl; text-align: right; }
+        [dir="rtl"] .sidebar { left: auto; right: 0; border-right: none; border-left: 1px solid #e0e0e0; }
+        [dir="rtl"] .main-content { margin-left: 0; margin-right: 280px; }
+        [dir="rtl"] .back-btn { margin-left: 0; margin-right: 1rem; }
+        [dir="rtl"] .sidebar-item { border-left: none; border-right: 4px solid transparent; padding-left: 0; padding-right: 1.5rem; }
+        [dir="rtl"] .sidebar-item.active { border-right-color: #E8792F; }
+        [dir="rtl"] .code-block { border-left: none; border-right: 4px solid #E8792F; }
+        [dir="rtl"] .copy-btn { right: auto; left: 0.5rem; }
     </style>
 </head>
 <body>
@@ -235,502 +231,1201 @@
         const translations = {
             de: {
                 back: "← Zurück zur Startseite",
-                welcome: "Willkommen zum Apache Spark Labor",
                 overview: "Überblick",
                 setup: "Setup & Installation",
                 fundamentals: "Grundlagen",
-                exercise1: "Übung 1: SparkSession & DataFrames",
+                exercise1: "Übung 1: Erste Schritte",
                 exercise2: "Übung 2: DataFrame-Operationen",
-                exercise3: "Übung 3: Aggregationen",
-                exercise4: "Übung 4: Joins & Transformationen",
-                exercise5: "Übung 5: MegaStore-Analyse",
+                exercise3: "Übung 3: Abfragen mit Filtern",
+                exercise4: "Übung 4: Sortieren & Begrenzen",
+                exercise5: "Übung 5: Aggregationen",
+                exercise6: "Übung 6: MegaStore-Analyse",
                 challenge: "Challenge: Churn-Prediction",
                 quiz: "Wissenstest",
                 outlook: "Ausblick & KI",
                 troubleshooting: "Fehlerbehebung",
                 whatYouLearn: "Was Sie lernen werden",
-                realWorldMotivation: "Warum Spark? Unternehmen wie Netflix, Uber und Shopify nutzen Spark täglich:",
-                netflixDesc: "Netflix: Verarbeitet Petabytes an Video-Streaming-Daten für Empfehlungen",
-                uberDesc: "Uber: Analysiert täglich Terabytes an Fahrtdaten für Preisgestaltung",
-                shopifyDesc: "Shopify: Verarbeitet 67 Millionen Bestellungen in Minuten",
-                alibabaDesc: "Alibaba: Führt die größten Spark-Jobs der Welt für E-Commerce aus",
+                sparkWillLearn: "Sie werden die Grundlagen von Apache Spark verstehen und Ihr erstes verteiltes Datenverarbeitungsprogramm schreiben.",
+                learningGoals: "Lernziele:",
+                goal1: "Apache Spark und verteiltes Computing verstehen",
+                goal2: "SparkSession erstellen und DataFrames laden",
+                goal3: "DataFrame-Operationen durchführen",
+                goal4: "Daten aggregieren und gruppieren",
+                goal5: "Joins und echte Business-Analysen durchführen",
+                realWorldMotivation: "Warum Spark?",
+                netflixDesc: "Netflix: Verarbeitet Petabytes an Video-Streaming-Daten für personalisierte Empfehlungen",
+                uberDesc: "Uber: Analysiert täglich Terabytes an Fahrtdaten für dynamische Preisgestaltung",
+                shopifyDesc: "Shopify: Verarbeitet über 67 Millionen Bestellungen pro Tag",
+                alibabaDesc: "Alibaba: Führt die größten Spark-Jobs weltweit für E-Commerce aus",
                 sparkIs: "Was ist Apache Spark?",
-                distributedComputing: "Verteiltes Computing: Spark läuft auf Maschinen-Clustern für massive Skalierbarkeit",
-                inMemoryProcessing: "Speicherverarbeitung: 100x schneller als Hadoop MapReduce",
-                unifiedFramework: "Einheitliches Framework: Batch, SQL, Streaming, ML alles in einem",
-                estimatedTime: "⏱ Geschätzte Zeit:",
-                timeValue: "2-3 Stunden für alle 5 Übungen + Challenge",
+                distributedComputing: "Verteiltes Computing: Spark läuft auf Maschinen-Clustern und skaliert zu massiven Datenmengen",
+                inMemoryProcessing: "Speicherverarbeitung: 100x schneller als Hadoop MapReduce durch In-Memory-Datenstrukturen",
+                unifiedFramework: "Einheitliches Framework: Batch-Verarbeitung, SQL, Streaming und Machine Learning in einer API",
+                estimatedTime: "Geschätzte Zeit:",
+                timeValue: "2-3 Stunden für alle 6 Übungen + Challenge",
                 prerequisites: "Voraussetzungen:",
-                prereqValue: "Grundlagen von Python und Datenverarbeitung empfohlen",
-                chapter: "Kapitel:",
-                chapterValue: "Kapitel 8 – Verteiltes Computing (Butscher: Big Data & Applications, THWS)",
-                architectureLearn: "Spark-Architektur und RDD/DataFrame-Modell",
-                crudLearn: "SparkSession und Datenladung",
-                aggregationLearn: "Aggregationen und Transformationen",
-                modelingLearn: "Joins und Window Functions",
-                realWorldLearn: "Realweltanwendungen und Performance-Optimierung",
-                sparkPopular: "Apache Spark ist ein verteiltes Computing-Framework für schnelle, große Datenverarbeitung auf Cluster-Hardware.",
+                prereqValue: "Python-Grundlagen empfohlen",
+                megastoreName: "MegaStore E-Commerce Szenario",
+                megastoreDesc: "Wir analysieren einen realistischen E-Commerce-Datensatz mit 4 verknüpften Tabellen:",
+                customersTable: "customers: Kundendaten (ID, Name, Email, Stadt, Land, Registrierungsdatum)",
+                productsTable: "products: Produktkatalog (ID, Name, Kategorie, Preis, Bestand)",
+                ordersTable: "orders: Bestellungen (ID, Kunden-ID, Datum, Gesamtbetrag, Status)",
+                orderItemsTable: "order_items: Bestellpositionen (ID, Bestell-ID, Produkt-ID, Menge, Preis)",
+                setupIntro: "Docker-basiertes Setup für Apache Spark mit Jupyter Notebook",
+                step1: "Schritt 1: Docker-Image herunterladen",
+                step1Desc: "Laden Sie das offizielle PySpark-Jupyter-Image herunter:",
+                step2: "Schritt 2: Container starten",
+                step2Desc: "Starten Sie einen Container mit Port-Freigaben für Jupyter und Spark UI:",
+                step3: "Schritt 3: Jupyter-Token kopieren",
+                step3Desc: "Aus den Logs den Token kopieren (beginnt mit 'jupyter-...'):",
+                step4: "Schritt 4: Browser öffnen",
+                step4Desc: "Öffnen Sie http://localhost:8888 und geben Sie den Token ein. Port 4040 zeigt die Spark-UI.",
+                verify: "Überprüfung: So prüfen Sie, ob alles funktioniert",
+                verifyDesc: "Erstellen Sie in Jupyter eine neue Python-Zelle und führen Sie aus:",
+                fundamentalsIntro: "Kern-Konzepte von Apache Spark",
+                whatIsSparkSession: "1. SparkSession – Der Einstiegspunkt",
+                sparkSessionDesc: "SparkSession ist das zentrale Objekt in Spark. Sie verwaltet die Verbindung zum Cluster und erstellt DataFrames.",
+                sparkSessionExample: "spark = SparkSession.builder\\\n    .appName(\"MyApp\")\\\n    .getOrCreate()",
+                rddVsDataFrame: "2. RDD vs. DataFrame",
+                rddVsDataFrameDesc: "RDDs sind niedrig-stufige, unstrukturierte Datensammlungen. DataFrames sind SQL-ähnliche Tabellen mit Spalten und Schema – schneller und leichter zu nutzen.",
+                lazyEvaluation: "3. Lazy Evaluation",
+                lazyEvaluationDesc: "Transformationen (map, filter, select) werden NICHT sofort ausgeführt. Spark erstellt einen Ausführungsplan und führt ihn erst aus, wenn eine Action (show, collect, count) aufgerufen wird.",
+                transformationsVsActions: "4. Transformationen vs. Actions",
+                transformationsVsActionsDesc: "Transformationen erstellen neue DataFrames (filter, select, groupBy). Actions geben Ergebnisse zurück oder speichern (show, collect, write).",
                 whenToUseSpark: "Wann Spark verwenden?",
                 useCase: "Anwendungsfall",
-                excellent: "Ausgezeichnet",
-                notIdeal: "Nicht ideal",
-                distributedData: "Verteilte Datenverarbeitung",
-                builtInSupport: "Eingebaute Unterstützung",
+                excellent: "✓ Ideal",
+                notIdeal: "✗ Nicht ideal",
+                distributedData: "Verteilte Datenverarbeitung (>1GB)",
+                batchProcessing: "Batch-Verarbeitung",
                 requiresCustomCode: "Benötigt Custom-Code",
-                realTimeProcessing: "Echtzeit-Verarbeitung",
-                streamingSupport: "Streaming unterstützt",
-                batchOnly: "Nur Batch",
-                machinelearning: "Machine Learning",
-                mlLibIncluded: "MLlib enthalten",
-                requiresExternalLib: "Benötigt externe Lib",
-                estimate: "Geschätzte Zeit:",
-                estimateValue: "1-2 Stunden für diese Übung",
-                objective: "Ziel",
-                steps: "Schritte",
-                hint: "Hinweis",
-                copy: "Kopieren",
+                streamingSupport: "Echtzeit-Verarbeitung",
+                mlLibIncluded: "Machine Learning",
+                exercise: "Übung",
+                beginner: "Anfänger",
+                estimateMin: "~15 min",
+                objective: "Lernziel:",
+                example: "Beispiel (Show):",
+                explanation: "Erklärung (Explain):",
+                practice: "Ihre Aufgabe (Practice):",
+                hint: "Hinweis:",
+                solutionShow: "Lösung anzeigen",
+                verification: "Überprüfung:",
                 nextExercise: "Nächste Übung →",
-                fundamentalsIntro: "Spark-Grundlagen verstehen",
-                whatIsSparkSession: "Was ist eine SparkSession?",
-                sparkSessionDesc: "SparkSession ist der Einstiegspunkt für Spark-Funktionalität. Sie verwaltet die Verbindung zum Cluster und erstellt DataFrames.",
-                rddVsDataFrame: "RDD vs. DataFrame",
-                rddVsDataFrameDesc: "RDDs sind grundlegende Abstraktionen mit wenigen Optimierungen. DataFrames sind SQL-Tabellen mit Schema und Catalyst-Optimierung für bessere Performance.",
-                lazyEvaluation: "Lazy Evaluation",
-                lazyEvaluationDesc: "Transformationen (map, filter) werden nicht sofort ausgeführt. Spark erstellt einen Plan und führt ihn nur aus, wenn eine Action aufgerufen wird.",
-                setupIntro: "Docker-Setup für Apache Spark mit Jupyter",
-                step1: "Schritt 1: Docker installieren",
-                step1Desc: "Herunterladen von https://www.docker.com/products/docker-desktop",
-                step2: "Schritt 2: Spark-Image abrufen",
-                step2Code: "docker pull jupyter/pyspark-notebook:latest",
-                step3: "Schritt 3: Container starten",
-                step3Code: "docker run --name spark-jupyter -p 8888:8888 -p 4040:4040 -v $(pwd)/data:/home/jovyan/data jupyter/pyspark-notebook:latest",
-                step4: "Schritt 4: Jupyter öffnen",
-                step4Desc: "Öffnen Sie http://localhost:8888 in Ihrem Browser",
-                overview1Title: "Überblick: Spark für E-Commerce",
-                overview1Intro: "Das MegaStore e-Commerce-System fließt durch folgende Spark-Verarbeitungsphasen:",
-                dataFlow: "Datenfluss: CSV/Parquet → SparkSession → Transformationen → Aggregationen → Output",
-                schema: "Datenschema",
-                customers: "Kunden: customer_id, name, email, registration_date, country",
-                products: "Produkte: product_id, name, category, unit_price, stock_quantity",
-                orders: "Bestellungen: order_id, customer_id, order_date, order_total, status",
-                orderItems: "Bestellpositionen: order_item_id, order_id, product_id, quantity, unit_price",
-                schemaNote: "Daten sind in Parquet (komprimiert, kolumnar) für schnelle Spark-Verarbeitung gespeichert.",
-                ex1Title: "Übung 1: SparkSession erstellen und Daten laden",
-                ex1Intro: "Lernen Sie, eine SparkSession zu erstellen, Daten zu laden und zu erkunden.",
-                ex1Objective: "Ziel: Datenstruktur verstehen und grundlegende Exploration durchführen",
-                ex1Steps: "Schritte:",
-                ex1Step1: "Eine SparkSession mit appName 'MegaStore' erstellen",
-                ex1Step2: "orders.parquet von der lokalen Festplatte laden",
-                ex1Step3: "Mit printSchema() die Spalten und Typen anzeigen",
-                ex1Step4: "Mit show(5) die ersten 5 Zeilen anzeigen",
-                ex1Verify: "Überprüfung: Wie viele Spalten hat der DataFrame?",
-                ex1Expected: "Erwartet: order_id, customer_id, order_date, order_total, status (5 Spalten)",
-                ex2Title: "Übung 2: DataFrame-Operationen (select, filter, show)",
-                ex2Intro: "Lernen Sie grundlegende Datenmanipulation mit Spark DataFrames.",
-                ex2Objective: "Ziel: select() zum Filtern von Spalten und filter() zum Filtern von Zeilen üben",
-                ex2Steps: "Schritte:",
-                ex2Step1: "Nur die Spalten order_id, customer_id und order_total mit select() auswählen",
-                ex2Step2: "Nur Bestellungen mit order_total > 100 mit filter() auswählen",
-                ex2Step3: "Kombinieren Sie beide: select + filter in einer Kette",
-                ex2Step4: "Zählen Sie die gefilterten Zeilen mit count()",
-                ex2Verify: "Überprüfung: Wie viele Bestellungen über 100 Euro gibt es?",
-                ex2Expected: "Erwartet: ca. 30-40% aller Bestellungen",
-                ex3Title: "Übung 3: Aggregationen (groupBy, count, avg)",
-                ex3Intro: "Lernen Sie Daten mit Aggregationsfunktionen zusammenzufassen.",
-                ex3Objective: "Ziel: Daten mit groupBy aggregieren und Statistiken berechnen",
-                ex3Steps: "Schritte:",
-                ex3Step1: "Bestellungen nach customer_id mit groupBy() gruppieren",
-                ex3Step2: "Die Anzahl der Bestellungen pro Kunde mit count() berechnen",
-                ex3Step3: "Den durchschnittlichen Bestellwert mit avg() berechnen",
-                ex3Step4: "Ergebnisse nach Bestellanzahl absteigend sortieren",
-                ex3Verify: "Überprüfung: Welcher Kunde hat die meisten Bestellungen?",
-                ex3Expected: "Erwartet: Ein oder wenige Top-Kunden mit 5-10 Bestellungen",
-                ex4Title: "Übung 4: Joins & Transformationen",
-                ex4Intro: "Lernen Sie mehrere DataFrames zu verbinden und komplexe Transformationen durchzuführen.",
-                ex4Objective: "Ziel: Joins nutzen um Daten aus verschiedenen Tabellen zu kombinieren",
-                ex4Steps: "Schritte:",
-                ex4Step1: "orders mit customers per customer_id verbinden",
-                ex4Step2: "order_items mit products per product_id verbinden",
-                ex4Step3: "Mit withColumn() neue Spalten für Bestellkosten berechnen",
-                ex4Step4: "Nach Land gruppieren und Gesamtumsatz pro Land berechnen",
-                ex4Verify: "Überprüfung: Welches Land hat den höchsten Umsatz?",
-                ex4Expected: "Erwartet: USA oder Deutschland dominieren typischerweise",
-                ex5Title: "Übung 5: MegaStore-Analyse (Umsatz & Trends)",
-                ex5Intro: "Kombinieren Sie alles Gelernte für eine echte Business-Analyse.",
-                ex5Objective: "Ziel: Ein komplettes Analyse-Projekt mit mehreren Joins, Aggregationen und Sortierung",
-                ex5Steps: "Schritte:",
-                ex5Step1: "Alle 4 Tabellen (customers, products, orders, order_items) laden",
-                ex5Step2: "orders mit order_items per order_id verbinden",
-                ex5Step3: "order_items mit products per product_id verbinden",
-                ex5Step4: "Umsatz nach Produktkategorie und Monat berechnen",
-                ex5Step5: "Top 5 Kategorien und monatliche Trends visualisieren",
-                ex5Verify: "Überprüfung: Trend steigt oder fällt?",
-                ex5Expected: "Erwartet: Saisonale Muster, z.B. höhere Umsätze in Dezember",
-                challengeTitle: "Challenge: Churn-Prediction Vorbereitung",
-                challengeIntro: "Bauen Sie ein ML-Vorbereitungs-Projekt für Customer Churn Prediction auf.",
-                challengeObjective: "Ziel: Features für ein Machine-Learning-Modell vorbereiten",
+                copy: "Kopieren",
+                expected: "Erwartete Ausgabe:",
+                ex1Objective: "SparkSession erstellen, Parquet-Datei laden und Schema erkunden",
+                ex1Code: "from pyspark.sql import SparkSession\n\nspark = SparkSession.builder\\\n    .appName(\"FirstSteps\")\\\n    .getOrCreate()\n\n# Parquet laden\ndf = spark.read.parquet(\"/home/jovyan/data/customers.parquet\")\n\n# Schema anzeigen\ndf.printSchema()\n\n# Erste 5 Zeilen\ndf.show(5)",
+                ex1Output: "root\n |-- customer_id: long\n |-- name: string\n |-- email: string\n |-- city: string\n |-- country: string\n |-- registration_date: string\n\n+----------+----------+----+-----+-------+------------------+",
+                ex1Explain: "SparkSession.builder: Konfiguriert Spark mit App-Name\ngetOrCreate(): Erstellt oder wird vorhandene Session\nspark.read.parquet(): Lädt Parquet-Format (komprimiert, kolumnnar)\nprintSchema(): Zeigt Spalten und Datentypen\nshow(5): Gibt erste 5 Zeilen formatiert aus",
+                ex1Practice: "Laden Sie die 'products.parquet' Datei statt 'customers' und zeigen Sie deren Schema",
+                ex1Hint: "Verwenden Sie den gleichen Code, ersetzen Sie nur den Dateinamen und den App-Namen",
+                ex1Solution: "from pyspark.sql import SparkSession\n\nspark = SparkSession.builder\\\n    .appName(\"ProductExplore\")\\\n    .getOrCreate()\n\ndf = spark.read.parquet(\"/home/jovyan/data/products.parquet\")\ndf.printSchema()\ndf.show(5)",
+                ex2Objective: "DataFrame-Spalten auswählen, Daten filtern und neue Spalten erstellen",
+                ex2Code: "# Nur bestimmte Spalten auswählen\ndf_select = df.select(\"name\", \"email\", \"country\")\n\n# Filtern: nur Deutsche Kunden\ndf_germany = df.filter(df.country == \"Germany\")\n\n# Neue Spalte: Full-info\ndf_new = df.withColumn(\"info\", \\\n    concat(col(\"name\"), lit(\" (\"), col(\"city\"), lit(\")\")))\n\ndf_new.show(3)",
+                ex2Output: "Full-info column created:\nJohn Doe (Berlin)\nMaria Garcia (Munich)",
+                ex2Explain: "select(): Wählt bestimmte Spalten (Projektion)\nfilter(): Wendet WHERE-Bedingung an\nwithColumn(): Fügt neue Spalte mit Ausdruck hinzu\nconcat/lit(): Verkettung und konstante Werte",
+                ex2Practice: "Wählen Sie nur Kunden mit 'email' und 'city' und filtere nach city = 'Berlin'",
+                ex2Hint: "Verwenden Sie select() für Spalten und filter() für die Stadt-Bedingung",
+                ex2Solution: "df_berlin = df.select(\"email\", \"city\").filter(df.city == \"Berlin\")\ndf_berlin.show()",
+                ex3Objective: "Daten mit komplexen Filterbedingungen abfragen (multiple Bedingungen, isin())",
+                ex3Code: "from pyspark.sql.functions import col\n\n# Filter mit Bedingung\ndf_filtered = df.filter((col(\"unit_price\") > 100) & \\\n                        (col(\"stock_quantity\") > 0))\n\n# isin() für mehrere Werte\ndf_categories = df.filter(col(\"category\").isin(\"Electronics\", \"Books\"))\n\ndf_filtered.show(3)\ndf_categories.show(3)",
+                ex3Output: "Filtered products:\nLaptop, Price: 1200\nTablet, Price: 500",
+                ex3Explain: "col(\"column\"): Spaltenreferenz\n> < == !=: Vergleichsoperatoren\n& (AND) | (OR): Logische Operatoren\nisin(): Prüft ob Wert in Liste enthalten ist",
+                ex3Practice: "Filtern Sie Produkte mit Preis < 50 ODER Kategorie = 'Books'",
+                ex3Hint: "Nutzen Sie | für OR und beachten Sie die Klammern um jeden Teil",
+                ex3Solution: "df_cheap_or_books = df.filter((col(\"unit_price\") < 50) | \\\n                               (col(\"category\") == \"Books\"))\ndf_cheap_or_books.show()",
+                ex4Objective: "Daten sortieren, begrenzen und Duplikate entfernen",
+                ex4Code: "from pyspark.sql.functions import desc\n\n# Sortieren nach Preis (absteigend)\ndf_sorted = df.orderBy(desc(\"unit_price\"))\n\n# Top 10 Produkte\ndf_top = df.orderBy(desc(\"unit_price\")).limit(10)\n\n# Eindeutige Kategorien\ndf_distinct_cats = df.select(\"category\").distinct()\n\ndf_top.show(5)\ndf_distinct_cats.show()",
+                ex4Output: "Top products by price:\n1. Premium Laptop, 2000\n2. Smart Phone, 1500\n\nDistinct categories:\nElectronics\nBooks",
+                ex4Explain: "orderBy(): Sortiert DataFrame\ndesc(): Absteigend (default: aufsteigend)\nlimit(n): Begrenzt auf n Zeilen\ndistinct(): Entfernt Duplikate",
+                ex4Practice: "Zeigen Sie die 5 billigsten Produkte mit eindeutigen Kategorien",
+                ex4Hint: "Verwenden Sie orderBy() ohne desc() für aufsteigende Sortierung",
+                ex4Solution: "df_cheapest = df.orderBy(\"unit_price\").limit(5)\ndf_cheapest.show()",
+                ex5Objective: "Daten gruppieren und aggregieren (count, avg, sum)",
+                ex5Code: "from pyspark.sql.functions import count, avg, sum\n\n# Bestellungen pro Kunde\ndf_by_customer = df.groupBy(\"customer_id\").agg(\n    count(\"*\").alias(\"order_count\"),\n    sum(\"order_total\").alias(\"total_spend\")\n)\n\n# Durchschnittspreis pro Kategorie\ndf_by_category = df.groupBy(\"category\").agg(\n    avg(\"unit_price\").alias(\"avg_price\"),\n    count(\"*\").alias(\"product_count\")\n)\n\ndf_by_customer.show()\ndf_by_category.show()",
+                ex5Output: "Customer aggregation:\ncustomer_id | order_count | total_spend\n1           | 5           | 2500\n2           | 3           | 1200",
+                ex5Explain: "groupBy(): Gruppiert nach Spalte(n)\nagg(): Wendet Aggregationsfunktionen an\ncount(\"*\"): Zählt Zeilen\nsum(): Summiert Werte\navg(): Berechnet Mittelwert\nalias(): Umbenennung der Resultat-Spalte",
+                ex5Practice: "Berechnen Sie Durchschnittspreis und Bestandssumme pro Kategorie",
+                ex5Hint: "Nutzen Sie groupBy(\"category\") und agg() mit avg() und sum()",
+                ex5Solution: "df_cat_stats = df.groupBy(\"category\").agg(\n    avg(\"unit_price\").alias(\"avg_price\"),\n    sum(\"stock_quantity\").alias(\"total_stock\")\n)\ndf_cat_stats.show()",
+                ex6Objective: "Joins durchführen, mehrere Tabellen kombinieren und echte Business-Fragen beantworten",
+                ex6Code: "# Customers und Orders joinen\ndf_join = customers.join(orders, \"customer_id\", \"inner\")\n\n# Orders mit Produkten joinen\ndf_full = df_join.join(products, \"product_id\", \"left\")\n\n# Umsatz nach Kategorie und Monat\nfrom pyspark.sql.functions import month, year, sum\n\ndf_revenue = df_full.withColumn(\"order_month\", \\\n    month(\"order_date\")).groupBy(\"category\", \"order_month\").agg(\n    sum(\"unit_price\").alias(\"total_revenue\")\n)\n\ndf_revenue.show()\n\n# Top Kunden nach Umsatz\ndf_top_customers = df_full.groupBy(\"name\").agg(\n    sum(\"order_total\").alias(\"lifetime_value\")\n).orderBy(desc(\"lifetime_value\")).limit(10)\n\ndf_top_customers.show()",
+                ex6Output: "Revenue by category and month:\ncategory | order_month | total_revenue\nElectronics | 1 | 15000\nBooks | 1 | 8500\n\nTop customers:\nJohn Doe | 25000\nMaria Garcia | 18500",
+                ex6Explain: "join(): Verbindet zwei DataFrames\n\"inner\"/\"left\": Join-Art\nwithColumn() + month(): Extrahiert Monat aus Datum\ngroupBy().agg(): Aggregiert nach mehreren Kriterien\norderBy() + limit(): Top-N Ergebnisse",
+                ex6Practice: "Finden Sie die Top 5 Kategorien nach Gesamtumsatz",
+                ex6Hint: "Joinen Sie orders mit order_items und products, gruppieren Sie nach category, summieren Sie und sortieren absteigend",
+                ex6Solution: "df_top_categories = orders.join(order_items, \"order_id\") \\\n    .join(products, \"product_id\") \\\n    .groupBy(\"category\") \\\n    .agg(sum(\"unit_price\").alias(\"total_revenue\")) \\\n    .orderBy(desc(\"total_revenue\")) \\\n    .limit(5)\ndf_top_categories.show()",
+                challengeName: "Challenge: Churn-Prediction Vorbereitung",
+                challengeDesc: "Berechnen Sie RFM-Metriken (Recency, Frequency, Monetary) für Kunden und segmentieren Sie diese nach Wert.",
                 challengeSteps: "Schritte:",
-                challengeStep1: "Für jeden Kunden RFM-Metriken berechnen (Recency, Frequency, Monetary)",
-                challengeStep2: "Recency: Tage seit letzter Bestellung",
-                challengeStep3: "Frequency: Gesamtzahl der Bestellungen",
-                challengeStep4: "Monetary: Gesamtumsatz pro Kunde",
-                challengeStep5: "Kunden segmentieren: VIP (high value), Regular, At-Risk (hohe Recency)",
-                challengeStep6: "Features als Parquet speichern für ML-Training",
-                challengeVerify: "Überprüfung: Wie viele At-Risk-Kunden gibt es (>90 Tage inaktiv)?",
-                challengeExpected: "Erwartet: 15-25% der Kunden",
-                challengeHint: "Tipp: Verwenden Sie max(order_date) und datediff() für Recency",
-                solutionLabel: "Lösung anzeigen",
-                quizTitle: "Wissenstest: Spark-Konzepte",
-                quizIntro: "Testen Sie Ihr Verständnis von Spark mit Multiple-Choice-Fragen.",
-                q1: "Was ist Lazy Evaluation in Spark?",
-                q1a: "Transformationen werden nicht sofort ausgeführt. Spark erstellt einen Plan und führt ihn erst aus, wenn eine Action aufgerufen wird.",
-                q1b: "Spark führt Transformationen in zufälliger Reihenfolge aus.",
-                q1c: "Daten werden nur in den RAM geladen, wenn Sie sie brauchen.",
-                q1d: "Alle Abfragen werden 1 Sekunde verzögert.",
-                q1Correct: "Antwort A",
-                q1Explanation: "Spark nutzt Lazy Evaluation, um den Abfrageplan zu optimieren, bevor Code ausgeführt wird.",
-                q2: "Unterschied zwischen Transformation und Action?",
-                q2a: "Transformationen sind schneller.",
-                q2b: "Transformationen geben neue RDDs zurück (faul). Aktionen führen Code aus und geben Ergebnisse zurück.",
-                q2c: "Es gibt keinen Unterschied.",
-                q2d: "Aktionen können nur map() sein.",
-                q2Correct: "Antwort B",
-                q2Explanation: "Transformationen (map, filter, join) sind faul. Aktionen (collect, count, write) führen tatsächliche Berechnung aus.",
-                q3: "Wann sollten Sie cache() verwenden?",
-                q3a: "Immer, um Speicherplatz zu sparen.",
-                q3b: "Wenn Sie ein RDD/DataFrame mehrfach verwenden, um Neuberechnung zu vermeiden.",
-                q3c: "cache() wird automatisch angewendet.",
-                q3d: "Nur wenn Ihr Cluster > 100 Maschinen hat.",
-                q3Correct: "Antwort B",
-                q3Explanation: "cache() speichert Daten im Speicher. Nutzen Sie es strategisch für RDDs, die mehrmals verwendet werden.",
-                q4: "Was macht repartition()?",
-                q4a: "Teilt Daten in neue Partitionen, um sie neu zu verteilen (teuer aber wichtig).",
-                q4b: "Entfernt leere Partitionen automatisch.",
-                q4c: "Verschlüsselt Daten für Sicherheit.",
-                q4d: "repartition() ist dasselbe wie cache().",
-                q4Correct: "Antwort A",
-                q4Explanation: "repartition() ist teuer (verursacht Shuffle), aber notwendig um Daten neu über Partitionen zu verteilen.",
-                q5: "Was ist ein RDD?",
-                q5a: "Ein Datenbank-Indextyp.",
-                q5b: "Resilient Distributed Dataset - eine unveränderliche, verteilte Datensammlung.",
-                q5c: "Eine SQL-Tabelle in Spark.",
-                q5d: "Ein Speicherformat wie Parquet.",
-                q5Correct: "Antwort B",
-                q5Explanation: "RDDs sind der Kern von Spark: unveränderliche, verteilte, fehlertolerante Datensammlungen.",
-                correctAnswer: "Korrekt!",
-                incorrectAnswer: "Falsch. Versuchen Sie es erneut.",
-                submittedAnswers: "Eingereichte Antworten:",
-                youScored: "Sie haben erreicht:",
+                challengeStep1: "1. Laden Sie alle vier Tabellen (customers, products, orders, order_items)",
+                challengeStep2: "2. Berechnen Sie Recency: Tage seit letzter Bestellung pro Kunde",
+                challengeStep3: "3. Berechnen Sie Frequency: Anzahl Bestellungen pro Kunde",
+                challengeStep4: "4. Berechnen Sie Monetary: Gesamtumsatz pro Kunde",
+                challengeStep5: "5. Erstellen Sie ein Segment: 'High' (>10000$), 'Medium' (1000-10000$), 'Low' (<1000$)",
+                challengeStep6: "6. Zeigen Sie Top-10 High-Value Kunden",
+                challengeHint: "Hinweis: Nutzen Sie window functions für Recency, groupBy für Frequency und Monetary",
+                challengeSolution: "from pyspark.sql.functions import max, datediff, current_timestamp, sum, count, when\n\n# RFM Berechnung\ndf_rfm = customers.join(orders, \"customer_id\") \\\n    .groupBy(\"customer_id\", \"name\") \\\n    .agg(\n        datediff(current_timestamp(), max(\"order_date\")).alias(\"recency\"),\n        count(\"order_id\").alias(\"frequency\"),\n        sum(\"order_total\").alias(\"monetary\")\n    )\n\n# Segmentierung\ndf_rfm_segment = df_rfm.withColumn(\"segment\",\n    when(col(\"monetary\") > 10000, \"High\") \\\n    .when(col(\"monetary\") > 1000, \"Medium\") \\\n    .otherwise(\"Low\")\n)\n\ndf_rfm_segment.filter(col(\"segment\") == \"High\") \\\n    .orderBy(desc(\"monetary\")) \\\n    .limit(10) \\\n    .show()",
+                challengeExpected: "Top High-Value Customers:\ncustomer_id | name | recency | frequency | monetary | segment\n45 | John Doe | 5 | 12 | 45000 | High",
+                quizTitle: "Wissenstest: Apache Spark",
+                quizDesc: "Testen Sie Ihr Verständnis von Spark mit diesen 6 Fragen:",
+                quizQ1: "Frage 1: Was ist das Hauptmerkmal von Lazy Evaluation in Spark?",
+                quizQ1A: "a) Spark führt alle Transformationen sofort aus",
+                quizQ1B: "b) Transformationen werden erst ausgeführt, wenn eine Action aufgerufen wird",
+                quizQ1C: "c) Spark wartet zufällig bevor es Code ausführt",
+                quizQ1D: "d) Lazy Evaluation gibt es nicht in Spark",
+                quizQ1Correct: "b",
+                quizQ1Explain: "Spark erstellt einen Ausführungsplan und optimiert ihn, bevor Actions aufgerufen werden. Dies ermöglicht bessere Performance.",
+                quizQ2: "Frage 2: Welche Aussage zu Transformationen vs. Actions ist korrekt?",
+                quizQ2A: "a) Beide erstellen neue DataFrames",
+                quizQ2B: "b) Transformationen erstellen DataFrames, Actions geben Ergebnisse zurück",
+                quizQ2C: "c) Actions sind schneller als Transformationen",
+                quizQ2D: "d) Es gibt keinen Unterschied",
+                quizQ2Correct: "b",
+                quizQ2Explain: "Transformationen sind faul und erstellen neue Strukturen. Actions (show, collect) triggern die Berechnung.",
+                quizQ3: "Frage 3: Welche Funktion wird zum Cachen von DataFrames verwendet?",
+                quizQ3A: "a) spark.cache()",
+                quizQ3B: "b) df.store()",
+                quizQ3C: "c) df.cache()",
+                quizQ3D: "d) spark.store()",
+                quizQ3Correct: "c",
+                quizQ3Explain: "df.cache() speichert einen DataFrame im Memory, um wiederholte Zugriffe zu beschleunigen.",
+                quizQ4: "Frage 4: Was macht repartition(n)?",
+                quizQ4A: "a) Ändert die Spaltenanzahl",
+                quizQ4B: "b) Ändert die Anzahl der Partitionen im Cluster",
+                quizQ4C: "c) Löscht Duplikate",
+                quizQ4D: "d) Sortiert den DataFrame",
+                quizQ4Correct: "b",
+                quizQ4Explain: "repartition() verändert die Anzahl der parallelen Partitionen für bessere Performance.",
+                quizQ5: "Frage 5: Was ist der Unterschied zwischen RDD und DataFrame?",
+                quizQ5A: "a) RDDs sind schneller",
+                quizQ5B: "b) DataFrames sind SQL-Tabellen mit Schema und Optimierungen",
+                quizQ5C: "c) Es gibt keinen Unterschied",
+                quizQ5D: "d) RDDs haben mehr Spalten",
+                quizQ5Correct: "b",
+                quizQ5Explain: "DataFrames sind höherstufig mit Catalyst-Optimierung. RDDs sind niedrigerstufige, unstrukturierte Sammlungen.",
+                quizQ6: "Frage 6: Wie wird eine neue Spalte mit withColumn() erstellt?",
+                quizQ6A: "a) df.withColumn(neue Spalte)",
+                quizQ6B: "b) df.withColumn(\"spalte_name\", Ausdruck)",
+                quizQ6C: "c) df.addColumn(Ausdruck)",
+                quizQ6D: "d) df.createColumn(\"spalte_name\")",
+                quizQ6Correct: "b",
+                quizQ6Explain: "withColumn(\"name\", expr) erstellt oder aktualisiert eine Spalte mit dem gegebenen Ausdruck.",
+                correct: "✓ Richtig!",
+                incorrect: "✗ Falsch!",
                 outlookTitle: "Ausblick & KI-Integration",
-                advancedTopics: "Fortgeschrittene Themen",
-                advancedDesc: "Nachdem Sie Spark beherrschen, gibt es viele Spezialisierungen:",
-                sparkStreaming: "Spark Streaming: Verarbeitung von Live-Datenströmen (Clickstreams, Sensoren, Finanztransaktionen)",
-                sparkML: "MLlib: Distributed Machine Learning auf großen Datensätzen (Regression, Klassifikation, Clustering)",
-                deltaLake: "Delta Lake: ACID-Transaktionen und Zeitreisen für Datalakehouses",
-                sparkConnect: "Spark Connect: Neue API für Remote-Spark-Cluster ohne JVM erforderlich",
-                aiIntegration: "KI-Unterstützte Entwicklung",
-                aiDesc: "Mit Claude Code und MCP kannst du Spark-Entwicklung durch KI beschleunigen:",
-                mcpExplained: "MCP (Model Context Protocol): Standardisierte API für KI-Tools zur Zusammenarbeit",
-                claudeExplained: "Claude Code: KI-Assistent, der Code versteht und fehlerfreie Spark-Jobs schreiben kann",
-                aiPrompts: "Beispiele für AI-unterstützte Spark-Aufgaben:",
-                aiPrompt1Title: "Feature Engineering automatisieren",
-                aiPrompt1: "Schreibe einen Spark-Code, der aus einem DataFrame mit order_date, customer_id und order_amount automatisch RFM-Features extrahiert und als neue Spalten hinzufügt.",
-                aiPrompt2Title: "Performance-Debugging",
-                aiPrompt2: "Analysiere diesen Spark-Job und zeige Bottlenecks auf. Der Job braucht 10 Minuten statt 1 Minute. Wie kann man ihn mit caching, repartitioning und Join-Optimierung schneller machen?",
-                aiPrompt3Title: "MLlib Pipeline bauen",
-                aiPrompt3: "Erstelle eine komplette Spark ML Pipeline für Customer Churn Prediction: Datenladung, Feature Scaling, LogisticRegression Training, Modell Evaluation.",
-                troubleshootingTitle: "Fehlerbehebung",
-                commonProblems: "Häufige Probleme und Lösungen",
-                error1Problem: "Java nicht gefunden / JAVA_HOME nicht gesetzt",
-                error1Solution: "Installieren Sie Java und setzen Sie JAVA_HOME: export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64",
-                error2Problem: "OutOfMemoryError beim Spark Job",
-                error2Solution: "Erhöhen Sie Executor-Speicher: spark-submit --executor-memory 8g script.py",
-                error3Problem: "Port 4040 wird bereits verwendet",
-                error3Solution: "Verwenden Sie einen anderen Port: spark.ui.port=4041",
-                error4Problem: "Docker-Container startet nicht",
-                error4Solution: "Überprüfen Sie Logs: docker logs spark-jupyter. Stellen Sie sicher, dass genug RAM verfügbar ist.",
-                error5Problem: "Langsame Spark-Jobs",
-                error5Solution: "Prüfen Sie Partitionierung mit repartition(), nutzen Sie cache() strategisch, überprüfen Sie Join-Ordnung mit explain()",
+                advancedTitle: "Fortgeschrittene Themen",
+                advancedItems: "Spark Streaming: Verarbeite Echtzeit-Daten mit Spark\nMLlib: Machine Learning Library für Spark-native Modelle\nDelta Lake: ACID-Transaktionen und Zeitreisen in Data Lakes\nSpark Connect: Entfernte Spark-Cluster über Python Client",
+                aiTitle: "KI-Integration: Claude Code + MCP",
+                aiDesc: "Sie können Claude Code mit MCP (Model Context Protocol) verwenden, um Spark-Jobs automatisiert zu generieren und zu optimieren. Das schließt Code-Generierung, Fehleranalyse und Performance-Tuning ein.",
+                promptExamplesTitle: "Prompt-Beispiele für Claude:",
+                prompt1: "Prompt 1: 'Schreibe einen Spark-Job, der die Top-10 Produkte nach Verkaufsanzahl berechnet und als CSV speichert.'",
+                prompt2: "Prompt 2: 'Erkläre warum dieser Spark-Job langsam läuft und schlag Optimierungen vor.'",
+                prompt3: "Prompt 3: 'Konvertiere diesen Pandas DataFrame-Code in einen Spark DataFrame-Code für Skalierbarkeit.'",
+                resourcesTitle: "Weiterführende Ressourcen",
+                resource1: "Apache Spark Official Docs: https://spark.apache.org/docs/latest/",
+                resource2: "Spark Performance Tuning: https://spark.apache.org/docs/latest/tuning.html",
+                resource3: "PySpark API: https://spark.apache.org/docs/latest/api/python/",
+                resource4: "Buch: Learning Spark (O'Reilly)",
+                tsTitle: "Fehlerbehebung",
+                ts1Title: "Problem 1: Java nicht gefunden",
+                ts1Desc: "Fehler: 'java: command not found'. Lösung: Java ist im Docker-Image enthalten. Falls manuell installiert: 'apt-get install default-jdk'",
+                ts2Title: "Problem 2: OutOfMemoryError",
+                ts2Desc: "Fehler: 'OutOfMemoryError: Java heap space'. Lösung: Erhöhen Sie die Executor-Memory: spark-submit --executor-memory 4g script.py",
+                ts3Title: "Problem 3: Port-Konflikte",
+                ts3Desc: "Fehler: 'Port 8888 already in use'. Lösung: Verwenden Sie anderen Port: 'docker run -p 8889:8888 ...' oder: 'lsof -i :8888' um Prozess zu beenden",
+                ts4Title: "Problem 4: Docker-Fehler",
+                ts4Desc: "Fehler: 'Error: No such image'. Lösung: Image herunterladen: 'docker pull jupyter/pyspark-notebook:latest'",
+                ts5Title: "Problem 5: Langsame Jobs",
+                ts5Desc: "Lösung: partition count prüfen (repartition()), cache() für wiederholte Zugriffe nutzen, explain() zur Ausführungsplan-Analyse verwenden",
             },
             en: {
-                back: "← Back to Landing Page",
-                welcome: "Welcome to Apache Spark Lab",
+                back: "← Back to Home",
                 overview: "Overview",
                 setup: "Setup & Installation",
                 fundamentals: "Fundamentals",
-                exercise1: "Exercise 1: SparkSession & DataFrames",
+                exercise1: "Exercise 1: First Steps",
                 exercise2: "Exercise 2: DataFrame Operations",
-                exercise3: "Exercise 3: Aggregations",
-                exercise4: "Exercise 4: Joins & Transformations",
-                exercise5: "Exercise 5: MegaStore Analysis",
+                exercise3: "Exercise 3: Filtering Queries",
+                exercise4: "Exercise 4: Sorting & Limiting",
+                exercise5: "Exercise 5: Aggregations",
+                exercise6: "Exercise 6: MegaStore Analysis",
                 challenge: "Challenge: Churn Prediction",
                 quiz: "Knowledge Test",
                 outlook: "Outlook & AI",
                 troubleshooting: "Troubleshooting",
                 whatYouLearn: "What You Will Learn",
-                realWorldMotivation: "Why Spark? Companies like Netflix, Uber, and Shopify use Spark daily:",
-                netflixDesc: "Netflix: Processes petabytes of video streaming data for recommendations",
-                uberDesc: "Uber: Analyzes terabytes of trip data daily for pricing",
-                shopifyDesc: "Shopify: Processes 67 million orders in minutes",
+                sparkWillLearn: "You will understand the basics of Apache Spark and write your first distributed data processing program.",
+                learningGoals: "Learning Goals:",
+                goal1: "Understand Apache Spark and distributed computing",
+                goal2: "Create SparkSession and load DataFrames",
+                goal3: "Perform DataFrame operations",
+                goal4: "Aggregate and group data",
+                goal5: "Perform joins and real business analysis",
+                realWorldMotivation: "Why Spark?",
+                netflixDesc: "Netflix: Processes petabytes of streaming data for personalized recommendations",
+                uberDesc: "Uber: Analyzes terabytes of ride data daily for dynamic pricing",
+                shopifyDesc: "Shopify: Processes over 67 million orders per day",
                 alibabaDesc: "Alibaba: Runs the world's largest Spark jobs for e-commerce",
                 sparkIs: "What is Apache Spark?",
                 distributedComputing: "Distributed Computing: Spark runs on machine clusters for massive scalability",
-                inMemoryProcessing: "In-Memory Processing: 100x faster than Hadoop MapReduce",
-                unifiedFramework: "Unified Framework: Batch, SQL, Streaming, ML all in one",
-                estimatedTime: "⏱ Estimated time:",
-                timeValue: "2-3 hours for all 5 exercises + challenge",
+                inMemoryProcessing: "In-Memory Processing: 100x faster than Hadoop MapReduce with in-memory data structures",
+                unifiedFramework: "Unified Framework: Batch processing, SQL, Streaming, and Machine Learning in one API",
+                estimatedTime: "Estimated Time:",
+                timeValue: "2-3 hours for all 6 exercises + challenge",
                 prerequisites: "Prerequisites:",
-                prereqValue: "Basic Python and data processing knowledge recommended",
-                chapter: "Chapter:",
-                chapterValue: "Chapter 8 – Distributed Computing (Butscher: Big Data & Applications, THWS)",
-                architectureLearn: "Spark architecture and RDD/DataFrame model",
-                crudLearn: "SparkSession and data loading",
-                aggregationLearn: "Aggregations and transformations",
-                modelingLearn: "Joins and Window Functions",
-                realWorldLearn: "Real-world applications and performance optimization",
-                sparkPopular: "Apache Spark is a distributed computing framework for fast, large-scale data processing on cluster hardware.",
-                whenToUseSpark: "When to Use Spark?",
+                prereqValue: "Python basics recommended",
+                megastoreName: "MegaStore E-Commerce Scenario",
+                megastoreDesc: "We analyze a realistic e-commerce dataset with 4 linked tables:",
+                customersTable: "customers: Customer data (ID, Name, Email, City, Country, Registration Date)",
+                productsTable: "products: Product catalog (ID, Name, Category, Price, Stock)",
+                ordersTable: "orders: Orders (ID, Customer ID, Date, Total Amount, Status)",
+                orderItemsTable: "order_items: Order line items (ID, Order ID, Product ID, Quantity, Price)",
+                setupIntro: "Docker-based setup for Apache Spark with Jupyter Notebook",
+                step1: "Step 1: Download Docker Image",
+                step1Desc: "Download the official PySpark Jupyter image:",
+                step2: "Step 2: Start Container",
+                step2Desc: "Start a container with port mappings for Jupyter and Spark UI:",
+                step3: "Step 3: Copy Jupyter Token",
+                step3Desc: "Copy the token from logs (starts with 'jupyter-...'):",
+                step4: "Step 4: Open Browser",
+                step4Desc: "Open http://localhost:8888 and enter the token. Port 4040 shows the Spark UI.",
+                verify: "Verification: Check if everything works",
+                verifyDesc: "Create a new Python cell in Jupyter and run:",
+                fundamentalsIntro: "Core Concepts of Apache Spark",
+                whatIsSparkSession: "1. SparkSession – The Entry Point",
+                sparkSessionDesc: "SparkSession is the central object in Spark. It manages the cluster connection and creates DataFrames.",
+                sparkSessionExample: "spark = SparkSession.builder\\\n    .appName(\"MyApp\")\\\n    .getOrCreate()",
+                rddVsDataFrame: "2. RDD vs. DataFrame",
+                rddVsDataFrameDesc: "RDDs are low-level, unstructured data collections. DataFrames are SQL-like tables with columns and schema – faster and easier to use.",
+                lazyEvaluation: "3. Lazy Evaluation",
+                lazyEvaluationDesc: "Transformations (map, filter, select) are NOT executed immediately. Spark builds an execution plan and only runs it when an action (show, collect, count) is called.",
+                transformationsVsActions: "4. Transformations vs. Actions",
+                transformationsVsActionsDesc: "Transformations create new DataFrames (filter, select, groupBy). Actions return results or store (show, collect, write).",
+                whenToUseSpark: "When to use Spark?",
                 useCase: "Use Case",
-                excellent: "Excellent",
-                notIdeal: "Not Ideal",
-                distributedData: "Distributed Data Processing",
-                builtInSupport: "Built-in Support",
-                requiresCustomCode: "Requires Custom Code",
-                realTimeProcessing: "Real-Time Processing",
-                streamingSupport: "Streaming Supported",
-                batchOnly: "Batch Only",
-                machinelearning: "Machine Learning",
-                mlLibIncluded: "MLlib Included",
-                requiresExternalLib: "Requires External Lib",
-                estimate: "Estimated time:",
-                estimateValue: "1-2 hours for this exercise",
-                objective: "Objective",
-                steps: "Steps",
-                hint: "Hint",
-                copy: "Copy",
+                excellent: "✓ Ideal",
+                notIdeal: "✗ Not ideal",
+                distributedData: "Distributed data processing (>1GB)",
+                batchProcessing: "Batch processing",
+                requiresCustomCode: "Requires custom code",
+                streamingSupport: "Real-time processing",
+                mlLibIncluded: "Machine Learning",
+                exercise: "Exercise",
+                beginner: "Beginner",
+                estimateMin: "~15 min",
+                objective: "Objective:",
+                example: "Example (Show):",
+                explanation: "Explanation (Explain):",
+                practice: "Your Task (Practice):",
+                hint: "Hint:",
+                solutionShow: "Show Solution",
+                verification: "Verification:",
                 nextExercise: "Next Exercise →",
-                fundamentalsIntro: "Understanding Spark Fundamentals",
-                whatIsSparkSession: "What is a SparkSession?",
-                sparkSessionDesc: "SparkSession is the entry point to Spark functionality. It manages the cluster connection and creates DataFrames.",
-                rddVsDataFrame: "RDD vs. DataFrame",
-                rddVsDataFrameDesc: "RDDs are basic abstractions with minimal optimizations. DataFrames are SQL tables with schema and Catalyst optimization for better performance.",
-                lazyEvaluation: "Lazy Evaluation",
-                lazyEvaluationDesc: "Transformations (map, filter) are not executed immediately. Spark builds a plan and only executes when an Action is called.",
-                setupIntro: "Docker Setup for Apache Spark with Jupyter",
-                step1: "Step 1: Install Docker",
-                step1Desc: "Download from https://www.docker.com/products/docker-desktop",
-                step2: "Step 2: Pull Spark Image",
-                step2Code: "docker pull jupyter/pyspark-notebook:latest",
-                step3: "Step 3: Start Container",
-                step3Code: "docker run --name spark-jupyter -p 8888:8888 -p 4040:4040 -v $(pwd)/data:/home/jovyan/data jupyter/pyspark-notebook:latest",
-                step4: "Step 4: Open Jupyter",
-                step4Desc: "Open http://localhost:8888 in your browser",
-                overview1Title: "Overview: Spark for E-Commerce",
-                overview1Intro: "The MegaStore e-commerce system flows through these Spark processing stages:",
-                dataFlow: "Data flow: CSV/Parquet → SparkSession → Transformations → Aggregations → Output",
-                schema: "Data Schema",
-                customers: "Customers: customer_id, name, email, registration_date, country",
-                products: "Products: product_id, name, category, unit_price, stock_quantity",
-                orders: "Orders: order_id, customer_id, order_date, order_total, status",
-                orderItems: "OrderItems: order_item_id, order_id, product_id, quantity, unit_price",
-                schemaNote: "Data is stored in Parquet (compressed, columnar) for fast Spark processing.",
-                ex1Title: "Exercise 1: Create SparkSession and Load Data",
-                ex1Intro: "Learn how to create a SparkSession, load data, and explore it.",
-                ex1Objective: "Objective: Understand data structure and perform basic exploration",
-                ex1Steps: "Steps:",
-                ex1Step1: "Create a SparkSession with appName 'MegaStore'",
-                ex1Step2: "Load orders.parquet from local disk",
-                ex1Step3: "Display columns and types with printSchema()",
-                ex1Step4: "Show first 5 rows with show(5)",
-                ex1Verify: "Verification: How many columns does the DataFrame have?",
-                ex1Expected: "Expected: order_id, customer_id, order_date, order_total, status (5 columns)",
-                ex2Title: "Exercise 2: DataFrame Operations (select, filter, show)",
-                ex2Intro: "Learn basic data manipulation with Spark DataFrames.",
-                ex2Objective: "Objective: Practice select() for column filtering and filter() for row filtering",
-                ex2Steps: "Steps:",
-                ex2Step1: "Select only order_id, customer_id, and order_total columns",
-                ex2Step2: "Filter for orders with order_total > 100",
-                ex2Step3: "Combine both: select + filter in one chain",
-                ex2Step4: "Count the filtered rows with count()",
-                ex2Verify: "Verification: How many orders over 100 are there?",
-                ex2Expected: "Expected: approximately 30-40% of all orders",
-                ex3Title: "Exercise 3: Aggregations (groupBy, count, avg)",
-                ex3Intro: "Learn to summarize data with aggregation functions.",
-                ex3Objective: "Objective: Aggregate data with groupBy and calculate statistics",
-                ex3Steps: "Steps:",
-                ex3Step1: "Group orders by customer_id",
-                ex3Step2: "Calculate count of orders per customer",
-                ex3Step3: "Calculate average order value with avg()",
-                ex3Step4: "Sort results by order count descending",
-                ex3Verify: "Verification: Which customer has the most orders?",
-                ex3Expected: "Expected: One or few top customers with 5-10 orders",
-                ex4Title: "Exercise 4: Joins & Transformations",
-                ex4Intro: "Learn to join multiple DataFrames and perform complex transformations.",
-                ex4Objective: "Objective: Use joins to combine data from different tables",
-                ex4Steps: "Steps:",
-                ex4Step1: "Join orders with customers on customer_id",
-                ex4Step2: "Join order_items with products on product_id",
-                ex4Step3: "Calculate order cost with withColumn()",
-                ex4Step4: "Group by country and calculate total revenue per country",
-                ex4Verify: "Verification: Which country has the highest revenue?",
-                ex4Expected: "Expected: USA or Germany typically dominate",
-                ex5Title: "Exercise 5: MegaStore Analysis (Revenue & Trends)",
-                ex5Intro: "Combine everything you learned for a real business analysis.",
-                ex5Objective: "Objective: Complete analysis project with multiple joins, aggregations, and sorting",
-                ex5Steps: "Steps:",
-                ex5Step1: "Load all 4 tables (customers, products, orders, order_items)",
-                ex5Step2: "Join orders with order_items on order_id",
-                ex5Step3: "Join order_items with products on product_id",
-                ex5Step4: "Calculate revenue by product category and month",
-                ex5Step5: "Analyze top 5 categories and monthly trends",
-                ex5Verify: "Verification: Is the trend rising or falling?",
-                ex5Expected: "Expected: Seasonal patterns, e.g., higher sales in December",
-                challengeTitle: "Challenge: Churn Prediction Preparation",
-                challengeIntro: "Build an ML preparation project for Customer Churn Prediction.",
-                challengeObjective: "Objective: Prepare features for a machine learning model",
+                copy: "Copy",
+                expected: "Expected Output:",
+                ex1Objective: "Create SparkSession, load parquet file and explore schema",
+                ex1Code: "from pyspark.sql import SparkSession\n\nspark = SparkSession.builder\\\n    .appName(\"FirstSteps\")\\\n    .getOrCreate()\n\n# Load parquet\ndf = spark.read.parquet(\"/home/jovyan/data/customers.parquet\")\n\n# Show schema\ndf.printSchema()\n\n# Show first 5 rows\ndf.show(5)",
+                ex1Output: "root\n |-- customer_id: long\n |-- name: string\n |-- email: string\n |-- city: string\n |-- country: string\n |-- registration_date: string",
+                ex1Explain: "SparkSession.builder: Configure Spark with app name\ngetOrCreate(): Create or get existing session\nspark.read.parquet(): Load parquet format (compressed, columnar)\nprintSchema(): Show columns and data types\nshow(5): Display first 5 rows formatted",
+                ex1Practice: "Load the 'products.parquet' file instead of 'customers' and show its schema",
+                ex1Hint: "Use the same code, just replace the filename and app name",
+                ex1Solution: "from pyspark.sql import SparkSession\n\nspark = SparkSession.builder\\\n    .appName(\"ProductExplore\")\\\n    .getOrCreate()\n\ndf = spark.read.parquet(\"/home/jovyan/data/products.parquet\")\ndf.printSchema()\ndf.show(5)",
+                ex2Objective: "Select DataFrame columns, filter data, and create new columns",
+                ex2Code: "# Select specific columns\ndf_select = df.select(\"name\", \"email\", \"country\")\n\n# Filter: only German customers\ndf_germany = df.filter(df.country == \"Germany\")\n\n# New column: info\ndf_new = df.withColumn(\"info\", \\\n    concat(col(\"name\"), lit(\" (\"), col(\"city\"), lit(\")\")))\n\ndf_new.show(3)",
+                ex2Output: "Info column created:\nJohn Doe (Berlin)\nMaria Garcia (Munich)",
+                ex2Explain: "select(): Select specific columns (projection)\nfilter(): Apply WHERE condition\nwithColumn(): Add new column with expression\nconcat/lit(): String concatenation and constants",
+                ex2Practice: "Select only customers with 'email' and 'city' and filter for city = 'Berlin'",
+                ex2Hint: "Use select() for columns and filter() for city condition",
+                ex2Solution: "df_berlin = df.select(\"email\", \"city\").filter(df.city == \"Berlin\")\ndf_berlin.show()",
+                ex3Objective: "Query data with complex filter conditions (multiple conditions, isin())",
+                ex3Code: "from pyspark.sql.functions import col\n\n# Filter with conditions\ndf_filtered = df.filter((col(\"unit_price\") > 100) & \\\n                        (col(\"stock_quantity\") > 0))\n\n# isin() for multiple values\ndf_categories = df.filter(col(\"category\").isin(\"Electronics\", \"Books\"))\n\ndf_filtered.show(3)\ndf_categories.show(3)",
+                ex3Output: "Filtered products:\nLaptop, Price: 1200\nTablet, Price: 500",
+                ex3Explain: "col(\"column\"): Column reference\n> < == !=: Comparison operators\n& (AND) | (OR): Logical operators\nisin(): Check if value in list",
+                ex3Practice: "Filter products with price < 50 OR category = 'Books'",
+                ex3Hint: "Use | for OR and remember parentheses around each condition",
+                ex3Solution: "df_cheap_or_books = df.filter((col(\"unit_price\") < 50) | \\\n                               (col(\"category\") == \"Books\"))\ndf_cheap_or_books.show()",
+                ex4Objective: "Sort data, limit results, and remove duplicates",
+                ex4Code: "from pyspark.sql.functions import desc\n\n# Sort by price (descending)\ndf_sorted = df.orderBy(desc(\"unit_price\"))\n\n# Top 10 products\ndf_top = df.orderBy(desc(\"unit_price\")).limit(10)\n\n# Unique categories\ndf_distinct_cats = df.select(\"category\").distinct()\n\ndf_top.show(5)\ndf_distinct_cats.show()",
+                ex4Output: "Top products by price:\n1. Premium Laptop, 2000\n2. Smart Phone, 1500",
+                ex4Explain: "orderBy(): Sort DataFrame\ndesc(): Descending (default: ascending)\nlimit(n): Limit to n rows\ndistinct(): Remove duplicates",
+                ex4Practice: "Show the 5 cheapest products",
+                ex4Hint: "Use orderBy() without desc() for ascending sort",
+                ex4Solution: "df_cheapest = df.orderBy(\"unit_price\").limit(5)\ndf_cheapest.show()",
+                ex5Objective: "Group and aggregate data (count, avg, sum)",
+                ex5Code: "from pyspark.sql.functions import count, avg, sum\n\n# Orders per customer\ndf_by_customer = df.groupBy(\"customer_id\").agg(\n    count(\"*\").alias(\"order_count\"),\n    sum(\"order_total\").alias(\"total_spend\")\n)\n\n# Average price per category\ndf_by_category = df.groupBy(\"category\").agg(\n    avg(\"unit_price\").alias(\"avg_price\"),\n    count(\"*\").alias(\"product_count\")\n)\n\ndf_by_customer.show()\ndf_by_category.show()",
+                ex5Output: "Customer aggregation:\ncustomer_id | order_count | total_spend\n1 | 5 | 2500\n2 | 3 | 1200",
+                ex5Explain: "groupBy(): Group by column(s)\nagg(): Apply aggregation functions\ncount(\"*\"): Count rows\nsum(): Sum values\navg(): Calculate average\nalias(): Rename result column",
+                ex5Practice: "Calculate average price and stock sum per category",
+                ex5Hint: "Use groupBy(\"category\") and agg() with avg() and sum()",
+                ex5Solution: "df_cat_stats = df.groupBy(\"category\").agg(\n    avg(\"unit_price\").alias(\"avg_price\"),\n    sum(\"stock_quantity\").alias(\"total_stock\")\n)\ndf_cat_stats.show()",
+                ex6Objective: "Perform joins, combine multiple tables and answer real business questions",
+                ex6Code: "# Join customers and orders\ndf_join = customers.join(orders, \"customer_id\", \"inner\")\n\n# Join orders with products\ndf_full = df_join.join(products, \"product_id\", \"left\")\n\n# Revenue by category and month\nfrom pyspark.sql.functions import month, year, sum\n\ndf_revenue = df_full.withColumn(\"order_month\", \\\n    month(\"order_date\")).groupBy(\"category\", \"order_month\").agg(\n    sum(\"unit_price\").alias(\"total_revenue\")\n)\n\ndf_revenue.show()\n\n# Top customers by revenue\ndf_top_customers = df_full.groupBy(\"name\").agg(\n    sum(\"order_total\").alias(\"lifetime_value\")\n).orderBy(desc(\"lifetime_value\")).limit(10)\n\ndf_top_customers.show()",
+                ex6Output: "Revenue by category and month:\ncategory | order_month | total_revenue\nElectronics | 1 | 15000",
+                ex6Explain: "join(): Combine two DataFrames\n\"inner\"/\"left\": Join type\nwithColumn() + month(): Extract month from date\ngroupBy().agg(): Aggregate by multiple criteria\norderBy() + limit(): Top-N results",
+                ex6Practice: "Find the top 5 categories by total revenue",
+                ex6Hint: "Join orders with order_items and products, group by category, sum, and sort descending",
+                ex6Solution: "df_top_categories = orders.join(order_items, \"order_id\") \\\n    .join(products, \"product_id\") \\\n    .groupBy(\"category\") \\\n    .agg(sum(\"unit_price\").alias(\"total_revenue\")) \\\n    .orderBy(desc(\"total_revenue\")) \\\n    .limit(5)\ndf_top_categories.show()",
+                challengeName: "Challenge: Churn Prediction Preparation",
+                challengeDesc: "Calculate RFM metrics (Recency, Frequency, Monetary) for customers and segment by value.",
                 challengeSteps: "Steps:",
-                challengeStep1: "Calculate RFM metrics for each customer (Recency, Frequency, Monetary)",
-                challengeStep2: "Recency: Days since last order",
-                challengeStep3: "Frequency: Total number of orders",
-                challengeStep4: "Monetary: Total revenue per customer",
-                challengeStep5: "Segment customers: VIP (high value), Regular, At-Risk (high recency)",
-                challengeStep6: "Save features as Parquet for ML training",
-                challengeVerify: "Verification: How many at-risk customers (>90 days inactive)?",
-                challengeExpected: "Expected: 15-25% of customers",
-                challengeHint: "Hint: Use max(order_date) and datediff() for recency",
-                solutionLabel: "Show Solution",
-                quizTitle: "Knowledge Test: Spark Concepts",
-                quizIntro: "Test your understanding of Spark with multiple-choice questions.",
-                q1: "What is Lazy Evaluation in Spark?",
-                q1a: "Transformations are not executed immediately. Spark builds a plan and only executes when an Action is called.",
-                q1b: "Spark executes transformations in random order.",
-                q1c: "Data is only loaded to RAM when you need it.",
-                q1d: "All queries are delayed by 1 second.",
-                q1Correct: "Answer A",
-                q1Explanation: "Spark uses lazy evaluation to optimize the query plan before executing code.",
-                q2: "Difference between transformation and action?",
-                q2a: "Transformations are faster.",
-                q2b: "Transformations return new RDDs (lazy). Actions execute code and return results.",
-                q2c: "There is no difference.",
-                q2d: "Actions can only be map().",
-                q2Correct: "Answer B",
-                q2Explanation: "Transformations (map, filter, join) are lazy. Actions (collect, count, write) trigger actual computation.",
-                q3: "When should you use cache()?",
-                q3a: "Always to save memory.",
-                q3b: "When you reuse an RDD/DataFrame multiple times to avoid recomputation.",
-                q3c: "cache() is applied automatically.",
-                q3d: "Only if your cluster has >100 machines.",
-                q3Correct: "Answer B",
-                q3Explanation: "cache() stores data in memory. Use it strategically for RDDs used multiple times.",
-                q4: "What does repartition() do?",
-                q4a: "Splits data into new partitions to redistribute (expensive but important).",
-                q4b: "Automatically removes empty partitions.",
-                q4c: "Encrypts data for security.",
-                q4d: "repartition() is the same as cache().",
-                q4Correct: "Answer A",
-                q4Explanation: "repartition() is expensive (causes shuffle) but necessary to redistribute data across partitions.",
-                q5: "What is an RDD?",
-                q5a: "A database index type.",
-                q5b: "Resilient Distributed Dataset - an immutable, distributed data collection.",
-                q5c: "A SQL table in Spark.",
-                q5d: "A storage format like Parquet.",
-                q5Correct: "Answer B",
-                q5Explanation: "RDDs are the foundation of Spark: immutable, distributed, fault-tolerant data collections.",
-                correctAnswer: "Correct!",
-                incorrectAnswer: "Wrong. Try again.",
-                submittedAnswers: "Your Answers:",
-                youScored: "You Scored:",
+                challengeStep1: "1. Load all four tables (customers, products, orders, order_items)",
+                challengeStep2: "2. Calculate Recency: Days since last order per customer",
+                challengeStep3: "3. Calculate Frequency: Number of orders per customer",
+                challengeStep4: "4. Calculate Monetary: Total revenue per customer",
+                challengeStep5: "5. Create segment: 'High' (>10000$), 'Medium' (1000-10000$), 'Low' (<1000$)",
+                challengeStep6: "6. Show top 10 high-value customers",
+                challengeHint: "Hint: Use window functions for Recency, groupBy for Frequency and Monetary",
+                challengeSolution: "from pyspark.sql.functions import max, datediff, current_timestamp, sum, count, when\n\n# RFM calculation\ndf_rfm = customers.join(orders, \"customer_id\") \\\n    .groupBy(\"customer_id\", \"name\") \\\n    .agg(\n        datediff(current_timestamp(), max(\"order_date\")).alias(\"recency\"),\n        count(\"order_id\").alias(\"frequency\"),\n        sum(\"order_total\").alias(\"monetary\")\n    )\n\n# Segmentation\ndf_rfm_segment = df_rfm.withColumn(\"segment\",\n    when(col(\"monetary\") > 10000, \"High\") \\\n    .when(col(\"monetary\") > 1000, \"Medium\") \\\n    .otherwise(\"Low\")\n)\n\ndf_rfm_segment.filter(col(\"segment\") == \"High\") \\\n    .orderBy(desc(\"monetary\")) \\\n    .limit(10) \\\n    .show()",
+                challengeExpected: "Top High-Value Customers:\ncustomer_id | name | recency | frequency | monetary",
+                quizTitle: "Knowledge Test: Apache Spark",
+                quizDesc: "Test your understanding of Spark with these 6 questions:",
+                quizQ1: "Question 1: What is the main feature of Lazy Evaluation in Spark?",
+                quizQ1A: "a) Spark executes all transformations immediately",
+                quizQ1B: "b) Transformations are executed only when an action is called",
+                quizQ1C: "c) Spark waits randomly before executing code",
+                quizQ1D: "d) Lazy evaluation does not exist in Spark",
+                quizQ1Correct: "b",
+                quizQ1Explain: "Spark builds an execution plan and optimizes it before actions are called. This enables better performance.",
+                quizQ2: "Question 2: Which statement about transformations vs. actions is correct?",
+                quizQ2A: "a) Both create new DataFrames",
+                quizQ2B: "b) Transformations create DataFrames, actions return results",
+                quizQ2C: "c) Actions are faster than transformations",
+                quizQ2D: "d) There is no difference",
+                quizQ2Correct: "b",
+                quizQ2Explain: "Transformations are lazy and create new structures. Actions (show, collect) trigger the computation.",
+                quizQ3: "Question 3: Which function is used to cache DataFrames?",
+                quizQ3A: "a) spark.cache()",
+                quizQ3B: "b) df.store()",
+                quizQ3C: "c) df.cache()",
+                quizQ3D: "d) spark.store()",
+                quizQ3Correct: "c",
+                quizQ3Explain: "df.cache() stores a DataFrame in memory to speed up repeated access.",
+                quizQ4: "Question 4: What does repartition(n) do?",
+                quizQ4A: "a) Changes the number of columns",
+                quizQ4B: "b) Changes the number of partitions in the cluster",
+                quizQ4C: "c) Removes duplicates",
+                quizQ4D: "d) Sorts the DataFrame",
+                quizQ4Correct: "b",
+                quizQ4Explain: "repartition() changes the number of parallel partitions for better performance.",
+                quizQ5: "Question 5: What is the difference between RDD and DataFrame?",
+                quizQ5A: "a) RDDs are faster",
+                quizQ5B: "b) DataFrames are SQL tables with schema and optimizations",
+                quizQ5C: "c) There is no difference",
+                quizQ5D: "d) RDDs have more columns",
+                quizQ5Correct: "b",
+                quizQ5Explain: "DataFrames are higher-level with Catalyst optimization. RDDs are low-level, unstructured collections.",
+                quizQ6: "Question 6: How to create a new column with withColumn()?",
+                quizQ6A: "a) df.withColumn(new column)",
+                quizQ6B: "b) df.withColumn(\"column_name\", expression)",
+                quizQ6C: "c) df.addColumn(expression)",
+                quizQ6D: "d) df.createColumn(\"column_name\")",
+                quizQ6Correct: "b",
+                quizQ6Explain: "withColumn(\"name\", expr) creates or updates a column with the given expression.",
+                correct: "✓ Correct!",
+                incorrect: "✗ Incorrect!",
                 outlookTitle: "Outlook & AI Integration",
-                advancedTopics: "Advanced Topics",
-                advancedDesc: "After mastering Spark, there are many specializations:",
-                sparkStreaming: "Spark Streaming: Process live data streams (clickstreams, sensors, financial transactions)",
-                sparkML: "MLlib: Distributed machine learning on large datasets (regression, classification, clustering)",
-                deltaLake: "Delta Lake: ACID transactions and time travel for data lakehouses",
-                sparkConnect: "Spark Connect: New API for remote Spark clusters without JVM required",
-                aiIntegration: "AI-Assisted Development",
-                aiDesc: "With Claude Code and MCP, you can accelerate Spark development through AI:",
-                mcpExplained: "MCP (Model Context Protocol): Standard API for AI tools to collaborate",
-                claudeExplained: "Claude Code: AI assistant that understands code and writes correct Spark jobs",
-                aiPrompts: "Examples of AI-assisted Spark tasks:",
-                aiPrompt1Title: "Automate Feature Engineering",
-                aiPrompt1: "Write Spark code that automatically extracts RFM features from a DataFrame with order_date, customer_id, and order_amount, adding them as new columns.",
-                aiPrompt2Title: "Performance Debugging",
-                aiPrompt2: "Analyze this Spark job and show bottlenecks. The job takes 10 minutes instead of 1. How to speed it up with caching, repartitioning, and join optimization?",
-                aiPrompt3Title: "Build MLlib Pipeline",
-                aiPrompt3: "Create a complete Spark ML Pipeline for Customer Churn Prediction: data loading, feature scaling, LogisticRegression training, model evaluation.",
-                troubleshootingTitle: "Troubleshooting",
-                commonProblems: "Common Problems and Solutions",
-                error1Problem: "Java not found / JAVA_HOME not set",
-                error1Solution: "Install Java and set JAVA_HOME: export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64",
-                error2Problem: "OutOfMemoryError in Spark job",
-                error2Solution: "Increase executor memory: spark-submit --executor-memory 8g script.py",
-                error3Problem: "Port 4040 already in use",
-                error3Solution: "Use a different port: spark.ui.port=4041",
-                error4Problem: "Docker container not starting",
-                error4Solution: "Check logs: docker logs spark-jupyter. Ensure sufficient RAM available.",
-                error5Problem: "Slow Spark performance",
-                error5Solution: "Check partitioning with repartition(), use cache() strategically, review join order with explain()",
+                advancedTitle: "Advanced Topics",
+                advancedItems: "Spark Streaming: Process real-time data with Spark\nMLlib: Machine Learning library for Spark-native models\nDelta Lake: ACID transactions and time travel in data lakes\nSpark Connect: Remote Spark clusters via Python client",
+                aiTitle: "AI Integration: Claude Code + MCP",
+                aiDesc: "You can use Claude Code with MCP (Model Context Protocol) to generate and optimize Spark jobs automatically. This includes code generation, error analysis, and performance tuning.",
+                promptExamplesTitle: "Prompt Examples for Claude:",
+                prompt1: "Prompt 1: 'Write a Spark job that calculates top-10 products by sales count and saves as CSV.'",
+                prompt2: "Prompt 2: 'Explain why this Spark job is slow and suggest optimizations.'",
+                prompt3: "Prompt 3: 'Convert this Pandas DataFrame code to Spark DataFrame code for scalability.'",
+                resourcesTitle: "Further Resources",
+                resource1: "Apache Spark Official Docs: https://spark.apache.org/docs/latest/",
+                resource2: "Spark Performance Tuning: https://spark.apache.org/docs/latest/tuning.html",
+                resource3: "PySpark API: https://spark.apache.org/docs/latest/api/python/",
+                resource4: "Book: Learning Spark (O'Reilly)",
+                tsTitle: "Troubleshooting",
+                ts1Title: "Problem 1: Java not found",
+                ts1Desc: "Error: 'java: command not found'. Solution: Java is included in Docker image. If installed manually: 'apt-get install default-jdk'",
+                ts2Title: "Problem 2: OutOfMemoryError",
+                ts2Desc: "Error: 'OutOfMemoryError: Java heap space'. Solution: Increase executor memory: spark-submit --executor-memory 4g script.py",
+                ts3Title: "Problem 3: Port conflicts",
+                ts3Desc: "Error: 'Port 8888 already in use'. Solution: Use different port: 'docker run -p 8889:8888 ...' or: 'lsof -i :8888' to kill process",
+                ts4Title: "Problem 4: Docker error",
+                ts4Desc: "Error: 'Error: No such image'. Solution: Pull image: 'docker pull jupyter/pyspark-notebook:latest'",
+                ts5Title: "Problem 5: Slow jobs",
+                ts5Desc: "Solution: Check partition count (repartition()), use cache() for repeated access, use explain() to analyze execution plan",
             },
-            ar: {
-                back: "← العودة إلى الصفحة الرئيسية",
-                copy: "نسخ",
-            },
-            uk: {
-                back: "← Повернутися на головну сторінку",
-                copy: "Копіювати",
-            },
-            es: {
-                back: "← Volver a la página de inicio",
-                copy: "Copiar",
-            },
-            tr: {
-                back: "← Ana Sayfaya Dön",
-                copy: "Kopyala",
-            }
+            ar: { back: "← العودة", overview: "نظرة عامة", setup: "الإعداد", fundamentals: "الأساسيات", exercise1: "تمرين 1", exercise2: "تمرين 2", exercise3: "تمرين 3", exercise4: "تمرين 4", exercise5: "تمرين 5", exercise6: "تمرين 6", challenge: "التحدي", quiz: "الاختبار", outlook: "الآفاق", troubleshooting: "استكشاف الأخطاء", copy: "نسخ", correct: "صحيح", incorrect: "خاطئ" },
+            uk: { back: "← Назад", overview: "Огляд", setup: "Налаштування", fundamentals: "Основи", exercise1: "Завдання 1", exercise2: "Завдання 2", exercise3: "Завдання 3", exercise4: "Завдання 4", exercise5: "Завдання 5", exercise6: "Завдання 6", challenge: "Виклик", quiz: "Тест", outlook: "Перспективи", troubleshooting: "Усунення проблем", copy: "Копіювати", correct: "Правильно", incorrect: "Неправильно" },
+            es: { back: "← Atrás", overview: "Descripción general", setup: "Configuración", fundamentals: "Fundamentos", exercise1: "Ejercicio 1", exercise2: "Ejercicio 2", exercise3: "Ejercicio 3", exercise4: "Ejercicio 4", exercise5: "Ejercicio 5", exercise6: "Ejercicio 6", challenge: "Desafío", quiz: "Prueba", outlook: "Perspectivas", troubleshooting: "Solución de problemas", copy: "Copiar", correct: "Correcto", incorrect: "Incorrecto" },
+            tr: { back: "← Geri", overview: "Genel Bakış", setup: "Kurulum", fundamentals: "Temel Bilgiler", exercise1: "Alıştırma 1", exercise2: "Alıştırma 2", exercise3: "Alıştırma 3", exercise4: "Alıştırma 4", exercise5: "Alıştırma 5", exercise6: "Alıştırma 6", challenge: "Meydan Okuma", quiz: "Test", outlook: "Görünüm", troubleshooting: "Sorun Giderme", copy: "Kopyala", correct: "Doğru", incorrect: "Yanlış" },
         };
 
-        function App() {
+        const sidebarItems = [
+            { id: 'overview', label: 'overview' },
+            { id: 'setup', label: 'setup' },
+            { id: 'fundamentals', label: 'fundamentals' },
+            { id: 'exercise1', label: 'exercise1' },
+            { id: 'exercise2', label: 'exercise2' },
+            { id: 'exercise3', label: 'exercise3' },
+            { id: 'exercise4', label: 'exercise4' },
+            { id: 'exercise5', label: 'exercise5' },
+            { id: 'exercise6', label: 'exercise6' },
+            { id: 'challenge', label: 'challenge' },
+            { id: 'quiz', label: 'quiz' },
+            { id: 'outlook', label: 'outlook' },
+            { id: 'troubleshooting', label: 'troubleshooting' },
+        ];
+
+        function LabApp() {
             const [language, setLanguage] = useState('de');
             const [activeSection, setActiveSection] = useState('overview');
-            const [expandedHints, setExpandedHints] = useState({});
+            const [expandedQuiz, setExpandedQuiz] = useState(null);
             const [quizAnswers, setQuizAnswers] = useState({});
+            const [expandedCode, setExpandedCode] = useState(null);
 
-            const t = new Proxy(translations[language], { get: (target, prop) => target[prop] !== undefined ? target[prop] : translations['de'][prop] });
+            const t = new Proxy(translations[language], {
+                get: (target, prop) => target[prop] !== undefined ? target[prop] : translations['de'][prop]
+            });
 
             const copyToClipboard = (text) => {
                 navigator.clipboard.writeText(text);
-                alert(t.copy);
+                alert(t.copy + '!');
             };
 
-            const toggleHint = (hintId) => {
-                setExpandedHints(prev => ({ ...prev, [hintId]: !prev[hintId] }));
+            const toggleCode = (id) => {
+                setExpandedCode(expandedCode === id ? null : id);
             };
 
-            const handleQuizAnswer = (questionId, answer) => {
-                setQuizAnswers(prev => ({ ...prev, [questionId]: answer }));
+            const handleQuizAnswer = (qNum, answer) => {
+                setQuizAnswers({ ...quizAnswers, [qNum]: answer });
             };
 
-            const isQuizAnswerCorrect = (questionId, answer) => {
-                const correctAnswers = {
-                    q1: 'a',
-                    q2: 'b',
-                    q3: 'b',
-                    q4: 'a',
-                    q5: 'b'
-                };
-                return correctAnswers[questionId] === answer;
+            const renderSection = () => {
+                if (activeSection === 'overview') {
+                    return (
+                        <div className="section active">
+                            <h1 className="section-header">Apache Spark</h1>
+                            <div className="lesson-box">
+                                <h3 style={{fontWeight: 600, marginBottom: '1rem'}}>{t.whatYouLearn}</h3>
+                                <p>{t.sparkWillLearn}</p>
+                                <h4 style={{marginTop: '1rem', marginBottom: '0.5rem'}}>{t.learningGoals}</h4>
+                                <ul style={{paddingLeft: '1.5rem', marginTop: '0.5rem'}}>
+                                    <li>{t.goal1}</li>
+                                    <li>{t.goal2}</li>
+                                    <li>{t.goal3}</li>
+                                    <li>{t.goal4}</li>
+                                    <li>{t.goal5}</li>
+                                </ul>
+                            </div>
+
+                            <h2 className="subsection-header">{t.realWorldMotivation}</h2>
+                            <div className="card">
+                                <p><strong>Netflix:</strong> {t.netflixDesc}</p>
+                            </div>
+                            <div className="card">
+                                <p><strong>Uber:</strong> {t.uberDesc}</p>
+                            </div>
+                            <div className="card">
+                                <p><strong>Shopify:</strong> {t.shopifyDesc}</p>
+                            </div>
+                            <div className="card">
+                                <p><strong>Alibaba:</strong> {t.alibabaDesc}</p>
+                            </div>
+
+                            <h2 className="subsection-header">{t.sparkIs}</h2>
+                            <div className="card">
+                                <p><strong>1. {t.distributedComputing}</strong></p>
+                            </div>
+                            <div className="card">
+                                <p><strong>2. {t.inMemoryProcessing}</strong></p>
+                            </div>
+                            <div className="card">
+                                <p><strong>3. {t.unifiedFramework}</strong></p>
+                            </div>
+
+                            <h2 className="subsection-header">{t.estimatedTime}</h2>
+                            <p>{t.timeValue}</p>
+
+                            <h2 className="subsection-header">{t.prerequisites}</h2>
+                            <p>{t.prereqValue}</p>
+
+                            <h2 className="subsection-header">{t.megastoreName}</h2>
+                            <p>{t.megastoreDesc}</p>
+                            <ul style={{paddingLeft: '1.5rem', marginTop: '0.5rem'}}>
+                                <li>{t.customersTable}</li>
+                                <li>{t.productsTable}</li>
+                                <li>{t.ordersTable}</li>
+                                <li>{t.orderItemsTable}</li>
+                            </ul>
+                        </div>
+                    );
+                }
+
+                if (activeSection === 'setup') {
+                    return (
+                        <div className="section active">
+                            <h1 className="section-header">{t.setup}</h1>
+                            <p>{t.setupIntro}</p>
+
+                            <h2 className="subsection-header">{t.step1}</h2>
+                            <p>{t.step1Desc}</p>
+                            <div className="code-block">
+                                <button className="copy-btn" onClick={() => copyToClipboard('docker pull jupyter/pyspark-notebook:latest')}>{t.copy}</button>
+                                <code>docker pull jupyter/pyspark-notebook:latest</code>
+                            </div>
+
+                            <h2 className="subsection-header">{t.step2}</h2>
+                            <p>{t.step2Desc}</p>
+                            <div className="code-block">
+                                <button className="copy-btn" onClick={() => copyToClipboard('docker run --name spark-lab -p 8888:8888 -p 4040:4040 -v $(pwd)/data:/home/jovyan/data jupyter/pyspark-notebook:latest')}>{t.copy}</button>
+                                <code>docker run --name spark-lab -p 8888:8888 -p 4040:4040 -v $(pwd)/data:/home/jovyan/data jupyter/pyspark-notebook:latest</code>
+                            </div>
+
+                            <h2 className="subsection-header">{t.step3}</h2>
+                            <p>{t.step3Desc}</p>
+                            <div className="code-block">
+                                <code>docker logs spark-lab | grep token</code>
+                            </div>
+
+                            <h2 className="subsection-header">{t.step4}</h2>
+                            <p>{t.step4Desc}</p>
+
+                            <h2 className="subsection-header">{t.verify}</h2>
+                            <p>{t.verifyDesc}</p>
+                            <div className="code-block">
+                                <button className="copy-btn" onClick={() => copyToClipboard('from pyspark.sql import SparkSession\nspark = SparkSession.builder.appName("test").getOrCreate()\nprint(spark.version)')}>{t.copy}</button>
+                                <code>from pyspark.sql import SparkSession\nspark = SparkSession.builder.appName("test").getOrCreate()\nprint(spark.version)</code>
+                            </div>
+                        </div>
+                    );
+                }
+
+                if (activeSection === 'fundamentals') {
+                    return (
+                        <div className="section active">
+                            <h1 className="section-header">{t.fundamentals}</h1>
+                            <p>{t.fundamentalsIntro}</p>
+
+                            <h2 className="subsection-header">{t.whatIsSparkSession}</h2>
+                            <p>{t.sparkSessionDesc}</p>
+                            <div className="code-block">
+                                <button className="copy-btn" onClick={() => copyToClipboard(t.sparkSessionExample)}>{t.copy}</button>
+                                <code>{t.sparkSessionExample}</code>
+                            </div>
+
+                            <h2 className="subsection-header">{t.rddVsDataFrame}</h2>
+                            <p>{t.rddVsDataFrameDesc}</p>
+
+                            <h2 className="subsection-header">{t.lazyEvaluation}</h2>
+                            <p>{t.lazyEvaluationDesc}</p>
+
+                            <h2 className="subsection-header">{t.transformationsVsActions}</h2>
+                            <p>{t.transformationsVsActionsDesc}</p>
+
+                            <h2 className="subsection-header">{t.whenToUseSpark}</h2>
+                            <table style={{width: '100%', borderCollapse: 'collapse', marginTop: '1rem'}}>
+                                <tr style={{backgroundColor: '#f3f4f6'}}>
+                                    <th style={{border: '1px solid #e5e7eb', padding: '0.75rem', textAlign: 'left'}}>{t.useCase}</th>
+                                    <th style={{border: '1px solid #e5e7eb', padding: '0.75rem', textAlign: 'left'}}>{t.excellent}</th>
+                                    <th style={{border: '1px solid #e5e7eb', padding: '0.75rem', textAlign: 'left'}}>{t.notIdeal}</th>
+                                </tr>
+                                <tr>
+                                    <td style={{border: '1px solid #e5e7eb', padding: '0.75rem'}}>{t.distributedData}</td>
+                                    <td style={{border: '1px solid #e5e7eb', padding: '0.75rem'}}>✓ Spark</td>
+                                    <td style={{border: '1px solid #e5e7eb', padding: '0.75rem'}}>SQL Database</td>
+                                </tr>
+                                <tr>
+                                    <td style={{border: '1px solid #e5e7eb', padding: '0.75rem'}}>{t.batchProcessing}</td>
+                                    <td style={{border: '1px solid #e5e7eb', padding: '0.75rem'}}>✓ Spark</td>
+                                    <td style={{border: '1px solid #e5e7eb', padding: '0.75rem'}}>Stream Processing</td>
+                                </tr>
+                                <tr>
+                                    <td style={{border: '1px solid #e5e7eb', padding: '0.75rem'}}>{t.streamingSupport}</td>
+                                    <td style={{border: '1px solid #e5e7eb', padding: '0.75rem'}}>✓ Spark</td>
+                                    <td style={{border: '1px solid #e5e7eb', padding: '0.75rem'}}>Single Machine</td>
+                                </tr>
+                            </table>
+                        </div>
+                    );
+                }
+
+                // Exercise 1
+                if (activeSection === 'exercise1') {
+                    return (
+                        <div className="section active">
+                            <h1 className="section-header">{t.exercise1}</h1>
+                            <div style={{marginBottom: '1rem'}}>
+                                <span className="badge badge-beginner">{t.beginner}</span>
+                                <span className="badge" style={{background: '#E8792F', color: 'white'}}>{t.estimateMin}</span>
+                            </div>
+                            <h2 className="subsection-header">{t.objective}</h2>
+                            <p>{t.ex1Objective}</p>
+
+                            <h2 className="subsection-header">{t.example}</h2>
+                            <div className="code-block">
+                                <button className="copy-btn" onClick={() => copyToClipboard(t.ex1Code)}>{t.copy}</button>
+                                <code>{t.ex1Code}</code>
+                            </div>
+
+                            <h2 className="subsection-header">{t.expected}</h2>
+                            <div className="output-box">{t.ex1Output}</div>
+
+                            <h2 className="subsection-header">{t.explanation}</h2>
+                            <p style={{whiteSpace: 'pre-line'}}>{t.ex1Explain}</p>
+
+                            <h2 className="subsection-header">{t.practice}</h2>
+                            <p>{t.ex1Practice}</p>
+
+                            <div className="hint-box">
+                                <div className="hint-title">{t.hint}</div>
+                                <p>{t.ex1Hint}</p>
+                            </div>
+
+                            <div className="expandable" onClick={() => toggleCode('ex1')}>
+                                <div className="expandable-header">
+                                    {t.solutionShow}
+                                    <span className="expandable-chevron">▼</span>
+                                </div>
+                                {expandedCode === 'ex1' && (
+                                    <div className="expandable-content">
+                                        <div className="code-block">
+                                            <button className="copy-btn" onClick={() => copyToClipboard(t.ex1Solution)}>{t.copy}</button>
+                                            <code>{t.ex1Solution}</code>
+                                        </div>
+                                    </div>
+                                )}
+                            </div>
+
+                            <h2 className="subsection-header">{t.verification}</h2>
+                            <p>{t.ex1Output}</p>
+
+                            <button className="btn-accent" onClick={() => setActiveSection('exercise2')} style={{marginTop: '2rem'}}>{t.nextExercise}</button>
+                        </div>
+                    );
+                }
+
+                // Exercise 2
+                if (activeSection === 'exercise2') {
+                    return (
+                        <div className="section active">
+                            <h1 className="section-header">{t.exercise2}</h1>
+                            <div style={{marginBottom: '1rem'}}>
+                                <span className="badge badge-beginner">{t.beginner}</span>
+                                <span className="badge" style={{background: '#E8792F', color: 'white'}}>{t.estimateMin}</span>
+                            </div>
+                            <h2 className="subsection-header">{t.objective}</h2>
+                            <p>{t.ex2Objective}</p>
+
+                            <h2 className="subsection-header">{t.example}</h2>
+                            <div className="code-block">
+                                <button className="copy-btn" onClick={() => copyToClipboard(t.ex2Code)}>{t.copy}</button>
+                                <code>{t.ex2Code}</code>
+                            </div>
+
+                            <h2 className="subsection-header">{t.expected}</h2>
+                            <div className="output-box">{t.ex2Output}</div>
+
+                            <h2 className="subsection-header">{t.explanation}</h2>
+                            <p style={{whiteSpace: 'pre-line'}}>{t.ex2Explain}</p>
+
+                            <h2 className="subsection-header">{t.practice}</h2>
+                            <p>{t.ex2Practice}</p>
+
+                            <div className="hint-box">
+                                <div className="hint-title">{t.hint}</div>
+                                <p>{t.ex2Hint}</p>
+                            </div>
+
+                            <div className="expandable" onClick={() => toggleCode('ex2')}>
+                                <div className="expandable-header">
+                                    {t.solutionShow}
+                                    <span className="expandable-chevron">▼</span>
+                                </div>
+                                {expandedCode === 'ex2' && (
+                                    <div className="expandable-content">
+                                        <div className="code-block">
+                                            <button className="copy-btn" onClick={() => copyToClipboard(t.ex2Solution)}>{t.copy}</button>
+                                            <code>{t.ex2Solution}</code>
+                                        </div>
+                                    </div>
+                                )}
+                            </div>
+
+                            <button className="btn-accent" onClick={() => setActiveSection('exercise3')} style={{marginTop: '2rem'}}>{t.nextExercise}</button>
+                        </div>
+                    );
+                }
+
+                // Exercise 3
+                if (activeSection === 'exercise3') {
+                    return (
+                        <div className="section active">
+                            <h1 className="section-header">{t.exercise3}</h1>
+                            <div style={{marginBottom: '1rem'}}>
+                                <span className="badge badge-beginner">{t.beginner}</span>
+                                <span className="badge" style={{background: '#E8792F', color: 'white'}}>{t.estimateMin}</span>
+                            </div>
+                            <h2 className="subsection-header">{t.objective}</h2>
+                            <p>{t.ex3Objective}</p>
+
+                            <h2 className="subsection-header">{t.example}</h2>
+                            <div className="code-block">
+                                <button className="copy-btn" onClick={() => copyToClipboard(t.ex3Code)}>{t.copy}</button>
+                                <code>{t.ex3Code}</code>
+                            </div>
+
+                            <h2 className="subsection-header">{t.expected}</h2>
+                            <div className="output-box">{t.ex3Output}</div>
+
+                            <h2 className="subsection-header">{t.explanation}</h2>
+                            <p style={{whiteSpace: 'pre-line'}}>{t.ex3Explain}</p>
+
+                            <h2 className="subsection-header">{t.practice}</h2>
+                            <p>{t.ex3Practice}</p>
+
+                            <div className="hint-box">
+                                <div className="hint-title">{t.hint}</div>
+                                <p>{t.ex3Hint}</p>
+                            </div>
+
+                            <div className="expandable" onClick={() => toggleCode('ex3')}>
+                                <div className="expandable-header">
+                                    {t.solutionShow}
+                                    <span className="expandable-chevron">▼</span>
+                                </div>
+                                {expandedCode === 'ex3' && (
+                                    <div className="expandable-content">
+                                        <div className="code-block">
+                                            <button className="copy-btn" onClick={() => copyToClipboard(t.ex3Solution)}>{t.copy}</button>
+                                            <code>{t.ex3Solution}</code>
+                                        </div>
+                                    </div>
+                                )}
+                            </div>
+
+                            <button className="btn-accent" onClick={() => setActiveSection('exercise4')} style={{marginTop: '2rem'}}>{t.nextExercise}</button>
+                        </div>
+                    );
+                }
+
+                // Exercise 4
+                if (activeSection === 'exercise4') {
+                    return (
+                        <div className="section active">
+                            <h1 className="section-header">{t.exercise4}</h1>
+                            <div style={{marginBottom: '1rem'}}>
+                                <span className="badge badge-beginner">{t.beginner}</span>
+                                <span className="badge" style={{background: '#E8792F', color: 'white'}}>{t.estimateMin}</span>
+                            </div>
+                            <h2 className="subsection-header">{t.objective}</h2>
+                            <p>{t.ex4Objective}</p>
+
+                            <h2 className="subsection-header">{t.example}</h2>
+                            <div className="code-block">
+                                <button className="copy-btn" onClick={() => copyToClipboard(t.ex4Code)}>{t.copy}</button>
+                                <code>{t.ex4Code}</code>
+                            </div>
+
+                            <h2 className="subsection-header">{t.expected}</h2>
+                            <div className="output-box">{t.ex4Output}</div>
+
+                            <h2 className="subsection-header">{t.explanation}</h2>
+                            <p style={{whiteSpace: 'pre-line'}}>{t.ex4Explain}</p>
+
+                            <h2 className="subsection-header">{t.practice}</h2>
+                            <p>{t.ex4Practice}</p>
+
+                            <div className="hint-box">
+                                <div className="hint-title">{t.hint}</div>
+                                <p>{t.ex4Hint}</p>
+                            </div>
+
+                            <div className="expandable" onClick={() => toggleCode('ex4')}>
+                                <div className="expandable-header">
+                                    {t.solutionShow}
+                                    <span className="expandable-chevron">▼</span>
+                                </div>
+                                {expandedCode === 'ex4' && (
+                                    <div className="expandable-content">
+                                        <div className="code-block">
+                                            <button className="copy-btn" onClick={() => copyToClipboard(t.ex4Solution)}>{t.copy}</button>
+                                            <code>{t.ex4Solution}</code>
+                                        </div>
+                                    </div>
+                                )}
+                            </div>
+
+                            <button className="btn-accent" onClick={() => setActiveSection('exercise5')} style={{marginTop: '2rem'}}>{t.nextExercise}</button>
+                        </div>
+                    );
+                }
+
+                // Exercise 5
+                if (activeSection === 'exercise5') {
+                    return (
+                        <div className="section active">
+                            <h1 className="section-header">{t.exercise5}</h1>
+                            <div style={{marginBottom: '1rem'}}>
+                                <span className="badge badge-beginner">{t.beginner}</span>
+                                <span className="badge" style={{background: '#E8792F', color: 'white'}}>{t.estimateMin}</span>
+                            </div>
+                            <h2 className="subsection-header">{t.objective}</h2>
+                            <p>{t.ex5Objective}</p>
+
+                            <h2 className="subsection-header">{t.example}</h2>
+                            <div className="code-block">
+                                <button className="copy-btn" onClick={() => copyToClipboard(t.ex5Code)}>{t.copy}</button>
+                                <code>{t.ex5Code}</code>
+                            </div>
+
+                            <h2 className="subsection-header">{t.expected}</h2>
+                            <div className="output-box">{t.ex5Output}</div>
+
+                            <h2 className="subsection-header">{t.explanation}</h2>
+                            <p style={{whiteSpace: 'pre-line'}}>{t.ex5Explain}</p>
+
+                            <h2 className="subsection-header">{t.practice}</h2>
+                            <p>{t.ex5Practice}</p>
+
+                            <div className="hint-box">
+                                <div className="hint-title">{t.hint}</div>
+                                <p>{t.ex5Hint}</p>
+                            </div>
+
+                            <div className="expandable" onClick={() => toggleCode('ex5')}>
+                                <div className="expandable-header">
+                                    {t.solutionShow}
+                                    <span className="expandable-chevron">▼</span>
+                                </div>
+                                {expandedCode === 'ex5' && (
+                                    <div className="expandable-content">
+                                        <div className="code-block">
+                                            <button className="copy-btn" onClick={() => copyToClipboard(t.ex5Solution)}>{t.copy}</button>
+                                            <code>{t.ex5Solution}</code>
+                                        </div>
+                                    </div>
+                                )}
+                            </div>
+
+                            <button className="btn-accent" onClick={() => setActiveSection('exercise6')} style={{marginTop: '2rem'}}>{t.nextExercise}</button>
+                        </div>
+                    );
+                }
+
+                // Exercise 6
+                if (activeSection === 'exercise6') {
+                    return (
+                        <div className="section active">
+                            <h1 className="section-header">{t.exercise6}</h1>
+                            <div style={{marginBottom: '1rem'}}>
+                                <span className="badge badge-intermediate">Intermediate</span>
+                                <span className="badge" style={{background: '#E8792F', color: 'white'}}>{t.estimateMin}</span>
+                            </div>
+                            <h2 className="subsection-header">{t.objective}</h2>
+                            <p>{t.ex6Objective}</p>
+
+                            <h2 className="subsection-header">{t.example}</h2>
+                            <div className="code-block">
+                                <button className="copy-btn" onClick={() => copyToClipboard(t.ex6Code)}>{t.copy}</button>
+                                <code>{t.ex6Code}</code>
+                            </div>
+
+                            <h2 className="subsection-header">{t.expected}</h2>
+                            <div className="output-box">{t.ex6Output}</div>
+
+                            <h2 className="subsection-header">{t.explanation}</h2>
+                            <p style={{whiteSpace: 'pre-line'}}>{t.ex6Explain}</p>
+
+                            <h2 className="subsection-header">{t.practice}</h2>
+                            <p>{t.ex6Practice}</p>
+
+                            <div className="hint-box">
+                                <div className="hint-title">{t.hint}</div>
+                                <p>{t.ex6Hint}</p>
+                            </div>
+
+                            <div className="expandable" onClick={() => toggleCode('ex6')}>
+                                <div className="expandable-header">
+                                    {t.solutionShow}
+                                    <span className="expandable-chevron">▼</span>
+                                </div>
+                                {expandedCode === 'ex6' && (
+                                    <div className="expandable-content">
+                                        <div className="code-block">
+                                            <button className="copy-btn" onClick={() => copyToClipboard(t.ex6Solution)}>{t.copy}</button>
+                                            <code>{t.ex6Solution}</code>
+                                        </div>
+                                    </div>
+                                )}
+                            </div>
+
+                            <button className="btn-accent" onClick={() => setActiveSection('challenge')} style={{marginTop: '2rem'}}>{t.nextExercise}</button>
+                        </div>
+                    );
+                }
+
+                // Challenge
+                if (activeSection === 'challenge') {
+                    return (
+                        <div className="section active">
+                            <h1 className="section-header">{t.challengeName}</h1>
+                            <div style={{marginBottom: '1rem'}}>
+                                <span className="badge badge-challenge">Challenge</span>
+                            </div>
+                            <p>{t.challengeDesc}</p>
+
+                            <h2 className="subsection-header">{t.challengeSteps}</h2>
+                            <ol style={{paddingLeft: '1.5rem', marginTop: '0.5rem'}}>
+                                <li>{t.challengeStep1}</li>
+                                <li>{t.challengeStep2}</li>
+                                <li>{t.challengeStep3}</li>
+                                <li>{t.challengeStep4}</li>
+                                <li>{t.challengeStep5}</li>
+                                <li>{t.challengeStep6}</li>
+                            </ol>
+
+                            <div className="hint-box">
+                                <div className="hint-title">{t.hint}</div>
+                                <p>{t.challengeHint}</p>
+                            </div>
+
+                            <div className="expandable" onClick={() => toggleCode('challenge')}>
+                                <div className="expandable-header">
+                                    {t.solutionShow}
+                                    <span className="expandable-chevron">▼</span>
+                                </div>
+                                {expandedCode === 'challenge' && (
+                                    <div className="expandable-content">
+                                        <div className="code-block">
+                                            <button className="copy-btn" onClick={() => copyToClipboard(t.challengeSolution)}>{t.copy}</button>
+                                            <code>{t.challengeSolution}</code>
+                                        </div>
+                                    </div>
+                                )}
+                            </div>
+
+                            <h2 className="subsection-header">{t.verification}</h2>
+                            <p>{t.challengeExpected}</p>
+
+                            <button className="btn-accent" onClick={() => setActiveSection('quiz')} style={{marginTop: '2rem'}}>{t.nextExercise}</button>
+                        </div>
+                    );
+                }
+
+                // Quiz
+                if (activeSection === 'quiz') {
+                    return (
+                        <div className="section active">
+                            <h1 className="section-header">{t.quizTitle}</h1>
+                            <p>{t.quizDesc}</p>
+
+                            {[1,2,3,4,5,6].map(qNum => (
+                                <div key={qNum} className="quiz-item">
+                                    <div className="quiz-item-question">
+                                        {qNum === 1 && t.quizQ1}
+                                        {qNum === 2 && t.quizQ2}
+                                        {qNum === 3 && t.quizQ3}
+                                        {qNum === 4 && t.quizQ4}
+                                        {qNum === 5 && t.quizQ5}
+                                        {qNum === 6 && t.quizQ6}
+                                    </div>
+                                    <div style={{marginTop: '1rem', paddingTop: '1rem', borderTop: '1px solid #e5e7eb'}}>
+                                        {qNum === 1 && (
+                                            <>
+                                                {['a', 'b', 'c', 'd'].map(opt => (
+                                                    <div key={opt} className={'quiz-option' + (quizAnswers['q1'] === opt ? (opt === 'b' ? ' correct' : ' incorrect') : '')} onClick={() => handleQuizAnswer('q1', opt)}>
+                                                        {opt === 'a' && t.quizQ1A}
+                                                        {opt === 'b' && t.quizQ1B}
+                                                        {opt === 'c' && t.quizQ1C}
+                                                        {opt === 'd' && t.quizQ1D}
+                                                    </div>
+                                                ))}
+                                                {quizAnswers['q1'] && (
+                                                    <div style={{marginTop: '1rem', padding: '0.5rem', borderRadius: '0.35rem', background: quizAnswers['q1'] === 'b' ? '#ecfdf5' : '#fef2f2', color: quizAnswers['q1'] === 'b' ? '#059669' : '#dc2626'}}>
+                                                        {quizAnswers['q1'] === 'b' ? t.correct : t.incorrect} {t.quizQ1Explain}
+                                                    </div>
+                                                )}
+                                            </>
+                                        )}
+                                        {qNum === 2 && (
+                                            <>
+                                                {['a', 'b', 'c', 'd'].map(opt => (
+                                                    <div key={opt} className={'quiz-option' + (quizAnswers['q2'] === opt ? (opt === 'b' ? ' correct' : ' incorrect') : '')} onClick={() => handleQuizAnswer('q2', opt)}>
+                                                        {opt === 'a' && t.quizQ2A}
+                                                        {opt === 'b' && t.quizQ2B}
+                                                        {opt === 'c' && t.quizQ2C}
+                                                        {opt === 'd' && t.quizQ2D}
+                                                    </div>
+                                                ))}
+                                                {quizAnswers['q2'] && (
+                                                    <div style={{marginTop: '1rem', padding: '0.5rem', borderRadius: '0.35rem', background: quizAnswers['q2'] === 'b' ? '#ecfdf5' : '#fef2f2', color: quizAnswers['q2'] === 'b' ? '#059669' : '#dc2626'}}>
+                                                        {quizAnswers['q2'] === 'b' ? t.correct : t.incorrect} {t.quizQ2Explain}
+                                                    </div>
+                                                )}
+                                            </>
+                                        )}
+                                        {qNum === 3 && (
+                                            <>
+                                                {['a', 'b', 'c', 'd'].map(opt => (
+                                                    <div key={opt} className={'quiz-option' + (quizAnswers['q3'] === opt ? (opt === 'c' ? ' correct' : ' incorrect') : '')} onClick={() => handleQuizAnswer('q3', opt)}>
+                                                        {opt === 'a' && t.quizQ3A}
+                                                        {opt === 'b' && t.quizQ3B}
+                                                        {opt === 'c' && t.quizQ3C}
+                                                        {opt === 'd' && t.quizQ3D}
+                                                    </div>
+                                                ))}
+                                                {quizAnswers['q3'] && (
+                                                    <div style={{marginTop: '1rem', padding: '0.5rem', borderRadius: '0.35rem', background: quizAnswers['q3'] === 'c' ? '#ecfdf5' : '#fef2f2', color: quizAnswers['q3'] === 'c' ? '#059669' : '#dc2626'}}>
+                                                        {quizAnswers['q3'] === 'c' ? t.correct : t.incorrect} {t.quizQ3Explain}
+                                                    </div>
+                                                )}
+                                            </>
+                                        )}
+                                        {qNum === 4 && (
+                                            <>
+                                                {['a', 'b', 'c', 'd'].map(opt => (
+                                                    <div key={opt} className={'quiz-option' + (quizAnswers['q4'] === opt ? (opt === 'b' ? ' correct' : ' incorrect') : '')} onClick={() => handleQuizAnswer('q4', opt)}>
+                                                        {opt === 'a' && t.quizQ4A}
+                                                        {opt === 'b' && t.quizQ4B}
+                                                        {opt === 'c' && t.quizQ4C}
+                                                        {opt === 'd' && t.quizQ4D}
+                                                    </div>
+                                                ))}
+                                                {quizAnswers['q4'] && (
+                                                    <div style={{marginTop: '1rem', padding: '0.5rem', borderRadius: '0.35rem', background: quizAnswers['q4'] === 'b' ? '#ecfdf5' : '#fef2f2', color: quizAnswers['q4'] === 'b' ? '#059669' : '#dc2626'}}>
+                                                        {quizAnswers['q4'] === 'b' ? t.correct : t.incorrect} {t.quizQ4Explain}
+                                                    </div>
+                                                )}
+                                            </>
+                                        )}
+                                        {qNum === 5 && (
+                                            <>
+                                                {['a', 'b', 'c', 'd'].map(opt => (
+                                                    <div key={opt} className={'quiz-option' + (quizAnswers['q5'] === opt ? (opt === 'b' ? ' correct' : ' incorrect') : '')} onClick={() => handleQuizAnswer('q5', opt)}>
+                                                        {opt === 'a' && t.quizQ5A}
+                                                        {opt === 'b' && t.quizQ5B}
+                                                        {opt === 'c' && t.quizQ5C}
+                                                        {opt === 'd' && t.quizQ5D}
+                                                    </div>
+                                                ))}
+                                                {quizAnswers['q5'] && (
+                                                    <div style={{marginTop: '1rem', padding: '0.5rem', borderRadius: '0.35rem', background: quizAnswers['q5'] === 'b' ? '#ecfdf5' : '#fef2f2', color: quizAnswers['q5'] === 'b' ? '#059669' : '#dc2626'}}>
+                                                        {quizAnswers['q5'] === 'b' ? t.correct : t.incorrect} {t.quizQ5Explain}
+                                                    </div>
+                                                )}
+                                            </>
+                                        )}
+                                        {qNum === 6 && (
+                                            <>
+                                                {['a', 'b', 'c', 'd'].map(opt => (
+                                                    <div key={opt} className={'quiz-option' + (quizAnswers['q6'] === opt ? (opt === 'b' ? ' correct' : ' incorrect') : '')} onClick={() => handleQuizAnswer('q6', opt)}>
+                                                        {opt === 'a' && t.quizQ6A}
+                                                        {opt === 'b' && t.quizQ6B}
+                                                        {opt === 'c' && t.quizQ6C}
+                                                        {opt === 'd' && t.quizQ6D}
+                                                    </div>
+                                                ))}
+                                                {quizAnswers['q6'] && (
+                                                    <div style={{marginTop: '1rem', padding: '0.5rem', borderRadius: '0.35rem', background: quizAnswers['q6'] === 'b' ? '#ecfdf5' : '#fef2f2', color: quizAnswers['q6'] === 'b' ? '#059669' : '#dc2626'}}>
+                                                        {quizAnswers['q6'] === 'b' ? t.correct : t.incorrect} {t.quizQ6Explain}
+                                                    </div>
+                                                )}
+                                            </>
+                                        )}
+                                    </div>
+                                </div>
+                            ))}
+
+                            <button className="btn-accent" onClick={() => setActiveSection('outlook')} style={{marginTop: '2rem'}}>{t.nextExercise}</button>
+                        </div>
+                    );
+                }
+
+                // Outlook
+                if (activeSection === 'outlook') {
+                    return (
+                        <div className="section active">
+                            <h1 className="section-header">{t.outlookTitle}</h1>
+
+                            <div className="outlook-part">
+                                <div className="outlook-title">{t.advancedTitle}</div>
+                                <ul className="outlook-list">
+                                    <li>Spark Streaming: Verarbeite Echtzeit-Daten mit Spark</li>
+                                    <li>MLlib: Machine Learning Library für Spark-native Modelle</li>
+                                    <li>Delta Lake: ACID-Transaktionen und Zeitreisen in Data Lakes</li>
+                                    <li>Spark Connect: Entfernte Spark-Cluster über Python Client</li>
+                                </ul>
+                            </div>
+
+                            <div className="outlook-part">
+                                <div className="outlook-title">{t.aiTitle}</div>
+                                <p>{t.aiDesc}</p>
+                            </div>
+
+                            <div className="outlook-part">
+                                <div className="outlook-title">{t.promptExamplesTitle}</div>
+                                <div className="prompt-example">{t.prompt1}</div>
+                                <div className="prompt-example">{t.prompt2}</div>
+                                <div className="prompt-example">{t.prompt3}</div>
+                            </div>
+
+                            <div className="outlook-part">
+                                <div className="outlook-title">{t.resourcesTitle}</div>
+                                <ul className="outlook-list">
+                                    <li><a href="https://spark.apache.org/docs/latest/" style={{color: '#E8792F', textDecoration: 'none'}} target="_blank">Apache Spark Official Docs</a></li>
+                                    <li><a href="https://spark.apache.org/docs/latest/tuning.html" style={{color: '#E8792F', textDecoration: 'none'}} target="_blank">Spark Performance Tuning</a></li>
+                                    <li><a href="https://spark.apache.org/docs/latest/api/python/" style={{color: '#E8792F', textDecoration: 'none'}} target="_blank">PySpark API</a></li>
+                                    <li>Learning Spark (O'Reilly)</li>
+                                </ul>
+                            </div>
+
+                            <button className="btn-accent" onClick={() => setActiveSection('troubleshooting')} style={{marginTop: '2rem'}}>{t.nextExercise}</button>
+                        </div>
+                    );
+                }
+
+                // Troubleshooting
+                if (activeSection === 'troubleshooting') {
+                    return (
+                        <div className="section active">
+                            <h1 className="section-header">{t.tsTitle}</h1>
+
+                            <div className="card">
+                                <h3 style={{fontWeight: 600, marginBottom: '0.5rem'}}>{t.ts1Title}</h3>
+                                <p>{t.ts1Desc}</p>
+                            </div>
+
+                            <div className="card">
+                                <h3 style={{fontWeight: 600, marginBottom: '0.5rem'}}>{t.ts2Title}</h3>
+                                <p>{t.ts2Desc}</p>
+                            </div>
+
+                            <div className="card">
+                                <h3 style={{fontWeight: 600, marginBottom: '0.5rem'}}>{t.ts3Title}</h3>
+                                <p>{t.ts3Desc}</p>
+                            </div>
+
+                            <div className="card">
+                                <h3 style={{fontWeight: 600, marginBottom: '0.5rem'}}>{t.ts4Title}</h3>
+                                <p>{t.ts4Desc}</p>
+                            </div>
+
+                            <div className="card">
+                                <h3 style={{fontWeight: 600, marginBottom: '0.5rem'}}>{t.ts5Title}</h3>
+                                <p>{t.ts5Desc}</p>
+                            </div>
+                        </div>
+                    );
+                }
             };
 
             return (
-                <div dir={language === 'ar' ? 'rtl' : 'ltr'}>
+                <div>
                     <div className="header">
                         <div className="header-left">
-                            <button className="back-btn" onClick={() => window.history.back()}>{t.back}</button>
-                            <div className="header-title">Spark Lab</div>
+                            <button className="back-btn" onClick={() => setActiveSection('overview')}>←</button>
+                            <h1 className="header-title">Apache Spark Lab</h1>
                         </div>
                         <div className="lang-switcher">
                             {['de', 'en', 'ar', 'uk', 'es', 'tr'].map(lang => (
-                                <button key={lang} className={'lang-btn ' + (language === lang ? 'active' : '')} onClick={() => setLanguage(lang)}>
+                                <button key={lang} className={'lang-btn' + (language === lang ? ' active' : '')} onClick={() => setLanguage(lang)}>
                                     {lang.toUpperCase()}
                                 </button>
                             ))}
@@ -738,453 +1433,21 @@
                     </div>
 
                     <div className="sidebar">
-                        {[
-                            { id: 'overview', label: t.overview },
-                            { id: 'setup', label: t.setup },
-                            { id: 'fundamentals', label: t.fundamentals },
-                            { id: 'exercise1', label: t.exercise1 },
-                            { id: 'exercise2', label: t.exercise2 },
-                            { id: 'exercise3', label: t.exercise3 },
-                            { id: 'exercise4', label: t.exercise4 },
-                            { id: 'exercise5', label: t.exercise5 },
-                            { id: 'challenge', label: t.challenge },
-                            { id: 'quiz', label: t.quiz },
-                            { id: 'outlook', label: t.outlook },
-                            { id: 'troubleshooting', label: t.troubleshooting }
-                        ].map(item => (
-                            <div key={item.id} className={'sidebar-item ' + (activeSection === item.id ? 'active' : '')} onClick={() => setActiveSection(item.id)}>
-                                {item.label}
-                            </div>
+                        {sidebarItems.map(item => (
+                            <button key={item.id} className={'sidebar-item' + (activeSection === item.id ? ' active' : '')} onClick={() => setActiveSection(item.id)}>
+                                {t[item.label]}
+                            </button>
                         ))}
                     </div>
 
                     <div className="main-content">
-                        {activeSection === 'overview' && (
-                            <section className="section active">
-                                <h2 className="section-header">{t.overview1Title}</h2>
-                                <div className="lesson-box">
-                                    <h3 style={{ color: '#E8792F', marginBottom: '1rem' }}>{t.whatYouLearn}</h3>
-                                    <p>{t.realWorldMotivation}</p>
-                                    <ul style={{ listStyle: 'none', paddingLeft: 0, marginTop: '1rem' }}>
-                                        <li style={{ marginBottom: '0.5rem' }}><strong>Netflix:</strong> {t.netflixDesc}</li>
-                                        <li style={{ marginBottom: '0.5rem' }}><strong>Uber:</strong> {t.uberDesc}</li>
-                                        <li style={{ marginBottom: '0.5rem' }}><strong>Shopify:</strong> {t.shopifyDesc}</li>
-                                        <li><strong>Alibaba:</strong> {t.alibabaDesc}</li>
-                                    </ul>
-                                </div>
-
-                                <div className="card">
-                                    <h3 className="subsection-header">{t.sparkIs}</h3>
-                                    <ul style={{ listStyle: 'none', paddingLeft: 0 }}>
-                                        <li style={{ marginBottom: '0.75rem' }}><strong>• {t.distributedComputing}</strong></li>
-                                        <li style={{ marginBottom: '0.75rem' }}><strong>• {t.inMemoryProcessing}</strong></li>
-                                        <li><strong>• {t.unifiedFramework}</strong></li>
-                                    </ul>
-                                </div>
-
-                                <div className="card">
-                                    <h3 className="subsection-header">{t.estimatedTime}</h3>
-                                    <p><strong>{t.timeValue}</strong></p>
-                                    <p style={{ marginTop: '1rem' }}><strong>{t.prerequisites}</strong> {t.prereqValue}</p>
-                                    <p style={{ marginTop: '1rem' }}><strong>{t.chapter}</strong> {t.chapterValue}</p>
-                                </div>
-
-                                <div className="card">
-                                    <h3 className="subsection-header" style={{ marginTop: 0 }}>{t.overview1Intro}</h3>
-                                    <p><strong>{t.dataFlow}</strong></p>
-                                    <h4 style={{ marginTop: '1.5rem', marginBottom: '0.5rem', fontWeight: 600, color: '#1B3A5C' }}>{t.schema}</h4>
-                                    <ul style={{ lineHeight: '1.8', marginLeft: 0, listStyle: 'none', paddingLeft: 0 }}>
-                                        <li>• {t.customers}</li>
-                                        <li>• {t.products}</li>
-                                        <li>• {t.orders}</li>
-                                        <li>• {t.orderItems}</li>
-                                    </ul>
-                                    <p style={{ marginTop: '1rem' }}>{t.schemaNote}</p>
-                                </div>
-                            </section>
-                        )}
-
-                        {activeSection === 'setup' && (
-                            <section className="section active">
-                                <h2 className="section-header">{t.setup}</h2>
-                                <p>{t.setupIntro}</p>
-
-                                <div className="card">
-                                    <h4 className="subsection-header" style={{ marginTop: 0 }}>{t.step1}</h4>
-                                    <p>{t.step1Desc}</p>
-                                </div>
-
-                                <div className="card">
-                                    <h4 className="subsection-header" style={{ marginTop: 0 }}>{t.step2}</h4>
-                                    <div className="code-block" style={{ position: 'relative' }}>
-                                        <button className="copy-btn" onClick={() => copyToClipboard('docker pull jupyter/pyspark-notebook:latest')}>{t.copy}</button>
-                                        <code>{t.step2Code}</code>
-                                    </div>
-                                </div>
-
-                                <div className="card">
-                                    <h4 className="subsection-header" style={{ marginTop: 0 }}>{t.step3}</h4>
-                                    <div className="code-block" style={{ position: 'relative' }}>
-                                        <button className="copy-btn" onClick={() => copyToClipboard('docker run --name spark-jupyter -p 8888:8888 -p 4040:4040 -v $(pwd)/data:/home/jovyan/data jupyter/pyspark-notebook:latest')}>{t.copy}</button>
-                                        <code>{t.step3Code}</code>
-                                    </div>
-                                </div>
-
-                                <div className="card">
-                                    <h4 className="subsection-header" style={{ marginTop: 0 }}>{t.step4}</h4>
-                                    <p>{t.step4Desc}</p>
-                                </div>
-                            </section>
-                        )}
-
-                        {activeSection === 'fundamentals' && (
-                            <section className="section active">
-                                <h2 className="section-header">{t.fundamentals}</h2>
-                                <p>{t.fundamentalsIntro}</p>
-
-                                <div className="card">
-                                    <h3 className="subsection-header">{t.whatIsSparkSession}</h3>
-                                    <p>{t.sparkSessionDesc}</p>
-                                </div>
-
-                                <div className="card">
-                                    <h3 className="subsection-header">{t.rddVsDataFrame}</h3>
-                                    <p>{t.rddVsDataFrameDesc}</p>
-                                </div>
-
-                                <div className="card">
-                                    <h3 className="subsection-header">{t.lazyEvaluation}</h3>
-                                    <p>{t.lazyEvaluationDesc}</p>
-                                </div>
-                            </section>
-                        )}
-
-                        {activeSection === 'exercise1' && (
-                            <section className="section active">
-                                <h2 className="section-header">{t.ex1Title}</h2>
-                                <p>{t.ex1Intro}</p>
-                                <div className="badge badge-beginner">{t.exercise1}</div>
-                                <div className="badge" style={{ background: '#e0e7ff', color: '#3730a3' }}>{t.estimate} {t.estimateValue}</div>
-
-                                <div className="card">
-                                    <h4 style={{ marginTop: 0, fontWeight: 600, color: '#1B3A5C' }}>{t.objective}</h4>
-                                    <p>{t.ex1Objective}</p>
-
-                                    <h4 style={{ fontWeight: 600, color: '#1B3A5C', marginTop: '1rem' }}>{t.ex1Steps}</h4>
-                                    <ol style={{ marginLeft: '1.5rem', lineHeight: '1.8' }}>
-                                        <li>{t.ex1Step1}</li>
-                                        <li>{t.ex1Step2}</li>
-                                        <li>{t.ex1Step3}</li>
-                                        <li>{t.ex1Step4}</li>
-                                    </ol>
-                                </div>
-
-                                <div className="code-block" style={{ position: 'relative' }}>
-                                    <button className="copy-btn" onClick={() => copyToClipboard('from pyspark.sql import SparkSession\n\nspark = SparkSession.builder.appName("MegaStore").master("local[*]").getOrCreate()\norders = spark.read.parquet("data/orders.parquet")\norders.printSchema()\norders.show(5)')}>{t.copy}</button>
-                                    <code>{'from pyspark.sql import SparkSession\n\nspark = SparkSession.builder.appName("MegaStore").master("local[*]").getOrCreate()\norders = spark.read.parquet("data/orders.parquet")\norders.printSchema()\norders.show(5)'}</code>
-                                </div>
-
-                                <div className="card">
-                                    <h4 style={{ marginTop: 0, fontWeight: 600, color: '#1B3A5C' }}>{t.ex1Verify}</h4>
-                                    <p><strong>{t.ex1Expected}</strong></p>
-                                </div>
-
-                                <button className="btn-accent" onClick={() => setActiveSection('exercise2')} style={{ marginTop: '2rem' }}>{t.nextExercise}</button>
-                            </section>
-                        )}
-
-                        {activeSection === 'exercise2' && (
-                            <section className="section active">
-                                <h2 className="section-header">{t.ex2Title}</h2>
-                                <p>{t.ex2Intro}</p>
-                                <div className="badge badge-beginner">{t.exercise2}</div>
-
-                                <div className="card">
-                                    <h4 style={{ marginTop: 0, fontWeight: 600, color: '#1B3A5C' }}>{t.objective}</h4>
-                                    <p>{t.ex2Objective}</p>
-
-                                    <h4 style={{ fontWeight: 600, color: '#1B3A5C', marginTop: '1rem' }}>{t.ex2Steps}</h4>
-                                    <ol style={{ marginLeft: '1.5rem', lineHeight: '1.8' }}>
-                                        <li>{t.ex2Step1}</li>
-                                        <li>{t.ex2Step2}</li>
-                                        <li>{t.ex2Step3}</li>
-                                        <li>{t.ex2Step4}</li>
-                                    </ol>
-                                </div>
-
-                                <div className="code-block" style={{ position: 'relative' }}>
-                                    <button className="copy-btn" onClick={() => copyToClipboard('from pyspark.sql.functions import col\n\norders_filtered = orders \\\n    .select("order_id", "customer_id", "order_total") \\\n    .filter(col("order_total") > 100)\n\norders_filtered.show()\norders_filtered.count()')}>{t.copy}</button>
-                                    <code>{'from pyspark.sql.functions import col\n\norders_filtered = orders \\\n    .select("order_id", "customer_id", "order_total") \\\n    .filter(col("order_total") > 100)\n\norders_filtered.show()\norders_filtered.count()'}</code>
-                                </div>
-
-                                <div className="card">
-                                    <h4 style={{ marginTop: 0, fontWeight: 600, color: '#1B3A5C' }}>{t.ex2Verify}</h4>
-                                    <p><strong>{t.ex2Expected}</strong></p>
-                                </div>
-
-                                <button className="btn-accent" onClick={() => setActiveSection('exercise3')} style={{ marginTop: '2rem' }}>{t.nextExercise}</button>
-                            </section>
-                        )}
-
-                        {activeSection === 'exercise3' && (
-                            <section className="section active">
-                                <h2 className="section-header">{t.ex3Title}</h2>
-                                <p>{t.ex3Intro}</p>
-                                <div className="badge badge-beginner">{t.exercise3}</div>
-
-                                <div className="card">
-                                    <h4 style={{ marginTop: 0, fontWeight: 600, color: '#1B3A5C' }}>{t.objective}</h4>
-                                    <p>{t.ex3Objective}</p>
-
-                                    <h4 style={{ fontWeight: 600, color: '#1B3A5C', marginTop: '1rem' }}>{t.ex3Steps}</h4>
-                                    <ol style={{ marginLeft: '1.5rem', lineHeight: '1.8' }}>
-                                        <li>{t.ex3Step1}</li>
-                                        <li>{t.ex3Step2}</li>
-                                        <li>{t.ex3Step3}</li>
-                                        <li>{t.ex3Step4}</li>
-                                    </ol>
-                                </div>
-
-                                <div className="code-block" style={{ position: 'relative' }}>
-                                    <button className="copy-btn" onClick={() => copyToClipboard('from pyspark.sql.functions import avg, count, col\n\ncustomer_stats = orders.groupBy("customer_id") \\\n    .agg(count("order_id").alias("order_count"), \\\n         avg("order_total").alias("avg_order_value")) \\\n    .orderBy(col("order_count").desc())\n\ncustomer_stats.show()')}>{t.copy}</button>
-                                    <code>{'from pyspark.sql.functions import avg, count, col\n\ncustomer_stats = orders.groupBy("customer_id") \\\n    .agg(count("order_id").alias("order_count"), \\\n         avg("order_total").alias("avg_order_value")) \\\n    .orderBy(col("order_count").desc())\n\ncustomer_stats.show()'}</code>
-                                </div>
-
-                                <div className="card">
-                                    <h4 style={{ marginTop: 0, fontWeight: 600, color: '#1B3A5C' }}>{t.ex3Verify}</h4>
-                                    <p><strong>{t.ex3Expected}</strong></p>
-                                </div>
-
-                                <button className="btn-accent" onClick={() => setActiveSection('exercise4')} style={{ marginTop: '2rem' }}>{t.nextExercise}</button>
-                            </section>
-                        )}
-
-                        {activeSection === 'exercise4' && (
-                            <section className="section active">
-                                <h2 className="section-header">{t.ex4Title}</h2>
-                                <p>{t.ex4Intro}</p>
-                                <div className="badge badge-beginner">{t.exercise4}</div>
-
-                                <div className="card">
-                                    <h4 style={{ marginTop: 0, fontWeight: 600, color: '#1B3A5C' }}>{t.objective}</h4>
-                                    <p>{t.ex4Objective}</p>
-
-                                    <h4 style={{ fontWeight: 600, color: '#1B3A5C', marginTop: '1rem' }}>{t.ex4Steps}</h4>
-                                    <ol style={{ marginLeft: '1.5rem', lineHeight: '1.8' }}>
-                                        <li>{t.ex4Step1}</li>
-                                        <li>{t.ex4Step2}</li>
-                                        <li>{t.ex4Step3}</li>
-                                        <li>{t.ex4Step4}</li>
-                                    </ol>
-                                </div>
-
-                                <div className="code-block" style={{ position: 'relative' }}>
-                                    <button className="copy-btn" onClick={() => copyToClipboard('from pyspark.sql.functions import sum, col\n\norder_items = spark.read.parquet("data/order_items.parquet")\nproducts = spark.read.parquet("data/products.parquet")\ncustomers = spark.read.parquet("data/customers.parquet")\n\nrevenue_by_country = orders \\\n    .join(customers, "customer_id") \\\n    .join(order_items, "order_id") \\\n    .join(products, "product_id") \\\n    .groupBy("country") \\\n    .agg(sum(col("quantity") * col("unit_price")).alias("revenue")) \\\n    .orderBy(col("revenue").desc())\n\nrevenue_by_country.show()')}>{t.copy}</button>
-                                    <code>{'from pyspark.sql.functions import sum, col\n\norder_items = spark.read.parquet("data/order_items.parquet")\nproducts = spark.read.parquet("data/products.parquet")\ncustomers = spark.read.parquet("data/customers.parquet")\n\nrevenue_by_country = orders \\\n    .join(customers, "customer_id") \\\n    .join(order_items, "order_id") \\\n    .join(products, "product_id") \\\n    .groupBy("country") \\\n    .agg(sum(col("quantity") * col("unit_price")).alias("revenue")) \\\n    .orderBy(col("revenue").desc())\n\nrevenue_by_country.show()'}</code>
-                                </div>
-
-                                <div className="card">
-                                    <h4 style={{ marginTop: 0, fontWeight: 600, color: '#1B3A5C' }}>{t.ex4Verify}</h4>
-                                    <p><strong>{t.ex4Expected}</strong></p>
-                                </div>
-
-                                <button className="btn-accent" onClick={() => setActiveSection('exercise5')} style={{ marginTop: '2rem' }}>{t.nextExercise}</button>
-                            </section>
-                        )}
-
-                        {activeSection === 'exercise5' && (
-                            <section className="section active">
-                                <h2 className="section-header">{t.ex5Title}</h2>
-                                <p>{t.ex5Intro}</p>
-                                <div className="badge badge-beginner">{t.exercise5}</div>
-
-                                <div className="card">
-                                    <h4 style={{ marginTop: 0, fontWeight: 600, color: '#1B3A5C' }}>{t.objective}</h4>
-                                    <p>{t.ex5Objective}</p>
-
-                                    <h4 style={{ fontWeight: 600, color: '#1B3A5C', marginTop: '1rem' }}>{t.ex5Steps}</h4>
-                                    <ol style={{ marginLeft: '1.5rem', lineHeight: '1.8' }}>
-                                        <li>{t.ex5Step1}</li>
-                                        <li>{t.ex5Step2}</li>
-                                        <li>{t.ex5Step3}</li>
-                                        <li>{t.ex5Step4}</li>
-                                        <li>{t.ex5Step5}</li>
-                                    </ol>
-                                </div>
-
-                                <div className="code-block" style={{ position: 'relative' }}>
-                                    <button className="copy-btn" onClick={() => copyToClipboard('from pyspark.sql.functions import month, year, sum, round, col\n\nrevenue_by_category_month = orders \\\n    .join(order_items, "order_id") \\\n    .join(products, "product_id") \\\n    .groupBy(year("order_date").alias("year"), \\\n             month("order_date").alias("month"), \\\n             "category") \\\n    .agg(round(sum(col("quantity") * col("unit_price")), 2).alias("revenue")) \\\n    .orderBy(col("year"), col("month"), col("revenue").desc())\n\nrevenue_by_category_month.show(20)')}>{t.copy}</button>
-                                    <code>{'from pyspark.sql.functions import month, year, sum, round, col\n\nrevenue_by_category_month = orders \\\n    .join(order_items, "order_id") \\\n    .join(products, "product_id") \\\n    .groupBy(year("order_date").alias("year"), \\\n             month("order_date").alias("month"), \\\n             "category") \\\n    .agg(round(sum(col("quantity") * col("unit_price")), 2).alias("revenue")) \\\n    .orderBy(col("year"), col("month"), col("revenue").desc())\n\nrevenue_by_category_month.show(20)'}</code>
-                                </div>
-
-                                <div className="card">
-                                    <h4 style={{ marginTop: 0, fontWeight: 600, color: '#1B3A5C' }}>{t.ex5Verify}</h4>
-                                    <p><strong>{t.ex5Expected}</strong></p>
-                                </div>
-
-                                <button className="btn-accent" onClick={() => setActiveSection('challenge')} style={{ marginTop: '2rem' }}>{t.nextExercise}</button>
-                            </section>
-                        )}
-
-                        {activeSection === 'challenge' && (
-                            <section className="section active">
-                                <h2 className="section-header">{t.challengeTitle}</h2>
-                                <p>{t.challengeIntro}</p>
-                                <div className="badge badge-challenge">Challenge</div>
-
-                                <div className="card">
-                                    <h4 style={{ marginTop: 0, fontWeight: 600, color: '#1B3A5C' }}>{t.objective}</h4>
-                                    <p>{t.challengeObjective}</p>
-
-                                    <h4 style={{ fontWeight: 600, color: '#1B3A5C', marginTop: '1rem' }}>{t.challengeSteps}</h4>
-                                    <ol style={{ marginLeft: '1.5rem', lineHeight: '1.8' }}>
-                                        <li>{t.challengeStep1}</li>
-                                        <li>{t.challengeStep2}</li>
-                                        <li>{t.challengeStep3}</li>
-                                        <li>{t.challengeStep4}</li>
-                                        <li>{t.challengeStep5}</li>
-                                        <li>{t.challengeStep6}</li>
-                                    </ol>
-
-                                    <div className="hint-box" style={{ marginTop: '1.5rem' }}>
-                                        <div className="hint-title">{t.hint}</div>
-                                        <p>{t.challengeHint}</p>
-                                    </div>
-                                </div>
-
-                                <div className="card">
-                                    <h4 style={{ marginTop: 0, fontWeight: 600, color: '#1B3A5C' }}>{t.challengeVerify}</h4>
-                                    <p><strong>{t.challengeExpected}</strong></p>
-                                </div>
-
-                                <div className="expandable" onClick={() => toggleHint('solution')}>
-                                    <div className="expandable-header">
-                                        {t.solutionLabel}
-                                        <span className="expandable-chevron">▼</span>
-                                    </div>
-                                    {expandedHints['solution'] && (
-                                        <div className="expandable-content">
-                                            <div className="code-block" style={{ position: 'relative' }}>
-                                                <button className="copy-btn" onClick={() => copyToClipboard('from pyspark.sql.functions import max, datediff, current_date, col, when\n\nrfm = orders \\\n    .join(customers, "customer_id") \\\n    .groupBy("customer_id", "name") \\\n    .agg(\n        datediff(current_date(), max("order_date")).alias("recency"),\n        count("order_id").alias("frequency"),\n        sum("order_total").alias("monetary")\n    )\n\nat_risk = rfm.filter(col("recency") > 90)\nat_risk.show()\nprint(f"At-risk customers: {at_risk.count()}")')}>{t.copy}</button>
-                                                <code>{'from pyspark.sql.functions import max, datediff, current_date, col, when, count, sum\n\nrfm = orders \\\n    .join(customers, "customer_id") \\\n    .groupBy("customer_id", "name") \\\n    .agg(\n        datediff(current_date(), max("order_date")).alias("recency"),\n        count("order_id").alias("frequency"),\n        sum("order_total").alias("monetary")\n    )\n\nat_risk = rfm.filter(col("recency") > 90)\nat_risk.show()\nprint(f"At-risk customers: {at_risk.count()}")'}</code>
-                                            </div>
-                                        </div>
-                                    )}
-                                </div>
-                            </section>
-                        )}
-
-                        {activeSection === 'quiz' && (
-                            <section className="section active">
-                                <h2 className="section-header">{t.quizTitle}</h2>
-                                <p>{t.quizIntro}</p>
-
-                                {['q1', 'q2', 'q3', 'q4', 'q5'].map(qid => (
-                                    <div key={qid} className="quiz-item" onClick={() => toggleHint(qid)}>
-                                        <div className="quiz-item-question">
-                                            <span>{t[qid]}</span>
-                                            <span>{expandedHints[qid] ? '▼' : '▶'}</span>
-                                        </div>
-                                        {expandedHints[qid] && (
-                                            <div className="quiz-options">
-                                                {['a', 'b', 'c', 'd'].map(opt => {
-                                                    const isCorrect = isQuizAnswerCorrect(qid, opt);
-                                                    const isSelected = quizAnswers[qid] === opt;
-                                                    return (
-                                                        <div
-                                                            key={opt}
-                                                            className={'quiz-option ' + (isSelected ? (isCorrect ? 'correct' : 'incorrect') : '')}
-                                                            onClick={(e) => { e.stopPropagation(); handleQuizAnswer(qid, opt); }}
-                                                        >
-                                                            <strong>{opt.toUpperCase()}.</strong> {t[qid + opt]}
-                                                            {isSelected && (
-                                                                <>
-                                                                    {' '}
-                                                                    {isCorrect ? '✓' : '✗'}
-                                                                    {!isCorrect && (
-                                                                        <div style={{ fontSize: '0.85rem', marginTop: '0.5rem', color: '#666' }}>
-                                                                            {t[qid + 'Explanation']}
-                                                                        </div>
-                                                                    )}
-                                                                </>
-                                                            )}
-                                                        </div>
-                                                    );
-                                                })}
-                                            </div>
-                                        )}
-                                    </div>
-                                ))}
-                            </section>
-                        )}
-
-                        {activeSection === 'outlook' && (
-                            <section className="section active">
-                                <h2 className="section-header">{t.outlookTitle}</h2>
-
-                                <div className="outlook-section">
-                                    <div className="outlook-part">
-                                        <h3 className="outlook-title">{t.advancedTopics}</h3>
-                                        <p>{t.advancedDesc}</p>
-                                        <ul className="outlook-list">
-                                            <li><strong>Spark Streaming:</strong> {t.sparkStreaming}</li>
-                                            <li><strong>MLlib:</strong> {t.sparkML}</li>
-                                            <li><strong>Delta Lake:</strong> {t.deltaLake}</li>
-                                            <li><strong>Spark Connect:</strong> {t.sparkConnect}</li>
-                                        </ul>
-                                    </div>
-
-                                    <div className="outlook-part">
-                                        <h3 className="outlook-title">{t.aiIntegration}</h3>
-                                        <p>{t.aiDesc}</p>
-                                        <ul className="outlook-list">
-                                            <li><strong>MCP:</strong> {t.mcpExplained}</li>
-                                            <li><strong>Claude Code:</strong> {t.claudeExplained}</li>
-                                        </ul>
-
-                                        <h4 style={{ marginTop: '1.5rem', fontWeight: 600, color: '#1B3A5C', marginBottom: '1rem' }}>{t.aiPrompts}</h4>
-                                        <div className="prompt-example">
-                                            <strong>{t.aiPrompt1Title}:</strong><br />
-                                            {t.aiPrompt1}
-                                        </div>
-                                        <div className="prompt-example">
-                                            <strong>{t.aiPrompt2Title}:</strong><br />
-                                            {t.aiPrompt2}
-                                        </div>
-                                        <div className="prompt-example">
-                                            <strong>{t.aiPrompt3Title}:</strong><br />
-                                            {t.aiPrompt3}
-                                        </div>
-                                    </div>
-                                </div>
-                            </section>
-                        )}
-
-                        {activeSection === 'troubleshooting' && (
-                            <section className="section active">
-                                <h2 className="section-header">{t.troubleshootingTitle}</h2>
-                                <p>{t.commonProblems}</p>
-
-                                {[
-                                    { problem: t.error1Problem, solution: t.error1Solution },
-                                    { problem: t.error2Problem, solution: t.error2Solution },
-                                    { problem: t.error3Problem, solution: t.error3Solution },
-                                    { problem: t.error4Problem, solution: t.error4Solution },
-                                    { problem: t.error5Problem, solution: t.error5Solution }
-                                ].map((err, idx) => (
-                                    <div key={idx} className="card">
-                                        <h4 style={{ marginTop: 0, color: '#E8792F', fontWeight: 600 }}>{err.problem}</h4>
-                                        <p><strong>{t.copy}:</strong> {err.solution}</p>
-                                    </div>
-                                ))}
-                            </section>
-                        )}
+                        {renderSection()}
                     </div>
                 </div>
             );
         }
 
-        ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+        ReactDOM.render(<LabApp />, document.getElementById('root'));
     </script>
 </body>
 </html>
