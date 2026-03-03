@@ -64,23 +64,43 @@
         .sidebar {
             position: fixed;
             left: 0;
-            top: 0;
+            top: 4rem;
             width: 280px;
-            height: 100vh;
+            height: calc(100vh - 4rem);
             background: white;
             overflow-y: auto;
             z-index: 40;
             border-right: 1px solid #e0e0e0;
+            padding: 1.5rem 0;
         }
         .header {
             background-color: #1B3A5C;
             color: white;
-            padding: 1rem;
+            padding: 0.75rem 1.5rem;
             position: fixed;
             top: 0;
             width: 100%;
             z-index: 50;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
+        .header-left { display: flex; align-items: center; gap: 1rem; }
+        .back-btn { background: none; border: none; color: #E8792F; font-size: 1rem; cursor: pointer; font-weight: bold; text-decoration: none; }
+        .header-title { color: white; font-size: 1.5rem; font-weight: 700; }
+        .lang-switcher { display: flex; gap: 0.5rem; }
+        .lang-btn {
+            background: rgba(255,255,255,0.15);
+            border: 1px solid rgba(255,255,255,0.3);
+            color: white;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: all 0.2s;
+        }
+        .lang-btn.active { background: #E8792F; color: white; }
+        .lang-btn:hover { opacity: 0.9; }
         .main-content {
             margin-left: 280px;
             padding-top: 5rem;
@@ -168,6 +188,7 @@
         // Translation object for 6 languages
         const translations = {
             de: {
+                back: "← Zurück zur Startseite",
                 title: "DuckDB Labor",
                 overview: "Überblick",
                 setup: "Einrichtung",
@@ -272,6 +293,7 @@
                 practice3: "Verwenden Sie EXPLAIN, um Abfragen zu analysieren",
             },
             en: {
+                back: "← Back to Home",
                 title: "DuckDB Lab",
                 overview: "Overview",
                 setup: "Setup",
@@ -376,6 +398,7 @@
                 practice3: "Use EXPLAIN to analyze queries",
             },
             ar: {
+                back: "← العودة للرئيسية",
                 title: "معمل DuckDB",
                 overview: "نظرة عامة",
                 setup: "الإعداد",
@@ -480,6 +503,7 @@
                 practice3: "استخدم EXPLAIN لتحليل الاستعلامات",
             },
             uk: {
+                back: "← На головну",
                 title: "Лабораторія DuckDB",
                 overview: "Огляд",
                 setup: "Налаштування",
@@ -584,6 +608,7 @@
                 practice3: "Використовуйте EXPLAIN для аналізу запитів",
             },
             es: {
+                back: "← Volver al inicio",
                 title: "Laboratorio DuckDB",
                 overview: "Descripción general",
                 setup: "Configuración",
@@ -688,6 +713,7 @@
                 practice3: "Usa EXPLAIN para analizar consultas",
             },
             tr: {
+                back: "← Ana sayfaya dön",
                 title: "DuckDB Laboratuvarı",
                 overview: "Genel bakış",
                 setup: "Kurulum",
@@ -1174,20 +1200,16 @@
             return (
                 <>
                     <div className="header">
-                        <div className="flex justify-between items-center">
-                            <h1 className="text-2xl font-bold">{t.title}</h1>
-                            <select
-                                value={language}
-                                onChange={(e) => setLanguage(e.target.value)}
-                                className="bg-white text-#1B3A5C px-4 py-2 rounded"
-                            >
-                                <option value="de">Deutsch</option>
-                                <option value="en">English</option>
-                                <option value="ar">العربية</option>
-                                <option value="uk">Українська</option>
-                                <option value="es">Español</option>
-                                <option value="tr">Türkçe</option>
-                            </select>
+                        <div className="header-left">
+                            <a className="back-btn" href="index.html">{t.back}</a>
+                            <div className="header-title">DuckDB Lab</div>
+                        </div>
+                        <div className="lang-switcher">
+                            {['de', 'en', 'ar', 'uk', 'es', 'tr'].map(lang => (
+                                <button key={lang} className={'lang-btn ' + (language === lang ? 'active' : '')} onClick={() => setLanguage(lang)}>
+                                    {lang.toUpperCase()}
+                                </button>
+                            ))}
                         </div>
                     </div>
 
