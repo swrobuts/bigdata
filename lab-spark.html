@@ -419,7 +419,7 @@
         const translations = {
             de: {
                 nav: { backToOverview: "← Zurück zur Übersicht", language: "Sprache" },
-                hero: { title: "Apache Spark Lab - Verteilte Datenverarbeitung", chapter: "Kapitel 7 - Stream & Batch Processing", difficulty: "Schwierigkeitsgrad", advanced: "Fortgeschritten", estimatedTime: "Geschätzte Zeit", hours: "3-4 Stunden" },
+                hero: { title: "Apache Spark Lab - Verteilte Datenverarbeitung", chapter: "Kapitel 8 - Verteiltes Computing (Butscher: Big Data & Applications, THWS)", difficulty: "Schwierigkeitsgrad", advanced: "Fortgeschritten", estimatedTime: "Geschätzte Zeit", hours: "3-4 Stunden", prerequisites: "Voraussetzungen: MongoDB Lab und DuckDB Lab empfohlen" },
                 sidebar: {
                     learningObjectives: "Lernziele",
                     setupInstallation: "Setup & Installation",
@@ -558,11 +558,22 @@
                         { problem: "Docker-Container startet nicht", solution: "Überprüfen Sie Logs: docker logs spark-jupyter. Stellen Sie sicher, dass genug RAM verfügbar ist." },
                         { problem: "Langsame Spark-Jobs", solution: "Prüfen Sie Partitionierung (repartition), nutzen Sie cache(), überprüfen Sie Join-Ordnung mit explain()" }
                     ]
+                },
+                ui: {
+                    copy: "Kopieren",
+                    hypothesis: "Hypothese:",
+                    exampleSolution: "Beispiellösung:",
+                    concept: "Konzept:",
+                    realWorldInsight: "Praxis-Einblick:",
+                    realWorldImpact: "Praxis-Auswirkung:",
+                    solution: "Lösung:",
+                    dataSchema: "Datenschema",
+                    nextExercise: "Nächste Übung →"
                 }
             },
             en: {
                 nav: { backToOverview: "← Back to Overview", language: "Language" },
-                hero: { title: "Apache Spark Lab - Distributed Data Processing", chapter: "Chapter 7 - Stream & Batch Processing", difficulty: "Difficulty", advanced: "Advanced", estimatedTime: "Estimated Time", hours: "3-4 Hours" },
+                hero: { title: "Apache Spark Lab - Distributed Data Processing", chapter: "Chapter 8 - Distributed Computing (Butscher: Big Data & Applications, THWS)", difficulty: "Difficulty", advanced: "Advanced", estimatedTime: "Estimated Time", hours: "3-4 Hours", prerequisites: "Prerequisites: MongoDB Lab and DuckDB Lab recommended" },
                 sidebar: {
                     learningObjectives: "Learning Objectives",
                     setupInstallation: "Setup & Installation",
@@ -701,6 +712,17 @@
                         { problem: "Docker container not starting", solution: "Check logs: docker logs spark-jupyter. Ensure sufficient RAM available." },
                         { problem: "Slow Spark performance", solution: "Check partitioning (repartition), use cache() strategically, review join order with explain()" }
                     ]
+                },
+                ui: {
+                    copy: "Copy",
+                    hypothesis: "Hypothesis:",
+                    exampleSolution: "Example Solution:",
+                    concept: "Concept:",
+                    realWorldInsight: "Real-World Insight:",
+                    realWorldImpact: "Real-World Impact:",
+                    solution: "Solution:",
+                    dataSchema: "Data Schema",
+                    nextExercise: "Next Exercise →"
                 }
             },
             ar: {
@@ -735,7 +757,7 @@
                 unified: "إطار عمل موحد: معالجة الدفعات واستعلامات SQL والبث والتعلم الآلي كل شيء في واحد",
 
                 nav: { backToOverview: "← العودة إلى نظرة عامة", language: "اللغة" },
-                hero: { title: "معمل Apache Spark - معالجة البيانات الموزعة", chapter: "الفصل 7 - معالجة البث والدفعات", difficulty: "الصعوبة", advanced: "متقدم", estimatedTime: "الوقت المقدر", hours: "3-4 ساعات" },
+                hero: { title: "معمل Apache Spark - معالجة البيانات الموزعة", chapter: "الفصل 8 - الحوسبة الموزعة (Butscher: Big Data & Applications, THWS)", difficulty: "الصعوبة", advanced: "متقدم", estimatedTime: "الوقت المقدر", hours: "3-4 ساعات", prerequisites: "المتطلبات الأساسية: معمل MongoDB و معمل DuckDB موصى به" },
                 sidebar: {
                     learningObjectives: "أهداف التعلم",
                     setupInstallation: "الإعداد والتثبيت",
@@ -874,6 +896,17 @@
                         { problem: "حاوية Docker لا تبدأ", solution: "تحقق من السجلات: docker logs spark-jupyter. تأكد من توفر ذاكرة كافية." },
                         { problem: "أداء Spark بطيء", solution: "تحقق من التقسيم (repartition)، استخدم cache() بحكمة، اراجع ترتيب الدمج مع explain()" }
                     ]
+                },
+                ui: {
+                    copy: "نسخ",
+                    hypothesis: "الفرضية:",
+                    exampleSolution: "حل مثالي:",
+                    concept: "المفهوم:",
+                    realWorldInsight: "رؤية واقعية:",
+                    realWorldImpact: "تأثير واقعي:",
+                    solution: "الحل:",
+                    dataSchema: "مخطط البيانات",
+                    nextExercise: "التمرين التالي ←"
                 }
             },
             uk: {
@@ -908,7 +941,7 @@
                 unified: "Єдиний фреймворк: пакетна обробка, SQL запити, потоки, ML все в одному",
 
                 nav: { backToOverview: "← Повернутися до огляду", language: "Мова" },
-                hero: { title: "Лабораторія Apache Spark - розподілена обробка даних", chapter: "Розділ 7 - потокова та пакетна обробка", difficulty: "Складність", advanced: "Розширений", estimatedTime: "Орієнтовний час", hours: "3-4 години" },
+                hero: { title: "Лабораторія Apache Spark - розподілена обробка даних", chapter: "Розділ 8 - розподілені обчислення (Butscher: Big Data & Applications, THWS)", difficulty: "Складність", advanced: "Розширений", estimatedTime: "Орієнтовний час", hours: "3-4 години", prerequisites: "Передумови: MongoDB Lab та DuckDB Lab рекомендуються" },
                 sidebar: {
                     learningObjectives: "Цілі навчання",
                     setupInstallation: "Налаштування та встановлення",
@@ -1047,6 +1080,17 @@
                         { problem: "Контейнер Docker не запускається", solution: "Перевірте журнали: docker logs spark-jupyter. Переконайтеся, що є достатньо оперативної пам'яті." },
                         { problem: "Повільна продуктивність Spark", solution: "Перевірте розділення (repartition), використовуйте cache() стратегічно, переглядайте порядок join через explain()" }
                     ]
+                },
+                ui: {
+                    copy: "Копіювати",
+                    hypothesis: "Гіпотеза:",
+                    exampleSolution: "Приклад рішення:",
+                    concept: "Концепція:",
+                    realWorldInsight: "Практичний інсайт:",
+                    realWorldImpact: "Практичний вплив:",
+                    solution: "Рішення:",
+                    dataSchema: "Схема даних",
+                    nextExercise: "Наступна вправа →"
                 }
             },
             es: {
@@ -1081,7 +1125,7 @@
                 unified: "Marco unificado: procesamiento por lotes, consultas SQL, streaming, ML todo en uno",
 
                 nav: { backToOverview: "← Volver a descripción general", language: "Idioma" },
-                hero: { title: "Lab de Apache Spark - Procesamiento de datos distribuido", chapter: "Capítulo 7 - Procesamiento en tiempo real y por lotes", difficulty: "Dificultad", advanced: "Avanzado", estimatedTime: "Tiempo estimado", hours: "3-4 horas" },
+                hero: { title: "Lab de Apache Spark - Procesamiento de datos distribuido", chapter: "Capítulo 8 - Informática distribuida (Butscher: Big Data & Applications, THWS)", difficulty: "Dificultad", advanced: "Avanzado", estimatedTime: "Tiempo estimado", hours: "3-4 horas", prerequisites: "Requisitos previos: Laboratorio de MongoDB y Laboratorio de DuckDB recomendados" },
                 sidebar: {
                     learningObjectives: "Objetivos de aprendizaje",
                     setupInstallation: "Configuración e instalación",
@@ -1220,6 +1264,17 @@
                         { problem: "Contenedor Docker no inicia", solution: "Verifica logs: docker logs spark-jupyter. Asegúrate de tener suficiente RAM." },
                         { problem: "Rendimiento lento de Spark", solution: "Verifica particionamiento (repartition), usa cache() estratégicamente, revisa orden de join con explain()" }
                     ]
+                },
+                ui: {
+                    copy: "Copiar",
+                    hypothesis: "Hipótesis:",
+                    exampleSolution: "Solución de ejemplo:",
+                    concept: "Concepto:",
+                    realWorldInsight: "Perspectiva del mundo real:",
+                    realWorldImpact: "Impacto del mundo real:",
+                    solution: "Solución:",
+                    dataSchema: "Esquema de datos",
+                    nextExercise: "Siguiente ejercicio →"
                 }
             },
             tr: {
@@ -1254,7 +1309,7 @@
                 unified: "Birleşik Çerçeve: Toplu işleme, SQL sorguları, akış, ML hepsi bir arada",
 
                 nav: { backToOverview: "← Genel Bakışa Dön", language: "Dil" },
-                hero: { title: "Apache Spark Lab - Dağıtılmış Veri İşleme", chapter: "Bölüm 7 - Stream & Batch İşleme", difficulty: "Zorluk", advanced: "İleri", estimatedTime: "Tahmini Süre", hours: "3-4 Saat" },
+                hero: { title: "Apache Spark Lab - Dağıtılmış Veri İşleme", chapter: "Bölüm 8 - Dağıtılmış Bilişim (Butscher: Big Data & Applications, THWS)", difficulty: "Zorluk", advanced: "İleri", estimatedTime: "Tahmini Süre", hours: "3-4 Saat", prerequisites: "Ön Koşullar: MongoDB Lab ve DuckDB Lab önerilir" },
                 sidebar: {
                     learningObjectives: "Öğrenme Hedefleri",
                     setupInstallation: "Kurulum ve İnstallation",
@@ -1393,11 +1448,22 @@
                         { problem: "Docker konteyner başlamıyor", solution: "Günlükleri kontrol edin: docker logs spark-jupyter. Yeterli RAM olduğundan emin olun." },
                         { problem: "Yavaş Spark performansı", solution: "Bölümlemeyi kontrol edin (repartition), cache() stratejik olarak kullanın, explain() ile join sırasını gözden geçirin" }
                     ]
+                },
+                ui: {
+                    copy: "Kopyala",
+                    hypothesis: "Hipotez:",
+                    exampleSolution: "Örnek Çözüm:",
+                    concept: "Konsept:",
+                    realWorldInsight: "Gerçek Dünya İçgörüsü:",
+                    realWorldImpact: "Gerçek Dünya Etkisi:",
+                    solution: "Çözüm:",
+                    dataSchema: "Veri Şeması",
+                    nextExercise: "Sonraki Alıştırma →"
                 }
             }
         };
 
-        const CodeBlock = ({ code, language = 'python' }) => {
+        const CodeBlock = ({ code, language = 'python', t }) => {
             const ref = useRef(null);
 
             useEffect(() => {
@@ -1421,7 +1487,7 @@
                 <div className="code-block" ref={ref}>
                     <div className="code-block-header">
                         <span>{language}</span>
-                        <button className="copy-button" onClick={copyCode}>Copy</button>
+                        <button className="copy-button" onClick={copyCode}>{t?.ui?.copy || 'Copy'}</button>
                     </div>
                     <div className="code-block-content">
                         <pre><code className={`language-${language}`}>{code}</code></pre>
@@ -1455,12 +1521,12 @@
                     </div>
                     <div className={`challenge-content ${isOpen ? 'open' : ''}`}>
                         <p className="mb-4"><strong>{challenge.challenge}</strong></p>
-                        {challenge.hypothesis && <div className="card hypothesis-box mb-4"><p><strong>Hypothesis:</strong> {challenge.hypothesis}</p></div>}
+                        {challenge.hypothesis && <div className="card hypothesis-box mb-4"><p><strong>{t.ui.hypothesis}</strong> {challenge.hypothesis}</p></div>}
                         {challenge.hint && <div className="card learning-box mb-4"><p>{challenge.hint}</p></div>}
-                        {challenge.solution && <div className="card mb-4"><p><strong>Example Solution:</strong> {challenge.solution}</p></div>}
-                        {challenge.concept && <div className="card mb-4"><p><strong>Concept:</strong> {challenge.concept}</p></div>}
-                        {challenge.insight && <div className="card insight-box"><p><strong>Real-World Insight:</strong> {challenge.insight}</p></div>}
-                        {challenge.realWorld && <div className="card insight-box"><p><strong>Real-World Impact:</strong> {challenge.realWorld}</p></div>}
+                        {challenge.solution && <div className="card mb-4"><p><strong>{t.ui.exampleSolution}</strong> {challenge.solution}</p></div>}
+                        {challenge.concept && <div className="card mb-4"><p><strong>{t.ui.concept}</strong> {challenge.concept}</p></div>}
+                        {challenge.insight && <div className="card insight-box"><p><strong>{t.ui.realWorldInsight}</strong> {challenge.insight}</p></div>}
+                        {challenge.realWorld && <div className="card insight-box"><p><strong>{t.ui.realWorldImpact}</strong> {challenge.realWorld}</p></div>}
                     </div>
                 </div>
             );
@@ -1521,7 +1587,8 @@
                             <section className="hero-section" style={{ marginBottom: '3rem', marginLeft: '-1.5rem', marginRight: '-1.5rem', marginTop: '-2rem', paddingLeft: '1.5rem', paddingRight: '1.5rem' }}>
                                 <div className="hero-content">
                                     <h1 style={{ fontSize: '3rem', fontWeight: 'bold', marginBottom: '1rem' }}>{t.hero.title}</h1>
-                                    <p style={{ fontSize: '1.25rem', marginBottom: '2rem' }}>{t.hero.chapter}</p>
+                                    <p style={{ fontSize: '1.25rem', marginBottom: '0.5rem' }}>{t.hero.chapter}</p>
+                                    {t.hero.prerequisites && <p style={{ fontSize: '0.95rem', marginBottom: '2rem', opacity: 0.95 }}>📋 {t.hero.prerequisites}</p>}
                                     <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
                                         <span className="difficulty-badge difficulty-advanced">{t.hero.advanced}</span>
                                         <span style={{ color: 'white' }}>⏱️ {t.hero.estimatedTime}: {t.hero.hours}</span>
@@ -1556,7 +1623,7 @@
                             {activeSection === 'setupInstallation' && (
                                 <section id="setupInstallation" className="section">
                                     <h2 className="section-header">{t.sidebar.setupInstallation}</h2>
-                                    <CodeBlock code="docker run --name spark-jupyter -p 8888:8888 -p 4040:4040 -v $(pwd)/data:/home/jovyan/data jupyter/pyspark-notebook:latest" language="bash" />
+                                    <CodeBlock code="docker run --name spark-jupyter -p 8888:8888 -p 4040:4040 -v $(pwd)/data:/home/jovyan/data jupyter/pyspark-notebook:latest" language="bash" t={t} />
                                 </section>
                             )}
 
@@ -1602,7 +1669,7 @@
                                     </div>
 
                                     <div className="card mb-6">
-                                        <h3 className="subsection-header">Data Schema</h3>
+                                        <h3 className="subsection-header">{t.ui.dataSchema}</h3>
                                         <ul style={{ lineHeight: '1.8' }}>
                                             <li>• {t.dataModel.customers}</li>
                                             <li>• {t.dataModel.products}</li>
@@ -1623,7 +1690,8 @@
 spark = SparkSession.builder.appName("MegaStore").master("local[*]").getOrCreate()
 orders = spark.read.parquet("data/orders.parquet")
 orders.printSchema()
-orders.show(5)`} language="python" />
+orders.show(5)`} language="python" t={t} />
+                                    <button onClick={() => setActiveSection('exercise2')} style={{ marginTop: '2rem', padding: '0.75rem 1.5rem', backgroundColor: '#E25A1C', color: 'white', border: 'none', borderRadius: '0.375rem', cursor: 'pointer', fontWeight: '600', fontSize: '1rem' }}>{t.ui.nextExercise}</button>
                                 </section>
                             )}
 
@@ -1642,7 +1710,8 @@ revenue_by_category = order_items \\
     .agg(spark_round(sum(col("quantity") * col("unit_price")), 2).alias("revenue")) \\
     .orderBy(col("revenue").desc())
 
-revenue_by_category.show()`} language="python" />
+revenue_by_category.show()`} language="python" t={t} />
+                                    <button onClick={() => setActiveSection('exercise3')} style={{ marginTop: '2rem', padding: '0.75rem 1.5rem', backgroundColor: '#E25A1C', color: 'white', border: 'none', borderRadius: '0.375rem', cursor: 'pointer', fontWeight: '600', fontSize: '1rem' }}>{t.ui.nextExercise}</button>
                                 </section>
                             )}
 
@@ -1656,7 +1725,8 @@ from pyspark.sql.functions import row_number, lag
 orders.createOrReplaceTempView("orders")
 window_spec = Window.partitionBy("customer_id").orderBy("order_date")
 orders_with_rank = orders.withColumn("order_rank", row_number().over(window_spec))
-orders_with_rank.show()`} language="python" />
+orders_with_rank.show()`} language="python" t={t} />
+                                    <button onClick={() => setActiveSection('exercise4')} style={{ marginTop: '2rem', padding: '0.75rem 1.5rem', backgroundColor: '#E25A1C', color: 'white', border: 'none', borderRadius: '0.375rem', cursor: 'pointer', fontWeight: '600', fontSize: '1rem' }}>{t.ui.nextExercise}</button>
                                 </section>
                             )}
 
@@ -1664,7 +1734,8 @@ orders_with_rank.show()`} language="python" />
                                 <section id="exercise4" className="section">
                                     <h2 className="section-header">{t.sidebar.exercise4}</h2>
                                     <p>{t.exercise4.intro}</p>
-                                    <CodeBlock code={"orders_rdd = orders.rdd\ncustomer_revenue = orders_rdd \\\n    .map(lambda row: (row.customer_id, float(row.order_total))) \\\n    .reduceByKey(lambda a, b: a + b) \\\n    .sortBy(lambda x: -x[1])\n\nfor customer_id, revenue in customer_revenue.take(10):\n    print(f\"Customer {customer_id}: ${revenue:.2f}\")"} language="python" />
+                                    <CodeBlock code={"orders_rdd = orders.rdd\ncustomer_revenue = orders_rdd \\\n    .map(lambda row: (row.customer_id, float(row.order_total))) \\\n    .reduceByKey(lambda a, b: a + b) \\\n    .sortBy(lambda x: -x[1])\n\nfor customer_id, revenue in customer_revenue.take(10):\n    print(f\"Customer {customer_id}: ${revenue:.2f}\")"} language="python" t={t} />
+                                    <button onClick={() => setActiveSection('exercise5')} style={{ marginTop: '2rem', padding: '0.75rem 1.5rem', backgroundColor: '#E25A1C', color: 'white', border: 'none', borderRadius: '0.375rem', cursor: 'pointer', fontWeight: '600', fontSize: '1rem' }}>{t.ui.nextExercise}</button>
                                 </section>
                             )}
 
@@ -1674,7 +1745,8 @@ orders_with_rank.show()`} language="python" />
                                     <p>{t.exercise5.intro}</p>
                                     <CodeBlock code={`orders.cache()
 orders.count()
-orders.groupBy("customer_id").agg(sum("order_total")).explain(True)`} language="python" />
+orders.groupBy("customer_id").agg(sum("order_total")).explain(True)`} language="python" t={t} />
+                                    <button onClick={() => setActiveSection('challenges')} style={{ marginTop: '2rem', padding: '0.75rem 1.5rem', backgroundColor: '#E25A1C', color: 'white', border: 'none', borderRadius: '0.375rem', cursor: 'pointer', fontWeight: '600', fontSize: '1rem' }}>{t.ui.nextExercise}</button>
                                 </section>
                             )}
 
@@ -1731,7 +1803,7 @@ orders.groupBy("customer_id").agg(sum("order_total")).explain(True)`} language="
                                         {t.troubleshooting.errors.map((error, i) => (
                                             <div key={i} className="card">
                                                 <h4 className="font-bold mb-2">{error.problem}</h4>
-                                                <p style={{ color: '#4b5563' }}><strong>Solution:</strong> {error.solution}</p>
+                                                <p style={{ color: '#4b5563' }}><strong>{t.ui.solution}</strong> {error.solution}</p>
                                             </div>
                                         ))}
                                     </div>

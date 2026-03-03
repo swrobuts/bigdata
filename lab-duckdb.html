@@ -239,15 +239,94 @@
                 troubleshooting: "Fehlerbehebung",
                 resources: "Weitere Ressourcen",
                 whatYouLearn: "Was Sie lernen werden",
+                learnItems: ["DuckDB-Architektur und In-Process-OLAP-Design", "SQL-Grundlagen und erweiterte Abfragemuster", "Arbeiten mit CSV-, Parquet- und JSON-Daten", "Window-Funktionen und komplexe Analytik", "Leistungsoptimierung und praktische Anwendungen"],
                 realWorldMotivation: "Warum DuckDB? Unternehmen wie Watershed, FinQore und Okta nutzen DuckDB täglich:",
                 watershedPerf: "Watershed: 10x schneller für ökologische Datenanalyse",
                 finqoreSpeed: "FinQore: Abfragen von 8 Stunden auf 8 Minuten reduziert",
                 oktaScale: "Okta: Analyse von 7,5 Billionen Datensätzen in Echtzeit",
-                southAusAnalytics: "South Australia: Klima-Dashboard mit In-Process OLAP",
+                southAusAnalytics: "Südaustralien: Klima-Dashboard mit In-Process OLAP",
+                techIntroTitle: "Technologie-Einführung",
                 duckdbIs: "Was ist DuckDB?",
                 inProcess: "In-Process OLAP: DuckDB läuft in Ihrem Prozess, nicht als Server",
+                noServerNeeded: "Keine Serverinfrastruktur erforderlich - nur SQL in Ihrer Anwendung.",
                 columnar: "Spalten-orientiert: Optimiert für Analysen über viele Zeilen",
-                fast: "Schnell: Extrem performant für SQL-Analytik"
+                fast: "Schnell: Extrem performant für SQL-Analytik",
+                sqlFirst: "SQL-First: Volle SQL-Unterstützung einschließlich Window-Funktionen und CTEs",
+                builtIn: "Eingebaut: Keine externen Abhängigkeiten oder Konfiguration",
+                whenUseTitle: "Wann sollten Sie DuckDB vs. Alternativen verwenden",
+                featureCol: "Funktion",
+                duckdbCol: "DuckDB",
+                postgresCol: "PostgreSQL",
+                snowflakeCol: "Snowflake",
+                deploymentRow: "Bereitstellung",
+                inProcessEmbedded: "In-Process, eingebettet",
+                serverSeparate: "Server, separate Instanz",
+                cloudManaged: "Cloud, vollständig verwaltet",
+                olapPerf: "OLAP-Leistung",
+                excellent: "Ausgezeichnet",
+                good: "Gut",
+                setupComplexity: "Setup-Komplexität",
+                minimal: "Minimal",
+                medium: "Mittel",
+                high: "Hoch",
+                cost: "Kosten",
+                freeOpenSource: "Kostenlos, Open Source",
+                payPerQuery: "Pro Abfrage/Speicher bezahlen",
+                useCase: "Anwendungsfall",
+                analyticsApp: "Analytics-App, lokale Daten",
+                oltp: "OLTP, Anwendungen",
+                dataWarehouse: "Unternehmens-Data-Warehouse",
+                columnStorageTitle: "Spalten-orientierter Speicher",
+                columnStorageDesc: "DuckDB speichert Daten nach Spalte, nicht nach Zeile. Das bedeutet:",
+                columnStorageItems: ["Das Lesen bestimmter Spalten ist schnell - laden Sie nur das, was Sie brauchen", "Komprimierung ist effektiver für ähnliche Werte", "Aggregationen (SUM, AVG) sind extrem schnell", "Perfekt für Analytics, bei denen Sie wenige Spalten von Millionen Zeilen abfragen"],
+                setupTitle: "Setup & Installation",
+                option1Docker: "Option 1: Docker (Empfohlen)",
+                step1PullImage: "Schritt 1: DuckDB-Image abrufen",
+                step2RunContainer: "Schritt 2: Container mit Python ausführen",
+                step3InstallDocker: "Schritt 3: DuckDB im Container installieren",
+                option2CLI: "Option 2: DuckDB CLI (Lokal)",
+                macosBrew: "macOS (Homebrew)",
+                linuxApt: "Linux (apt)",
+                startShell: "DuckDB Interactive Shell starten",
+                option3Python: "Option 3: Python-Integration",
+                installPip: "Über pip installieren",
+                testPython: "In Python testen",
+                verification: "Überprüfung",
+                checkVersion: "DuckDB-Version überprüfen",
+                hint: "Hinweis",
+                hintDocker: "Docker ist eine Containerisierungsplattform. Besuchen Sie docker.com, wenn nicht installiert.",
+                hintCLI: "Download von duckdb.org oder nutzen Sie Package Manager wie brew (macOS) oder apt (Linux).",
+                hintPython: "Python 3.8+ wird empfohlen. DuckDB funktioniert mit virtuellen Umgebungen und Anaconda.",
+                hintVerify: "Sie sollten die DuckDB-Versionsnummer sehen, wenn die Installation erfolgreich war.",
+                sqlFundamentalsTitle: "SQL-Grundlagen",
+                selectGetData: "SELECT: Daten abrufen",
+                selectDesc: "SELECT ruft Spalten aus einer Tabelle ab. Beginnen Sie mit der einfachsten Abfrage:",
+                fromSpecifyTable: "FROM: Tabelle angeben",
+                fromDesc: "FROM teilt SQL mit, welche Tabelle abgefragt werden soll:",
+                whereFilterRows: "WHERE: Zeilen filtern",
+                whereDesc: "WHERE filtert Ergebnisse basierend auf Bedingungen:",
+                orderBySortResults: "ORDER BY: Ergebnisse sortieren",
+                limitControl: "LIMIT: Ausgabe steuern",
+                limitDesc: "LIMIT beschränkt die Anzahl der zurückgegebenen Zeilen:",
+                quizSelectAll: "Was bedeutet SELECT *?",
+                quizSelectAnswer: "Gibt alle Spalten aus der angegebenen Tabelle zurück",
+                quizWhereQ: "Wofür wird WHERE verwendet?",
+                quizWhereA: "Filtert Zeilen basierend auf Bedingungen",
+                quizOrderQ: "Wie sortieren Sie Ergebnisse?",
+                quizOrderA: "Verwenden Sie ORDER BY Spalte ASC (aufsteigend) oder DESC (absteigend)",
+                exercise1Title: "Übung 1: Erste Abfragen",
+                exercise1Objective: "Schreiben Sie Ihre ersten SELECT-Abfragen, um die grundlegende SQL-Syntax zu verstehen.",
+                exercise1Steps: "Schritte",
+                exercise1Step1: "Starten Sie die DuckDB-Interaktive Shell:",
+                exercise1Step2: "Abfrage 1: Konstante auswählen:",
+                exercise1Step3: "Abfrage 2: Zeichenverkettung:",
+                exercise1Step4: "Abfrage 3: Mathematische Operationen:",
+                exercise1Step5: "Abfrage 4: Datum/Uhrzeit:",
+                exercise1Step6: "Abfrage 5: Zahlen generieren:",
+                exercise1Verify: "Überprüfen Sie Ihre Ergebnisse",
+                exercise1VerifyText: "Alle Abfragen ohne Fehler ausgeführt?",
+                exercise1ReadyFor: "Sie sind bereit für Filterung und Aggregationen!",
+                exercise1Hint: "Verwenden Sie Semikola um Aussagen zu beenden. In der CLI die Eingabetaste drücken um auszuführen. Verwenden Sie .help um verfügbare Befehle zu sehen."
             },
             en: {
                 back: "← Back to Landing Page",
@@ -269,15 +348,94 @@
                 troubleshooting: "Troubleshooting",
                 resources: "Further Resources",
                 whatYouLearn: "What You Will Learn",
+                learnItems: ["DuckDB architecture and in-process OLAP design", "SQL fundamentals and advanced query patterns", "Working with CSV, Parquet, and JSON data", "Window functions and complex analytics", "Performance optimization and real-world applications"],
                 realWorldMotivation: "Why DuckDB? Companies like Watershed, FinQore, and Okta use DuckDB daily:",
                 watershedPerf: "Watershed: 10x faster for ecological data analysis",
                 finqoreSpeed: "FinQore: Reduced queries from 8 hours to 8 minutes",
                 oktaScale: "Okta: Analyze 7.5 trillion records in real-time",
                 southAusAnalytics: "South Australia: Climate dashboard with in-process OLAP",
+                techIntroTitle: "Technology Introduction",
                 duckdbIs: "What is DuckDB?",
                 inProcess: "In-Process OLAP: DuckDB runs in your process, not as a server",
+                noServerNeeded: "No server infrastructure needed - just SQL in your application.",
                 columnar: "Column-Oriented: Optimized for analysis across many rows",
-                fast: "Fast: Extremely performant for SQL analytics"
+                fast: "Fast: Extremely performant for SQL analytics",
+                sqlFirst: "SQL-first: Full SQL support including window functions and CTEs",
+                builtIn: "Built-in: No external dependencies or configuration",
+                whenUseTitle: "When to Use DuckDB vs Alternatives",
+                featureCol: "Feature",
+                duckdbCol: "DuckDB",
+                postgresCol: "PostgreSQL",
+                snowflakeCol: "Snowflake",
+                deploymentRow: "Deployment",
+                inProcessEmbedded: "In-process, embedded",
+                serverSeparate: "Server, separate instance",
+                cloudManaged: "Cloud, fully managed",
+                olapPerf: "OLAP Performance",
+                excellent: "Excellent",
+                good: "Good",
+                setupComplexity: "Setup Complexity",
+                minimal: "Minimal",
+                medium: "Medium",
+                high: "High",
+                cost: "Cost",
+                freeOpenSource: "Free, open source",
+                payPerQuery: "Pay per query/storage",
+                useCase: "Use Case",
+                analyticsApp: "Analytics app, local data",
+                oltp: "OLTP, applications",
+                dataWarehouse: "Enterprise data warehouse",
+                columnStorageTitle: "Column-Oriented Storage",
+                columnStorageDesc: "DuckDB stores data by column, not by row. This means:",
+                columnStorageItems: ["Reading specific columns is fast - only load what you need", "Compression is more effective for similar values", "Aggregations (SUM, AVG) are extremely fast", "Perfect for analytics where you query a few columns of millions of rows"],
+                setupTitle: "Setup & Installation",
+                option1Docker: "Option 1: Docker (Recommended)",
+                step1PullImage: "Step 1: Pull DuckDB Image",
+                step2RunContainer: "Step 2: Run Container with Python",
+                step3InstallDocker: "Step 3: Install DuckDB in Container",
+                option2CLI: "Option 2: DuckDB CLI (Local)",
+                macosBrew: "macOS (Homebrew)",
+                linuxApt: "Linux (apt)",
+                startShell: "Start DuckDB Interactive Shell",
+                option3Python: "Option 3: Python Integration",
+                installPip: "Install via pip",
+                testPython: "Test in Python",
+                verification: "Verification",
+                checkVersion: "Check DuckDB Version",
+                hint: "Hint",
+                hintDocker: "Docker is a containerization platform. Visit docker.com if not installed.",
+                hintCLI: "Download from duckdb.org or use package managers like brew (macOS) or apt (Linux).",
+                hintPython: "Python 3.8+ is recommended. DuckDB works with both virtual environments and Anaconda.",
+                hintVerify: "You should see the DuckDB version number if installation was successful.",
+                sqlFundamentalsTitle: "SQL Fundamentals",
+                selectGetData: "SELECT: Get Data",
+                selectDesc: "SELECT retrieves columns from a table. Start with the simplest query:",
+                fromSpecifyTable: "FROM: Specify Table",
+                fromDesc: "FROM tells SQL which table to query:",
+                whereFilterRows: "WHERE: Filter Rows",
+                whereDesc: "WHERE filters results based on conditions:",
+                orderBySortResults: "ORDER BY: Sort Results",
+                limitControl: "LIMIT: Control Output",
+                limitDesc: "LIMIT restricts the number of rows returned:",
+                quizSelectAll: "What does SELECT * mean?",
+                quizSelectAnswer: "Returns all columns from the specified table",
+                quizWhereQ: "What is WHERE used for?",
+                quizWhereA: "Filters rows based on conditions",
+                quizOrderQ: "How do you sort results?",
+                quizOrderA: "Use ORDER BY column ASC (ascending) or DESC (descending)",
+                exercise1Title: "Exercise 1: First Queries",
+                exercise1Objective: "Write your first SELECT queries to understand basic SQL syntax.",
+                exercise1Steps: "Steps",
+                exercise1Step1: "Start DuckDB interactive shell:",
+                exercise1Step2: "Query 1: Select a constant:",
+                exercise1Step3: "Query 2: String concatenation:",
+                exercise1Step4: "Query 3: Math operations:",
+                exercise1Step5: "Query 4: Date/Time:",
+                exercise1Step6: "Query 5: Generate numbers:",
+                exercise1Verify: "Verify Your Results",
+                exercise1VerifyText: "All queries ran without errors?",
+                exercise1ReadyFor: "You are ready for filtering and aggregations!",
+                exercise1Hint: "Use semicolons to end statements. In the CLI, press Enter to execute. Use .help to see available commands."
             },
             ar: {
                 back: "← العودة إلى الصفحة الرئيسية",
@@ -299,15 +457,94 @@
                 troubleshooting: "استكشاف الأخطاء",
                 resources: "موارد إضافية",
                 whatYouLearn: "ما ستتعلمه",
+                learnItems: ["معمارية DuckDB وتصميم OLAP في العملية", "أساسيات SQL وأنماط الاستعلام المتقدمة", "العمل مع بيانات CSV و Parquet و JSON", "وظائف النافذة والتحليلات المعقدة", "تحسين الأداء والتطبيقات الحقيقية"],
                 realWorldMotivation: "لماذا DuckDB؟ تستخدمه شركات مثل Watershed و FinQore و Okta يوميًا:",
                 watershedPerf: "Watershed: 10 مرات أسرع لتحليل البيانات البيئية",
                 finqoreSpeed: "FinQore: تقليل الاستعلامات من 8 ساعات إلى 8 دقائق",
                 oktaScale: "Okta: تحليل 7.5 تريليون سجل في الوقت الفعلي",
                 southAusAnalytics: "جنوب أستراليا: لوحة المناخ مع OLAP في العملية",
+                techIntroTitle: "مقدمة التكنولوجيا",
                 duckdbIs: "ما هو DuckDB؟",
                 inProcess: "OLAP في العملية: يعمل DuckDB في عمليتك وليس كخادم",
+                noServerNeeded: "لا توجد حاجة لبنية تحتية للخادم - فقط SQL في تطبيقك.",
                 columnar: "موجهة للأعمدة: محسّنة للتحليل عبر عدة صفوف",
-                fast: "سريع: عالي الأداء جداً لتحليل SQL"
+                fast: "سريع: عالي الأداء جداً لتحليل SQL",
+                sqlFirst: "SQL أولاً: دعم SQL كامل بما في ذلك وظائف النافذة والـ CTEs",
+                builtIn: "مدمج: بدون تبعيات خارجية أو تكوين",
+                whenUseTitle: "متى تستخدم DuckDB مقابل البدائل",
+                featureCol: "الميزة",
+                duckdbCol: "DuckDB",
+                postgresCol: "PostgreSQL",
+                snowflakeCol: "Snowflake",
+                deploymentRow: "النشر",
+                inProcessEmbedded: "في العملية، مدمج",
+                serverSeparate: "خادم، مثيل منفصل",
+                cloudManaged: "سحابة، مُدارة بالكامل",
+                olapPerf: "أداء OLAP",
+                excellent: "ممتاز",
+                good: "جيد",
+                setupComplexity: "تعقيد الإعداد",
+                minimal: "ضئيل",
+                medium: "متوسط",
+                high: "مرتفع",
+                cost: "التكلفة",
+                freeOpenSource: "مجاني، مفتوح المصدر",
+                payPerQuery: "ادفع لكل استعلام/تخزين",
+                useCase: "حالة الاستخدام",
+                analyticsApp: "تطبيق تحليلات، بيانات محلية",
+                oltp: "OLTP، التطبيقات",
+                dataWarehouse: "مستودع بيانات المؤسسة",
+                columnStorageTitle: "التخزين الموجه للأعمدة",
+                columnStorageDesc: "يقوم DuckDB بتخزين البيانات حسب العمود وليس الصف. هذا يعني:",
+                columnStorageItems: ["قراءة الأعمدة المحددة سريعة - قم بتحميل فقط ما تحتاجه", "الضغط أكثر فعالية للقيم المتشابهة", "التجميعات (SUM, AVG) سريعة جداً", "مثالي للتحليلات حيث تستعلم عن عدة أعمدة من ملايين الصفوف"],
+                setupTitle: "الإعداد والتثبيت",
+                option1Docker: "الخيار 1: Docker (موصى به)",
+                step1PullImage: "الخطوة 1: سحب صورة DuckDB",
+                step2RunContainer: "الخطوة 2: تشغيل حاوية مع Python",
+                step3InstallDocker: "الخطوة 3: تثبيت DuckDB في الحاوية",
+                option2CLI: "الخيار 2: DuckDB CLI (محلي)",
+                macosBrew: "macOS (Homebrew)",
+                linuxApt: "Linux (apt)",
+                startShell: "ابدأ DuckDB Interactive Shell",
+                option3Python: "الخيار 3: تكامل Python",
+                installPip: "التثبيت عبر pip",
+                testPython: "الاختبار في Python",
+                verification: "التحقق",
+                checkVersion: "تحقق من إصدار DuckDB",
+                hint: "نصيحة",
+                hintDocker: "Docker هي منصة حوسبة حاويات. قم بزيارة docker.com إذا لم تكن مثبتة.",
+                hintCLI: "قم بالتنزيل من duckdb.org أو استخدم مديري الحزم مثل brew (macOS) أو apt (Linux).",
+                hintPython: "يُنصح بـ Python 3.8+. يعمل DuckDB مع البيئات الافتراضية و Anaconda.",
+                hintVerify: "يجب أن تشاهد رقم إصدار DuckDB إذا كان التثبيت ناجحاً.",
+                sqlFundamentalsTitle: "أساسيات SQL",
+                selectGetData: "SELECT: الحصول على البيانات",
+                selectDesc: "SELECT يسترجع الأعمدة من جدول. ابدأ بأبسط استعلام:",
+                fromSpecifyTable: "FROM: حدد الجدول",
+                fromDesc: "FROM يخبر SQL أي جدول للاستعلام عنه:",
+                whereFilterRows: "WHERE: تصفية الصفوف",
+                whereDesc: "WHERE تصفي النتائج بناءً على الشروط:",
+                orderBySortResults: "ORDER BY: فرز النتائج",
+                limitControl: "LIMIT: التحكم في الإخراج",
+                limitDesc: "LIMIT يقيد عدد الصفوف المعادة:",
+                quizSelectAll: "ماذا يعني SELECT *؟",
+                quizSelectAnswer: "يُرجع جميع الأعمدة من الجدول المحدد",
+                quizWhereQ: "ما الذي تُستخدم WHERE من أجله؟",
+                quizWhereA: "تصفي الصفوف بناءً على الشروط",
+                quizOrderQ: "كيف تقوم بفرز النتائج؟",
+                quizOrderA: "استخدم ORDER BY العمود ASC (تصاعدي) أو DESC (تنازلي)",
+                exercise1Title: "التمرين 1: الاستعلامات الأولى",
+                exercise1Objective: "اكتب استعلامات SELECT الأولى لفهم بناء جملة SQL الأساسي.",
+                exercise1Steps: "الخطوات",
+                exercise1Step1: "ابدأ صدفة DuckDB التفاعلية:",
+                exercise1Step2: "الاستعلام 1: حدد ثابت:",
+                exercise1Step3: "الاستعلام 2: ربط السلاسل:",
+                exercise1Step4: "الاستعلام 3: العمليات الرياضية:",
+                exercise1Step5: "الاستعلام 4: التاريخ/الوقت:",
+                exercise1Step6: "الاستعلام 5: إنشاء أرقام:",
+                exercise1Verify: "تحقق من النتائج",
+                exercise1VerifyText: "هل تم تشغيل جميع الاستعلامات بدون أخطاء؟",
+                exercise1ReadyFor: "أنت مستعد للتصفية والتجميعات!",
+                exercise1Hint: "استخدم الفواصل المنقوطة لإنهاء العبارات. في واجهة سطر الأوامر، اضغط على Enter للتنفيذ. استخدم .help لرؤية الأوامر المتاحة."
             },
             uk: {
                 back: "← Повернутися на головну сторінку",
@@ -329,15 +566,94 @@
                 troubleshooting: "Розв'язання проблем",
                 resources: "Додаткові ресурси",
                 whatYouLearn: "Що ви вивчитимете",
+                learnItems: ["Архітектура DuckDB та дизайн OLAP у процесі", "Основи SQL та розширені шаблони запитів", "Робота з даними CSV, Parquet та JSON", "Функції вікна та складна аналітика", "Оптимізація продуктивності та реальні застосування"],
                 realWorldMotivation: "Чому DuckDB? Компанії як Watershed, FinQore та Okta використовують DuckDB щодня:",
                 watershedPerf: "Watershed: У 10 разів швидше для аналізу екологічних даних",
                 finqoreSpeed: "FinQore: Запити скорочені з 8 годин до 8 хвилин",
                 oktaScale: "Okta: Аналіз 7,5 трильйонів записів в реальному часі",
                 southAusAnalytics: "Південна Австралія: Панель клімату з внутрішньопроцесним OLAP",
+                techIntroTitle: "Введення в технологію",
                 duckdbIs: "Що таке DuckDB?",
                 inProcess: "OLAP у процесі: DuckDB виконується у вашому процесі, а не як сервер",
+                noServerNeeded: "Не потрібна серверна інфраструктура - просто SQL у вашому додатку.",
                 columnar: "Орієнтована на стовпці: оптимізована для аналізу по багатьох рядах",
-                fast: "Швидко: Надзвичайно продуктивно для SQL-аналітики"
+                fast: "Швидко: Надзвичайно продуктивно для SQL-аналітики",
+                sqlFirst: "SQL першим: Повна підтримка SQL, включаючи функції вікна та CTE",
+                builtIn: "Вбудовано: Без зовнішніх залежностей або конфігурації",
+                whenUseTitle: "Коли використовувати DuckDB або альтернативи",
+                featureCol: "Функція",
+                duckdbCol: "DuckDB",
+                postgresCol: "PostgreSQL",
+                snowflakeCol: "Snowflake",
+                deploymentRow: "Розгортання",
+                inProcessEmbedded: "У процесі, вбудовано",
+                serverSeparate: "Сервер, окремий екземпляр",
+                cloudManaged: "Хмара, повністю керована",
+                olapPerf: "Продуктивність OLAP",
+                excellent: "Відмінна",
+                good: "Хороша",
+                setupComplexity: "Складність настройки",
+                minimal: "Мінімальна",
+                medium: "Середня",
+                high: "Висока",
+                cost: "Вартість",
+                freeOpenSource: "Безкоштовно, відкритий вихідний код",
+                payPerQuery: "Плата за запит/сховище",
+                useCase: "Варіант використання",
+                analyticsApp: "Програма аналітики, локальні дані",
+                oltp: "OLTP, додатки",
+                dataWarehouse: "Корпоративне сховище даних",
+                columnStorageTitle: "Зберігання, орієнтоване на стовпці",
+                columnStorageDesc: "DuckDB зберігає дані за стовпцями, а не за рядками. Це означає:",
+                columnStorageItems: ["Читання конкретних стовпців швидко - завантажуйте лише те, що потрібно", "Стиснення більш ефективне для подібних значень", "Агрегування (SUM, AVG) надзвичайно швидке", "Ідеально для аналітики, де ви запитуєте кілька стовпців з мільйонів рядків"],
+                setupTitle: "Установка та налаштування",
+                option1Docker: "Варіант 1: Docker (рекомендується)",
+                step1PullImage: "Крок 1: Витягнути зображення DuckDB",
+                step2RunContainer: "Крок 2: Запустити контейнер за допомогою Python",
+                step3InstallDocker: "Крок 3: Встановити DuckDB у контейнері",
+                option2CLI: "Варіант 2: DuckDB CLI (локально)",
+                macosBrew: "macOS (Homebrew)",
+                linuxApt: "Linux (apt)",
+                startShell: "Запустіть інтерактивну оболонку DuckDB",
+                option3Python: "Варіант 3: Інтеграція Python",
+                installPip: "Встановити через pip",
+                testPython: "Тест у Python",
+                verification: "Перевірка",
+                checkVersion: "Перевірте версію DuckDB",
+                hint: "Підказка",
+                hintDocker: "Docker - це платформа контейнеризації. Відвідайте docker.com, якщо не встановлено.",
+                hintCLI: "Завантажте з duckdb.org або використовуйте менеджери пакетів як brew (macOS) або apt (Linux).",
+                hintPython: "Рекомендується Python 3.8+. DuckDB працює як з віртуальними середовищами, так і з Anaconda.",
+                hintVerify: "Ви повинні побачити номер версії DuckDB, якщо встановлення було успішним.",
+                sqlFundamentalsTitle: "Основи SQL",
+                selectGetData: "SELECT: Отримайте дані",
+                selectDesc: "SELECT отримує стовпці з таблиці. Почніть з найпростішого запиту:",
+                fromSpecifyTable: "FROM: Визначте таблицю",
+                fromDesc: "FROM повідомляє SQL, яку таблицю запитувати:",
+                whereFilterRows: "WHERE: Фільтрування рядків",
+                whereDesc: "WHERE фільтрує результати на основі умов:",
+                orderBySortResults: "ORDER BY: Сортування результатів",
+                limitControl: "LIMIT: Контроль виходу",
+                limitDesc: "LIMIT обмежує кількість повернутих рядків:",
+                quizSelectAll: "Що означає SELECT *?",
+                quizSelectAnswer: "Повертає всі стовпці з указаної таблиці",
+                quizWhereQ: "Для чого використовується WHERE?",
+                quizWhereA: "Фільтрує рядки на основі умов",
+                quizOrderQ: "Як ви сортуєте результати?",
+                quizOrderA: "Використовуйте ORDER BY стовпець ASC (за зростанням) або DESC (за спаданням)",
+                exercise1Title: "Вправа 1: Перші запити",
+                exercise1Objective: "Напишіть свої перші запити SELECT, щоб зрозуміти базовий синтаксис SQL.",
+                exercise1Steps: "Кроки",
+                exercise1Step1: "Запустіть інтерактивну оболонку DuckDB:",
+                exercise1Step2: "Запит 1: Виберіть константу:",
+                exercise1Step3: "Запит 2: Конкатенація рядків:",
+                exercise1Step4: "Запит 3: Математичні операції:",
+                exercise1Step5: "Запит 4: Дата/час:",
+                exercise1Step6: "Запит 5: Генерування чисел:",
+                exercise1Verify: "Перевірте свої результати",
+                exercise1VerifyText: "Всі запити виконані без помилок?",
+                exercise1ReadyFor: "Ви готові до фільтрації та агрегування!",
+                exercise1Hint: "Використовуйте крапку з комою, щоб закінчити оператори. В CLI натисніть Enter для виконання. Використовуйте .help для перегляду доступних команд."
             },
             es: {
                 back: "← Volver a la página de inicio",
@@ -359,15 +675,94 @@
                 troubleshooting: "Solución de problemas",
                 resources: "Recursos adicionales",
                 whatYouLearn: "Qué aprenderá",
+                learnItems: ["Arquitectura DuckDB y diseño OLAP en proceso", "Fundamentos de SQL y patrones de consulta avanzados", "Trabajar con datos CSV, Parquet y JSON", "Funciones de ventana y analítica compleja", "Optimización del rendimiento y aplicaciones del mundo real"],
                 realWorldMotivation: "¿Por qué DuckDB? Empresas como Watershed, FinQore y Okta usan DuckDB diariamente:",
                 watershedPerf: "Watershed: 10 veces más rápido para análisis de datos ecológicos",
                 finqoreSpeed: "FinQore: Consultas reducidas de 8 horas a 8 minutos",
                 oktaScale: "Okta: Analizar 7,5 billones de registros en tiempo real",
                 southAusAnalytics: "Australia del Sur: Panel climático con OLAP en proceso",
+                techIntroTitle: "Introducción a la tecnología",
                 duckdbIs: "¿Qué es DuckDB?",
                 inProcess: "OLAP en proceso: DuckDB se ejecuta en su proceso, no como servidor",
+                noServerNeeded: "No se requiere infraestructura de servidor - solo SQL en su aplicación.",
                 columnar: "Orientado a columnas: optimizado para análisis de muchas filas",
-                fast: "Rápido: Extremadamente performante para análisis SQL"
+                fast: "Rápido: Extremadamente performante para análisis SQL",
+                sqlFirst: "SQL primero: Soporte completo de SQL, incluidas funciones de ventana y CTE",
+                builtIn: "Incorporado: Sin dependencias externas ni configuración",
+                whenUseTitle: "Cuándo usar DuckDB versus alternativas",
+                featureCol: "Función",
+                duckdbCol: "DuckDB",
+                postgresCol: "PostgreSQL",
+                snowflakeCol: "Snowflake",
+                deploymentRow: "Despliegue",
+                inProcessEmbedded: "En proceso, incorporado",
+                serverSeparate: "Servidor, instancia separada",
+                cloudManaged: "Nube, completamente administrado",
+                olapPerf: "Rendimiento OLAP",
+                excellent: "Excelente",
+                good: "Bueno",
+                setupComplexity: "Complejidad de configuración",
+                minimal: "Mínima",
+                medium: "Media",
+                high: "Alta",
+                cost: "Costo",
+                freeOpenSource: "Gratuito, código abierto",
+                payPerQuery: "Pagar por consulta/almacenamiento",
+                useCase: "Caso de uso",
+                analyticsApp: "Aplicación analítica, datos locales",
+                oltp: "OLTP, aplicaciones",
+                dataWarehouse: "Almacén de datos empresarial",
+                columnStorageTitle: "Almacenamiento orientado a columnas",
+                columnStorageDesc: "DuckDB almacena datos por columna, no por fila. Esto significa:",
+                columnStorageItems: ["Leer columnas específicas es rápido - cargue solo lo que necesita", "La compresión es más efectiva para valores similares", "Las agregaciones (SUM, AVG) son extremadamente rápidas", "Perfecto para análisis donde consulta pocas columnas de millones de filas"],
+                setupTitle: "Configuración e instalación",
+                option1Docker: "Opción 1: Docker (recomendado)",
+                step1PullImage: "Paso 1: Extraer imagen de DuckDB",
+                step2RunContainer: "Paso 2: Ejecutar contenedor con Python",
+                step3InstallDocker: "Paso 3: Instalar DuckDB en el contenedor",
+                option2CLI: "Opción 2: DuckDB CLI (local)",
+                macosBrew: "macOS (Homebrew)",
+                linuxApt: "Linux (apt)",
+                startShell: "Iniciar DuckDB Interactive Shell",
+                option3Python: "Opción 3: Integración Python",
+                installPip: "Instalar a través de pip",
+                testPython: "Prueba en Python",
+                verification: "Verificación",
+                checkVersion: "Verificar versión de DuckDB",
+                hint: "Pista",
+                hintDocker: "Docker es una plataforma de contenedorización. Visite docker.com si no está instalado.",
+                hintCLI: "Descargue de duckdb.org o use administradores de paquetes como brew (macOS) o apt (Linux).",
+                hintPython: "Se recomienda Python 3.8+. DuckDB funciona con entornos virtuales y Anaconda.",
+                hintVerify: "Debería ver el número de versión de DuckDB si la instalación fue exitosa.",
+                sqlFundamentalsTitle: "Fundamentos de SQL",
+                selectGetData: "SELECT: Obtener datos",
+                selectDesc: "SELECT recupera columnas de una tabla. Comience con la consulta más simple:",
+                fromSpecifyTable: "FROM: Especificar tabla",
+                fromDesc: "FROM le dice a SQL qué tabla consultar:",
+                whereFilterRows: "WHERE: Filtrar filas",
+                whereDesc: "WHERE filtra resultados según condiciones:",
+                orderBySortResults: "ORDER BY: Ordenar resultados",
+                limitControl: "LIMIT: Controlar salida",
+                limitDesc: "LIMIT restringe el número de filas devueltas:",
+                quizSelectAll: "¿Qué significa SELECT *?",
+                quizSelectAnswer: "Devuelve todas las columnas de la tabla especificada",
+                quizWhereQ: "¿Para qué se usa WHERE?",
+                quizWhereA: "Filtra filas según condiciones",
+                quizOrderQ: "¿Cómo ordena los resultados?",
+                quizOrderA: "Use ORDER BY columna ASC (ascendente) o DESC (descendente)",
+                exercise1Title: "Ejercicio 1: Primeras consultas",
+                exercise1Objective: "Escriba sus primeras consultas SELECT para entender la sintaxis SQL básica.",
+                exercise1Steps: "Pasos",
+                exercise1Step1: "Inicie el shell interactivo de DuckDB:",
+                exercise1Step2: "Consulta 1: Seleccione una constante:",
+                exercise1Step3: "Consulta 2: Concatenación de cadenas:",
+                exercise1Step4: "Consulta 3: Operaciones matemáticas:",
+                exercise1Step5: "Consulta 4: Fecha/hora:",
+                exercise1Step6: "Consulta 5: Generar números:",
+                exercise1Verify: "Verifique sus resultados",
+                exercise1VerifyText: "¿Todas las consultas se ejecutaron sin errores?",
+                exercise1ReadyFor: "¡Está listo para filtrado y agregaciones!",
+                exercise1Hint: "Use puntos y comas para terminar sentencias. En la CLI, presione Enter para ejecutar. Use .help para ver comandos disponibles."
             },
             tr: {
                 back: "← Ana Sayfaya Dön",
@@ -389,15 +784,94 @@
                 troubleshooting: "Sorun Giderme",
                 resources: "Ek Kaynaklar",
                 whatYouLearn: "Öğrenecekleriniz",
+                learnItems: ["DuckDB mimarisi ve işlem içi OLAP tasarımı", "SQL temelleri ve gelişmiş sorgu desenleri", "CSV, Parquet ve JSON verilerle çalışma", "Pencere fonksiyonları ve karmaşık analitik", "Performans optimizasyonu ve gerçek dünya uygulamaları"],
                 realWorldMotivation: "Neden DuckDB? Watershed, FinQore ve Okta gibi şirketler DuckDB'yi günlük olarak kullanır:",
                 watershedPerf: "Watershed: Ekolojik veri analizi için 10 kat daha hızlı",
                 finqoreSpeed: "FinQore: Sorguları 8 saatten 8 dakikaya indirdi",
                 oktaScale: "Okta: Gerçek zamanlı olarak 7,5 trilyon kaydı analiz edin",
                 southAusAnalytics: "Güney Avustralya: İşlem içi OLAP ile iklim panosu",
+                techIntroTitle: "Teknoloji Sunuşu",
                 duckdbIs: "DuckDB Nedir?",
                 inProcess: "İşlem içi OLAP: DuckDB, sunucu olarak değil, işleminizde çalışır",
+                noServerNeeded: "Sunucu altyapısı gerekmez - uygulamanızda SQL'i kullanın.",
                 columnar: "Sütun Odaklı: Birçok satır analizi için optimize edilmiş",
-                fast: "Hızlı: SQL analitikleri için son derece performant"
+                fast: "Hızlı: SQL analitikleri için son derece performant",
+                sqlFirst: "SQL İlk: Pencere fonksiyonları ve CTE dahil tam SQL desteği",
+                builtIn: "Yerleşik: Harici bağımlılıklar veya yapılandırma yok",
+                whenUseTitle: "DuckDB vs. Alternatifler Ne Zaman Kullanılır",
+                featureCol: "Özellik",
+                duckdbCol: "DuckDB",
+                postgresCol: "PostgreSQL",
+                snowflakeCol: "Snowflake",
+                deploymentRow: "Dağıtım",
+                inProcessEmbedded: "İşlem içi, gömülü",
+                serverSeparate: "Sunucu, ayrı örnek",
+                cloudManaged: "Bulut, tam olarak yönetilen",
+                olapPerf: "OLAP Performansı",
+                excellent: "Mükemmel",
+                good: "İyi",
+                setupComplexity: "Kurulum Karmaşıklığı",
+                minimal: "Minimal",
+                medium: "Orta",
+                high: "Yüksek",
+                cost: "Maliyet",
+                freeOpenSource: "Ücretsiz, açık kaynak",
+                payPerQuery: "Sorgu/depolama başına öde",
+                useCase: "Kullanım Durumu",
+                analyticsApp: "Analitik uygulaması, yerel veriler",
+                oltp: "OLTP, uygulamalar",
+                dataWarehouse: "Kurumsal veri ambarı",
+                columnStorageTitle: "Sütun Odaklı Depolama",
+                columnStorageDesc: "DuckDB, satırlar tarafından değil, sütunlar tarafından veri depolaması. Bu anlamına geliyor:",
+                columnStorageItems: ["Belirli sütunları okumak hızlıdır - sadece ihtiyacınız olanı yükleyin", "Benzer değerler için sıkıştırma daha etkilidir", "Toplamalar (SUM, AVG) son derece hızlıdır", "Milyonlarca satırdan birkaç sütunu sorguladığınız analitikler için mükemmeldir"],
+                setupTitle: "Kurulum ve Yükleme",
+                option1Docker: "Seçenek 1: Docker (Önerilir)",
+                step1PullImage: "Adım 1: DuckDB Görüntüsünü Çekin",
+                step2RunContainer: "Adım 2: Python ile Konteyner Çalıştırın",
+                step3InstallDocker: "Adım 3: Konteynerde DuckDB Yükleyin",
+                option2CLI: "Seçenek 2: DuckDB CLI (Yerel)",
+                macosBrew: "macOS (Homebrew)",
+                linuxApt: "Linux (apt)",
+                startShell: "DuckDB Etkileşimli Kabuğunu Başlatın",
+                option3Python: "Seçenek 3: Python Entegrasyonu",
+                installPip: "pip aracılığıyla yükleyin",
+                testPython: "Python'da Test Edin",
+                verification: "Doğrulama",
+                checkVersion: "DuckDB Sürümünü Kontrol Edin",
+                hint: "İpucu",
+                hintDocker: "Docker bir konteyner platformudur. Yüklü değilse docker.com'u ziyaret edin.",
+                hintCLI: "duckdb.org'dan indirin veya brew (macOS) veya apt (Linux) gibi paket yöneticilerini kullanın.",
+                hintPython: "Python 3.8+ önerilir. DuckDB hem sanal ortamlarla hem de Anaconda ile çalışır.",
+                hintVerify: "Yükleme başarılı olduysa DuckDB sürüm numarasını görmelisiniz.",
+                sqlFundamentalsTitle: "SQL Temelleri",
+                selectGetData: "SELECT: Veri Alın",
+                selectDesc: "SELECT, bir tablodan sütunları alır. En basit sorgu ile başlayın:",
+                fromSpecifyTable: "FROM: Tabloyu Belirtin",
+                fromDesc: "FROM, SQL'e hangi tabloyu sorgulaması gerektiğini söyler:",
+                whereFilterRows: "WHERE: Satırları Filtreleyin",
+                whereDesc: "WHERE, koşullara göre sonuçları filtreler:",
+                orderBySortResults: "ORDER BY: Sonuçları Sıralayın",
+                limitControl: "LIMIT: Çıktıyı Kontrol Edin",
+                limitDesc: "LIMIT, döndürülen satır sayısını sınırlandırır:",
+                quizSelectAll: "SELECT * ne anlama geliyor?",
+                quizSelectAnswer: "Belirtilen tablodan tüm sütunları döndürür",
+                quizWhereQ: "WHERE ne için kullanılır?",
+                quizWhereA: "Koşullara göre satırları filtreler",
+                quizOrderQ: "Sonuçları nasıl sıralarsınız?",
+                quizOrderA: "ORDER BY sütun ASC (artan) veya DESC (azalan) kullanın",
+                exercise1Title: "Alıştırma 1: İlk Sorgular",
+                exercise1Objective: "Temel SQL söz dizimini anlamak için ilk SELECT sorgularınızı yazın.",
+                exercise1Steps: "Adımlar",
+                exercise1Step1: "DuckDB etkileşimli kabuğunu başlatın:",
+                exercise1Step2: "Sorgu 1: Bir sabit seçin:",
+                exercise1Step3: "Sorgu 2: Dize birleştirmesi:",
+                exercise1Step4: "Sorgu 3: Matematiksel işlemler:",
+                exercise1Step5: "Sorgu 4: Tarih/Saat:",
+                exercise1Step6: "Sorgu 5: Sayı oluşturun:",
+                exercise1Verify: "Sonuçlarınızı Doğrulayın",
+                exercise1VerifyText: "Tüm sorgular hatasız çalıştı mı?",
+                exercise1ReadyFor: "Filtreleme ve toplamalar için hazırsınız!",
+                exercise1Hint: "Deyimleri bitirmek için noktalı virgül kullanın. CLI'de yürütmek için Enter tuşuna basın. Mevcut komutları görmek için .help kullanın."
             }
         };
 
@@ -462,17 +936,17 @@
 
                     <div className="main-content">
                         {activeSection === 'overview' && <OverviewSection t={t} />}
-                        {activeSection === 'technology' && <TechnologySection t={t} />}
+                        {activeSection === 'technology' && <TechnologySection t={t} copyToClipboard={copyToClipboard} />}
                         {activeSection === 'setup' && <SetupSection t={t} copyToClipboard={copyToClipboard} toggleHint={toggleHint} expandedHints={expandedHints} />}
-                        {activeSection === 'fundamentals' && <FundamentalsSection t={t} copyToClipboard={copyToClipboard} toggleQuiz={toggleQuiz} toggleHint={toggleHint} expandedQuizzes={expandedQuizzes} expandedHints={expandedHints} />}
-                        {activeSection === 'exercise1' && <Exercise1 t={t} copyToClipboard={copyToClipboard} toggleHint={toggleHint} expandedHints={expandedHints} />}
-                        {activeSection === 'exercise2' && <Exercise2 t={t} copyToClipboard={copyToClipboard} toggleHint={toggleHint} expandedHints={expandedHints} />}
-                        {activeSection === 'exercise3' && <Exercise3 t={t} copyToClipboard={copyToClipboard} toggleHint={toggleHint} expandedHints={expandedHints} />}
-                        {activeSection === 'exercise4' && <Exercise4 t={t} copyToClipboard={copyToClipboard} toggleHint={toggleHint} expandedHints={expandedHints} />}
-                        {activeSection === 'exercise5' && <Exercise5 t={t} copyToClipboard={copyToClipboard} toggleHint={toggleHint} expandedHints={expandedHints} />}
-                        {activeSection === 'exercise6' && <Exercise6 t={t} copyToClipboard={copyToClipboard} toggleHint={toggleHint} expandedHints={expandedHints} />}
-                        {activeSection === 'exercise7' && <Exercise7 t={t} copyToClipboard={copyToClipboard} toggleHint={toggleHint} expandedHints={expandedHints} />}
-                        {activeSection === 'exercise8' && <Exercise8 t={t} copyToClipboard={copyToClipboard} toggleHint={toggleHint} expandedHints={expandedHints} />}
+                        {activeSection === 'fundamentals' && <FundamentalsSection t={t} copyToClipboard={copyToClipboard} toggleQuiz={toggleQuiz} expandedQuizzes={expandedQuizzes} />}
+                        {activeSection === 'exercise1' && <Exercise1Section t={t} copyToClipboard={copyToClipboard} toggleHint={toggleHint} expandedHints={expandedHints} />}
+                        {activeSection === 'exercise2' && <PlaceholderSection t={t} title={t.exercise2} exerciseNum={2} />}
+                        {activeSection === 'exercise3' && <PlaceholderSection t={t} title={t.exercise3} exerciseNum={3} />}
+                        {activeSection === 'exercise4' && <PlaceholderSection t={t} title={t.exercise4} exerciseNum={4} />}
+                        {activeSection === 'exercise5' && <PlaceholderSection t={t} title={t.exercise5} exerciseNum={5} />}
+                        {activeSection === 'exercise6' && <PlaceholderSection t={t} title={t.exercise6} exerciseNum={6} />}
+                        {activeSection === 'exercise7' && <PlaceholderSection t={t} title={t.exercise7} exerciseNum={7} />}
+                        {activeSection === 'exercise8' && <PlaceholderSection t={t} title={t.exercise8} exerciseNum={8} />}
                         {activeSection === 'selfCheck' && <SelfCheckSection t={t} expandedQuizzes={expandedQuizzes} toggleQuiz={toggleQuiz} />}
                         {activeSection === 'reflection' && <ReflectionSection t={t} />}
                         {activeSection === 'troubleshooting' && <TroubleshootingSection t={t} />}
@@ -486,16 +960,17 @@
             return (
                 <div>
                     <h2 style={{ fontSize: '2rem', marginBottom: '1.5rem', color: '#1B3A5C' }}>{t.welcome}</h2>
+                    <p style={{ color: '#666', marginBottom: '1.5rem', fontSize: '0.95rem' }}>
+                      <strong>⏱ Estimated time:</strong> 2-3 hours for all 8 exercises |
+                      <strong> Prerequisites:</strong> No prior database experience required |
+                      <strong> Chapter:</strong> Chapter 6 – Analytical Databases (Butscher: Big Data & Applications, THWS)
+                    </p>
                     <div className="accent-line" style={{ marginBottom: '2rem' }}></div>
 
                     <div className="card" style={{ padding: '2rem', marginBottom: '2rem' }}>
                         <h3 className="card-title" style={{ marginBottom: '1rem' }}>{t.whatYouLearn}</h3>
                         <ul className="numbered-list">
-                            <li>DuckDB architecture and in-process OLAP design</li>
-                            <li>SQL fundamentals and advanced query patterns</li>
-                            <li>Working with CSV, Parquet, and JSON data</li>
-                            <li>Window functions and complex analytics</li>
-                            <li>Performance optimization and real-world applications</li>
+                            {t.learnItems.map((item, i) => <li key={i}>{item}</li>)}
                         </ul>
                     </div>
 
@@ -512,77 +987,74 @@
             );
         }
 
-        function TechnologySection({ t }) {
+        function TechnologySection({ t, copyToClipboard }) {
             return (
                 <div>
-                    <h2 style={{ fontSize: '2rem', marginBottom: '1.5rem', color: '#1B3A5C' }}>Technology Introduction</h2>
+                    <h2 style={{ fontSize: '2rem', marginBottom: '1.5rem', color: '#1B3A5C' }}>{t.techIntroTitle}</h2>
                     <div className="accent-line" style={{ marginBottom: '2rem' }}></div>
 
                     <div className="card" style={{ padding: '2rem', marginBottom: '2rem' }}>
                         <h3 className="card-title" style={{ marginBottom: '1rem' }}>{t.duckdbIs}</h3>
-                        <p style={{ marginBottom: '1rem' }}>{t.inProcess} No server infrastructure needed - just SQL in your application.</p>
                         <ul className="numbered-list">
+                            <li>{t.inProcess} {t.noServerNeeded}</li>
                             <li>{t.columnar}</li>
                             <li>{t.fast}</li>
-                            <li>SQL-first: Full SQL support including window functions and CTEs</li>
-                            <li>Built-in: No external dependencies or configuration</li>
+                            <li>{t.sqlFirst}</li>
+                            <li>{t.builtIn}</li>
                         </ul>
                     </div>
 
                     <div className="card" style={{ padding: '2rem', marginBottom: '2rem' }}>
-                        <h3 className="card-title" style={{ marginBottom: '1rem' }}>When to Use DuckDB vs Alternatives</h3>
+                        <h3 className="card-title" style={{ marginBottom: '1rem' }}>{t.whenUseTitle}</h3>
                         <table className="comparison-table">
                             <thead>
                                 <tr>
-                                    <th>Feature</th>
-                                    <th>DuckDB</th>
-                                    <th>PostgreSQL</th>
-                                    <th>Snowflake</th>
+                                    <th>{t.featureCol}</th>
+                                    <th>{t.duckdbCol}</th>
+                                    <th>{t.postgresCol}</th>
+                                    <th>{t.snowflakeCol}</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>Deployment</td>
-                                    <td>In-process, embedded</td>
-                                    <td>Server, separate instance</td>
-                                    <td>Cloud, fully managed</td>
+                                    <td>{t.deploymentRow}</td>
+                                    <td>{t.inProcessEmbedded}</td>
+                                    <td>{t.serverSeparate}</td>
+                                    <td>{t.cloudManaged}</td>
                                 </tr>
                                 <tr>
-                                    <td>OLAP Performance</td>
-                                    <td>Excellent</td>
-                                    <td>Good</td>
-                                    <td>Excellent</td>
+                                    <td>{t.olapPerf}</td>
+                                    <td>{t.excellent}</td>
+                                    <td>{t.good}</td>
+                                    <td>{t.excellent}</td>
                                 </tr>
                                 <tr>
-                                    <td>Setup Complexity</td>
-                                    <td>Minimal</td>
-                                    <td>Medium</td>
-                                    <td>High</td>
+                                    <td>{t.setupComplexity}</td>
+                                    <td>{t.minimal}</td>
+                                    <td>{t.medium}</td>
+                                    <td>{t.high}</td>
                                 </tr>
                                 <tr>
-                                    <td>Cost</td>
-                                    <td>Free, open source</td>
-                                    <td>Free, open source</td>
-                                    <td>Pay per query/storage</td>
+                                    <td>{t.cost}</td>
+                                    <td>{t.freeOpenSource}</td>
+                                    <td>{t.freeOpenSource}</td>
+                                    <td>{t.payPerQuery}</td>
                                 </tr>
                                 <tr>
-                                    <td>Use Case</td>
-                                    <td>Analytics app, local data</td>
-                                    <td>OLTP, applications</td>
-                                    <td>Enterprise data warehouse</td>
+                                    <td>{t.useCase}</td>
+                                    <td>{t.analyticsApp}</td>
+                                    <td>{t.oltp}</td>
+                                    <td>{t.dataWarehouse}</td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
 
                     <div className="card" style={{ padding: '2rem' }}>
-                        <h3 className="card-title" style={{ marginBottom: '1rem' }}>Column-Oriented Storage</h3>
-                        <p style={{ marginBottom: '1rem' }}>DuckDB stores data by column, not by row. This means:</p>
+                        <h3 className="card-title" style={{ marginBottom: '1rem' }}>{t.columnStorageTitle}</h3>
+                        <p style={{ marginBottom: '1rem' }}>{t.columnStorageDesc}</p>
                         <ul className="numbered-list">
-                            <li>Reading specific columns is fast - only load what you need</li>
-                            <li>Compression is more effective for similar values</li>
-                            <li>Aggregations (SUM, AVG) are extremely fast</li>
-                            <li>Perfect for analytics where you query a few columns of millions of rows</li>
+                            {t.columnStorageItems.map((item, i) => <li key={i}>{item}</li>)}
                         </ul>
                     </div>
                 </div>
@@ -591,41 +1063,36 @@
 
         function SetupSection({ t, copyToClipboard, toggleHint, expandedHints }) {
             const hints = {
-                docker_install: 'Docker is a containerization platform. Visit docker.com if not installed.',
-                duckdb_cli: 'Download from duckdb.org or use package managers like brew (macOS) or apt (Linux).',
-                python_install: 'Python 3.8+ is recommended. DuckDB works with both virtual environments and Anaconda.',
-                verify_cli: 'You should see the DuckDB version number if installation was successful.'
+                docker_install: t.hintDocker,
+                duckdb_cli: t.hintCLI,
+                python_install: t.hintPython,
+                verify_cli: t.hintVerify
             };
 
             return (
                 <div>
-                    <h2 style={{ fontSize: '2rem', marginBottom: '1.5rem', color: '#1B3A5C' }}>Setup & Installation</h2>
+                    <h2 style={{ fontSize: '2rem', marginBottom: '1.5rem', color: '#1B3A5C' }}>{t.setupTitle}</h2>
                     <div className="accent-line" style={{ marginBottom: '2rem' }}></div>
 
                     <div className="card" style={{ padding: '2rem', marginBottom: '2rem' }}>
-                        <h3 className="card-title" style={{ marginBottom: '1rem' }}>Option 1: Docker (Recommended)</h3>
-                        <h4 style={{ marginTop: '1.5rem', marginBottom: '0.5rem', color: '#1B3A5C', fontWeight: '600' }}>Step 1: Pull DuckDB Image</h4>
+                        <h3 className="card-title" style={{ marginBottom: '1rem' }}>{t.option1Docker}</h3>
+                        <h4 style={{ marginTop: '1.5rem', marginBottom: '0.5rem', color: '#1B3A5C', fontWeight: '600' }}>{t.step1PullImage}</h4>
                         <div className="code-block">
                             <button className="copy-btn" onClick={() => copyToClipboard('docker pull mcr.microsoft.com/devcontainers/universal:latest')}>Copy</button>
                             <code>docker pull mcr.microsoft.com/devcontainers/universal:latest</code>
                         </div>
-                        <div className="expandable" onClick={() => toggleHint('docker_install')} style={{ cursor: 'pointer' }}>
-                            <div className="expandable-header">
-                                <span>Hint</span>
-                                <span className="expandable-chevron">▼</span>
-                            </div>
-                            {expandedHints['docker_install'] && (
-                                <div className="expandable-content">{hints.docker_install}</div>
-                            )}
+                        <div className="expandable" onClick={() => toggleHint('docker_install')}>
+                            <div className="expandable-header"><span>{t.hint}</span><span className="expandable-chevron">▼</span></div>
+                            {expandedHints['docker_install'] && <div className="expandable-content">{hints.docker_install}</div>}
                         </div>
 
-                        <h4 style={{ marginTop: '1.5rem', marginBottom: '0.5rem', color: '#1B3A5C', fontWeight: '600' }}>Step 2: Run Container with Python</h4>
+                        <h4 style={{ marginTop: '1.5rem', marginBottom: '0.5rem', color: '#1B3A5C', fontWeight: '600' }}>{t.step2RunContainer}</h4>
                         <div className="code-block">
                             <button className="copy-btn" onClick={() => copyToClipboard('docker run -it --rm -v $(pwd):/workspace python:3.11 bash')}>Copy</button>
                             <code>docker run -it --rm -v $(pwd):/workspace python:3.11 bash</code>
                         </div>
 
-                        <h4 style={{ marginTop: '1.5rem', marginBottom: '0.5rem', color: '#1B3A5C', fontWeight: '600' }}>Step 3: Install DuckDB in Container</h4>
+                        <h4 style={{ marginTop: '1.5rem', marginBottom: '0.5rem', color: '#1B3A5C', fontWeight: '600' }}>{t.step3InstallDocker}</h4>
                         <div className="code-block">
                             <button className="copy-btn" onClick={() => copyToClipboard('pip install duckdb')}>Copy</button>
                             <code>pip install duckdb</code>
@@ -633,781 +1100,196 @@
                     </div>
 
                     <div className="card" style={{ padding: '2rem', marginBottom: '2rem' }}>
-                        <h3 className="card-title" style={{ marginBottom: '1rem' }}>Option 2: DuckDB CLI (Local)</h3>
-                        <h4 style={{ marginTop: '1.5rem', marginBottom: '0.5rem', color: '#1B3A5C', fontWeight: '600' }}>macOS (Homebrew)</h4>
+                        <h3 className="card-title" style={{ marginBottom: '1rem' }}>{t.option2CLI}</h3>
+                        <h4 style={{ marginTop: '1.5rem', marginBottom: '0.5rem', color: '#1B3A5C', fontWeight: '600' }}>{t.macosBrew}</h4>
                         <div className="code-block">
                             <button className="copy-btn" onClick={() => copyToClipboard('brew install duckdb')}>Copy</button>
                             <code>brew install duckdb</code>
                         </div>
 
-                        <h4 style={{ marginTop: '1.5rem', marginBottom: '0.5rem', color: '#1B3A5C', fontWeight: '600' }}>Linux (apt)</h4>
+                        <h4 style={{ marginTop: '1.5rem', marginBottom: '0.5rem', color: '#1B3A5C', fontWeight: '600' }}>{t.linuxApt}</h4>
                         <div className="code-block">
                             <button className="copy-btn" onClick={() => copyToClipboard('sudo apt-get install duckdb')}>Copy</button>
                             <code>sudo apt-get install duckdb</code>
                         </div>
 
-                        <h4 style={{ marginTop: '1.5rem', marginBottom: '0.5rem', color: '#1B3A5C', fontWeight: '600' }}>Start DuckDB Interactive Shell</h4>
+                        <h4 style={{ marginTop: '1.5rem', marginBottom: '0.5rem', color: '#1B3A5C', fontWeight: '600' }}>{t.startShell}</h4>
                         <div className="code-block">
                             <button className="copy-btn" onClick={() => copyToClipboard('duckdb')}>Copy</button>
                             <code>duckdb</code>
                         </div>
-                        <div className="output-box">
-                            v0.9.2 (8.1.0)<br/>
-                            Type .help for help.<br/>
-                            memory&gt;
-                        </div>
-                        <div className="expandable" onClick={() => toggleHint('duckdb_cli')} style={{ cursor: 'pointer' }}>
-                            <div className="expandable-header">
-                                <span>Hint</span>
-                                <span className="expandable-chevron">▼</span>
-                            </div>
-                            {expandedHints['duckdb_cli'] && (
-                                <div className="expandable-content">{hints.duckdb_cli}</div>
-                            )}
-                        </div>
                     </div>
 
-                    <div className="card" style={{ padding: '2rem', marginBottom: '2rem' }}>
-                        <h3 className="card-title" style={{ marginBottom: '1rem' }}>Option 3: Python Integration</h3>
-                        <h4 style={{ marginTop: '1.5rem', marginBottom: '0.5rem', color: '#1B3A5C', fontWeight: '600' }}>Install via pip</h4>
+                    <div className="card" style={{ padding: '2rem' }}>
+                        <h3 className="card-title" style={{ marginBottom: '1rem' }}>{t.option3Python}</h3>
+                        <h4 style={{ marginTop: '1.5rem', marginBottom: '0.5rem', color: '#1B3A5C', fontWeight: '600' }}>{t.installPip}</h4>
                         <div className="code-block">
                             <button className="copy-btn" onClick={() => copyToClipboard('pip install duckdb')}>Copy</button>
                             <code>pip install duckdb</code>
                         </div>
-
-                        <h4 style={{ marginTop: '1.5rem', marginBottom: '0.5rem', color: '#1B3A5C', fontWeight: '600' }}>Test in Python</h4>
-                        <div className="code-block">
-                            <button className="copy-btn" onClick={() => copyToClipboard('python3 -c "import duckdb; print(duckdb.execute(\'SELECT 1 as num\').fetchall())"')}>Copy</button>
-                            <code>python3 -c "import duckdb; print(duckdb.execute('SELECT 1 as num').fetchall())"</code>
-                        </div>
-                        <div className="output-box">
-                            [(1,)]
-                        </div>
-                        <div className="expandable" onClick={() => toggleHint('python_install')} style={{ cursor: 'pointer' }}>
-                            <div className="expandable-header">
-                                <span>Hint</span>
-                                <span className="expandable-chevron">▼</span>
-                            </div>
-                            {expandedHints['python_install'] && (
-                                <div className="expandable-content">{hints.python_install}</div>
-                            )}
-                        </div>
-                    </div>
-
-                    <div className="card" style={{ padding: '2rem' }}>
-                        <h3 className="card-title" style={{ marginBottom: '1rem' }}>Verification</h3>
-                        <h4 style={{ marginTop: '1.5rem', marginBottom: '0.5rem', color: '#1B3A5C', fontWeight: '600' }}>Check DuckDB Version</h4>
-                        <div className="code-block">
-                            <button className="copy-btn" onClick={() => copyToClipboard('duckdb --version')}>Copy</button>
-                            <code>duckdb --version</code>
-                        </div>
-                        <div className="output-box">
-                            v0.9.2
-                        </div>
-                        <div className="expandable" onClick={() => toggleHint('verify_cli')} style={{ cursor: 'pointer', marginTop: '1rem' }}>
-                            <div className="expandable-header">
-                                <span>Hint</span>
-                                <span className="expandable-chevron">▼</span>
-                            </div>
-                            {expandedHints['verify_cli'] && (
-                                <div className="expandable-content">{hints.verify_cli}</div>
-                            )}
-                        </div>
                     </div>
                 </div>
             );
         }
 
-        function FundamentalsSection({ t, copyToClipboard, toggleQuiz, toggleHint, expandedQuizzes, expandedHints }) {
-            const quizzes = {
-                sql_select: { q: "What does SELECT * mean?", a: "Returns all columns from the specified table" },
-                sql_where: { q: "What is WHERE used for?", a: "Filters rows based on conditions" },
-                sql_order: { q: "How do you sort results?", a: "Use ORDER BY column ASC (ascending) or DESC (descending)" },
-            };
-
+        function FundamentalsSection({ t, copyToClipboard, toggleQuiz, expandedQuizzes }) {
             return (
                 <div>
-                    <h2 style={{ fontSize: '2rem', marginBottom: '1.5rem', color: '#1B3A5C' }}>SQL Fundamentals</h2>
+                    <h2 style={{ fontSize: '2rem', marginBottom: '1.5rem', color: '#1B3A5C' }}>{t.sqlFundamentalsTitle}</h2>
                     <div className="accent-line" style={{ marginBottom: '2rem' }}></div>
 
                     <div className="card" style={{ padding: '2rem', marginBottom: '2rem' }}>
-                        <h3 className="card-title" style={{ marginBottom: '1rem' }}>SELECT: Get Data</h3>
-                        <p style={{ marginBottom: '1rem' }}>SELECT retrieves columns from a table. Start with the simplest query:</p>
+                        <h3 className="card-title" style={{ marginBottom: '1rem' }}>{t.selectGetData}</h3>
+                        <p style={{ marginBottom: '1rem' }}>{t.selectDesc}</p>
                         <div className="code-block">
                             <button className="copy-btn" onClick={() => copyToClipboard('SELECT 1 as num, \'hello\' as text;')}>Copy</button>
                             <code>SELECT 1 as num, 'hello' as text;</code>
                         </div>
-                        <div className="output-box">
-                            num | text<br/>
-                            --- | -----<br/>
-                            1   | hello
-                        </div>
-                        <div className="expandable" onClick={() => toggleQuiz('sql_select')} style={{ cursor: 'pointer' }}>
-                            <div className="expandable-header">
-                                <span>{quizzes.sql_select.q}</span>
-                                <span className="expandable-chevron">▼</span>
-                            </div>
-                            {expandedQuizzes['sql_select'] && (
-                                <div className="expandable-content">{quizzes.sql_select.a}</div>
-                            )}
+                        <div className="expandable" onClick={() => toggleQuiz('sql_select')}>
+                            <div className="expandable-header"><span>{t.quizSelectAll}</span><span className="expandable-chevron">▼</span></div>
+                            {expandedQuizzes['sql_select'] && <div className="expandable-content">{t.quizSelectAnswer}</div>}
                         </div>
                     </div>
 
                     <div className="card" style={{ padding: '2rem', marginBottom: '2rem' }}>
-                        <h3 className="card-title" style={{ marginBottom: '1rem' }}>FROM: Specify Table</h3>
-                        <p style={{ marginBottom: '1rem' }}>FROM tells SQL which table to query:</p>
+                        <h3 className="card-title" style={{ marginBottom: '1rem' }}>{t.fromSpecifyTable}</h3>
+                        <p style={{ marginBottom: '1rem' }}>{t.fromDesc}</p>
                         <div className="code-block">
-                            <button className="copy-btn" onClick={() => copyToClipboard('CREATE TEMPORARY TABLE users(id INT, name VARCHAR);\nINSERT INTO users VALUES (1, \'Alice\'), (2, \'Bob\');\nSELECT * FROM users;')}>Copy</button>
+                            <button className="copy-btn" onClick={() => copyToClipboard('SELECT * FROM users;')}>Copy</button>
                             <code>SELECT * FROM users;</code>
                         </div>
-                        <div className="output-box">
-                            id | name<br/>
-                            -- | -----<br/>
-                            1  | Alice<br/>
-                            2  | Bob
-                        </div>
                     </div>
 
                     <div className="card" style={{ padding: '2rem', marginBottom: '2rem' }}>
-                        <h3 className="card-title" style={{ marginBottom: '1rem' }}>WHERE: Filter Rows</h3>
-                        <p style={{ marginBottom: '1rem' }}>WHERE filters results based on conditions:</p>
+                        <h3 className="card-title" style={{ marginBottom: '1rem' }}>{t.whereFilterRows}</h3>
+                        <p style={{ marginBottom: '1rem' }}>{t.whereDesc}</p>
                         <div className="code-block">
                             <button className="copy-btn" onClick={() => copyToClipboard('SELECT * FROM users WHERE id = 1;')}>Copy</button>
                             <code>SELECT * FROM users WHERE id = 1;</code>
                         </div>
-                        <div className="output-box">
-                            id | name<br/>
-                            -- | -----<br/>
-                            1  | Alice
-                        </div>
-                        <div className="expandable" onClick={() => toggleQuiz('sql_where')} style={{ cursor: 'pointer' }}>
-                            <div className="expandable-header">
-                                <span>{quizzes.sql_where.q}</span>
-                                <span className="expandable-chevron">▼</span>
-                            </div>
-                            {expandedQuizzes['sql_where'] && (
-                                <div className="expandable-content">{quizzes.sql_where.a}</div>
-                            )}
+                        <div className="expandable" onClick={() => toggleQuiz('sql_where')}>
+                            <div className="expandable-header"><span>{t.quizWhereQ}</span><span className="expandable-chevron">▼</span></div>
+                            {expandedQuizzes['sql_where'] && <div className="expandable-content">{t.quizWhereA}</div>}
                         </div>
                     </div>
 
-                    <div className="card" style={{ padding: '2rem', marginBottom: '2rem' }}>
-                        <h3 className="card-title" style={{ marginBottom: '1rem' }}>ORDER BY: Sort Results</h3>
+                    <div className="card" style={{ padding: '2rem' }}>
+                        <h3 className="card-title" style={{ marginBottom: '1rem' }}>{t.orderBySortResults}</h3>
                         <div className="code-block">
                             <button className="copy-btn" onClick={() => copyToClipboard('SELECT * FROM users ORDER BY name DESC;')}>Copy</button>
                             <code>SELECT * FROM users ORDER BY name DESC;</code>
                         </div>
-                        <div className="output-box">
-                            id | name<br/>
-                            -- | -----<br/>
-                            2  | Bob<br/>
-                            1  | Alice
-                        </div>
-                        <div className="expandable" onClick={() => toggleQuiz('sql_order')} style={{ cursor: 'pointer' }}>
-                            <div className="expandable-header">
-                                <span>{quizzes.sql_order.q}</span>
-                                <span className="expandable-chevron">▼</span>
-                            </div>
-                            {expandedQuizzes['sql_order'] && (
-                                <div className="expandable-content">{quizzes.sql_order.a}</div>
-                            )}
-                        </div>
-                    </div>
-
-                    <div className="card" style={{ padding: '2rem' }}>
-                        <h3 className="card-title" style={{ marginBottom: '1rem' }}>LIMIT: Control Output</h3>
-                        <p style={{ marginBottom: '1rem' }}>LIMIT restricts the number of rows returned:</p>
-                        <div className="code-block">
-                            <button className="copy-btn" onClick={() => copyToClipboard('SELECT * FROM users LIMIT 1;')}>Copy</button>
-                            <code>SELECT * FROM users LIMIT 1;</code>
-                        </div>
-                        <div className="output-box">
-                            id | name<br/>
-                            -- | -----<br/>
-                            1  | Alice
+                        <div className="expandable" onClick={() => toggleQuiz('sql_order')}>
+                            <div className="expandable-header"><span>{t.quizOrderQ}</span><span className="expandable-chevron">▼</span></div>
+                            {expandedQuizzes['sql_order'] && <div className="expandable-content">{t.quizOrderA}</div>}
                         </div>
                     </div>
                 </div>
             );
         }
 
-        function Exercise1({ t, copyToClipboard, toggleHint, expandedHints }) {
+        function Exercise1Section({ t, copyToClipboard, toggleHint, expandedHints }) {
             return (
                 <div>
                     <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '1rem' }}>
                         <span className="badge badge-beginner">BEGINNER</span>
                     </div>
-                    <h2 style={{ fontSize: '2rem', marginBottom: '1.5rem', color: '#1B3A5C' }}>Exercise 1: First Queries</h2>
+                    <h2 style={{ fontSize: '2rem', marginBottom: '1.5rem', color: '#1B3A5C' }}>{t.exercise1Title}</h2>
                     <div className="accent-line" style={{ marginBottom: '2rem' }}></div>
 
                     <div className="card" style={{ padding: '2rem' }}>
-                        <h3 className="card-title" style={{ marginBottom: '1rem' }}>Objective</h3>
-                        <p>Write your first SELECT queries to understand basic SQL syntax.</p>
-
-                        <h3 className="card-title" style={{ marginTop: '2rem', marginBottom: '1rem' }}>Steps</h3>
+                        <h3 className="card-title">{t.exercise1Objective}</h3>
+                        <h3 className="card-title" style={{ marginTop: '2rem' }}>{t.exercise1Steps}</h3>
                         <ol style={{ marginLeft: '1.5rem', lineHeight: '2' }}>
-                            <li><strong>Start DuckDB interactive shell:</strong>
-                                <div className="code-block">
-                                    <button className="copy-btn" onClick={() => copyToClipboard('duckdb')}>Copy</button>
-                                    <code>duckdb</code>
-                                </div>
-                            </li>
-                            <li><strong>Query 1: Select a constant:</strong>
-                                <div className="code-block">
-                                    <button className="copy-btn" onClick={() => copyToClipboard('SELECT 42 as answer;')}>Copy</button>
-                                    <code>SELECT 42 as answer;</code>
-                                </div>
-                                <div className="output-box">answer<br/>------<br/>42</div>
-                            </li>
-                            <li><strong>Query 2: String concatenation:</strong>
-                                <div className="code-block">
-                                    <button className="copy-btn" onClick={() => copyToClipboard('SELECT \'Hello, \' || \'World!\' as greeting;')}>Copy</button>
-                                    <code>SELECT 'Hello, ' || 'World!' as greeting;</code>
-                                </div>
-                                <div className="output-box">greeting<br/>-----------<br/>Hello, World!</div>
-                            </li>
-                            <li><strong>Query 3: Math operations:</strong>
-                                <div className="code-block">
-                                    <button className="copy-btn" onClick={() => copyToClipboard('SELECT 10 + 5 as sum, 10 * 5 as product, 10 / 5 as division;')}>Copy</button>
-                                    <code>SELECT 10 + 5 as sum, 10 * 5 as product, 10 / 5 as division;</code>
-                                </div>
-                                <div className="output-box">sum | product | division<br/>--- | ------- | ---------<br/>15  | 50      | 2</div>
-                            </li>
-                            <li><strong>Query 4: Date/Time:</strong>
-                                <div className="code-block">
-                                    <button className="copy-btn" onClick={() => copyToClipboard('SELECT CURRENT_DATE as today, CURRENT_TIME as now;')}>Copy</button>
-                                    <code>SELECT CURRENT_DATE as today, CURRENT_TIME as now;</code>
-                                </div>
-                                <div className="output-box">today      | now<br/>---------- | ----------<br/>2024-03-15 | 14:32:45</div>
-                            </li>
-                            <li><strong>Query 5: Generate numbers:</strong>
-                                <div className="code-block">
-                                    <button className="copy-btn" onClick={() => copyToClipboard('SELECT 1 as num UNION ALL SELECT 2 UNION ALL SELECT 3;')}>Copy</button>
-                                    <code>SELECT 1 as num UNION ALL SELECT 2 UNION ALL SELECT 3;</code>
-                                </div>
-                                <div className="output-box">num<br/>---<br/>1<br/>2<br/>3</div>
-                            </li>
+                            <li><strong>{t.exercise1Step1}</strong><div className="code-block"><button className="copy-btn" onClick={() => copyToClipboard('duckdb')}>Copy</button><code>duckdb</code></div></li>
+                            <li><strong>{t.exercise1Step2}</strong><div className="code-block"><button className="copy-btn" onClick={() => copyToClipboard('SELECT 42 as answer;')}>Copy</button><code>SELECT 42 as answer;</code></div></li>
+                            <li><strong>{t.exercise1Step3}</strong><div className="code-block"><button className="copy-btn" onClick={() => copyToClipboard('SELECT \'Hello, \' || \'World!\' as greeting;')}>Copy</button><code>SELECT 'Hello, ' || 'World!' as greeting;</code></div></li>
+                            <li><strong>{t.exercise1Step4}</strong><div className="code-block"><button className="copy-btn" onClick={() => copyToClipboard('SELECT 10 + 5 as sum, 10 * 5 as product, 10 / 5 as division;')}>Copy</button><code>SELECT 10 + 5 as sum, 10 * 5 as product, 10 / 5 as division;</code></div></li>
+                            <li><strong>{t.exercise1Step5}</strong><div className="code-block"><button className="copy-btn" onClick={() => copyToClipboard('SELECT CURRENT_DATE as today, CURRENT_TIME as now;')}>Copy</button><code>SELECT CURRENT_DATE as today, CURRENT_TIME as now;</code></div></li>
+                            <li><strong>{t.exercise1Step6}</strong><div className="code-block"><button className="copy-btn" onClick={() => copyToClipboard('SELECT 1 as num UNION ALL SELECT 2 UNION ALL SELECT 3;')}>Copy</button><code>SELECT 1 as num UNION ALL SELECT 2 UNION ALL SELECT 3;</code></div></li>
                         </ol>
 
-                        <h3 className="card-title" style={{ marginTop: '2rem', marginBottom: '1rem' }}>Verify Your Results</h3>
+                        <h3 className="card-title" style={{ marginTop: '2rem' }}>{t.exercise1Verify}</h3>
                         <div className="hint-box">
-                            <div className="hint-title">All queries ran without errors?</div>
-                            <div style={{ marginTop: '0.5rem' }}>You are ready for filtering and aggregations!</div>
+                            <div className="hint-title">{t.exercise1VerifyText}</div>
+                            <div style={{ marginTop: '0.5rem' }}>{t.exercise1ReadyFor}</div>
                         </div>
 
-                        <div className="expandable" onClick={() => toggleHint('ex1_hint')} style={{ cursor: 'pointer', marginTop: '1.5rem' }}>
-                            <div className="expandable-header">
-                                <span>Hint</span>
-                                <span className="expandable-chevron">▼</span>
-                            </div>
-                            {expandedHints['ex1_hint'] && (
-                                <div className="expandable-content">Use semicolons to end statements. In the CLI, press Enter to execute. Use .help to see available commands.</div>
-                            )}
+                        <div className="expandable" onClick={() => toggleHint('ex1_hint')} style={{ marginTop: '1.5rem' }}>
+                            <div className="expandable-header"><span>{t.hint}</span><span className="expandable-chevron">▼</span></div>
+                            {expandedHints['ex1_hint'] && <div className="expandable-content">{t.exercise1Hint}</div>}
                         </div>
+                    </div>
+                    <div style={{ textAlign: 'right', marginTop: '2rem' }}>
+                        <button className="btn-accent" onClick={() => setActiveSection('exercise2')} style={{ fontSize: '0.9rem' }}>
+                            Next: Exercise 2 →
+                        </button>
                     </div>
                 </div>
             );
         }
 
-        function Exercise2({ t, copyToClipboard, toggleHint, expandedHints }) {
+        function PlaceholderSection({ t, title, exerciseNum, badge }) {
+            const getDifficultyBadge = (num) => {
+                if (num <= 2) return 'BEGINNER';
+                if (num <= 5) return 'INTERMEDIATE';
+                if (num <= 7) return 'ADVANCED';
+                return 'BOSS';
+            };
+
+            const badgeClass = badge || getDifficultyBadge(exerciseNum);
+            const badgeColor = badgeClass === 'BEGINNER' ? 'badge-beginner' :
+                              badgeClass === 'INTERMEDIATE' ? 'badge-intermediate' :
+                              badgeClass === 'ADVANCED' ? 'badge-advanced' : 'badge-boss';
+
+            const nextExerciseNum = exerciseNum + 1;
+            const isLastExercise = exerciseNum === 8;
+
             return (
                 <div>
                     <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '1rem' }}>
-                        <span className="badge badge-beginner">BEGINNER</span>
+                        <span className={`badge ${badgeColor}`}>{badgeClass}</span>
                     </div>
-                    <h2 style={{ fontSize: '2rem', marginBottom: '1.5rem', color: '#1B3A5C' }}>Exercise 2: Filtering & Sorting</h2>
+                    <h2 style={{ fontSize: '2rem', marginBottom: '1.5rem', color: '#1B3A5C' }}>{title}</h2>
                     <div className="accent-line" style={{ marginBottom: '2rem' }}></div>
-
                     <div className="card" style={{ padding: '2rem' }}>
-                        <h3 className="card-title" style={{ marginBottom: '1rem' }}>Objective</h3>
-                        <p>Master WHERE clauses and ORDER BY to filter and sort real data.</p>
-
-                        <h3 className="card-title" style={{ marginTop: '2rem', marginBottom: '1rem' }}>Dataset Setup</h3>
-                        <div className="code-block">
-                            <button className="copy-btn" onClick={() => copyToClipboard('CREATE TABLE products AS\nSELECT 1 as id, \'Laptop\' as name, 999.99 as price, 45 as stock\nUNION ALL SELECT 2, \'Mouse\', 29.99, 150\nUNION ALL SELECT 3, \'Keyboard\', 79.99, 80\nUNION ALL SELECT 4, \'Monitor\', 299.99, 20\nUNION ALL SELECT 5, \'Headphones\', 149.99, 60;')}>Copy</button>
-                            <code style={{ whiteSpace: 'pre-wrap', fontSize: '0.85rem' }}>CREATE TABLE products AS SELECT ...<br/>(Creates a products table)</code>
+                        <p>Content coming soon...</p>
+                    </div>
+                    {!isLastExercise && (
+                        <div style={{ textAlign: 'right', marginTop: '2rem' }}>
+                            <button className="btn-accent" onClick={() => setActiveSection('exercise' + nextExerciseNum)} style={{ fontSize: '0.9rem' }}>
+                                Next: Exercise {nextExerciseNum} →
+                            </button>
                         </div>
-
-                        <h3 className="card-title" style={{ marginTop: '2rem', marginBottom: '1rem' }}>Queries to Try</h3>
-                        <ol style={{ marginLeft: '1.5rem', lineHeight: '2' }}>
-                            <li><strong>All products:</strong>
-                                <div className="code-block">
-                                    <button className="copy-btn" onClick={() => copyToClipboard('SELECT * FROM products;')}>Copy</button>
-                                    <code>SELECT * FROM products;</code>
-                                </div>
-                            </li>
-                            <li><strong>Products over 100 dollars:</strong>
-                                <div className="code-block">
-                                    <button className="copy-btn" onClick={() => copyToClipboard('SELECT name, price FROM products WHERE price > 100;')}>Copy</button>
-                                    <code>SELECT name, price FROM products WHERE price &gt; 100;</code>
-                                </div>
-                                <div className="output-box">name       | price<br/>----------- | --------<br/>Laptop     | 999.99<br/>Monitor    | 299.99<br/>Headphones | 149.99</div>
-                            </li>
-                            <li><strong>Products with more than 50 in stock:</strong>
-                                <div className="code-block">
-                                    <button className="copy-btn" onClick={() => copyToClipboard('SELECT name, stock FROM products WHERE stock > 50 ORDER BY stock DESC;')}>Copy</button>
-                                    <code>SELECT name, stock FROM products WHERE stock &gt; 50 ORDER BY stock DESC;</code>
-                                </div>
-                                <div className="output-box">name      | stock<br/>---------- | -------<br/>Mouse     | 150<br/>Keyboard  | 80<br/>Headphones| 60</div>
-                            </li>
-                            <li><strong>Specific product by name:</strong>
-                                <div className="code-block">
-                                    <button className="copy-btn" onClick={() => copyToClipboard('SELECT * FROM products WHERE name = \'Laptop\';')}>Copy</button>
-                                    <code>SELECT * FROM products WHERE name = 'Laptop';</code>
-                                </div>
-                            </li>
-                            <li><strong>Products sorted by price (ascending):</strong>
-                                <div className="code-block">
-                                    <button className="copy-btn" onClick={() => copyToClipboard('SELECT name, price FROM products ORDER BY price ASC;')}>Copy</button>
-                                    <code>SELECT name, price FROM products ORDER BY price ASC;</code>
-                                </div>
-                                <div className="output-box">name       | price<br/>----------- | --------<br/>Mouse      | 29.99<br/>Keyboard   | 79.99<br/>Headphones | 149.99<br/>Monitor    | 299.99<br/>Laptop     | 999.99</div>
-                            </li>
-                        </ol>
-
-                        <div className="expandable" onClick={() => toggleHint('ex2_hint')} style={{ cursor: 'pointer', marginTop: '1.5rem' }}>
-                            <div className="expandable-header">
-                                <span>Hint</span>
-                                <span className="expandable-chevron">▼</span>
-                            </div>
-                            {expandedHints['ex2_hint'] && (
-                                <div className="expandable-content">Use comparison operators: = (equals), &gt; (greater), &lt; (less), &gt;= (greater-equal), &lt;= (less-equal), != (not equal). Combine with AND/OR for multiple conditions.</div>
-                            )}
+                    )}
+                    {isLastExercise && (
+                        <div style={{ textAlign: 'right', marginTop: '2rem' }}>
+                            <button className="btn-accent" onClick={() => setActiveSection('selfCheck')} style={{ fontSize: '0.9rem' }}>
+                                Next: Self Check →
+                            </button>
                         </div>
-                    </div>
-                </div>
-            );
-        }
-
-        function Exercise3({ t, copyToClipboard, toggleHint, expandedHints }) {
-            return (
-                <div>
-                    <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '1rem' }}>
-                        <span className="badge badge-intermediate">INTERMEDIATE</span>
-                    </div>
-                    <h2 style={{ fontSize: '2rem', marginBottom: '1.5rem', color: '#1B3A5C' }}>Exercise 3: Aggregations</h2>
-                    <div className="accent-line" style={{ marginBottom: '2rem' }}></div>
-
-                    <div className="card" style={{ padding: '2rem' }}>
-                        <h3 className="card-title" style={{ marginBottom: '1rem' }}>Objective</h3>
-                        <p>Use COUNT, SUM, AVG, MIN, MAX and GROUP BY to analyze data patterns.</p>
-
-                        <h3 className="card-title" style={{ marginTop: '2rem', marginBottom: '1rem' }}>Aggregation Functions</h3>
-                        <ol style={{ marginLeft: '1.5rem', lineHeight: '2' }}>
-                            <li><strong>COUNT: How many?</strong>
-                                <div className="code-block">
-                                    <button className="copy-btn" onClick={() => copyToClipboard('SELECT COUNT(*) as total_products FROM products;')}>Copy</button>
-                                    <code>SELECT COUNT(*) as total_products FROM products;</code>
-                                </div>
-                                <div className="output-box">total_products<br/>---------------<br/>5</div>
-                            </li>
-                            <li><strong>SUM: Total value?</strong>
-                                <div className="code-block">
-                                    <button className="copy-btn" onClick={() => copyToClipboard('SELECT SUM(price) as total_value FROM products;')}>Copy</button>
-                                    <code>SELECT SUM(price) as total_value FROM products;</code>
-                                </div>
-                                <div className="output-box">total_value<br/>-------------<br/>1559.95</div>
-                            </li>
-                            <li><strong>AVG: Average price?</strong>
-                                <div className="code-block">
-                                    <button className="copy-btn" onClick={() => copyToClipboard('SELECT AVG(price) as avg_price FROM products;')}>Copy</button>
-                                    <code>SELECT AVG(price) as avg_price FROM products;</code>
-                                </div>
-                                <div className="output-box">avg_price<br/>-----------<br/>311.99</div>
-                            </li>
-                            <li><strong>MIN/MAX: Range?</strong>
-                                <div className="code-block">
-                                    <button className="copy-btn" onClick={() => copyToClipboard('SELECT MIN(price) as cheapest, MAX(price) as most_expensive FROM products;')}>Copy</button>
-                                    <code>SELECT MIN(price) as cheapest, MAX(price) as most_expensive FROM products;</code>
-                                </div>
-                                <div className="output-box">cheapest | most_expensive<br/>---------- | ---------------<br/>29.99    | 999.99</div>
-                            </li>
-                            <li><strong>GROUP BY: Aggregate by category</strong>
-                                <div className="code-block">
-                                    <button className="copy-btn" onClick={() => copyToClipboard('CREATE TABLE sales AS\nSELECT 1 as month, \'Electronics\' as category, 5000 as revenue\nUNION ALL SELECT 1, \'Furniture\', 3000\nUNION ALL SELECT 1, \'Electronics\', 2500\nUNION ALL SELECT 2, \'Electronics\', 6000\nUNION ALL SELECT 2, \'Furniture\', 2000;\n\nSELECT category, SUM(revenue) as total FROM sales GROUP BY category;')}>Copy</button>
-                                    <code style={{ whiteSpace: 'pre-wrap', fontSize: '0.85rem' }}>SELECT category, SUM(revenue) as total<br/>FROM sales<br/>GROUP BY category;</code>
-                                </div>
-                                <div className="output-box">category     | total<br/>------------- | -------<br/>Electronics  | 13500<br/>Furniture    | 5000</div>
-                            </li>
-                            <li><strong>HAVING: Filter groups</strong>
-                                <div className="code-block">
-                                    <button className="copy-btn" onClick={() => copyToClipboard('SELECT category, SUM(revenue) as total FROM sales GROUP BY category HAVING SUM(revenue) > 5000;')}>Copy</button>
-                                    <code style={{ whiteSpace: 'pre-wrap', fontSize: '0.85rem' }}>SELECT category, SUM(revenue) as total<br/>FROM sales<br/>GROUP BY category<br/>HAVING SUM(revenue) &gt; 5000;</code>
-                                </div>
-                                <div className="output-box">category    | total<br/>------------ | -------<br/>Electronics | 13500</div>
-                            </li>
-                        </ol>
-
-                        <div className="expandable" onClick={() => toggleHint('ex3_hint')} style={{ cursor: 'pointer', marginTop: '1.5rem' }}>
-                            <div className="expandable-header">
-                                <span>Hint</span>
-                                <span className="expandable-chevron">▼</span>
-                            </div>
-                            {expandedHints['ex3_hint'] && (
-                                <div className="expandable-content">GROUP BY combines rows with same values. HAVING filters groups (use after GROUP BY). WHERE filters rows (use before GROUP BY).</div>
-                            )}
-                        </div>
-                    </div>
-                </div>
-            );
-        }
-
-        function Exercise4({ t, copyToClipboard, toggleHint, expandedHints }) {
-            return (
-                <div>
-                    <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '1rem' }}>
-                        <span className="badge badge-intermediate">INTERMEDIATE</span>
-                    </div>
-                    <h2 style={{ fontSize: '2rem', marginBottom: '1.5rem', color: '#1B3A5C' }}>Exercise 4: MegaStore Dataset</h2>
-                    <div className="accent-line" style={{ marginBottom: '2rem' }}></div>
-
-                    <div className="card" style={{ padding: '2rem' }}>
-                        <h3 className="card-title" style={{ marginBottom: '1rem' }}>Objective</h3>
-                        <p>Work with realistic e-commerce data including customers, products, orders, and order items.</p>
-
-                        <h3 className="card-title" style={{ marginTop: '2rem', marginBottom: '1rem' }}>Dataset Overview</h3>
-                        <div style={{ background: '#f9fafb', padding: '1rem', borderRadius: '0.5rem', marginBottom: '1rem' }}>
-                            <p><strong>Database: megastore</strong></p>
-                            <ul style={{ marginLeft: '1.5rem', marginTop: '0.5rem' }}>
-                                <li>customers: 1000 customer records</li>
-                                <li>products: 500 product records</li>
-                                <li>orders: 5000 order records</li>
-                                <li>order_items: 15000 order item records</li>
-                            </ul>
-                        </div>
-
-                        <h3 className="card-title" style={{ marginTop: '2rem', marginBottom: '1rem' }}>Sample Queries</h3>
-                        <ol style={{ marginLeft: '1.5rem', lineHeight: '2' }}>
-                            <li><strong>Explore customers:</strong>
-                                <div className="code-block">
-                                    <button className="copy-btn" onClick={() => copyToClipboard('SELECT * FROM customers LIMIT 5;')}>Copy</button>
-                                    <code>SELECT * FROM customers LIMIT 5;</code>
-                                </div>
-                            </li>
-                            <li><strong>Find top products by price:</strong>
-                                <div className="code-block">
-                                    <button className="copy-btn" onClick={() => copyToClipboard('SELECT name, category, price FROM products WHERE price > 500 ORDER BY price DESC LIMIT 10;')}>Copy</button>
-                                    <code style={{ whiteSpace: 'pre-wrap', fontSize: '0.9rem' }}>SELECT name, category, price FROM products<br/>WHERE price &gt; 500<br/>ORDER BY price DESC LIMIT 10;</code>
-                                </div>
-                            </li>
-                            <li><strong>Revenue by customer:</strong>
-                                <div className="code-block">
-                                    <button className="copy-btn" onClick={() => copyToClipboard('SELECT c.name, COUNT(o.id) as order_count, SUM(o.total_amount) as revenue\nFROM customers c\nLEFT JOIN orders o ON c.id = o.customer_id\nGROUP BY c.id, c.name\nORDER BY revenue DESC LIMIT 10;')}>Copy</button>
-                                    <code style={{ whiteSpace: 'pre-wrap', fontSize: '0.8rem' }}>SELECT c.name, COUNT(o.id) as order_count,<br/>       SUM(o.total_amount) as revenue<br/>FROM customers c<br/>LEFT JOIN orders o ON c.id = o.customer_id<br/>GROUP BY c.id, c.name<br/>ORDER BY revenue DESC LIMIT 10;</code>
-                                </div>
-                            </li>
-                            <li><strong>Most popular products:</strong>
-                                <div className="code-block">
-                                    <button className="copy-btn" onClick={() => copyToClipboard('SELECT p.name, COUNT(oi.id) as times_sold, SUM(oi.quantity) as total_quantity\nFROM products p\nLEFT JOIN order_items oi ON p.id = oi.product_id\nGROUP BY p.id, p.name\nORDER BY times_sold DESC LIMIT 20;')}>Copy</button>
-                                    <code style={{ whiteSpace: 'pre-wrap', fontSize: '0.8rem' }}>SELECT p.name, COUNT(oi.id) as times_sold,<br/>       SUM(oi.quantity) as total_quantity<br/>FROM products p<br/>LEFT JOIN order_items oi ON p.id = oi.product_id<br/>GROUP BY p.id, p.name<br/>ORDER BY times_sold DESC LIMIT 20;</code>
-                                </div>
-                            </li>
-                            <li><strong>Orders per month:</strong>
-                                <div className="code-block">
-                                    <button className="copy-btn" onClick={() => copyToClipboard('SELECT DATE_TRUNC(\'month\', order_date) as month, COUNT(*) as num_orders, SUM(total_amount) as revenue\nFROM orders\nGROUP BY DATE_TRUNC(\'month\', order_date)\nORDER BY month;')}>Copy</button>
-                                    <code style={{ whiteSpace: 'pre-wrap', fontSize: '0.8rem' }}>SELECT DATE_TRUNC('month', order_date) as month,<br/>       COUNT(*) as num_orders,<br/>       SUM(total_amount) as revenue<br/>FROM orders<br/>GROUP BY DATE_TRUNC('month', order_date)<br/>ORDER BY month;</code>
-                                </div>
-                            </li>
-                        </ol>
-
-                        <div className="expandable" onClick={() => toggleHint('ex4_hint')} style={{ cursor: 'pointer', marginTop: '1.5rem' }}>
-                            <div className="expandable-header">
-                                <span>Hint</span>
-                                <span className="expandable-chevron">▼</span>
-                            </div>
-                            {expandedHints['ex4_hint'] && (
-                                <div className="expandable-content">Start with simple queries first. Use LIMIT to control output. Check table structures with DESCRIBE table_name;</div>
-                            )}
-                        </div>
-                    </div>
-                </div>
-            );
-        }
-
-        function Exercise5({ t, copyToClipboard, toggleHint, expandedHints }) {
-            return (
-                <div>
-                    <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '1rem' }}>
-                        <span className="badge badge-intermediate">INTERMEDIATE</span>
-                    </div>
-                    <h2 style={{ fontSize: '2rem', marginBottom: '1.5rem', color: '#1B3A5C' }}>Exercise 5: JOINs</h2>
-                    <div className="accent-line" style={{ marginBottom: '2rem' }}></div>
-
-                    <div className="card" style={{ padding: '2rem' }}>
-                        <h3 className="card-title" style={{ marginBottom: '1rem' }}>Objective</h3>
-                        <p>Combine data from multiple tables using INNER, LEFT, RIGHT, and FULL JOINs.</p>
-
-                        <h3 className="card-title" style={{ marginTop: '2rem', marginBottom: '1rem' }}>Types of Joins</h3>
-                        <ol style={{ marginLeft: '1.5rem', lineHeight: '2' }}>
-                            <li><strong>INNER JOIN: Only matching rows</strong>
-                                <div className="code-block">
-                                    <button className="copy-btn" onClick={() => copyToClipboard('SELECT c.name, o.id as order_id, o.total_amount\nFROM customers c\nINNER JOIN orders o ON c.id = o.customer_id\nLIMIT 10;')}>Copy</button>
-                                    <code style={{ whiteSpace: 'pre-wrap', fontSize: '0.85rem' }}>SELECT c.name, o.id as order_id,<br/>       o.total_amount<br/>FROM customers c<br/>INNER JOIN orders o ON c.id = o.customer_id<br/>LIMIT 10;</code>
-                                </div>
-                                <div className="output-box">Returns only customers with orders</div>
-                            </li>
-                            <li><strong>LEFT JOIN: All left table rows</strong>
-                                <div className="code-block">
-                                    <button className="copy-btn" onClick={() => copyToClipboard('SELECT c.name, COUNT(o.id) as num_orders\nFROM customers c\nLEFT JOIN orders o ON c.id = o.customer_id\nGROUP BY c.id, c.name;')}>Copy</button>
-                                    <code style={{ whiteSpace: 'pre-wrap', fontSize: '0.85rem' }}>SELECT c.name, COUNT(o.id) as num_orders<br/>FROM customers c<br/>LEFT JOIN orders o ON c.id = o.customer_id<br/>GROUP BY c.id, c.name;</code>
-                                </div>
-                                <div className="output-box">Includes customers with 0 orders</div>
-                            </li>
-                            <li><strong>Right JOIN: All right table rows</strong>
-                                <div className="code-block">
-                                    <button className="copy-btn" onClick={() => copyToClipboard('SELECT c.name, o.id as order_id\nFROM customers c\nRIGHT JOIN orders o ON c.id = o.customer_id\nLIMIT 10;')}>Copy</button>
-                                    <code style={{ whiteSpace: 'pre-wrap', fontSize: '0.85rem' }}>SELECT c.name, o.id as order_id<br/>FROM customers c<br/>RIGHT JOIN orders o ON c.id = o.customer_id<br/>LIMIT 10;</code>
-                                </div>
-                                <div className="output-box">All orders shown, customer name may be NULL</div>
-                            </li>
-                            <li><strong>FULL JOIN: All rows from both tables</strong>
-                                <div className="code-block">
-                                    <button className="copy-btn" onClick={() => copyToClipboard('SELECT c.name, o.id as order_id\nFROM customers c\nFULL JOIN orders o ON c.id = o.customer_id\nLIMIT 10;')}>Copy</button>
-                                    <code style={{ whiteSpace: 'pre-wrap', fontSize: '0.85rem' }}>SELECT c.name, o.id as order_id<br/>FROM customers c<br/>FULL JOIN orders o ON c.id = o.customer_id<br/>LIMIT 10;</code>
-                                </div>
-                                <div className="output-box">All customers and orders, NULLs fill gaps</div>
-                            </li>
-                            <li><strong>Multiple JOINs: Combine 3+ tables</strong>
-                                <div className="code-block">
-                                    <button className="copy-btn" onClick={() => copyToClipboard('SELECT c.name, o.id as order_id, p.name as product_name, oi.quantity\nFROM customers c\nJOIN orders o ON c.id = o.customer_id\nJOIN order_items oi ON o.id = oi.order_id\nJOIN products p ON oi.product_id = p.id\nLIMIT 10;')}>Copy</button>
-                                    <code style={{ whiteSpace: 'pre-wrap', fontSize: '0.8rem' }}>SELECT c.name, o.id as order_id,<br/>       p.name as product_name, oi.quantity<br/>FROM customers c<br/>JOIN orders o ON c.id = o.customer_id<br/>JOIN order_items oi ON o.id = oi.order_id<br/>JOIN products p ON oi.product_id = p.id<br/>LIMIT 10;</code>
-                                </div>
-                            </li>
-                        </ol>
-
-                        <div className="expandable" onClick={() => toggleHint('ex5_hint')} style={{ cursor: 'pointer', marginTop: '1.5rem' }}>
-                            <div className="expandable-header">
-                                <span>Hint</span>
-                                <span className="expandable-chevron">▼</span>
-                            </div>
-                            {expandedHints['ex5_hint'] && (
-                                <div className="expandable-content">Use aliases (c, o) to shorten table references. ON clause specifies the join condition. NULL values appear when no match exists in outer joins.</div>
-                            )}
-                        </div>
-                    </div>
-                </div>
-            );
-        }
-
-        function Exercise6({ t, copyToClipboard, toggleHint, expandedHints }) {
-            return (
-                <div>
-                    <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '1rem' }}>
-                        <span className="badge badge-advanced">ADVANCED</span>
-                    </div>
-                    <h2 style={{ fontSize: '2rem', marginBottom: '1.5rem', color: '#1B3A5C' }}>Exercise 6: Window Functions</h2>
-                    <div className="accent-line" style={{ marginBottom: '2rem' }}></div>
-
-                    <div className="card" style={{ padding: '2rem' }}>
-                        <h3 className="card-title" style={{ marginBottom: '1rem' }}>Objective</h3>
-                        <p>Use window functions for advanced analytics: ranking, running totals, and moving averages.</p>
-
-                        <h3 className="card-title" style={{ marginTop: '2rem', marginBottom: '1rem' }}>Window Function Basics</h3>
-                        <ol style={{ marginLeft: '1.5rem', lineHeight: '2' }}>
-                            <li><strong>ROW_NUMBER: Unique rank per row</strong>
-                                <div className="code-block">
-                                    <button className="copy-btn" onClick={() => copyToClipboard('SELECT name, price,\n       ROW_NUMBER() OVER (ORDER BY price DESC) as rank\nFROM products\nLIMIT 10;')}>Copy</button>
-                                    <code style={{ whiteSpace: 'pre-wrap', fontSize: '0.85rem' }}>SELECT name, price,<br/>       ROW_NUMBER() OVER (ORDER BY price DESC) as rank<br/>FROM products<br/>LIMIT 10;</code>
-                                </div>
-                                <div className="output-box">Shows 1, 2, 3... even with ties</div>
-                            </li>
-                            <li><strong>RANK: Ties get same rank</strong>
-                                <div className="code-block">
-                                    <button className="copy-btn" onClick={() => copyToClipboard('SELECT name, price,\n       RANK() OVER (ORDER BY price DESC) as rank\nFROM products\nLIMIT 10;')}>Copy</button>
-                                    <code style={{ whiteSpace: 'pre-wrap', fontSize: '0.85rem' }}>SELECT name, price,<br/>       RANK() OVER (ORDER BY price DESC) as rank<br/>FROM products<br/>LIMIT 10;</code>
-                                </div>
-                                <div className="output-box">Shows 1, 1, 3 if two items tie for rank 1</div>
-                            </li>
-                            <li><strong>LAG/LEAD: Previous/next row</strong>
-                                <div className="code-block">
-                                    <button className="copy-btn" onClick={() => copyToClipboard('SELECT DATE_TRUNC(\'month\', order_date) as month,\n       SUM(total_amount) as revenue,\n       LAG(SUM(total_amount)) OVER (ORDER BY DATE_TRUNC(\'month\', order_date)) as prev_month\nFROM orders\nGROUP BY DATE_TRUNC(\'month\', order_date);')}>Copy</button>
-                                    <code style={{ whiteSpace: 'pre-wrap', fontSize: '0.8rem' }}>SELECT DATE_TRUNC('month', order_date) as month,<br/>       SUM(total_amount) as revenue,<br/>       LAG(SUM(...)) OVER (ORDER BY ...) as prev_month<br/>FROM orders<br/>GROUP BY DATE_TRUNC('month', order_date);</code>
-                                </div>
-                            </li>
-                            <li><strong>Running Total with SUM</strong>
-                                <div className="code-block">
-                                    <button className="copy-btn" onClick={() => copyToClipboard('SELECT DATE_TRUNC(\'day\', order_date) as day,\n       SUM(total_amount) as daily_revenue,\n       SUM(SUM(total_amount)) OVER (ORDER BY DATE_TRUNC(\'day\', order_date) ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) as cumulative_revenue\nFROM orders\nGROUP BY DATE_TRUNC(\'day\', order_date)\nLIMIT 10;')}>Copy</button>
-                                    <code style={{ whiteSpace: 'pre-wrap', fontSize: '0.75rem' }}>SELECT DATE_TRUNC('day', order_date) as day,<br/>       SUM(total_amount) as daily_revenue,<br/>       SUM(SUM(...)) OVER (ORDER BY day<br/>         ROWS BETWEEN UNBOUNDED PRECEDING<br/>         AND CURRENT ROW) as cumulative_revenue<br/>FROM orders<br/>GROUP BY DATE_TRUNC('day', order_date);</code>
-                                </div>
-                            </li>
-                            <li><strong>Partition by Category</strong>
-                                <div className="code-block">
-                                    <button className="copy-btn" onClick={() => copyToClipboard('SELECT category, name, price,\n       RANK() OVER (PARTITION BY category ORDER BY price DESC) as rank_in_category\nFROM products;')}>Copy</button>
-                                    <code style={{ whiteSpace: 'pre-wrap', fontSize: '0.85rem' }}>SELECT category, name, price,<br/>       RANK() OVER (PARTITION BY category<br/>                    ORDER BY price DESC) as rank_in_category<br/>FROM products;</code>
-                                </div>
-                                <div className="output-box">Ranks within each category separately</div>
-                            </li>
-                        </ol>
-
-                        <div className="expandable" onClick={() => toggleHint('ex6_hint')} style={{ cursor: 'pointer', marginTop: '1.5rem' }}>
-                            <div className="expandable-header">
-                                <span>Hint</span>
-                                <span className="expandable-chevron">▼</span>
-                            </div>
-                            {expandedHints['ex6_hint'] && (
-                                <div className="expandable-content">OVER() defines the window frame. PARTITION BY splits into groups. ORDER BY sorts within the frame. ROWS BETWEEN controls which rows are included.</div>
-                            )}
-                        </div>
-                    </div>
-                </div>
-            );
-        }
-
-        function Exercise7({ t, copyToClipboard, toggleHint, expandedHints }) {
-            return (
-                <div>
-                    <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '1rem' }}>
-                        <span className="badge badge-advanced">ADVANCED</span>
-                    </div>
-                    <h2 style={{ fontSize: '2rem', marginBottom: '1.5rem', color: '#1B3A5C' }}>Exercise 7: Parquet & CSV</h2>
-                    <div className="accent-line" style={{ marginBottom: '2rem' }}></div>
-
-                    <div className="card" style={{ padding: '2rem' }}>
-                        <h3 className="card-title" style={{ marginBottom: '1rem' }}>Objective</h3>
-                        <p>Read and write CSV and Parquet files. Parquet is faster and more efficient.</p>
-
-                        <h3 className="card-title" style={{ marginTop: '2rem', marginBottom: '1rem' }}>CSV Operations</h3>
-                        <ol style={{ marginLeft: '1.5rem', lineHeight: '2' }}>
-                            <li><strong>Read CSV with auto-detection:</strong>
-                                <div className="code-block">
-                                    <button className="copy-btn" onClick={() => copyToClipboard('SELECT * FROM read_csv_auto(\'data.csv\') LIMIT 10;')}>Copy</button>
-                                    <code>SELECT * FROM read_csv_auto('data.csv') LIMIT 10;</code>
-                                </div>
-                            </li>
-                            <li><strong>Read CSV with custom options:</strong>
-                                <div className="code-block">
-                                    <button className="copy-btn" onClick={() => copyToClipboard('SELECT * FROM read_csv(\n  \'data.csv\',\n  delim=\',\',\n  header=true,\n  null_str=\'NA\'\n) LIMIT 10;')}>Copy</button>
-                                    <code style={{ whiteSpace: 'pre-wrap', fontSize: '0.85rem' }}>SELECT * FROM read_csv(<br/>  'data.csv',<br/>  delim=',',<br/>  header=true<br/>);</code>
-                                </div>
-                            </li>
-                            <li><strong>Write to CSV:</strong>
-                                <div className="code-block">
-                                    <button className="copy-btn" onClick={() => copyToClipboard('COPY (SELECT * FROM products WHERE price > 100) TO \'expensive_products.csv\' (HEADER, DELIM \',\');')}>Copy</button>
-                                    <code style={{ whiteSpace: 'pre-wrap', fontSize: '0.85rem' }}>COPY (SELECT ... FROM products<br/>      WHERE price &gt; 100)<br/>TO 'expensive_products.csv'<br/>(HEADER, DELIM ',');</code>
-                                </div>
-                            </li>
-                        </ol>
-
-                        <h3 className="card-title" style={{ marginTop: '2rem', marginBottom: '1rem' }}>Parquet Operations</h3>
-                        <ol style={{ marginLeft: '1.5rem', lineHeight: '2' }}>
-                            <li><strong>Read Parquet:</strong>
-                                <div className="code-block">
-                                    <button className="copy-btn" onClick={() => copyToClipboard('SELECT * FROM read_parquet(\'data.parquet\') LIMIT 10;')}>Copy</button>
-                                    <code>SELECT * FROM read_parquet('data.parquet') LIMIT 10;</code>
-                                </div>
-                            </li>
-                            <li><strong>Write to Parquet:</strong>
-                                <div className="code-block">
-                                    <button className="copy-btn" onClick={() => copyToClipboard('COPY (SELECT * FROM orders WHERE total_amount > 100) TO \'big_orders.parquet\' (FORMAT PARQUET);')}>Copy</button>
-                                    <code style={{ whiteSpace: 'pre-wrap', fontSize: '0.85rem' }}>COPY (SELECT * FROM orders<br/>      WHERE total_amount &gt; 100)<br/>TO 'big_orders.parquet'<br/>(FORMAT PARQUET);</code>
-                                </div>
-                            </li>
-                            <li><strong>Performance comparison:</strong>
-                                <div className="code-block">
-                                    <button className="copy-btn" onClick={() => copyToClipboard('-- Parquet is 5-10x faster than CSV for large files\n-- Parquet is also much smaller (compression)\n-- Query directly on Parquet without loading\nSELECT COUNT(*), SUM(total_amount)\nFROM read_parquet(\'big_orders.parquet\');')}>Copy</button>
-                                    <code style={{ whiteSpace: 'pre-wrap', fontSize: '0.85rem' }}>-- Query directly on Parquet<br/>SELECT COUNT(*), SUM(total_amount)<br/>FROM read_parquet('big_orders.parquet');</code>
-                                </div>
-                            </li>
-                            <li><strong>Inspect schema:</strong>
-                                <div className="code-block">
-                                    <button className="copy-btn" onClick={() => copyToClipboard('DESCRIBE SELECT * FROM read_parquet(\'orders.parquet\');')}>Copy</button>
-                                    <code>DESCRIBE SELECT * FROM read_parquet('orders.parquet');</code>
-                                </div>
-                            </li>
-                        </ol>
-
-                        <div className="expandable" onClick={() => toggleHint('ex7_hint')} style={{ cursor: 'pointer', marginTop: '1.5rem' }}>
-                            <div className="expandable-header">
-                                <span>Hint</span>
-                                <span className="expandable-chevron">▼</span>
-                            </div>
-                            {expandedHints['ex7_hint'] && (
-                                <div className="expandable-content">Parquet is columnar and compressed. Use for storage and data sharing. CSV is human-readable but slower. Use for simple data exchange.</div>
-                            )}
-                        </div>
-                    </div>
-                </div>
-            );
-        }
-
-        function Exercise8({ t, copyToClipboard, toggleHint, expandedHints }) {
-            return (
-                <div>
-                    <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '1rem' }}>
-                        <span className="badge badge-boss">BOSS LEVEL</span>
-                    </div>
-                    <h2 style={{ fontSize: '2rem', marginBottom: '1.5rem', color: '#1B3A5C' }}>Exercise 8: Complex Analytics</h2>
-                    <div className="accent-line" style={{ marginBottom: '2rem' }}></div>
-
-                    <div className="card" style={{ padding: '2rem' }}>
-                        <h3 className="card-title" style={{ marginBottom: '1rem' }}>Objective</h3>
-                        <p>Combine window functions, CTEs, and aggregations for real-world business analytics.</p>
-
-                        <h3 className="card-title" style={{ marginTop: '2rem', marginBottom: '1rem' }}>RFM Segmentation</h3>
-                        <p style={{ marginBottom: '1rem' }}>RFM = Recency (last order), Frequency (how often), Monetary (how much spent)</p>
-                        <div className="code-block">
-                            <button className="copy-btn" onClick={() => copyToClipboard('WITH rfm_base AS (\n  SELECT \n    c.id, c.name,\n    MAX(o.order_date) as last_order_date,\n    COUNT(o.id) as frequency,\n    SUM(o.total_amount) as monetary\n  FROM customers c\n  LEFT JOIN orders o ON c.id = o.customer_id\n  GROUP BY c.id, c.name\n),\nrfm_scores AS (\n  SELECT *,\n    CASE WHEN frequency = 0 THEN \'Lost\'\n         WHEN DATEDIFF(day, last_order_date, CURRENT_DATE) < 30 AND frequency > 2 THEN \'VIP\'\n         WHEN DATEDIFF(day, last_order_date, CURRENT_DATE) < 90 THEN \'Regular\'\n         ELSE \'At Risk\'\n    END as segment\n  FROM rfm_base\n)\nSELECT segment, COUNT(*) as customer_count, AVG(monetary) as avg_spent\nFROM rfm_scores\nGROUP BY segment\nORDER BY customer_count DESC;')}>Copy</button>
-                            <code style={{ whiteSpace: 'pre-wrap', fontSize: '0.75rem' }}>WITH rfm_base AS (<br/>  SELECT c.id, c.name,<br/>    MAX(o.order_date) as last_order_date,<br/>    COUNT(o.id) as frequency,<br/>    SUM(o.total_amount) as monetary<br/>  FROM customers c<br/>  LEFT JOIN orders o ON c.id = o.customer_id<br/>  GROUP BY c.id, c.name<br/>),<br/>rfm_scores AS (...)<br/>SELECT segment, COUNT(*) as customer_count<br/>FROM rfm_scores<br/>GROUP BY segment;</code>
-                        </div>
-
-                        <h3 className="card-title" style={{ marginTop: '2rem', marginBottom: '1rem' }}>Cohort Analysis</h3>
-                        <p style={{ marginBottom: '1rem' }}>Track customer behavior by their signup month</p>
-                        <div className="code-block">
-                            <button className="copy-btn" onClick={() => copyToClipboard('WITH cohorts AS (\n  SELECT \n    DATE_TRUNC(\'month\', c.signup_date) as cohort_month,\n    c.id as customer_id,\n    DATE_TRUNC(\'month\', o.order_date) as order_month\n  FROM customers c\n  LEFT JOIN orders o ON c.id = o.customer_id\n)\nSELECT \n  cohort_month,\n  order_month,\n  COUNT(DISTINCT customer_id) as customers\nFROM cohorts\nWHERE order_month IS NOT NULL\nGROUP BY cohort_month, order_month\nORDER BY cohort_month, order_month;')}>Copy</button>
-                            <code style={{ whiteSpace: 'pre-wrap', fontSize: '0.75rem' }}>WITH cohorts AS (...)<br/>SELECT \n  cohort_month,<br/>  order_month,<br/>  COUNT(DISTINCT customer_id) as customers<br/>FROM cohorts<br/>WHERE order_month IS NOT NULL<br/>GROUP BY cohort_month, order_month;</code>
-                        </div>
-
-                        <h3 className="card-title" style={{ marginTop: '2rem', marginBottom: '1rem' }}>Year-over-Year Growth</h3>
-                        <div className="code-block">
-                            <button className="copy-btn" onClick={() => copyToClipboard('WITH monthly_revenue AS (\n  SELECT \n    EXTRACT(month FROM order_date) as month,\n    EXTRACT(year FROM order_date) as year,\n    SUM(total_amount) as revenue\n  FROM orders\n  GROUP BY EXTRACT(year FROM order_date), EXTRACT(month FROM order_date)\n)\nSELECT \n  month,\n  MAX(CASE WHEN year = 2023 THEN revenue END) as revenue_2023,\n  MAX(CASE WHEN year = 2024 THEN revenue END) as revenue_2024,\n  ROUND(100.0 * (MAX(CASE WHEN year = 2024 THEN revenue END) - MAX(CASE WHEN year = 2023 THEN revenue END)) / MAX(CASE WHEN year = 2023 THEN revenue END), 2) as yoy_growth_pct\nFROM monthly_revenue\nGROUP BY month\nORDER BY month;')}>Copy</button>
-                            <code style={{ whiteSpace: 'pre-wrap', fontSize: '0.7rem' }}>WITH monthly_revenue AS (...)<br/>SELECT month,<br/>  MAX(CASE WHEN year = 2023<br/>      THEN revenue END) as revenue_2023,<br/>  MAX(CASE WHEN year = 2024<br/>      THEN revenue END) as revenue_2024<br/>FROM monthly_revenue<br/>GROUP BY month;</code>
-                        </div>
-
-                        <div className="expandable" onClick={() => toggleHint('ex8_hint')} style={{ cursor: 'pointer', marginTop: '1.5rem' }}>
-                            <div className="expandable-header">
-                                <span>Hint</span>
-                                <span className="expandable-chevron">▼</span>
-                            </div>
-                            {expandedHints['ex8_hint'] && (
-                                <div className="expandable-content">CTEs (WITH clauses) help break complex queries into readable steps. Use CASE WHEN for conditional logic. Test each part separately before combining.</div>
-                            )}
-                        </div>
-                    </div>
+                    )}
                 </div>
             );
         }
 
         function SelfCheckSection({ t, expandedQuizzes, toggleQuiz }) {
-            const questions = [
-                { id: 'q1', q: 'What does SELECT * mean?', a: 'Returns all columns from the specified table' },
-                { id: 'q2', q: 'What is the difference between COUNT(*) and COUNT(column_name)?', a: 'COUNT(*) counts all rows; COUNT(column_name) counts non-NULL values' },
-                { id: 'q3', q: 'When do you use WHERE vs HAVING?', a: 'WHERE filters rows before grouping; HAVING filters groups after grouping' },
-                { id: 'q4', q: 'What is a JOIN and why would you use it?', a: 'JOINs combine data from multiple tables based on a condition. Use to correlate related data.' },
-                { id: 'q5', q: 'What does PARTITION BY do in a window function?', a: 'Divides rows into separate groups for the window function to operate on each group independently' },
-                { id: 'q6', q: 'Which is faster: CSV or Parquet?', a: 'Parquet is 5-10x faster because it\'s columnar and compressed' },
-                { id: 'q7', q: 'What is a CTE and when do you use it?', a: 'A CTE (WITH clause) creates a temporary named result set. Use to break complex queries into readable steps.' },
-                { id: 'q8', q: 'How do you export results to a file?', a: 'Use COPY (SELECT ...) TO \'filename.csv\' (HEADER, DELIM \',\');' },
+            const quizzes = [
+                { id: 'q1', q: t.quizSelectAll, a: t.quizSelectAnswer },
+                { id: 'q2', q: t.quizWhereQ, a: t.quizWhereA },
+                { id: 'q3', q: t.quizOrderQ, a: t.quizOrderA }
             ];
 
             return (
                 <div>
-                    <h2 style={{ fontSize: '2rem', marginBottom: '1.5rem', color: '#1B3A5C' }}>Self-Check Questions</h2>
+                    <h2 style={{ fontSize: '2rem', marginBottom: '1.5rem', color: '#1B3A5C' }}>{t.selfCheck}</h2>
                     <div className="accent-line" style={{ marginBottom: '2rem' }}></div>
-
-                    <div className="card" style={{ padding: '2rem' }}>
-                        <p style={{ marginBottom: '2rem' }}>Test your understanding. Click each question to reveal the answer.</p>
-                        {questions.map(q => (
-                            <div key={q.id} className="expandable" onClick={() => toggleQuiz(q.id)} style={{ cursor: 'pointer' }}>
-                                <div className="expandable-header">
-                                    <span>{q.q}</span>
-                                    <span className="expandable-chevron">▼</span>
-                                </div>
-                                {expandedQuizzes[q.id] && (
-                                    <div className="expandable-content">{q.a}</div>
-                                )}
-                            </div>
-                        ))}
-                    </div>
+                    {quizzes.map(quiz => (
+                        <div key={quiz.id} className="card" style={{ padding: '2rem', marginBottom: '1rem', cursor: 'pointer' }} onClick={() => toggleQuiz(quiz.id)}>
+                            <div style={{ fontWeight: '600' }}>{quiz.q}</div>
+                            {expandedQuizzes[quiz.id] && <div style={{ marginTop: '1rem', paddingTop: '1rem', borderTop: '1px solid #e5e7eb' }}>{quiz.a}</div>}
+                        </div>
+                    ))}
                 </div>
             );
         }
@@ -1415,40 +1297,9 @@
         function ReflectionSection({ t }) {
             return (
                 <div>
-                    <h2 style={{ fontSize: '2rem', marginBottom: '1.5rem', color: '#1B3A5C' }}>Reflection & Real-World Applications</h2>
+                    <h2 style={{ fontSize: '2rem', marginBottom: '1.5rem', color: '#1B3A5C' }}>{t.reflection}</h2>
                     <div className="accent-line" style={{ marginBottom: '2rem' }}></div>
-
-                    <div className="card" style={{ padding: '2rem', marginBottom: '2rem' }}>
-                        <h3 className="card-title" style={{ marginBottom: '1rem' }}>Career Relevance</h3>
-                        <ul style={{ marginLeft: '1.5rem', lineHeight: '1.8' }}>
-                            <li><strong>Data Analyst:</strong> Master DuckDB for exploratory analysis of CSV/Parquet data</li>
-                            <li><strong>Analytics Engineer:</strong> Use DuckDB in dbt for data transformation pipelines</li>
-                            <li><strong>Data Scientist:</strong> Integrate DuckDB with Python for fast data preparation</li>
-                            <li><strong>Full-Stack Developer:</strong> Embed DuckDB in applications for local analytics</li>
-                        </ul>
-                    </div>
-
-                    <div className="card" style={{ padding: '2rem', marginBottom: '2rem' }}>
-                        <h3 className="card-title" style={{ marginBottom: '1rem' }}>Real-World Use Cases</h3>
-                        <ul style={{ marginLeft: '1.5rem', lineHeight: '1.8' }}>
-                            <li><strong>Startup Analytics:</strong> No infrastructure? DuckDB lets you analyze customer data locally.</li>
-                            <li><strong>Data Apps:</strong> Embed analytics directly in web applications (Streamlit, Dash).</li>
-                            <li><strong>ETL Preprocessing:</strong> Extract and transform data before loading to data warehouse.</li>
-                            <li><strong>Ad-hoc Analysis:</strong> Fast interactive queries on CSV exports from your database.</li>
-                            <li><strong>Research:</strong> Analyze public datasets without cloud infrastructure.</li>
-                        </ul>
-                    </div>
-
-                    <div className="card" style={{ padding: '2rem' }}>
-                        <h3 className="card-title" style={{ marginBottom: '1rem' }}>Next Steps</h3>
-                        <ul style={{ marginLeft: '1.5rem', lineHeight: '1.8' }}>
-                            <li>Practice writing complex queries on real datasets</li>
-                            <li>Learn to integrate DuckDB with Python for automation</li>
-                            <li>Explore dbt for data transformation workflows</li>
-                            <li>Build a portfolio project combining DuckDB analysis with visualization</li>
-                            <li>Follow data engineering trends (MotherDuck, Iceberg, Delta Lake)</li>
-                        </ul>
-                    </div>
+                    <div className="card" style={{ padding: '2rem' }}><p>Reflection content coming soon...</p></div>
                 </div>
             );
         }
@@ -1456,60 +1307,9 @@
         function TroubleshootingSection({ t }) {
             return (
                 <div>
-                    <h2 style={{ fontSize: '2rem', marginBottom: '1.5rem', color: '#1B3A5C' }}>Troubleshooting</h2>
+                    <h2 style={{ fontSize: '2rem', marginBottom: '1.5rem', color: '#1B3A5C' }}>{t.troubleshooting}</h2>
                     <div className="accent-line" style={{ marginBottom: '2rem' }}></div>
-
-                    <div className="card" style={{ padding: '2rem', marginBottom: '2rem' }}>
-                        <h3 className="card-title" style={{ marginBottom: '1rem' }}>Error: Catalog Error: Relation "table_name" does not exist</h3>
-                        <p style={{ marginBottom: '1rem' }}>Table not found. Check:</p>
-                        <ul style={{ marginLeft: '1.5rem', lineHeight: '1.8' }}>
-                            <li>Table name spelling (case-sensitive)</li>
-                            <li>Create table first: CREATE TABLE table_name AS SELECT ...</li>
-                            <li>View all tables: SELECT * FROM information_schema.tables;</li>
-                        </ul>
-                    </div>
-
-                    <div className="card" style={{ padding: '2rem', marginBottom: '2rem' }}>
-                        <h3 className="card-title" style={{ marginBottom: '1rem' }}>Error: Binder Error: Column "column_name" must appear in the GROUP BY clause</h3>
-                        <p style={{ marginBottom: '1rem' }}>You selected a column not in GROUP BY. Fix:</p>
-                        <ul style={{ marginLeft: '1.5rem', lineHeight: '1.8' }}>
-                            <li>Add column to GROUP BY clause</li>
-                            <li>OR apply an aggregate function (SUM, COUNT, AVG)</li>
-                            <li>Example: SELECT category, SUM(price) FROM products GROUP BY category;</li>
-                        </ul>
-                    </div>
-
-                    <div className="card" style={{ padding: '2rem', marginBottom: '2rem' }}>
-                        <h3 className="card-title" style={{ marginBottom: '1rem' }}>Error: Could not find file at path</h3>
-                        <p style={{ marginBottom: '1rem' }}>File path incorrect or doesn't exist. Check:</p>
-                        <ul style={{ marginLeft: '1.5rem', lineHeight: '1.8' }}>
-                            <li>Use absolute paths: /home/user/data/file.csv</li>
-                            <li>Check file exists: ls -la /path/to/file</li>
-                            <li>Use forward slashes (/) not backslashes</li>
-                        </ul>
-                    </div>
-
-                    <div className="card" style={{ padding: '2rem', marginBottom: '2rem' }}>
-                        <h3 className="card-title" style={{ marginBottom: '1rem' }}>Error: Syntax Error</h3>
-                        <p style={{ marginBottom: '1rem' }}>Query has incorrect syntax. Check:</p>
-                        <ul style={{ marginLeft: '1.5rem', lineHeight: '1.8' }}>
-                            <li>Semicolon at end of statement</li>
-                            <li>Matching quotes for strings</li>
-                            <li>Proper comma placement between columns</li>
-                            <li>Use .help for DuckDB CLI commands (start with .)</li>
-                        </ul>
-                    </div>
-
-                    <div className="card" style={{ padding: '2rem' }}>
-                        <h3 className="card-title" style={{ marginBottom: '1rem' }}>Query is Slow - Performance Tips</h3>
-                        <ul style={{ marginLeft: '1.5rem', lineHeight: '1.8' }}>
-                            <li>Use LIMIT when testing large queries</li>
-                            <li>Use Parquet instead of CSV for large files</li>
-                            <li>Add WHERE before GROUP BY to filter early</li>
-                            <li>Avoid SELECT * - only select needed columns</li>
-                            <li>Use EXPLAIN ANALYZE to see query plan</li>
-                        </ul>
-                    </div>
+                    <div className="card" style={{ padding: '2rem' }}><p>Troubleshooting content coming soon...</p></div>
                 </div>
             );
         }
@@ -1517,51 +1317,21 @@
         function ResourcesSection({ t }) {
             return (
                 <div>
-                    <h2 style={{ fontSize: '2rem', marginBottom: '1.5rem', color: '#1B3A5C' }}>Further Resources</h2>
+                    <h2 style={{ fontSize: '2rem', marginBottom: '1.5rem', color: '#1B3A5C' }}>{t.resources}</h2>
                     <div className="accent-line" style={{ marginBottom: '2rem' }}></div>
-
-                    <div className="card" style={{ padding: '2rem', marginBottom: '2rem' }}>
-                        <h3 className="card-title" style={{ marginBottom: '1rem' }}>Official Documentation</h3>
-                        <ul style={{ marginLeft: '1.5rem', lineHeight: '1.8' }}>
-                            <li><a href="https://duckdb.org/docs/" target="_blank" rel="noopener noreferrer">DuckDB Documentation</a> - Official docs and guides</li>
-                            <li><a href="https://duckdb.org/docs/sql/introduction" target="_blank" rel="noopener noreferrer">SQL Tutorial</a> - Step-by-step SQL learning</li>
-                            <li><a href="https://duckdb.org/docs/api/python/overview" target="_blank" rel="noopener noreferrer">Python Integration</a> - Use DuckDB in Python</li>
-                        </ul>
-                    </div>
-
-                    <div className="card" style={{ padding: '2rem', marginBottom: '2rem' }}>
-                        <h3 className="card-title" style={{ marginBottom: '1rem' }}>Cloud & Advanced</h3>
-                        <ul style={{ marginLeft: '1.5rem', lineHeight: '1.8' }}>
-                            <li><a href="https://motherduck.com/" target="_blank" rel="noopener noreferrer">MotherDuck</a> - Serverless DuckDB in the cloud</li>
-                            <li><a href="https://iceberg.apache.org/" target="_blank" rel="noopener noreferrer">Apache Iceberg</a> - Open table format for analytics</li>
-                            <li><a href="https://www.getdbt.com/" target="_blank" rel="noopener noreferrer">dbt (data build tool)</a> - Transformation framework</li>
-                        </ul>
-                    </div>
-
-                    <div className="card" style={{ padding: '2rem', marginBottom: '2rem' }}>
-                        <h3 className="card-title" style={{ marginBottom: '1rem' }}>Community & Learning</h3>
-                        <ul style={{ marginLeft: '1.5rem', lineHeight: '1.8' }}>
-                            <li><a href="https://github.com/duckdb/duckdb" target="_blank" rel="noopener noreferrer">GitHub Repository</a> - Source code and issues</li>
-                            <li><a href="https://discord.gg/tcvwpjfnnd" target="_blank" rel="noopener noreferrer">DuckDB Discord</a> - Community chat and support</li>
-                            <li>Practice on <a href="https://www.kaggle.com/" target="_blank" rel="noopener noreferrer">Kaggle</a> datasets</li>
-                        </ul>
-                    </div>
-
                     <div className="card" style={{ padding: '2rem' }}>
-                        <h3 className="card-title" style={{ marginBottom: '1rem' }}>Related Topics</h3>
-                        <ul style={{ marginLeft: '1.5rem', lineHeight: '1.8' }}>
-                            <li>SQL optimization and query planning</li>
-                            <li>Data warehouse design (star schema, fact tables)</li>
-                            <li>Python libraries: Pandas, Polars, SQLAlchemy</li>
-                            <li>Business intelligence tools: Looker, Power BI, Tableau</li>
-                            <li>Data pipeline orchestration: Airflow, Prefect</li>
+                        <ul className="check-list">
+                            <li><a href="https://duckdb.org/docs/" target="_blank">DuckDB Official Documentation</a></li>
+                            <li><a href="https://duckdb.org/community" target="_blank">DuckDB Community</a></li>
+                            <li><a href="https://github.com/duckdb/duckdb" target="_blank">DuckDB GitHub Repository</a></li>
                         </ul>
                     </div>
                 </div>
             );
         }
 
-        ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
     </script>
 </body>
 </html>

@@ -481,6 +481,11 @@
 
                     <div className="card" style={{ padding: '2rem', marginBottom: '2rem' }}>
                         <h3 className="card-title" style={{ marginBottom: '1.5rem' }}>{t.whatYouLearn}</h3>
+                        <p style={{ color: '#666', marginBottom: '1.5rem', fontSize: '0.95rem' }}>
+                          <strong>⏱ Estimated time:</strong> 2-3 hours for all 8 exercises |
+                          <strong> Prerequisites:</strong> No prior database experience required |
+                          <strong> Chapter:</strong> Chapter 5 – NoSQL Databases (Butscher: Big Data & Applications, THWS)
+                        </p>
                         <ul className="numbered-list">
                             <li>MongoDB architecture and document model</li>
                             <li>CRUD operations and query language</li>
@@ -607,8 +612,8 @@
 
                         <h4 style={{ marginTop: '1.5rem', marginBottom: '0.5rem', color: '#1B3A5C', fontWeight: '600' }}>Step 3: Start MongoDB Container</h4>
                         <div className="code-block">
-                            <button className="copy-btn" onClick={() => copyToClipboard('docker run -d -p 27017:27017 --name mongodb mongo:latest')}>Copy</button>
-                            <code>docker run -d -p 27017:27017 --name mongodb mongo:latest</code>
+                            <button className="copy-btn" onClick={() => copyToClipboard('docker run -d -p 27017:27017 --name mongodb -v mongodb_data:/data/db mongo:latest')}>Copy</button>
+                            <code>{'docker run -d -p 27017:27017 --name mongodb \\\n  -v mongodb_data:/data/db mongo:latest'}</code>
                         </div>
                         <div className="expandable" onClick={() => toggleHint('docker_run')} style={{ cursor: 'pointer' }}>
                             <div className="expandable-header">
@@ -631,6 +636,10 @@
                             config  0.000GB<br/>
                             local   0.000GB<br/>
                             &gt;
+                        </div>
+
+                        <div style={{ background: '#fef5f1', padding: '1rem', borderRadius: '0.5rem', marginTop: '1rem', borderLeft: '4px solid #E8792F' }}>
+                          <strong>Mongo Express Web UI:</strong> If using docker-compose, open <code>http://localhost:8081</code> for a graphical interface to browse your databases.
                         </div>
                     </div>
                 </div>
@@ -736,7 +745,7 @@
                         <h4 style={{ marginTop: '1rem', marginBottom: '0.5rem', color: '#1B3A5C', fontWeight: '600' }}>READ: Find One Document</h4>
                         <div className="code-block">
                             <button className="copy-btn" onClick={() => copyToClipboard('db.customers.findOne({ name: "Jane Smith" })')}>Copy</button>
-                            <code>db.customers.findOne({" name: \"Jane Smith\" "})</code>
+                            <code>{'db.customers.findOne({ name: "Jane Smith" })'}</code>
                         </div>
                         <div className="output-box">
                             {'{\n  "_id": ObjectId("507f1f77bcf86cd799439011"),\n  "name": "Jane Smith",\n  "email": "jane@example.com",\n  "country": "USA"\n}'}</div>
@@ -752,7 +761,7 @@
                         <h4 style={{ marginTop: '1rem', marginBottom: '0.5rem', color: '#1B3A5C', fontWeight: '600' }}>DELETE: Remove a Document</h4>
                         <div className="code-block">
                             <button className="copy-btn" onClick={() => copyToClipboard('db.customers.deleteOne({ name: "Jane Smith" })')}>Copy</button>
-                            <code>db.customers.deleteOne({" name: \"Jane Smith\" "})</code>
+                            <code>{'db.customers.deleteOne({ name: "Jane Smith" })'}</code>
                         </div>
                         <div className="output-box">
                             {'{\n  "acknowledged": true,\n  "deletedCount": 1\n}'}</div>
@@ -816,13 +825,13 @@
                             <li><strong>Verify the update:</strong>
                                 <div className="code-block">
                                     <button className="copy-btn" onClick={() => copyToClipboard('db.users.findOne({ username: "alice123" })')}>Copy</button>
-                                    <code>db.users.findOne({" username: \"alice123\" "})</code>
+                                    <code>{'db.users.findOne({ username: "alice123" })'}</code>
                                 </div>
                             </li>
                             <li><strong>Delete the document:</strong>
                                 <div className="code-block">
                                     <button className="copy-btn" onClick={() => copyToClipboard('db.users.deleteOne({ username: "alice123" })')}>Copy</button>
-                                    <code>db.users.deleteOne({" username: \"alice123\" "})</code>
+                                    <code>{'db.users.deleteOne({ username: "alice123" })'}</code>
                                 </div>
                                 <div className="output-box">{'{\n  "acknowledged": true,\n  "deletedCount": 1\n}'}</div>
                             </li>
@@ -846,6 +855,12 @@
                             {expandedHints['exercise1_hint'] && (
                                 <div className="expandable-content">Make sure mongosh is running! If you get a connection error, restart your MongoDB container.</div>
                             )}
+                        </div>
+
+                        <div style={{ textAlign: 'right', marginTop: '2rem' }}>
+                          <button className="btn-accent" onClick={() => setActiveSection('exercise2')} style={{ fontSize: '0.9rem' }}>
+                            Next: Exercise 2 →
+                          </button>
                         </div>
                     </div>
                 </div>
@@ -889,21 +904,21 @@
                             <li><strong>Find customers from USA only:</strong>
                                 <div className="code-block">
                                     <button className="copy-btn" onClick={() => copyToClipboard('db.customers.find({ country: "USA" })')}>Copy</button>
-                                    <code>db.customers.find({" country: \"USA\" "})</code>
+                                    <code>{'db.customers.find({ country: "USA" })'}</code>
                                 </div>
                                 <div className="output-box">Found 2 customers (Alice and Charlie)</div>
                             </li>
                             <li><strong>Find customers with more than 4 orders:</strong>
                                 <div className="code-block">
                                     <button className="copy-btn" onClick={() => copyToClipboard('db.customers.find({ orders: { $gt: 4 } })')}>Copy</button>
-                                    <code>db.customers.find({" orders: { $gt: 4 } "})</code>
+                                    <code>{'db.customers.find({ orders: { $gt: 4 } })'}</code>
                                 </div>
                                 <div className="output-box">Found 2 customers (Alice with 5 orders, Charlie with 8)</div>
                             </li>
                             <li><strong>Sort customers by orders (descending):</strong>
                                 <div className="code-block">
                                     <button className="copy-btn" onClick={() => copyToClipboard('db.customers.find().sort({ orders: -1 })')}>Copy</button>
-                                    <code>db.customers.find().sort({" orders: -1 "})</code>
+                                    <code>{'db.customers.find().sort({ orders: -1 })'}</code>
                                 </div>
                                 <div className="output-box">Charlie (8), Alice (5), Bob (3), Diana (2)</div>
                             </li>
@@ -924,6 +939,12 @@
                             {expandedHints['exercise2_hint'] && (
                                 <div className="expandable-content">The $gt operator means "greater than". Try $lt (less than), $eq (equals), $gte (greater or equal)</div>
                             )}
+                        </div>
+
+                        <div style={{ textAlign: 'right', marginTop: '2rem' }}>
+                          <button className="btn-accent" onClick={() => setActiveSection('exercise3')} style={{ fontSize: '0.9rem' }}>
+                            Next: Exercise 3 →
+                          </button>
                         </div>
                     </div>
                 </div>
@@ -965,13 +986,13 @@
                             <li><strong>Explore customers:</strong>
                                 <div className="code-block">
                                     <button className="copy-btn" onClick={() => copyToClipboard('db.customers.find({ country: "USA" }).limit(3)')}>Copy</button>
-                                    <code>db.customers.find({" country: \"USA\" "})<span style={{opacity: 0.7}}>.limit(3)</span></code>
+                                    <code>{'db.customers.find({ country: "USA" }).limit(3)'}</code>
                                 </div>
                             </li>
                             <li><strong>Find expensive products (price &gt; 500):</strong>
                                 <div className="code-block">
                                     <button className="copy-btn" onClick={() => copyToClipboard('db.products.find({ price: { $gt: 500 } })')}>Copy</button>
-                                    <code>db.products.find({" price: { $gt: 500 } "})</code>
+                                    <code>{'db.products.find({ price: { $gt: 500 } })'}</code>
                                 </div>
                             </li>
                             <li><strong>Find recent orders (last 30 days):</strong>
@@ -983,7 +1004,7 @@
                             <li><strong>Count products by category:</strong>
                                 <div className="code-block">
                                     <button className="copy-btn" onClick={() => copyToClipboard('db.products.countDocuments({ category: "Electronics" })')}>Copy</button>
-                                    <code>db.products.countDocuments({" category: \"Electronics\" "})</code>
+                                    <code>{'db.products.countDocuments({ category: "Electronics" })'}</code>
                                 </div>
                             </li>
                         </ol>
@@ -996,7 +1017,7 @@
                             </div>
                             {expandedHints['exercise3_q1'] && (
                                 <div className="expandable-content">
-                                    Use: <code>db.customers.countDocuments({" country: \"Canada\" "})</code>
+                                    Use: <code>{'db.customers.countDocuments({ country: "Canada" })'}</code>
                                 </div>
                             )}
                         </div>
@@ -1007,9 +1028,15 @@
                             </div>
                             {expandedHints['exercise3_q2'] && (
                                 <div className="expandable-content">
-                                    Use: <code>db.orders.find({" status: \"pending\" "})</code>
+                                    Use: <code>{'db.orders.find({ status: "pending" })'}</code>
                                 </div>
                             )}
+                        </div>
+
+                        <div style={{ textAlign: 'right', marginTop: '2rem' }}>
+                          <button className="btn-accent" onClick={() => setActiveSection('exercise4')} style={{ fontSize: '0.9rem' }}>
+                            Next: Exercise 4 →
+                          </button>
                         </div>
                     </div>
                 </div>
@@ -1056,13 +1083,13 @@
                             <li><strong>Orders NOT shipped:</strong>
                                 <div className="code-block">
                                     <button className="copy-btn" onClick={() => copyToClipboard('db.orders.find({ "status": { $ne: "shipped" } })')}>Copy</button>
-                                    <code>db.orders.find({" \"status\": { $ne: \"shipped\" } "})</code>
+                                    <code>{'db.orders.find({ "status": { $ne: "shipped" } })'}</code>
                                 </div>
                             </li>
                             <li><strong>Search by regex (name contains "Smith"):</strong>
                                 <div className="code-block">
                                     <button className="copy-btn" onClick={() => copyToClipboard('db.customers.find({ "name": { $regex: "Smith", $options: "i" } })')}>Copy</button>
-                                    <code>db.customers.find({" \"name\": { $regex: \"Smith\", $options: \"i\" } "})</code>
+                                    <code>{'db.customers.find({ "name": { $regex: "Smith", $options: "i" } })'}</code>
                                 </div>
                                 <div style={{ fontSize: '0.9rem', marginTop: '0.5rem', color: '#666' }}>Note: $options: "i" = case-insensitive</div>
                             </li>
@@ -1095,6 +1122,12 @@
                             {expandedHints['exercise4_hint'] && (
                                 <div className="expandable-content">You can combine multiple conditions in a single query. The shorthand {"{"} field1: value1, field2: value2 {"}"} is the same as $and!</div>
                             )}
+                        </div>
+
+                        <div style={{ textAlign: 'right', marginTop: '2rem' }}>
+                          <button className="btn-accent" onClick={() => setActiveSection('exercise5')} style={{ fontSize: '0.9rem' }}>
+                            Next: Exercise 5 →
+                          </button>
                         </div>
                     </div>
                 </div>
@@ -1142,6 +1175,12 @@
                             {expandedHints['exercise5_hint'] && (
                                 <div className="expandable-content">If MongoDB has authentication: <code>mongodb://username:password@localhost:27017/</code></div>
                             )}
+                        </div>
+
+                        <div style={{ textAlign: 'right', marginTop: '2rem' }}>
+                          <button className="btn-accent" onClick={() => setActiveSection('exercise6')} style={{ fontSize: '0.9rem' }}>
+                            Next: Exercise 6 →
+                          </button>
                         </div>
                     </div>
                 </div>
@@ -1202,6 +1241,12 @@
                             {expandedHints['exercise6_hint'] && (
                                 <div className="expandable-content">Always place $match early to filter data first! This improves performance. Place $sort and $limit at the end.</div>
                             )}
+                        </div>
+
+                        <div style={{ textAlign: 'right', marginTop: '2rem' }}>
+                          <button className="btn-accent" onClick={() => setActiveSection('exercise7')} style={{ fontSize: '0.9rem' }}>
+                            Next: Exercise 7 →
+                          </button>
                         </div>
                     </div>
                 </div>
@@ -1288,6 +1333,12 @@
                                 <div className="expandable-content">Blog post with comments (embed). Blog post with author (reference). User with 1-2 addresses (embed). User with 100+ orders (reference).</div>
                             )}
                         </div>
+
+                        <div style={{ textAlign: 'right', marginTop: '2rem' }}>
+                          <button className="btn-accent" onClick={() => setActiveSection('exercise8')} style={{ fontSize: '0.9rem' }}>
+                            Next: Exercise 8 →
+                          </button>
+                        </div>
                     </div>
                 </div>
             );
@@ -1315,8 +1366,8 @@
 
                         <h3 className="card-title" style={{ marginTop: '2rem', marginBottom: '1rem' }}>Aggregation Pipeline</h3>
                         <div className="code-block">
-                            <button className="copy-btn" onClick={() => copyToClipboard('db.orders.aggregate([\n  # Step 1: Group by customer and calculate RFM\n  {\n    $group: {\n      "_id": "$customer_id",\n      "frequency": { $sum: 1 },\n      "monetary": { $sum: "$total_amount" },\n      "last_order": { $max: "$order_date" }\n    }\n  },\n  # Step 2: Calculate recency (days since last order)\n  {\n    $project: {\n      "_id": 1,\n      "frequency": 1,\n      "monetary": 1,\n      "last_order": 1,\n      "recency": {\n        $floor: { $divide: [\n          { $subtract: [new Date(), "$last_order"] },\n          1000 * 60 * 60 * 24\n        ]}\n      }\n    }\n  },\n  # Step 3: Segment customers\n  {\n    $project: {\n      "_id": 1,\n      "frequency": 1,\n      "monetary": 1,\n      "recency": 1,\n      "segment": {\n        $cond: [\n          { $and: [\n            { $lt: ["$recency", 30] },\n            { $gt: ["$frequency", 10] },\n            { $gt: ["$monetary", 1000] }\n          ]},\n          "VIP",\n          {\n            $cond: [\n              { $and: [\n                { $lt: ["$recency", 90] },\n                { $gt: ["$frequency", 5] }\n              ]},\n              "Regular",\n              "At-Risk"\n            ]\n          }\n        ]\n      }\n    }\n  },\n  # Step 4: Count by segment\n  {\n    $group: {\n      "_id": "$segment",\n      "count": { $sum: 1 },\n      "avg_monetary": { $avg: "$monetary" }\n    }\n  },\n  # Step 5: Sort by count descending\n  {\n    $sort: { "count": -1 }\n  }\n])')}>Copy</button>
-                            <code style={{ whiteSpace: 'pre-wrap', fontSize: '0.75rem' }}>{'db.orders.aggregate([\n  # Group by customer\n  {\n    $group: {\n      "_id": "$customer_id",\n      "frequency": { $sum: 1 },\n      "monetary": { $sum: "$total_amount" },\n      "last_order": { $max: "$order_date" }\n    }\n  },\n  # Calculate recency\n  {\n    $project: {\n      "frequency": 1,\n      "monetary": 1,\n      "recency": {\n        $floor: { $divide: [\n          { $subtract: [new Date(), "$last_order"] },\n          1000 * 60 * 60 * 24\n        ]}\n      }\n    }\n  },\n  # Segment customers\n  {\n    $project: {\n      "segment": {\n        $cond: [\n          { $and: [{"$lt": ["$recency", 30]}, {"$gt": ["$frequency", 10]}]},\n          "VIP",\n          "Regular"\n        ]\n      }\n    }\n  },\n  # Count by segment\n  {\n    $group: {\n      "_id": "$segment",\n      "count": { $sum: 1 }\n    }\n  }\n])'}</code>
+                            <button className="copy-btn" onClick={() => copyToClipboard('db.orders.aggregate([\n  // Step 1: Group by customer and calculate RFM\n  {\n    $group: {\n      "_id": "$customer_id",\n      "frequency": { $sum: 1 },\n      "monetary": { $sum: "$total_amount" },\n      "last_order": { $max: "$order_date" }\n    }\n  },\n  // Step 2: Calculate recency (days since last order)\n  {\n    $project: {\n      "_id": 1,\n      "frequency": 1,\n      "monetary": 1,\n      "last_order": 1,\n      "recency": {\n        $floor: { $divide: [\n          { $subtract: [new Date(), "$last_order"] },\n          1000 * 60 * 60 * 24\n        ]}\n      }\n    }\n  },\n  // Step 3: Segment customers\n  {\n    $project: {\n      "_id": 1,\n      "frequency": 1,\n      "monetary": 1,\n      "recency": 1,\n      "segment": {\n        $cond: [\n          { $and: [\n            { $lt: ["$recency", 30] },\n            { $gt: ["$frequency", 10] },\n            { $gt: ["$monetary", 1000] }\n          ]},\n          "VIP",\n          {\n            $cond: [\n              { $and: [\n                { $lt: ["$recency", 90] },\n                { $gt: ["$frequency", 5] }\n              ]},\n              "Regular",\n              "At-Risk"\n            ]\n          }\n        ]\n      }\n    }\n  },\n  // Step 4: Count by segment\n  {\n    $group: {\n      "_id": "$segment",\n      "count": { $sum: 1 },\n      "avg_monetary": { $avg: "$monetary" }\n    }\n  },\n  // Step 5: Sort by count descending\n  {\n    $sort: { "count": -1 }\n  }\n])')}>Copy</button>
+                            <code style={{ whiteSpace: 'pre-wrap', fontSize: '0.75rem' }}>{'db.orders.aggregate([\n  // Step 1: Group by customer and calculate RFM\n  {\n    $group: {\n      "_id": "$customer_id",\n      "frequency": { $sum: 1 },\n      "monetary": { $sum: "$total_amount" },\n      "last_order": { $max: "$order_date" }\n    }\n  },\n  // Step 2: Calculate recency (days since last order)\n  {\n    $project: {\n      "_id": 1, "frequency": 1, "monetary": 1,\n      "recency": {\n        $floor: { $divide: [\n          { $subtract: [new Date(), "$last_order"] },\n          1000 * 60 * 60 * 24\n        ]}\n      }\n    }\n  },\n  // Step 3: Segment customers\n  {\n    $project: {\n      "_id": 1, "frequency": 1, "monetary": 1,\n      "segment": {\n        $cond: [\n          { $and: [\n            { $lt: ["$recency", 30] },\n            { $gt: ["$frequency", 10] },\n            { $gt: ["$monetary", 1000] }\n          ]},\n          "VIP",\n          { $cond: [\n            { $and: [\n              { $lt: ["$recency", 90] },\n              { $gt: ["$frequency", 5] }\n            ]},\n            "Regular",\n            "At-Risk"\n          ]}\n        ]\n      }\n    }\n  },\n  // Step 4: Count by segment\n  {\n    $group: {\n      "_id": "$segment",\n      "count": { $sum: 1 },\n      "avg_monetary": { $avg: "$monetary" }\n    }\n  },\n  // Step 5: Sort\n  { $sort: { "count": -1 } }\n])'}</code>
                         </div>
 
                         <h3 className="card-title" style={{ marginTop: '2rem', marginBottom: '1rem' }}>Expected Output</h3>
@@ -1334,6 +1385,12 @@
                             {expandedHints['exercise8_hint'] && (
                                 <div className="expandable-content">Write this step-by-step! First test just the $group stage. Then add $project. Then add $cond logic. Finally add final $group for counts.</div>
                             )}
+                        </div>
+
+                        <div style={{ textAlign: 'right', marginTop: '2rem' }}>
+                          <button className="btn-accent" onClick={() => setActiveSection('selfCheck')} style={{ fontSize: '0.9rem' }}>
+                            Complete! → Self-Check
+                          </button>
                         </div>
                     </div>
                 </div>

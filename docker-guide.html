@@ -1452,7 +1452,7 @@
                                     number="1"
                                     title={t.labStep1Title}
                                     description={t.labStep1Desc}
-                                    code="git clone https://github.com/swrobuts/bigdata.git"
+                                    code="git clone https://github.com/swrobuts/bigdata"
                                     codeId="cmd-clone"
                                 />
                                 <StepItem
@@ -1466,7 +1466,7 @@
                                     number="3"
                                     title={t.labStep3Title}
                                     description={t.labStep3Desc}
-                                    code="pip install faker pandas pyarrow && python data/generate_megastore_data.py"
+                                    code="python3 -m venv venv && source venv/bin/activate && pip install faker pandas pyarrow && python data/generate_megastore_data.py"
                                     codeId="cmd-data"
                                 />
                                 <StepItem

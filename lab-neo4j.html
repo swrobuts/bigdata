@@ -405,14 +405,14 @@
                         {activeSection === 'technology' && <TechnologySection t={t} />}
                         {activeSection === 'setup' && <SetupSection t={t} copyToClipboard={copyToClipboard} toggleHint={toggleHint} expandedHints={expandedHints} />}
                         {activeSection === 'fundamentals' && <FundamentalsSection t={t} copyToClipboard={copyToClipboard} toggleQuiz={toggleQuiz} toggleHint={toggleHint} expandedQuizzes={expandedQuizzes} expandedHints={expandedHints} />}
-                        {activeSection === 'exercise1' && <Exercise1 t={t} copyToClipboard={copyToClipboard} toggleHint={toggleHint} expandedHints={expandedHints} />}
-                        {activeSection === 'exercise2' && <Exercise2 t={t} copyToClipboard={copyToClipboard} toggleHint={toggleHint} expandedHints={expandedHints} />}
-                        {activeSection === 'exercise3' && <Exercise3 t={t} copyToClipboard={copyToClipboard} toggleHint={toggleHint} expandedHints={expandedHints} />}
-                        {activeSection === 'exercise4' && <Exercise4 t={t} copyToClipboard={copyToClipboard} toggleHint={toggleHint} expandedHints={expandedHints} />}
-                        {activeSection === 'exercise5' && <Exercise5 t={t} copyToClipboard={copyToClipboard} toggleHint={toggleHint} expandedHints={expandedHints} />}
-                        {activeSection === 'exercise6' && <Exercise6 t={t} copyToClipboard={copyToClipboard} toggleHint={toggleHint} expandedHints={expandedHints} />}
-                        {activeSection === 'exercise7' && <Exercise7 t={t} copyToClipboard={copyToClipboard} toggleHint={toggleHint} expandedHints={expandedHints} />}
-                        {activeSection === 'exercise8' && <Exercise8 t={t} copyToClipboard={copyToClipboard} toggleHint={toggleHint} expandedHints={expandedHints} />}
+                        {activeSection === 'exercise1' && <Exercise1 t={t} copyToClipboard={copyToClipboard} toggleHint={toggleHint} expandedHints={expandedHints} setActiveSection={setActiveSection} />}
+                        {activeSection === 'exercise2' && <Exercise2 t={t} copyToClipboard={copyToClipboard} toggleHint={toggleHint} expandedHints={expandedHints} setActiveSection={setActiveSection} />}
+                        {activeSection === 'exercise3' && <Exercise3 t={t} copyToClipboard={copyToClipboard} toggleHint={toggleHint} expandedHints={expandedHints} setActiveSection={setActiveSection} />}
+                        {activeSection === 'exercise4' && <Exercise4 t={t} copyToClipboard={copyToClipboard} toggleHint={toggleHint} expandedHints={expandedHints} setActiveSection={setActiveSection} />}
+                        {activeSection === 'exercise5' && <Exercise5 t={t} copyToClipboard={copyToClipboard} toggleHint={toggleHint} expandedHints={expandedHints} setActiveSection={setActiveSection} />}
+                        {activeSection === 'exercise6' && <Exercise6 t={t} copyToClipboard={copyToClipboard} toggleHint={toggleHint} expandedHints={expandedHints} setActiveSection={setActiveSection} />}
+                        {activeSection === 'exercise7' && <Exercise7 t={t} copyToClipboard={copyToClipboard} toggleHint={toggleHint} expandedHints={expandedHints} setActiveSection={setActiveSection} />}
+                        {activeSection === 'exercise8' && <Exercise8 t={t} copyToClipboard={copyToClipboard} toggleHint={toggleHint} expandedHints={expandedHints} setActiveSection={setActiveSection} />}
                         {activeSection === 'selfCheck' && <SelfCheckSection t={t} expandedQuizzes={expandedQuizzes} toggleQuiz={toggleQuiz} />}
                         {activeSection === 'reflection' && <ReflectionSection t={t} />}
                         {activeSection === 'troubleshooting' && <TroubleshootingSection t={t} />}
@@ -426,6 +426,11 @@
             return (
                 <div>
                     <h2 style={{ fontSize: '2rem', marginBottom: '1.5rem', color: '#1B3A5C' }}>{t.welcome}</h2>
+                    <p style={{ color: '#666', marginBottom: '1.5rem', fontSize: '0.95rem' }}>
+                        <strong>⏱ Estimated time:</strong> 3-4 hours for all 8 exercises |
+                        <strong> Prerequisites:</strong> Basic understanding of databases recommended (MongoDB or DuckDB Lab) |
+                        <strong> Chapter:</strong> Chapter 7 – Graph Databases (Butscher: Big Data & Applications, THWS)
+                    </p>
                     <div className="accent-line" style={{ marginBottom: '2rem' }}></div>
 
                     <div className="card" style={{ padding: '2rem', marginBottom: '2rem' }}>
@@ -701,7 +706,7 @@
             );
         }
 
-        function Exercise1({ t, copyToClipboard, toggleHint, expandedHints }) {
+        function Exercise1({ t, copyToClipboard, toggleHint, expandedHints, setActiveSection }) {
             return (
                 <div>
                     <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '1rem' }}>
@@ -769,12 +774,18 @@
                                 <div className="expandable-content">{"Try operators: > (greater), < (less), = (equals). Each CREATE statement creates one node. Labels are case-sensitive."}</div>
                             )}
                         </div>
+
+                        <div style={{ textAlign: 'right', marginTop: '2rem' }}>
+                            <button className="btn-accent" onClick={() => setActiveSection('exercise2')} style={{ fontSize: '0.9rem' }}>
+                                Next: Exercise 2 →
+                            </button>
+                        </div>
                     </div>
                 </div>
             );
         }
 
-        function Exercise2({ t, copyToClipboard, toggleHint, expandedHints }) {
+        function Exercise2({ t, copyToClipboard, toggleHint, expandedHints, setActiveSection }) {
             return (
                 <div>
                     <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '1rem' }}>
@@ -835,12 +846,18 @@
                                 <div className="expandable-content">Arrows matter! -[:TYPE]-&gt; follows a direction. -[:TYPE]- ignores direction. Relationship types are uppercase by convention.</div>
                             )}
                         </div>
+
+                        <div style={{ textAlign: 'right', marginTop: '2rem' }}>
+                            <button className="btn-accent" onClick={() => setActiveSection('exercise3')} style={{ fontSize: '0.9rem' }}>
+                                Next: Exercise 3 →
+                            </button>
+                        </div>
                     </div>
                 </div>
             );
         }
 
-        function Exercise3({ t, copyToClipboard, toggleHint, expandedHints }) {
+        function Exercise3({ t, copyToClipboard, toggleHint, expandedHints, setActiveSection }) {
             return (
                 <div>
                     <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '1rem' }}>
@@ -909,12 +926,18 @@
                                 <div className="expandable-content">Use MATCH to find existing nodes, then CREATE to link them. Chain relationships in MATCH to traverse multiple hops: (a)-[:R1]->(b)-[:R2]->(c)</div>
                             )}
                         </div>
+
+                        <div style={{ textAlign: 'right', marginTop: '2rem' }}>
+                            <button className="btn-accent" onClick={() => setActiveSection('exercise4')} style={{ fontSize: '0.9rem' }}>
+                                Next: Exercise 4 →
+                            </button>
+                        </div>
                     </div>
                 </div>
             );
         }
 
-        function Exercise4({ t, copyToClipboard, toggleHint, expandedHints }) {
+        function Exercise4({ t, copyToClipboard, toggleHint, expandedHints, setActiveSection }) {
             return (
                 <div>
                     <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '1rem' }}>
@@ -981,12 +1004,18 @@
                                 <div className="expandable-content">{'DISTINCT removes duplicates. *1..3 means 1 to 3 hops. OPTIONAL returns NULL. Combine conditions: (a > 5 AND b < 10) OR c = "test"'}</div>
                             )}
                         </div>
+
+                        <div style={{ textAlign: 'right', marginTop: '2rem' }}>
+                            <button className="btn-accent" onClick={() => setActiveSection('exercise5')} style={{ fontSize: '0.9rem' }}>
+                                Next: Exercise 5 →
+                            </button>
+                        </div>
                     </div>
                 </div>
             );
         }
 
-        function Exercise5({ t, copyToClipboard, toggleHint, expandedHints }) {
+        function Exercise5({ t, copyToClipboard, toggleHint, expandedHints, setActiveSection }) {
             return (
                 <div>
                     <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '1rem' }}>
@@ -1054,12 +1083,18 @@
                                 <div className="expandable-content">GROUP BY is implicit with aggregates. COLLECT makes lists. SUM adds numbers. Use AS to rename columns. ORDER BY with DESC for descending order.</div>
                             )}
                         </div>
+
+                        <div style={{ textAlign: 'right', marginTop: '2rem' }}>
+                            <button className="btn-accent" onClick={() => setActiveSection('exercise6')} style={{ fontSize: '0.9rem' }}>
+                                Next: Exercise 6 →
+                            </button>
+                        </div>
                     </div>
                 </div>
             );
         }
 
-        function Exercise6({ t, copyToClipboard, toggleHint, expandedHints }) {
+        function Exercise6({ t, copyToClipboard, toggleHint, expandedHints, setActiveSection }) {
             return (
                 <div>
                     <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '1rem' }}>
@@ -1120,12 +1155,18 @@
                                 <div className="expandable-content">MERGE is idempotent (safe to repeat). WITH pipes results. UNWIND expands lists for bulk operations. Complex patterns traverse multiple relationships.</div>
                             )}
                         </div>
+
+                        <div style={{ textAlign: 'right', marginTop: '2rem' }}>
+                            <button className="btn-accent" onClick={() => setActiveSection('exercise7')} style={{ fontSize: '0.9rem' }}>
+                                Next: Exercise 7 →
+                            </button>
+                        </div>
                     </div>
                 </div>
             );
         }
 
-        function Exercise7({ t, copyToClipboard, toggleHint, expandedHints }) {
+        function Exercise7({ t, copyToClipboard, toggleHint, expandedHints, setActiveSection }) {
             return (
                 <div>
                     <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '1rem' }}>
@@ -1184,12 +1225,18 @@
                                 <div className="expandable-content">Knowledge graphs power AI reasoning. *0.. traverses ancestors. INSTANCE_OF/SUBCLASS_OF form hierarchies. This foundation enables semantic search and inference engines.</div>
                             )}
                         </div>
+
+                        <div style={{ textAlign: 'right', marginTop: '2rem' }}>
+                            <button className="btn-accent" onClick={() => setActiveSection('exercise8')} style={{ fontSize: '0.9rem' }}>
+                                Next: Exercise 8 →
+                            </button>
+                        </div>
                     </div>
                 </div>
             );
         }
 
-        function Exercise8({ t, copyToClipboard, toggleHint, expandedHints }) {
+        function Exercise8({ t, copyToClipboard, toggleHint, expandedHints, setActiveSection }) {
             return (
                 <div>
                     <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '1rem' }}>
@@ -1259,6 +1306,12 @@
                             {expandedHints['exercise8_hint'] && (
                                 <div className="expandable-content">This is how PayPal and eBay detect fraud in production. The | (OR) follows multiple types: [:DEVICE|:IP]. WHERE a &lt;&gt; a2 excludes self-loops. COUNT connected nodes for risk scoring.</div>
                             )}
+                        </div>
+
+                        <div style={{ textAlign: 'right', marginTop: '2rem' }}>
+                            <button className="btn-accent" onClick={() => setActiveSection('selfCheck')} style={{ fontSize: '0.9rem' }}>
+                                Next: Self-Check →
+                            </button>
                         </div>
                     </div>
                 </div>
