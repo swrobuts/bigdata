@@ -454,7 +454,7 @@
                 solutionPort: "Ein anderes Programm verwendet den Port. Beende das Programm oder ändere den Port in docker-compose.yml",
 
                 problemDisk: "Out of disk space",
-                solutionDisk: "Führe aus um alte Container/Images zu löschen:",
+                solutionDisk: "Stoppe und entferne die Kurs-Container, um Speicher freizugeben:",
 
                 problemExit: "Container beendet sofort",
                 solutionExit: "Überprüfe die Logs mit:",
@@ -594,7 +594,7 @@
                 solutionPort: "Another program is using the port. Stop that program or change the port in docker-compose.yml",
 
                 problemDisk: "Out of disk space",
-                solutionDisk: "Run this to clean up old containers/images:",
+                solutionDisk: "Stop and remove the course containers to free up space:",
 
                 problemExit: "Container exits immediately",
                 solutionExit: "Check logs with:",
@@ -734,7 +734,7 @@
                 solutionPort: "برنامج آخر يستخدم المنفذ. أيقف هذا البرنامج أو غيّر المنفذ في docker-compose.yml",
 
                 problemDisk: "انتهت مساحة القرص",
-                solutionDisk: "قم بتشغيل هذا لتنظيف الحاويات/الصور القديمة:",
+                solutionDisk: "أوقف وأزل حاويات الكورس لتحرير المساحة:",
 
                 problemExit: "الحاوية تنتهي فوراً",
                 solutionExit: "تحقق من السجلات باستخدام:",
@@ -874,7 +874,7 @@
                 solutionPort: "Інша програма використовує порт. Зупиніть цю програму або змініть порт у docker-compose.yml",
 
                 problemDisk: "Недостатньо місця на диску",
-                solutionDisk: "Запустіть це, щоб очистити старі контейнери/образи:",
+                solutionDisk: "Зупиніть та видаліть контейнери курсу, щоб звільнити місце:",
 
                 problemExit: "Контейнер завершується негайно",
                 solutionExit: "Перевірте журнали за допомогою:",
@@ -1014,7 +1014,7 @@
                 solutionPort: "Otro programa está usando el puerto. Detén ese programa o cambia el puerto en docker-compose.yml",
 
                 problemDisk: "Espacio en disco agotado",
-                solutionDisk: "Ejecuta esto para limpiar contenedores/imágenes antiguos:",
+                solutionDisk: "Detén y elimina los contenedores del curso para liberar espacio:",
 
                 problemExit: "El contenedor se cierra inmediatamente",
                 solutionExit: "Verifica los registros con:",
@@ -1154,7 +1154,7 @@
                 solutionPort: "Başka bir program portu kullanıyor. Bu programı durdurun veya docker-compose.yml dosyasında portu değiştirin",
 
                 problemDisk: "Disk alanı tükendi",
-                solutionDisk: "Eski kapsayıcıları/imajları temizlemek için bunu çalıştırın:",
+                solutionDisk: "Kurs kapsayıcılarını durdurup kaldırarak alan açın:",
 
                 problemExit: "Kapsayıcı hemen çıkıyor",
                 solutionExit: "Günlükleri şu şekilde kontrol edin:",
@@ -1510,7 +1510,7 @@
                                     {
                                         problem: t.problemDisk,
                                         solution: t.solutionDisk,
-                                        code: 'docker system prune'
+                                        code: 'docker stop megastore-mongodb megastore-mongo-express megastore-duckdb megastore-neo4j megastore-spark && docker rm megastore-mongodb megastore-mongo-express megastore-duckdb megastore-neo4j megastore-spark'
                                     },
                                     {
                                         problem: t.problemExit,
