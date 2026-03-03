@@ -1488,13 +1488,17 @@
                                     code="cd docker && chmod +x start-lab.sh && ./start-lab.sh mongodb"
                                     codeId="cmd-start-lab"
                                 />
-                                <StepItem
-                                    number="5"
-                                    title={t.labStep5Title}
-                                    description={t.labStep5Desc}
-                                    code="http://localhost:8081"
-                                    codeId="cmd-localhost"
-                                />
+                                <div className="flex gap-4 mb-6">
+                                    <div className="step-number">5</div>
+                                    <div className="flex-1">
+                                        <h4 className="text-lg font-semibold text-dark-blue mb-2">{t.labStep5Title}</h4>
+                                        <p className="text-gray-700 mb-3">{t.labStep5Desc}</p>
+                                        <a href="http://localhost:8081" target="_blank" rel="noopener noreferrer"
+                                           style={{color: '#E8792F', fontWeight: 'bold', fontSize: '1.1rem', textDecoration: 'underline'}}>
+                                            http://localhost:8081
+                                        </a>
+                                    </div>
+                                </div>
                                 <div className="info-box">
                                     <p>{t.labStep5Note}</p>
                                 </div>

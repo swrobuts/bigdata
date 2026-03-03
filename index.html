@@ -343,6 +343,8 @@
                 nav: {
                     home: 'Start',
                     about: 'Über den Kurs',
+                    bigdata: 'Big Data',
+                    concept: 'Lernkonzept',
                     case_study: 'MegaStore Case Study',
                     labs: 'Labore',
                     getting_started: 'Getting Started',
@@ -361,21 +363,65 @@
                 },
                 about: {
                     title: 'Über den Kurs',
-                    description: 'Der Kurs Big Data & Anwendungen führt Sie in die Grundlagen und praktischen Anwendungen moderner Big Data Technologien ein. Sie arbeiten mit Dockerisierten Umgebungen, um echte Datenverarbeitungsszenarios zu erleben.',
-                    learning: 'Lernziele:',
+                    description: 'Der Kurs "Schwerpunkt Big Data & Anwendungen" im BBA-Studiengang an der THWS verbindet Theorie mit intensiver Praxis. In diesem begleitenden Praktikum arbeiten Sie mit echten Big Data Technologien in Docker-Containern – keine Simulationen, sondern die Tools, die auch in der Industrie eingesetzt werden.',
+                    audience: 'Für wen?',
+                    audience_desc: 'BBA-Studierende ab dem 4. Semester. Keine Big Data Vorkenntnisse nötig – nur Grundkenntnisse in SQL und Python.',
+                    special: 'Was macht diesen Kurs besonders?',
+                    special1: 'Echte Technologien statt Simulationen: MongoDB, DuckDB, Neo4j, Apache Spark',
+                    special2: 'Docker-Container: identische Umgebung auf jedem Laptop, in 15 Minuten startklar',
+                    special3: 'Durchgängige MegaStore-Fallstudie als roter Faden durch alle Labs',
+                    special4: '6 Sprachen für internationale Studierende',
+                    learning: 'Lernziele',
                     obj1: 'Big Data Architekturen und Datenflüsse verstehen',
-                    obj2: 'NoSQL Datenbanken praktisch anwenden',
-                    obj3: 'Große Datenmengen mit modernen Tools verarbeiten',
-                    obj4: 'Python Integration mit Big Data Technologien',
-                    obj5: 'Cloud-basierte Analytics Infrastruktur'
+                    obj2: 'NoSQL vs. SQL: Wann welche Datenbank?',
+                    obj3: 'Dokumentenorientierte, analytische, graph-basierte und verteilte Systeme praktisch anwenden',
+                    obj4: 'Python als Data Engineering Tool einsetzen',
+                    obj5: 'Datengetriebenes Denken: Hypothesen aufstellen, validieren, Business Insights ableiten'
+                },
+                bigdata: {
+                    title: 'Was ist Big Data?',
+                    intro: 'Big Data beschreibt Datenmengen, die so groß, schnell oder komplex sind, dass traditionelle Werkzeuge wie Excel oder einfache SQL-Datenbanken an ihre Grenzen stoßen. Die Herausforderung: Wie speichern, verarbeiten und analysieren wir diese Daten, um daraus Wissen zu gewinnen?',
+                    fact: '90% aller Daten weltweit wurden in den letzten zwei Jahren erzeugt.',
+                    v_volume: 'Volume',
+                    v_volume_desc: 'Petabytes statt Megabytes. Netflix speichert Milliarden von Streaming-Events pro Tag.',
+                    v_velocity: 'Velocity',
+                    v_velocity_desc: 'Daten in Echtzeit. Social Media generiert 500 Millionen Tweets pro Tag.',
+                    v_variety: 'Variety',
+                    v_variety_desc: 'Strukturiert (Tabellen), semi-strukturiert (JSON), unstrukturiert (Bilder, Texte).',
+                    v_veracity: 'Veracity',
+                    v_veracity_desc: 'Datenqualität sichern. Fehlerhafte Daten führen zu falschen Entscheidungen.',
+                    v_value: 'Value',
+                    v_value_desc: 'Aus Rohdaten Geschäftswert schaffen: Empfehlungen, Prognosen, Optimierungen.'
+                },
+                concept: {
+                    title: 'Unser Lernkonzept',
+                    intro: 'Dieses Praktikum setzt auf Learning by Doing. Keine passiven Vorlesungsfolien – Sie arbeiten ab der ersten Minute mit echten Datenbanken, echten Daten und echten Business-Problemen.',
+                    method1_title: 'Hands-on mit Docker',
+                    method1_desc: 'Jedes Lab läuft in Docker-Containern. Kein "Works on my machine"-Problem – identische Umgebung auf Windows, Mac und Linux. In 15 Minuten startklar.',
+                    method2_title: 'Progressive Schwierigkeit',
+                    method2_desc: '4 Stufen pro Lab: Einstieg (geführt) → Vertiefung (weniger Anleitung) → Fortgeschritten (eigenständig) → Boss Challenge (offene Problemstellung).',
+                    method3_title: 'Hypothesengetriebenes Lernen',
+                    method3_desc: 'Bevor Sie abfragen: Was vermuten Sie? Warum? Vergleichen Sie Ihre Erwartung mit dem Ergebnis – der Überraschungsmoment führt zu echtem Verständnis.',
+                    method4_title: 'Durchgängige Story',
+                    method4_desc: 'Alle 4 Labs arbeiten mit derselben MegaStore-Fallstudie. Jede Technologie beleuchtet andere Aspekte desselben Unternehmens.'
                 },
                 case_study: {
                     title: 'Die MegaStore Case Study',
+                    story: 'MegaStore ist ein wachsendes E-Commerce-Unternehmen mit 50.000 Kunden und 10.000 Produkten. Die Geschäftsführung steht vor Herausforderungen:',
                     intro: 'Willkommen bei MegaStore - einem fiktiven E-Commerce Unternehmen! Über alle 4 Labore hinweg arbeiten Sie mit realistische Daten von MegaStore:',
+                    challenge1: 'Saisonale Umsatzschwankungen: Warum brechen die Verkäufe im Februar ein?',
+                    challenge2: 'Hohe Retourenquoten: 23% aller Elektronikartikel werden zurückgeschickt',
+                    challenge3: 'Kundenabwanderung: 40% der Neukunden kaufen kein zweites Mal',
+                    challenge4: 'Fehlende Empfehlungen: Kunden finden nicht, was sie suchen',
+                    your_role: 'Sie sind das neue Data-Team von MegaStore. Ihre Mission: Nutzen Sie Big Data Technologien, um diese Probleme zu lösen und datenbasierte Empfehlungen zu geben.',
                     customer: 'Kundendaten und Bestellungen',
                     products: 'Produktkatalog mit Beziehungen',
                     transactions: 'Millionen von Transaktionen',
                     analytics: 'Business Analytics & Insights',
+                    lab_mongodb: 'MongoDB: Kundendaten und Produktkatalog verwalten',
+                    lab_duckdb: 'DuckDB: Verkaufstrends und Umsatzanalysen',
+                    lab_neo4j: 'Neo4j: Produktbeziehungen und Empfehlungsnetzwerke',
+                    lab_spark: 'Spark: Großvolumige Transaktionsanalyse',
                     flow: 'Datenfluss durch alle Technologien:',
                     orders: 'Bestellungen',
                     storage: 'Speicherung',
@@ -446,6 +492,8 @@
                 nav: {
                     home: 'Home',
                     about: 'About Course',
+                    bigdata: 'Big Data',
+                    concept: 'Learning Approach',
                     case_study: 'MegaStore Case',
                     labs: 'Labs',
                     getting_started: 'Getting Started',
@@ -464,21 +512,65 @@
                 },
                 about: {
                     title: 'About the Course',
-                    description: 'Big Data & Applications introduces you to the fundamentals and practical applications of modern Big Data technologies. You work with Dockerized environments to experience real data processing scenarios.',
-                    learning: 'Learning Objectives:',
+                    description: 'The course "Big Data & Applications" in the BBA program at THWS combines theory with intensive practice. In this accompanying lab, you work with real Big Data technologies in Docker containers – no simulations, but the tools used in industry.',
+                    audience: 'Who is it for?',
+                    audience_desc: 'BBA students from the 4th semester. No Big Data prerequisites needed – just basic knowledge of SQL and Python.',
+                    special: 'What makes this course special?',
+                    special1: 'Real technologies instead of simulations: MongoDB, DuckDB, Neo4j, Apache Spark',
+                    special2: 'Docker containers: identical environment on every laptop, ready in 15 minutes',
+                    special3: 'Continuous MegaStore case study as a common thread through all labs',
+                    special4: '6 languages for international students',
+                    learning: 'Learning Objectives',
                     obj1: 'Understand Big Data architectures and data flows',
-                    obj2: 'Apply NoSQL databases in practice',
-                    obj3: 'Process large datasets with modern tools',
-                    obj4: 'Python integration with Big Data technologies',
-                    obj5: 'Cloud-based analytics infrastructure'
+                    obj2: 'NoSQL vs. SQL: When to use which database?',
+                    obj3: 'Apply document-oriented, analytical, graph-based, and distributed systems in practice',
+                    obj4: 'Use Python as a Data Engineering tool',
+                    obj5: 'Data-driven thinking: formulate hypotheses, validate, derive business insights'
+                },
+                bigdata: {
+                    title: 'What is Big Data?',
+                    intro: 'Big Data describes datasets so large, fast, or complex that traditional tools like Excel or simple SQL databases reach their limits. The challenge: How do we store, process, and analyze this data to gain knowledge?',
+                    fact: '90% of all data worldwide was generated in the last two years.',
+                    v_volume: 'Volume',
+                    v_volume_desc: 'Petabytes instead of megabytes. Netflix stores billions of streaming events per day.',
+                    v_velocity: 'Velocity',
+                    v_velocity_desc: 'Real-time data. Social media generates 500 million tweets per day.',
+                    v_variety: 'Variety',
+                    v_variety_desc: 'Structured (tables), semi-structured (JSON), unstructured (images, texts).',
+                    v_veracity: 'Veracity',
+                    v_veracity_desc: 'Ensuring data quality. Faulty data leads to wrong decisions.',
+                    v_value: 'Value',
+                    v_value_desc: 'Creating business value from raw data: recommendations, forecasts, optimizations.'
+                },
+                concept: {
+                    title: 'Our Learning Approach',
+                    intro: 'This lab course is built on learning by doing. No passive lecture slides – you work with real databases, real data, and real business problems from minute one.',
+                    method1_title: 'Hands-on with Docker',
+                    method1_desc: 'Every lab runs in Docker containers. No "works on my machine" problem – identical environment on Windows, Mac, and Linux. Ready in 15 minutes.',
+                    method2_title: 'Progressive Difficulty',
+                    method2_desc: '4 levels per lab: Getting Started (guided) → Deepening (less guidance) → Advanced (independent) → Boss Challenge (open problem).',
+                    method3_title: 'Hypothesis-Driven Learning',
+                    method3_desc: 'Before you query: What do you expect? Why? Compare your expectation with the result – the surprise moment leads to real understanding.',
+                    method4_title: 'Continuous Story',
+                    method4_desc: 'All 4 labs work with the same MegaStore case study. Each technology illuminates different aspects of the same company.'
                 },
                 case_study: {
                     title: 'The MegaStore Case Study',
+                    story: 'MegaStore is a growing e-commerce company with 50,000 customers and 10,000 products. Management faces challenges:',
                     intro: 'Welcome to MegaStore - a fictional e-commerce company! Across all 4 labs, you work with realistic MegaStore data:',
+                    challenge1: 'Seasonal sales fluctuations: Why do sales drop in February?',
+                    challenge2: 'High return rates: 23% of all electronics are returned',
+                    challenge3: 'Customer churn: 40% of new customers never buy again',
+                    challenge4: 'Missing recommendations: Customers can\'t find what they\'re looking for',
+                    your_role: 'You are MegaStore\'s new Data Team. Your mission: Use Big Data technologies to solve these problems and provide data-driven recommendations.',
                     customer: 'Customer data & orders',
                     products: 'Product catalog with relationships',
                     transactions: 'Millions of transactions',
                     analytics: 'Business analytics & insights',
+                    lab_mongodb: 'MongoDB: Manage customer data and product catalog',
+                    lab_duckdb: 'DuckDB: Sales trends and revenue analysis',
+                    lab_neo4j: 'Neo4j: Product relationships and recommendation networks',
+                    lab_spark: 'Spark: High-volume transaction analysis',
                     flow: 'Data flow through all technologies:',
                     orders: 'Orders',
                     storage: 'Storage',
@@ -549,6 +641,8 @@
                 nav: {
                     home: 'الرئيسية',
                     about: 'حول الدورة',
+                    bigdata: 'البيانات الضخمة',
+                    concept: 'منهجية التعلم',
                     case_study: 'دراسة الحالة',
                     labs: 'المختبرات',
                     getting_started: 'البدء السريع',
@@ -567,21 +661,65 @@
                 },
                 about: {
                     title: 'حول الدورة',
-                    description: 'تقدم دورة البيانات الضخمة والتطبيقات لك أساسيات وتطبيقات عملية لتقنيات البيانات الضخمة الحديثة. تعمل مع بيئات Docker لتجربة سيناريوهات معالجة البيانات الحقيقية.',
-                    learning: 'أهداف التعلم:',
+                    description: 'تجمع دورة "البيانات الضخمة والتطبيقات" في برنامج BBA في THWS بين النظرية والممارسة المكثفة. في هذا المعمل المرافق، تعمل مع تقنيات البيانات الضخمة الحقيقية في حاويات Docker – لا محاكاة، بل الأدوات المستخدمة في الصناعة.',
+                    audience: 'لمن هذه الدورة؟',
+                    audience_desc: 'طلاب BBA من الفصل الدراسي الرابع. لا حاجة لمعرفة مسبقة بالبيانات الضخمة – فقط معرفة أساسية بـ SQL و Python.',
+                    special: 'ما الذي يميز هذه الدورة؟',
+                    special1: 'تقنيات حقيقية بدلاً من المحاكاة: MongoDB و DuckDB و Neo4j و Apache Spark',
+                    special2: 'حاويات Docker: بيئة متطابقة على كل جهاز محمول، جاهزة في 15 دقيقة',
+                    special3: 'دراسة حالة MegaStore مستمرة كخيط مشترك عبر جميع المعامل',
+                    special4: '6 لغات للطلاب الدوليين',
+                    learning: 'أهداف التعلم',
                     obj1: 'فهم معماريات البيانات الضخمة وتدفقات البيانات',
-                    obj2: 'تطبيق قواعد بيانات NoSQL عمليًا',
-                    obj3: 'معالجة مجموعات البيانات الكبيرة باستخدام الأدوات الحديثة',
-                    obj4: 'تكامل Python مع تقنيات البيانات الضخمة',
-                    obj5: 'البنية التحتية التحليلية المستندة إلى السحابة'
+                    obj2: 'NoSQL مقابل SQL: متى تستخدم أي قاعدة بيانات؟',
+                    obj3: 'تطبيق الأنظمة الموجهة للمستندات والتحليلية والقائمة على الرسوم البيانية والموزعة عملياً',
+                    obj4: 'استخدام Python كأداة هندسة البيانات',
+                    obj5: 'التفكير القائم على البيانات: صياغة فرضيات، التحقق، استخلاص رؤى الأعمال'
+                },
+                bigdata: {
+                    title: 'ما هي البيانات الضخمة؟',
+                    intro: 'تصف البيانات الضخمة مجموعات بيانات كبيرة أو سريعة أو معقدة لدرجة أن الأدوات التقليدية مثل Excel أو قواعد بيانات SQL البسيطة تصل إلى حدودها. التحدي: كيف نخزن ونعالج ونحلل هذه البيانات لاكتساب المعرفة؟',
+                    fact: 'تم إنشاء 90% من جميع البيانات في العالم في العامين الأخيرين.',
+                    v_volume: 'الحجم',
+                    v_volume_desc: 'بيتابايت بدلاً من ميغابايت. تخزن Netflix مليارات أحداث البث يومياً.',
+                    v_velocity: 'السرعة',
+                    v_velocity_desc: 'بيانات في الوقت الفعلي. تولد وسائل التواصل الاجتماعي 500 مليون تغريدة يومياً.',
+                    v_variety: 'التنوع',
+                    v_variety_desc: 'مهيكلة (جداول)، شبه مهيكلة (JSON)، غير مهيكلة (صور، نصوص).',
+                    v_veracity: 'الدقة',
+                    v_veracity_desc: 'ضمان جودة البيانات. البيانات الخاطئة تؤدي إلى قرارات خاطئة.',
+                    v_value: 'القيمة',
+                    v_value_desc: 'خلق قيمة تجارية من البيانات الخام: توصيات، تنبؤات، تحسينات.'
+                },
+                concept: {
+                    title: 'منهجية التعلم',
+                    intro: 'يعتمد هذا المعمل على التعلم بالممارسة. لا شرائح محاضرات سلبية – تعمل مع قواعد بيانات حقيقية وبيانات حقيقية ومشاكل أعمال حقيقية من الدقيقة الأولى.',
+                    method1_title: 'تطبيق عملي مع Docker',
+                    method1_desc: 'كل معمل يعمل في حاويات Docker. لا مشكلة "يعمل على جهازي" – بيئة متطابقة على Windows و Mac و Linux. جاهز في 15 دقيقة.',
+                    method2_title: 'صعوبة تدريجية',
+                    method2_desc: '4 مستويات لكل معمل: البداية (موجّه) ← التعمق (توجيه أقل) ← متقدم (مستقل) ← تحدي الرئيس (مسألة مفتوحة).',
+                    method3_title: 'التعلم القائم على الفرضيات',
+                    method3_desc: 'قبل الاستعلام: ماذا تتوقع؟ لماذا؟ قارن توقعك بالنتيجة – لحظة المفاجأة تؤدي إلى فهم حقيقي.',
+                    method4_title: 'قصة مستمرة',
+                    method4_desc: 'تعمل جميع المعامل الأربعة مع نفس دراسة حالة MegaStore. كل تقنية تضيء جوانب مختلفة من نفس الشركة.'
                 },
                 case_study: {
                     title: 'دراسة حالة MegaStore',
+                    story: 'MegaStore شركة تجارة إلكترونية متنامية بها 50,000 عميل و10,000 منتج. تواجه الإدارة تحديات:',
                     intro: 'مرحبًا بك في MegaStore - شركة تجارة إلكترونية خيالية! عبر جميع المختبرات الأربعة، تعمل مع بيانات MegaStore الواقعية:',
+                    challenge1: 'تقلبات المبيعات الموسمية: لماذا تنخفض المبيعات في فبراير؟',
+                    challenge2: 'معدلات إرجاع عالية: 23% من جميع الإلكترونيات يتم إرجاعها',
+                    challenge3: 'فقدان العملاء: 40% من العملاء الجدد لا يشترون مرة ثانية',
+                    challenge4: 'توصيات مفقودة: العملاء لا يجدون ما يبحثون عنه',
+                    your_role: 'أنت فريق البيانات الجديد في MegaStore. مهمتك: استخدم تقنيات البيانات الضخمة لحل هذه المشاكل وتقديم توصيات قائمة على البيانات.',
                     customer: 'بيانات العملاء والطلبات',
                     products: 'كتالوج المنتجات مع العلاقات',
                     transactions: 'ملايين العمليات',
                     analytics: 'تحليلات الأعمال والرؤى',
+                    lab_mongodb: 'MongoDB: إدارة بيانات العملاء وكتالوج المنتجات',
+                    lab_duckdb: 'DuckDB: اتجاهات المبيعات وتحليل الإيرادات',
+                    lab_neo4j: 'Neo4j: علاقات المنتجات وشبكات التوصية',
+                    lab_spark: 'Spark: تحليل المعاملات الكبيرة',
                     flow: 'تدفق البيانات عبر جميع التقنيات:',
                     orders: 'الطلبات',
                     storage: 'التخزين',
@@ -652,6 +790,8 @@
                 nav: {
                     home: 'Дім',
                     about: 'Про курс',
+                    bigdata: 'Big Data',
+                    concept: 'Методика',
                     case_study: 'Кейс-стаді',
                     labs: 'Лабораторії',
                     getting_started: 'Початок роботи',
@@ -670,21 +810,65 @@
                 },
                 about: {
                     title: 'Про курс',
-                    description: 'Big Data та Застосування знайомить вас із основами та практичними застосуваннями сучасних технологій Big Data. Ви працюєте з контейнеризованими середовищами Docker для досвіду реальних сценаріїв обробки даних.',
-                    learning: 'Цілі навчання:',
+                    description: 'Курс "Big Data та Застосування" в програмі BBA в THWS поєднує теорію з інтенсивною практикою. У цьому супровідному практикумі ви працюєте з реальними технологіями Big Data у контейнерах Docker – без симуляцій, а з інструментами, які використовуються в індустрії.',
+                    audience: 'Для кого?',
+                    audience_desc: 'Студенти BBA з 4-го семестру. Попередній досвід Big Data не потрібен – лише базові знання SQL та Python.',
+                    special: 'Що робить цей курс особливим?',
+                    special1: 'Реальні технології замість симуляцій: MongoDB, DuckDB, Neo4j, Apache Spark',
+                    special2: 'Контейнери Docker: ідентичне середовище на кожному ноутбуці, готове за 15 хвилин',
+                    special3: 'Наскрізна MegaStore-кейс-стаді як спільна нитка через усі лабораторії',
+                    special4: '6 мов для іноземних студентів',
+                    learning: 'Цілі навчання',
                     obj1: 'Розуміти архітектури Big Data та потоки даних',
-                    obj2: 'Застосовувати бази даних NoSQL на практиці',
-                    obj3: 'Обробляти великі набори даних сучасними інструментами',
-                    obj4: 'Інтеграція Python з технологіями Big Data',
-                    obj5: 'Хмарна інфраструктура аналітики'
+                    obj2: 'NoSQL проти SQL: коли яку базу даних використовувати?',
+                    obj3: 'Застосовувати документо-орієнтовані, аналітичні, графові та розподілені системи на практиці',
+                    obj4: 'Використовувати Python як інструмент Data Engineering',
+                    obj5: 'Мислення на основі даних: формулювати гіпотези, перевіряти, виводити бізнес-інсайти'
+                },
+                bigdata: {
+                    title: 'Що таке Big Data?',
+                    intro: 'Big Data описує набори даних настільки великі, швидкі або складні, що традиційні інструменти, такі як Excel або прості SQL-бази даних, досягають своїх меж. Виклик: як зберігати, обробляти та аналізувати ці дані, щоб отримати знання?',
+                    fact: '90% усіх даних у світі було створено за останні два роки.',
+                    v_volume: 'Обсяг',
+                    v_volume_desc: 'Петабайти замість мегабайтів. Netflix зберігає мільярди подій стрімінгу щодня.',
+                    v_velocity: 'Швидкість',
+                    v_velocity_desc: 'Дані в реальному часі. Соціальні мережі генерують 500 мільйонів твітів на день.',
+                    v_variety: 'Різноманітність',
+                    v_variety_desc: 'Структуровані (таблиці), напівструктуровані (JSON), неструктуровані (зображення, тексти).',
+                    v_veracity: 'Достовірність',
+                    v_veracity_desc: 'Забезпечення якості даних. Помилкові дані призводять до хибних рішень.',
+                    v_value: 'Цінність',
+                    v_value_desc: 'Створення бізнес-цінності з сирих даних: рекомендації, прогнози, оптимізації.'
+                },
+                concept: {
+                    title: 'Наша методика навчання',
+                    intro: 'Цей практикум побудований на навчанні через дію. Жодних пасивних слайдів лекцій – ви працюєте з реальними базами даних, реальними даними та реальними бізнес-проблемами з першої хвилини.',
+                    method1_title: 'Практика з Docker',
+                    method1_desc: 'Кожна лабораторія працює в контейнерах Docker. Жодної проблеми "працює на моєму комп\'ютері" – ідентичне середовище на Windows, Mac та Linux. Готово за 15 хвилин.',
+                    method2_title: 'Прогресивна складність',
+                    method2_desc: '4 рівні на лабораторію: Початок (з підказками) → Поглиблення (менше підказок) → Просунутий (самостійно) → Бос-челендж (відкрита задача).',
+                    method3_title: 'Навчання через гіпотези',
+                    method3_desc: 'Перед запитом: що ви очікуєте? Чому? Порівняйте своє очікування з результатом – момент здивування веде до справжнього розуміння.',
+                    method4_title: 'Наскрізна історія',
+                    method4_desc: 'Усі 4 лабораторії працюють з тією самою MegaStore-кейс-стаді. Кожна технологія висвітлює різні аспекти тієї самої компанії.'
                 },
                 case_study: {
                     title: 'Кейс-стаді MegaStore',
+                    story: 'MegaStore — зростаюча компанія електронної комерції з 50 000 клієнтів та 10 000 продуктів. Керівництво стикається з викликами:',
                     intro: 'Ласкаво просимо до MegaStore - вигаданої компанії електронної комерції! На всіх 4 лабораторіях ви працюєте з реальними даними MegaStore:',
+                    challenge1: 'Сезонні коливання продажів: чому продажі падають у лютому?',
+                    challenge2: 'Високий рівень повернень: 23% всієї електроніки повертається',
+                    challenge3: 'Відтік клієнтів: 40% нових клієнтів не купують вдруге',
+                    challenge4: 'Відсутні рекомендації: клієнти не знаходять те, що шукають',
+                    your_role: 'Ви — нова Data Team MegaStore. Ваша місія: використайте технології Big Data для вирішення цих проблем та надання рекомендацій на основі даних.',
                     customer: 'Дані клієнтів та замовлення',
                     products: 'Каталог продуктів зі зв\'язками',
                     transactions: 'Мільйони операцій',
                     analytics: 'Аналітика та інсайти бізнесу',
+                    lab_mongodb: 'MongoDB: управління даними клієнтів та каталогом продуктів',
+                    lab_duckdb: 'DuckDB: тренди продажів та аналіз доходів',
+                    lab_neo4j: 'Neo4j: зв\'язки продуктів та мережі рекомендацій',
+                    lab_spark: 'Spark: аналіз великих обсягів транзакцій',
                     flow: 'Потік даних через всі технології:',
                     orders: 'Замовлення',
                     storage: 'Зберігання',
@@ -755,6 +939,8 @@
                 nav: {
                     home: 'Inicio',
                     about: 'Sobre el curso',
+                    bigdata: 'Big Data',
+                    concept: 'Metodología',
                     case_study: 'Caso de estudio',
                     labs: 'Laboratorios',
                     getting_started: 'Primeros pasos',
@@ -772,22 +958,66 @@
                     hands_on: 'Aprendizaje práctico'
                 },
                 about: {
-                    title: 'Sobre el curso',
-                    description: 'Big Data y Aplicaciones te introduce en los fundamentos y aplicaciones prácticas de las tecnologías modernas de Big Data. Trabajas con entornos Docker para experimentar escenarios reales de procesamiento de datos.',
-                    learning: 'Objetivos de aprendizaje:',
+                    title: 'Sobre el Curso',
+                    description: 'El curso "Big Data y Aplicaciones" en el programa BBA de THWS combina teoría con práctica intensiva. En este laboratorio acompañante, trabajas con tecnologías reales de Big Data en contenedores Docker – sin simulaciones, sino las herramientas utilizadas en la industria.',
+                    audience: '¿Para quién?',
+                    audience_desc: 'Estudiantes de BBA desde el 4to semestre. No se necesitan conocimientos previos de Big Data – solo conocimientos básicos de SQL y Python.',
+                    special: '¿Qué hace especial este curso?',
+                    special1: 'Tecnologías reales en lugar de simulaciones: MongoDB, DuckDB, Neo4j, Apache Spark',
+                    special2: 'Contenedores Docker: entorno idéntico en cada laptop, listo en 15 minutos',
+                    special3: 'Caso de estudio MegaStore continuo como hilo conductor en todos los laboratorios',
+                    special4: '6 idiomas para estudiantes internacionales',
+                    learning: 'Objetivos de Aprendizaje',
                     obj1: 'Comprender arquitecturas de Big Data y flujos de datos',
-                    obj2: 'Aplicar bases de datos NoSQL en la práctica',
-                    obj3: 'Procesar grandes conjuntos de datos con herramientas modernas',
-                    obj4: 'Integración de Python con tecnologías de Big Data',
-                    obj5: 'Infraestructura de análisis basada en la nube'
+                    obj2: 'NoSQL vs. SQL: ¿Cuándo usar qué base de datos?',
+                    obj3: 'Aplicar sistemas orientados a documentos, analíticos, basados en grafos y distribuidos en la práctica',
+                    obj4: 'Usar Python como herramienta de Data Engineering',
+                    obj5: 'Pensamiento basado en datos: formular hipótesis, validar, derivar insights de negocio'
+                },
+                bigdata: {
+                    title: '¿Qué es Big Data?',
+                    intro: 'Big Data describe conjuntos de datos tan grandes, rápidos o complejos que las herramientas tradicionales como Excel o bases de datos SQL simples alcanzan sus límites. El desafío: ¿cómo almacenamos, procesamos y analizamos estos datos para obtener conocimiento?',
+                    fact: 'El 90% de todos los datos del mundo se generaron en los últimos dos años.',
+                    v_volume: 'Volumen',
+                    v_volume_desc: 'Petabytes en lugar de megabytes. Netflix almacena miles de millones de eventos de streaming por día.',
+                    v_velocity: 'Velocidad',
+                    v_velocity_desc: 'Datos en tiempo real. Las redes sociales generan 500 millones de tweets por día.',
+                    v_variety: 'Variedad',
+                    v_variety_desc: 'Estructurados (tablas), semi-estructurados (JSON), no estructurados (imágenes, textos).',
+                    v_veracity: 'Veracidad',
+                    v_veracity_desc: 'Asegurar la calidad de los datos. Datos erróneos llevan a decisiones incorrectas.',
+                    v_value: 'Valor',
+                    v_value_desc: 'Crear valor comercial a partir de datos brutos: recomendaciones, pronósticos, optimizaciones.'
+                },
+                concept: {
+                    title: 'Nuestro Enfoque de Aprendizaje',
+                    intro: 'Este laboratorio se basa en aprender haciendo. Sin diapositivas pasivas – trabajas con bases de datos reales, datos reales y problemas de negocio reales desde el primer minuto.',
+                    method1_title: 'Práctica con Docker',
+                    method1_desc: 'Cada laboratorio se ejecuta en contenedores Docker. Sin problemas de "funciona en mi máquina" – entorno idéntico en Windows, Mac y Linux. Listo en 15 minutos.',
+                    method2_title: 'Dificultad Progresiva',
+                    method2_desc: '4 niveles por laboratorio: Inicio (guiado) → Profundización (menos guía) → Avanzado (independiente) → Desafío Final (problema abierto).',
+                    method3_title: 'Aprendizaje por Hipótesis',
+                    method3_desc: 'Antes de consultar: ¿Qué esperas? ¿Por qué? Compara tu expectativa con el resultado – el momento de sorpresa lleva a una comprensión real.',
+                    method4_title: 'Historia Continua',
+                    method4_desc: 'Los 4 laboratorios trabajan con el mismo caso de estudio MegaStore. Cada tecnología ilumina diferentes aspectos de la misma empresa.'
                 },
                 case_study: {
                     title: 'El caso de estudio de MegaStore',
+                    story: 'MegaStore es una empresa de comercio electrónico en crecimiento con 50.000 clientes y 10.000 productos. La dirección enfrenta desafíos:',
                     intro: 'Bienvenido a MegaStore, una empresa de comercio electrónico ficticia. En los 4 laboratorios, trabajas con datos reales de MegaStore:',
+                    challenge1: 'Fluctuaciones estacionales: ¿Por qué caen las ventas en febrero?',
+                    challenge2: 'Altas tasas de devolución: el 23% de toda la electrónica se devuelve',
+                    challenge3: 'Pérdida de clientes: el 40% de los nuevos clientes no compran de nuevo',
+                    challenge4: 'Recomendaciones faltantes: los clientes no encuentran lo que buscan',
+                    your_role: 'Eres el nuevo equipo de datos de MegaStore. Tu misión: usa tecnologías Big Data para resolver estos problemas y dar recomendaciones basadas en datos.',
                     customer: 'Datos de clientes y pedidos',
                     products: 'Catálogo de productos con relaciones',
                     transactions: 'Millones de transacciones',
                     analytics: 'Análisis e insights empresariales',
+                    lab_mongodb: 'MongoDB: Gestionar datos de clientes y catálogo de productos',
+                    lab_duckdb: 'DuckDB: Tendencias de ventas y análisis de ingresos',
+                    lab_neo4j: 'Neo4j: Relaciones de productos y redes de recomendación',
+                    lab_spark: 'Spark: Análisis de transacciones de alto volumen',
                     flow: 'Flujo de datos a través de todas las tecnologías:',
                     orders: 'Pedidos',
                     storage: 'Almacenamiento',
@@ -858,6 +1088,8 @@
                 nav: {
                     home: 'Ana Sayfa',
                     about: 'Kurs Hakkında',
+                    bigdata: 'Büyük Veri',
+                    concept: 'Yaklaşım',
                     case_study: 'Vaka Çalışması',
                     labs: 'Laboratuvarlar',
                     getting_started: 'Başlarken',
@@ -876,21 +1108,65 @@
                 },
                 about: {
                     title: 'Kurs Hakkında',
-                    description: 'Büyük Veri ve Uygulamalar, modern Büyük Veri teknolojilerinin temellerini ve pratik uygulamalarını tanıtır. Gerçek veri işleme senaryolarını deneyimlemek için Docker konteynerli ortamlarla çalışırsınız.',
-                    learning: 'Öğrenme Hedefleri:',
+                    description: 'THWS\'deki BBA programındaki "Büyük Veri ve Uygulamalar" kursu teoriyi yoğun pratikle birleştirir. Bu eşlikçi laboratuvarda, Docker kapsayıcılarında gerçek Büyük Veri teknolojileriyle çalışırsınız – simülasyon değil, endüstride kullanılan araçlar.',
+                    audience: 'Kimler için?',
+                    audience_desc: '4. dönemden itibaren BBA öğrencileri. Büyük Veri ön bilgisi gerekmiyor – sadece temel SQL ve Python bilgisi.',
+                    special: 'Bu kursu özel kılan nedir?',
+                    special1: 'Simülasyonlar yerine gerçek teknolojiler: MongoDB, DuckDB, Neo4j, Apache Spark',
+                    special2: 'Docker kapsayıcıları: her dizüstü bilgisayarda aynı ortam, 15 dakikada hazır',
+                    special3: 'Tüm laboratuvarlar boyunca sürekli MegaStore vaka çalışması',
+                    special4: 'Uluslararası öğrenciler için 6 dil',
+                    learning: 'Öğrenme Hedefleri',
                     obj1: 'Büyük Veri mimarilerini ve veri akışlarını anlayın',
-                    obj2: 'NoSQL veritabanlarını uygulamada uygulayın',
-                    obj3: 'Modern araçlarla büyük veri setlerini işleyin',
-                    obj4: 'Python\'u Büyük Veri teknolojileriyle entegre edin',
-                    obj5: 'Bulut tabanlı analitik altyapısı'
+                    obj2: 'NoSQL vs. SQL: Hangi veritabanını ne zaman kullanmalı?',
+                    obj3: 'Belge odaklı, analitik, graf tabanlı ve dağıtık sistemleri pratikte uygulayın',
+                    obj4: 'Python\'u Data Engineering aracı olarak kullanın',
+                    obj5: 'Veri odaklı düşünme: hipotez formüle et, doğrula, iş içgörüleri çıkar'
+                },
+                bigdata: {
+                    title: 'Büyük Veri Nedir?',
+                    intro: 'Büyük Veri, Excel veya basit SQL veritabanları gibi geleneksel araçların sınırlarına ulaştığı kadar büyük, hızlı veya karmaşık veri setlerini tanımlar. Zorluk: Bu verileri bilgi elde etmek için nasıl depolayacak, işleyecek ve analiz edeceğiz?',
+                    fact: 'Dünya genelindeki tüm verilerin %90\'ı son iki yılda üretildi.',
+                    v_volume: 'Hacim',
+                    v_volume_desc: 'Megabayt yerine petabayt. Netflix günde milyarlarca akış olayı depolar.',
+                    v_velocity: 'Hız',
+                    v_velocity_desc: 'Gerçek zamanlı veriler. Sosyal medya günde 500 milyon tweet üretir.',
+                    v_variety: 'Çeşitlilik',
+                    v_variety_desc: 'Yapılandırılmış (tablolar), yarı yapılandırılmış (JSON), yapılandırılmamış (görseller, metinler).',
+                    v_veracity: 'Doğruluk',
+                    v_veracity_desc: 'Veri kalitesini sağlama. Hatalı veriler yanlış kararlara yol açar.',
+                    v_value: 'Değer',
+                    v_value_desc: 'Ham verilerden iş değeri yaratma: öneriler, tahminler, optimizasyonlar.'
+                },
+                concept: {
+                    title: 'Öğrenme Yaklaşımımız',
+                    intro: 'Bu laboratuvar kursu yaparak öğrenme üzerine kuruludur. Pasif ders slaytları yok – ilk dakikadan itibaren gerçek veritabanları, gerçek veriler ve gerçek iş problemleriyle çalışırsınız.',
+                    method1_title: 'Docker ile Uygulamalı',
+                    method1_desc: 'Her laboratuvar Docker kapsayıcılarında çalışır. "Benim bilgisayarımda çalışıyor" sorunu yok – Windows, Mac ve Linux\'ta aynı ortam. 15 dakikada hazır.',
+                    method2_title: 'Artan Zorluk',
+                    method2_desc: 'Laboratuvar başına 4 seviye: Başlangıç (rehberli) → Derinleşme (daha az rehberlik) → İleri (bağımsız) → Patron Mücadelesi (açık problem).',
+                    method3_title: 'Hipotez Odaklı Öğrenme',
+                    method3_desc: 'Sorgulamadan önce: Ne bekliyorsunuz? Neden? Beklentinizi sonuçla karşılaştırın – sürpriz anı gerçek anlayışa götürür.',
+                    method4_title: 'Sürekli Hikaye',
+                    method4_desc: 'Tüm 4 laboratuvar aynı MegaStore vaka çalışmasıyla çalışır. Her teknoloji aynı şirketin farklı yönlerini aydınlatır.'
                 },
                 case_study: {
                     title: 'MegaStore Vaka Çalışması',
+                    story: 'MegaStore, 50.000 müşteri ve 10.000 ürünü olan büyüyen bir e-ticaret şirketidir. Yönetim zorluklarla karşı karşıya:',
                     intro: 'MegaStore\'a hoş geldiniz - kurgusal bir e-ticaret şirketi! 4 laboratuvarda gerçekçi MegaStore verileriyle çalışırsınız:',
+                    challenge1: 'Mevsimsel satış dalgalanmaları: Satışlar neden Şubat\'ta düşüyor?',
+                    challenge2: 'Yüksek iade oranları: Tüm elektroniklerin %23\'ü iade ediliyor',
+                    challenge3: 'Müşteri kaybı: Yeni müşterilerin %40\'ı ikinci kez satın almıyor',
+                    challenge4: 'Eksik öneriler: Müşteriler aradıklarını bulamıyor',
+                    your_role: 'Siz MegaStore\'un yeni Veri Ekibisiniz. Göreviniz: Bu sorunları çözmek ve veriye dayalı öneriler sunmak için Büyük Veri teknolojilerini kullanın.',
                     customer: 'Müşteri verileri ve siparişler',
                     products: 'Ürün kataloğu ilişkilerle birlikte',
                     transactions: 'Milyonlarca işlem',
                     analytics: 'İşletme analitiği ve içgörüler',
+                    lab_mongodb: 'MongoDB: Müşteri verileri ve ürün kataloğu yönetimi',
+                    lab_duckdb: 'DuckDB: Satış trendleri ve gelir analizi',
+                    lab_neo4j: 'Neo4j: Ürün ilişkileri ve öneri ağları',
+                    lab_spark: 'Spark: Yüksek hacimli işlem analizi',
                     flow: 'Tüm teknolojiler arasında veri akışı:',
                     orders: 'Siparişler',
                     storage: 'Depolama',
@@ -1046,6 +1322,21 @@
                     <nav className="navbar">
                         <div className="navbar-content">
                             <div className="logo">Big Data Lab</div>
+                            <div style={{display: 'flex', gap: '1.5rem', alignItems: 'center'}}>
+                                {[
+                                    {id: 'about-section', label: t.nav.about},
+                                    {id: 'bigdata-section', label: t.nav.bigdata},
+                                    {id: 'concept-section', label: t.nav.concept},
+                                    {id: 'case-study-section', label: t.nav.case_study},
+                                    {id: 'getting-started-section', label: t.nav.getting_started},
+                                    {id: 'labs-section', label: t.nav.labs}
+                                ].map((item, idx) => (
+                                    <a key={idx} href={'#' + item.id} style={{color: '#1B3A5C', fontWeight: '500', fontSize: '0.875rem', textDecoration: 'none'}}
+                                       onClick={(e) => { e.preventDefault(); document.getElementById(item.id).scrollIntoView({behavior: 'smooth'}); }}>
+                                        {item.label}
+                                    </a>
+                                ))}
+                            </div>
                             <div className="language-switcher">
                                 {['DE', 'EN', 'AR', 'UK', 'ES', 'TR'].map(lang => (
                                     <button
@@ -1072,7 +1363,7 @@
                             </p>
                             <button
                                 onClick={() => {
-                                    document.getElementById('labs-section').scrollIntoView({ behavior: 'smooth' });
+                                    document.getElementById('getting-started-section').scrollIntoView({ behavior: 'smooth' });
                                 }}
                                 className="inline-block bg-orange-500 hover:bg-orange-600 text-white font-bold py-4 px-8 rounded-lg text-lg transition-all transform hover:scale-105 fade-in"
                                 style={{ animationDelay: '0.2s' }}
@@ -1099,24 +1390,71 @@
                         </div>
                     </section>
 
-                    {/* About Course */}
+                    {/* Big Data Introduction */}
+                    <section id="bigdata-section" className="py-20 px-6 bg-gradient-to-br from-gray-50 to-white">
+                        <div className="max-w-6xl mx-auto">
+                            <h2 className="text-4xl md:text-5xl font-black text-gray-900 mb-8 text-center scroll-reveal">
+                                {t.bigdata.title}
+                            </h2>
+                            <p className="text-xl text-gray-700 text-center mb-6 max-w-4xl mx-auto scroll-reveal">
+                                {t.bigdata.intro}
+                            </p>
+                            <div className="text-center mb-12 scroll-reveal">
+                                <div className="inline-block bg-orange-50 border-2 border-orange-200 rounded-lg px-6 py-3">
+                                    <p className="text-lg font-bold" style={{color: '#E8792F'}}>{t.bigdata.fact}</p>
+                                </div>
+                            </div>
+                            <div className="grid md:grid-cols-5 gap-4 scroll-reveal">
+                                {[
+                                    {title: t.bigdata.v_volume, desc: t.bigdata.v_volume_desc, letter: 'V'},
+                                    {title: t.bigdata.v_velocity, desc: t.bigdata.v_velocity_desc, letter: 'V'},
+                                    {title: t.bigdata.v_variety, desc: t.bigdata.v_variety_desc, letter: 'V'},
+                                    {title: t.bigdata.v_veracity, desc: t.bigdata.v_veracity_desc, letter: 'V'},
+                                    {title: t.bigdata.v_value, desc: t.bigdata.v_value_desc, letter: 'V'}
+                                ].map((v, idx) => (
+                                    <div key={idx} className="bg-white border-2 border-gray-200 rounded-lg p-5 text-center hover:border-orange-500 transition-colors">
+                                        <div className="text-3xl font-black mb-2" style={{color: '#E8792F'}}>{v.letter}</div>
+                                        <h3 className="text-lg font-bold text-gray-900 mb-2">{v.title}</h3>
+                                        <p className="text-sm text-gray-600">{v.desc}</p>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </section>
+
+                    <div className="section-divider"></div>
+
+                    {/* About Course - Expanded */}
                     <section id="about-section" className="py-20 px-6 bg-white">
                         <div className="max-w-6xl mx-auto">
                             <h2 className="text-4xl md:text-5xl font-black text-gray-900 mb-12 text-center scroll-reveal">
                                 {t.about.title}
                             </h2>
-                            <div className="grid md:grid-cols-2 gap-12">
+                            <p className="text-xl text-gray-700 text-center mb-12 max-w-4xl mx-auto scroll-reveal leading-relaxed">
+                                {t.about.description}
+                            </p>
+
+                            <div className="grid md:grid-cols-2 gap-12 mb-12">
                                 <div className="scroll-reveal">
-                                    <p className="text-lg text-gray-700 leading-relaxed mb-6">
-                                        {t.about.description}
-                                    </p>
+                                    <h3 className="text-2xl font-bold mb-4" style={{color: '#1B3A5C'}}>{t.about.audience}</h3>
+                                    <p className="text-lg text-gray-700 mb-8">{t.about.audience_desc}</p>
+
+                                    <h3 className="text-2xl font-bold mb-4" style={{color: '#1B3A5C'}}>{t.about.special}</h3>
+                                    <ul className="space-y-3">
+                                        {[t.about.special1, t.about.special2, t.about.special3, t.about.special4].map((item, idx) => (
+                                            <li key={idx} className="flex items-start gap-3">
+                                                <span className="font-bold mt-1" style={{color: '#E8792F'}}>✓</span>
+                                                <span className="text-gray-700">{item}</span>
+                                            </li>
+                                        ))}
+                                    </ul>
                                 </div>
                                 <div className="scroll-reveal">
-                                    <h3 className="text-2xl font-bold text-orange-500 mb-6">{t.about.learning}</h3>
+                                    <h3 className="text-2xl font-bold mb-6" style={{color: '#E8792F'}}>{t.about.learning}</h3>
                                     <ul className="space-y-3">
                                         {[t.about.obj1, t.about.obj2, t.about.obj3, t.about.obj4, t.about.obj5].map((obj, idx) => (
                                             <li key={idx} className="flex items-start gap-3">
-                                                <span className="text-orange-500 font-bold mt-1">✓</span>
+                                                <span className="font-bold mt-1" style={{color: '#E8792F'}}>✓</span>
                                                 <span className="text-gray-700">{obj}</span>
                                             </li>
                                         ))}
@@ -1128,30 +1466,72 @@
 
                     <div className="section-divider"></div>
 
-                    {/* Case Study */}
+                    {/* Learning Concept */}
+                    <section id="concept-section" className="py-20 px-6 bg-white">
+                        <div className="max-w-6xl mx-auto">
+                            <h2 className="text-4xl md:text-5xl font-black text-gray-900 mb-8 text-center scroll-reveal">
+                                {t.concept.title}
+                            </h2>
+                            <p className="text-xl text-gray-700 text-center mb-12 max-w-4xl mx-auto scroll-reveal">
+                                {t.concept.intro}
+                            </p>
+                            <div className="grid md:grid-cols-2 gap-8 scroll-reveal">
+                                {[
+                                    {title: t.concept.method1_title, desc: t.concept.method1_desc, icon: '🐳'},
+                                    {title: t.concept.method2_title, desc: t.concept.method2_desc, icon: '📈'},
+                                    {title: t.concept.method3_title, desc: t.concept.method3_desc, icon: '🔍'},
+                                    {title: t.concept.method4_title, desc: t.concept.method4_desc, icon: '📖'}
+                                ].map((method, idx) => (
+                                    <div key={idx} className="bg-gray-50 border-2 border-gray-200 rounded-lg p-6 hover:border-orange-500 transition-colors">
+                                        <div className="text-3xl mb-3">{method.icon}</div>
+                                        <h3 className="text-xl font-bold text-gray-900 mb-3">{method.title}</h3>
+                                        <p className="text-gray-700 leading-relaxed">{method.desc}</p>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </section>
+
+                    <div className="section-divider"></div>
+
+                    {/* Case Study - Expanded */}
                     <section id="case-study-section" className="py-20 px-6 bg-gradient-to-br from-gray-50 to-white">
                         <div className="max-w-6xl mx-auto">
                             <h2 className="text-4xl md:text-5xl font-black text-gray-900 mb-12 text-center scroll-reveal">
                                 {t.case_study.title}
                             </h2>
-                            <p className="text-xl text-gray-700 text-center mb-12 scroll-reveal">
-                                {t.case_study.intro}
-                            </p>
 
-                            <div className="grid md:grid-cols-4 gap-6 mb-16">
-                                {[
-                                    { icon: icons.users, text: t.case_study.customer },
-                                    { icon: icons.shoppingBag, text: t.case_study.products },
-                                    { icon: icons.creditCard, text: t.case_study.transactions },
-                                    { icon: icons.trendingUp, text: t.case_study.analytics }
-                                ].map((item, idx) => (
-                                    <div key={idx} className="bg-white border-2 border-gray-200 rounded-lg p-6 text-center scroll-reveal hover:border-orange-500 transition-colors">
-                                        <div className="mb-3 flex justify-center" style={{ color: '#1B3A5C' }}>
-                                            <LucideIcon d={item.icon} size={36} />
+                            <div className="scroll-reveal mb-12">
+                                <p className="text-xl text-gray-700 text-center mb-8">{t.case_study.story}</p>
+                                <div className="grid md:grid-cols-2 gap-6 mb-8">
+                                    {[t.case_study.challenge1, t.case_study.challenge2, t.case_study.challenge3, t.case_study.challenge4].map((challenge, idx) => (
+                                        <div key={idx} className="bg-white border-2 border-gray-200 rounded-lg p-5 scroll-reveal" style={{borderLeft: '4px solid #E8792F'}}>
+                                            <p className="text-gray-700 font-semibold">{challenge}</p>
                                         </div>
-                                        <p className="text-gray-700 font-semibold">{item.text}</p>
-                                    </div>
-                                ))}
+                                    ))}
+                                </div>
+                            </div>
+
+                            <div className="scroll-reveal mb-12">
+                                <div className="bg-white border-2 rounded-lg p-8 text-center" style={{borderColor: '#1B3A5C', background: 'linear-gradient(135deg, #f0f4f8 0%, #e8f4f8 100%)'}}>
+                                    <p className="text-xl font-bold" style={{color: '#1B3A5C'}}>{t.case_study.your_role}</p>
+                                </div>
+                            </div>
+
+                            <div className="scroll-reveal mb-12">
+                                <div className="grid md:grid-cols-4 gap-4">
+                                    {[
+                                        {text: t.case_study.lab_mongodb, color: '#00684A'},
+                                        {text: t.case_study.lab_duckdb, color: '#FFC107'},
+                                        {text: t.case_study.lab_neo4j, color: '#018BFF'},
+                                        {text: t.case_study.lab_spark, color: '#E25A1C'}
+                                    ].map((lab, idx) => (
+                                        <div key={idx} className="bg-white border-2 border-gray-200 rounded-lg p-4 text-center hover:border-orange-500 transition-colors">
+                                            <div className="w-3 h-3 rounded-full mx-auto mb-3" style={{background: lab.color}}></div>
+                                            <p className="text-sm text-gray-700 font-semibold">{lab.text}</p>
+                                        </div>
+                                    ))}
+                                </div>
                             </div>
 
                             <div className="scroll-reveal">
@@ -1166,6 +1546,43 @@
                                     <div className="data-flow-item">DuckDB</div>
                                     <div className="data-flow-arrow">→</div>
                                     <div className="data-flow-item">Spark</div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <div className="section-divider"></div>
+
+                    {/* Getting Started - Docker Guide CTA */}
+                    <section id="getting-started-section" className="py-20 px-6" style={{ background: '#1B3A5C' }}>
+                        <div className="max-w-4xl mx-auto text-center">
+                            <h2 className="text-4xl md:text-5xl font-black text-white mb-6 scroll-reveal">
+                                {t.getting_started.title}
+                            </h2>
+                            <p className="text-xl text-blue-200 mb-4 scroll-reveal">
+                                {t.getting_started.docker}
+                            </p>
+                            <p className="text-lg text-blue-300 mb-10 scroll-reveal">
+                                {t.getting_started.prereq}
+                            </p>
+                            <a
+                                href="docker-guide.html"
+                                className="inline-block bg-orange-500 hover:bg-orange-600 text-white font-bold py-4 px-10 rounded-lg text-xl transition-colors scroll-reveal"
+                            >
+                                {t.getting_started.step1}
+                            </a>
+                            <div className="mt-8 grid md:grid-cols-3 gap-6 scroll-reveal">
+                                <div className="bg-white bg-opacity-10 rounded-lg p-6">
+                                    <div className="text-3xl font-bold text-white mb-2">1</div>
+                                    <p className="text-blue-200">{t.getting_started.step2}</p>
+                                </div>
+                                <div className="bg-white bg-opacity-10 rounded-lg p-6">
+                                    <div className="text-3xl font-bold text-white mb-2">2</div>
+                                    <p className="text-blue-200">{t.getting_started.step3}</p>
+                                </div>
+                                <div className="bg-white bg-opacity-10 rounded-lg p-6">
+                                    <div className="text-3xl font-bold text-white mb-2">3</div>
+                                    <p className="text-blue-200">{t.getting_started.copy}</p>
                                 </div>
                             </div>
                         </div>
@@ -1225,43 +1642,6 @@
                                         </div>
                                     );
                                 })}
-                            </div>
-                        </div>
-                    </section>
-
-                    <div className="section-divider"></div>
-
-                    {/* Getting Started - Docker Guide CTA */}
-                    <section id="getting-started-section" className="py-20 px-6" style={{ background: '#1B3A5C' }}>
-                        <div className="max-w-4xl mx-auto text-center">
-                            <h2 className="text-4xl md:text-5xl font-black text-white mb-6 scroll-reveal">
-                                {t.getting_started.title}
-                            </h2>
-                            <p className="text-xl text-blue-200 mb-4 scroll-reveal">
-                                {t.getting_started.docker}
-                            </p>
-                            <p className="text-lg text-blue-300 mb-10 scroll-reveal">
-                                {t.getting_started.prereq}
-                            </p>
-                            <a
-                                href="docker-guide.html"
-                                className="inline-block bg-orange-500 hover:bg-orange-600 text-white font-bold py-4 px-10 rounded-lg text-xl transition-colors scroll-reveal"
-                            >
-                                {t.getting_started.step1}
-                            </a>
-                            <div className="mt-8 grid md:grid-cols-3 gap-6 scroll-reveal">
-                                <div className="bg-white bg-opacity-10 rounded-lg p-6">
-                                    <div className="text-3xl font-bold text-white mb-2">1</div>
-                                    <p className="text-blue-200">{t.getting_started.step2}</p>
-                                </div>
-                                <div className="bg-white bg-opacity-10 rounded-lg p-6">
-                                    <div className="text-3xl font-bold text-white mb-2">2</div>
-                                    <p className="text-blue-200">{t.getting_started.step3}</p>
-                                </div>
-                                <div className="bg-white bg-opacity-10 rounded-lg p-6">
-                                    <div className="text-3xl font-bold text-white mb-2">3</div>
-                                    <p className="text-blue-200">{t.getting_started.copy}</p>
-                                </div>
                             </div>
                         </div>
                     </section>
