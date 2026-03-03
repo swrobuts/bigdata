@@ -21,7 +21,9 @@ random.seed(42)
 np.random.seed(42)
 
 # Configuration
-OUTPUT_DIR = "/sessions/determined-trusting-fermi/mnt/Sommersemester_2026/BBA/SP_BigData/bigdata-lab/data/megastore"
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+OUTPUT_DIR = os.path.join(SCRIPT_DIR, "megastore")
+os.makedirs(OUTPUT_DIR, exist_ok=True)
 TIMESTAMP = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
 # German cities for realistic data

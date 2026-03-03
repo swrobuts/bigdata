@@ -360,6 +360,7 @@
                 section1Title: "Was ist Docker?",
                 section1Intro: "Docker ist ein Tool, das es dir ermöglicht, deine Anwendung und alle ihre Abhängigkeiten in einem isolierten Behälter zu packen – ähnlich wie ein Versandcontainer für Software.",
                 section1Analogy: "Genau wie Versandcontainer den globalen Handel standardisiert haben, standardisiert Docker die Softwarebereitstellung. Ein Container enthält alles, was deine Anwendung braucht, um überall zu funktionieren.",
+                problemWithoutDocker: "Das Problem ohne Docker:",
                 section1Problem: "Das Problem ohne Docker: Dein Kollege sagt 'bei mir funktioniert es' – aber auf deinem Laptop funktioniert es nicht. Docker löst dieses Problem: Es garantiert, dass deine Anwendung überall funktioniert.",
                 section1Visual: "Stell dir dein Laptop als einen großen Chaos vor: viele Programme, Bibliotheken, verschiedene Versionen. Docker packt jede Anwendung in ihre eigene isolierte Box. Wenn eine Anwendung fehlschlägt, bleibt dein Laptop sauber.",
 
@@ -374,13 +375,13 @@
                 section3Intro: "Bevor du beginnst, solltest du diese vier Konzepte verstehen:",
 
                 conceptImage: "Blueprint/Rezept",
-                conceptImageDesc: "Ein Docker Image ist wie ein Rezept zum Kochen. Es beschreibt, was in den Container gehört – welche Software, Konfigurationen und Dateien. Es ist unveränderlich (immutable) – sobald es erstellt ist, kann es nicht verändert werden.",
+                conceptImageDesc: "Ein Image ist der Bauplan für einen Container. Es enthält alles Nötige: Software, Einstellungen, Dateien. Du lädst es einmal herunter, und daraus werden Container erstellt. Ein Image verändert sich nicht – es ist wie eine Vorlage.",
 
                 conceptContainer: "Laufende Instanz",
-                conceptContainerDesc: "Ein Container ist wie das fertige Gericht aus dem Rezept. Es wird vom Image erstellt und läuft tatsächlich. Du kannst mehrere Container aus demselben Image starten, genau wie du mehrere Gerichte aus einem Rezept kochen kannst.",
+                conceptContainerDesc: "Ein Container ist eine laufende Instanz eines Images. Wie ein Kuchen, der nach einem Rezept (Image) gebacken wird. Du kannst mehrere Container aus einem Image starten, und jeder läuft unabhängig.",
 
                 conceptDesktop: "Die Küche",
-                conceptDesktopDesc: "Docker Desktop ist die Anwendung, die du auf deinem Laptop installierst. Sie ist wie die Küche – ohne sie kannst du nicht kochen (Container nicht ausführen).",
+                conceptDesktopDesc: "Docker Desktop ist die Anwendung, die du auf deinem Laptop installierst. Sie stellt die Docker Engine bereit – das ist der 'Motor', der Container ausführt. Docker Desktop muss im Hintergrund laufen (du siehst es in der Taskleiste/Menüleiste), bevor du im Terminal Docker-Befehle nutzen kannst. Ohne Docker Desktop: kein docker-Befehl funktioniert.",
 
                 conceptCompose: "Das Menü",
                 conceptComposeDesc: "docker-compose ist ein Tool zum Starten mehrerer verbundener Services gleichzeitig. Statt mehrere Container einzeln zu starten, beschreibst du das ganze System in einer Datei.",
@@ -468,11 +469,27 @@
 
                 section8Labs: "Alle Lab-Dokumentationen:",
                 mongodbLab: "MongoDB Lab",
-                postgresLab: "PostgreSQL Lab",
-                elasticsearchLab: "Elasticsearch Lab",
-                kafkaLab: "Kafka Lab",
+                duckdbLab: "DuckDB Lab",
+                neo4jLab: "Neo4j Lab",
+                sparkLab: "Apache Spark Lab",
 
                 section8Conclusion: "Viel Spaß mit Docker und Big Data!",
+
+                section9Title: "Aufräumen & Speicher freigeben",
+                section9Intro: "Docker-Images und Container belegen Speicherplatz auf deiner Festplatte. Nach dem Praktikum oder wenn du Speicherplatz brauchst, kannst du alles wieder entfernen.",
+                cleanupCheck: "Schritt 1: Prüfen, wie viel Speicher Docker belegt",
+                cleanupCheckDesc: "Zeigt dir eine Übersicht über den belegten Speicherplatz:",
+                cleanupStop: "Schritt 2: Alle laufenden Container stoppen",
+                cleanupStopDesc: "Bevor du aufräumen kannst, müssen alle Container gestoppt sein:",
+                cleanupContainers: "Schritt 3: Alle Container entfernen",
+                cleanupContainersDesc: "Entfernt alle gestoppten Container (die Daten darin gehen verloren):",
+                cleanupImages: "Schritt 4: Alle Images entfernen",
+                cleanupImagesDesc: "Entfernt alle heruntergeladenen Docker-Images und gibt den meisten Speicherplatz frei:",
+                cleanupAll: "Alles auf einmal entfernen",
+                cleanupAllDesc: "Dieser Befehl entfernt ALLES – alle Container, Images, Netzwerke und Volumes. Perfekt zum kompletten Aufräumen am Ende des Semesters:",
+                cleanupDesktop: "Optional: Docker Desktop deinstallieren",
+                cleanupDesktopDesc: "Wenn du Docker nicht mehr brauchst, kannst du Docker Desktop auch komplett deinstallieren. Unter macOS: In den Systemeinstellungen → Docker deinstallieren. Unter Windows: Systemsteuerung → Programme → Docker Desktop deinstallieren.",
+                cleanupWarning: "Achtung: Nach dem Entfernen der Images musst du sie beim nächsten Lab-Start neu herunterladen. Das dauert je nach Internetverbindung einige Minuten.",
 
                 copyButton: "Kopieren",
                 copiedButton: "Kopiert!",
@@ -485,6 +502,7 @@
                 section1Title: "What is Docker?",
                 section1Intro: "Docker is a tool that lets you package your application and all its dependencies in an isolated container – just like a shipping container for software.",
                 section1Analogy: "Just as shipping containers standardized global trade, Docker standardizes software deployment. A container holds everything your application needs to run anywhere.",
+                problemWithoutDocker: "The problem without Docker:",
                 section1Problem: "The problem without Docker: Your colleague says 'it works on my machine' – but it doesn't work on your laptop. Docker solves this: It ensures your application works everywhere.",
                 section1Visual: "Imagine your laptop as chaos: many programs, libraries, different versions. Docker puts each application in its own isolated box. If one application fails, your laptop stays clean.",
 
@@ -499,13 +517,13 @@
                 section3Intro: "Before you start, understand these four concepts:",
 
                 conceptImage: "Blueprint/Recipe",
-                conceptImageDesc: "A Docker image is like a cooking recipe. It describes what goes into the container – which software, configurations, and files. It's immutable – once created, it can't be changed.",
+                conceptImageDesc: "An image is the blueprint for a container. It contains everything needed: software, settings, files. You download it once, and containers are created from it. An image never changes – it's like a template.",
 
                 conceptContainer: "Running Instance",
-                conceptContainerDesc: "A container is like the finished dish from the recipe. It's created from the image and actually runs. You can start multiple containers from the same image, just like cooking multiple dishes from one recipe.",
+                conceptContainerDesc: "A container is a running instance of an image. Like a cake baked from a recipe (image). You can start multiple containers from one image, and each runs independently.",
 
                 conceptDesktop: "The Kitchen",
-                conceptDesktopDesc: "Docker Desktop is the application you install on your laptop. It's like the kitchen – without it, you can't cook (run containers).",
+                conceptDesktopDesc: "Docker Desktop is the application you install on your laptop. It provides the Docker Engine – the 'motor' that runs containers. Docker Desktop must be running in the background (you'll see it in the system tray/menu bar) before you can use any Docker commands in the terminal. Without Docker Desktop running: no docker command works.",
 
                 conceptCompose: "The Menu",
                 conceptComposeDesc: "docker-compose is a tool to start multiple connected services at once. Instead of starting multiple containers individually, you describe the whole system in one file.",
@@ -593,11 +611,27 @@
 
                 section8Labs: "All lab documentations:",
                 mongodbLab: "MongoDB Lab",
-                postgresLab: "PostgreSQL Lab",
-                elasticsearchLab: "Elasticsearch Lab",
-                kafkaLab: "Kafka Lab",
+                duckdbLab: "DuckDB Lab",
+                neo4jLab: "Neo4j Lab",
+                sparkLab: "Apache Spark Lab",
 
                 section8Conclusion: "Have fun with Docker and Big Data!",
+
+                section9Title: "Cleanup & Free Disk Space",
+                section9Intro: "Docker images and containers take up disk space. After the lab exercises or when you need storage, you can remove everything.",
+                cleanupCheck: "Step 1: Check how much space Docker uses",
+                cleanupCheckDesc: "Shows an overview of Docker's disk usage:",
+                cleanupStop: "Step 2: Stop all running containers",
+                cleanupStopDesc: "Before cleanup, all containers must be stopped:",
+                cleanupContainers: "Step 3: Remove all containers",
+                cleanupContainersDesc: "Removes all stopped containers (data inside will be lost):",
+                cleanupImages: "Step 4: Remove all images",
+                cleanupImagesDesc: "Removes all downloaded Docker images and frees the most disk space:",
+                cleanupAll: "Remove everything at once",
+                cleanupAllDesc: "This command removes EVERYTHING – all containers, images, networks, and volumes. Perfect for a complete cleanup at the end of the semester:",
+                cleanupDesktop: "Optional: Uninstall Docker Desktop",
+                cleanupDesktopDesc: "If you no longer need Docker, you can completely uninstall Docker Desktop. On macOS: System Settings → Uninstall Docker. On Windows: Control Panel → Programs → Uninstall Docker Desktop.",
+                cleanupWarning: "Warning: After removing images, they need to be re-downloaded next time you start a lab. This takes a few minutes depending on your internet connection.",
 
                 copyButton: "Copy",
                 copiedButton: "Copied!",
@@ -610,6 +644,7 @@
                 section1Title: "ما هو Docker؟",
                 section1Intro: "Docker هو أداة تتيح لك حزم تطبيقك وجميع تبعياته في حاوية معزولة - تماماً مثل حاوية شحن للبرامج.",
                 section1Analogy: "تماماً كما وحدت حاويات الشحن التجارة العالمية، يوحد Docker نشر البرامج. تحتوي الحاوية على كل ما يحتاجه تطبيقك للعمل في أي مكان.",
+                problemWithoutDocker: "المشكلة بدون Docker:",
                 section1Problem: "المشكلة بدون Docker: يقول زميلك 'يعمل على جهازي' - لكنه لا يعمل على جهازك المحمول. يحل Docker هذه المشكلة: يضمن عمل تطبيقك في كل مكان.",
                 section1Visual: "تخيل جهازك المحمول فوضى: برامج كثيرة ومكتبات وإصدارات مختلفة. يضع Docker كل تطبيق في صندوقه الخاص المعزول. إذا فشل تطبيق واحد، يبقى جهازك المحمول نظيفاً.",
 
@@ -624,13 +659,13 @@
                 section3Intro: "قبل أن تبدأ، افهم هذه المفاهيم الأربعة:",
 
                 conceptImage: "خطة / وصفة",
-                conceptImageDesc: "صورة Docker مثل وصفة الطهي. تصف ما يدخل الحاوية - أي برامج وتكوينات وملفات. إنها غير قابلة للتغيير - بمجرد إنشاؤها، لا يمكن تغييرها.",
+                conceptImageDesc: "الصورة هي الخطة للحاوية. تحتوي على كل ما هو مطلوب: برامج وإعدادات وملفات. تقوم بتحميلها مرة واحدة، وتُنشأ الحاويات من خلالها. الصورة لا تتغير أبداً - إنها مثل القالب.",
 
                 conceptContainer: "مثيل قيد التشغيل",
-                conceptContainerDesc: "الحاوية مثل الطبق المنتهي من الوصفة. يتم إنشاؤها من الصورة وتعمل بالفعل. يمكنك بدء حاويات متعددة من نفس الصورة، تماماً مثل طهي أطباق متعددة من وصفة واحدة.",
+                conceptContainerDesc: "الحاوية هي مثيل يعمل من صورة. مثل الكعكة المخبوزة من وصفة (صورة). يمكنك بدء حاويات متعددة من صورة واحدة، وكل واحدة تعمل بشكل مستقل.",
 
                 conceptDesktop: "المطبخ",
-                conceptDesktopDesc: "Docker Desktop هي التطبيق الذي تثبته على جهازك المحمول. إنها مثل المطبخ - بدونها، لا يمكنك الطهي (تشغيل الحاويات).",
+                conceptDesktopDesc: "Docker Desktop هي التطبيق الذي تثبته على جهازك المحمول. توفر Docker Engine - وهي المحرك الذي يشغل الحاويات. يجب أن يعمل Docker Desktop في الخلفية (ستراه في شريط النظام) قبل أن تتمكن من استخدام أي أوامر Docker في الطرفية. بدون Docker Desktop: لا يعمل أي أمر docker.",
 
                 conceptCompose: "القائمة",
                 conceptComposeDesc: "docker-compose هي أداة لبدء خدمات متعددة متصلة في وقت واحد. بدلاً من بدء حاويات متعددة بشكل فردي، تصف النظام بأكمله في ملف واحد.",
@@ -718,11 +753,27 @@
 
                 section8Labs: "جميع وثائق المعامل:",
                 mongodbLab: "معمل MongoDB",
-                postgresLab: "معمل PostgreSQL",
-                elasticsearchLab: "معمل Elasticsearch",
-                kafkaLab: "معمل Kafka",
+                duckdbLab: "معمل DuckDB",
+                neo4jLab: "معمل Neo4j",
+                sparkLab: "معمل Apache Spark",
 
                 section8Conclusion: "استمتع بـ Docker والبيانات الكبيرة!",
+
+                section9Title: "التنظيف وتحرير مساحة القرص",
+                section9Intro: "صور Docker والحاويات تشغل مساحة على القرص. بعد تمارين المختبر أو عندما تحتاج إلى التخزين، يمكنك إزالة كل شيء.",
+                cleanupCheck: "الخطوة 1: تحقق من مقدار المساحة التي يستخدمها Docker",
+                cleanupCheckDesc: "يعرض نظرة عامة على استخدام Docker للقرص:",
+                cleanupStop: "الخطوة 2: إيقاف جميع الحاويات قيد التشغيل",
+                cleanupStopDesc: "قبل التنظيف، يجب إيقاف جميع الحاويات:",
+                cleanupContainers: "الخطوة 3: إزالة جميع الحاويات",
+                cleanupContainersDesc: "إزالة جميع الحاويات المتوقفة (ستفقد البيانات بداخلها):",
+                cleanupImages: "الخطوة 4: إزالة جميع الصور",
+                cleanupImagesDesc: "إزالة جميع صور Docker التي تم تنزيلها وتحرير مساحة القرص:",
+                cleanupAll: "إزالة كل شيء في المرة",
+                cleanupAllDesc: "يزيل هذا الأمر كل شيء - جميع الحاويات والصور والشبكات والمجلدات. مثالي للتنظيف الكامل في نهاية الفصل الدراسي:",
+                cleanupDesktop: "اختياري: إلغاء تثبيت Docker Desktop",
+                cleanupDesktopDesc: "إذا لم تعد بحاجة إلى Docker، يمكنك إلغاء تثبيت Docker Desktop تماماً. على macOS: إعدادات النظام → إلغاء تثبيت Docker. على Windows: لوحة التحكم → البرامج → إلغاء تثبيت Docker Desktop.",
+                cleanupWarning: "تحذير: بعد إزالة الصور، يجب إعادة تنزيلها في المرة القادمة التي تبدأ فيها معملاً. يستغرق هذا بضع دقائق حسب سرعة الإنترنت.",
 
                 copyButton: "نسخ",
                 copiedButton: "تم النسخ!",
@@ -735,6 +786,7 @@
                 section1Title: "Що таке Docker?",
                 section1Intro: "Docker — це інструмент, який дозволяє пакувати ваш додаток і всі його залежності в ізольовану контейнер — як контейнер для доставки програмного забезпечення.",
                 section1Analogy: "Так само, як контейнери доставки стандартизували світову торгівлю, Docker стандартизує розгортання програмного забезпечення. Контейнер містить все, що потрібно вашому додатку для роботи в будь-якому місці.",
+                problemWithoutDocker: "Проблема без Docker:",
                 section1Problem: "Проблема без Docker: ваш колега говорить 'у мене це працює' - але на вашому ноутбуку це не працює. Docker вирішує цю проблему: він гарантує, що ваш додаток працює всюди.",
                 section1Visual: "Уявіть свій ноутбук як хаос: багато програм, бібліотек, різні версії. Docker ставить кожний додаток у свою власну ізольовану коробку. Якщо один додаток впаде, ваш ноутбук залишиться чистим.",
 
@@ -749,13 +801,13 @@
                 section3Intro: "Перш ніж починати, зрозумійте ці чотири концепції:",
 
                 conceptImage: "Схема/Рецепт",
-                conceptImageDesc: "Образ Docker подібний рецепту кулінара. Він описує, що входить в контейнер - яке програмне забезпечення, конфігурації та файли. Він незмінний - один раз створений, його не можна змінити.",
+                conceptImageDesc: "Образ це схема для контейнера. Він містить все необхідне: програмне забезпечення, налаштування, файли. Ви завантажуєте його один раз, і контейнери створюються з нього. Образ ніколи не змінюється - це як шаблон.",
 
                 conceptContainer: "Запущений екземпляр",
-                conceptContainerDesc: "Контейнер подібний готової страви з рецепту. Він створений з образу і насправді працює. Ви можете запустити кілька контейнерів з того ж образу, як готуючи кілька страв за одним рецептом.",
+                conceptContainerDesc: "Контейнер це запущений екземпляр образу. Як торт, випечений за рецептом (образ). Ви можете запустити кілька контейнерів з одного образу, і кожен працює незалежно.",
 
                 conceptDesktop: "Кухня",
-                conceptDesktopDesc: "Docker Desktop — це додаток, який ви встановлюєте на свій ноутбук. Це як кухня - без неї ви не можете готувати (запускати контейнери).",
+                conceptDesktopDesc: "Docker Desktop — це додаток, який ви встановлюєте на свій ноутбук. Він надає Docker Engine — мотор, що запускає контейнери. Docker Desktop має працювати у фоні (ви його бачите на панелі завдань) перед тим, як використовувати команди Docker у терміналі. Без Docker Desktop: жодна docker команда не працює.",
 
                 conceptCompose: "Меню",
                 conceptComposeDesc: "docker-compose — це інструмент для запуску кількох пов'язаних сервісів одночасно. Замість запуску кількох контейнерів окремо, ви описуєте всю систему в одному файлі.",
@@ -843,11 +895,27 @@
 
                 section8Labs: "Вся документація лабораторії:",
                 mongodbLab: "Лабораторія MongoDB",
-                postgresLab: "Лабораторія PostgreSQL",
-                elasticsearchLab: "Лабораторія Elasticsearch",
-                kafkaLab: "Лабораторія Kafka",
+                duckdbLab: "Лабораторія DuckDB",
+                neo4jLab: "Лабораторія Neo4j",
+                sparkLab: "Лабораторія Apache Spark",
 
                 section8Conclusion: "Насолоджуйтеся Docker та Big Data!",
+
+                section9Title: "Очищення та звільнення дискового простору",
+                section9Intro: "Образи Docker та контейнери займають місце на диску. Після лабораторних вправ або коли вам потрібно місце для зберігання, ви можете видалити все.",
+                cleanupCheck: "Крок 1: Перевірте, скільки місця використовує Docker",
+                cleanupCheckDesc: "Показує огляд використання диска Docker:",
+                cleanupStop: "Крок 2: Зупиніть усі запущені контейнери",
+                cleanupStopDesc: "Перед очищенням усі контейнери повинні бути зупинені:",
+                cleanupContainers: "Крок 3: Видаліть усі контейнери",
+                cleanupContainersDesc: "Видаляє всі зупинені контейнери (дані всередині будуть втрачені):",
+                cleanupImages: "Крок 4: Видаліть усі образи",
+                cleanupImagesDesc: "Видаляє всі завантажені образи Docker та звільняє дисковий простір:",
+                cleanupAll: "Видаліть все відразу",
+                cleanupAllDesc: "Ця команда видаляє ВСЕ - усі контейнери, образи, мережі та томи. Ідеально для повного очищення в кінці семестру:",
+                cleanupDesktop: "Додатково: Видаліть Docker Desktop",
+                cleanupDesktopDesc: "Якщо вам більше не потрібен Docker, ви можете повністю видалити Docker Desktop. На macOS: Параметри системи → Видалити Docker. На Windows: Панель керування → Програми → Видалити Docker Desktop.",
+                cleanupWarning: "Попередження: Після видалення образів їх потрібно буде повторно завантажити при наступному запуску лабораторії. Це займе кілька хвилин залежно від швидкості інтернету.",
 
                 copyButton: "Копіювати",
                 copiedButton: "Скопійовано!",
@@ -860,6 +928,7 @@
                 section1Title: "¿Qué es Docker?",
                 section1Intro: "Docker es una herramienta que te permite empacar tu aplicación y todas sus dependencias en un contenedor aislado - como un contenedor de envío para software.",
                 section1Analogy: "Así como los contenedores de envío estandarizaron el comercio mundial, Docker estandariza el despliegue de software. Un contenedor contiene todo lo que tu aplicación necesita para ejecutarse en cualquier lugar.",
+                problemWithoutDocker: "El problema sin Docker:",
                 section1Problem: "El problema sin Docker: Tu colega dice 'funciona en mi máquina' - pero no funciona en tu laptop. Docker resuelve esto: garantiza que tu aplicación funcione en todas partes.",
                 section1Visual: "Imagina tu laptop como un caos: muchos programas, librerías, diferentes versiones. Docker pone cada aplicación en su propio cuadro aislado. Si una aplicación falla, tu laptop permanece limpio.",
 
@@ -874,13 +943,13 @@
                 section3Intro: "Antes de comenzar, entiende estos cuatro conceptos:",
 
                 conceptImage: "Plano/Receta",
-                conceptImageDesc: "Una imagen Docker es como una receta de cocina. Describe qué entra en el contenedor - qué software, configuraciones y archivos. Es inmutable - una vez creada, no se puede cambiar.",
+                conceptImageDesc: "Una imagen es el plano para un contenedor. Contiene todo lo necesario: software, configuraciones, archivos. Lo descargas una vez, y se crean contenedores a partir de él. Una imagen nunca cambia - es como una plantilla.",
 
                 conceptContainer: "Instancia en Ejecución",
-                conceptContainerDesc: "Un contenedor es como el plato terminado de la receta. Se crea desde la imagen y se ejecuta realmente. Puedes iniciar múltiples contenedores de la misma imagen, como cocinar múltiples platos de una receta.",
+                conceptContainerDesc: "Un contenedor es una instancia en ejecución de una imagen. Como un pastel horneado según una receta (imagen). Puedes iniciar múltiples contenedores de una imagen, y cada uno se ejecuta independientemente.",
 
                 conceptDesktop: "La Cocina",
-                conceptDesktopDesc: "Docker Desktop es la aplicación que instalas en tu laptop. Es como la cocina - sin ella, no puedes cocinar (ejecutar contenedores).",
+                conceptDesktopDesc: "Docker Desktop es la aplicación que instalas en tu laptop. Proporciona el Docker Engine - el 'motor' que ejecuta contenedores. Docker Desktop debe estar ejecutándose en segundo plano (lo verás en la bandeja del sistema) antes de que puedas usar comandos Docker en la terminal. Sin Docker Desktop ejecutándose: ningún comando docker funciona.",
 
                 conceptCompose: "El Menú",
                 conceptComposeDesc: "docker-compose es una herramienta para iniciar múltiples servicios conectados a la vez. En lugar de iniciar múltiples contenedores individualmente, describes todo el sistema en un archivo.",
@@ -968,11 +1037,27 @@
 
                 section8Labs: "Toda la documentación de laboratorios:",
                 mongodbLab: "Laboratorio MongoDB",
-                postgresLab: "Laboratorio PostgreSQL",
-                elasticsearchLab: "Laboratorio Elasticsearch",
-                kafkaLab: "Laboratorio Kafka",
+                duckdbLab: "Laboratorio DuckDB",
+                neo4jLab: "Laboratorio Neo4j",
+                sparkLab: "Laboratorio Apache Spark",
 
                 section8Conclusion: "¡Disfruta con Docker y Big Data!",
+
+                section9Title: "Limpieza y Liberación de Espacio en Disco",
+                section9Intro: "Las imágenes y contenedores de Docker ocupan espacio en disco. Después de los ejercicios de laboratorio o cuando necesites almacenamiento, puedes eliminar todo.",
+                cleanupCheck: "Paso 1: Verifica cuánto espacio utiliza Docker",
+                cleanupCheckDesc: "Muestra un resumen del uso del disco de Docker:",
+                cleanupStop: "Paso 2: Detén todos los contenedores en ejecución",
+                cleanupStopDesc: "Antes de limpiar, todos los contenedores deben estar detenidos:",
+                cleanupContainers: "Paso 3: Elimina todos los contenedores",
+                cleanupContainersDesc: "Elimina todos los contenedores detenidos (los datos dentro se perderán):",
+                cleanupImages: "Paso 4: Elimina todas las imágenes",
+                cleanupImagesDesc: "Elimina todas las imágenes Docker descargadas y libera espacio en disco:",
+                cleanupAll: "Elimina todo a la vez",
+                cleanupAllDesc: "Este comando elimina TODO - todos los contenedores, imágenes, redes y volúmenes. Perfecto para una limpieza completa al final del semestre:",
+                cleanupDesktop: "Opcional: Desinstalar Docker Desktop",
+                cleanupDesktopDesc: "Si ya no necesitas Docker, puedes desinstalar Docker Desktop completamente. En macOS: Configuración del Sistema → Desinstalar Docker. En Windows: Panel de Control → Programas → Desinstalar Docker Desktop.",
+                cleanupWarning: "Advertencia: Después de eliminar las imágenes, deberán descargarse nuevamente la próxima vez que inicies un laboratorio. Esto tarda unos minutos según tu velocidad de Internet.",
 
                 copyButton: "Copiar",
                 copiedButton: "¡Copiado!",
@@ -985,6 +1070,7 @@
                 section1Title: "Docker Nedir?",
                 section1Intro: "Docker, uygulamanızı ve tüm bağımlılıklarını izole bir kapsayıcıda paketlemenizi sağlayan bir araçtır - yazılım için bir gemi konteynerine benzer.",
                 section1Analogy: "Nakliye konteynerlerinin küresel ticareti standardize ettiği gibi, Docker yazılım dağıtımını standardize eder. Bir kapsayıcı, uygulamanızın her yerde çalışması için gereken her şeyi içerir.",
+                problemWithoutDocker: "Docker olmadığında sorun:",
                 section1Problem: "Docker olmadığında sorun: Meslektaşınız 'benim bilgisayarımda çalışıyor' diyor - ama sizin dizüstü bilgisayarınızda çalışmıyor. Docker bunu çözer: uygulamanızın her yerde çalışması garantisini verir.",
                 section1Visual: "Dizüstü bilgisayarınızı kaos olarak hayal edin: birçok program, kütüphaneler, farklı sürümler. Docker her uygulamayı kendi izole kutusu içine koyar. Bir uygulama başarısız olursa, dizüstü bilgisayarınız temiz kalır.",
 
@@ -999,13 +1085,13 @@
                 section3Intro: "Başlamadan önce bu dört kavramı anlayın:",
 
                 conceptImage: "Plan/Tarif",
-                conceptImageDesc: "Docker imajı, bir yemek tarifine benzer. Kapsayıcıya ne gireceğini açıklar - hangi yazılım, konfigürasyonlar ve dosyalar. Değişmez - bir kez oluşturulduktan sonra değiştirilemez.",
+                conceptImageDesc: "İmaj bir kapsayıcı için plandır. Gereken her şeyi içerir: yazılım, ayarlar, dosyalar. Bir kez indir ve ondan kapsayıcılar oluştur. İmaj hiçbir zaman değişmez - şablon gibidir.",
 
                 conceptContainer: "Çalışan Örnek",
-                conceptContainerDesc: "Kapsayıcı, tariften hazırlanan bitmiş yemek gibidir. İmajdan oluşturulur ve gerçekten çalışır. Aynı imajdan birden fazla kapsayıcı başlatabilirsiniz, tıpkı bir tariften birden fazla yemek pişirmek gibi.",
+                conceptContainerDesc: "Kapsayıcı bir imajın çalışan örneğidir. Tarif (imaj) örneğine göre pişirilen kek gibi. Bir imajdan birden fazla kapsayıcı başlatabiliriz ve her biri bağımsız olarak çalışır.",
 
                 conceptDesktop: "Mutfak",
-                conceptDesktopDesc: "Docker Desktop, dizüstü bilgisayarınıza yüklediğiniz uygulamadır. Mutfak gibidir - onun olmadan pişiremezsiniz (kapsayıcı çalıştıramazsınız).",
+                conceptDesktopDesc: "Docker Desktop, dizüstü bilgisayarınıza yüklediğiniz uygulamadır. Docker Engine sağlar - kapsayıcıları çalıştıran 'motor'. Docker Desktop, terminal'de herhangi bir Docker komutunu kullanmadan önce arka planda çalışıyor olmalıdır (sistem tepsisinde göreceksiniz). Docker Desktop olmadan: hiçbir docker komutu çalışmaz.",
 
                 conceptCompose: "Menü",
                 conceptComposeDesc: "docker-compose, aynı anda birden fazla bağlı hizmeti başlatmak için bir araçtır. Birden fazla kapsayıcıyı ayrı ayrı başlatmak yerine, tüm sistemi bir dosyada açıklarsınız.",
@@ -1093,11 +1179,27 @@
 
                 section8Labs: "Tüm laboratuvar belgeleri:",
                 mongodbLab: "MongoDB Laboratuvarı",
-                postgresLab: "PostgreSQL Laboratuvarı",
-                elasticsearchLab: "Elasticsearch Laboratuvarı",
-                kafkaLab: "Kafka Laboratuvarı",
+                duckdbLab: "DuckDB Laboratuvarı",
+                neo4jLab: "Neo4j Laboratuvarı",
+                sparkLab: "Apache Spark Laboratuvarı",
 
                 section8Conclusion: "Docker ve Big Data'nın tadını çıkarın!",
+
+                section9Title: "Temizlik ve Disk Alanını Boşaltma",
+                section9Intro: "Docker imajları ve kapsayıcıları disk alanını kaplar. Laboratuvar alıştırmalarından sonra veya depolama alanına ihtiyaç duyduğunuzda her şeyi kaldırabilirsiniz.",
+                cleanupCheck: "Adım 1: Docker'ın ne kadar alan kullandığını kontrol edin",
+                cleanupCheckDesc: "Docker'ın disk kullanımının bir özetini gösterir:",
+                cleanupStop: "Adım 2: Çalışan tüm kapsayıcıları durdurun",
+                cleanupStopDesc: "Temizlemeden önce, tüm kapsayıcılar durdurulmalıdır:",
+                cleanupContainers: "Adım 3: Tüm kapsayıcıları kaldırın",
+                cleanupContainersDesc: "Tüm durdurulmuş kapsayıcıları kaldırır (içindeki veriler kaybolacak):",
+                cleanupImages: "Adım 4: Tüm imajları kaldırın",
+                cleanupImagesDesc: "İndirilen tüm Docker imajlarını kaldırır ve disk alanını boşaltır:",
+                cleanupAll: "Hepsini aynı anda kaldırın",
+                cleanupAllDesc: "Bu komut HER ŞEYİ kaldırır - tüm kapsayıcılar, imajlar, ağlar ve birimler. Dönem sonunda tam temizlik için mükemmeldir:",
+                cleanupDesktop: "İsteğe Bağlı: Docker Desktop'u Kaldırın",
+                cleanupDesktopDesc: "Artık Docker'a ihtiyaç duymuyorsanız, Docker Desktop'u tamamen kaldırabilirsiniz. macOS'ta: Sistem Ayarları → Docker'ı Kaldır. Windows'ta: Kontrol Paneli → Programlar → Docker Desktop Kaldır.",
+                cleanupWarning: "Uyarı: İmajlar kaldırıldıktan sonra, bir sonraki laboratuvar başlattığınızda yeniden indirilmeleri gerekir. Bu, internet bağlantı hızınıza bağlı olarak birkaç dakika sürer.",
 
                 copyButton: "Kopyala",
                 copiedButton: "Kopyalandı!",
@@ -1112,6 +1214,7 @@
             'installation',
             'first-lab',
             'troubleshooting',
+            'cleanup',
             'next-steps'
         ];
 
@@ -1190,6 +1293,7 @@
                                 else if (id === 'installation') label = t.section5Title;
                                 else if (id === 'first-lab') label = t.section6Title;
                                 else if (id === 'troubleshooting') label = t.section7Title;
+                                else if (id === 'cleanup') label = t.section9Title;
                                 else if (id === 'next-steps') label = t.section8Title;
 
                                 return (
@@ -1222,7 +1326,7 @@
                                 <h2 className="section-header">{t.section1Title}</h2>
                                 <p className="text-gray-700 mb-4">{t.section1Analogy}</p>
                                 <div className="info-box">
-                                    <p className="font-semibold mb-2 text-dark-blue">Problem ohne Docker:</p>
+                                    <p className="font-semibold mb-2 text-dark-blue">{t.problemWithoutDocker}</p>
                                     <p className="text-gray-700">{t.section1Problem}</p>
                                 </div>
                                 <p className="text-gray-700 mt-4">{t.section1Visual}</p>
@@ -1435,7 +1539,51 @@
                                 ))}
                             </section>
 
-                            {/* Section 8: Next Steps */}
+                            {/* Section 8: Cleanup */}
+                            <section id="cleanup" className="mb-12">
+                                <h2 className="section-header">{t.section9Title}</h2>
+                                <p className="text-gray-700 mb-6">{t.section9Intro}</p>
+
+                                <div className="space-y-6">
+                                    <div>
+                                        <h4 className="font-bold text-dark-blue mb-2">{t.cleanupCheck}</h4>
+                                        <p className="text-gray-700 mb-3">{t.cleanupCheckDesc}</p>
+                                        <CodeBlock code="docker system df" id="cmd-df" />
+                                    </div>
+
+                                    <div>
+                                        <h4 className="font-bold text-dark-blue mb-2">{t.cleanupStop}</h4>
+                                        <p className="text-gray-700 mb-3">{t.cleanupStopDesc}</p>
+                                        <CodeBlock code="docker stop $(docker ps -q)" id="cmd-stopall" />
+                                    </div>
+
+                                    <div>
+                                        <h4 className="font-bold text-dark-blue mb-2">{t.cleanupContainers}</h4>
+                                        <p className="text-gray-700 mb-3">{t.cleanupContainersDesc}</p>
+                                        <CodeBlock code="docker rm $(docker ps -aq)" id="cmd-rmcontainers" />
+                                    </div>
+
+                                    <div>
+                                        <h4 className="font-bold text-dark-blue mb-2">{t.cleanupImages}</h4>
+                                        <p className="text-gray-700 mb-3">{t.cleanupImagesDesc}</p>
+                                        <CodeBlock code="docker rmi $(docker images -q)" id="cmd-rmimages" />
+                                    </div>
+                                </div>
+
+                                <div className="info-box" style={{marginTop: '1.5rem', marginBottom: '1.5rem'}}>
+                                    <h4 className="font-bold text-dark-blue mb-2">{t.cleanupAll}</h4>
+                                    <p className="text-gray-700 mb-3">{t.cleanupAllDesc}</p>
+                                    <CodeBlock code="docker system prune -a --volumes" id="cmd-pruneall" />
+                                </div>
+
+                                <p className="text-gray-700 mb-4">{t.cleanupDesktopDesc}</p>
+
+                                <div className="warning-box">
+                                    <p className="text-gray-700">{t.cleanupWarning}</p>
+                                </div>
+                            </section>
+
+                            {/* Section 9: Next Steps */}
                             <section id="next-steps" className="mb-12">
                                 <h2 className="section-header">{t.section8Title}</h2>
                                 <p className="text-gray-700 mb-4">{t.section8Intro}</p>
@@ -1445,23 +1593,23 @@
                                 <h4 className="text-lg font-bold text-dark-blue mt-6 mb-4">{t.section8Labs}</h4>
                                 <ul className="space-y-2 mb-6">
                                     <li>
-                                        <a href="mongodb-lab.html" className="link-button">
+                                        <a href="lab-mongodb.html" className="link-button">
                                             {t.mongodbLab}
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="postgres-lab.html" className="link-button">
-                                            {t.postgresLab}
+                                        <a href="lab-duckdb.html" className="link-button">
+                                            {t.duckdbLab}
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="elasticsearch-lab.html" className="link-button">
-                                            {t.elasticsearchLab}
+                                        <a href="lab-neo4j.html" className="link-button">
+                                            {t.neo4jLab}
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="kafka-lab.html" className="link-button">
-                                            {t.kafkaLab}
+                                        <a href="lab-spark.html" className="link-button">
+                                            {t.sparkLab}
                                         </a>
                                     </li>
                                 </ul>
