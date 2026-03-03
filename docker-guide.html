@@ -476,20 +476,18 @@
                 section8Conclusion: "Viel Spaß mit Docker und Big Data!",
 
                 section9Title: "Aufräumen & Speicher freigeben",
-                section9Intro: "Docker-Images und Container belegen Speicherplatz auf deiner Festplatte. Nach dem Praktikum oder wenn du Speicherplatz brauchst, kannst du alles wieder entfernen.",
+                section9Intro: "Die Docker-Images und Container für diesen Kurs belegen Speicherplatz auf deiner Festplatte. Hier erfährst du, wie du nur die Kurs-Ressourcen entfernst, ohne andere Docker-Projekte zu beeinträchtigen.",
                 cleanupCheck: "Schritt 1: Prüfen, wie viel Speicher Docker belegt",
                 cleanupCheckDesc: "Zeigt dir eine Übersicht über den belegten Speicherplatz:",
-                cleanupStop: "Schritt 2: Alle laufenden Container stoppen",
-                cleanupStopDesc: "Bevor du aufräumen kannst, müssen alle Container gestoppt sein:",
-                cleanupContainers: "Schritt 3: Alle Container entfernen",
-                cleanupContainersDesc: "Entfernt alle gestoppten Container (die Daten darin gehen verloren):",
-                cleanupImages: "Schritt 4: Alle Images entfernen",
-                cleanupImagesDesc: "Entfernt alle heruntergeladenen Docker-Images und gibt den meisten Speicherplatz frei:",
-                cleanupAll: "Alles auf einmal entfernen",
-                cleanupAllDesc: "Dieser Befehl entfernt ALLES – alle Container, Images, Netzwerke und Volumes. Perfekt zum kompletten Aufräumen am Ende des Semesters:",
+                cleanupStop: "Schritt 2: Kurs-Container stoppen und entfernen",
+                cleanupStopDesc: "Stoppt und entfernt nur die Container dieses Kurses (alle mit dem Präfix „megastore"):",
+                cleanupImages: "Schritt 3: Kurs-Images entfernen",
+                cleanupImagesDesc: "Entfernt die Docker-Images, die für die Labs heruntergeladen wurden. Andere Images bleiben unberührt:",
+                cleanupVolumes: "Schritt 4: Kurs-Volumes und Netzwerk entfernen",
+                cleanupVolumesDesc: "Entfernt die gespeicherten Datenbank-Daten und das Kurs-Netzwerk:",
                 cleanupDesktop: "Optional: Docker Desktop deinstallieren",
-                cleanupDesktopDesc: "Wenn du Docker nicht mehr brauchst, kannst du Docker Desktop auch komplett deinstallieren. Unter macOS: In den Systemeinstellungen → Docker deinstallieren. Unter Windows: Systemsteuerung → Programme → Docker Desktop deinstallieren.",
-                cleanupWarning: "Achtung: Nach dem Entfernen der Images musst du sie beim nächsten Lab-Start neu herunterladen. Das dauert je nach Internetverbindung einige Minuten.",
+                cleanupDesktopDesc: "Wenn du Docker gar nicht mehr brauchst, kannst du Docker Desktop auch komplett deinstallieren. Unter macOS: In den Systemeinstellungen → Docker deinstallieren. Unter Windows: Systemsteuerung → Programme → Docker Desktop deinstallieren.",
+                cleanupWarning: "Hinweis: Diese Befehle entfernen nur die Ressourcen dieses Kurses. Andere Docker-Projekte auf deinem Rechner bleiben vollständig erhalten. Nach dem Entfernen der Images musst du sie beim nächsten Lab-Start neu herunterladen.",
 
                 copyButton: "Kopieren",
                 copiedButton: "Kopiert!",
@@ -618,20 +616,18 @@
                 section8Conclusion: "Have fun with Docker and Big Data!",
 
                 section9Title: "Cleanup & Free Disk Space",
-                section9Intro: "Docker images and containers take up disk space. After the lab exercises or when you need storage, you can remove everything.",
+                section9Intro: "The Docker images and containers for this course take up disk space. Here's how to remove only the course resources without affecting your other Docker projects.",
                 cleanupCheck: "Step 1: Check how much space Docker uses",
                 cleanupCheckDesc: "Shows an overview of Docker's disk usage:",
-                cleanupStop: "Step 2: Stop all running containers",
-                cleanupStopDesc: "Before cleanup, all containers must be stopped:",
-                cleanupContainers: "Step 3: Remove all containers",
-                cleanupContainersDesc: "Removes all stopped containers (data inside will be lost):",
-                cleanupImages: "Step 4: Remove all images",
-                cleanupImagesDesc: "Removes all downloaded Docker images and frees the most disk space:",
-                cleanupAll: "Remove everything at once",
-                cleanupAllDesc: "This command removes EVERYTHING – all containers, images, networks, and volumes. Perfect for a complete cleanup at the end of the semester:",
+                cleanupStop: "Step 2: Stop and remove course containers",
+                cleanupStopDesc: "Stops and removes only the containers from this course (all prefixed with \"megastore\"):",
+                cleanupImages: "Step 3: Remove course images",
+                cleanupImagesDesc: "Removes the Docker images downloaded for the labs. Other images remain untouched:",
+                cleanupVolumes: "Step 4: Remove course volumes and network",
+                cleanupVolumesDesc: "Removes the stored database data and the course network:",
                 cleanupDesktop: "Optional: Uninstall Docker Desktop",
-                cleanupDesktopDesc: "If you no longer need Docker, you can completely uninstall Docker Desktop. On macOS: System Settings → Uninstall Docker. On Windows: Control Panel → Programs → Uninstall Docker Desktop.",
-                cleanupWarning: "Warning: After removing images, they need to be re-downloaded next time you start a lab. This takes a few minutes depending on your internet connection.",
+                cleanupDesktopDesc: "If you no longer need Docker at all, you can completely uninstall Docker Desktop. On macOS: System Settings → Uninstall Docker. On Windows: Control Panel → Programs → Uninstall Docker Desktop.",
+                cleanupWarning: "Note: These commands only remove resources from this course. Other Docker projects on your machine remain completely intact. After removing images, they need to be re-downloaded next time you start a lab.",
 
                 copyButton: "Copy",
                 copiedButton: "Copied!",
@@ -760,20 +756,18 @@
                 section8Conclusion: "استمتع بـ Docker والبيانات الكبيرة!",
 
                 section9Title: "التنظيف وتحرير مساحة القرص",
-                section9Intro: "صور Docker والحاويات تشغل مساحة على القرص. بعد تمارين المختبر أو عندما تحتاج إلى التخزين، يمكنك إزالة كل شيء.",
+                section9Intro: "صور Docker والحاويات الخاصة بهذا الكورس تشغل مساحة على القرص. إليك كيفية إزالة موارد الكورس فقط دون التأثير على مشاريع Docker الأخرى.",
                 cleanupCheck: "الخطوة 1: تحقق من مقدار المساحة التي يستخدمها Docker",
                 cleanupCheckDesc: "يعرض نظرة عامة على استخدام Docker للقرص:",
-                cleanupStop: "الخطوة 2: إيقاف جميع الحاويات قيد التشغيل",
-                cleanupStopDesc: "قبل التنظيف، يجب إيقاف جميع الحاويات:",
-                cleanupContainers: "الخطوة 3: إزالة جميع الحاويات",
-                cleanupContainersDesc: "إزالة جميع الحاويات المتوقفة (ستفقد البيانات بداخلها):",
-                cleanupImages: "الخطوة 4: إزالة جميع الصور",
-                cleanupImagesDesc: "إزالة جميع صور Docker التي تم تنزيلها وتحرير مساحة القرص:",
-                cleanupAll: "إزالة كل شيء في المرة",
-                cleanupAllDesc: "يزيل هذا الأمر كل شيء - جميع الحاويات والصور والشبكات والمجلدات. مثالي للتنظيف الكامل في نهاية الفصل الدراسي:",
+                cleanupStop: "الخطوة 2: إيقاف وإزالة حاويات الكورس",
+                cleanupStopDesc: "يوقف ويزيل فقط حاويات هذا الكورس (جميعها تبدأ بـ \"megastore\"):",
+                cleanupImages: "الخطوة 3: إزالة صور الكورس",
+                cleanupImagesDesc: "يزيل صور Docker التي تم تنزيلها للمعامل. تبقى الصور الأخرى كما هي:",
+                cleanupVolumes: "الخطوة 4: إزالة وحدات تخزين الكورس والشبكة",
+                cleanupVolumesDesc: "يزيل بيانات قاعدة البيانات المخزنة وشبكة الكورس:",
                 cleanupDesktop: "اختياري: إلغاء تثبيت Docker Desktop",
-                cleanupDesktopDesc: "إذا لم تعد بحاجة إلى Docker، يمكنك إلغاء تثبيت Docker Desktop تماماً. على macOS: إعدادات النظام → إلغاء تثبيت Docker. على Windows: لوحة التحكم → البرامج → إلغاء تثبيت Docker Desktop.",
-                cleanupWarning: "تحذير: بعد إزالة الصور، يجب إعادة تنزيلها في المرة القادمة التي تبدأ فيها معملاً. يستغرق هذا بضع دقائق حسب سرعة الإنترنت.",
+                cleanupDesktopDesc: "إذا لم تعد بحاجة إلى Docker نهائياً، يمكنك إلغاء تثبيت Docker Desktop تماماً. على macOS: إعدادات النظام → إلغاء تثبيت Docker. على Windows: لوحة التحكم → البرامج → إلغاء تثبيت Docker Desktop.",
+                cleanupWarning: "ملاحظة: هذه الأوامر تزيل فقط موارد هذا الكورس. مشاريع Docker الأخرى على جهازك تبقى سليمة تماماً. بعد إزالة الصور، يجب إعادة تنزيلها في المرة القادمة التي تبدأ فيها معملاً.",
 
                 copyButton: "نسخ",
                 copiedButton: "تم النسخ!",
@@ -902,20 +896,18 @@
                 section8Conclusion: "Насолоджуйтеся Docker та Big Data!",
 
                 section9Title: "Очищення та звільнення дискового простору",
-                section9Intro: "Образи Docker та контейнери займають місце на диску. Після лабораторних вправ або коли вам потрібно місце для зберігання, ви можете видалити все.",
+                section9Intro: "Образи Docker та контейнери цього курсу займають місце на диску. Ось як видалити лише ресурси курсу, не впливаючи на інші проєкти Docker.",
                 cleanupCheck: "Крок 1: Перевірте, скільки місця використовує Docker",
                 cleanupCheckDesc: "Показує огляд використання диска Docker:",
-                cleanupStop: "Крок 2: Зупиніть усі запущені контейнери",
-                cleanupStopDesc: "Перед очищенням усі контейнери повинні бути зупинені:",
-                cleanupContainers: "Крок 3: Видаліть усі контейнери",
-                cleanupContainersDesc: "Видаляє всі зупинені контейнери (дані всередині будуть втрачені):",
-                cleanupImages: "Крок 4: Видаліть усі образи",
-                cleanupImagesDesc: "Видаляє всі завантажені образи Docker та звільняє дисковий простір:",
-                cleanupAll: "Видаліть все відразу",
-                cleanupAllDesc: "Ця команда видаляє ВСЕ - усі контейнери, образи, мережі та томи. Ідеально для повного очищення в кінці семестру:",
+                cleanupStop: "Крок 2: Зупиніть та видаліть контейнери курсу",
+                cleanupStopDesc: "Зупиняє та видаляє лише контейнери цього курсу (усі з префіксом \"megastore\"):",
+                cleanupImages: "Крок 3: Видаліть образи курсу",
+                cleanupImagesDesc: "Видаляє образи Docker, завантажені для лабораторій. Інші образи залишаються без змін:",
+                cleanupVolumes: "Крок 4: Видаліть томи курсу та мережу",
+                cleanupVolumesDesc: "Видаляє збережені дані баз даних та мережу курсу:",
                 cleanupDesktop: "Додатково: Видаліть Docker Desktop",
-                cleanupDesktopDesc: "Якщо вам більше не потрібен Docker, ви можете повністю видалити Docker Desktop. На macOS: Параметри системи → Видалити Docker. На Windows: Панель керування → Програми → Видалити Docker Desktop.",
-                cleanupWarning: "Попередження: Після видалення образів їх потрібно буде повторно завантажити при наступному запуску лабораторії. Це займе кілька хвилин залежно від швидкості інтернету.",
+                cleanupDesktopDesc: "Якщо вам більше не потрібен Docker взагалі, ви можете повністю видалити Docker Desktop. На macOS: Параметри системи → Видалити Docker. На Windows: Панель керування → Програми → Видалити Docker Desktop.",
+                cleanupWarning: "Примітка: Ці команди видаляють лише ресурси цього курсу. Інші проєкти Docker на вашому комп'ютері залишаються повністю недоторканими. Після видалення образів їх потрібно буде повторно завантажити при наступному запуску лабораторії.",
 
                 copyButton: "Копіювати",
                 copiedButton: "Скопійовано!",
@@ -1044,20 +1036,18 @@
                 section8Conclusion: "¡Disfruta con Docker y Big Data!",
 
                 section9Title: "Limpieza y Liberación de Espacio en Disco",
-                section9Intro: "Las imágenes y contenedores de Docker ocupan espacio en disco. Después de los ejercicios de laboratorio o cuando necesites almacenamiento, puedes eliminar todo.",
+                section9Intro: "Las imágenes y contenedores Docker de este curso ocupan espacio en disco. Aquí te explicamos cómo eliminar solo los recursos del curso sin afectar otros proyectos Docker.",
                 cleanupCheck: "Paso 1: Verifica cuánto espacio utiliza Docker",
                 cleanupCheckDesc: "Muestra un resumen del uso del disco de Docker:",
-                cleanupStop: "Paso 2: Detén todos los contenedores en ejecución",
-                cleanupStopDesc: "Antes de limpiar, todos los contenedores deben estar detenidos:",
-                cleanupContainers: "Paso 3: Elimina todos los contenedores",
-                cleanupContainersDesc: "Elimina todos los contenedores detenidos (los datos dentro se perderán):",
-                cleanupImages: "Paso 4: Elimina todas las imágenes",
-                cleanupImagesDesc: "Elimina todas las imágenes Docker descargadas y libera espacio en disco:",
-                cleanupAll: "Elimina todo a la vez",
-                cleanupAllDesc: "Este comando elimina TODO - todos los contenedores, imágenes, redes y volúmenes. Perfecto para una limpieza completa al final del semestre:",
+                cleanupStop: "Paso 2: Detén y elimina los contenedores del curso",
+                cleanupStopDesc: "Detiene y elimina solo los contenedores de este curso (todos con el prefijo \"megastore\"):",
+                cleanupImages: "Paso 3: Elimina las imágenes del curso",
+                cleanupImagesDesc: "Elimina las imágenes Docker descargadas para los laboratorios. Otras imágenes no se ven afectadas:",
+                cleanupVolumes: "Paso 4: Elimina los volúmenes y la red del curso",
+                cleanupVolumesDesc: "Elimina los datos almacenados de las bases de datos y la red del curso:",
                 cleanupDesktop: "Opcional: Desinstalar Docker Desktop",
-                cleanupDesktopDesc: "Si ya no necesitas Docker, puedes desinstalar Docker Desktop completamente. En macOS: Configuración del Sistema → Desinstalar Docker. En Windows: Panel de Control → Programas → Desinstalar Docker Desktop.",
-                cleanupWarning: "Advertencia: Después de eliminar las imágenes, deberán descargarse nuevamente la próxima vez que inicies un laboratorio. Esto tarda unos minutos según tu velocidad de Internet.",
+                cleanupDesktopDesc: "Si ya no necesitas Docker en absoluto, puedes desinstalar Docker Desktop completamente. En macOS: Configuración del Sistema → Desinstalar Docker. En Windows: Panel de Control → Programas → Desinstalar Docker Desktop.",
+                cleanupWarning: "Nota: Estos comandos solo eliminan recursos de este curso. Otros proyectos Docker en tu máquina permanecen completamente intactos. Después de eliminar las imágenes, deberán descargarse nuevamente la próxima vez que inicies un laboratorio.",
 
                 copyButton: "Copiar",
                 copiedButton: "¡Copiado!",
@@ -1186,20 +1176,18 @@
                 section8Conclusion: "Docker ve Big Data'nın tadını çıkarın!",
 
                 section9Title: "Temizlik ve Disk Alanını Boşaltma",
-                section9Intro: "Docker imajları ve kapsayıcıları disk alanını kaplar. Laboratuvar alıştırmalarından sonra veya depolama alanına ihtiyaç duyduğunuzda her şeyi kaldırabilirsiniz.",
+                section9Intro: "Bu kursun Docker imajları ve kapsayıcıları disk alanını kaplar. Diğer Docker projelerinizi etkilemeden sadece kurs kaynaklarını nasıl kaldıracağınızı burada öğrenebilirsiniz.",
                 cleanupCheck: "Adım 1: Docker'ın ne kadar alan kullandığını kontrol edin",
                 cleanupCheckDesc: "Docker'ın disk kullanımının bir özetini gösterir:",
-                cleanupStop: "Adım 2: Çalışan tüm kapsayıcıları durdurun",
-                cleanupStopDesc: "Temizlemeden önce, tüm kapsayıcılar durdurulmalıdır:",
-                cleanupContainers: "Adım 3: Tüm kapsayıcıları kaldırın",
-                cleanupContainersDesc: "Tüm durdurulmuş kapsayıcıları kaldırır (içindeki veriler kaybolacak):",
-                cleanupImages: "Adım 4: Tüm imajları kaldırın",
-                cleanupImagesDesc: "İndirilen tüm Docker imajlarını kaldırır ve disk alanını boşaltır:",
-                cleanupAll: "Hepsini aynı anda kaldırın",
-                cleanupAllDesc: "Bu komut HER ŞEYİ kaldırır - tüm kapsayıcılar, imajlar, ağlar ve birimler. Dönem sonunda tam temizlik için mükemmeldir:",
+                cleanupStop: "Adım 2: Kurs kapsayıcılarını durdurun ve kaldırın",
+                cleanupStopDesc: "Yalnızca bu kursun kapsayıcılarını durdurur ve kaldırır (hepsi \"megastore\" ön ekine sahip):",
+                cleanupImages: "Adım 3: Kurs imajlarını kaldırın",
+                cleanupImagesDesc: "Laboratuvarlar için indirilen Docker imajlarını kaldırır. Diğer imajlar etkilenmez:",
+                cleanupVolumes: "Adım 4: Kurs birimlerini ve ağını kaldırın",
+                cleanupVolumesDesc: "Depolanan veritabanı verilerini ve kurs ağını kaldırır:",
                 cleanupDesktop: "İsteğe Bağlı: Docker Desktop'u Kaldırın",
-                cleanupDesktopDesc: "Artık Docker'a ihtiyaç duymuyorsanız, Docker Desktop'u tamamen kaldırabilirsiniz. macOS'ta: Sistem Ayarları → Docker'ı Kaldır. Windows'ta: Kontrol Paneli → Programlar → Docker Desktop Kaldır.",
-                cleanupWarning: "Uyarı: İmajlar kaldırıldıktan sonra, bir sonraki laboratuvar başlattığınızda yeniden indirilmeleri gerekir. Bu, internet bağlantı hızınıza bağlı olarak birkaç dakika sürer.",
+                cleanupDesktopDesc: "Artık Docker'a hiç ihtiyaç duymuyorsanız, Docker Desktop'u tamamen kaldırabilirsiniz. macOS'ta: Sistem Ayarları → Docker'ı Kaldır. Windows'ta: Kontrol Paneli → Programlar → Docker Desktop Kaldır.",
+                cleanupWarning: "Not: Bu komutlar yalnızca bu kursun kaynaklarını kaldırır. Makinenizdeki diğer Docker projeleri tamamen bozulmadan kalır. İmajlar kaldırıldıktan sonra, bir sonraki laboratuvar başlattığınızda yeniden indirilmeleri gerekir.",
 
                 copyButton: "Kopyala",
                 copiedButton: "Kopyalandı!",
@@ -1558,31 +1546,29 @@
                                     <div>
                                         <h4 className="font-bold text-dark-blue mb-2">{t.cleanupStop}</h4>
                                         <p className="text-gray-700 mb-3">{t.cleanupStopDesc}</p>
-                                        <CodeBlock code="docker stop $(docker ps -q)" id="cmd-stopall" />
-                                    </div>
-
-                                    <div>
-                                        <h4 className="font-bold text-dark-blue mb-2">{t.cleanupContainers}</h4>
-                                        <p className="text-gray-700 mb-3">{t.cleanupContainersDesc}</p>
-                                        <CodeBlock code="docker rm $(docker ps -aq)" id="cmd-rmcontainers" />
+                                        <CodeBlock code="docker stop megastore-mongodb megastore-mongo-express megastore-duckdb megastore-neo4j megastore-spark" id="cmd-stopall" />
+                                        <div style={{marginTop: '0.5rem'}}></div>
+                                        <CodeBlock code="docker rm megastore-mongodb megastore-mongo-express megastore-duckdb megastore-neo4j megastore-spark" id="cmd-rmcontainers" />
                                     </div>
 
                                     <div>
                                         <h4 className="font-bold text-dark-blue mb-2">{t.cleanupImages}</h4>
                                         <p className="text-gray-700 mb-3">{t.cleanupImagesDesc}</p>
-                                        <CodeBlock code="docker rmi $(docker images -q)" id="cmd-rmimages" />
+                                        <CodeBlock code="docker rmi mongo:7.0 mongo-express:latest neo4j:5.18-community" id="cmd-rmimages" />
+                                    </div>
+
+                                    <div>
+                                        <h4 className="font-bold text-dark-blue mb-2">{t.cleanupVolumes}</h4>
+                                        <p className="text-gray-700 mb-3">{t.cleanupVolumesDesc}</p>
+                                        <CodeBlock code="docker volume rm mongodb_data neo4j_data neo4j_conf" id="cmd-rmvolumes" />
+                                        <div style={{marginTop: '0.5rem'}}></div>
+                                        <CodeBlock code="docker network rm megastore" id="cmd-rmnetwork" />
                                     </div>
                                 </div>
 
-                                <div className="info-box" style={{marginTop: '1.5rem', marginBottom: '1.5rem'}}>
-                                    <h4 className="font-bold text-dark-blue mb-2">{t.cleanupAll}</h4>
-                                    <p className="text-gray-700 mb-3">{t.cleanupAllDesc}</p>
-                                    <CodeBlock code="docker system prune -a --volumes" id="cmd-pruneall" />
-                                </div>
+                                <p className="text-gray-700 mt-6 mb-4">{t.cleanupDesktopDesc}</p>
 
-                                <p className="text-gray-700 mb-4">{t.cleanupDesktopDesc}</p>
-
-                                <div className="warning-box">
+                                <div className="info-box">
                                     <p className="text-gray-700">{t.cleanupWarning}</p>
                                 </div>
                             </section>
