@@ -358,6 +358,54 @@
                 ex6Practice: "Laden Sie order_items.csv und joinen Sie mit products.csv nach product_id. Berechnen Sie Umsatz pro Kategorie.",
                 ex6Hint: "1. Laden Sie beide Dateien 2. join() mit gemeinsamer Spalte 3. groupBy('category').agg(sum())",
                 ex6Solution: "order_items = spark.read.csv(\"/home/jovyan/data/order_items.csv\", header=True, inferSchema=True)\nproducts = spark.read.csv(\"/home/jovyan/data/products.csv\", header=True, inferSchema=True)\n\ndf_revenue = order_items.join(products, \"product_id\").groupBy(\"category\").agg(\n    sum(\"unit_price\").alias(\"total_revenue\")\n).orderBy(\"total_revenue\", ascending=False)\ndf_revenue.show()",
+                exercise7: "Übung 7: Window Functions",
+                exercise8: "Übung 8: UDFs – Eigene Funktionen",
+                exercise9: "Übung 9: Parquet & Persistenz",
+                exercise10: "Übung 10: SQL auf DataFrames",
+                exercise11: "Übung 11: Streaming-Simulation",
+                exercise12: "Übung 12: ML-Pipeline Basics",
+                ex7Objective: "Berechnungen über Gruppen mit Window Functions – ohne Daten zu verdichten",
+                ex7Code: "from pyspark.sql import SparkSession\nfrom pyspark.sql.window import Window\nfrom pyspark.sql import functions as F\n\nspark = SparkSession.builder.appName('WindowDemo').getOrCreate()\norders = spark.read.csv('/home/jovyan/data/orders.csv', header=True, inferSchema=True)\n\n# Fenster pro Kunde, nach Datum sortiert\nwindow = Window.partitionBy('customer_id').orderBy('order_date')\n\nresult = orders.withColumn('order_num', F.row_number().over(window)) \\\n               .withColumn('cumulative_spend', F.sum('total_amount').over(window))\n\nresult.select('customer_id', 'order_date', 'total_amount', 'order_num', 'cumulative_spend').show(10)",
+                ex7Output: "+----------+----------+------------+---------+----------------+\n|customer_id|order_date|total_amount|order_num|cumulative_spend|\n+----------+----------+------------+---------+----------------+\n|         1|2023-01-05|      125.99|        1|          125.99|\n|         1|2023-02-12|      349.50|        2|          475.49|\n+----------+----------+------------+---------+----------------+",
+                ex7Explain: "Window Functions berechnen Werte über eine Partition ohne Zeilen zu verdichten. partitionBy('customer_id') = eigenes Fenster pro Kunde. row_number() nummeriert Zeilen innerhalb des Fensters. sum().over(window) = laufende kumulative Summe. Kein groupBy nötig – alle Zeilen bleiben erhalten.",
+                ex7Practice: "Berechnen Sie den Rang jeder Bestellung pro Kunde nach Bestellwert (höchste zuerst). Verwenden Sie F.rank().over(Window.partitionBy('customer_id').orderBy(F.desc('total_amount'))).",
+                ex7Hint: "Tipp: window2 = Window.partitionBy('customer_id').orderBy(F.desc('total_amount')), dann .withColumn('betrag_rang', F.rank().over(window2))",
+                ex7Solution: "window2 = Window.partitionBy('customer_id').orderBy(F.desc('total_amount'))\nresult = orders.withColumn('betrag_rang', F.rank().over(window2))\nresult.select('customer_id', 'order_date', 'total_amount', 'betrag_rang').show(10)",
+                ex8Objective: "Eigene Python-Funktionen auf Spark DataFrames anwenden (User Defined Functions)",
+                ex8Code: "from pyspark.sql import SparkSession\nfrom pyspark.sql import functions as F\nfrom pyspark.sql.types import StringType, FloatType\n\nspark = SparkSession.builder.appName('UDFDemo').getOrCreate()\norders = spark.read.csv('/home/jovyan/data/orders.csv', header=True, inferSchema=True)\n\n# UDF definieren\n@F.udf(returnType=StringType())\ndef categorize_order(amount):\n    if amount is None: return 'Unbekannt'\n    if amount < 50: return 'Klein'\n    if amount < 200: return 'Mittel'\n    if amount < 500: return 'Groß'\n    return 'Premium'\n\nresult = orders.withColumn('kategorie', categorize_order('total_amount'))\nresult.groupBy('kategorie').count().orderBy('count', ascending=False).show()",
+                ex8Output: "+---------+-----+\n|kategorie|count|\n+---------+-----+\n|   Mittel|  423|\n|     Groß|  312|\n|    Klein|  187|\n|  Premium|   78|\n+---------+-----+",
+                ex8Explain: "@F.udf(returnType=StringType()): Dekoriert eine Python-Funktion zur Spark-UDF. returnType gibt den Rückgabetyp an (StringType, FloatType, IntegerType, etc.). UDFs sind mächtig aber langsamer als built-in Functions – nur nutzen wenn keine Spark-Alternative existiert.",
+                ex8Practice: "Schreiben Sie eine UDF discount_udf die einen Rabatt berechnet: status='completed' → 0%, status='returned' → 10%, sonst 5%. Wenden Sie sie auf das status-Feld an.",
+                ex8Hint: "Tipp: @F.udf(returnType=FloatType()) def discount_udf(status): return 0.0 if status=='completed' else 0.1 if status=='returned' else 0.05",
+                ex8Solution: "@F.udf(returnType=FloatType())\ndef discount_udf(status):\n    if status == 'completed': return 0.0\n    if status == 'returned': return 0.10\n    return 0.05\n\nresult = orders.withColumn('rabatt', discount_udf('status'))\nresult.select('order_id', 'status', 'total_amount', 'rabatt').show(10)",
+                ex9Objective: "DataFrames als Parquet speichern und wieder laden – das Standard-Dateiformat für Big Data",
+                ex9Code: "from pyspark.sql import SparkSession\n\nspark = SparkSession.builder.appName('ParquetDemo').getOrCreate()\norders = spark.read.csv('/home/jovyan/data/orders.csv', header=True, inferSchema=True)\n\n# Als Parquet speichern (spaltenorientiert, komprimiert)\norders.write.mode('overwrite').parquet('/tmp/orders_parquet/')\n\n# Parquet wieder einlesen\ndf_parquet = spark.read.parquet('/tmp/orders_parquet/')\ndf_parquet.printSchema()\ndf_parquet.select('order_id', 'total_amount', 'status').show(5)\n\n# Nur bestimmte Spalten lesen (Column Pruning)\ndf_small = spark.read.parquet('/tmp/orders_parquet/').select('customer_id', 'total_amount')\nprint('Anzahl Zeilen:', df_small.count())",
+                ex9Output: "root\n |-- order_id: integer (nullable = true)\n |-- customer_id: integer (nullable = true)\n |-- total_amount: double (nullable = true)\n |-- status: string (nullable = true)\n\nAnzahl Zeilen: 1000",
+                ex9Explain: "Parquet ist spaltenorientiert: Nur benötigte Spalten werden gelesen (Column Pruning = deutlich weniger I/O). Automatische Kompression. printSchema() zeigt die Typen nach dem Einlesen – Parquet erhält Datentypen, CSV verliert sie. mode('overwrite') überschreibt vorhandene Dateien.",
+                ex9Practice: "Laden Sie die Parquet-Datei und filtern Sie nur 'completed'-Bestellungen. Speichern Sie diese als neues Parquet in /tmp/completed_orders/. Zählen Sie die Zeilen.",
+                ex9Hint: "Tipp: df_parquet.filter(F.col('status') == 'completed').write.mode('overwrite').parquet('/tmp/completed_orders/')",
+                ex9Solution: "from pyspark.sql import functions as F\ndf = spark.read.parquet('/tmp/orders_parquet/')\ncompleted = df.filter(F.col('status') == 'completed')\ncompleted.write.mode('overwrite').parquet('/tmp/completed_orders/')\nprint('Completed orders:', completed.count())",
+                ex10Objective: "Spark SQL: SQL-Abfragen direkt auf DataFrames ausführen – ideal für SQL-Kennende",
+                ex10Code: "from pyspark.sql import SparkSession\n\nspark = SparkSession.builder.appName('SparkSQLDemo').getOrCreate()\norders = spark.read.csv('/home/jovyan/data/orders.csv', header=True, inferSchema=True)\ncustomers = spark.read.csv('/home/jovyan/data/customers.csv', header=True, inferSchema=True)\n\n# DataFrames als temporäre Views registrieren\norders.createOrReplaceTempView('orders')\ncustomers.createOrReplaceTempView('customers')\n\n# SQL direkt ausführen\nresult = spark.sql(\"\"\"\n    SELECT c.name, COUNT(o.order_id) AS bestellungen,\n           ROUND(SUM(o.total_amount), 2) AS gesamtumsatz\n    FROM orders o\n    JOIN customers c ON o.customer_id = c.customer_id\n    WHERE o.status = 'completed'\n    GROUP BY c.name\n    ORDER BY gesamtumsatz DESC\n    LIMIT 10\n\"\"\")\nresult.show()",
+                ex10Output: "+-------------+------------+-------------+\n|         name|bestellungen|gesamtumsatz |\n+-------------+------------+-------------+\n| Alice Müller|          12|       2340.5|\n|Bob Schneider|           9|       1890.2|\n+-------------+------------+-------------+",
+                ex10Explain: "createOrReplaceTempView(): Registriert den DataFrame als SQL-View (nur in dieser Session). spark.sql(): Führt beliebige SQL-Abfragen aus – alle Standard-SQL-Features verfügbar. Vorteil: SQL-Kennende brauchen keine neue API zu lernen. Ergebnis ist wieder ein DataFrame.",
+                ex10Practice: "Schreiben Sie eine SQL-Abfrage die den monatlichen Umsatz (year, month, revenue) aus completed-Bestellungen berechnet. Verwenden Sie YEAR(order_date) und MONTH(order_date).",
+                ex10Hint: "Tipp: spark.sql('SELECT YEAR(order_date) as year, MONTH(order_date) as month, ROUND(SUM(total_amount),2) as revenue FROM orders WHERE status="completed" GROUP BY year, month ORDER BY year, month')",
+                ex10Solution: "result = spark.sql(\"\"\"\n    SELECT YEAR(order_date) AS year, MONTH(order_date) AS month,\n           ROUND(SUM(total_amount), 2) AS revenue,\n           COUNT(*) AS order_count\n    FROM orders\n    WHERE status = 'completed'\n    GROUP BY year, month\n    ORDER BY year, month\n\"\"\")\nresult.show()",
+                ex11Objective: "Structured Streaming simulieren: Batch-Verarbeitung als Mini-Streaming verstehen",
+                ex11Code: "from pyspark.sql import SparkSession\nfrom pyspark.sql import functions as F\nimport time\n\nspark = SparkSession.builder.appName('StreamingDemo').getOrCreate()\norders = spark.read.csv('/home/jovyan/data/orders.csv', header=True, inferSchema=True)\n\n# Streaming simulieren: Daten in Batches verarbeiten\nbatch_size = 100\ntotal = orders.count()\n\nfor i in range(0, min(total, 300), batch_size):\n    batch = orders.limit(i + batch_size).subtract(orders.limit(i))\n    stats = batch.agg(\n        F.count('*').alias('bestellungen'),\n        F.round(F.sum('total_amount'), 2).alias('umsatz')\n    ).collect()[0]\n    print(f'Batch {i//batch_size + 1}: {stats.bestellungen} Bestellungen, {stats.umsatz}€')\n    time.sleep(0.5)",
+                ex11Output: "Batch 1: 100 Bestellungen, 23456.78€\nBatch 2: 100 Bestellungen, 19834.21€\nBatch 3: 100 Bestellungen, 21109.55€",
+                ex11Explain: "Echtes Spark Streaming liest aus Kafka, S3 oder Sockets. Diese Simulation zeigt das Prinzip: Daten kommen in Batches an und werden sofort verarbeitet. subtract() entfernt bereits verarbeitete Daten. Im echten System: spark.readStream.format('kafka').",
+                ex11Practice: "Erweitern Sie die Simulation: Berechnen Sie pro Batch auch den Anteil der 'completed'-Bestellungen in Prozent.",
+                ex11Hint: "Tipp: Fügen Sie completed_pct = batch.filter(F.col('status')=='completed').count() / batch.count() * 100 hinzu.",
+                ex11Solution: "for i in range(0, min(total, 300), batch_size):\n    batch = orders.limit(i + batch_size).subtract(orders.limit(i))\n    n_total = batch.count()\n    n_completed = batch.filter(F.col('status') == 'completed').count()\n    umsatz = batch.agg(F.round(F.sum('total_amount'), 2)).collect()[0][0]\n    pct = round(n_completed / n_total * 100, 1) if n_total > 0 else 0\n    print(f'Batch {i//batch_size + 1}: {n_total} Orders, {umsatz}€, {pct}% completed')",
+                ex12Objective: "Eine vollständige ML-Pipeline mit Spark MLlib bauen: Feature Engineering + Modell",
+                ex12Code: "from pyspark.sql import SparkSession\nfrom pyspark.sql import functions as F\nfrom pyspark.ml.feature import VectorAssembler, StandardScaler\nfrom pyspark.ml.classification import LogisticRegression\nfrom pyspark.ml import Pipeline\n\nspark = SparkSession.builder.appName('MLDemo').getOrCreate()\norders = spark.read.csv('/home/jovyan/data/orders.csv', header=True, inferSchema=True)\n\n# Feature Engineering\ncustomer_features = orders.groupBy('customer_id').agg(\n    F.count('*').alias('n_orders'),\n    F.avg('total_amount').alias('avg_amount'),\n    F.sum('total_amount').alias('total_spent'),\n    (F.sum(F.when(F.col('status')=='completed', 1).otherwise(0)) / F.count('*')).alias('completion_rate')\n)\n\n# Label: Hochwertkunde (total_spent > 500)\ncustomer_features = customer_features.withColumn('is_high_value', (F.col('total_spent') > 500).cast('integer'))\n\ncustomer_features.show(5)",
+                ex12Output: "+-----------+--------+----------+-----------+---------------+-------------+\n|customer_id|n_orders|avg_amount|total_spent|completion_rate|is_high_value|\n+-----------+--------+----------+-----------+---------------+-------------+\n|          1|       5|    234.56|    1172.80|            0.8|            1|\n|          2|       3|     89.99|     269.97|            1.0|            0|\n+-----------+--------+----------+-----------+---------------+-------------+",
+                ex12Explain: "Spark MLlib-Pipeline: 1. Feature Engineering mit groupBy/agg. 2. VectorAssembler kombiniert Features zu einem Vektor. 3. StandardScaler normalisiert Features. 4. LogisticRegression klassifiziert. Pipeline.fit() trainiert alle Stufen in Sequenz.",
+                ex12Practice: "Trainieren Sie die vollständige ML-Pipeline: Fügen Sie VectorAssembler, StandardScaler und LogisticRegression hinzu. Evaluieren Sie mit der Trainingsgenauigkeit.",
+                ex12Hint: "Tipp: assembler = VectorAssembler(inputCols=['n_orders','avg_amount','completion_rate'], outputCol='features'), dann Pipeline(stages=[assembler, scaler, lr]).fit(train_data)",
+                ex12Solution: "from pyspark.ml.feature import VectorAssembler, StandardScaler\nfrom pyspark.ml.classification import LogisticRegression\nfrom pyspark.ml import Pipeline\n\nassembler = VectorAssembler(inputCols=['n_orders', 'avg_amount', 'completion_rate'], outputCol='features_raw')\nscaler = StandardScaler(inputCol='features_raw', outputCol='features')\nlr = LogisticRegression(featuresCol='features', labelCol='is_high_value')\n\ntrain, test = customer_features.randomSplit([0.8, 0.2], seed=42)\npipeline = Pipeline(stages=[assembler, scaler, lr])\nmodel = pipeline.fit(train)\npredictions = model.transform(test)\nacc = predictions.filter(F.col('prediction') == F.col('is_high_value')).count() / predictions.count()\nprint(f'Genauigkeit: {acc:.1%}')",
                 challengeName: "Challenge: RFM-Analyse",
                 challengeDesc: "Berechnen Sie RFM-Metriken (Recency, Frequency, Monetary) für Kunden und identifizieren Sie Top-Kunden.",
                 challengeSteps: "Schritte:",
@@ -570,6 +618,54 @@
                 ex6Practice: "Load order_items.csv and join with products.csv on product_id. Calculate revenue per category.",
                 ex6Hint: "1. Load both files 2. join() on shared column 3. groupBy('category').agg(sum())",
                 ex6Solution: "order_items = spark.read.csv(\"/home/jovyan/data/order_items.csv\", header=True, inferSchema=True)\nproducts = spark.read.csv(\"/home/jovyan/data/products.csv\", header=True, inferSchema=True)\n\ndf_revenue = order_items.join(products, \"product_id\").groupBy(\"category\").agg(\n    sum(\"unit_price\").alias(\"total_revenue\")\n).orderBy(\"total_revenue\", ascending=False)\ndf_revenue.show()",
+                exercise7: "Exercise 7: Window Functions",
+                exercise8: "Exercise 8: UDFs – Custom Functions",
+                exercise9: "Exercise 9: Parquet & Persistence",
+                exercise10: "Exercise 10: SQL on DataFrames",
+                exercise11: "Exercise 11: Streaming Simulation",
+                exercise12: "Exercise 12: ML Pipeline Basics",
+                ex7Objective: "Calculations across groups with Window Functions – without collapsing rows",
+                ex7Code: "from pyspark.sql import SparkSession\nfrom pyspark.sql.window import Window\nfrom pyspark.sql import functions as F\n\nspark = SparkSession.builder.appName('WindowDemo').getOrCreate()\norders = spark.read.csv('/home/jovyan/data/orders.csv', header=True, inferSchema=True)\n\n# Window per customer, ordered by date\nwindow = Window.partitionBy('customer_id').orderBy('order_date')\n\nresult = orders.withColumn('order_num', F.row_number().over(window)) \\\n               .withColumn('cumulative_spend', F.sum('total_amount').over(window))\n\nresult.select('customer_id', 'order_date', 'total_amount', 'order_num', 'cumulative_spend').show(10)",
+                ex7Output: "+----------+----------+------------+---------+----------------+\n|customer_id|order_date|total_amount|order_num|cumulative_spend|\n+----------+----------+------------+---------+----------------+\n|         1|2023-01-05|      125.99|        1|          125.99|\n|         1|2023-02-12|      349.50|        2|          475.49|\n+----------+----------+------------+---------+----------------+",
+                ex7Explain: "Window Functions compute values over a partition without collapsing rows. partitionBy('customer_id') = separate window per customer. row_number() numbers rows within the window. sum().over(window) = running cumulative total. No groupBy needed – all rows remain.",
+                ex7Practice: "Calculate the rank of each order per customer by order amount (highest first). Use F.rank().over(Window.partitionBy('customer_id').orderBy(F.desc('total_amount'))).",
+                ex7Hint: "Hint: window2 = Window.partitionBy('customer_id').orderBy(F.desc('total_amount')), then .withColumn('amount_rank', F.rank().over(window2))",
+                ex7Solution: "window2 = Window.partitionBy('customer_id').orderBy(F.desc('total_amount'))\nresult = orders.withColumn('amount_rank', F.rank().over(window2))\nresult.select('customer_id', 'order_date', 'total_amount', 'amount_rank').show(10)",
+                ex8Objective: "Apply custom Python functions to Spark DataFrames (User Defined Functions)",
+                ex8Code: "from pyspark.sql import SparkSession\nfrom pyspark.sql import functions as F\nfrom pyspark.sql.types import StringType, FloatType\n\nspark = SparkSession.builder.appName('UDFDemo').getOrCreate()\norders = spark.read.csv('/home/jovyan/data/orders.csv', header=True, inferSchema=True)\n\n# Define UDF\n@F.udf(returnType=StringType())\ndef categorize_order(amount):\n    if amount is None: return 'Unknown'\n    if amount < 50: return 'Small'\n    if amount < 200: return 'Medium'\n    if amount < 500: return 'Large'\n    return 'Premium'\n\nresult = orders.withColumn('category', categorize_order('total_amount'))\nresult.groupBy('category').count().orderBy('count', ascending=False).show()",
+                ex8Output: "+--------+-----+\n|category|count|\n+--------+-----+\n|  Medium|  423|\n|   Large|  312|\n|   Small|  187|\n| Premium|   78|\n+--------+-----+",
+                ex8Explain: "@F.udf(returnType=StringType()): Decorates a Python function as a Spark UDF. returnType specifies the return type (StringType, FloatType, IntegerType, etc.). UDFs are powerful but slower than built-in functions – use only when no Spark alternative exists.",
+                ex8Practice: "Write a UDF discount_udf that calculates a discount: status='completed' → 0%, status='returned' → 10%, else 5%. Apply it to the status field.",
+                ex8Hint: "Hint: @F.udf(returnType=FloatType()) def discount_udf(status): return 0.0 if status=='completed' else 0.1 if status=='returned' else 0.05",
+                ex8Solution: "@F.udf(returnType=FloatType())\ndef discount_udf(status):\n    if status == 'completed': return 0.0\n    if status == 'returned': return 0.10\n    return 0.05\n\nresult = orders.withColumn('discount', discount_udf('status'))\nresult.select('order_id', 'status', 'total_amount', 'discount').show(10)",
+                ex9Objective: "Save DataFrames as Parquet and reload them – the standard file format for Big Data",
+                ex9Code: "from pyspark.sql import SparkSession\n\nspark = SparkSession.builder.appName('ParquetDemo').getOrCreate()\norders = spark.read.csv('/home/jovyan/data/orders.csv', header=True, inferSchema=True)\n\n# Save as Parquet (columnar, compressed)\norders.write.mode('overwrite').parquet('/tmp/orders_parquet/')\n\n# Read Parquet back\ndf_parquet = spark.read.parquet('/tmp/orders_parquet/')\ndf_parquet.printSchema()\ndf_parquet.select('order_id', 'total_amount', 'status').show(5)\n\n# Read only specific columns (Column Pruning)\ndf_small = spark.read.parquet('/tmp/orders_parquet/').select('customer_id', 'total_amount')\nprint('Row count:', df_small.count())",
+                ex9Output: "root\n |-- order_id: integer (nullable = true)\n |-- customer_id: integer (nullable = true)\n |-- total_amount: double (nullable = true)\n |-- status: string (nullable = true)\n\nRow count: 1000",
+                ex9Explain: "Parquet is columnar: only required columns are read (Column Pruning = much less I/O). Automatic compression. printSchema() shows types after loading – Parquet preserves data types, CSV loses them. mode('overwrite') replaces existing files.",
+                ex9Practice: "Load the Parquet file and filter only 'completed' orders. Save them as new Parquet to /tmp/completed_orders/. Count the rows.",
+                ex9Hint: "Hint: df_parquet.filter(F.col('status') == 'completed').write.mode('overwrite').parquet('/tmp/completed_orders/')",
+                ex9Solution: "from pyspark.sql import functions as F\ndf = spark.read.parquet('/tmp/orders_parquet/')\ncompleted = df.filter(F.col('status') == 'completed')\ncompleted.write.mode('overwrite').parquet('/tmp/completed_orders/')\nprint('Completed orders:', completed.count())",
+                ex10Objective: "Spark SQL: run SQL queries directly on DataFrames – ideal for those with SQL experience",
+                ex10Code: "from pyspark.sql import SparkSession\n\nspark = SparkSession.builder.appName('SparkSQLDemo').getOrCreate()\norders = spark.read.csv('/home/jovyan/data/orders.csv', header=True, inferSchema=True)\ncustomers = spark.read.csv('/home/jovyan/data/customers.csv', header=True, inferSchema=True)\n\n# Register DataFrames as temporary views\norders.createOrReplaceTempView('orders')\ncustomers.createOrReplaceTempView('customers')\n\n# Run SQL directly\nresult = spark.sql(\"\"\"\n    SELECT c.name, COUNT(o.order_id) AS orders,\n           ROUND(SUM(o.total_amount), 2) AS total_revenue\n    FROM orders o\n    JOIN customers c ON o.customer_id = c.customer_id\n    WHERE o.status = 'completed'\n    GROUP BY c.name\n    ORDER BY total_revenue DESC\n    LIMIT 10\n\"\"\")\nresult.show()",
+                ex10Output: "+-------------+------+-------------+\n|         name|orders|total_revenue|\n+-------------+------+-------------+\n| Alice Mueller|    12|       2340.5|\n|Bob Schneider |     9|       1890.2|\n+-------------+------+-------------+",
+                ex10Explain: "createOrReplaceTempView(): Registers the DataFrame as a SQL view (session-scoped only). spark.sql(): Executes any SQL query – all standard SQL features available. Advantage: SQL users don't need to learn a new API. Result is a DataFrame again.",
+                ex10Practice: "Write a SQL query calculating monthly revenue (year, month, revenue) from completed orders. Use YEAR(order_date) and MONTH(order_date).",
+                ex10Hint: "Hint: spark.sql('SELECT YEAR(order_date) as year, MONTH(order_date) as month, ROUND(SUM(total_amount),2) as revenue FROM orders WHERE status="completed" GROUP BY year, month ORDER BY year, month')",
+                ex10Solution: "result = spark.sql(\"\"\"\n    SELECT YEAR(order_date) AS year, MONTH(order_date) AS month,\n           ROUND(SUM(total_amount), 2) AS revenue,\n           COUNT(*) AS order_count\n    FROM orders\n    WHERE status = 'completed'\n    GROUP BY year, month\n    ORDER BY year, month\n\"\"\")\nresult.show()",
+                ex11Objective: "Simulate Structured Streaming: understand batch processing as mini-streaming",
+                ex11Code: "from pyspark.sql import SparkSession\nfrom pyspark.sql import functions as F\nimport time\n\nspark = SparkSession.builder.appName('StreamingDemo').getOrCreate()\norders = spark.read.csv('/home/jovyan/data/orders.csv', header=True, inferSchema=True)\n\n# Simulate streaming: process data in batches\nbatch_size = 100\ntotal = orders.count()\n\nfor i in range(0, min(total, 300), batch_size):\n    batch = orders.limit(i + batch_size).subtract(orders.limit(i))\n    stats = batch.agg(\n        F.count('*').alias('orders'),\n        F.round(F.sum('total_amount'), 2).alias('revenue')\n    ).collect()[0]\n    print(f'Batch {i//batch_size + 1}: {stats.orders} orders, {stats.revenue}€')\n    time.sleep(0.5)",
+                ex11Output: "Batch 1: 100 orders, 23456.78€\nBatch 2: 100 orders, 19834.21€\nBatch 3: 100 orders, 21109.55€",
+                ex11Explain: "Real Spark Streaming reads from Kafka, S3 or sockets. This simulation shows the concept: data arrives in batches and is processed immediately. subtract() removes already processed data. In real systems: spark.readStream.format('kafka').",
+                ex11Practice: "Extend the simulation: calculate per batch also the percentage of 'completed' orders.",
+                ex11Hint: "Hint: Add completed_pct = batch.filter(F.col('status')=='completed').count() / batch.count() * 100",
+                ex11Solution: "for i in range(0, min(total, 300), batch_size):\n    batch = orders.limit(i + batch_size).subtract(orders.limit(i))\n    n_total = batch.count()\n    n_completed = batch.filter(F.col('status') == 'completed').count()\n    revenue = batch.agg(F.round(F.sum('total_amount'), 2)).collect()[0][0]\n    pct = round(n_completed / n_total * 100, 1) if n_total > 0 else 0\n    print(f'Batch {i//batch_size + 1}: {n_total} orders, {revenue}€, {pct}% completed')",
+                ex12Objective: "Build a complete ML pipeline with Spark MLlib: Feature Engineering + Model",
+                ex12Code: "from pyspark.sql import SparkSession\nfrom pyspark.sql import functions as F\nfrom pyspark.ml.feature import VectorAssembler, StandardScaler\nfrom pyspark.ml.classification import LogisticRegression\nfrom pyspark.ml import Pipeline\n\nspark = SparkSession.builder.appName('MLDemo').getOrCreate()\norders = spark.read.csv('/home/jovyan/data/orders.csv', header=True, inferSchema=True)\n\n# Feature Engineering\ncustomer_features = orders.groupBy('customer_id').agg(\n    F.count('*').alias('n_orders'),\n    F.avg('total_amount').alias('avg_amount'),\n    F.sum('total_amount').alias('total_spent'),\n    (F.sum(F.when(F.col('status')=='completed', 1).otherwise(0)) / F.count('*')).alias('completion_rate')\n)\n\n# Label: high-value customer (total_spent > 500)\ncustomer_features = customer_features.withColumn('is_high_value', (F.col('total_spent') > 500).cast('integer'))\ncustomer_features.show(5)",
+                ex12Output: "+-----------+--------+----------+-----------+---------------+-------------+\n|customer_id|n_orders|avg_amount|total_spent|completion_rate|is_high_value|\n+-----------+--------+----------+-----------+---------------+-------------+\n|          1|       5|    234.56|    1172.80|            0.8|            1|\n|          2|       3|     89.99|     269.97|            1.0|            0|\n+-----------+--------+----------+-----------+---------------+-------------+",
+                ex12Explain: "Spark MLlib Pipeline: 1. Feature Engineering with groupBy/agg. 2. VectorAssembler combines features into a vector. 3. StandardScaler normalizes features. 4. LogisticRegression classifies. Pipeline.fit() trains all stages in sequence.",
+                ex12Practice: "Train the complete ML pipeline: add VectorAssembler, StandardScaler and LogisticRegression. Evaluate with training accuracy.",
+                ex12Hint: "Hint: assembler = VectorAssembler(inputCols=['n_orders','avg_amount','completion_rate'], outputCol='features'), then Pipeline(stages=[assembler, scaler, lr]).fit(train_data)",
+                ex12Solution: "from pyspark.ml.feature import VectorAssembler, StandardScaler\nfrom pyspark.ml.classification import LogisticRegression\nfrom pyspark.ml import Pipeline\n\nassembler = VectorAssembler(inputCols=['n_orders', 'avg_amount', 'completion_rate'], outputCol='features_raw')\nscaler = StandardScaler(inputCol='features_raw', outputCol='features')\nlr = LogisticRegression(featuresCol='features', labelCol='is_high_value')\n\ntrain, test = customer_features.randomSplit([0.8, 0.2], seed=42)\npipeline = Pipeline(stages=[assembler, scaler, lr])\nmodel = pipeline.fit(train)\npredictions = model.transform(test)\nacc = predictions.filter(F.col('prediction') == F.col('is_high_value')).count() / predictions.count()\nprint(f'Accuracy: {acc:.1%}')",
                 challengeName: "Challenge: RFM Analysis",
                 challengeDesc: "Calculate RFM metrics (Recency, Frequency, Monetary) for customers and identify top customers.",
                 challengeSteps: "Steps:",
@@ -670,6 +766,12 @@
             { id: 'exercise4', label: 'exercise4' },
             { id: 'exercise5', label: 'exercise5' },
             { id: 'exercise6', label: 'exercise6' },
+            { id: 'exercise7', label: 'exercise7' },
+            { id: 'exercise8', label: 'exercise8' },
+            { id: 'exercise9', label: 'exercise9' },
+            { id: 'exercise10', label: 'exercise10' },
+            { id: 'exercise11', label: 'exercise11' },
+            { id: 'exercise12', label: 'exercise12' },
             { id: 'challenge', label: 'challenge' },
             { id: 'quiz', label: 'quiz' },
             { id: 'outlook', label: 'outlook' },
@@ -1159,7 +1261,7 @@
                                 )}
                             </div>
 
-                            <button className="btn-accent" onClick={() => setActiveSection('challenge')} style={{marginTop: '2rem'}}>{t.nextExercise}</button>
+                            <button className="btn-accent" onClick={() => setActiveSection('exercise7')} style={{marginTop: '2rem'}}>{t.nextExercise}</button>
                         </div>
                     );
                 }
@@ -1453,4 +1555,190 @@
         ReactDOM.render(<LabApp />, document.getElementById('root'));
     </script>
 </body>
-</html>
+</html>                // Exercise 7
+                if (activeSection === 'exercise7') {
+                    return (
+                        <div className="section active">
+                            <h1 className="section-header">{t.exercise7}</h1>
+                            <div style={{marginBottom: '1rem'}}>
+                                <span className="badge badge-beginner">{t.beginner}</span>
+                                <span className="badge badge-time" style={{background: '#d1ecf1', color: '#0c5460'}}>~15 Min</span>
+                            </div>
+                            <h2 className="subsection-header">{t.objective}</h2>
+                            <p>{t.ex7Objective}</p>
+                            <h2 className="subsection-header">{t.example}</h2>
+                            <div className="code-block">
+                                <button className="copy-btn" onClick={() => copyToClipboard(t.ex7Code)}>{t.copy}</button>
+                                <code>{t.ex7Code}</code>
+                            </div>
+                            <div className="output-box">{t.ex7Output}</div>
+                            <h2 className="subsection-header">{t.explanation}</h2>
+                            <p>{t.ex7Explain}</p>
+                            <h2 className="subsection-header">{t.yourTask}</h2>
+                            <p>{t.ex7Practice}</p>
+                            <div className="hint-box"><strong>{t.hint}:</strong> {t.ex7Hint}</div>
+                            <div className="expandable" onClick={() => toggleExpanded('ex7sol')} style={{cursor: 'pointer'}}>
+                                <div className="expandable-header">{t.showSolution}<span className="expandable-chevron">▼</span></div>
+                                {expandedItems['ex7sol'] && (<div className="expandable-content"><div className="code-block"><code>{t.ex7Solution}</code></div></div>)}
+                            </div>
+                            <button className="btn-accent" onClick={() => setActiveSection('exercise8')} style={{marginTop: '2rem'}}>{t.nextExercise}</button>
+                        </div>
+                    );
+                }
+
+                // Exercise 8
+                if (activeSection === 'exercise8') {
+                    return (
+                        <div className="section active">
+                            <h1 className="section-header">{t.exercise8}</h1>
+                            <div style={{marginBottom: '1rem'}}>
+                                <span className="badge badge-beginner">{t.beginner}</span>
+                                <span className="badge badge-time" style={{background: '#d1ecf1', color: '#0c5460'}}>~15 Min</span>
+                            </div>
+                            <h2 className="subsection-header">{t.objective}</h2>
+                            <p>{t.ex8Objective}</p>
+                            <h2 className="subsection-header">{t.example}</h2>
+                            <div className="code-block">
+                                <button className="copy-btn" onClick={() => copyToClipboard(t.ex8Code)}>{t.copy}</button>
+                                <code>{t.ex8Code}</code>
+                            </div>
+                            <div className="output-box">{t.ex8Output}</div>
+                            <h2 className="subsection-header">{t.explanation}</h2>
+                            <p>{t.ex8Explain}</p>
+                            <h2 className="subsection-header">{t.yourTask}</h2>
+                            <p>{t.ex8Practice}</p>
+                            <div className="hint-box"><strong>{t.hint}:</strong> {t.ex8Hint}</div>
+                            <div className="expandable" onClick={() => toggleExpanded('ex8sol')} style={{cursor: 'pointer'}}>
+                                <div className="expandable-header">{t.showSolution}<span className="expandable-chevron">▼</span></div>
+                                {expandedItems['ex8sol'] && (<div className="expandable-content"><div className="code-block"><code>{t.ex8Solution}</code></div></div>)}
+                            </div>
+                            <button className="btn-accent" onClick={() => setActiveSection('exercise9')} style={{marginTop: '2rem'}}>{t.nextExercise}</button>
+                        </div>
+                    );
+                }
+
+                // Exercise 9
+                if (activeSection === 'exercise9') {
+                    return (
+                        <div className="section active">
+                            <h1 className="section-header">{t.exercise9}</h1>
+                            <div style={{marginBottom: '1rem'}}>
+                                <span className="badge badge-beginner">{t.beginner}</span>
+                                <span className="badge badge-time" style={{background: '#d1ecf1', color: '#0c5460'}}>~20 Min</span>
+                            </div>
+                            <h2 className="subsection-header">{t.objective}</h2>
+                            <p>{t.ex9Objective}</p>
+                            <h2 className="subsection-header">{t.example}</h2>
+                            <div className="code-block">
+                                <button className="copy-btn" onClick={() => copyToClipboard(t.ex9Code)}>{t.copy}</button>
+                                <code>{t.ex9Code}</code>
+                            </div>
+                            <div className="output-box">{t.ex9Output}</div>
+                            <h2 className="subsection-header">{t.explanation}</h2>
+                            <p>{t.ex9Explain}</p>
+                            <h2 className="subsection-header">{t.yourTask}</h2>
+                            <p>{t.ex9Practice}</p>
+                            <div className="hint-box"><strong>{t.hint}:</strong> {t.ex9Hint}</div>
+                            <div className="expandable" onClick={() => toggleExpanded('ex9sol')} style={{cursor: 'pointer'}}>
+                                <div className="expandable-header">{t.showSolution}<span className="expandable-chevron">▼</span></div>
+                                {expandedItems['ex9sol'] && (<div className="expandable-content"><div className="code-block"><code>{t.ex9Solution}</code></div></div>)}
+                            </div>
+                            <button className="btn-accent" onClick={() => setActiveSection('exercise10')} style={{marginTop: '2rem'}}>{t.nextExercise}</button>
+                        </div>
+                    );
+                }
+
+                // Exercise 10
+                if (activeSection === 'exercise10') {
+                    return (
+                        <div className="section active">
+                            <h1 className="section-header">{t.exercise10}</h1>
+                            <div style={{marginBottom: '1rem'}}>
+                                <span className="badge badge-beginner">{t.beginner}</span>
+                                <span className="badge badge-time" style={{background: '#d1ecf1', color: '#0c5460'}}>~20 Min</span>
+                            </div>
+                            <h2 className="subsection-header">{t.objective}</h2>
+                            <p>{t.ex10Objective}</p>
+                            <h2 className="subsection-header">{t.example}</h2>
+                            <div className="code-block">
+                                <button className="copy-btn" onClick={() => copyToClipboard(t.ex10Code)}>{t.copy}</button>
+                                <code>{t.ex10Code}</code>
+                            </div>
+                            <div className="output-box">{t.ex10Output}</div>
+                            <h2 className="subsection-header">{t.explanation}</h2>
+                            <p>{t.ex10Explain}</p>
+                            <h2 className="subsection-header">{t.yourTask}</h2>
+                            <p>{t.ex10Practice}</p>
+                            <div className="hint-box"><strong>{t.hint}:</strong> {t.ex10Hint}</div>
+                            <div className="expandable" onClick={() => toggleExpanded('ex10sol')} style={{cursor: 'pointer'}}>
+                                <div className="expandable-header">{t.showSolution}<span className="expandable-chevron">▼</span></div>
+                                {expandedItems['ex10sol'] && (<div className="expandable-content"><div className="code-block"><code>{t.ex10Solution}</code></div></div>)}
+                            </div>
+                            <button className="btn-accent" onClick={() => setActiveSection('exercise11')} style={{marginTop: '2rem'}}>{t.nextExercise}</button>
+                        </div>
+                    );
+                }
+
+                // Exercise 11
+                if (activeSection === 'exercise11') {
+                    return (
+                        <div className="section active">
+                            <h1 className="section-header">{t.exercise11}</h1>
+                            <div style={{marginBottom: '1rem'}}>
+                                <span className="badge badge-beginner">{t.beginner}</span>
+                                <span className="badge badge-time" style={{background: '#d1ecf1', color: '#0c5460'}}>~20 Min</span>
+                            </div>
+                            <h2 className="subsection-header">{t.objective}</h2>
+                            <p>{t.ex11Objective}</p>
+                            <h2 className="subsection-header">{t.example}</h2>
+                            <div className="code-block">
+                                <button className="copy-btn" onClick={() => copyToClipboard(t.ex11Code)}>{t.copy}</button>
+                                <code>{t.ex11Code}</code>
+                            </div>
+                            <div className="output-box">{t.ex11Output}</div>
+                            <h2 className="subsection-header">{t.explanation}</h2>
+                            <p>{t.ex11Explain}</p>
+                            <h2 className="subsection-header">{t.yourTask}</h2>
+                            <p>{t.ex11Practice}</p>
+                            <div className="hint-box"><strong>{t.hint}:</strong> {t.ex11Hint}</div>
+                            <div className="expandable" onClick={() => toggleExpanded('ex11sol')} style={{cursor: 'pointer'}}>
+                                <div className="expandable-header">{t.showSolution}<span className="expandable-chevron">▼</span></div>
+                                {expandedItems['ex11sol'] && (<div className="expandable-content"><div className="code-block"><code>{t.ex11Solution}</code></div></div>)}
+                            </div>
+                            <button className="btn-accent" onClick={() => setActiveSection('exercise12')} style={{marginTop: '2rem'}}>{t.nextExercise}</button>
+                        </div>
+                    );
+                }
+
+                // Exercise 12
+                if (activeSection === 'exercise12') {
+                    return (
+                        <div className="section active">
+                            <h1 className="section-header">{t.exercise12}</h1>
+                            <div style={{marginBottom: '1rem'}}>
+                                <span className="badge badge-beginner">{t.beginner}</span>
+                                <span className="badge badge-time" style={{background: '#d1ecf1', color: '#0c5460'}}>~25 Min</span>
+                            </div>
+                            <h2 className="subsection-header">{t.objective}</h2>
+                            <p>{t.ex12Objective}</p>
+                            <h2 className="subsection-header">{t.example}</h2>
+                            <div className="code-block">
+                                <button className="copy-btn" onClick={() => copyToClipboard(t.ex12Code)}>{t.copy}</button>
+                                <code>{t.ex12Code}</code>
+                            </div>
+                            <div className="output-box">{t.ex12Output}</div>
+                            <h2 className="subsection-header">{t.explanation}</h2>
+                            <p>{t.ex12Explain}</p>
+                            <h2 className="subsection-header">{t.yourTask}</h2>
+                            <p>{t.ex12Practice}</p>
+                            <div className="hint-box"><strong>{t.hint}:</strong> {t.ex12Hint}</div>
+                            <div className="expandable" onClick={() => toggleExpanded('ex12sol')} style={{cursor: 'pointer'}}>
+                                <div className="expandable-header">{t.showSolution}<span className="expandable-chevron">▼</span></div>
+                                {expandedItems['ex12sol'] && (<div className="expandable-content"><div className="code-block"><code>{t.ex12Solution}</code></div></div>)}
+                            </div>
+                            <button className="btn-accent" onClick={() => setActiveSection('challenge')} style={{marginTop: '2rem'}}>{t.nextExercise}</button>
+                        </div>
+                    );
+                }
+
+                

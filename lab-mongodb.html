@@ -452,7 +452,80 @@ const translations = {
         exercise6TaskDesc: 'Analysieren Sie, welche Produktkategorie am meisten Umsatz generiert hat. Nutzen Sie $lookup, um Products-Daten zu verbinden, und aggregieren Sie nach Kategorie.',
         exercise6Hint: 'Hinweis: Verwenden Sie $lookup um order_items mit products zu verbinden und aggregieren Sie den Umsatz nach category.',
         exercise6SolutionCode: 'db.order_items.aggregate([\n  { $lookup: { from: "products", localField: "product_id", foreignField: "product_id", as: "product_info" } },\n  { $unwind: "$product_info" },\n  { $group: { _id: "$product_info.category", total_revenue: { $sum: { $multiply: ["$quantity", "$unit_price"] } } } },\n  { $sort: { total_revenue: -1 } }\n])',
-        exercise6VerifyDesc: 'Sie sollten Produktkategorien mit ihrem Gesamtumsatz sehen, sortiert nach Umsatz.',
+        exercise6VerifyDesc: 'Sie sollten Produktkategorien mit ihrem Gesamtumsatz sehen, sortiert nach Umsatz.'
+        exercise7: 'Übung 7: Daten aktualisieren',
+        exercise7Title: 'Übung 7: Daten aktualisieren',
+        exercise7Goal: 'Lerne wie Du Dokumente mit updateOne() und updateMany() gezielt veränderst.',
+        exercise7Code: 'db.customers.updateOne(\n  { customer_id: 999 },\n  { $set: { city: \"Berlin\", country: \"Germany\" } }\n)\n\ndb.products.updateMany(\n  { category: \"Electronics\" },\n  { $inc: { stock_quantity: 10 } }\n)',
+        exercise7Output: '{ acknowledged: true, matchedCount: 1, modifiedCount: 1 }\n{ acknowledged: true, matchedCount: 45, modifiedCount: 45 }',
+        exercise7Line1: '$set: Setzt Felder auf neue Werte ohne das Dokument zu überschreiben. { $set: { city: \"Berlin\" } } ändert nur das city-Feld — alle anderen Felder bleiben erhalten.',
+        exercise7Line2: '$inc: Erhöht oder verringert einen numerischen Wert. { $inc: { stock_quantity: 10 } } addiert 10 zum Bestand. Nützlich für Zähler und Lagerbestände.',
+        exercise7Line3: 'updateMany() vs updateOne(): updateOne() ändert das erste passende Dokument, updateMany() alle. Ohne Filter ändert updateMany({}) die gesamte Collection!',
+        exercise7TaskDesc: 'Erhöhen Sie den Preis aller Produkte der Kategorie \"Clothing\" um 5%. Verwenden Sie $mul: { $mul: { unit_price: 1.05 } }',
+        exercise7Hint: 'Hinweis: db.products.updateMany({ category: \"Clothing\" }, { $mul: { unit_price: 1.05 } })',
+        exercise7SolutionCode: 'db.products.updateMany(\n  { category: \"Clothing\" },\n  { $mul: { unit_price: 1.05 } }\n)',
+        exercise7VerifyDesc: 'Prüfen Sie mit db.products.find({ category: \"Clothing\" }) ob die Preise gestiegen sind.',
+        exercise8: 'Übung 8: Daten löschen & bereinigen',
+        exercise8Title: 'Übung 8: Daten löschen & bereinigen',
+        exercise8Goal: 'Lerne wie Du Dokumente sicher löschst und Collections aufräumst.',
+        exercise8Code: '// Einzelnes Dokument löschen\ndb.customers.deleteOne({ customer_id: 999 })\n\n// Mehrere Dokumente löschen\ndb.orders.deleteMany({ status: \"cancelled\" })\n\n// Zählen nach dem Löschen\ndb.orders.countDocuments()\ndb.orders.countDocuments({ status: \"completed\" })',
+        exercise8Output: '{ acknowledged: true, deletedCount: 1 }\n{ acknowledged: true, deletedCount: 23 }\n977\n750',
+        exercise8Line1: 'deleteOne(): Löscht das erste passende Dokument. Immer mit eindeutigem Feld (z.B. customer_id) nutzen um ungewollte Löschungen zu vermeiden.',
+        exercise8Line2: 'deleteMany(): Löscht alle passenden Dokumente. ACHTUNG: deleteMany({}) ohne Filter löscht die gesamte Collection! Immer einen Filter angeben.',
+        exercise8Line3: 'countDocuments(): Zählt Dokumente mit optionalem Filter — ideal zur Verifikation vor und nach Löschoperationen. Moderner Ersatz für das veraltete count().',
+        exercise8TaskDesc: 'Löschen Sie alle Produkte mit stock_quantity = 0. Zählen Sie vorher und nachher um die Korrektheit zu prüfen.',
+        exercise8Hint: 'Hinweis: Erst db.products.countDocuments({ stock_quantity: 0 }), dann deleteMany, dann nochmals countDocuments().',
+        exercise8SolutionCode: '// Vorher\ndb.products.countDocuments({ stock_quantity: 0 })\n// Löschen\ndb.products.deleteMany({ stock_quantity: 0 })\n// Nachher\ndb.products.countDocuments()',
+        exercise8VerifyDesc: 'Die Produktanzahl sollte nach dem Löschen kleiner sein als vorher.',
+        exercise9: 'Übung 9: Indizes & Performance',
+        exercise9Title: 'Übung 9: Indizes & Performance',
+        exercise9Goal: 'Verstehe wie Indizes Abfragen beschleunigen und wann sie sinnvoll sind.',
+        exercise9Code: '// Index erstellen\ndb.customers.createIndex({ city: 1 })\n\n// Zusammengesetzter Index\ndb.orders.createIndex({ customer_id: 1, order_date: -1 })\n\n// Performancevergleich mit explain()\ndb.customers.find({ city: \"Berlin\" }).explain(\"executionStats\")\n\n// Alle Indizes anzeigen\ndb.customers.getIndexes()',
+        exercise9Output: '{ numIndexesBefore: 1, numIndexesAfter: 2 }\n// explain() zeigt: COLLSCAN (ohne Index) vs IXSCAN (mit Index)',
+        exercise9Line1: 'createIndex({ city: 1 }): Erstellt einen aufsteigenden Index. Ohne Index: Collection Scan (alle Dokumente). Mit Index: Index Scan (nur Treffer) — enorm schneller bei großen Datenmengen.',
+        exercise9Line2: 'Zusammengesetzter Index: { customer_id: 1, order_date: -1 } — optimal wenn Abfragen nach customer_id filtern UND nach order_date sortieren.',
+        exercise9Line3: 'explain(\"executionStats\"): Zeigt den Ausführungsplan — totalDocsExamined, executionTimeMillis. Unverzichtbar für Performance-Analysen.',
+        exercise9TaskDesc: 'Erstellen Sie einen Index auf dem Feld email in der customers-Collection. Prüfen Sie mit explain() ob IXSCAN statt COLLSCAN verwendet wird.',
+        exercise9Hint: 'Hinweis: db.customers.createIndex({ email: 1 }), dann .find({ email: \"alice@example.com\" }).explain(\"executionStats\")',
+        exercise9SolutionCode: 'db.customers.createIndex({ email: 1 })\ndb.customers.find({ email: \"alice@example.com\" }).explain(\"executionStats\")',
+        exercise9VerifyDesc: 'In explain() sollte IXSCAN statt COLLSCAN erscheinen — das zeigt dass der Index genutzt wird.',
+        exercise10: 'Übung 10: Array-Operationen',
+        exercise10Title: 'Übung 10: Array-Operationen',
+        exercise10Goal: 'Lerne wie Du Array-Felder in Dokumenten verwaltest: Elemente hinzufügen, entfernen und suchen.',
+        exercise10Code: '// Element hinzufügen\ndb.customers.updateOne({ customer_id: 1 }, { $push: { wishlist: \"product_42\" } })\n\n// Ohne Duplikate hinzufügen\ndb.customers.updateOne({ customer_id: 1 }, { $addToSet: { tags: { $each: [\"vip\", \"newsletter\"] } } })\n\n// Element entfernen\ndb.customers.updateOne({ customer_id: 1 }, { $pull: { wishlist: \"product_42\" } })\n\n// Kunden mit Tag suchen\ndb.customers.find({ tags: \"vip\" })',
+        exercise10Output: '{ acknowledged: true, matchedCount: 1, modifiedCount: 1 }',
+        exercise10Line1: '$push: Fügt ein Element zu einem Array hinzu. Falls das Feld nicht existiert, wird es automatisch als Array angelegt.',
+        exercise10Line2: '$addToSet: Wie $push, aber verhindert Duplikate. Wenn der Wert bereits im Array ist, passiert nichts. Ideal für Tags oder Kategorien.',
+        exercise10Line3: '$pull: Entfernt alle Vorkommen eines Wertes aus einem Array. Gegenteil von $push.',
+        exercise10TaskDesc: 'Fügen Sie dem Kunden mit customer_id 1 das Tag \"premium\" hinzu. Suchen Sie dann alle Kunden mit dem Tag \"premium\".',
+        exercise10Hint: 'Hinweis: { $addToSet: { tags: \"premium\" } }, dann find({ tags: \"premium\" })',
+        exercise10SolutionCode: 'db.customers.updateOne(\n  { customer_id: 1 },\n  { $addToSet: { tags: \"premium\" } }\n)\ndb.customers.find({ tags: \"premium\" })',
+        exercise10VerifyDesc: 'Sie sollten Kunden mit dem Tag \"premium\" sehen.',
+        exercise11: 'Übung 11: Textsuche & Musterabgleich',
+        exercise11Title: 'Übung 11: Textsuche & Musterabgleich',
+        exercise11Goal: 'Lerne flexible Suchabfragen mit $regex und $in zu erstellen.',
+        exercise11Code: '// Namen die mit \"Sch\" beginnen (case-insensitive)\ndb.customers.find({ name: { $regex: \"^Sch\", $options: \"i\" } })\n\n// Gmail-Adressen finden\ndb.customers.find({ email: { $regex: \"@gmail\\\\.com$\" } })\n\n// $in: mehrere Werte prüfen\ndb.orders.find({ status: { $in: [\"completed\", \"shipped\"] } })',
+        exercise11Output: '[Alle Kunden mit Namen die mit \"Sch\" beginnen]\n[Alle Kunden mit Gmail-Adresse]\n[Alle abgeschlossenen und versendeten Bestellungen]',
+        exercise11Line1: '$regex: Erlaubt reguläre Ausdrücke. ^ = Anfang, $ = Ende, i = case-insensitiv. Nützlich wenn der genaue Wert nicht bekannt ist.',
+        exercise11Line2: '$options: \"i\" — \"berlin\" findet auch \"Berlin\" und \"BERLIN\". Wichtig für Suchen auf Benutzereingaben.',
+        exercise11Line3: '$in: Prüft ob ein Wert in einer Liste vorkommt — wie IN (...) in SQL. Effizienter als mehrere $or-Bedingungen.',
+        exercise11TaskDesc: 'Finden Sie alle Produkte deren Name das Wort \"Pro\" enthält (case-insensitive). Zählen Sie Kunden mit einer @example.com E-Mail.',
+        exercise11Hint: 'Hinweis: { name: { $regex: \"Pro\", $options: \"i\" } } für Produkte. countDocuments() zum Zählen.',
+        exercise11SolutionCode: 'db.products.find({ name: { $regex: \"Pro\", $options: \"i\" } })\ndb.customers.countDocuments({ email: { $regex: \"@example\\\\.com$\" } })',
+        exercise11VerifyDesc: 'Produkte mit \"Pro\" im Namen und Anzahl der example.com-Kunden.',
+        exercise12: 'Übung 12: Dashboard-Pipeline',
+        exercise12Title: 'Übung 12: Dashboard-Pipeline',
+        exercise12Goal: 'Erstelle eine vollständige Analyse-Pipeline die alle Aggregationsstufen kombiniert.',
+        exercise12Code: 'db.order_items.aggregate([\n  // Produktdaten verknüpfen\n  { $lookup: { from: \"products\", localField: \"product_id\", foreignField: \"product_id\", as: \"product\" }},\n  { $unwind: \"$product\" },\n  // Umsatz berechnen\n  { $addFields: { revenue: { $multiply: [\"$quantity\", \"$unit_price\"] } }},\n  // Nach Kategorie gruppieren\n  { $group: {\n    _id: \"$product.category\",\n    total_revenue: { $sum: \"$revenue\" },\n    total_sold: { $sum: \"$quantity\" }\n  }},\n  { $sort: { total_revenue: -1 }}\n])',
+        exercise12Output: '[Kategorien mit Gesamtumsatz und verkauften Einheiten, sortiert nach Umsatz]',
+        exercise12Line1: 'Diese Pipeline kombiniert $lookup, $unwind, $addFields, $group und $sort — alle bisher gelernten Operatoren in einem realistischen Analytics-Query.',
+        exercise12Line2: '$multiply: Berechnet das Produkt zweier Werte. { $multiply: [\"$quantity\", \"$unit_price\"] } = Umsatz pro Bestellposition.',
+        exercise12Line3: 'Mehrstufige Pipelines transformieren Daten Schritt für Schritt — ähnlich wie SQL-Unterabfragen, aber lesbarer und flexibler.',
+        exercise12TaskDesc: 'Erweitern Sie die Pipeline: Fügen Sie am Anfang { $match: { ... } } hinzu um nur Positionen von \"completed\" Bestellungen zu berücksichtigen. Joinen Sie dazu order_items mit orders.',
+        exercise12Hint: 'Beginnen Sie mit db.orders.aggregate([ { $match: { status: \"completed\" } }, { $lookup: { from: \"order_items\", ... } } ])',
+        exercise12SolutionCode: 'db.orders.aggregate([\n  { $match: { status: \"completed\" } },\n  { $lookup: { from: \"order_items\", localField: \"order_id\", foreignField: \"order_id\", as: \"items\" }},\n  { $unwind: \"$items\" },\n  { $lookup: { from: \"products\", localField: \"items.product_id\", foreignField: \"product_id\", as: \"product\" }},\n  { $unwind: \"$product\" },\n  { $group: { _id: \"$product.category\", revenue: { $sum: { $multiply: [\"$items.quantity\", \"$items.unit_price\"] } } }},\n  { $sort: { revenue: -1 } }\n])',
+        exercise12VerifyDesc: 'Kategorien mit Umsatz aus nur abgeschlossenen Bestellungen.',
+,
         challengeTitle: 'Challenge: RFM-Kundensegmentierung',
         challengeDesc: 'Führen Sie eine Recency-Frequency-Monetary (RFM) Analyse durch um Kunden zu segmentieren. RFM ist eine klassische Methode im Marketing: Recency (wie lange ist die letzte Bestellung her), Frequency (wie viele Bestellungen), Monetary (wie viel Umsatz).',
         step1Challenge: 'Schritt 1: Berechnen Sie für jeden Kunden das Recency (Tage seit letzter Bestellung)',
@@ -697,7 +770,80 @@ const translations = {
         exercise6TaskDesc: 'Analyze which product category generated the most revenue. Use $lookup to join products data and aggregate revenue by category.',
         exercise6Hint: 'Hint: Use $lookup to join order_items with products and aggregate revenue by category.',
         exercise6SolutionCode: 'db.order_items.aggregate([\n  { $lookup: { from: "products", localField: "product_id", foreignField: "product_id", as: "product_info" } },\n  { $unwind: "$product_info" },\n  { $group: { _id: "$product_info.category", total_revenue: { $sum: { $multiply: ["$quantity", "$unit_price"] } } } },\n  { $sort: { total_revenue: -1 } }\n])',
-        exercise6VerifyDesc: 'You should see product categories with their total revenue, sorted by revenue.',
+        exercise6VerifyDesc: 'You should see product categories with their total revenue, sorted by revenue.'
+        exercise7: 'Exercise 7: Updating Data',
+        exercise7Title: 'Exercise 7: Updating Data',
+        exercise7Goal: 'Learn how to modify documents with updateOne() and updateMany().',
+        exercise7Code: 'db.customers.updateOne(\n  { customer_id: 999 },\n  { $set: { city: \"Berlin\", country: \"Germany\" } }\n)\n\ndb.products.updateMany(\n  { category: \"Electronics\" },\n  { $inc: { stock_quantity: 10 } }\n)',
+        exercise7Output: '{ acknowledged: true, matchedCount: 1, modifiedCount: 1 }\n{ acknowledged: true, matchedCount: 45, modifiedCount: 45 }',
+        exercise7Line1: '$set: Sets fields to new values without overwriting the document. { $set: { city: \"Berlin\" } } only changes the city field — all others remain unchanged.',
+        exercise7Line2: '$inc: Increments or decrements a numeric field. { $inc: { stock_quantity: 10 } } adds 10 to the current stock. Useful for counters and inventory.',
+        exercise7Line3: 'updateMany() vs updateOne(): updateOne() changes the first match, updateMany() changes all matches. Without a filter, updateMany({}) affects the entire collection!',
+        exercise7TaskDesc: 'Increase the price of all \"Clothing\" products by 5%. Use $mul: { $mul: { unit_price: 1.05 } }',
+        exercise7Hint: 'Hint: db.products.updateMany({ category: \"Clothing\" }, { $mul: { unit_price: 1.05 } })',
+        exercise7SolutionCode: 'db.products.updateMany(\n  { category: \"Clothing\" },\n  { $mul: { unit_price: 1.05 } }\n)',
+        exercise7VerifyDesc: 'Check with db.products.find({ category: \"Clothing\" }) whether prices increased.',
+        exercise8: 'Exercise 8: Deleting & Cleanup',
+        exercise8Title: 'Exercise 8: Deleting & Cleanup',
+        exercise8Goal: 'Learn how to safely delete documents and clean up collections.',
+        exercise8Code: '// Delete one document\ndb.customers.deleteOne({ customer_id: 999 })\n\n// Delete multiple documents\ndb.orders.deleteMany({ status: \"cancelled\" })\n\n// Count after deletion\ndb.orders.countDocuments()\ndb.orders.countDocuments({ status: \"completed\" })',
+        exercise8Output: '{ acknowledged: true, deletedCount: 1 }\n{ acknowledged: true, deletedCount: 23 }\n977\n750',
+        exercise8Line1: 'deleteOne(): Deletes the first matching document. Always use a unique field (e.g. customer_id) to avoid accidental deletions.',
+        exercise8Line2: 'deleteMany(): Deletes all matching documents. WARNING: deleteMany({}) without a filter deletes the entire collection! Always include a filter.',
+        exercise8Line3: 'countDocuments(): Counts documents with optional filter — great for verification before and after delete operations.',
+        exercise8TaskDesc: 'Delete all products with stock_quantity = 0. Count before and after to verify the deletion was correct.',
+        exercise8Hint: 'Hint: First countDocuments({ stock_quantity: 0 }), then deleteMany, then countDocuments() again.',
+        exercise8SolutionCode: '// Before\ndb.products.countDocuments({ stock_quantity: 0 })\n// Delete\ndb.products.deleteMany({ stock_quantity: 0 })\n// After\ndb.products.countDocuments()',
+        exercise8VerifyDesc: 'The product count should be smaller after deletion than before.',
+        exercise9: 'Exercise 9: Indexes & Performance',
+        exercise9Title: 'Exercise 9: Indexes & Performance',
+        exercise9Goal: 'Understand how indexes speed up queries and when they are useful.',
+        exercise9Code: '// Create an index\ndb.customers.createIndex({ city: 1 })\n\n// Compound index\ndb.orders.createIndex({ customer_id: 1, order_date: -1 })\n\n// Performance comparison\ndb.customers.find({ city: \"Berlin\" }).explain(\"executionStats\")\n\n// Show all indexes\ndb.customers.getIndexes()',
+        exercise9Output: '{ numIndexesBefore: 1, numIndexesAfter: 2 }\n// explain() shows: COLLSCAN (no index) vs IXSCAN (with index)',
+        exercise9Line1: 'createIndex({ city: 1 }): Creates an ascending index. Without index: Collection Scan (all documents). With index: Index Scan (only matches) — much faster on large datasets.',
+        exercise9Line2: 'Compound index: { customer_id: 1, order_date: -1 } — optimal when queries filter by customer_id AND sort by order_date.',
+        exercise9Line3: 'explain(\"executionStats\"): Shows the query plan — totalDocsExamined and executionTimeMillis. Essential for performance analysis.',
+        exercise9TaskDesc: 'Create an index on the email field in the customers collection. Use explain() to verify IXSCAN is used instead of COLLSCAN.',
+        exercise9Hint: 'Hint: db.customers.createIndex({ email: 1 }), then .find({ email: \"alice@example.com\" }).explain(\"executionStats\")',
+        exercise9SolutionCode: 'db.customers.createIndex({ email: 1 })\ndb.customers.find({ email: \"alice@example.com\" }).explain(\"executionStats\")',
+        exercise9VerifyDesc: 'In explain() you should see IXSCAN instead of COLLSCAN — confirming the index is being used.',
+        exercise10: 'Exercise 10: Array Operations',
+        exercise10Title: 'Exercise 10: Array Operations',
+        exercise10Goal: 'Learn how to manage array fields in documents: add, remove, and search elements.',
+        exercise10Code: '// Add element\ndb.customers.updateOne({ customer_id: 1 }, { $push: { wishlist: \"product_42\" } })\n\n// Add without duplicates\ndb.customers.updateOne({ customer_id: 1 }, { $addToSet: { tags: { $each: [\"vip\", \"newsletter\"] } } })\n\n// Remove element\ndb.customers.updateOne({ customer_id: 1 }, { $pull: { wishlist: \"product_42\" } })\n\n// Find customers with tag\ndb.customers.find({ tags: \"vip\" })',
+        exercise10Output: '{ acknowledged: true, matchedCount: 1, modifiedCount: 1 }',
+        exercise10Line1: '$push: Adds an element to an array field. If the field does not exist yet, it is automatically created as an array.',
+        exercise10Line2: '$addToSet: Like $push but prevents duplicates. If the value is already in the array, nothing happens. Ideal for tags or categories.',
+        exercise10Line3: '$pull: Removes all occurrences of a value from an array. Opposite of $push.',
+        exercise10TaskDesc: 'Add the tag \"premium\" to customer with customer_id 1. Then find all customers with the tag \"premium\".',
+        exercise10Hint: 'Hint: { $addToSet: { tags: \"premium\" } }, then find({ tags: \"premium\" })',
+        exercise10SolutionCode: 'db.customers.updateOne(\n  { customer_id: 1 },\n  { $addToSet: { tags: \"premium\" } }\n)\ndb.customers.find({ tags: \"premium\" })',
+        exercise10VerifyDesc: 'You should see customers with the \"premium\" tag.',
+        exercise11: 'Exercise 11: Text Search & Pattern Matching',
+        exercise11Title: 'Exercise 11: Text Search & Pattern Matching',
+        exercise11Goal: 'Learn to create flexible search queries with $regex and $in.',
+        exercise11Code: '// Names starting with \"Sch\" (case-insensitive)\ndb.customers.find({ name: { $regex: \"^Sch\", $options: \"i\" } })\n\n// Find gmail addresses\ndb.customers.find({ email: { $regex: \"@gmail\\\\.com$\" } })\n\n// $in: check multiple values\ndb.orders.find({ status: { $in: [\"completed\", \"shipped\"] } })',
+        exercise11Output: '[All customers with names starting with \"Sch\"]\n[All customers with Gmail address]\n[All completed and shipped orders]',
+        exercise11Line1: '$regex: Allows regular expressions. ^ = start, $ = end, i = case-insensitive. Useful when the exact value is unknown.',
+        exercise11Line2: '$options: \"i\" — \"berlin\" also finds \"Berlin\" and \"BERLIN\". Important for searches on user input.',
+        exercise11Line3: '$in: Checks if a value is in a list — like IN (...) in SQL. More efficient than multiple $or conditions.',
+        exercise11TaskDesc: 'Find all products whose name contains the word \"Pro\" (case-insensitive). Count customers with an @example.com email.',
+        exercise11Hint: 'Hint: { name: { $regex: \"Pro\", $options: \"i\" } } for products. Use countDocuments() for counting.',
+        exercise11SolutionCode: 'db.products.find({ name: { $regex: \"Pro\", $options: \"i\" } })\ndb.customers.countDocuments({ email: { $regex: \"@example\\\\.com$\" } })',
+        exercise11VerifyDesc: 'Products containing \"Pro\" in their name and count of example.com customers.',
+        exercise12: 'Exercise 12: Dashboard Pipeline',
+        exercise12Title: 'Exercise 12: Dashboard Pipeline',
+        exercise12Goal: 'Build a complete analytics pipeline combining all aggregation stages.',
+        exercise12Code: 'db.order_items.aggregate([\n  // Join product data\n  { $lookup: { from: \"products\", localField: \"product_id\", foreignField: \"product_id\", as: \"product\" }},\n  { $unwind: \"$product\" },\n  // Calculate revenue\n  { $addFields: { revenue: { $multiply: [\"$quantity\", \"$unit_price\"] } }},\n  // Group by category\n  { $group: {\n    _id: \"$product.category\",\n    total_revenue: { $sum: \"$revenue\" },\n    total_sold: { $sum: \"$quantity\" }\n  }},\n  { $sort: { total_revenue: -1 }}\n])',
+        exercise12Output: '[Categories with total revenue and items sold, sorted by revenue]',
+        exercise12Line1: 'This pipeline combines $lookup, $unwind, $addFields, $group and $sort — all previously learned operators in one realistic analytics query.',
+        exercise12Line2: '$multiply: Computes the product of two values. { $multiply: [\"$quantity\", \"$unit_price\"] } = revenue per order item.',
+        exercise12Line3: 'Multi-stage pipelines transform data step by step — similar to SQL subqueries but more readable and flexible.',
+        exercise12TaskDesc: 'Extend the pipeline: Add { $match: { status: \"completed\" } } at the start by joining order_items with orders first.',
+        exercise12Hint: 'Start with db.orders.aggregate([ { $match: { status: \"completed\" } }, { $lookup: { from: \"order_items\", ... } } ])',
+        exercise12SolutionCode: 'db.orders.aggregate([\n  { $match: { status: \"completed\" } },\n  { $lookup: { from: \"order_items\", localField: \"order_id\", foreignField: \"order_id\", as: \"items\" }},\n  { $unwind: \"$items\" },\n  { $lookup: { from: \"products\", localField: \"items.product_id\", foreignField: \"product_id\", as: \"product\" }},\n  { $unwind: \"$product\" },\n  { $group: { _id: \"$product.category\", revenue: { $sum: { $multiply: [\"$items.quantity\", \"$items.unit_price\"] } } }},\n  { $sort: { revenue: -1 } }\n])',
+        exercise12VerifyDesc: 'Categories with revenue from completed orders only.',
+,
         challengeTitle: 'Challenge: RFM Customer Segmentation',
         challengeDesc: 'Perform a Recency-Frequency-Monetary (RFM) analysis to segment customers. RFM is a classic marketing method: Recency (how long since last order), Frequency (number of orders), Monetary (total revenue).',
         step1Challenge: 'Step 1: Calculate Recency (days since last order) for each customer',
@@ -791,10 +937,10 @@ const translations = {
         hideSolution: 'Hide Solution',
         verification: 'Verification'
     },
-    ar: { back: 'back', copy: 'copy', overview: 'overview', setup: 'setup', fundamentals: 'fundamentals', exercise1: 'exercise1', exercise2: 'exercise2', exercise3: 'exercise3', exercise4: 'exercise4', exercise5: 'exercise5', exercise6: 'exercise6', challenge: 'challenge', quiz: 'quiz', outlook: 'outlook', troubleshooting: 'troubleshooting', correct: 'correct', incorrect: 'incorrect' },
-    uk: { back: 'back', copy: 'copy', overview: 'overview', setup: 'setup', fundamentals: 'fundamentals', exercise1: 'exercise1', exercise2: 'exercise2', exercise3: 'exercise3', exercise4: 'exercise4', exercise5: 'exercise5', exercise6: 'exercise6', challenge: 'challenge', quiz: 'quiz', outlook: 'outlook', troubleshooting: 'troubleshooting', correct: 'correct', incorrect: 'incorrect' },
-    es: { back: 'back', copy: 'copy', overview: 'overview', setup: 'setup', fundamentals: 'fundamentals', exercise1: 'exercise1', exercise2: 'exercise2', exercise3: 'exercise3', exercise4: 'exercise4', exercise5: 'exercise5', exercise6: 'exercise6', challenge: 'challenge', quiz: 'quiz', outlook: 'outlook', troubleshooting: 'troubleshooting', correct: 'correct', incorrect: 'incorrect' },
-    tr: { back: 'back', copy: 'copy', overview: 'overview', setup: 'setup', fundamentals: 'fundamentals', exercise1: 'exercise1', exercise2: 'exercise2', exercise3: 'exercise3', exercise4: 'exercise4', exercise5: 'exercise5', exercise6: 'exercise6', challenge: 'challenge', quiz: 'quiz', outlook: 'outlook', troubleshooting: 'troubleshooting', correct: 'correct', incorrect: 'incorrect' }
+    ar: { back: 'back', copy: 'copy', overview: 'overview', setup: 'setup', fundamentals: 'fundamentals', exercise1: 'exercise1', exercise2: 'exercise2', exercise3: 'exercise3', exercise4: 'exercise4', exercise5: 'exercise5', exercise6: 'exercise6', exercise7: 'exercise7', exercise8: 'exercise8', exercise9: 'exercise9', exercise10: 'exercise10', exercise11: 'exercise11', exercise12: 'exercise12', challenge: 'challenge', quiz: 'quiz', outlook: 'outlook', troubleshooting: 'troubleshooting', correct: 'correct', incorrect: 'incorrect' },
+    uk: { back: 'back', copy: 'copy', overview: 'overview', setup: 'setup', fundamentals: 'fundamentals', exercise1: 'exercise1', exercise2: 'exercise2', exercise3: 'exercise3', exercise4: 'exercise4', exercise5: 'exercise5', exercise6: 'exercise6', exercise7: 'exercise7', exercise8: 'exercise8', exercise9: 'exercise9', exercise10: 'exercise10', exercise11: 'exercise11', exercise12: 'exercise12', challenge: 'challenge', quiz: 'quiz', outlook: 'outlook', troubleshooting: 'troubleshooting', correct: 'correct', incorrect: 'incorrect' },
+    es: { back: 'back', copy: 'copy', overview: 'overview', setup: 'setup', fundamentals: 'fundamentals', exercise1: 'exercise1', exercise2: 'exercise2', exercise3: 'exercise3', exercise4: 'exercise4', exercise5: 'exercise5', exercise6: 'exercise6', exercise7: 'exercise7', exercise8: 'exercise8', exercise9: 'exercise9', exercise10: 'exercise10', exercise11: 'exercise11', exercise12: 'exercise12', challenge: 'challenge', quiz: 'quiz', outlook: 'outlook', troubleshooting: 'troubleshooting', correct: 'correct', incorrect: 'incorrect' },
+    tr: { back: 'back', copy: 'copy', overview: 'overview', setup: 'setup', fundamentals: 'fundamentals', exercise1: 'exercise1', exercise2: 'exercise2', exercise3: 'exercise3', exercise4: 'exercise4', exercise5: 'exercise5', exercise6: 'exercise6', exercise7: 'exercise7', exercise8: 'exercise8', exercise9: 'exercise9', exercise10: 'exercise10', exercise11: 'exercise11', exercise12: 'exercise12', challenge: 'challenge', quiz: 'quiz', outlook: 'outlook', troubleshooting: 'troubleshooting', correct: 'correct', incorrect: 'incorrect' }
 };
 
 function App() {
@@ -874,7 +1020,7 @@ function App() {
             </header>
 
             <aside className="sidebar">
-                {['overview', 'setup', 'fundamentals', 'exercise1', 'exercise2', 'exercise3', 'exercise4', 'exercise5', 'exercise6', 'challenge', 'quiz', 'outlook', 'troubleshooting'].map(section => (
+                {['overview', 'setup', 'fundamentals', 'exercise1', 'exercise2', 'exercise3', 'exercise4', 'exercise5', 'exercise6', 'exercise7', 'exercise8', 'exercise9', 'exercise10', 'exercise11', 'exercise12', 'challenge', 'quiz', 'outlook', 'troubleshooting'].map(section => (
                     <div
                         key={section}
                         className={`sidebar-item ${activeSection === section ? 'active' : ''}`}
@@ -1263,13 +1409,169 @@ function App() {
                             <p><strong>{t.verification}:</strong> {t.exercise6VerifyDesc}</p>
                         </Expandable>
 
-                        <button className="next-button" onClick={() => setActiveSection('challenge')}>
+                        <button className="next-button" onClick={() => setActiveSection('exercise7')}>
                             {t.nextExercise}
                         </button>
                     </section>
                 )}
 
-                {activeSection === 'challenge' && (
+                
+                {activeSection === 'exercise7' && (
+                    <section className="section active">
+                        <h2>{t.exercise7Title}</h2>
+                        <span className="badge badge-beginner">{t.beginner}</span>
+                        <span className="badge badge-time">~20 {t.time}</span>
+                        <p><strong>{t.exercise7Goal}</strong></p>
+                        <h3>{t.exercise1Show}</h3>
+                        <CodeBlock code={t.exercise7Code} />
+                        <div className="output-box">{t.exercise7Output}</div>
+                        <h3>{t.explanation}</h3>
+                        <div className="card">
+                            <p><strong>1.</strong> {t.exercise7Line1}</p>
+                            <p><strong>2.</strong> {t.exercise7Line2}</p>
+                            <p><strong>3.</strong> {t.exercise7Line3}</p>
+                        </div>
+                        <h3>{t.yourTask}</h3>
+                        <div className="card"><p>{t.exercise7TaskDesc}</p></div>
+                        <div className="hint-box"><strong>{t.hint}:</strong> {t.exercise7Hint}</div>
+                        <Expandable id="ex7-sol" title={t.showSolution}>
+                            <CodeBlock code={t.exercise7SolutionCode} />
+                            <p><strong>{t.verification}:</strong> {t.exercise7VerifyDesc}</p>
+                        </Expandable>
+                        <button className="next-button" onClick={() => setActiveSection('exercise8')}>{t.nextExercise}</button>
+                    </section>
+                )}
+
+                {activeSection === 'exercise8' && (
+                    <section className="section active">
+                        <h2>{t.exercise8Title}</h2>
+                        <span className="badge badge-beginner">{t.beginner}</span>
+                        <span className="badge badge-time">~15 {t.time}</span>
+                        <p><strong>{t.exercise8Goal}</strong></p>
+                        <h3>{t.exercise1Show}</h3>
+                        <CodeBlock code={t.exercise8Code} />
+                        <div className="output-box">{t.exercise8Output}</div>
+                        <h3>{t.explanation}</h3>
+                        <div className="card">
+                            <p><strong>1.</strong> {t.exercise8Line1}</p>
+                            <p><strong>2.</strong> {t.exercise8Line2}</p>
+                            <p><strong>3.</strong> {t.exercise8Line3}</p>
+                        </div>
+                        <h3>{t.yourTask}</h3>
+                        <div className="card"><p>{t.exercise8TaskDesc}</p></div>
+                        <div className="hint-box"><strong>{t.hint}:</strong> {t.exercise8Hint}</div>
+                        <Expandable id="ex8-sol" title={t.showSolution}>
+                            <CodeBlock code={t.exercise8SolutionCode} />
+                            <p><strong>{t.verification}:</strong> {t.exercise8VerifyDesc}</p>
+                        </Expandable>
+                        <button className="next-button" onClick={() => setActiveSection('exercise9')}>{t.nextExercise}</button>
+                    </section>
+                )}
+
+                {activeSection === 'exercise9' && (
+                    <section className="section active">
+                        <h2>{t.exercise9Title}</h2>
+                        <span className="badge badge-beginner">{t.beginner}</span>
+                        <span className="badge badge-time">~20 {t.time}</span>
+                        <p><strong>{t.exercise9Goal}</strong></p>
+                        <h3>{t.exercise1Show}</h3>
+                        <CodeBlock code={t.exercise9Code} />
+                        <div className="output-box">{t.exercise9Output}</div>
+                        <h3>{t.explanation}</h3>
+                        <div className="card">
+                            <p><strong>1.</strong> {t.exercise9Line1}</p>
+                            <p><strong>2.</strong> {t.exercise9Line2}</p>
+                            <p><strong>3.</strong> {t.exercise9Line3}</p>
+                        </div>
+                        <h3>{t.yourTask}</h3>
+                        <div className="card"><p>{t.exercise9TaskDesc}</p></div>
+                        <div className="hint-box"><strong>{t.hint}:</strong> {t.exercise9Hint}</div>
+                        <Expandable id="ex9-sol" title={t.showSolution}>
+                            <CodeBlock code={t.exercise9SolutionCode} />
+                            <p><strong>{t.verification}:</strong> {t.exercise9VerifyDesc}</p>
+                        </Expandable>
+                        <button className="next-button" onClick={() => setActiveSection('exercise10')}>{t.nextExercise}</button>
+                    </section>
+                )}
+
+                {activeSection === 'exercise10' && (
+                    <section className="section active">
+                        <h2>{t.exercise10Title}</h2>
+                        <span className="badge badge-beginner">{t.beginner}</span>
+                        <span className="badge badge-time">~20 {t.time}</span>
+                        <p><strong>{t.exercise10Goal}</strong></p>
+                        <h3>{t.exercise1Show}</h3>
+                        <CodeBlock code={t.exercise10Code} />
+                        <div className="output-box">{t.exercise10Output}</div>
+                        <h3>{t.explanation}</h3>
+                        <div className="card">
+                            <p><strong>1.</strong> {t.exercise10Line1}</p>
+                            <p><strong>2.</strong> {t.exercise10Line2}</p>
+                            <p><strong>3.</strong> {t.exercise10Line3}</p>
+                        </div>
+                        <h3>{t.yourTask}</h3>
+                        <div className="card"><p>{t.exercise10TaskDesc}</p></div>
+                        <div className="hint-box"><strong>{t.hint}:</strong> {t.exercise10Hint}</div>
+                        <Expandable id="ex10-sol" title={t.showSolution}>
+                            <CodeBlock code={t.exercise10SolutionCode} />
+                            <p><strong>{t.verification}:</strong> {t.exercise10VerifyDesc}</p>
+                        </Expandable>
+                        <button className="next-button" onClick={() => setActiveSection('exercise11')}>{t.nextExercise}</button>
+                    </section>
+                )}
+
+                {activeSection === 'exercise11' && (
+                    <section className="section active">
+                        <h2>{t.exercise11Title}</h2>
+                        <span className="badge badge-beginner">{t.beginner}</span>
+                        <span className="badge badge-time">~20 {t.time}</span>
+                        <p><strong>{t.exercise11Goal}</strong></p>
+                        <h3>{t.exercise1Show}</h3>
+                        <CodeBlock code={t.exercise11Code} />
+                        <div className="output-box">{t.exercise11Output}</div>
+                        <h3>{t.explanation}</h3>
+                        <div className="card">
+                            <p><strong>1.</strong> {t.exercise11Line1}</p>
+                            <p><strong>2.</strong> {t.exercise11Line2}</p>
+                            <p><strong>3.</strong> {t.exercise11Line3}</p>
+                        </div>
+                        <h3>{t.yourTask}</h3>
+                        <div className="card"><p>{t.exercise11TaskDesc}</p></div>
+                        <div className="hint-box"><strong>{t.hint}:</strong> {t.exercise11Hint}</div>
+                        <Expandable id="ex11-sol" title={t.showSolution}>
+                            <CodeBlock code={t.exercise11SolutionCode} />
+                            <p><strong>{t.verification}:</strong> {t.exercise11VerifyDesc}</p>
+                        </Expandable>
+                        <button className="next-button" onClick={() => setActiveSection('exercise12')}>{t.nextExercise}</button>
+                    </section>
+                )}
+
+                {activeSection === 'exercise12' && (
+                    <section className="section active">
+                        <h2>{t.exercise12Title}</h2>
+                        <span className="badge badge-beginner">{t.beginner}</span>
+                        <span className="badge badge-time">~25 {t.time}</span>
+                        <p><strong>{t.exercise12Goal}</strong></p>
+                        <h3>{t.exercise1Show}</h3>
+                        <CodeBlock code={t.exercise12Code} />
+                        <div className="output-box">{t.exercise12Output}</div>
+                        <h3>{t.explanation}</h3>
+                        <div className="card">
+                            <p><strong>1.</strong> {t.exercise12Line1}</p>
+                            <p><strong>2.</strong> {t.exercise12Line2}</p>
+                            <p><strong>3.</strong> {t.exercise12Line3}</p>
+                        </div>
+                        <h3>{t.yourTask}</h3>
+                        <div className="card"><p>{t.exercise12TaskDesc}</p></div>
+                        <div className="hint-box"><strong>{t.hint}:</strong> {t.exercise12Hint}</div>
+                        <Expandable id="ex12-sol" title={t.showSolution}>
+                            <CodeBlock code={t.exercise12SolutionCode} />
+                            <p><strong>{t.verification}:</strong> {t.exercise12VerifyDesc}</p>
+                        </Expandable>
+                        <button className="next-button" onClick={() => setActiveSection('challenge')}>{t.nextExercise}</button>
+                    </section>
+                )}
+{activeSection === 'challenge' && (
                     <section className="section active">
                         <h2>{t.challengeTitle}</h2>
                         <span className="badge badge-challenge">Challenge</span>
