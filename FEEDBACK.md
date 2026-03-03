@@ -1,125 +1,57 @@
-# Feedback: Big Data & Anwendungen Lab – THWS BBA
+# Feedback & Changelog: Big Data Labs – THWS BBA
 
-**URL:** https://swrobuts.github.io/bigdata/  
-**Datum:** 2026-03-03  
-**Review-Typ:** Didaktik & Gestaltung für Einsteiger  
-**Reviewer:** Bot (Mac-Bot, lokaler Assistent)
+**Review:** 2026-03-03 | Reviewer: Bot (systematische Code-Prüfung + didaktisches Review)
 
 ---
 
-## 🟢 Stärken des Projekts
+## ✅ Umgesetzte Fixes (dieser Commit)
 
-### Konzept & Didaktik
-- ✅ **Durchgängige MegaStore-Fallstudie** – roter Faden durch alle 4 Labs mit echten Business-Problemen (Retouren 23%, Churn 40%, Umsatzeinbrüche). Das gibt abstrakten Technologien Kontext.
-- ✅ **Progressive Schwierigkeit** (Beginner → Boss Challenge) – didaktisch sauber, klare Rampe.
-- ✅ **Hypothesengetriebenes Lernen** – explizit als Prinzip formuliert ("Bevor du abfragst: Was vermutest du?"). Hochschuldidaktik auf gutem Niveau.
-- ✅ **Echte Technologien** – MongoDB, DuckDB, Neo4j, Spark. Keine Simulationen.
-- ✅ **Docker-Ansatz** – eliminiert "bei mir läuft's"-Probleme.
-- ✅ **Self-Check-Fragen** – sinnvoll platziert, mit Erklärungen.
-- ✅ **Real-World Use Cases mit Quellen** – Walmart, PayPal, Netflix, Uber. Das motiviert Studierende.
+### 🔴 Kritische Bugs – behoben
 
-### Inhalt
-- ✅ **Big Data Einführung** klar und zugänglich: 5V-Modell, Datenquellen (IoT, Social Media), KI-Verbindung.
-- ✅ **Zeitangaben** bei allen Labs vorhanden (MongoDB 90-120min, DuckDB 90min, Neo4j 2-3h, Spark 3-4h).
-- ✅ **Troubleshooting-Sektionen** – praktisch und hilfreich.
-- ✅ **Quellenangaben** für Statistiken – vorbildlich.
-- ✅ **6-Sprachen-Support** (DE, EN, AR, UK, ES, TR) – internationaler als die meisten Hochschulprojekte.
+**1. MongoDB Lab – Exercise 5: Task/Code-Mismatch**
+- **Problem:** Übungsaufgabe fragte nach `db.order_items.aggregate()`, aber das Beispiel zeigte `db.orders.aggregate()`. Einsteiger konnten die Aufgabe nicht lösen ohne $lookup aus Ex6.
+- **Fix:** Task auf `orders`-Collection angepasst. Neue Aufgabe: Bestellungen pro Status zählen und Gesamtumsatz berechnen – konsistent mit Beispiel-Code.
 
-### Design & UX
-- ✅ **Konsistentes Farbschema** (Marineblau + Orange) – professionell.
-- ✅ **Saubere Navigation** – Sidebar mit allen Abschnitten, klare Struktur.
-- ✅ **Code-Blöcke mit Copy-Button** – kleines Detail, große Wirkung.
-- ✅ **Difficulty-Badges** (BEGINNER / BOSS) – auf Anhieb erkennbar.
+**2. MongoDB Lab – RFM Pipeline: `$addFields`-Stage-Bug**
+- **Problem:** `rfm_score` und `segment` wurden in derselben `$addFields`-Stage berechnet. MongoDB erlaubt keine Vorwärtsreferenz innerhalb einer Stage — `segment` konnte `rfm_score` nicht nutzen.
+- **Fix:** Zweite `$addFields`-Stage in zwei separate Stages aufgeteilt: erst `rfm_score`, dann `segment`.
 
----
+**3. Spark Lab – Exercise 6: `customers` Variable undefiniert**
+- **Problem:** Ex6 referenziert `customers.join(orders, ...)` aber die Variable `customers` wurde nie definiert. Ex1 lädt die Datei als `df`. → `NameError` beim Ausführen.
+- **Fix:** `customers = spark.read.csv(...)` explizit am Anfang von Ex6 definiert.
 
-## 🟡 Verbesserungsvorschläge (Mittlere Priorität)
+### 🟡 Didaktische Verbesserungen – umgesetzt
 
-### 1. Lab-Abhängigkeiten nicht klar kommuniziert
-**Problem:** MongoDB und DuckDB sind "Anfänger", Neo4j "Mittelstufe", Spark "Fortgeschritten". Aber: Muss MongoDB vor Neo4j gemacht werden? Kann man DuckDB ohne MongoDB-Kenntnisse starten?
+**4. Neo4j Lab – Exercise 6: Beschreibung vereinfacht**
+- **Problem:** "Collaborative Filtering" und "Recommendation Engine" wirken einschüchternd für Einsteiger.
+- **Fix:** Aufgabe umformuliert: "Finde alle Kunden, die dasselbe Produkt wie Alice gekauft haben." Hint erklärt das Graph-Muster Schritt für Schritt.
 
-**Empfehlung:** Im Intro jedes Labs explizit schreiben:
-- "Voraussetzung: Keine Vorkenntnisse aus anderen Labs erforderlich" ODER
-- "Voraussetzung: MongoDB Lab abgeschlossen"
+**5. Neo4j Lab – Prerequisites ergänzt**
+- Lab-Abhängigkeit klargestellt: MongoDB Lab empfohlen als Einstieg.
 
-### 2. Kapitel-Referenzen ohne Buchverweis
-**Wo:** Landing Page → Lab-Karten ("Kapitel 5: NoSQL Datenbanken", "Kapitel 6", etc.)
-
-**Problem:** Welches Buch? Welche Vorlesung? Internationale Studierende oder Quereinsteiger wissen das nicht.
-
-**Empfehlung:** Buchverweis ergänzen oder Labels anpassen zu "Thema 5: NoSQL" statt "Kapitel 5".
-
-### 3. Glossar fehlt
-**Problem:** Begriffe wie BSON, ObjectId, OLAP, RDD, DAG, Sharding, Cypher, Graph Traversal tauchen ohne Erklärung auf. Ein Lab-übergreifendes Glossar oder Hover-Tooltips würden Einsteigern helfen.
-
-**Empfehlung:** Entweder eine Glossar-Seite oder inline-Erklärungen beim ersten Auftreten (z.B. "BSON (Binary JSON)").
-
-### 4. Exercise-Schwierigkeitsgrade zu grob
-**Wo:** MongoDB Lab – Übungen 1-7 alle "BEGINNER", Übung 8 direkt "BOSS"
-
-**Problem:** Übung 7 (Data Modeling) ist nicht auf demselben Level wie Übung 1 (First Steps).
-
-**Empfehlung:** Granularere Labels: BEGINNER (1-2), INTERMEDIATE (3-5), ADVANCED (6-7), BOSS (8).
-
-### 5. Keine "Weiter"-Navigation am Ende jeder Übung
-**Problem:** Am Ende jedes Abschnitts gibt es keinen "Weiter zu Übung 2"-Button. Studierende müssen zurück in die Sidebar.
-
-**Empfehlung:** UX-Verbesserung: "Next Exercise"-Button am Ende jeder Übung.
-
-### 6. Self-Check ohne Remediation-Links
-**Problem:** Die Fragen klappen auf (accordion), aber es gibt keinen Hinweis: "Wenn du die Antwort nicht kennst, geh zurück zu Abschnitt X".
-
-**Empfehlung:** Bei jeder Self-Check-Frage einen Rückverweis auf den relevanten Abschnitt.
+**6. Spark Lab – Prerequisites ergänzt**
+- Lab-Abhängigkeit klargestellt: DuckDB Lab empfohlen, Spark als fortgeschrittenstes Lab markiert.
 
 ---
 
-## 🔵 Kleinere Verbesserungen
+## 🟢 Stärken des Projekts (bereits in sehr gutem Zustand)
 
-### 7. MongoDB Setup: URL zu Mongo Express fehlt im Lab
-**Problem:** Das Setup zeigt, wie man MongoDB per CLI verbindet, aber die Übersicht verspricht "Mongo Express Web UI". Die URL (`http://localhost:8081`) ist nur im Docker Guide erwähnt, nicht im Lab selbst.
-
-**Empfehlung:** URL im MongoDB Lab Setup-Abschnitt ergänzen.
-
-### 8. Footer GitHub-Link könnte direkter sein
-**Wo:** `https://github.com/swrobuts/bigdata` (korrekt)
-
-**Anmerkung:** Link ist OK, könnte aber direkt auf das Repo verlinken (nicht nur Organisation). Aktuell funktioniert es.
+- Durchgängige MegaStore-Fallstudie mit echten Business-Szenarien
+- Progressive Schwierigkeit pro Lab (Beginner → Boss)
+- SQL-Analogien für MongoDB und DuckDB – ideal für Studierende mit SQL-Vorwissen
+- Alle Labs mit Zeitangaben, Troubleshooting und Self-Check
+- 6-Sprachen-Support, Copy-Buttons, "Next Exercise"-Navigation
 
 ---
 
-## ✅ Bereits gelöste Probleme (waren in früherer Analyse)
+## 🔵 Offene Verbesserungsvorschläge (nächste Iteration)
 
-Diese Punkte aus der Morgen-Analyse sind **bereits im aktuellen Stand behoben**:
-
-1. ✅ MongoDB `findOne( name: ... )` ohne geschweifte Klammern – **behoben** (nicht mehr im Code)
-2. ✅ MongoDB Exercise 8 RFM: `#` Kommentare – **nicht vorhanden** (Pipeline nutzt keine Inline-Kommentare mehr oder nutzt `//`)
-3. ✅ Zeitangaben fehlten – **behoben** (alle Labs haben `estimatedTime`)
-4. ✅ Repo-URL inkonsistent – **behoben** (durchgängig `swrobuts/bigdata`)
-
----
-
-## 📊 Zusammenfassung
-
-| Kategorie | Bewertung | Notizen |
-|-----------|-----------|---------|
-| **Didaktisches Konzept** | ⭐⭐⭐⭐⭐ | Durchdacht, progressiv, praxisnah |
-| **Fachliche Korrektheit** | ⭐⭐⭐⭐⭐ | Code-Beispiele lauffähig, Technologien korrekt erklärt |
-| **Einsteiger-Freundlichkeit** | ⭐⭐⭐⭐☆ | Sehr gut, aber Glossar würde noch helfen |
-| **Design & UX** | ⭐⭐⭐⭐⭐ | Professionell, konsistent, gut navigierbar |
-| **Vollständigkeit** | ⭐⭐⭐⭐☆ | Umfassend, könnte noch Lab-Abhängigkeiten klären |
-
-**Gesamteindruck:** Professionell gestaltetes, didaktisch durchdachtes Lehrprojekt. Die Verbesserungsvorschläge sind alle "nice to have" – das Projekt ist bereits in sehr gutem Zustand für den Einsatz in der Lehre.
+1. **Glossar** – BSON, ObjectId, DAG, RDD, Cypher beim ersten Auftreten erklären
+2. **Intermediate Badges** – Übungen 3-5 mit `INTERMEDIATE` statt nur `BEGINNER` markieren
+3. **DuckDB Ex1** – `SELECT 42` als Einstieg ist sehr trivial; könnte ein echtes DuckDB-Feature (z.B. direkte CSV-Abfrage) zeigen
+4. **MongoDB Fundamentals** – CRUD-Tabelle könnte interaktiv sein (jede Operation ausklappbar)
+5. **Self-Check Back-Links** – Bei jeder Frage auf den relevanten Abschnitt verweisen
 
 ---
 
-## 🎯 Empfohlene nächste Schritte (Priorität)
-
-1. **Hoch:** Lab-Abhängigkeiten im Intro jedes Labs erwähnen
-2. **Mittel:** Glossar-Seite oder Tooltips für Fachbegriffe
-3. **Mittel:** Exercise-Schwierigkeitsgrade granularer gestalten
-4. **Niedrig:** "Weiter"-Navigation am Ende jeder Übung
-5. **Niedrig:** Self-Check mit Rückverweisen ausstatten
-
----
-
-*Review abgeschlossen am 2026-03-03. Bei Fragen zur Umsetzung: siehe `/Users/robert/clawd/memory/bigdata-feedback.md` für die ausführliche Erstanalyse.*
+*Letzte Aktualisierung: 2026-03-03*
