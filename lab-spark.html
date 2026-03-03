@@ -1578,6 +1578,194 @@
                     );
                 }
 
+                // Exercise 7
+                if (activeSection === 'exercise7') {
+                    return (
+                        <div className="section active">
+                            <h1 className="section-header">{t.exercise7}</h1>
+                            <div style={{marginBottom: '1rem'}}>
+                                <span className="badge badge-beginner">{t.beginner}</span>
+                                <span className="badge badge-time" style={{background: '#d1ecf1', color: '#0c5460'}}>~15 Min</span>
+                            </div>
+                            <h2 className="subsection-header">{t.objective}</h2>
+                            <p>{t.ex7Objective}</p>
+                            <h2 className="subsection-header">{t.example}</h2>
+                            <div className="code-block">
+                                <button className="copy-btn" onClick={() => copyToClipboard(t.ex7Code)}>{t.copy}</button>
+                                <code>{t.ex7Code}</code>
+                            </div>
+                            <div className="output-box">{t.ex7Output}</div>
+                            <h2 className="subsection-header">{t.explanation}</h2>
+                            <p>{t.ex7Explain}</p>
+                            <h2 className="subsection-header">{t.yourTask}</h2>
+                            <p>{t.ex7Practice}</p>
+                            <div className="hint-box"><strong>{t.hint}:</strong> {t.ex7Hint}</div>
+                            <div className="expandable" onClick={() => toggleExpanded('ex7sol')} style={{cursor: 'pointer'}}>
+                                <div className="expandable-header">{t.showSolution}<span className="expandable-chevron">▼</span></div>
+                                {expandedItems['ex7sol'] && (<div className="expandable-content"><div className="code-block"><code>{t.ex7Solution}</code></div></div>)}
+                            </div>
+                            <button className="btn-accent" onClick={() => setActiveSection('exercise8')} style={{marginTop: '2rem'}}>{t.nextExercise}</button>
+                        </div>
+                    );
+                }
+
+                // Exercise 8
+                if (activeSection === 'exercise8') {
+                    return (
+                        <div className="section active">
+                            <h1 className="section-header">{t.exercise8}</h1>
+                            <div style={{marginBottom: '1rem'}}>
+                                <span className="badge badge-beginner">{t.beginner}</span>
+                                <span className="badge badge-time" style={{background: '#d1ecf1', color: '#0c5460'}}>~15 Min</span>
+                            </div>
+                            <h2 className="subsection-header">{t.objective}</h2>
+                            <p>{t.ex8Objective}</p>
+                            <h2 className="subsection-header">{t.example}</h2>
+                            <div className="code-block">
+                                <button className="copy-btn" onClick={() => copyToClipboard(t.ex8Code)}>{t.copy}</button>
+                                <code>{t.ex8Code}</code>
+                            </div>
+                            <div className="output-box">{t.ex8Output}</div>
+                            <h2 className="subsection-header">{t.explanation}</h2>
+                            <p>{t.ex8Explain}</p>
+                            <h2 className="subsection-header">{t.yourTask}</h2>
+                            <p>{t.ex8Practice}</p>
+                            <div className="hint-box"><strong>{t.hint}:</strong> {t.ex8Hint}</div>
+                            <div className="expandable" onClick={() => toggleExpanded('ex8sol')} style={{cursor: 'pointer'}}>
+                                <div className="expandable-header">{t.showSolution}<span className="expandable-chevron">▼</span></div>
+                                {expandedItems['ex8sol'] && (<div className="expandable-content"><div className="code-block"><code>{t.ex8Solution}</code></div></div>)}
+                            </div>
+                            <button className="btn-accent" onClick={() => setActiveSection('exercise9')} style={{marginTop: '2rem'}}>{t.nextExercise}</button>
+                        </div>
+                    );
+                }
+
+                // Exercise 9
+                if (activeSection === 'exercise9') {
+                    return (
+                        <div className="section active">
+                            <h1 className="section-header">{t.exercise9}</h1>
+                            <div style={{marginBottom: '1rem'}}>
+                                <span className="badge badge-beginner">{t.beginner}</span>
+                                <span className="badge badge-time" style={{background: '#d1ecf1', color: '#0c5460'}}>~20 Min</span>
+                            </div>
+                            <h2 className="subsection-header">{t.objective}</h2>
+                            <p>{t.ex9Objective}</p>
+                            <h2 className="subsection-header">{t.example}</h2>
+                            <div className="code-block">
+                                <button className="copy-btn" onClick={() => copyToClipboard(t.ex9Code)}>{t.copy}</button>
+                                <code>{t.ex9Code}</code>
+                            </div>
+                            <div className="output-box">{t.ex9Output}</div>
+                            <h2 className="subsection-header">{t.explanation}</h2>
+                            <p>{t.ex9Explain}</p>
+                            <h2 className="subsection-header">{t.yourTask}</h2>
+                            <p>{t.ex9Practice}</p>
+                            <div className="hint-box"><strong>{t.hint}:</strong> {t.ex9Hint}</div>
+                            <div className="expandable" onClick={() => toggleExpanded('ex9sol')} style={{cursor: 'pointer'}}>
+                                <div className="expandable-header">{t.showSolution}<span className="expandable-chevron">▼</span></div>
+                                {expandedItems['ex9sol'] && (<div className="expandable-content"><div className="code-block"><code>{t.ex9Solution}</code></div></div>)}
+                            </div>
+                            <button className="btn-accent" onClick={() => setActiveSection('exercise10')} style={{marginTop: '2rem'}}>{t.nextExercise}</button>
+                        </div>
+                    );
+                }
+
+                // Exercise 10
+                if (activeSection === 'exercise10') {
+                    return (
+                        <div className="section active">
+                            <h1 className="section-header">{t.exercise10}</h1>
+                            <div style={{marginBottom: '1rem'}}>
+                                <span className="badge badge-beginner">{t.beginner}</span>
+                                <span className="badge badge-time" style={{background: '#d1ecf1', color: '#0c5460'}}>~20 Min</span>
+                            </div>
+                            <h2 className="subsection-header">{t.objective}</h2>
+                            <p>{t.ex10Objective}</p>
+                            <h2 className="subsection-header">{t.example}</h2>
+                            <div className="code-block">
+                                <button className="copy-btn" onClick={() => copyToClipboard(t.ex10Code)}>{t.copy}</button>
+                                <code>{t.ex10Code}</code>
+                            </div>
+                            <div className="output-box">{t.ex10Output}</div>
+                            <h2 className="subsection-header">{t.explanation}</h2>
+                            <p>{t.ex10Explain}</p>
+                            <h2 className="subsection-header">{t.yourTask}</h2>
+                            <p>{t.ex10Practice}</p>
+                            <div className="hint-box"><strong>{t.hint}:</strong> {t.ex10Hint}</div>
+                            <div className="expandable" onClick={() => toggleExpanded('ex10sol')} style={{cursor: 'pointer'}}>
+                                <div className="expandable-header">{t.showSolution}<span className="expandable-chevron">▼</span></div>
+                                {expandedItems['ex10sol'] && (<div className="expandable-content"><div className="code-block"><code>{t.ex10Solution}</code></div></div>)}
+                            </div>
+                            <button className="btn-accent" onClick={() => setActiveSection('exercise11')} style={{marginTop: '2rem'}}>{t.nextExercise}</button>
+                        </div>
+                    );
+                }
+
+                // Exercise 11
+                if (activeSection === 'exercise11') {
+                    return (
+                        <div className="section active">
+                            <h1 className="section-header">{t.exercise11}</h1>
+                            <div style={{marginBottom: '1rem'}}>
+                                <span className="badge badge-beginner">{t.beginner}</span>
+                                <span className="badge badge-time" style={{background: '#d1ecf1', color: '#0c5460'}}>~20 Min</span>
+                            </div>
+                            <h2 className="subsection-header">{t.objective}</h2>
+                            <p>{t.ex11Objective}</p>
+                            <h2 className="subsection-header">{t.example}</h2>
+                            <div className="code-block">
+                                <button className="copy-btn" onClick={() => copyToClipboard(t.ex11Code)}>{t.copy}</button>
+                                <code>{t.ex11Code}</code>
+                            </div>
+                            <div className="output-box">{t.ex11Output}</div>
+                            <h2 className="subsection-header">{t.explanation}</h2>
+                            <p>{t.ex11Explain}</p>
+                            <h2 className="subsection-header">{t.yourTask}</h2>
+                            <p>{t.ex11Practice}</p>
+                            <div className="hint-box"><strong>{t.hint}:</strong> {t.ex11Hint}</div>
+                            <div className="expandable" onClick={() => toggleExpanded('ex11sol')} style={{cursor: 'pointer'}}>
+                                <div className="expandable-header">{t.showSolution}<span className="expandable-chevron">▼</span></div>
+                                {expandedItems['ex11sol'] && (<div className="expandable-content"><div className="code-block"><code>{t.ex11Solution}</code></div></div>)}
+                            </div>
+                            <button className="btn-accent" onClick={() => setActiveSection('exercise12')} style={{marginTop: '2rem'}}>{t.nextExercise}</button>
+                        </div>
+                    );
+                }
+
+                // Exercise 12
+                if (activeSection === 'exercise12') {
+                    return (
+                        <div className="section active">
+                            <h1 className="section-header">{t.exercise12}</h1>
+                            <div style={{marginBottom: '1rem'}}>
+                                <span className="badge badge-beginner">{t.beginner}</span>
+                                <span className="badge badge-time" style={{background: '#d1ecf1', color: '#0c5460'}}>~25 Min</span>
+                            </div>
+                            <h2 className="subsection-header">{t.objective}</h2>
+                            <p>{t.ex12Objective}</p>
+                            <h2 className="subsection-header">{t.example}</h2>
+                            <div className="code-block">
+                                <button className="copy-btn" onClick={() => copyToClipboard(t.ex12Code)}>{t.copy}</button>
+                                <code>{t.ex12Code}</code>
+                            </div>
+                            <div className="output-box">{t.ex12Output}</div>
+                            <h2 className="subsection-header">{t.explanation}</h2>
+                            <p>{t.ex12Explain}</p>
+                            <h2 className="subsection-header">{t.yourTask}</h2>
+                            <p>{t.ex12Practice}</p>
+                            <div className="hint-box"><strong>{t.hint}:</strong> {t.ex12Hint}</div>
+                            <div className="expandable" onClick={() => toggleExpanded('ex12sol')} style={{cursor: 'pointer'}}>
+                                <div className="expandable-header">{t.showSolution}<span className="expandable-chevron">▼</span></div>
+                                {expandedItems['ex12sol'] && (<div className="expandable-content"><div className="code-block"><code>{t.ex12Solution}</code></div></div>)}
+                            </div>
+                            <button className="btn-accent" onClick={() => setActiveSection('challenge')} style={{marginTop: '2rem'}}>{t.nextExercise}</button>
+                        </div>
+                    );
+                }
+
+                
+
                 // Challenge
                 if (activeSection === 'challenge') {
                     return (
@@ -1867,190 +2055,4 @@
         ReactDOM.render(<LabApp />, document.getElementById('root'));
     </script>
 </body>
-</html>                // Exercise 7
-                if (activeSection === 'exercise7') {
-                    return (
-                        <div className="section active">
-                            <h1 className="section-header">{t.exercise7}</h1>
-                            <div style={{marginBottom: '1rem'}}>
-                                <span className="badge badge-beginner">{t.beginner}</span>
-                                <span className="badge badge-time" style={{background: '#d1ecf1', color: '#0c5460'}}>~15 Min</span>
-                            </div>
-                            <h2 className="subsection-header">{t.objective}</h2>
-                            <p>{t.ex7Objective}</p>
-                            <h2 className="subsection-header">{t.example}</h2>
-                            <div className="code-block">
-                                <button className="copy-btn" onClick={() => copyToClipboard(t.ex7Code)}>{t.copy}</button>
-                                <code>{t.ex7Code}</code>
-                            </div>
-                            <div className="output-box">{t.ex7Output}</div>
-                            <h2 className="subsection-header">{t.explanation}</h2>
-                            <p>{t.ex7Explain}</p>
-                            <h2 className="subsection-header">{t.yourTask}</h2>
-                            <p>{t.ex7Practice}</p>
-                            <div className="hint-box"><strong>{t.hint}:</strong> {t.ex7Hint}</div>
-                            <div className="expandable" onClick={() => toggleExpanded('ex7sol')} style={{cursor: 'pointer'}}>
-                                <div className="expandable-header">{t.showSolution}<span className="expandable-chevron">▼</span></div>
-                                {expandedItems['ex7sol'] && (<div className="expandable-content"><div className="code-block"><code>{t.ex7Solution}</code></div></div>)}
-                            </div>
-                            <button className="btn-accent" onClick={() => setActiveSection('exercise8')} style={{marginTop: '2rem'}}>{t.nextExercise}</button>
-                        </div>
-                    );
-                }
-
-                // Exercise 8
-                if (activeSection === 'exercise8') {
-                    return (
-                        <div className="section active">
-                            <h1 className="section-header">{t.exercise8}</h1>
-                            <div style={{marginBottom: '1rem'}}>
-                                <span className="badge badge-beginner">{t.beginner}</span>
-                                <span className="badge badge-time" style={{background: '#d1ecf1', color: '#0c5460'}}>~15 Min</span>
-                            </div>
-                            <h2 className="subsection-header">{t.objective}</h2>
-                            <p>{t.ex8Objective}</p>
-                            <h2 className="subsection-header">{t.example}</h2>
-                            <div className="code-block">
-                                <button className="copy-btn" onClick={() => copyToClipboard(t.ex8Code)}>{t.copy}</button>
-                                <code>{t.ex8Code}</code>
-                            </div>
-                            <div className="output-box">{t.ex8Output}</div>
-                            <h2 className="subsection-header">{t.explanation}</h2>
-                            <p>{t.ex8Explain}</p>
-                            <h2 className="subsection-header">{t.yourTask}</h2>
-                            <p>{t.ex8Practice}</p>
-                            <div className="hint-box"><strong>{t.hint}:</strong> {t.ex8Hint}</div>
-                            <div className="expandable" onClick={() => toggleExpanded('ex8sol')} style={{cursor: 'pointer'}}>
-                                <div className="expandable-header">{t.showSolution}<span className="expandable-chevron">▼</span></div>
-                                {expandedItems['ex8sol'] && (<div className="expandable-content"><div className="code-block"><code>{t.ex8Solution}</code></div></div>)}
-                            </div>
-                            <button className="btn-accent" onClick={() => setActiveSection('exercise9')} style={{marginTop: '2rem'}}>{t.nextExercise}</button>
-                        </div>
-                    );
-                }
-
-                // Exercise 9
-                if (activeSection === 'exercise9') {
-                    return (
-                        <div className="section active">
-                            <h1 className="section-header">{t.exercise9}</h1>
-                            <div style={{marginBottom: '1rem'}}>
-                                <span className="badge badge-beginner">{t.beginner}</span>
-                                <span className="badge badge-time" style={{background: '#d1ecf1', color: '#0c5460'}}>~20 Min</span>
-                            </div>
-                            <h2 className="subsection-header">{t.objective}</h2>
-                            <p>{t.ex9Objective}</p>
-                            <h2 className="subsection-header">{t.example}</h2>
-                            <div className="code-block">
-                                <button className="copy-btn" onClick={() => copyToClipboard(t.ex9Code)}>{t.copy}</button>
-                                <code>{t.ex9Code}</code>
-                            </div>
-                            <div className="output-box">{t.ex9Output}</div>
-                            <h2 className="subsection-header">{t.explanation}</h2>
-                            <p>{t.ex9Explain}</p>
-                            <h2 className="subsection-header">{t.yourTask}</h2>
-                            <p>{t.ex9Practice}</p>
-                            <div className="hint-box"><strong>{t.hint}:</strong> {t.ex9Hint}</div>
-                            <div className="expandable" onClick={() => toggleExpanded('ex9sol')} style={{cursor: 'pointer'}}>
-                                <div className="expandable-header">{t.showSolution}<span className="expandable-chevron">▼</span></div>
-                                {expandedItems['ex9sol'] && (<div className="expandable-content"><div className="code-block"><code>{t.ex9Solution}</code></div></div>)}
-                            </div>
-                            <button className="btn-accent" onClick={() => setActiveSection('exercise10')} style={{marginTop: '2rem'}}>{t.nextExercise}</button>
-                        </div>
-                    );
-                }
-
-                // Exercise 10
-                if (activeSection === 'exercise10') {
-                    return (
-                        <div className="section active">
-                            <h1 className="section-header">{t.exercise10}</h1>
-                            <div style={{marginBottom: '1rem'}}>
-                                <span className="badge badge-beginner">{t.beginner}</span>
-                                <span className="badge badge-time" style={{background: '#d1ecf1', color: '#0c5460'}}>~20 Min</span>
-                            </div>
-                            <h2 className="subsection-header">{t.objective}</h2>
-                            <p>{t.ex10Objective}</p>
-                            <h2 className="subsection-header">{t.example}</h2>
-                            <div className="code-block">
-                                <button className="copy-btn" onClick={() => copyToClipboard(t.ex10Code)}>{t.copy}</button>
-                                <code>{t.ex10Code}</code>
-                            </div>
-                            <div className="output-box">{t.ex10Output}</div>
-                            <h2 className="subsection-header">{t.explanation}</h2>
-                            <p>{t.ex10Explain}</p>
-                            <h2 className="subsection-header">{t.yourTask}</h2>
-                            <p>{t.ex10Practice}</p>
-                            <div className="hint-box"><strong>{t.hint}:</strong> {t.ex10Hint}</div>
-                            <div className="expandable" onClick={() => toggleExpanded('ex10sol')} style={{cursor: 'pointer'}}>
-                                <div className="expandable-header">{t.showSolution}<span className="expandable-chevron">▼</span></div>
-                                {expandedItems['ex10sol'] && (<div className="expandable-content"><div className="code-block"><code>{t.ex10Solution}</code></div></div>)}
-                            </div>
-                            <button className="btn-accent" onClick={() => setActiveSection('exercise11')} style={{marginTop: '2rem'}}>{t.nextExercise}</button>
-                        </div>
-                    );
-                }
-
-                // Exercise 11
-                if (activeSection === 'exercise11') {
-                    return (
-                        <div className="section active">
-                            <h1 className="section-header">{t.exercise11}</h1>
-                            <div style={{marginBottom: '1rem'}}>
-                                <span className="badge badge-beginner">{t.beginner}</span>
-                                <span className="badge badge-time" style={{background: '#d1ecf1', color: '#0c5460'}}>~20 Min</span>
-                            </div>
-                            <h2 className="subsection-header">{t.objective}</h2>
-                            <p>{t.ex11Objective}</p>
-                            <h2 className="subsection-header">{t.example}</h2>
-                            <div className="code-block">
-                                <button className="copy-btn" onClick={() => copyToClipboard(t.ex11Code)}>{t.copy}</button>
-                                <code>{t.ex11Code}</code>
-                            </div>
-                            <div className="output-box">{t.ex11Output}</div>
-                            <h2 className="subsection-header">{t.explanation}</h2>
-                            <p>{t.ex11Explain}</p>
-                            <h2 className="subsection-header">{t.yourTask}</h2>
-                            <p>{t.ex11Practice}</p>
-                            <div className="hint-box"><strong>{t.hint}:</strong> {t.ex11Hint}</div>
-                            <div className="expandable" onClick={() => toggleExpanded('ex11sol')} style={{cursor: 'pointer'}}>
-                                <div className="expandable-header">{t.showSolution}<span className="expandable-chevron">▼</span></div>
-                                {expandedItems['ex11sol'] && (<div className="expandable-content"><div className="code-block"><code>{t.ex11Solution}</code></div></div>)}
-                            </div>
-                            <button className="btn-accent" onClick={() => setActiveSection('exercise12')} style={{marginTop: '2rem'}}>{t.nextExercise}</button>
-                        </div>
-                    );
-                }
-
-                // Exercise 12
-                if (activeSection === 'exercise12') {
-                    return (
-                        <div className="section active">
-                            <h1 className="section-header">{t.exercise12}</h1>
-                            <div style={{marginBottom: '1rem'}}>
-                                <span className="badge badge-beginner">{t.beginner}</span>
-                                <span className="badge badge-time" style={{background: '#d1ecf1', color: '#0c5460'}}>~25 Min</span>
-                            </div>
-                            <h2 className="subsection-header">{t.objective}</h2>
-                            <p>{t.ex12Objective}</p>
-                            <h2 className="subsection-header">{t.example}</h2>
-                            <div className="code-block">
-                                <button className="copy-btn" onClick={() => copyToClipboard(t.ex12Code)}>{t.copy}</button>
-                                <code>{t.ex12Code}</code>
-                            </div>
-                            <div className="output-box">{t.ex12Output}</div>
-                            <h2 className="subsection-header">{t.explanation}</h2>
-                            <p>{t.ex12Explain}</p>
-                            <h2 className="subsection-header">{t.yourTask}</h2>
-                            <p>{t.ex12Practice}</p>
-                            <div className="hint-box"><strong>{t.hint}:</strong> {t.ex12Hint}</div>
-                            <div className="expandable" onClick={() => toggleExpanded('ex12sol')} style={{cursor: 'pointer'}}>
-                                <div className="expandable-header">{t.showSolution}<span className="expandable-chevron">▼</span></div>
-                                {expandedItems['ex12sol'] && (<div className="expandable-content"><div className="code-block"><code>{t.ex12Solution}</code></div></div>)}
-                            </div>
-                            <button className="btn-accent" onClick={() => setActiveSection('challenge')} style={{marginTop: '2rem'}}>{t.nextExercise}</button>
-                        </div>
-                    );
-                }
-
-                
+</html>
