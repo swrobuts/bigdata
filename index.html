@@ -288,8 +288,9 @@
 
         .section-divider {
             height: 1px;
-            background: linear-gradient(to right, transparent, #2D5A7B, transparent);
-            margin: 0; opacity: 0.3;
+            background: linear-gradient(to right, transparent 5%, rgba(232,121,47,0.2) 30%, rgba(27,58,92,0.15) 70%, transparent 95%);
+            margin: 2rem auto;
+            max-width: 80%;
         }
 
         .stat-bar {
@@ -1585,8 +1586,8 @@
                                     onClick={() => {
                                         document.getElementById('getting-started-section').scrollIntoView({ behavior: 'smooth' });
                                     }}
-                                    className="inline-block text-white font-bold py-4 px-10 rounded-xl text-lg transition-all transform hover:scale-105 fade-in" style={{background: "rgba(232,121,47,0.9)"}}
-                                    style={{ animationDelay: '0.2s' }}
+                                    className="inline-block text-white font-bold py-4 px-10 rounded-xl text-lg transition-all transform hover:scale-105 fade-in"
+                                    style={{ background: 'rgba(232,121,47,0.95)', animationDelay: '0.2s' }}
                                 >
                                     {t.hero.cta}
                                 </button>
