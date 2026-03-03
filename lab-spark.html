@@ -1472,14 +1472,7 @@ orders_with_rank.show()`} language="python" />
                                 <section id="exercise4" className="section">
                                     <h2 className="section-header">{t.sidebar.exercise4}</h2>
                                     <p>{t.exercise4.intro}</p>
-                                    <CodeBlock code={`orders_rdd = orders.rdd
-customer_revenue = orders_rdd \\
-    .map(lambda row: (row.customer_id, float(row.order_total))) \\
-    .reduceByKey(lambda a, b: a + b) \\
-    .sortBy(lambda x: -x[1])
-
-for customer_id, revenue in customer_revenue.take(10):
-    print(f"Customer {customer_id}: \${revenue:.2f}")`} language="python" />
+                                    <CodeBlock code={"orders_rdd = orders.rdd\ncustomer_revenue = orders_rdd \\\n    .map(lambda row: (row.customer_id, float(row.order_total))) \\\n    .reduceByKey(lambda a, b: a + b) \\\n    .sortBy(lambda x: -x[1])\n\nfor customer_id, revenue in customer_revenue.take(10):\n    print(f\"Customer {customer_id}: ${revenue:.2f}\")"} language="python" />
                                 </section>
                             )}
 
