@@ -625,7 +625,7 @@
                         <p style={{ marginBottom: '1rem' }}>Nodes are entities. They have labels (types) and properties (data).</p>
                         <div className="code-block">
                             <button className="copy-btn" onClick={() => copyToClipboard('(alice:Person {name: "Alice", age: 30, email: "alice@example.com"})\n(alice:Person:Developer {name: "Alice", language: "Python"})')}>Copy</button>
-                            <code style={{ whiteSpace: 'pre-wrap' }}>Example:<br/>(alice:Person {name: "Alice", age: 30})<br/><br/>Multiple labels:<br/>(alice:Person:Developer {language: "Python"})</code>
+                            <code style={{ whiteSpace: 'pre-wrap' }}>{'Example:\n(alice:Person {name: "Alice", age: 30})\n\nMultiple labels:\n(alice:Person:Developer {language: "Python"})'}</code>
                         </div>
                         <div className="expandable" onClick={() => toggleQuiz('node_q1')} style={{ cursor: 'pointer' }}>
                             <div className="expandable-header">
@@ -643,7 +643,7 @@
                         <p style={{ marginBottom: '1rem' }}>Relationships connect nodes. Directional, have types, and can have properties.</p>
                         <div className="code-block">
                             <button className="copy-btn" onClick={() => copyToClipboard('(alice:Person) -[:KNOWS]-> (bob:Person)\n(alice:Person) -[:BOUGHT {date: "2024-01-15", qty: 2}]-> (laptop:Product)\n(order:Order) -[:CONTAINS]-> (item:Item)')}>Copy</button>
-                            <code style={{ whiteSpace: 'pre-wrap' }}>(alice:Person) -[:KNOWS]-&gt; (bob:Person)<br/>(alice) -[:BOUGHT {date: "2024-01-15"}]-&gt; (laptop)<br/>(order) -[:CONTAINS]-&gt; (item)</code>
+                            <code style={{ whiteSpace: 'pre-wrap' }}>{'(alice:Person) -[:KNOWS]-> (bob:Person)\n(alice) -[:BOUGHT {date: "2024-01-15"}]-> (laptop)\n(order) -[:CONTAINS]-> (item)'}</code>
                         </div>
                         <div className="expandable" onClick={() => toggleQuiz('rel_q1')} style={{ cursor: 'pointer' }}>
                             <div className="expandable-header">
@@ -662,21 +662,21 @@
                         <h4 style={{ marginTop: '1rem', marginBottom: '0.5rem', color: '#1B3A5C', fontWeight: '600' }}>CREATE a Node</h4>
                         <div className="code-block">
                             <button className="copy-btn" onClick={() => copyToClipboard('CREATE (alice:Person {name: "Alice", age: 30})')}>Copy</button>
-                            <code>CREATE (alice:Person {name: "Alice", age: 30})</code>
+                            <code>{'CREATE (alice:Person {name: "Alice", age: 30})'}</code>
                         </div>
                         <div className="output-box">Added 1 node, 0 relationships</div>
 
                         <h4 style={{ marginTop: '1rem', marginBottom: '0.5rem', color: '#1B3A5C', fontWeight: '600' }}>MATCH and RETURN</h4>
                         <div className="code-block">
                             <button className="copy-btn" onClick={() => copyToClipboard('MATCH (p:Person {name: "Alice"}) RETURN p')}>Copy</button>
-                            <code>MATCH (p:Person {name: "Alice"}) RETURN p</code>
+                            <code>{'MATCH (p:Person {name: "Alice"}) RETURN p'}</code>
                         </div>
                         <div className="output-box">{"{"} "name": "Alice", "age": 30 {"}"}</div>
 
                         <h4 style={{ marginTop: '1rem', marginBottom: '0.5rem', color: '#1B3A5C', fontWeight: '600' }}>CREATE a Relationship</h4>
                         <div className="code-block">
                             <button className="copy-btn" onClick={() => copyToClipboard('CREATE (alice:Person {name: "Alice"}) -[:KNOWS]-> (bob:Person {name: "Bob"})')}>Copy</button>
-                            <code style={{ whiteSpace: 'pre-wrap' }}>CREATE (alice:Person {name: "Alice"})<br/>-[:KNOWS]-&gt; (bob:Person {name: "Bob"})</code>
+                            <code style={{ whiteSpace: 'pre-wrap' }}>{'CREATE (alice:Person {name: "Alice"})\n-[:KNOWS]-> (bob:Person {name: "Bob"})'}</code>
                         </div>
                         <div className="output-box">Added 2 nodes, 1 relationship</div>
 
@@ -709,14 +709,14 @@
                             <li><strong>Create your first node:</strong>
                                 <div className="code-block">
                                     <button className="copy-btn" onClick={() => copyToClipboard('CREATE (n:Person {name: "John", age: 28})')}>Copy</button>
-                                    <code>CREATE (n:Person {name: "John", age: 28})</code>
+                                    <code>{'CREATE (n:Person {name: "John", age: 28})'}</code>
                                 </div>
                                 <div className="output-box">Added 1 node</div>
                             </li>
                             <li><strong>Create more nodes:</strong>
                                 <div className="code-block">
                                     <button className="copy-btn" onClick={() => copyToClipboard('CREATE (n:Person {name: "Jane", age: 26})\nCREATE (n:Person {name: "Jack", age: 30})\nCREATE (n:City {name: "Berlin"})\nCREATE (n:City {name: "Munich"})')}>Copy</button>
-                                    <code style={{ whiteSpace: 'pre-wrap' }}>CREATE (n:Person {name: "Jane", age: 26})<br/>CREATE (n:City {name: "Berlin"})</code>
+                                    <code style={{ whiteSpace: 'pre-wrap' }}>{'CREATE (n:Person {name: "Jane", age: 26})\nCREATE (n:City {name: "Berlin"})'}</code>
                                 </div>
                                 <div className="output-box">Added 4 nodes</div>
                             </li>
@@ -730,7 +730,7 @@
                             <li><strong>Find a specific person:</strong>
                                 <div className="code-block">
                                     <button className="copy-btn" onClick={() => copyToClipboard('MATCH (p:Person {name: "John"}) RETURN p.age')}>Copy</button>
-                                    <code>MATCH (p:Person {name: "John"}) RETURN p.age</code>
+                                    <code>{'MATCH (p:Person {name: "John"}) RETURN p.age'}</code>
                                 </div>
                                 <div className="output-box">28</div>
                             </li>
@@ -756,7 +756,7 @@
                                 <span className="expandable-chevron">▼</span>
                             </div>
                             {expandedHints['exercise1_hint'] && (
-                                <div className="expandable-content">Try operators: > (greater), < (less), = (equals). Each CREATE statement creates one node. Labels are case-sensitive.</div>
+                                <div className="expandable-content">{"Try operators: > (greater), < (less), = (equals). Each CREATE statement creates one node. Labels are case-sensitive."}</div>
                             )}
                         </div>
                     </div>
@@ -782,21 +782,21 @@
                             <li><strong>Create nodes with relationship:</strong>
                                 <div className="code-block">
                                     <button className="copy-btn" onClick={() => copyToClipboard('CREATE (alice:Person {name: "Alice"}) -[:KNOWS]-> (bob:Person {name: "Bob"})')}>Copy</button>
-                                    <code style={{ whiteSpace: 'pre-wrap' }}>CREATE (alice:Person {name: "Alice"})<br/>-[:KNOWS]-&gt; (bob:Person {name: "Bob"})</code>
+                                    <code style={{ whiteSpace: 'pre-wrap' }}>{'CREATE (alice:Person {name: "Alice"})\n-[:KNOWS]-> (bob:Person {name: "Bob"})'}</code>
                                 </div>
                                 <div className="output-box">Added 2 nodes, 1 relationship</div>
                             </li>
                             <li><strong>Add more relationships:</strong>
                                 <div className="code-block">
                                     <button className="copy-btn" onClick={() => copyToClipboard('CREATE (bob:Person {name: "Bob"}) -[:KNOWS]-> (charlie:Person {name: "Charlie"})\nCREATE (alice:Person {name: "Alice"}) -[:LIVES_IN]-> (city:City {name: "Berlin"})')}>Copy</button>
-                                    <code style={{ whiteSpace: 'pre-wrap' }}>CREATE (bob:Person {name: "Bob"})<br/>-[:KNOWS]-&gt; (charlie:Person {name: "Charlie"})</code>
+                                    <code style={{ whiteSpace: 'pre-wrap' }}>{'CREATE (bob:Person {name: "Bob"})\n-[:KNOWS]-> (charlie:Person {name: "Charlie"})'}</code>
                                 </div>
                                 <div className="output-box">Added 3 nodes, 2 relationships</div>
                             </li>
                             <li><strong>Find direct connections:</strong>
                                 <div className="code-block">
                                     <button className="copy-btn" onClick={() => copyToClipboard('MATCH (alice:Person {name: "Alice"}) -[:KNOWS]-> (friend:Person) RETURN friend.name')}>Copy</button>
-                                    <code style={{ whiteSpace: 'pre-wrap' }}>MATCH (alice:Person {name: "Alice"})<br/>-[:KNOWS]-&gt; (friend:Person)<br/>RETURN friend.name</code>
+                                    <code style={{ whiteSpace: 'pre-wrap' }}>{'MATCH (alice:Person {name: "Alice"})\n-[:KNOWS]-> (friend:Person)\nRETURN friend.name'}</code>
                                 </div>
                                 <div className="output-box">Bob</div>
                             </li>
@@ -810,7 +810,7 @@
                             <li><strong>Two-hop path (friend of friend):</strong>
                                 <div className="code-block">
                                     <button className="copy-btn" onClick={() => copyToClipboard('MATCH (alice:Person {name: "Alice"}) -[:KNOWS]-> (friend) -[:KNOWS]-> (friend_of_friend) RETURN friend_of_friend.name')}>Copy</button>
-                                    <code style={{ whiteSpace: 'pre-wrap' }}>MATCH (alice:Person {name: "Alice"})<br/>-[:KNOWS]-&gt; (f1) -[:KNOWS]-&gt; (f2)<br/>RETURN f2.name</code>
+                                    <code style={{ whiteSpace: 'pre-wrap' }}>{'MATCH (alice:Person {name: "Alice"})\n-[:KNOWS]-> (f1) -[:KNOWS]-> (f2)\nRETURN f2.name'}</code>
                                 </div>
                                 <div className="output-box">Charlie</div>
                             </li>
@@ -854,25 +854,25 @@
                             <li><strong>Create categories:</strong>
                                 <div className="code-block">
                                     <button className="copy-btn" onClick={() => copyToClipboard('CREATE (c1:Category {name: "Electronics"})\nCREATE (c2:Category {name: "Clothing"})\nCREATE (c3:Category {name: "Books"})')}>Copy</button>
-                                    <code style={{ whiteSpace: 'pre-wrap' }}>CREATE (c1:Category {name: "Electronics"})<br/>CREATE (c2:Category {name: "Clothing"})</code>
+                                    <code style={{ whiteSpace: 'pre-wrap' }}>{'CREATE (c1:Category {name: "Electronics"})\nCREATE (c2:Category {name: "Clothing"})'}</code>
                                 </div>
                             </li>
                             <li><strong>Create products with prices:</strong>
                                 <div className="code-block">
                                     <button className="copy-btn" onClick={() => copyToClipboard('CREATE (p1:Product {name: "Laptop", price: 999.99})\nCREATE (p2:Product {name: "T-Shirt", price: 29.99})\nCREATE (p3:Product {name: "Python Book", price: 49.99})')}>Copy</button>
-                                    <code style={{ whiteSpace: 'pre-wrap' }}>CREATE (p1:Product {name: "Laptop", price: 999.99})<br/>CREATE (p2:Product {name: "T-Shirt", price: 29.99})</code>
+                                    <code style={{ whiteSpace: 'pre-wrap' }}>{'CREATE (p1:Product {name: "Laptop", price: 999.99})\nCREATE (p2:Product {name: "T-Shirt", price: 29.99})'}</code>
                                 </div>
                             </li>
                             <li><strong>Create customers:</strong>
                                 <div className="code-block">
                                     <button className="copy-btn" onClick={() => copyToClipboard('CREATE (cust1:Customer {name: "Alice Johnson", email: "alice@example.com"})\nCREATE (cust2:Customer {name: "Bob Smith", email: "bob@example.com"})')}>Copy</button>
-                                    <code style={{ whiteSpace: 'pre-wrap' }}>CREATE (cust1:Customer {name: "Alice Johnson"})<br/>CREATE (cust2:Customer {name: "Bob Smith"})</code>
+                                    <code style={{ whiteSpace: 'pre-wrap' }}>{'CREATE (cust1:Customer {name: "Alice Johnson"})\nCREATE (cust2:Customer {name: "Bob Smith"})'}</code>
                                 </div>
                             </li>
                             <li><strong>Create orders and connect:</strong>
                                 <div className="code-block">
                                     <button className="copy-btn" onClick={() => copyToClipboard('CREATE (o1:Order {id: 1, date: "2024-01-15", amount: 1029.98})\nCREATE (o2:Order {id: 2, date: "2024-01-20", amount: 79.98})')}>Copy</button>
-                                    <code style={{ whiteSpace: 'pre-wrap' }}>CREATE (o1:Order {id: 1, date: "2024-01-15"})<br/>CREATE (o2:Order {id: 2, date: "2024-01-20"})</code>
+                                    <code style={{ whiteSpace: 'pre-wrap' }}>{'CREATE (o1:Order {id: 1, date: "2024-01-15"})\nCREATE (o2:Order {id: 2, date: "2024-01-20"})'}</code>
                                 </div>
                             </li>
                             <li><strong>Link customers to orders:</strong>
@@ -884,7 +884,7 @@
                             <li><strong>Query: What did Alice buy?</strong>
                                 <div className="code-block">
                                     <button className="copy-btn" onClick={() => copyToClipboard('MATCH (alice:Customer {name: "Alice Johnson"}) -[:PLACED]-> (order:Order) -[:CONTAINS]-> (product:Product) RETURN product.name, product.price')}>Copy</button>
-                                    <code style={{ whiteSpace: 'pre-wrap' }}>MATCH (alice:Customer {name: "Alice"})<br/>-[:PLACED]-&gt; (o) -[:CONTAINS]-&gt; (p:Product)<br/>RETURN p.name, p.price</code>
+                                    <code style={{ whiteSpace: 'pre-wrap' }}>{'MATCH (alice:Customer {name: "Alice"})\n-[:PLACED]-> (o) -[:CONTAINS]-> (p:Product)\nRETURN p.name, p.price'}</code>
                                 </div>
                                 <div className="output-box">Laptop (999.99), T-Shirt (29.99)</div>
                             </li>
@@ -942,7 +942,7 @@
                             <li><strong>Variable-length paths (up to 3 hops):</strong>
                                 <div className="code-block">
                                     <button className="copy-btn" onClick={() => copyToClipboard('MATCH (alice:Person {name: "Alice"}) -[:KNOWS*1..3]-> (distant:Person) RETURN DISTINCT distant.name')}>Copy</button>
-                                    <code style={{ whiteSpace: 'pre-wrap' }}>MATCH (alice:Person {name: "Alice"})<br/>-[:KNOWS*1..3]-&gt; (d:Person)<br/>RETURN DISTINCT d.name</code>
+                                    <code style={{ whiteSpace: 'pre-wrap' }}>{'MATCH (alice:Person {name: "Alice"})\n-[:KNOWS*1..3]-> (d:Person)\nRETURN DISTINCT d.name'}</code>
                                 </div>
                                 <div className="output-box">Bob, Charlie</div>
                             </li>
@@ -968,7 +968,7 @@
                                 <span className="expandable-chevron">▼</span>
                             </div>
                             {expandedHints['exercise4_hint'] && (
-                                <div className="expandable-content">DISTINCT removes duplicates. *1..3 means 1 to 3 hops. OPTIONAL returns NULL. Combine conditions: (a > 5 AND b < 10) OR c = "test"</div>
+                                <div className="expandable-content">{'DISTINCT removes duplicates. *1..3 means 1 to 3 hops. OPTIONAL returns NULL. Combine conditions: (a > 5 AND b < 10) OR c = "test"'}</div>
                             )}
                         </div>
                     </div>
@@ -1067,7 +1067,7 @@
                             <li><strong>MERGE (create or update, idempotent):</strong>
                                 <div className="code-block">
                                     <button className="copy-btn" onClick={() => copyToClipboard('MERGE (p:Person {name: "Diana"}) ON CREATE SET p.age = 28 ON MATCH SET p.updated = true RETURN p')}>Copy</button>
-                                    <code style={{ whiteSpace: 'pre-wrap' }}>MERGE (p:Person {name: "Diana"})<br/>ON CREATE SET p.age = 28<br/>ON MATCH SET p.updated = true</code>
+                                    <code style={{ whiteSpace: 'pre-wrap' }}>{'MERGE (p:Person {name: "Diana"})\nON CREATE SET p.age = 28\nON MATCH SET p.updated = true'}</code>
                                 </div>
                                 <div className="output-box">Created new person Diana (or updated if exists)</div>
                             </li>
@@ -1081,7 +1081,7 @@
                             <li><strong>UNWIND (expand lists to rows):</strong>
                                 <div className="code-block">
                                     <button className="copy-btn" onClick={() => copyToClipboard('WITH ["Alice", "Bob", "Charlie"] AS names UNWIND names AS name CREATE (p:Person {name: name})')}>Copy</button>
-                                    <code style={{ whiteSpace: 'pre-wrap' }}>WITH ["Alice", "Bob"] AS names<br/>UNWIND names AS name<br/>CREATE (p:Person {name: name})</code>
+                                    <code style={{ whiteSpace: 'pre-wrap' }}>{'WITH ["Alice", "Bob"] AS names\nUNWIND names AS name\nCREATE (p:Person {name: name})'}</code>
                                 </div>
                                 <div className="output-box">Added 2 nodes</div>
                             </li>
@@ -1133,19 +1133,19 @@
                             <li><strong>Create class hierarchy (ontology):</strong>
                                 <div className="code-block">
                                     <button className="copy-btn" onClick={() => copyToClipboard('CREATE (thing:Class {name: "Thing"})\nCREATE (person:Class {name: "Person"}) -[:SUBCLASS_OF]-> (thing)\nCREATE (student:Class {name: "Student"}) -[:SUBCLASS_OF]-> (person)')}>Copy</button>
-                                    <code style={{ whiteSpace: 'pre-wrap' }}>CREATE (person:Class {name: "Person"})<br/>CREATE (student:Class {name: "Student"})<br/>-[:SUBCLASS_OF]-&gt; (person)</code>
+                                    <code style={{ whiteSpace: 'pre-wrap' }}>{'CREATE (person:Class {name: "Person"})\nCREATE (student:Class {name: "Student"})\n-[:SUBCLASS_OF]-> (person)'}</code>
                                 </div>
                             </li>
                             <li><strong>Create instances:</strong>
                                 <div className="code-block">
                                     <button className="copy-btn" onClick={() => copyToClipboard('CREATE (alice:Student {name: "Alice"}) -[:INSTANCE_OF]-> (:Class {name: "Student"})\nCREATE (python:Technology {name: "Python", year: 1991})\nCREATE (alice) -[:STUDIES]-> (python)')}>Copy</button>
-                                    <code style={{ whiteSpace: 'pre-wrap' }}>CREATE (alice:Student {name: "Alice"})<br/>-[:INSTANCE_OF]-&gt; (:Class {name: "Student"})</code>
+                                    <code style={{ whiteSpace: 'pre-wrap' }}>{'CREATE (alice:Student {name: "Alice"})\n-[:INSTANCE_OF]-> (:Class {name: "Student"})'}</code>
                                 </div>
                             </li>
                             <li><strong>Semantic inference (is Alice a Person?):</strong>
                                 <div className="code-block">
                                     <button className="copy-btn" onClick={() => copyToClipboard('MATCH (alice:Student {name: "Alice"}) -[:INSTANCE_OF]-> (c:Class) -[:SUBCLASS_OF*0..]-> (ancestor:Class {name: "Person"}) RETURN COUNT(ancestor) > 0 AS is_person')}>Copy</button>
-                                    <code style={{ whiteSpace: 'pre-wrap' }}>MATCH (alice:Student {name: "Alice"})<br/>-[:INSTANCE_OF]-&gt; (c:Class)<br/>-[:SUBCLASS_OF*0..]-&gt; (p:Class)<br/>WHERE p.name = "Person"</code>
+                                    <code style={{ whiteSpace: 'pre-wrap' }}>{'MATCH (alice:Student {name: "Alice"})\n-[:INSTANCE_OF]-> (c:Class)\n-[:SUBCLASS_OF*0..]-> (p:Class)\nWHERE p.name = "Person"'}</code>
                                 </div>
                                 <div className="output-box">true (Alice is a Person)</div>
                             </li>
@@ -1159,7 +1159,7 @@
                             <li><strong>Semantic similarity:</strong>
                                 <div className="code-block">
                                     <button className="copy-btn" onClick={() => copyToClipboard('MATCH (alice:Student {name: "Alice"}) -[:STUDIES]-> (tech:Technology) <-[:STUDIES]- (other:Student) WHERE other <> alice RETURN other.name')}>Copy</button>
-                                    <code style={{ whiteSpace: 'pre-wrap' }}>MATCH (alice:Student {name: "Alice"})<br/>-[:STUDIES]-&gt; (t:Technology)<br/>&lt;-[:STUDIES]- (other:Student)<br/>WHERE other &lt;&gt; alice</code>
+                                    <code style={{ whiteSpace: 'pre-wrap' }}>{'MATCH (alice:Student {name: "Alice"})\n-[:STUDIES]-> (t:Technology)\n<-[:STUDIES]- (other:Student)\nWHERE other <> alice'}</code>
                                 </div>
                                 <div className="output-box">Fellow students studying same tech</div>
                             </li>
@@ -1202,7 +1202,7 @@
                             <li><strong>Create accounts, devices, IPs:</strong>
                                 <div className="code-block">
                                     <button className="copy-btn" onClick={() => copyToClipboard('CREATE (a1:Account {id: "ACC001", email: "alice@example.com"})\nCREATE (a2:Account {id: "ACC002", email: "bob@example.com"})\nCREATE (a3:Account {id: "ACC003", email: "fraud@example.com"})\nCREATE (d1:Device {id: "DEV123"})\nCREATE (ip1:IP {address: "192.168.1.1"})')}>Copy</button>
-                                    <code style={{ whiteSpace: 'pre-wrap' }}>CREATE (a1:Account {id: "ACC001"})<br/>CREATE (d1:Device {id: "DEV123"})<br/>CREATE (ip1:IP {address: "192.168.1.1"})</code>
+                                    <code style={{ whiteSpace: 'pre-wrap' }}>{'CREATE (a1:Account {id: "ACC001"})\nCREATE (d1:Device {id: "DEV123"})\nCREATE (ip1:IP {address: "192.168.1.1"})'}</code>
                                 </div>
                             </li>
                             <li><strong>Create shared device relationships (fraud ring):</strong>
@@ -1415,16 +1415,7 @@
 
                     <div className="card" style={{ padding: '2rem', marginBottom: '2rem' }}>
                         <h3 className="card-title" style={{ marginBottom: '1rem' }}>Quick Reference</h3>
-                        <div style={{ background: '#f9fafb', padding: '1rem', borderRadius: '0.5rem', fontFamily: 'monospace', fontSize: '0.9rem', lineHeight: '1.8' }}>
-                            CREATE (n:Label {prop: value})<br/>
-                            MATCH (n:Label) RETURN n<br/>
-                            (a) -[:TYPE]-&gt; (b)<br/>
-                            WHERE n.prop > 5<br/>
-                            COUNT, SUM, AVG, MAX, MIN, COLLECT<br/>
-                            MERGE, SET, DELETE<br/>
-                            WITH (pipeline)<br/>
-                            *1..3 (1-3 hops)
-                        </div>
+                        <pre style={{ background: '#f9fafb', padding: '1rem', borderRadius: '0.5rem', fontFamily: 'monospace', fontSize: '0.9rem', lineHeight: '1.8', margin: 0 }}>{'CREATE (n:Label {prop: value})\nMATCH (n:Label) RETURN n\n(a) -[:TYPE]-> (b)\nWHERE n.prop > 5\nCOUNT, SUM, AVG, MAX, MIN, COLLECT\nMERGE, SET, DELETE\nWITH (pipeline)\n*1..3 (1-3 hops)'}</pre>
                     </div>
 
                     <div className="card" style={{ padding: '2rem' }}>
