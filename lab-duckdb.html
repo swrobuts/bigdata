@@ -906,7 +906,7 @@
             const [rtl, setRtl] = useState(language === 'ar');
             const [copiedCode, setCopiedCode] = useState(null);
 
-            const t = translations[language];
+            const t = new Proxy(translations[language], { get: (target, prop) => target[prop] !== undefined ? target[prop] : translations['de'][prop] });
 
             useEffect(() => {
                 setRtl(language === 'ar');

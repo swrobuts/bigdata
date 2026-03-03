@@ -120,7 +120,7 @@
         }
         .sidebar-item:hover { background: #f3f4f6; border-left-color: #E8792F; }
         .sidebar-item.active { background: rgba(232, 121, 47, 0.1); border-left-color: #E8792F; color: #E8792F; font-weight: 600; }
-        .main-content { margin-left: 280px; padding-top: 5rem; padding: 2rem 3rem; background: #fafbfc; min-height: 100vh; }
+        .main-content { margin-left: 280px; padding: 5rem 3rem 2rem 3rem; background: #fafbfc; min-height: 100vh; }
         .section { display: none; }
         .section.active { display: block; animation: fadeIn 0.3s; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
@@ -150,8 +150,7 @@
         }
         .expandable:hover { background: #f3f4f6; }
         .expandable-header { font-weight: 600; color: #E8792F; display: flex; align-items: center; justify-content: space-between; }
-        .expandable-content { display: none; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #e5e7eb; }
-        .expandable.expanded .expandable-content { display: block; }
+        .expandable-content { margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #e5e7eb; }
         .expandable-chevron { transition: transform 0.2s; }
         .expandable.expanded .expandable-chevron { transform: rotate(180deg); }
         .output-box {
@@ -174,8 +173,7 @@
             cursor: pointer;
         }
         .quiz-item-question { font-weight: 600; color: #1B3A5C; margin-bottom: 0.5rem; display: flex; align-items: center; justify-content: space-between; }
-        .quiz-options { display: none; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #e5e7eb; }
-        .quiz-item.expanded .quiz-options { display: block; }
+        .quiz-options { margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #e5e7eb; }
         .quiz-option {
             padding: 0.5rem 0;
             margin: 0.5rem 0;
@@ -697,7 +695,7 @@
             const [expandedHints, setExpandedHints] = useState({});
             const [quizAnswers, setQuizAnswers] = useState({});
 
-            const t = translations[language];
+            const t = new Proxy(translations[language], { get: (target, prop) => target[prop] !== undefined ? target[prop] : translations['de'][prop] });
 
             const copyToClipboard = (text) => {
                 navigator.clipboard.writeText(text);

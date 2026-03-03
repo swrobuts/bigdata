@@ -120,7 +120,7 @@
         }
         .sidebar-item:hover { background: #f3f4f6; border-left-color: #E8792F; }
         .sidebar-item.active { background: rgba(232, 121, 47, 0.1); border-left-color: #E8792F; color: #E8792F; font-weight: 600; }
-        .main-content { margin-left: 280px; padding-top: 5rem; padding: 2rem 3rem; background: #fafbfc; min-height: 100vh; }
+        .main-content { margin-left: 280px; padding: 5rem 3rem 2rem 3rem; background: #fafbfc; min-height: 100vh; }
         .section { display: none; }
         .section.active { display: block; animation: fadeIn 0.3s; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
@@ -698,7 +698,7 @@
             const [activeSection, setActiveSection] = useState('overview');
             const [expandedHints, setExpandedHints] = useState({});
             const [quizAnswers, setQuizAnswers] = useState({});
-            const t = translations[language];
+            const t = new Proxy(translations[language], { get: (target, prop) => target[prop] !== undefined ? target[prop] : translations['de'][prop] });
 
             const copyToClipboard = (text) => {
                 navigator.clipboard.writeText(text);
