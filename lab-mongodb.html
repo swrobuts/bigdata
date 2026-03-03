@@ -240,8 +240,11 @@
                 flexible: "Flexibles Schema: Jedes Dokument kann unterschiedliche Struktur haben",
                 scalable: "Skalierbar: Horizontal über mehrere Server verteilt",
                 estimatedTime: "⏱ Geschätzte Zeit:",
+                timeValue: "2-3 Stunden für alle 8 Übungen",
                 prerequisites: "Voraussetzungen:",
+                prereqValue: "Keine Datenbank-Erfahrung erforderlich",
                 chapter: "Kapitel:",
+                chapterValue: "Kapitel 5 – NoSQL Datenbanken (Butscher: Big Data & Applications, THWS)",
                 architectureLearn: "MongoDB-Architektur und Dokumentmodell",
                 crudLearn: "CRUD-Operationen und Absprache",
                 aggregationLearn: "Aggregation Pipeline zur Datenanalyse",
@@ -383,8 +386,11 @@
                 flexible: "Flexible Schema: Each document can have a different structure",
                 scalable: "Scalable: Horizontally distributed across multiple servers",
                 estimatedTime: "⏱ Estimated time:",
+                timeValue: "2-3 hours for all 8 exercises",
                 prerequisites: "Prerequisites:",
+                prereqValue: "No prior database experience required",
                 chapter: "Chapter:",
+                chapterValue: "Chapter 5 – NoSQL Databases (Butscher: Big Data & Applications, THWS)",
                 architectureLearn: "MongoDB architecture and document model",
                 crudLearn: "CRUD operations and query language",
                 aggregationLearn: "Aggregation pipeline for data analysis",
@@ -526,8 +532,11 @@
                 flexible: "Schema المرن: كل مستند يمكن أن يحتوي على هيكل مختلف",
                 scalable: "قابلة للتوسع: موزعة أفقيًا عبر عدة خوادم",
                 estimatedTime: "⏱ الوقت المقدر:",
+                timeValue: "2-3 ساعات لجميع التمارين الثمانية",
                 prerequisites: "المتطلبات الأساسية:",
+                prereqValue: "لا تحتاج إلى خبرة سابقة في قواعد البيانات",
                 chapter: "الفصل:",
+                chapterValue: "الفصل 5 – قواعد بيانات NoSQL (Butscher: Big Data & Applications, THWS)",
                 architectureLearn: "بنية MongoDB ونموذج المستند",
                 crudLearn: "عمليات CRUD ولغة الاستعلام",
                 aggregationLearn: "خط أنابيب التجميع لتحليل البيانات",
@@ -669,8 +678,11 @@
                 flexible: "Гнучка схема: кожен документ може мати іншу структуру",
                 scalable: "Масштабовна: горизонтально розподілена по кількох серверах",
                 estimatedTime: "⏱ Орієнтовний час:",
+                timeValue: "2-3 години для всіх 8 вправ",
                 prerequisites: "Передумови:",
+                prereqValue: "Не потрібен попередній досвід роботи з базами даних",
                 chapter: "Розділ:",
+                chapterValue: "Розділ 5 – Бази даних NoSQL (Butscher: Big Data & Applications, THWS)",
                 architectureLearn: "Архітектура MongoDB та модель документа",
                 crudLearn: "Операції CRUD та мова запитів",
                 aggregationLearn: "Конвеєр агрегації для аналізу даних",
@@ -812,8 +824,11 @@
                 flexible: "Esquema flexible: cada documento puede tener una estructura diferente",
                 scalable: "Escalable: distribuida horizontalmente en varios servidores",
                 estimatedTime: "⏱ Tiempo estimado:",
+                timeValue: "2-3 horas para los 8 ejercicios",
                 prerequisites: "Requisitos previos:",
+                prereqValue: "No se requiere experiencia previa en bases de datos",
                 chapter: "Capítulo:",
+                chapterValue: "Capítulo 5 – Bases de datos NoSQL (Butscher: Big Data & Applications, THWS)",
                 architectureLearn: "Arquitectura de MongoDB y modelo de documento",
                 crudLearn: "Operaciones CRUD y lenguaje de consulta",
                 aggregationLearn: "Pipeline de agregación para análisis de datos",
@@ -955,8 +970,11 @@
                 flexible: "Esnek Şema: Her belge farklı bir yapıya sahip olabilir",
                 scalable: "Ölçeklenebilir: Birden fazla sunucu arasında yatay olarak dağıtılmış",
                 estimatedTime: "⏱ Tahmini zaman:",
+                timeValue: "Tüm 8 alıştırma için 2-3 saat",
                 prerequisites: "Ön koşullar:",
+                prereqValue: "Önceden veritabanı deneyimi gerekmez",
                 chapter: "Bölüm:",
+                chapterValue: "Bölüm 5 – NoSQL Veritabanları (Butscher: Big Data & Applications, THWS)",
                 architectureLearn: "MongoDB mimarisi ve belge modeli",
                 crudLearn: "CRUD işlemleri ve sorgu dili",
                 aggregationLearn: "Veri analizi için toplama ardışık düzeni",
@@ -1160,16 +1178,16 @@
                     <div className="card" style={{ padding: '2rem', marginBottom: '2rem' }}>
                         <h3 className="card-title" style={{ marginBottom: '1.5rem' }}>{t.whatYouLearn}</h3>
                         <p style={{ color: '#666', marginBottom: '1.5rem', fontSize: '0.95rem' }}>
-                          <strong>⏱ Estimated time:</strong> 2-3 hours for all 8 exercises |
-                          <strong> Prerequisites:</strong> No prior database experience required |
-                          <strong> Chapter:</strong> Chapter 5 – NoSQL Databases (Butscher: Big Data & Applications, THWS)
+                          <strong>{t.estimatedTime}</strong> {t.timeValue} |
+                          <strong> {t.prerequisites}</strong> {t.prereqValue} |
+                          <strong> {t.chapter}</strong> {t.chapterValue}
                         </p>
                         <ul className="numbered-list">
-                            <li>MongoDB architecture and document model</li>
-                            <li>CRUD operations and query language</li>
-                            <li>Aggregation pipeline for data analysis</li>
-                            <li>Data modeling patterns and best practices</li>
-                            <li>Real-world applications and performance optimization</li>
+                            <li>{t.architectureLearn}</li>
+                            <li>{t.crudLearn}</li>
+                            <li>{t.aggregationLearn}</li>
+                            <li>{t.modelingLearn}</li>
+                            <li>{t.realWorldLearn}</li>
                         </ul>
                     </div>
 
