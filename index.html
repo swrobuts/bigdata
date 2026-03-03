@@ -1448,44 +1448,47 @@
                         </div>
                     </nav>
 
-                    {/* Hero Section */}
-                    <section className="hero-gradient relative w-full min-h-screen flex items-center justify-center overflow-hidden pt-20 pb-20">
-                        <div className="animated-bg"></div>
-                        <div className="relative z-10 max-w-6xl mx-auto px-6 text-center">
-                            <h1 className="text-5xl md:text-7xl font-black text-white mb-6 fade-in leading-tight">
-                                {t.hero.headline}
-                            </h1>
-                            <p className="text-xl md:text-2xl text-gray-100 mb-8 fade-in" style={{ animationDelay: '0.1s' }}>
-                                {t.hero.tagline}
-                            </p>
-                            <button
-                                onClick={() => {
-                                    document.getElementById('getting-started-section').scrollIntoView({ behavior: 'smooth' });
-                                }}
-                                className="inline-block bg-orange-500 hover:bg-orange-600 text-white font-bold py-4 px-8 rounded-lg text-lg transition-all transform hover:scale-105 fade-in"
-                                style={{ animationDelay: '0.2s' }}
-                            >
-                                {t.hero.cta}
-                            </button>
-                        </div>
-                    </section>
+                    {/* Hero + Stats = exactly one viewport */}
+                    <div style={{minHeight: 'calc(100vh - 58px)', display: 'flex', flexDirection: 'column'}}>
+                        {/* Hero Section */}
+                        <section className="hero-gradient relative w-full flex-1 flex items-center justify-center overflow-hidden">
+                            <div className="animated-bg"></div>
+                            <div className="relative z-10 max-w-6xl mx-auto px-6 text-center">
+                                <h1 className="text-5xl md:text-7xl font-black text-white mb-6 fade-in leading-tight">
+                                    {t.hero.headline}
+                                </h1>
+                                <p className="text-xl md:text-2xl text-gray-100 mb-8 fade-in" style={{ animationDelay: '0.1s' }}>
+                                    {t.hero.tagline}
+                                </p>
+                                <button
+                                    onClick={() => {
+                                        document.getElementById('getting-started-section').scrollIntoView({ behavior: 'smooth' });
+                                    }}
+                                    className="inline-block bg-orange-500 hover:bg-orange-600 text-white font-bold py-4 px-8 rounded-lg text-lg transition-all transform hover:scale-105 fade-in"
+                                    style={{ animationDelay: '0.2s' }}
+                                >
+                                    {t.hero.cta}
+                                </button>
+                            </div>
+                        </section>
 
-                    {/* Stats Bar */}
-                    <section className="stat-bar">
-                        <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4">
-                            {[
-                                { label: t.stats.labs, value: 4, suffix: '' },
-                                { label: t.stats.case_study, value: 1, suffix: '' },
-                                { label: t.stats.languages, value: 6, suffix: '' },
-                                { label: t.stats.hands_on, value: 100, suffix: '%' }
-                            ].map((stat, idx) => (
-                                <div key={idx} className="stat-item">
-                                    <div className="stat-number"><CountUp end={stat.value} suffix={stat.suffix} /></div>
-                                    <div className="stat-label">{stat.label}</div>
-                                </div>
-                            ))}
-                        </div>
-                    </section>
+                        {/* Stats Bar - sits at bottom of viewport on load */}
+                        <section className="stat-bar" style={{flexShrink: 0}}>
+                            <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4">
+                                {[
+                                    { label: t.stats.labs, value: 4, suffix: '' },
+                                    { label: t.stats.case_study, value: 1, suffix: '' },
+                                    { label: t.stats.languages, value: 6, suffix: '' },
+                                    { label: t.stats.hands_on, value: 100, suffix: '%' }
+                                ].map((stat, idx) => (
+                                    <div key={idx} className="stat-item">
+                                        <div className="stat-number"><CountUp end={stat.value} suffix={stat.suffix} /></div>
+                                        <div className="stat-label">{stat.label}</div>
+                                    </div>
+                                ))}
+                            </div>
+                        </section>
+                    </div>
 
                     {/* Big Data Introduction */}
                     <section id="bigdata-section" className="py-20 px-6 bg-gradient-to-br from-gray-50 to-white">
