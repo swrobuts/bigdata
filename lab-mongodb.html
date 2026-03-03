@@ -452,7 +452,7 @@ const translations = {
         exercise6TaskDesc: 'Analysieren Sie, welche Produktkategorie am meisten Umsatz generiert hat. Nutzen Sie $lookup, um Products-Daten zu verbinden, und aggregieren Sie nach Kategorie.',
         exercise6Hint: 'Hinweis: Verwenden Sie $lookup um order_items mit products zu verbinden und aggregieren Sie den Umsatz nach category.',
         exercise6SolutionCode: 'db.order_items.aggregate([\n  { $lookup: { from: "products", localField: "product_id", foreignField: "product_id", as: "product_info" } },\n  { $unwind: "$product_info" },\n  { $group: { _id: "$product_info.category", total_revenue: { $sum: { $multiply: ["$quantity", "$unit_price"] } } } },\n  { $sort: { total_revenue: -1 } }\n])',
-        exercise6VerifyDesc: 'Sie sollten Produktkategorien mit ihrem Gesamtumsatz sehen, sortiert nach Umsatz.'
+        exercise6VerifyDesc: 'Sie sollten Produktkategorien mit ihrem Gesamtumsatz sehen, sortiert nach Umsatz.',
         exercise7: 'Übung 7: Daten aktualisieren',
         exercise7Title: 'Übung 7: Daten aktualisieren',
         exercise7Goal: 'Lerne wie Du Dokumente mit updateOne() und updateMany() gezielt veränderst.',
@@ -770,7 +770,7 @@ const translations = {
         exercise6TaskDesc: 'Analyze which product category generated the most revenue. Use $lookup to join products data and aggregate revenue by category.',
         exercise6Hint: 'Hint: Use $lookup to join order_items with products and aggregate revenue by category.',
         exercise6SolutionCode: 'db.order_items.aggregate([\n  { $lookup: { from: "products", localField: "product_id", foreignField: "product_id", as: "product_info" } },\n  { $unwind: "$product_info" },\n  { $group: { _id: "$product_info.category", total_revenue: { $sum: { $multiply: ["$quantity", "$unit_price"] } } } },\n  { $sort: { total_revenue: -1 } }\n])',
-        exercise6VerifyDesc: 'You should see product categories with their total revenue, sorted by revenue.'
+        exercise6VerifyDesc: 'You should see product categories with their total revenue, sorted by revenue.',
         exercise7: 'Exercise 7: Updating Data',
         exercise7Title: 'Exercise 7: Updating Data',
         exercise7Goal: 'Learn how to modify documents with updateOne() and updateMany().',
