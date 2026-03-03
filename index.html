@@ -115,9 +115,10 @@
         }
 
         .stat-number {
-            font-size: 2.5rem;
-            font-weight: 800;
+            font-size: 3.5rem;
+            font-weight: 900;
             color: #E8792F;
+            font-variant-numeric: tabular-nums;
         }
 
         .lab-card {
@@ -292,13 +293,26 @@
         }
 
         .stat-bar {
-            background: #f8fafc;
-            border: 1px solid #e2e8f0;
+            background: #1B3A5C;
+            border: none;
+            position: relative;
         }
 
         .stat-item {
             text-align: center;
-            padding: 2rem;
+            padding: 2.5rem 2rem;
+        }
+
+        .stat-bar .stat-number {
+            color: #E8792F;
+        }
+
+        .stat-bar .stat-label {
+            color: rgba(255,255,255,0.8);
+            font-weight: 600;
+            font-size: 0.95rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
         }
 
         .nav-scroll-hidden {
@@ -315,7 +329,7 @@
 
         @media (max-width: 768px) {
             .stat-number {
-                font-size: 2rem;
+                font-size: 2.5rem;
             }
 
             .data-flow {
@@ -353,7 +367,7 @@
                 hero: {
                     headline: 'Big Data & Anwendungen',
                     tagline: 'Praktisches Lernen mit Docker - Hands-on Big Data Engineering',
-                    cta: 'Erkunden Sie die Labore'
+                    cta: 'Legen Sie los'
                 },
                 stats: {
                     labs: '4 Docker Labore',
@@ -381,7 +395,9 @@
                 bigdata: {
                     title: 'Was ist Big Data?',
                     intro: 'Big Data beschreibt Datenmengen, die so groß, schnell oder komplex sind, dass traditionelle Werkzeuge wie Excel oder einfache SQL-Datenbanken an ihre Grenzen stoßen. Die Herausforderung: Wie speichern, verarbeiten und analysieren wir diese Daten, um daraus Wissen zu gewinnen?',
-                    fact: '90% aller Daten weltweit wurden in den letzten zwei Jahren erzeugt.',
+                    fact: 'Die globale Datenmenge wächst auf 181 Zettabytes (2025) – eine Verzehnfachung seit 2015.',
+                    factSource: 'Quelle: IDC Global DataSphere Forecast, 2024',
+                    gartnerNote: 'Die drei originären Vs stammen von Doug Laney (Gartner, 2001). Veracity und Value wurden später ergänzt.',
                     v_volume: 'Volume',
                     v_volume_desc: 'Petabytes statt Megabytes. Netflix speichert Milliarden von Streaming-Events pro Tag.',
                     v_velocity: 'Velocity',
@@ -474,12 +490,18 @@
                     copy: 'Lab starten & loslegen'
                 },
                 architecture: {
-                    title: 'Big Data Architektur Übersicht',
-                    desc: 'Wie die Technologien zusammenpassen:',
-                    lake: 'Data Lake',
-                    processing: 'Processing & Analytics',
-                    warehouse: 'Data Warehouse / Mart',
-                    insights: 'Business Insights'
+                    title: 'Wie alles zusammenhängt',
+                    desc: 'Jede Technologie im MegaStore-Ökosystem hat eine klare Aufgabe:',
+                    ingest: 'Datenerfassung',
+                    ingestDesc: 'Kundendaten, Bestellungen, Produkte fließen ein',
+                    store: 'Speicherung',
+                    storeDesc: 'Flexibles Document Model für heterogene Daten',
+                    connect: 'Verknüpfung',
+                    connectDesc: 'Beziehungen zwischen Produkten, Kunden, Kategorien',
+                    analyze: 'Analyse',
+                    analyzeDesc: 'Schnelle SQL-Abfragen auf großen Datensätzen',
+                    scale: 'Skalierung',
+                    scaleDesc: 'Verteilte Verarbeitung für Millionen Transaktionen'
                 },
                 footer: {
                     built: 'Gebaut mit ♥ für BBA Studenten',
@@ -502,7 +524,7 @@
                 hero: {
                     headline: 'Big Data & Applications',
                     tagline: 'Practical Learning with Docker - Hands-on Big Data Engineering',
-                    cta: 'Explore the Labs'
+                    cta: 'Get Started'
                 },
                 stats: {
                     labs: '4 Docker Labs',
@@ -530,7 +552,9 @@
                 bigdata: {
                     title: 'What is Big Data?',
                     intro: 'Big Data describes datasets so large, fast, or complex that traditional tools like Excel or simple SQL databases reach their limits. The challenge: How do we store, process, and analyze this data to gain knowledge?',
-                    fact: '90% of all data worldwide was generated in the last two years.',
+                    fact: 'The global datasphere is growing to 181 zettabytes (2025) – a tenfold increase since 2015.',
+                    factSource: 'Source: IDC Global DataSphere Forecast, 2024',
+                    gartnerNote: 'The original three Vs were coined by Doug Laney (Gartner, 2001). Veracity and Value were added later.',
                     v_volume: 'Volume',
                     v_volume_desc: 'Petabytes instead of megabytes. Netflix stores billions of streaming events per day.',
                     v_velocity: 'Velocity',
@@ -623,12 +647,18 @@
                     copy: 'Start a lab & explore'
                 },
                 architecture: {
-                    title: 'Big Data Architecture Overview',
-                    desc: 'How the technologies fit together:',
-                    lake: 'Data Lake',
-                    processing: 'Processing & Analytics',
-                    warehouse: 'Data Warehouse / Mart',
-                    insights: 'Business Insights'
+                    title: 'How Everything Connects',
+                    desc: 'Each technology in the MegaStore ecosystem has a clear role:',
+                    ingest: 'Data Ingestion',
+                    ingestDesc: 'Customer data, orders, products flow in',
+                    store: 'Storage',
+                    storeDesc: 'Flexible document model for heterogeneous data',
+                    connect: 'Connection',
+                    connectDesc: 'Relationships between products, customers, categories',
+                    analyze: 'Analysis',
+                    analyzeDesc: 'Fast SQL queries on large datasets',
+                    scale: 'Scale',
+                    scaleDesc: 'Distributed processing for millions of transactions'
                 },
                 footer: {
                     built: 'Built with ♥ for BBA students',
@@ -651,7 +681,7 @@
                 hero: {
                     headline: 'البيانات الضخمة والتطبيقات',
                     tagline: 'التعلم العملي مع Docker - هندسة البيانات الضخمة العملية',
-                    cta: 'استكشف المختبرات'
+                    cta: 'ابدأ الآن'
                 },
                 stats: {
                     labs: '4 مختبرات Docker',
@@ -679,7 +709,9 @@
                 bigdata: {
                     title: 'ما هي البيانات الضخمة؟',
                     intro: 'تصف البيانات الضخمة مجموعات بيانات كبيرة أو سريعة أو معقدة لدرجة أن الأدوات التقليدية مثل Excel أو قواعد بيانات SQL البسيطة تصل إلى حدودها. التحدي: كيف نخزن ونعالج ونحلل هذه البيانات لاكتساب المعرفة؟',
-                    fact: 'تم إنشاء 90% من جميع البيانات في العالم في العامين الأخيرين.',
+                    fact: 'حجم البيانات العالمي ينمو إلى 181 زيتابايت (2025) – زيادة عشرة أضعاف منذ 2015.',
+                    factSource: 'المصدر: IDC Global DataSphere Forecast, 2024',
+                    gartnerNote: 'الثلاثة Vs الأصلية صاغها دوغ لاني (Gartner, 2001). تمت إضافة الدقة والقيمة لاحقاً.',
                     v_volume: 'الحجم',
                     v_volume_desc: 'بيتابايت بدلاً من ميغابايت. تخزن Netflix مليارات أحداث البث يومياً.',
                     v_velocity: 'السرعة',
@@ -772,12 +804,18 @@
                     copy: 'ابدأ المختبر واستكشف'
                 },
                 architecture: {
-                    title: 'نظرة عامة على معمارية البيانات الضخمة',
-                    desc: 'كيف تتناسب التقنيات معًا:',
-                    lake: 'بحيرة البيانات',
-                    processing: 'المعالجة والتحليلات',
-                    warehouse: 'مستودع البيانات',
-                    insights: 'رؤى الأعمال'
+                    title: 'كيف يرتبط كل شيء',
+                    desc: 'كل تقنية في نظام MegaStore لها دور واضح:',
+                    ingest: 'استيعاب البيانات',
+                    ingestDesc: 'تتدفق بيانات العملاء والطلبات والمنتجات',
+                    store: 'التخزين',
+                    storeDesc: 'نموذج مستندات مرن للبيانات المتنوعة',
+                    connect: 'الربط',
+                    connectDesc: 'العلاقات بين المنتجات والعملاء والفئات',
+                    analyze: 'التحليل',
+                    analyzeDesc: 'استعلامات SQL سريعة على مجموعات بيانات كبيرة',
+                    scale: 'التوسع',
+                    scaleDesc: 'معالجة موزعة لملايين المعاملات'
                 },
                 footer: {
                     built: 'بُني بـ ♥ لطلاب BBA',
@@ -800,7 +838,7 @@
                 hero: {
                     headline: 'Big Data та Застосування',
                     tagline: 'Практичне навчання з Docker - Практична інженерія Big Data',
-                    cta: 'Дослідіть лабораторії'
+                    cta: 'Розпочати'
                 },
                 stats: {
                     labs: '4 лабораторії Docker',
@@ -828,7 +866,9 @@
                 bigdata: {
                     title: 'Що таке Big Data?',
                     intro: 'Big Data описує набори даних настільки великі, швидкі або складні, що традиційні інструменти, такі як Excel або прості SQL-бази даних, досягають своїх меж. Виклик: як зберігати, обробляти та аналізувати ці дані, щоб отримати знання?',
-                    fact: '90% усіх даних у світі було створено за останні два роки.',
+                    fact: 'Глобальна сфера даних зростає до 181 зетабайт (2025) – десятикратне збільшення з 2015 року.',
+                    factSource: 'Джерело: IDC Global DataSphere Forecast, 2024',
+                    gartnerNote: 'Оригінальні три V сформулював Дуг Лейні (Gartner, 2001). Достовірність та Цінність додано пізніше.',
                     v_volume: 'Обсяг',
                     v_volume_desc: 'Петабайти замість мегабайтів. Netflix зберігає мільярди подій стрімінгу щодня.',
                     v_velocity: 'Швидкість',
@@ -921,12 +961,18 @@
                     copy: 'Запустити лабораторію'
                 },
                 architecture: {
-                    title: 'Огляд архітектури Big Data',
-                    desc: 'Як технології поєднуються:',
-                    lake: 'Озеро даних',
-                    processing: 'Обробка та аналітика',
-                    warehouse: 'Хранилище даних',
-                    insights: 'Бізнес-інсайти'
+                    title: 'Як все пов\'язано',
+                    desc: 'Кожна технологія в екосистемі MegaStore має чітку роль:',
+                    ingest: 'Збір даних',
+                    ingestDesc: 'Дані клієнтів, замовлення, продукти надходять',
+                    store: 'Зберігання',
+                    storeDesc: 'Гнучка модель документів для різнорідних даних',
+                    connect: 'З\'єднання',
+                    connectDesc: 'Зв\'язки між продуктами, клієнтами, категоріями',
+                    analyze: 'Аналіз',
+                    analyzeDesc: 'Швидкі SQL-запити на великих наборах даних',
+                    scale: 'Масштабування',
+                    scaleDesc: 'Розподілена обробка мільйонів транзакцій'
                 },
                 footer: {
                     built: 'Створено з ♥ для студентів BBA',
@@ -949,7 +995,7 @@
                 hero: {
                     headline: 'Big Data y Aplicaciones',
                     tagline: 'Aprendizaje práctico con Docker - Ingeniería de Big Data práctica',
-                    cta: 'Explora los laboratorios'
+                    cta: 'Empezar ahora'
                 },
                 stats: {
                     labs: '4 laboratorios Docker',
@@ -977,7 +1023,9 @@
                 bigdata: {
                     title: '¿Qué es Big Data?',
                     intro: 'Big Data describe conjuntos de datos tan grandes, rápidos o complejos que las herramientas tradicionales como Excel o bases de datos SQL simples alcanzan sus límites. El desafío: ¿cómo almacenamos, procesamos y analizamos estos datos para obtener conocimiento?',
-                    fact: 'El 90% de todos los datos del mundo se generaron en los últimos dos años.',
+                    fact: 'La datasfera global crece a 181 zettabytes (2025) – un aumento de diez veces desde 2015.',
+                    factSource: 'Fuente: IDC Global DataSphere Forecast, 2024',
+                    gartnerNote: 'Las tres Vs originales fueron acuñadas por Doug Laney (Gartner, 2001). Veracidad y Valor se agregaron después.',
                     v_volume: 'Volumen',
                     v_volume_desc: 'Petabytes en lugar de megabytes. Netflix almacena miles de millones de eventos de streaming por día.',
                     v_velocity: 'Velocidad',
@@ -1070,12 +1118,18 @@
                     copy: 'Iniciar un lab y explorar'
                 },
                 architecture: {
-                    title: 'Descripción general de la arquitectura de Big Data',
-                    desc: 'Cómo encajan las tecnologías:',
-                    lake: 'Data Lake',
-                    processing: 'Procesamiento y análisis',
-                    warehouse: 'Data Warehouse',
-                    insights: 'Insights empresariales'
+                    title: 'Cómo se conecta todo',
+                    desc: 'Cada tecnología en el ecosistema MegaStore tiene un rol claro:',
+                    ingest: 'Ingesta de datos',
+                    ingestDesc: 'Datos de clientes, pedidos y productos fluyen',
+                    store: 'Almacenamiento',
+                    storeDesc: 'Modelo de documentos flexible para datos heterogéneos',
+                    connect: 'Conexión',
+                    connectDesc: 'Relaciones entre productos, clientes y categorías',
+                    analyze: 'Análisis',
+                    analyzeDesc: 'Consultas SQL rápidas en grandes conjuntos de datos',
+                    scale: 'Escalamiento',
+                    scaleDesc: 'Procesamiento distribuido para millones de transacciones'
                 },
                 footer: {
                     built: 'Construido con ♥ para estudiantes de BBA',
@@ -1098,7 +1152,7 @@
                 hero: {
                     headline: 'Büyük Veri ve Uygulamalar',
                     tagline: 'Docker ile Pratik Öğrenme - Uygulamalı Büyük Veri Mühendisliği',
-                    cta: 'Laboratuvarları Keşfet'
+                    cta: 'Hemen Başla'
                 },
                 stats: {
                     labs: '4 Docker Laboratuvarı',
@@ -1126,7 +1180,9 @@
                 bigdata: {
                     title: 'Büyük Veri Nedir?',
                     intro: 'Büyük Veri, Excel veya basit SQL veritabanları gibi geleneksel araçların sınırlarına ulaştığı kadar büyük, hızlı veya karmaşık veri setlerini tanımlar. Zorluk: Bu verileri bilgi elde etmek için nasıl depolayacak, işleyecek ve analiz edeceğiz?',
-                    fact: 'Dünya genelindeki tüm verilerin %90\'ı son iki yılda üretildi.',
+                    fact: 'Küresel veri hacmi 181 zettabayta (2025) büyüyor – 2015\'ten bu yana on kat artış.',
+                    factSource: 'Kaynak: IDC Global DataSphere Forecast, 2024',
+                    gartnerNote: 'Orijinal üç V, Doug Laney (Gartner, 2001) tarafından formüle edildi. Doğruluk ve Değer daha sonra eklendi.',
                     v_volume: 'Hacim',
                     v_volume_desc: 'Megabayt yerine petabayt. Netflix günde milyarlarca akış olayı depolar.',
                     v_velocity: 'Hız',
@@ -1219,12 +1275,18 @@
                     copy: 'Laboratuvarı başlat ve keşfet'
                 },
                 architecture: {
-                    title: 'Büyük Veri Mimarisi Genel Bakışı',
-                    desc: 'Teknolojiler nasıl bir araya geliyor:',
-                    lake: 'Veri Gölü',
-                    processing: 'İşlem ve Analitik',
-                    warehouse: 'Veri Ambarı',
-                    insights: 'İş İçgörüleri'
+                    title: 'Her Şey Nasıl Bağlanıyor',
+                    desc: 'MegaStore ekosistemindeki her teknolojinin net bir rolü var:',
+                    ingest: 'Veri Alımı',
+                    ingestDesc: 'Müşteri verileri, siparişler, ürünler akıyor',
+                    store: 'Depolama',
+                    storeDesc: 'Heterojen veriler için esnek belge modeli',
+                    connect: 'Bağlantı',
+                    connectDesc: 'Ürünler, müşteriler ve kategoriler arasındaki ilişkiler',
+                    analyze: 'Analiz',
+                    analyzeDesc: 'Büyük veri setlerinde hızlı SQL sorguları',
+                    scale: 'Ölçekleme',
+                    scaleDesc: 'Milyonlarca işlem için dağıtılmış işleme'
                 },
                 footer: {
                     built: 'BBA öğrencileri için ♥ ile yapılmıştır',
@@ -1265,6 +1327,41 @@
             const copyToClipboard = (text) => {
                 navigator.clipboard.writeText(text);
                 alert('Copied to clipboard!');
+            };
+
+            const CountUp = ({ end, suffix = '', duration = 2000 }) => {
+                const [count, setCount] = useState(0);
+                const [hasStarted, setHasStarted] = useState(false);
+                const ref = useRef(null);
+
+                useEffect(() => {
+                    const observer = new IntersectionObserver(
+                        ([entry]) => {
+                            if (entry.isIntersecting && !hasStarted) {
+                                setHasStarted(true);
+                            }
+                        },
+                        { threshold: 0.5 }
+                    );
+                    if (ref.current) observer.observe(ref.current);
+                    return () => observer.disconnect();
+                }, [hasStarted]);
+
+                useEffect(() => {
+                    if (!hasStarted) return;
+                    const startTime = Date.now();
+                    const numEnd = parseFloat(end);
+                    const timer = setInterval(() => {
+                        const elapsed = Date.now() - startTime;
+                        const progress = Math.min(elapsed / duration, 1);
+                        const eased = 1 - Math.pow(1 - progress, 3);
+                        setCount(Math.round(eased * numEnd));
+                        if (progress >= 1) clearInterval(timer);
+                    }, 16);
+                    return () => clearInterval(timer);
+                }, [hasStarted, end, duration]);
+
+                return <span ref={ref}>{count}{suffix}</span>;
             };
 
             const TechLogo = ({ name, size = 32 }) => {
@@ -1375,16 +1472,16 @@
 
                     {/* Stats Bar */}
                     <section className="stat-bar">
-                        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-4">
+                        <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4">
                             {[
-                                { label: t.stats.labs, value: '4' },
-                                { label: t.stats.case_study, value: '1' },
-                                { label: t.stats.languages, value: '6' },
-                                { label: t.stats.hands_on, value: '100%' }
+                                { label: t.stats.labs, value: 4, suffix: '' },
+                                { label: t.stats.case_study, value: 1, suffix: '' },
+                                { label: t.stats.languages, value: 6, suffix: '' },
+                                { label: t.stats.hands_on, value: 100, suffix: '%' }
                             ].map((stat, idx) => (
-                                <div key={idx} className="stat-item scroll-reveal">
-                                    <div className="stat-number">{stat.value}</div>
-                                    <div className="text-gray-600 font-semibold">{stat.label}</div>
+                                <div key={idx} className="stat-item">
+                                    <div className="stat-number"><CountUp end={stat.value} suffix={stat.suffix} /></div>
+                                    <div className="stat-label">{stat.label}</div>
                                 </div>
                             ))}
                         </div>
@@ -1400,25 +1497,41 @@
                                 {t.bigdata.intro}
                             </p>
                             <div className="text-center mb-12 scroll-reveal">
-                                <div className="inline-block bg-orange-50 border-2 border-orange-200 rounded-lg px-6 py-3">
-                                    <p className="text-lg font-bold" style={{color: '#E8792F'}}>{t.bigdata.fact}</p>
+                                <div className="inline-block bg-orange-50 border-2 border-orange-200 rounded-lg px-6 py-4">
+                                    <p className="text-lg font-bold mb-1" style={{color: '#E8792F'}}>{t.bigdata.fact}</p>
+                                    <p className="text-xs text-gray-500">{t.bigdata.factSource}</p>
                                 </div>
                             </div>
-                            <div className="grid md:grid-cols-5 gap-4 scroll-reveal">
+
+                            {/* Gartner's Original 3 Vs */}
+                            <div className="grid md:grid-cols-3 gap-6 mb-6 scroll-reveal">
                                 {[
-                                    {title: t.bigdata.v_volume, desc: t.bigdata.v_volume_desc, letter: 'V'},
-                                    {title: t.bigdata.v_velocity, desc: t.bigdata.v_velocity_desc, letter: 'V'},
-                                    {title: t.bigdata.v_variety, desc: t.bigdata.v_variety_desc, letter: 'V'},
-                                    {title: t.bigdata.v_veracity, desc: t.bigdata.v_veracity_desc, letter: 'V'},
-                                    {title: t.bigdata.v_value, desc: t.bigdata.v_value_desc, letter: 'V'}
+                                    {title: t.bigdata.v_volume, desc: t.bigdata.v_volume_desc},
+                                    {title: t.bigdata.v_velocity, desc: t.bigdata.v_velocity_desc},
+                                    {title: t.bigdata.v_variety, desc: t.bigdata.v_variety_desc}
                                 ].map((v, idx) => (
-                                    <div key={idx} className="bg-white border-2 border-gray-200 rounded-lg p-5 text-center hover:border-orange-500 transition-colors">
-                                        <div className="text-3xl font-black mb-2" style={{color: '#E8792F'}}>{v.letter}</div>
+                                    <div key={idx} className="bg-white border-2 rounded-lg p-6 text-center hover:shadow-lg transition-all" style={{borderColor: '#E8792F'}}>
+                                        <div className="w-12 h-12 rounded-full mx-auto mb-3 flex items-center justify-center text-white font-black text-xl" style={{background: '#E8792F'}}>V</div>
+                                        <h3 className="text-xl font-bold text-gray-900 mb-2">{v.title}</h3>
+                                        <p className="text-sm text-gray-600">{v.desc}</p>
+                                    </div>
+                                ))}
+                            </div>
+
+                            {/* Additional 2 Vs */}
+                            <div className="grid md:grid-cols-2 gap-6 max-w-2xl mx-auto mb-6 scroll-reveal">
+                                {[
+                                    {title: t.bigdata.v_veracity, desc: t.bigdata.v_veracity_desc},
+                                    {title: t.bigdata.v_value, desc: t.bigdata.v_value_desc}
+                                ].map((v, idx) => (
+                                    <div key={idx} className="bg-white border-2 border-gray-200 rounded-lg p-5 text-center hover:border-gray-400 transition-colors" style={{borderStyle: 'dashed'}}>
+                                        <div className="w-10 h-10 rounded-full mx-auto mb-3 flex items-center justify-center font-bold text-lg" style={{background: '#f0f4f8', color: '#1B3A5C', border: '2px solid #1B3A5C'}}>V</div>
                                         <h3 className="text-lg font-bold text-gray-900 mb-2">{v.title}</h3>
                                         <p className="text-sm text-gray-600">{v.desc}</p>
                                     </div>
                                 ))}
                             </div>
+                            <p className="text-center text-sm text-gray-500 italic scroll-reveal">{t.bigdata.gartnerNote}</p>
                         </div>
                     </section>
 
@@ -1477,13 +1590,46 @@
                             </p>
                             <div className="grid md:grid-cols-2 gap-8 scroll-reveal">
                                 {[
-                                    {title: t.concept.method1_title, desc: t.concept.method1_desc, icon: '🐳'},
-                                    {title: t.concept.method2_title, desc: t.concept.method2_desc, icon: '📈'},
-                                    {title: t.concept.method3_title, desc: t.concept.method3_desc, icon: '🔍'},
-                                    {title: t.concept.method4_title, desc: t.concept.method4_desc, icon: '📖'}
+                                    {title: t.concept.method1_title, desc: t.concept.method1_desc, icon: (
+                                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                                            <rect x="4" y="14" width="40" height="24" rx="2" stroke="#1B3A5C" strokeWidth="3" fill="none"/>
+                                            <rect x="12" y="20" width="10" height="12" fill="#E8792F"/>
+                                            <rect x="26" y="20" width="10" height="12" fill="#1B3A5C"/>
+                                        </svg>
+                                    )},
+                                    {title: t.concept.method2_title, desc: t.concept.method2_desc, icon: (
+                                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                                            <circle cx="12" cy="36" r="5" fill="#e2e8f0" stroke="#1B3A5C" strokeWidth="2"/>
+                                            <circle cx="22" cy="26" r="5" fill="#e2e8f0" stroke="#1B3A5C" strokeWidth="2"/>
+                                            <circle cx="32" cy="18" r="5" fill="#E8792F" stroke="#E8792F" strokeWidth="2"/>
+                                            <circle cx="42" cy="8" r="5" fill="#1B3A5C" stroke="#1B3A5C" strokeWidth="2"/>
+                                            <line x1="15" y1="33" x2="19" y2="29" stroke="#1B3A5C" strokeWidth="2"/>
+                                            <line x1="25" y1="23" x2="29" y2="21" stroke="#1B3A5C" strokeWidth="2"/>
+                                            <line x1="35" y1="15" x2="39" y2="11" stroke="#1B3A5C" strokeWidth="2"/>
+                                        </svg>
+                                    )},
+                                    {title: t.concept.method3_title, desc: t.concept.method3_desc, icon: (
+                                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                                            <circle cx="20" cy="20" r="14" stroke="#1B3A5C" strokeWidth="3" fill="none"/>
+                                            <line x1="30" y1="30" x2="44" y2="44" stroke="#E8792F" strokeWidth="4" strokeLinecap="round"/>
+                                            <circle cx="20" cy="20" r="4" fill="#E8792F"/>
+                                        </svg>
+                                    )},
+                                    {title: t.concept.method4_title, desc: t.concept.method4_desc, icon: (
+                                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                                            <rect x="4" y="4" width="18" height="40" rx="1" stroke="#1B3A5C" strokeWidth="3" fill="none"/>
+                                            <rect x="26" y="4" width="18" height="40" rx="1" stroke="#1B3A5C" strokeWidth="3" fill="none"/>
+                                            <line x1="8" y1="14" x2="18" y2="14" stroke="#E8792F" strokeWidth="2"/>
+                                            <line x1="8" y1="20" x2="16" y2="20" stroke="#e2e8f0" strokeWidth="2"/>
+                                            <line x1="8" y1="26" x2="18" y2="26" stroke="#e2e8f0" strokeWidth="2"/>
+                                            <line x1="30" y1="14" x2="40" y2="14" stroke="#E8792F" strokeWidth="2"/>
+                                            <line x1="30" y1="20" x2="38" y2="20" stroke="#e2e8f0" strokeWidth="2"/>
+                                            <line x1="30" y1="26" x2="40" y2="26" stroke="#e2e8f0" strokeWidth="2"/>
+                                        </svg>
+                                    )}
                                 ].map((method, idx) => (
-                                    <div key={idx} className="bg-gray-50 border-2 border-gray-200 rounded-lg p-6 hover:border-orange-500 transition-colors">
-                                        <div className="text-3xl mb-3">{method.icon}</div>
+                                    <div key={idx} className="bg-white border-2 border-gray-200 rounded-lg p-8 hover:border-orange-500 transition-all hover:shadow-md" style={{borderLeft: '4px solid #1B3A5C'}}>
+                                        <div className="mb-4">{method.icon}</div>
                                         <h3 className="text-xl font-bold text-gray-900 mb-3">{method.title}</h3>
                                         <p className="text-gray-700 leading-relaxed">{method.desc}</p>
                                     </div>
@@ -1502,50 +1648,92 @@
                             </h2>
 
                             <div className="scroll-reveal mb-12">
-                                <p className="text-xl text-gray-700 text-center mb-8">{t.case_study.story}</p>
+                                <p className="text-xl text-gray-700 text-center mb-10">{t.case_study.story}</p>
                                 <div className="grid md:grid-cols-2 gap-6 mb-8">
-                                    {[t.case_study.challenge1, t.case_study.challenge2, t.case_study.challenge3, t.case_study.challenge4].map((challenge, idx) => (
-                                        <div key={idx} className="bg-white border-2 border-gray-200 rounded-lg p-5 scroll-reveal" style={{borderLeft: '4px solid #E8792F'}}>
-                                            <p className="text-gray-700 font-semibold">{challenge}</p>
+                                    {[
+                                        {text: t.case_study.challenge1, num: '01'},
+                                        {text: t.case_study.challenge2, num: '02'},
+                                        {text: t.case_study.challenge3, num: '03'},
+                                        {text: t.case_study.challenge4, num: '04'}
+                                    ].map((challenge, idx) => (
+                                        <div key={idx} className="bg-white rounded-lg p-6 scroll-reveal flex gap-4 items-start hover:shadow-md transition-all" style={{borderLeft: '4px solid #E8792F', borderTop: '1px solid #e2e8f0', borderRight: '1px solid #e2e8f0', borderBottom: '1px solid #e2e8f0'}}>
+                                            <span className="text-2xl font-black flex-shrink-0" style={{color: '#E8792F', fontVariantNumeric: 'tabular-nums', letterSpacing: '-0.05em'}}>{challenge.num}</span>
+                                            <p className="text-gray-800 font-medium leading-relaxed">{challenge.text}</p>
                                         </div>
                                     ))}
                                 </div>
                             </div>
 
                             <div className="scroll-reveal mb-12">
-                                <div className="bg-white border-2 rounded-lg p-8 text-center" style={{borderColor: '#1B3A5C', background: 'linear-gradient(135deg, #f0f4f8 0%, #e8f4f8 100%)'}}>
-                                    <p className="text-xl font-bold" style={{color: '#1B3A5C'}}>{t.case_study.your_role}</p>
+                                <div className="rounded-lg p-10 text-center" style={{background: '#1B3A5C'}}>
+                                    <p className="text-xl font-bold text-white leading-relaxed">{t.case_study.your_role}</p>
                                 </div>
                             </div>
 
                             <div className="scroll-reveal mb-12">
                                 <div className="grid md:grid-cols-4 gap-4">
                                     {[
-                                        {text: t.case_study.lab_mongodb, color: '#00684A'},
-                                        {text: t.case_study.lab_duckdb, color: '#FFC107'},
-                                        {text: t.case_study.lab_neo4j, color: '#018BFF'},
-                                        {text: t.case_study.lab_spark, color: '#E25A1C'}
+                                        {text: t.case_study.lab_mongodb, color: '#00684A', logo: 'mongodb'},
+                                        {text: t.case_study.lab_duckdb, color: '#FFC107', logo: 'duckdb'},
+                                        {text: t.case_study.lab_neo4j, color: '#018BFF', logo: 'neo4j'},
+                                        {text: t.case_study.lab_spark, color: '#E25A1C', logo: 'spark'}
                                     ].map((lab, idx) => (
-                                        <div key={idx} className="bg-white border-2 border-gray-200 rounded-lg p-4 text-center hover:border-orange-500 transition-colors">
-                                            <div className="w-3 h-3 rounded-full mx-auto mb-3" style={{background: lab.color}}></div>
+                                        <div key={idx} className="bg-white border-2 border-gray-200 rounded-lg p-5 text-center hover:shadow-md transition-all">
+                                            <div className="w-10 h-10 rounded-lg mx-auto mb-3 flex items-center justify-center" style={{background: lab.color}}>
+                                                <TechLogo name={lab.logo} size={20} />
+                                            </div>
                                             <p className="text-sm text-gray-700 font-semibold">{lab.text}</p>
                                         </div>
                                     ))}
                                 </div>
                             </div>
+                        </div>
+                    </section>
+
+                    <div className="section-divider"></div>
+
+                    {/* Architecture - Technology Pipeline */}
+                    <section id="architecture-section" className="py-20 px-6 bg-white">
+                        <div className="max-w-6xl mx-auto">
+                            <h2 className="text-4xl md:text-5xl font-black text-gray-900 mb-6 text-center scroll-reveal">
+                                {t.architecture.title}
+                            </h2>
+                            <p className="text-xl text-gray-600 text-center mb-16 scroll-reveal">
+                                {t.architecture.desc}
+                            </p>
 
                             <div className="scroll-reveal">
-                                <h3 className="text-2xl font-bold text-center text-gray-900 mb-8">{t.case_study.flow}</h3>
-                                <div className="data-flow bg-white p-6 rounded-lg border-2 border-gray-200">
-                                    <div className="data-flow-item">{t.case_study.orders}</div>
-                                    <div className="data-flow-arrow">→</div>
-                                    <div className="data-flow-item">MongoDB</div>
-                                    <div className="data-flow-arrow">→</div>
-                                    <div className="data-flow-item">Neo4j</div>
-                                    <div className="data-flow-arrow">→</div>
-                                    <div className="data-flow-item">DuckDB</div>
-                                    <div className="data-flow-arrow">→</div>
-                                    <div className="data-flow-item">Spark</div>
+                                <div className="grid md:grid-cols-4 gap-0 relative">
+                                    {[
+                                        { step: t.architecture.ingest, desc: t.architecture.ingestDesc, tech: 'MegaStore Data', color: '#1B3A5C', icon: icons.database },
+                                        { step: t.architecture.store, desc: t.architecture.storeDesc, tech: 'MongoDB', color: '#00684A', logo: 'mongodb' },
+                                        { step: t.architecture.connect, desc: t.architecture.connectDesc, tech: 'Neo4j', color: '#018BFF', logo: 'neo4j' },
+                                        { step: t.architecture.analyze, desc: t.architecture.analyzeDesc, tech: 'DuckDB', color: '#FFC107', logo: 'duckdb' }
+                                    ].map((item, idx) => (
+                                        <div key={idx} className="relative">
+                                            <div className="p-6 text-center">
+                                                <div className="w-14 h-14 rounded-lg mx-auto mb-4 flex items-center justify-center" style={{background: item.color, color: 'white'}}>
+                                                    {item.logo ? <TechLogo name={item.logo} size={24} /> : <LucideIcon d={item.icon} size={24} />}
+                                                </div>
+                                                <div className="text-xs font-bold uppercase tracking-wider mb-2" style={{color: item.color}}>{item.tech}</div>
+                                                <h3 className="text-lg font-bold text-gray-900 mb-2">{item.step}</h3>
+                                                <p className="text-sm text-gray-600">{item.desc}</p>
+                                            </div>
+                                            {idx < 3 && (
+                                                <div className="hidden md:block absolute top-1/3 -right-3 z-10 text-2xl font-bold" style={{color: '#E8792F'}}>→</div>
+                                            )}
+                                        </div>
+                                    ))}
+                                </div>
+                                <div className="mt-6 flex justify-center">
+                                    <div className="p-6 text-center max-w-xs">
+                                        <div className="w-14 h-14 rounded-lg mx-auto mb-4 flex items-center justify-center" style={{background: '#E25A1C'}}>
+                                            <TechLogo name="spark" size={24} />
+                                        </div>
+                                        <div className="text-xs font-bold uppercase tracking-wider mb-2" style={{color: '#E25A1C'}}>Apache Spark</div>
+                                        <h3 className="text-lg font-bold text-gray-900 mb-2">{t.architecture.scale}</h3>
+                                        <p className="text-sm text-gray-600">{t.architecture.scaleDesc}</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -1607,22 +1795,19 @@
                                     };
 
                                     return (
-                                        <div key={idx} className="lab-card bg-white border-2 border-gray-200 rounded-lg overflow-hidden scroll-reveal">
-                                            <div className="bg-gradient-to-br from-gray-50 to-gray-100 p-8 flex items-center gap-4">
-                                                <div className="icon-wrapper flex items-center justify-center" style={{ background: lab.color }}>
+                                        <div key={idx} className="lab-card bg-white border-2 border-gray-200 overflow-hidden scroll-reveal" style={{borderRadius: '2px'}}>
+                                            <div className="p-8 flex items-start gap-5" style={{borderBottom: `3px solid ${lab.color}`}}>
+                                                <div className="flex-shrink-0 w-14 h-14 flex items-center justify-center" style={{background: lab.color, borderRadius: '2px'}}>
                                                     <TechLogo name={lab.key} size={28} />
                                                 </div>
-                                                <div>
-                                                    <h3 className="text-2xl font-bold text-gray-900">{labInfo.name}</h3>
-                                                    <p className="text-gray-600">{labInfo.subtitle}</p>
+                                                <div className="flex-1">
+                                                    <p className="text-xs font-bold uppercase tracking-widest mb-1" style={{color: lab.color}}>{labInfo.chapter}</p>
+                                                    <h3 className="text-2xl font-black text-gray-900 mb-1">{labInfo.name}</h3>
+                                                    <p className="text-gray-500 font-medium">{labInfo.subtitle}</p>
                                                 </div>
                                             </div>
 
                                             <div className="p-8">
-                                                <div className="mb-4">
-                                                    <p className="text-sm text-gray-600 font-semibold">{labInfo.chapter}</p>
-                                                </div>
-
                                                 <p className="text-gray-700 mb-6 leading-relaxed">
                                                     {labInfo.desc}
                                                 </p>
@@ -1633,46 +1818,16 @@
                                                     </span>
                                                     <a
                                                         href={`lab-${lab.key}.html`}
-                                                        className="bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded transition-colors"
+                                                        className="font-bold py-2 px-6 text-white transition-all hover:opacity-90"
+                                                        style={{background: lab.color, borderRadius: '2px'}}
                                                     >
-                                                        {labInfo.cta}
+                                                        {labInfo.cta} →
                                                     </a>
                                                 </div>
                                             </div>
                                         </div>
                                     );
                                 })}
-                            </div>
-                        </div>
-                    </section>
-
-                    <div className="section-divider"></div>
-
-                    {/* Architecture */}
-                    <section id="architecture-section" className="py-20 px-6 bg-white">
-                        <div className="max-w-6xl mx-auto">
-                            <h2 className="text-4xl md:text-5xl font-black text-gray-900 mb-8 text-center scroll-reveal">
-                                {t.architecture.title}
-                            </h2>
-                            <p className="text-xl text-gray-600 text-center mb-16 scroll-reveal">
-                                {t.architecture.desc}
-                            </p>
-
-                            <div className="grid md:grid-cols-4 gap-6 scroll-reveal">
-                                {[
-                                    { icon: icons.database, label: t.architecture.lake, desc: 'Raw Data' },
-                                    { icon: icons.settings, label: t.architecture.processing, desc: 'Transform' },
-                                    { icon: icons.building, label: t.architecture.warehouse, desc: 'Organize' },
-                                    { icon: icons.lightbulb, label: t.architecture.insights, desc: 'Insight' }
-                                ].map((item, idx) => (
-                                    <div key={idx} className="bg-white border-2 border-gray-200 rounded-lg p-8 text-center hover:border-orange-500 transition-colors">
-                                        <div className="mb-4 flex justify-center" style={{ color: '#1B3A5C' }}>
-                                            <LucideIcon d={item.icon} size={40} />
-                                        </div>
-                                        <h3 className="text-xl font-bold text-gray-900 mb-2">{item.label}</h3>
-                                        <p className="text-sm text-gray-600">{item.desc}</p>
-                                    </div>
-                                ))}
                             </div>
                         </div>
                     </section>
