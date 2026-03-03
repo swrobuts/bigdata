@@ -31,3 +31,7 @@ docker/neo4j/logs/
 # Legacy scaffold directories (empty, not needed)
 src/
 public/
+
+# Legacy nested repo (outdated copy, use root files)
+bigdata/
+generate_neo4j_lab.py
