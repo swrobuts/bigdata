@@ -83,6 +83,18 @@
             font-size: 0.95rem;
         }
         .sidebar-item:hover { background: #f5f5f5; }
+        .numbered-list { list-style: none; padding: 0; margin: 0; counter-reset: item; }
+        .numbered-list li { display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 1rem; line-height: 1.6; }
+        .numbered-list li::before { counter-increment: item; content: counter(item); display: inline-flex; align-items: center; justify-content: center; min-width: 32px; height: 32px; background: #E8792F; color: white; border-radius: 50%; font-size: 0.85rem; font-weight: 700; flex-shrink: 0; }
+        .check-list { list-style: none; padding: 0; margin: 0; }
+        .check-list li { display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 1rem; line-height: 1.6; }
+        .check-list li::before { content: "✓"; display: inline-flex; align-items: center; justify-content: center; min-width: 28px; height: 28px; background: #E8792F; color: white; border-radius: 50%; font-size: 0.8rem; font-weight: 700; flex-shrink: 0; }
+        .source-link { font-size: 0.75rem; color: #888; margin-left: 0.25rem; text-decoration: none; }
+        .source-link:hover { color: #E8792F; text-decoration: underline; }
+        .language-switcher { display: flex; gap: 0.5rem; align-items: center; }
+        .lang-btn { padding: 0.5rem 0.75rem; border-radius: 0.375rem; border: 2px solid #e5e7eb; background: white; cursor: pointer; font-weight: 600; font-size: 0.875rem; color: #666; transition: all 0.2s; }
+        .lang-btn.active { background: #E8792F; color: white; border-color: #E8792F; }
+        .lang-btn:hover { border-color: #E8792F; }
         .sidebar-item.active {
             border-left-color: #E8792F;
             background: #fef5f1;
@@ -369,14 +381,11 @@
                                 Neo4j Lab
                             </h1>
                         </div>
-                        <select className="lang-select" value={lang} onChange={(e) => setLang(e.target.value)}>
-                            <option value="en">English</option>
-                            <option value="de">Deutsch</option>
-                            <option value="ar">العربية</option>
-                            <option value="uk">Українська</option>
-                            <option value="es">Español</option>
-                            <option value="tr">Türkçe</option>
-                        </select>
+                        <div className="language-switcher">
+                            {[['de','DE'],['en','EN'],['ar','AR'],['uk','UK'],['es','ES'],['tr','TR']].map(([code, label]) => (
+                                <button key={code} onClick={() => setLang(code)} className={`lang-btn ${lang === code ? 'active' : ''}`}>{label}</button>
+                            ))}
+                        </div>
                     </div>
 
                     <div className="sidebar">
@@ -421,7 +430,7 @@
 
                     <div className="card" style={{ padding: '2rem', marginBottom: '2rem' }}>
                         <h3 className="card-title" style={{ marginBottom: '1rem' }}>What You Will Learn</h3>
-                        <ul style={{ marginLeft: '1.5rem', lineHeight: '1.8' }}>
+                        <ul className="numbered-list">
                             <li>Graph database architecture and property graph model</li>
                             <li>Cypher query language fundamentals and advanced patterns</li>
                             <li>Creating nodes, relationships, and properties</li>
@@ -433,12 +442,12 @@
 
                     <div className="card" style={{ padding: '2rem' }}>
                         <h3 className="card-title" style={{ marginBottom: '1rem' }}>Real-World Use Cases</h3>
-                        <ul style={{ marginLeft: '1.5rem', lineHeight: '1.8' }}>
-                            <li><strong>PayPal:</strong> Fraud ring detection using shared device/IP patterns</li>
-                            <li><strong>eBay:</strong> Recommendation engine matching buyers to sellers</li>
-                            <li><strong>Europol:</strong> Law enforcement network analysis</li>
-                            <li><strong>Netflix:</strong> Saved 1 billion dollars through graph recommendations</li>
-                            <li><strong>Volvo:</strong> Supply chain risk management with part dependencies</li>
+                        <ul className="check-list">
+                            <li><strong>PayPal:</strong> Fraud ring detection using shared device/IP patterns<a className="source-link" href="https://neo4j.com/use-cases/fraud-detection/" target="_blank">[Source]</a></li>
+                            <li><strong>eBay:</strong> Recommendation engine matching buyers to sellers<a className="source-link" href="https://neo4j.com/customer-stories/ebay/" target="_blank">[Source]</a></li>
+                            <li><strong>Europol:</strong> Law enforcement network analysis<a className="source-link" href="https://neo4j.com/use-cases/fraud-detection/" target="_blank">[Source]</a></li>
+                            <li><strong>Netflix:</strong> Saved 1 billion dollars through graph recommendations<a className="source-link" href="https://neo4j.com/customers/" target="_blank">[Source]</a></li>
+                            <li><strong>Volvo:</strong> Supply chain risk management with part dependencies<a className="source-link" href="https://neo4j.com/customers/" target="_blank">[Source]</a></li>
                         </ul>
                     </div>
                 </div>
@@ -456,7 +465,7 @@
                         <p style={{ marginBottom: '1rem' }}>A graph database stores data as nodes (entities) connected by relationships (edges) with properties on both.</p>
                         <div style={{ background: '#f9fafb', padding: '1rem', borderRadius: '0.5rem', marginBottom: '1rem', marginTop: '1rem' }}>
                             <strong>Property Graph Model Components:</strong>
-                            <ul style={{ marginLeft: '1.5rem', marginTop: '0.5rem' }}>
+                            <ul className="numbered-list" style={{ marginTop: '0.5rem' }}>
                                 <li><strong>Nodes:</strong> Entities like Person, Product, Account</li>
                                 <li><strong>Relationships:</strong> Connections with types (BOUGHT, FOLLOWS, CONTAINS)</li>
                                 <li><strong>Properties:</strong> Key-value data on nodes and relationships</li>
@@ -508,7 +517,7 @@
 
                     <div className="card" style={{ padding: '2rem' }}>
                         <h3 className="card-title" style={{ marginBottom: '1rem' }}>Neo4j: The Industry Leader</h3>
-                        <ul style={{ marginLeft: '1.5rem', lineHeight: '1.8' }}>
+                        <ul className="numbered-list">
                             <li>Purpose-built for graph queries with Cypher language</li>
                             <li>ACID transactions and multi-node cluster support</li>
                             <li>Neo4j Browser for interactive graph exploration</li>

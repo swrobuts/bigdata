@@ -402,6 +402,15 @@
         .hljs-literal { color: #569cd6; }
         .hljs-attr { color: #9cdcfe; }
         .hljs-keyword { color: #569cd6; }
+
+        .numbered-list { list-style: none; padding: 0; margin: 0; counter-reset: item; }
+        .numbered-list li { display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 1rem; line-height: 1.6; }
+        .numbered-list li::before { counter-increment: item; content: counter(item); display: inline-flex; align-items: center; justify-content: center; min-width: 32px; height: 32px; background: #E8792F; color: white; border-radius: 50%; font-size: 0.85rem; font-weight: 700; flex-shrink: 0; }
+        .check-list { list-style: none; padding: 0; margin: 0; }
+        .check-list li { display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 1rem; line-height: 1.6; }
+        .check-list li::before { content: "✓"; display: inline-flex; align-items: center; justify-content: center; min-width: 28px; height: 28px; background: #E8792F; color: white; border-radius: 50%; font-size: 0.8rem; font-weight: 700; flex-shrink: 0; }
+        .source-link { font-size: 0.75rem; color: #888; margin-left: 0.25rem; text-decoration: none; }
+        .source-link:hover { color: #E8792F; text-decoration: underline; }
     </style>
 </head>
 <body>
@@ -525,6 +534,15 @@
                         { title: "Erklären Sie Spark einem nicht-technischen CEO", desc: "Wie würden Sie Sparks Vorteile in einfachen Worten erklären?" },
                         { title: "Welche MegaStore-Frage war am interessantesten?", desc: "Welche der Herausforderungen hat Sie am meisten fasziniert und warum?" }
                     ],
+                    companies: {
+                        title: "Warum Spark? Unternehmen wie Netflix, Uber und Shopify nutzen Spark täglich:",
+                        list: [
+                            { name: "Netflix", desc: "Verarbeitet Petabytes an Video-Streaming-Daten für Empfehlungen", link: "https://netflixtechblog.com/tagged/apache-spark" },
+                            { name: "Uber", desc: "Analysiert täglich Terabytes an Fahrtdaten für Preisgestaltung und Routen", link: "https://www.uber.com/blog/uscs-apache-spark/" },
+                            { name: "Shopify", desc: "Verarbeitet 67 Millionen Bestellungen in Minuten während Spitzenverkaufszeiten", link: "https://shopify.engineering/capturing-every-change-shopify-sharded-monolith" },
+                            { name: "Alibaba", desc: "Führt die größten Spark-Jobs der Welt für E-Commerce-Analysen aus", link: "https://www.databricks.com/blog/2014/08/14/mining-graph-data-with-spark-at-alibaba-taobao.html" }
+                        ]
+                    },
                     realWorld: "Wo wird Spark in der echten Welt verwendet",
                     useCases: [
                         { title: "Big Data ETL Pipelines", desc: "Datenimport, Bereinigung und Transformationen für Datenlakehouses. Netflix nutzt Spark für Petabytes an Datenverarbeitung täglich." },
@@ -659,6 +677,15 @@
                         { title: "Explain Spark to a non-technical CEO", desc: "How would you explain Spark's benefits for business decisions in simple terms?" },
                         { title: "Which MegaStore business question was most interesting?", desc: "Of all the challenges: Which fascinated you most and why?" }
                     ],
+                    companies: {
+                        title: "Why Spark? Companies like Netflix, Uber, and Shopify use Spark daily:",
+                        list: [
+                            { name: "Netflix", desc: "Processes petabytes of video streaming data for recommendations", link: "https://netflixtechblog.com/tagged/apache-spark" },
+                            { name: "Uber", desc: "Analyzes terabytes of trip data daily for pricing and routes", link: "https://www.uber.com/blog/uscs-apache-spark/" },
+                            { name: "Shopify", desc: "Processes 67 million orders in minutes during peak sales", link: "https://shopify.engineering/capturing-every-change-shopify-sharded-monolith" },
+                            { name: "Alibaba", desc: "Runs the world's largest Spark jobs for e-commerce analytics", link: "https://www.databricks.com/blog/2014/08/14/mining-graph-data-with-spark-at-alibaba-taobao.html" }
+                        ]
+                    },
                     realWorld: "Where Spark Is Used in the Real World",
                     useCases: [
                         { title: "Big Data ETL Pipelines", desc: "Data import, cleaning, and transformations for data lakes. Netflix processes petabytes daily with Spark." },
@@ -823,6 +850,15 @@
                         { title: "شرح Spark لرئيس تنفيذي غير تقني", desc: "كيف تشرح فوائد Spark بكلمات بسيطة؟" },
                         { title: "أي سؤال عمل MegaStore كان الأكثر اهتماماً؟", desc: "من بين كل التحديات: أيها أفتنتك أكثر ولماذا؟" }
                     ],
+                    companies: {
+                        title: "لماذا Spark؟ تستخدمه شركات مثل Netflix و Uber و Shopify يومياً:",
+                        list: [
+                            { name: "Netflix", desc: "معالجة بيتابايت من بيانات البث المرئي للتوصيات", link: "https://netflixtechblog.com/tagged/apache-spark" },
+                            { name: "Uber", desc: "تحليل تيرابايت من بيانات الرحلات يومياً للأسعار والمسارات", link: "https://www.uber.com/blog/uscs-apache-spark/" },
+                            { name: "Shopify", desc: "معالجة 67 مليون طلب في دقائق أثناء أوقات الذروة", link: "https://shopify.engineering/capturing-every-change-shopify-sharded-monolith" },
+                            { name: "Alibaba", desc: "تشغيل أكبر وظائف Spark في العالم لتحليل التجارة الإلكترونية", link: "https://www.databricks.com/blog/2014/08/14/mining-graph-data-with-spark-at-alibaba-taobao.html" }
+                        ]
+                    },
                     realWorld: "حيث يُستخدم Spark في العالم الحقيقي",
                     useCases: [
                         { title: "خطوط أنابيب ETL للبيانات الكبيرة", desc: "استيراد البيانات والتنظيف والتحويلات لبحيرات البيانات. Netflix تعالج بيتابايتات يومياً مع Spark." },
@@ -987,6 +1023,15 @@
                         { title: "Поясніть Spark невиробничому генеральному директору", desc: "Як ви б пояснили переваги Spark простими словами?" },
                         { title: "Яке питання бізнесу MegaStore було найцікавішим?", desc: "З усіх викликів: який вас найбільше зачарував і чому?" }
                     ],
+                    companies: {
+                        title: "Чому Spark? Компанії, як Netflix, Uber та Shopify, використовують Spark щодня:",
+                        list: [
+                            { name: "Netflix", desc: "Обробка петабайтів даних потокового відео для рекомендацій", link: "https://netflixtechblog.com/tagged/apache-spark" },
+                            { name: "Uber", desc: "Аналіз терабайтів даних поїздок щодня для цін та маршрутів", link: "https://www.uber.com/blog/uscs-apache-spark/" },
+                            { name: "Shopify", desc: "Обробка 67 мільйонів замовлень за кілька хвилин під час пікового продажу", link: "https://shopify.engineering/capturing-every-change-shopify-sharded-monolith" },
+                            { name: "Alibaba", desc: "Запуск найбільших завдань Spark у світі для аналітики електронної комерції", link: "https://www.databricks.com/blog/2014/08/14/mining-graph-data-with-spark-at-alibaba-taobao.html" }
+                        ]
+                    },
                     realWorld: "Де Spark використовується в реальному світі",
                     useCases: [
                         { title: "Великі конвеєри ETL", desc: "Імпорт даних, очищення та трансформації для озер даних. Netflix обробляє петабайти щодня за допомогою Spark." },
@@ -1151,6 +1196,15 @@
                         { title: "Explica Spark a un CEO no técnico", desc: "¿Cómo explicarías los beneficios de Spark en términos simples?" },
                         { title: "¿Cuál pregunta de negocio de MegaStore fue más interesante?", desc: "De todos los desafíos: ¿Cuál te fascinó más y por qué?" }
                     ],
+                    companies: {
+                        title: "¿Por qué Spark? Empresas como Netflix, Uber y Shopify usan Spark a diario:",
+                        list: [
+                            { name: "Netflix", desc: "Procesar petabytes de datos de transmisión de video para recomendaciones", link: "https://netflixtechblog.com/tagged/apache-spark" },
+                            { name: "Uber", desc: "Analizar terabytes de datos de viajes diariamente para precios y rutas", link: "https://www.uber.com/blog/uscs-apache-spark/" },
+                            { name: "Shopify", desc: "Procesar 67 millones de pedidos en minutos durante picos de ventas", link: "https://shopify.engineering/capturing-every-change-shopify-sharded-monolith" },
+                            { name: "Alibaba", desc: "Ejecutar los trabajos de Spark más grandes del mundo para análisis de comercio electrónico", link: "https://www.databricks.com/blog/2014/08/14/mining-graph-data-with-spark-at-alibaba-taobao.html" }
+                        ]
+                    },
                     realWorld: "Dónde se usa Spark en el mundo real",
                     useCases: [
                         { title: "Canalizaciones ETL de Big Data", desc: "Importación, limpieza y transformaciones de datos para lagos de datos. Netflix procesa petabytes diariamente con Spark." },
@@ -1315,6 +1369,15 @@
                         { title: "Spark'ı teknik olmayan bir CEO'ya açıklayın", desc: "Spark'ın avantajlarını basit terimlerle nasıl açıklardınız?" },
                         { title: "MegaStore'ın hangi iş sorusu en ilginçti?", desc: "Tüm zorluklar arasından: Hangi sizi en çok büyüledi ve neden?" }
                     ],
+                    companies: {
+                        title: "Neden Spark? Netflix, Uber ve Shopify gibi şirketler Spark'ı günlük olarak kullanır:",
+                        list: [
+                            { name: "Netflix", desc: "Öneriler için petabayt video akış verilerini işleme", link: "https://netflixtechblog.com/tagged/apache-spark" },
+                            { name: "Uber", desc: "Fiyatlandırma ve rotalar için günlük terabayt yolculuk verileri analiz etme", link: "https://www.uber.com/blog/uscs-apache-spark/" },
+                            { name: "Shopify", desc: "Yoğun satış dönemlerinde dakikalar içinde 67 milyon siparişi işleme", link: "https://shopify.engineering/capturing-every-change-shopify-sharded-monolith" },
+                            { name: "Alibaba", desc: "E-ticaret analitiği için dünyanın en büyük Spark işlerini çalıştırma", link: "https://www.databricks.com/blog/2014/08/14/mining-graph-data-with-spark-at-alibaba-taobao.html" }
+                        ]
+                    },
                     realWorld: "Spark'ın Gerçek Dünyada Kullanıldığı Yerler",
                     useCases: [
                         { title: "Big Data ETL Boru Hatları", desc: "Veri gölü için veri içe aktarma, temizleme ve dönüştürme. Netflix günde petabayt işler Spark ile." },
@@ -1440,14 +1503,11 @@
                                 {t.nav.backToOverview}
                             </button>
                             <h1 className="logo">Spark Lab</h1>
-                            <select value={lang} onChange={(e) => setLang(e.target.value)} className="lang-btn">
-                                <option value="de">Deutsch</option>
-                                <option value="en">English</option>
-                                <option value="ar">العربية</option>
-                                <option value="uk">Українська</option>
-                                <option value="es">Español</option>
-                                <option value="tr">Türkçe</option>
-                            </select>
+                            <div className="language-switcher" style={{ display: 'flex', gap: '0.5rem' }}>
+                                {[['de','DE'],['en','EN'],['ar','AR'],['uk','UK'],['es','ES'],['tr','TR']].map(([code, label]) => (
+                                    <button key={code} onClick={() => setLang(code)} className={`lang-btn ${lang === code ? 'active' : ''}`} style={{ padding: '0.5rem 0.75rem', borderRadius: '0.375rem', border: lang === code ? '2px solid #E8792F' : '2px solid #e5e7eb', background: lang === code ? '#E8792F' : 'white', cursor: 'pointer', fontWeight: 600, fontSize: '0.875rem', color: lang === code ? 'white' : '#666' }}>{label}</button>
+                                ))}
+                            </div>
                         </div>
                     </nav>
 
@@ -1475,9 +1535,24 @@
                             {activeSection === 'learningObjectives' && (
                                 <section id="learningObjectives" className="section">
                                     <h2 className="section-header">{t.sidebar.learningObjectives}</h2>
-                                    <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                                        {t.objectives.map((obj, idx) => (<div key={idx} className="card"><p>{obj}</p></div>))}
-                                    </div>
+                                    <ul className="numbered-list">
+                                        {t.objectives.map((obj, idx) => (<li key={idx}><span>{obj}</span></li>))}
+                                    </ul>
+                                    {t.reflection && t.reflection.companies && (
+                                        <div style={{ marginTop: '2rem' }}>
+                                            <h3 className="subsection-header">{t.reflection.companies.title}</h3>
+                                            <ul className="check-list">
+                                                {t.reflection.companies.list.map((item, idx) => (
+                                                    <li key={idx}>
+                                                        <span>
+                                                            {item.name}: {item.desc}
+                                                            <a className="source-link" href={item.link} target="_blank" rel="noopener noreferrer">[Source]</a>
+                                                        </span>
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        </div>
+                                    )}
                                 </section>
                             )}
 
