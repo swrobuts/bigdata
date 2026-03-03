@@ -139,6 +139,7 @@
         .badge-intermediate { background: #fef08a; color: #7c2d12; }
         .badge-advanced { background: #fed7aa; color: #7c2d12; }
         .badge-challenge { background: #fecaca; color: #7f1d1d; }
+        .badge-time { background: #d1ecf1; color: #0c5460; }
         .expandable {
             background: #f9fafb;
             border: 1px solid #e5e7eb;
@@ -855,7 +856,7 @@
                             <h1 className="section-header">{t.exercise1}</h1>
                             <div style={{marginBottom: '1rem'}}>
                                 <span className="badge badge-beginner">{t.beginner}</span>
-                                <span className="badge" style={{background: '#E8792F', color: 'white'}}>{t.estimateMin}</span>
+                                <span className="badge badge-time" style={{background: '#d1ecf1', color: '#0c5460'}}>~15 Min</span>
                             </div>
                             <h2 className="subsection-header">{t.objective}</h2>
                             <p>{t.ex1Objective}</p>
@@ -910,7 +911,7 @@
                             <h1 className="section-header">{t.exercise2}</h1>
                             <div style={{marginBottom: '1rem'}}>
                                 <span className="badge badge-beginner">{t.beginner}</span>
-                                <span className="badge" style={{background: '#E8792F', color: 'white'}}>{t.estimateMin}</span>
+                                <span className="badge badge-time" style={{background: '#d1ecf1', color: '#0c5460'}}>~15 Min</span>
                             </div>
                             <h2 className="subsection-header">{t.objective}</h2>
                             <p>{t.ex2Objective}</p>
@@ -962,7 +963,7 @@
                             <h1 className="section-header">{t.exercise3}</h1>
                             <div style={{marginBottom: '1rem'}}>
                                 <span className="badge badge-beginner">{t.beginner}</span>
-                                <span className="badge" style={{background: '#E8792F', color: 'white'}}>{t.estimateMin}</span>
+                                <span className="badge badge-time" style={{background: '#d1ecf1', color: '#0c5460'}}>~15 Min</span>
                             </div>
                             <h2 className="subsection-header">{t.objective}</h2>
                             <p>{t.ex3Objective}</p>
@@ -1014,7 +1015,7 @@
                             <h1 className="section-header">{t.exercise4}</h1>
                             <div style={{marginBottom: '1rem'}}>
                                 <span className="badge badge-beginner">{t.beginner}</span>
-                                <span className="badge" style={{background: '#E8792F', color: 'white'}}>{t.estimateMin}</span>
+                                <span className="badge badge-time" style={{background: '#d1ecf1', color: '#0c5460'}}>~15 Min</span>
                             </div>
                             <h2 className="subsection-header">{t.objective}</h2>
                             <p>{t.ex4Objective}</p>
@@ -1066,7 +1067,7 @@
                             <h1 className="section-header">{t.exercise5}</h1>
                             <div style={{marginBottom: '1rem'}}>
                                 <span className="badge badge-beginner">{t.beginner}</span>
-                                <span className="badge" style={{background: '#E8792F', color: 'white'}}>{t.estimateMin}</span>
+                                <span className="badge badge-time" style={{background: '#d1ecf1', color: '#0c5460'}}>~15 Min</span>
                             </div>
                             <h2 className="subsection-header">{t.objective}</h2>
                             <p>{t.ex5Objective}</p>
@@ -1118,7 +1119,7 @@
                             <h1 className="section-header">{t.exercise6}</h1>
                             <div style={{marginBottom: '1rem'}}>
                                 <span className="badge badge-intermediate">Intermediate</span>
-                                <span className="badge" style={{background: '#E8792F', color: 'white'}}>{t.estimateMin}</span>
+                                <span className="badge badge-time" style={{background: '#d1ecf1', color: '#0c5460'}}>~15 Min</span>
                             </div>
                             <h2 className="subsection-header">{t.objective}</h2>
                             <p>{t.ex6Objective}</p>
@@ -1232,7 +1233,7 @@
                                         {qNum === 1 && (
                                             <>
                                                 {['a', 'b', 'c', 'd'].map(opt => (
-                                                    <div key={opt} className={'quiz-option' + (quizAnswers['q1'] === opt ? (opt === 'b' ? ' correct' : ' incorrect') : '')} onClick={() => handleQuizAnswer('q1', opt)}>
+                                                    <div key={opt} className={'quiz-option' + (quizAnswers['q1'] === opt ? (opt === t.quizQ1Correct ? ' correct' : ' incorrect') : '')} onClick={() => handleQuizAnswer('q1', opt)}>
                                                         {opt === 'a' && t.quizQ1A}
                                                         {opt === 'b' && t.quizQ1B}
                                                         {opt === 'c' && t.quizQ1C}
@@ -1249,7 +1250,7 @@
                                         {qNum === 2 && (
                                             <>
                                                 {['a', 'b', 'c', 'd'].map(opt => (
-                                                    <div key={opt} className={'quiz-option' + (quizAnswers['q2'] === opt ? (opt === 'b' ? ' correct' : ' incorrect') : '')} onClick={() => handleQuizAnswer('q2', opt)}>
+                                                    <div key={opt} className={'quiz-option' + (quizAnswers['q2'] === opt ? (opt === t.quizQ2Correct ? ' correct' : ' incorrect') : '')} onClick={() => handleQuizAnswer('q2', opt)}>
                                                         {opt === 'a' && t.quizQ2A}
                                                         {opt === 'b' && t.quizQ2B}
                                                         {opt === 'c' && t.quizQ2C}
@@ -1266,7 +1267,7 @@
                                         {qNum === 3 && (
                                             <>
                                                 {['a', 'b', 'c', 'd'].map(opt => (
-                                                    <div key={opt} className={'quiz-option' + (quizAnswers['q3'] === opt ? (opt === 'c' ? ' correct' : ' incorrect') : '')} onClick={() => handleQuizAnswer('q3', opt)}>
+                                                    <div key={opt} className={'quiz-option' + (quizAnswers['q3'] === opt ? (opt === t.quizQ3Correct ? ' correct' : ' incorrect') : '')} onClick={() => handleQuizAnswer('q3', opt)}>
                                                         {opt === 'a' && t.quizQ3A}
                                                         {opt === 'b' && t.quizQ3B}
                                                         {opt === 'c' && t.quizQ3C}
@@ -1283,7 +1284,7 @@
                                         {qNum === 4 && (
                                             <>
                                                 {['a', 'b', 'c', 'd'].map(opt => (
-                                                    <div key={opt} className={'quiz-option' + (quizAnswers['q4'] === opt ? (opt === 'b' ? ' correct' : ' incorrect') : '')} onClick={() => handleQuizAnswer('q4', opt)}>
+                                                    <div key={opt} className={'quiz-option' + (quizAnswers['q4'] === opt ? (opt === t.quizQ4Correct ? ' correct' : ' incorrect') : '')} onClick={() => handleQuizAnswer('q4', opt)}>
                                                         {opt === 'a' && t.quizQ4A}
                                                         {opt === 'b' && t.quizQ4B}
                                                         {opt === 'c' && t.quizQ4C}
@@ -1300,7 +1301,7 @@
                                         {qNum === 5 && (
                                             <>
                                                 {['a', 'b', 'c', 'd'].map(opt => (
-                                                    <div key={opt} className={'quiz-option' + (quizAnswers['q5'] === opt ? (opt === 'b' ? ' correct' : ' incorrect') : '')} onClick={() => handleQuizAnswer('q5', opt)}>
+                                                    <div key={opt} className={'quiz-option' + (quizAnswers['q5'] === opt ? (opt === t.quizQ5Correct ? ' correct' : ' incorrect') : '')} onClick={() => handleQuizAnswer('q5', opt)}>
                                                         {opt === 'a' && t.quizQ5A}
                                                         {opt === 'b' && t.quizQ5B}
                                                         {opt === 'c' && t.quizQ5C}
@@ -1317,7 +1318,7 @@
                                         {qNum === 6 && (
                                             <>
                                                 {['a', 'b', 'c', 'd'].map(opt => (
-                                                    <div key={opt} className={'quiz-option' + (quizAnswers['q6'] === opt ? (opt === 'b' ? ' correct' : ' incorrect') : '')} onClick={() => handleQuizAnswer('q6', opt)}>
+                                                    <div key={opt} className={'quiz-option' + (quizAnswers['q6'] === opt ? (opt === t.quizQ6Correct ? ' correct' : ' incorrect') : '')} onClick={() => handleQuizAnswer('q6', opt)}>
                                                         {opt === 'a' && t.quizQ6A}
                                                         {opt === 'b' && t.quizQ6B}
                                                         {opt === 'c' && t.quizQ6C}

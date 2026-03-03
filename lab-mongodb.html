@@ -377,6 +377,11 @@ const translations = {
         realtime: 'Echtzeit-Anforderungen',
         mongodb: 'MongoDB',
         sql: 'SQL (z.B. PostgreSQL)',
+        bestFor: 'Ideal für',
+        goodFor: 'Gut für',
+        fixedSchema: 'Festes Schema',
+        relationalData: 'Relationale Daten',
+        complexTransactions: 'Komplexe Transaktionen',
         exercise1Title: 'Übung 1: Erste Schritte',
         exercise1Goal: 'Verbinden Sie sich mit MongoDB und führen Sie eine erste einfache Abfrage durch.',
         exercise1Show: 'Beispiel',
@@ -617,6 +622,11 @@ const translations = {
         realtime: 'Real-Time Requirements',
         mongodb: 'MongoDB',
         sql: 'SQL (e.g., PostgreSQL)',
+        bestFor: 'Best for',
+        goodFor: 'Good for',
+        fixedSchema: 'Fixed Schema',
+        relationalData: 'Relational Data',
+        complexTransactions: 'Complex Transactions',
         exercise1Title: 'Exercise 1: Getting Started',
         exercise1Goal: 'Connect to MongoDB and execute your first simple query.',
         exercise1Show: 'Example',
@@ -1026,18 +1036,18 @@ function App() {
                             <tbody>
                                 <tr>
                                     <td>{t.flexible}</td>
-                                    <td>Best for</td>
-                                    <td>Fixed Schema</td>
+                                    <td>{t.bestFor}</td>
+                                    <td>{t.fixedSchema}</td>
                                 </tr>
                                 <tr>
                                     <td>{t.hierarchical}</td>
-                                    <td>Good for</td>
-                                    <td>Relational Data</td>
+                                    <td>{t.goodFor}</td>
+                                    <td>{t.relationalData}</td>
                                 </tr>
                                 <tr>
                                     <td>{t.scalable}</td>
-                                    <td>Good for</td>
-                                    <td>Complex Transactions</td>
+                                    <td>{t.goodFor}</td>
+                                    <td>{t.complexTransactions}</td>
                                 </tr>
                             </tbody>
                         </table>
