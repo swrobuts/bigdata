@@ -1053,12 +1053,8 @@
                                     <p style={{ marginTop: '0.5rem' }}>{t.ex1Task}</p>
                                 </div>
                                 <div className="code-block" style={{ marginTop: '1rem' }}>
-                                    <code>{'CREATE (p:Person {name: "Alice", age: 30})
-CREATE (pr:Product {name: "Laptop", price: 999})
-MATCH (n) RETURN n LIMIT 10'}</code>
-                                    <button className="copy-btn" onClick={() => copyToClipboard('CREATE (p:Person {name: "Alice", age: 30})
-CREATE (pr:Product {name: "Laptop", price: 999})
-MATCH (n) RETURN n LIMIT 10')}>Copy</button>
+                                    <code>{'CREATE (p:Person {name: "Alice", age: 30})\nCREATE (pr:Product {name: "Laptop", price: 999})\nMATCH (n) RETURN n LIMIT 10'}</code>
+                                    <button className="copy-btn" onClick={() => copyToClipboard('CREATE (p:Person {name: "Alice", age: 30})\nCREATE (pr:Product {name: "Laptop", price: 999})\nMATCH (n) RETURN n LIMIT 10')}>Copy</button>
                                 </div>
                                 <button
                                     className="expandable"
@@ -1073,9 +1069,7 @@ MATCH (n) RETURN n LIMIT 10')}>Copy</button>
                                 {expandedExercises['ex1'] && (
                                     <div className="expandable-content">
                                         <div className="code-block">
-                                            <code>{'CREATE (p:Person {name: "Alice", age: 30})
-CREATE (pr:Product {name: "Laptop", price: 999})
-MATCH (n) RETURN n'}</code>
+                                            <code>{'CREATE (p:Person {name: "Alice", age: 30})\nCREATE (pr:Product {name: "Laptop", price: 999})\nMATCH (n) RETURN n'}</code>
                                         </div>
                                     </div>
                                 )}
@@ -1094,12 +1088,8 @@ MATCH (n) RETURN n'}</code>
                                     <p style={{ marginTop: '0.5rem' }}>{t.ex2Task}</p>
                                 </div>
                                 <div className="code-block" style={{ marginTop: '1rem' }}>
-                                    <code>{'MATCH (a:Person {name: "Alice"}), (p:Product {name: "Laptop"})
-CREATE (a)-[:PURCHASED]->(p)
-MATCH (a)-[r]->(b) RETURN a, r, b LIMIT 10'}</code>
-                                    <button className="copy-btn" onClick={() => copyToClipboard('MATCH (a:Person {name: "Alice"}), (p:Product {name: "Laptop"})
-CREATE (a)-[:PURCHASED]->(p)
-MATCH (a)-[r]->(b) RETURN a, r, b LIMIT 10')}>Copy</button>
+                                    <code>{'MATCH (a:Person {name: "Alice"}), (p:Product {name: "Laptop"})\nCREATE (a)-[:PURCHASED]->(p)\nMATCH (a)-[r]->(b) RETURN a, r, b LIMIT 10'}</code>
+                                    <button className="copy-btn" onClick={() => copyToClipboard('MATCH (a:Person {name: "Alice"}), (p:Product {name: "Laptop"})\nCREATE (a)-[:PURCHASED]->(p)\nMATCH (a)-[r]->(b) RETURN a, r, b LIMIT 10')}>Copy</button>
                                 </div>
                                 <button
                                     className="expandable"
@@ -1114,8 +1104,7 @@ MATCH (a)-[r]->(b) RETURN a, r, b LIMIT 10')}>Copy</button>
                                 {expandedExercises['ex2'] && (
                                     <div className="expandable-content">
                                         <div className="code-block">
-                                            <code>{'MATCH (a:Person), (p:Product)
-CREATE (a)-[:PURCHASED]->(p)'}</code>
+                                            <code>{'MATCH (a:Person), (p:Product)\nCREATE (a)-[:PURCHASED]->(p)'}</code>
                                         </div>
                                     </div>
                                 )}
@@ -1134,10 +1123,8 @@ CREATE (a)-[:PURCHASED]->(p)'}</code>
                                     <p style={{ marginTop: '0.5rem' }}>{t.ex3Task}</p>
                                 </div>
                                 <div className="code-block" style={{ marginTop: '1rem' }}>
-                                    <code>{'MATCH (p:Person) WHERE p.age > 25 RETURN p
-MATCH (a:Person)-[:FRIEND]->(b:Person)-[:FRIEND]->(c:Person) RETURN a, b, c'}</code>
-                                    <button className="copy-btn" onClick={() => copyToClipboard('MATCH (p:Person) WHERE p.age > 25 RETURN p
-MATCH (a:Person)-[:FRIEND]->(b:Person)-[:FRIEND]->(c:Person) RETURN a, b, c')}>Copy</button>
+                                    <code>{'MATCH (p:Person) WHERE p.age > 25 RETURN p\nMATCH (a:Person)-[:FRIEND]->(b:Person)-[:FRIEND]->(c:Person) RETURN a, b, c'}</code>
+                                    <button className="copy-btn" onClick={() => copyToClipboard('MATCH (p:Person) WHERE p.age > 25 RETURN p\nMATCH (a:Person)-[:FRIEND]->(b:Person)-[:FRIEND]->(c:Person) RETURN a, b, c')}>Copy</button>
                                 </div>
                             </div>
                         </div>
@@ -1154,10 +1141,8 @@ MATCH (a:Person)-[:FRIEND]->(b:Person)-[:FRIEND]->(c:Person) RETURN a, b, c')}>C
                                     <p style={{ marginTop: '0.5rem' }}>{t.ex4Task}</p>
                                 </div>
                                 <div className="code-block" style={{ marginTop: '1rem' }}>
-                                    <code>{'MATCH (p:Product)-[:IN_CATEGORY]->(c:Category) RETURN c.name, COUNT(p) as product_count ORDER BY product_count DESC
-MATCH (customer:Person)-[r:PURCHASED]->() RETURN customer.name, COUNT(r) as purchase_count ORDER BY purchase_count DESC'}</code>
-                                    <button className="copy-btn" onClick={() => copyToClipboard('MATCH (p:Product)-[:IN_CATEGORY]->(c:Category) RETURN c.name, COUNT(p) as product_count ORDER BY product_count DESC
-MATCH (customer:Person)-[r:PURCHASED]->() RETURN customer.name, COUNT(r) as purchase_count ORDER BY purchase_count DESC')}>Copy</button>
+                                    <code>{'MATCH (p:Product)-[:IN_CATEGORY]->(c:Category) RETURN c.name, COUNT(p) as product_count ORDER BY product_count DESC\nMATCH (customer:Person)-[r:PURCHASED]->() RETURN customer.name, COUNT(r) as purchase_count ORDER BY purchase_count DESC'}</code>
+                                    <button className="copy-btn" onClick={() => copyToClipboard('MATCH (p:Product)-[:IN_CATEGORY]->(c:Category) RETURN c.name, COUNT(p) as product_count ORDER BY product_count DESC\nMATCH (customer:Person)-[r:PURCHASED]->() RETURN customer.name, COUNT(r) as purchase_count ORDER BY purchase_count DESC')}>Copy</button>
                                 </div>
                             </div>
                         </div>
@@ -1174,10 +1159,8 @@ MATCH (customer:Person)-[r:PURCHASED]->() RETURN customer.name, COUNT(r) as purc
                                     <p style={{ marginTop: '0.5rem' }}>{t.ex5Task}</p>
                                 </div>
                                 <div className="code-block" style={{ marginTop: '1rem' }}>
-                                    <code>{'MATCH (p:Product)<-[r:PURCHASED]-() RETURN p.name, COUNT(r) as times_purchased ORDER BY times_purchased DESC LIMIT 10
-MATCH (customer:Person)-[r:PURCHASED]->(product:Product) RETURN customer.name, COLLECT(product.name) as purchases'}</code>
-                                    <button className="copy-btn" onClick={() => copyToClipboard('MATCH (p:Product)<-[r:PURCHASED]-() RETURN p.name, COUNT(r) as times_purchased ORDER BY times_purchased DESC LIMIT 10
-MATCH (customer:Person)-[r:PURCHASED]->(product:Product) RETURN customer.name, COLLECT(product.name) as purchases')}>Copy</button>
+                                    <code>{'MATCH (p:Product)<-[r:PURCHASED]-() RETURN p.name, COUNT(r) as times_purchased ORDER BY times_purchased DESC LIMIT 10\nMATCH (customer:Person)-[r:PURCHASED]->(product:Product) RETURN customer.name, COLLECT(product.name) as purchases'}</code>
+                                    <button className="copy-btn" onClick={() => copyToClipboard('MATCH (p:Product)<-[r:PURCHASED]-() RETURN p.name, COUNT(r) as times_purchased ORDER BY times_purchased DESC LIMIT 10\nMATCH (customer:Person)-[r:PURCHASED]->(product:Product) RETURN customer.name, COLLECT(product.name) as purchases')}>Copy</button>
                                 </div>
                             </div>
                         </div>

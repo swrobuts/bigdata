@@ -879,14 +879,8 @@
                                 </div>
 
                                 <div className="code-block" style={{ position: 'relative' }}>
-                                    <button className="copy-btn" onClick={() => copyToClipboard('use megastore
-show collections
-db.customers.countDocuments()
-db.customers.findOne()')}>{t.copy}</button>
-                                    <code>{'use megastore
-show collections
-db.customers.countDocuments()
-db.customers.findOne()'}</code>
+                                    <button className="copy-btn" onClick={() => copyToClipboard('use megastore\nshow collections\ndb.customers.countDocuments()\ndb.customers.findOne()')}>{t.copy}</button>
+                                    <code>{'use megastore\nshow collections\ndb.customers.countDocuments()\ndb.customers.findOne()'}</code>
                                 </div>
 
                                 <div className="output-box">
@@ -931,28 +925,8 @@ country: "Germany"`}
                                 </div>
 
                                 <div className="code-block" style={{ position: 'relative' }}>
-                                    <button className="copy-btn" onClick={() => copyToClipboard('// Insert
-db.customers.insertOne({ name: "Bob Meyer", email: "bob@test.de", city: "Munich", country: "Germany" })
-
-// Read
-db.customers.findOne({ email: "bob@test.de" })
-
-// Update
-db.customers.updateOne({ email: "bob@test.de" }, { $set: { city: "Hamburg" } })
-
-// Delete
-db.customers.deleteOne({ email: "bob@test.de" })')}>{t.copy}</button>
-                                    <code>{'// Insert
-db.customers.insertOne({ name: "Bob Meyer", email: "bob@test.de", city: "Munich", country: "Germany" })
-
-// Read
-db.customers.findOne({ email: "bob@test.de" })
-
-// Update
-db.customers.updateOne({ email: "bob@test.de" }, { $set: { city: "Hamburg" } })
-
-// Delete
-db.customers.deleteOne({ email: "bob@test.de" })'}</code>
+                                    <button className="copy-btn" onClick={() => copyToClipboard('// Insert\ndb.customers.insertOne({ name: "Bob Meyer", email: "bob@test.de", city: "Munich", country: "Germany" })\n\n// Read\ndb.customers.findOne({ email: "bob@test.de" })\n\n// Update\ndb.customers.updateOne({ email: "bob@test.de" }, { $set: { city: "Hamburg" } })\n\n// Delete\ndb.customers.deleteOne({ email: "bob@test.de" })')}>{t.copy}</button>
+                                    <code>{'// Insert\ndb.customers.insertOne({ name: "Bob Meyer", email: "bob@test.de", city: "Munich", country: "Germany" })\n\n// Read\ndb.customers.findOne({ email: "bob@test.de" })\n\n// Update\ndb.customers.updateOne({ email: "bob@test.de" }, { $set: { city: "Hamburg" } })\n\n// Delete\ndb.customers.deleteOne({ email: "bob@test.de" })'}</code>
                                 </div>
 
                                 <div className="output-box">
@@ -994,28 +968,8 @@ db.customers.deleteOne({ email: "bob@test.de" })'}</code>
                                 </div>
 
                                 <div className="code-block" style={{ position: 'relative' }}>
-                                    <button className="copy-btn" onClick={() => copyToClipboard('// Find by city
-db.customers.find({ country: "Germany" })
-
-// Find with $gt (greater than)
-db.customers.find({ age: { $gt: 25 } })
-
-// Find with $regex
-db.customers.find({ name: { $regex: "Max" } })
-
-// Combine with $and
-db.customers.find({ $and: [{ country: "Germany" }, { age: { $gt: 25 } }] })')}>{t.copy}</button>
-                                    <code>{'// Find by city
-db.customers.find({ country: "Germany" })
-
-// Find with $gt (greater than)
-db.customers.find({ age: { $gt: 25 } })
-
-// Find with $regex
-db.customers.find({ name: { $regex: "Max" } })
-
-// Combine with $and
-db.customers.find({ $and: [{ country: "Germany" }, { age: { $gt: 25 } }] })'}</code>
+                                    <button className="copy-btn" onClick={() => copyToClipboard('// Find by city\ndb.customers.find({ country: "Germany" })\n\n// Find with $gt (greater than)\ndb.customers.find({ age: { $gt: 25 } })\n\n// Find with $regex\ndb.customers.find({ name: { $regex: "Max" } })\n\n// Combine with $and\ndb.customers.find({ $and: [{ country: "Germany" }, { age: { $gt: 25 } }] })')}>{t.copy}</button>
+                                    <code>{'// Find by city\ndb.customers.find({ country: "Germany" })\n\n// Find with $gt (greater than)\ndb.customers.find({ age: { $gt: 25 } })\n\n// Find with $regex\ndb.customers.find({ name: { $regex: "Max" } })\n\n// Combine with $and\ndb.customers.find({ $and: [{ country: "Germany" }, { age: { $gt: 25 } }] })'}</code>
                                 </div>
 
                                 <div className="output-box">
@@ -1060,22 +1014,8 @@ db.customers.find({ $and: [{ country: "Germany" }, { age: { $gt: 25 } }] })'}</c
                                 </div>
 
                                 <div className="code-block" style={{ position: 'relative' }}>
-                                    <button className="copy-btn" onClick={() => copyToClipboard('// Sort by registration date
-db.customers.find().sort({ registration_date: 1 }).limit(5)
-
-// Projection: only name and email
-db.customers.find({}, { name: 1, email: 1, _id: 0 })
-
-// Combine all
-db.customers.find({}, { name: 1, email: 1, _id: 0 }).sort({ registration_date: 1 }).limit(10)')}>{t.copy}</button>
-                                    <code>{'// Sort by registration date
-db.customers.find().sort({ registration_date: 1 }).limit(5)
-
-// Projection: only name and email
-db.customers.find({}, { name: 1, email: 1, _id: 0 })
-
-// Combine all
-db.customers.find({}, { name: 1, email: 1, _id: 0 }).sort({ registration_date: 1 }).limit(10)'}</code>
+                                    <button className="copy-btn" onClick={() => copyToClipboard('// Sort by registration date\ndb.customers.find().sort({ registration_date: 1 }).limit(5)\n\n// Projection: only name and email\ndb.customers.find({}, { name: 1, email: 1, _id: 0 })\n\n// Combine all\ndb.customers.find({}, { name: 1, email: 1, _id: 0 }).sort({ registration_date: 1 }).limit(10)')}>{t.copy}</button>
+                                    <code>{'// Sort by registration date\ndb.customers.find().sort({ registration_date: 1 }).limit(5)\n\n// Projection: only name and email\ndb.customers.find({}, { name: 1, email: 1, _id: 0 })\n\n// Combine all\ndb.customers.find({}, { name: 1, email: 1, _id: 0 }).sort({ registration_date: 1 }).limit(10)'}</code>
                                 </div>
 
                                 <div className="output-box">
@@ -1118,16 +1058,8 @@ name: "Bob Miller", email: "bob@example.com"
                                 </div>
 
                                 <div className="code-block" style={{ position: 'relative' }}>
-                                    <button className="copy-btn" onClick={() => copyToClipboard('db.customers.aggregate([
-  { $group: { _id: "$city", count: { $sum: 1 }, avg_value: { $avg: "$lifetime_value" } } },
-  { $sort: { count: -1 } },
-  { $limit: 10 }
-])')}>{t.copy}</button>
-                                    <code>{'db.customers.aggregate([
-  { $group: { _id: "$city", count: { $sum: 1 }, avg_value: { $avg: "$lifetime_value" } } },
-  { $sort: { count: -1 } },
-  { $limit: 10 }
-])'}</code>
+                                    <button className="copy-btn" onClick={() => copyToClipboard('db.customers.aggregate([\n  { $group: { _id: "$city", count: { $sum: 1 }, avg_value: { $avg: "$lifetime_value" } } },\n  { $sort: { count: -1 } },\n  { $limit: 10 }\n])')}>{t.copy}</button>
+                                    <code>{'db.customers.aggregate([\n  { $group: { _id: "$city", count: { $sum: 1 }, avg_value: { $avg: "$lifetime_value" } } },\n  { $sort: { count: -1 } },\n  { $limit: 10 }\n])'}</code>
                                 </div>
 
                                 <div className="output-box">
@@ -1167,28 +1099,8 @@ _id: "Cologne", count: 134, avg_value: 1100.00
                                 </div>
 
                                 <div className="code-block" style={{ position: 'relative' }}>
-                                    <button className="copy-btn" onClick={() => copyToClipboard('// Top orders
-db.orders.find().sort({ total: -1 }).limit(5)
-
-// Orders per customer
-db.orders.aggregate([{ $group: { _id: "$customer_id", order_count: { $sum: 1 } } }, { $sort: { order_count: -1 } }])
-
-// Revenue by category
-db.orders.aggregate([{ $group: { _id: "$category", revenue: { $sum: "$total" } } }, { $sort: { revenue: -1 } }])
-
-// Top 10 customers
-db.orders.aggregate([{ $group: { _id: "$customer_id", total_spent: { $sum: "$total" } } }, { $sort: { total_spent: -1 } }, { $limit: 10 }])')}>{t.copy}</button>
-                                    <code>{'// Top orders
-db.orders.find().sort({ total: -1 }).limit(5)
-
-// Orders per customer
-db.orders.aggregate([{ $group: { _id: "$customer_id", order_count: { $sum: 1 } } }, { $sort: { order_count: -1 } }])
-
-// Revenue by category
-db.orders.aggregate([{ $group: { _id: "$category", revenue: { $sum: "$total" } } }, { $sort: { revenue: -1 } }])
-
-// Top 10 customers
-db.orders.aggregate([{ $group: { _id: "$customer_id", total_spent: { $sum: "$total" } } }, { $sort: { total_spent: -1 } }, { $limit: 10 }])'}</code>
+                                    <button className="copy-btn" onClick={() => copyToClipboard('// Top orders\ndb.orders.find().sort({ total: -1 }).limit(5)\n\n// Orders per customer\ndb.orders.aggregate([{ $group: { _id: "$customer_id", order_count: { $sum: 1 } } }, { $sort: { order_count: -1 } }])\n\n// Revenue by category\ndb.orders.aggregate([{ $group: { _id: "$category", revenue: { $sum: "$total" } } }, { $sort: { revenue: -1 } }])\n\n// Top 10 customers\ndb.orders.aggregate([{ $group: { _id: "$customer_id", total_spent: { $sum: "$total" } } }, { $sort: { total_spent: -1 } }, { $limit: 10 }])')}>{t.copy}</button>
+                                    <code>{'// Top orders\ndb.orders.find().sort({ total: -1 }).limit(5)\n\n// Orders per customer\ndb.orders.aggregate([{ $group: { _id: "$customer_id", order_count: { $sum: 1 } } }, { $sort: { order_count: -1 } }])\n\n// Revenue by category\ndb.orders.aggregate([{ $group: { _id: "$category", revenue: { $sum: "$total" } } }, { $sort: { revenue: -1 } }])\n\n// Top 10 customers\ndb.orders.aggregate([{ $group: { _id: "$customer_id", total_spent: { $sum: "$total" } } }, { $sort: { total_spent: -1 } }, { $limit: 10 }])'}</code>
                                 </div>
 
                                 <div className="output-box">
@@ -1247,36 +1159,8 @@ orders_count: 18`}
                                     {expandedHints['solution'] && (
                                         <div className="expandable-content">
                                             <div className="code-block" style={{ position: 'relative' }}>
-                                                <button className="copy-btn" onClick={() => copyToClipboard('db.customers.aggregate([
-  { $lookup: { from: "orders", localField: "_id", foreignField: "customer_id", as: "orders" } },
-  { $addFields: {
-    recency: { $subtract: [{ $toDate: "$$NOW" }, { $max: "$orders.order_date" }] },
-    frequency: { $size: "$orders" },
-    monetary: { $sum: "$orders.total" }
-  } },
-  { $addFields: {
-    recency_days: { $divide: ["$recency", 86400000] }
-  } },
-  { $addFields: {
-    segment: { $cond: [{ $gt: ["$recency_days", 60] }, "At-Risk", { $cond: [{ $gt: ["$monetary", 2000] }, "VIP", "Regular"] }] }
-  } },
-  { $group: { _id: "$segment", count: { $sum: 1 } } }
-])')}>{t.copy}</button>
-                                                <code>{'db.customers.aggregate([
-  { $lookup: { from: "orders", localField: "_id", foreignField: "customer_id", as: "orders" } },
-  { $addFields: {
-    recency: { $subtract: [{ $toDate: "$$NOW" }, { $max: "$orders.order_date" }] },
-    frequency: { $size: "$orders" },
-    monetary: { $sum: "$orders.total" }
-  } },
-  { $addFields: {
-    recency_days: { $divide: ["$recency", 86400000] }
-  } },
-  { $addFields: {
-    segment: { $cond: [{ $gt: ["$recency_days", 60] }, "At-Risk", { $cond: [{ $gt: ["$monetary", 2000] }, "VIP", "Regular"] }] }
-  } },
-  { $group: { _id: "$segment", count: { $sum: 1 } } }
-])'}</code>
+                                                <button className="copy-btn" onClick={() => copyToClipboard('db.customers.aggregate([\n  { $lookup: { from: "orders", localField: "_id", foreignField: "customer_id", as: "orders" } },\n  { $addFields: {\n    recency: { $subtract: [{ $toDate: "$$NOW" }, { $max: "$orders.order_date" }] },\n    frequency: { $size: "$orders" },\n    monetary: { $sum: "$orders.total" }\n  } },\n  { $addFields: {\n    recency_days: { $divide: ["$recency", 86400000] }\n  } },\n  { $addFields: {\n    segment: { $cond: [{ $gt: ["$recency_days", 60] }, "At-Risk", { $cond: [{ $gt: ["$monetary", 2000] }, "VIP", "Regular"] }] }\n  } },\n  { $group: { _id: "$segment", count: { $sum: 1 } } }\n])')}>{t.copy}</button>
+                                                <code>{'db.customers.aggregate([\n  { $lookup: { from: "orders", localField: "_id", foreignField: "customer_id", as: "orders" } },\n  { $addFields: {\n    recency: { $subtract: [{ $toDate: "$$NOW" }, { $max: "$orders.order_date" }] },\n    frequency: { $size: "$orders" },\n    monetary: { $sum: "$orders.total" }\n  } },\n  { $addFields: {\n    recency_days: { $divide: ["$recency", 86400000] }\n  } },\n  { $addFields: {\n    segment: { $cond: [{ $gt: ["$recency_days", 60] }, "At-Risk", { $cond: [{ $gt: ["$monetary", 2000] }, "VIP", "Regular"] }] }\n  } },\n  { $group: { _id: "$segment", count: { $sum: 1 } } }\n])'}</code>
                                             </div>
                                         </div>
                                     )}
