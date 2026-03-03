@@ -3,1819 +3,1190 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Apache Spark Lab - Distributed Data Processing</title>
-
+    <title>Apache Spark Lab - Big Data Course</title>
     <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-light.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/javascript.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/bash.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/json.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/yaml.min.js"></script>
-
     <style>
-        * {
-            scroll-behavior: smooth;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: #fafbfc;
-        }
-
-        html[dir="rtl"] {
-            direction: rtl;
-            text-align: right;
-        }
-
-        html[dir="rtl"] * {
-            text-align: inherit;
-        }
-
-        .navbar {
-            background: white;
-            box-shadow: 0 1px 12px rgba(0,0,0,0.05);
-            position: sticky;
-            top: 0;
-            z-index: 50;
-        }
-
-        .navbar-content {
-            max-width: 7xl;
-            margin: 0 auto;
-            padding: 1rem 1.5rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 800;
+            background-color: #fafbfc;
             color: #1B3A5C;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
+            line-height: 1.6;
         }
-
-        .lang-btn {
-            padding: 0.5rem 0.75rem;
-            border-radius: 0.375rem;
-            border: 2px solid #e5e7eb;
-            background: white;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 0.875rem;
-            color: #666;
-            transition: all 0.3s ease;
-        }
-
-        .lang-btn.active {
-            background: #E25A1C;
+        .accent-line { border-top: 4px solid #E8792F; }
+        .accent-border { border: 2px solid #E8792F; }
+        .accent-bg { background-color: #E8792F; }
+        .btn-accent {
+            background-color: #E8792F;
             color: white;
-            border-color: #E25A1C;
-        }
-
-        .lang-btn:hover {
-            border-color: #E25A1C;
-        }
-
-        .hero-section {
-            background: #1B3A5C;
-            color: white;
-            padding: 4rem 1.5rem;
-        }
-
-        .hero-content {
-            max-width: 7xl;
-            margin: 0 auto;
-        }
-
-        .sidebar {
-            background: white;
-            border-right: 1px solid rgba(0, 0, 0, 0.06);
-            padding: 2rem 1.5rem;
-            max-height: calc(100vh - 64px);
-            overflow-y: auto;
-            position: sticky;
-            top: 64px;
-        }
-
-        .sidebar-link {
-            display: block;
-            padding: 0.75rem 1rem;
-            margin-bottom: 0.5rem;
-            border-left: 3px solid transparent;
-            color: #1B3A5C;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border-radius: 0 0.375rem 0.375rem 0;
-            text-decoration: none;
-        }
-
-        html[dir="rtl"] .sidebar-link {
-            border-left: none;
-            border-right: 3px solid transparent;
-            border-radius: 0.375rem 0 0 0.375rem;
-        }
-
-        .sidebar-link:hover {
-            background: rgba(226, 90, 28, 0.1);
-            border-left-color: #E25A1C;
-        }
-
-        html[dir="rtl"] .sidebar-link:hover {
-            border-left: none;
-            border-right-color: #E25A1C;
-        }
-
-        .sidebar-link.active {
-            background: rgba(226, 90, 28, 0.15);
-            border-left-color: #E25A1C;
-            font-weight: 600;
-            color: #E25A1C;
-        }
-
-        html[dir="rtl"] .sidebar-link.active {
-            border-left: none;
-            border-right-color: #E25A1C;
-        }
-
-        .section {
-            margin-bottom: 3rem;
-            scroll-margin-top: 100px;
-        }
-
-        .section-header {
-            font-size: 2rem;
-            font-weight: 700;
-            color: #1B3A5C;
-            margin-bottom: 1.5rem;
-            padding-bottom: 1rem;
-            border-bottom: 3px solid rgba(226, 90, 28, 0.6);
-        }
-
-        .subsection-header {
-            font-size: 1.25rem;
-            font-weight: 600;
-            color: #1B3A5C;
-            margin-top: 1.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .card {
-            background: white;
-            border: 1px solid rgba(0, 0, 0, 0.06);
+            padding: 0.75rem 1.5rem;
             border-radius: 0.75rem;
-            padding: 1.5rem;
-            margin-bottom: 1.5rem;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
-            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s;
         }
-
-        .card:hover {
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
-            border-color: rgba(226, 90, 28, 0.3);
-        }
-
+        .btn-accent:hover { opacity: 0.9; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(232, 121, 47, 0.3); }
+        .card { background: white; border-radius: 0.75rem; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); padding: 1.5rem; margin-bottom: 1.5rem; }
+        .card:hover { box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); }
         .code-block {
-            background: #1e293b;
-            border-left: 3px solid rgba(226, 90, 28, 0.8);
-            border-radius: 0.75rem;
-            margin-bottom: 1.5rem;
+            background: #1B3A5C;
+            border-left: 4px solid #E8792F;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin: 1rem 0;
             position: relative;
-            overflow: hidden;
+            overflow: auto;
         }
-
-        .code-block-header {
-            background: rgba(0, 0, 0, 0.3);
-            color: #e2e8f0;
-            padding: 0.75rem 1rem;
-            font-size: 0.875rem;
-            font-weight: 600;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .code-block-content {
-            padding: 1.5rem 1rem;
-            overflow-x: auto;
-        }
-
         .code-block code {
-            color: #e2e8f0;
+            color: #00d084;
             font-family: 'Monaco', 'Courier New', monospace;
-            font-size: 0.875rem;
+            font-size: 0.9rem;
             line-height: 1.5;
+            display: block;
+            white-space: pre;
         }
-
-        .copy-button {
-            background: rgba(226, 90, 28, 0.9);
+        .copy-btn {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            background: #E8792F;
             color: white;
             border: none;
-            padding: 0.5rem 1rem;
-            border-radius: 0.375rem;
+            padding: 0.4rem 0.8rem;
+            border-radius: 0.35rem;
             cursor: pointer;
-            font-size: 0.875rem;
+            font-size: 0.8rem;
             font-weight: 600;
-            transition: all 0.3s ease;
+            transition: all 0.2s;
         }
-
-        .copy-button:hover {
-            background: #E25A1C;
+        .copy-btn:hover { opacity: 0.85; }
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: #1B3A5C;
+            z-index: 50;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 2rem;
+            height: 4rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
-
-        .copy-button.copied {
-            background: #10b981;
+        .header-left { display: flex; align-items: center; gap: 1rem; }
+        .back-btn { background: none; border: none; color: #E8792F; font-size: 1.5rem; cursor: pointer; font-weight: bold; }
+        .header-title { color: white; font-size: 1.5rem; font-weight: 700; }
+        .lang-switcher { display: flex; gap: 0.5rem; }
+        .lang-btn {
+            background: transparent;
+            color: #E8792F;
+            border: 1px solid #E8792F;
+            padding: 0.4rem 0.8rem;
+            border-radius: 0.35rem;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.8rem;
+            transition: all 0.2s;
         }
-
-        .difficulty-badge {
+        .lang-btn.active { background: #E8792F; color: white; }
+        .lang-btn:hover { opacity: 0.9; }
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 4rem;
+            width: 280px;
+            height: calc(100vh - 4rem);
+            background: white;
+            border-right: 1px solid #e5e7eb;
+            padding: 1.5rem 0;
+            overflow-y: auto;
+            z-index: 40;
+        }
+        .sidebar-item {
+            display: block;
+            padding: 0.75rem 1.5rem;
+            color: #1B3A5C;
+            cursor: pointer;
+            border-left: 4px solid transparent;
+            transition: all 0.2s;
+            font-size: 0.95rem;
+        }
+        .sidebar-item:hover { background: #f3f4f6; border-left-color: #E8792F; }
+        .sidebar-item.active { background: rgba(232, 121, 47, 0.1); border-left-color: #E8792F; color: #E8792F; font-weight: 600; }
+        .main-content { margin-left: 280px; padding-top: 5rem; padding: 2rem 3rem; background: #fafbfc; min-height: 100vh; }
+        .section { display: none; }
+        .section.active { display: block; animation: fadeIn 0.3s; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .section-header { font-size: 2rem; font-weight: 700; color: #1B3A5C; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 4px solid #E8792F; }
+        .subsection-header { font-size: 1.25rem; font-weight: 600; color: #1B3A5C; margin-top: 1.5rem; margin-bottom: 1rem; }
+        .badge {
             display: inline-block;
             padding: 0.25rem 0.75rem;
             border-radius: 9999px;
-            font-size: 0.875rem;
+            font-size: 0.8rem;
             font-weight: 600;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
         }
-
-        .difficulty-beginner {
-            background: rgba(34, 197, 94, 0.15);
-            color: #166534;
-        }
-
-        .difficulty-intermediate {
-            background: rgba(251, 146, 60, 0.15);
-            color: #92400e;
-        }
-
-        .difficulty-advanced {
-            background: rgba(239, 68, 68, 0.15);
-            color: #991b1b;
-        }
-
-        .difficulty-boss {
-            background: rgba(139, 92, 246, 0.15);
-            color: #6d28d9;
-        }
-
-        .challenge-card {
-            background: white;
-            border: 1px solid rgba(0, 0, 0, 0.06);
-            border-radius: 0.75rem;
-            margin-bottom: 1.5rem;
-            overflow: hidden;
-        }
-
-        .challenge-header {
-            background: rgba(226, 90, 28, 0.05);
-            padding: 1.5rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        .badge-beginner { background: #c7f0d8; color: #0b663c; }
+        .badge-intermediate { background: #fef08a; color: #7c2d12; }
+        .badge-advanced { background: #fed7aa; color: #7c2d12; }
+        .badge-challenge { background: #fecaca; color: #7f1d1d; }
+        .expandable {
+            background: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin: 1rem 0;
             cursor: pointer;
-            user-select: none;
+            transition: all 0.2s;
         }
-
-        .challenge-title {
-            font-weight: 600;
-            color: #1B3A5C;
-        }
-
-        .challenge-toggle {
-            font-size: 1.5rem;
-            transition: transform 0.3s ease;
-        }
-
-        .challenge-toggle.open {
-            transform: rotate(90deg);
-        }
-
-        .challenge-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease;
-        }
-
-        .challenge-content.open {
-            max-height: 3000px;
-            padding: 1.5rem;
-            border-top: 1px solid rgba(0, 0, 0, 0.06);
-        }
-
-        .self-check-question {
-            background: white;
-            border: 1px solid rgba(0, 0, 0, 0.06);
-            border-radius: 0.75rem;
-            padding: 1.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .question-text {
-            font-weight: 600;
-            color: #1B3A5C;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            user-select: none;
-        }
-
-        .answer-toggle {
+        .expandable:hover { background: #f3f4f6; }
+        .expandable-header { font-weight: 600; color: #E8792F; display: flex; align-items: center; justify-content: space-between; }
+        .expandable-content { display: none; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #e5e7eb; }
+        .expandable.expanded .expandable-content { display: block; }
+        .expandable-chevron { transition: transform 0.2s; }
+        .expandable.expanded .expandable-chevron { transform: rotate(180deg); }
+        .output-box {
+            background: #1B3A5C;
+            color: #00d084;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            font-family: 'Monaco', 'Courier New', monospace;
             font-size: 0.9rem;
+            overflow-x: auto;
+            margin: 1rem 0;
+            border-left: 4px solid #E8792F;
         }
-
-        .answer-text {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease;
-            padding: 0;
-            margin-top: 0;
+        .quiz-item {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin: 1rem 0;
+            cursor: pointer;
         }
-
-        .answer-text.open {
-            max-height: 500px;
-            padding: 1rem 0;
-            margin-top: 1rem;
-            border-top: 1px solid rgba(0, 0, 0, 0.06);
-            color: #4b5563;
-            line-height: 1.6;
+        .quiz-item-question { font-weight: 600; color: #1B3A5C; margin-bottom: 0.5rem; display: flex; align-items: center; justify-content: space-between; }
+        .quiz-options { display: none; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #e5e7eb; }
+        .quiz-item.expanded .quiz-options { display: block; }
+        .quiz-option {
+            padding: 0.5rem 0;
+            margin: 0.5rem 0;
+            cursor: pointer;
+            padding-left: 0.5rem;
+            border-left: 2px solid transparent;
+            transition: all 0.2s;
         }
-
-        .info-box {
-            border-radius: 0.75rem;
+        .quiz-option:hover { border-left-color: #E8792F; background: #f9fafb; }
+        .quiz-option.correct { color: #059669; font-weight: 600; border-left-color: #059669; background: #ecfdf5; }
+        .quiz-option.incorrect { color: #dc2626; font-weight: 600; border-left-color: #dc2626; background: #fef2f2; }
+        .lesson-box {
+            background: #fef5f1;
+            border-left: 4px solid #E8792F;
             padding: 1.5rem;
-            margin-bottom: 1.5rem;
-            border-left: 4px solid;
+            border-radius: 0.5rem;
+            margin: 1rem 0;
         }
-
-        .hypothesis-box {
-            background: rgba(251, 146, 60, 0.08);
-            border-left-color: rgba(251, 146, 60, 0.6);
+        .hint-box {
+            background: #fffbeb;
+            border-left: 4px solid #E8792F;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin: 1rem 0;
         }
-
-        .insight-box {
-            background: rgba(34, 197, 94, 0.08);
-            border-left-color: rgba(34, 197, 94, 0.6);
+        .hint-title { font-weight: 600; color: #E8792F; margin-bottom: 0.5rem; }
+        [dir="rtl"] { direction: rtl; text-align: right; }
+        [dir="rtl"] .sidebar { left: auto; right: 0; border-right: none; border-left: 1px solid #e0e0e0; }
+        [dir="rtl"] .main-content { margin-left: 0; margin-right: 280px; }
+        [dir="rtl"] .back-btn { margin-left: 0; margin-right: 1rem; }
+        [dir="rtl"] .sidebar-item { border-left: none; border-right: 4px solid transparent; padding-left: 0; padding-right: 1.5rem; }
+        [dir="rtl"] .sidebar-item.active { border-right-color: #E8792F; }
+        [dir="rtl"] .code-block { border-left: none; border-right: 4px solid #E8792F; }
+        [dir="rtl"] .copy-btn { right: auto; left: 0.5rem; }
+        .outlook-section { margin-top: 2rem; }
+        .outlook-part { background: white; padding: 1.5rem; border-radius: 0.5rem; margin-bottom: 1.5rem; }
+        .outlook-title { font-size: 1.25rem; font-weight: 600; color: #1B3A5C; margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid #E8792F; }
+        .outlook-list { list-style: none; padding: 0; }
+        .outlook-list li { padding: 0.5rem 0; padding-left: 1.5rem; position: relative; }
+        .outlook-list li:before { content: "•"; position: absolute; left: 0; color: #E8792F; font-weight: bold; }
+        .prompt-example {
+            background: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin: 1rem 0;
+            font-family: 'Monaco', 'Courier New', monospace;
+            font-size: 0.9rem;
+            color: #1B3A5C;
+            overflow-x: auto;
         }
-
-        .learning-box {
-            background: rgba(59, 130, 246, 0.08);
-            border-left-color: rgba(59, 130, 246, 0.6);
-        }
-
-        @media (max-width: 768px) {
-            .sidebar {
-                position: fixed;
-                left: 0;
-                top: 64px;
-                width: 256px;
-                max-height: calc(100vh - 64px);
-                z-index: 40;
-                transform: translateX(-100%);
-                transition: transform 0.3s ease;
-            }
-
-            .sidebar.active {
-                transform: translateX(0);
-            }
-
-            .hero-section {
-                padding: 2rem 1.5rem;
-            }
-
-            .section-header {
-                font-size: 1.5rem;
-            }
-        }
-
-        .hljs {
-            background: transparent !important;
-            padding: 0 !important;
-        }
-
-        .hljs-string { color: #86e1a0; }
-        .hljs-number { color: #d4d4d4; }
-        .hljs-literal { color: #569cd6; }
-        .hljs-attr { color: #9cdcfe; }
-        .hljs-keyword { color: #569cd6; }
-
-        .numbered-list { list-style: none; padding: 0; margin: 0; counter-reset: item; }
-        .numbered-list li { display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 1rem; line-height: 1.6; }
-        .numbered-list li::before { counter-increment: item; content: counter(item); display: inline-flex; align-items: center; justify-content: center; min-width: 32px; height: 32px; background: #E8792F; color: white; border-radius: 50%; font-size: 0.85rem; font-weight: 700; flex-shrink: 0; }
-        .check-list { list-style: none; padding: 0; margin: 0; }
-        .check-list li { display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 1rem; line-height: 1.6; }
-        .check-list li::before { content: "✓"; display: inline-flex; align-items: center; justify-content: center; min-width: 28px; height: 28px; background: #E8792F; color: white; border-radius: 50%; font-size: 0.8rem; font-weight: 700; flex-shrink: 0; }
-        .source-link { font-size: 0.75rem; color: #888; margin-left: 0.25rem; text-decoration: none; }
-        .source-link:hover { color: #E8792F; text-decoration: underline; }
     </style>
 </head>
 <body>
     <div id="root"></div>
-
     <script type="text/babel">
-        const { useState, useEffect, useRef } = React;
+        const { useState, useEffect } = React;
 
         const translations = {
             de: {
-                nav: { backToOverview: "← Zurück zur Übersicht", language: "Sprache" },
-                hero: { title: "Apache Spark Lab - Verteilte Datenverarbeitung", chapter: "Kapitel 8 - Verteiltes Computing (Butscher: Big Data & Applications, THWS)", difficulty: "Schwierigkeitsgrad", advanced: "Fortgeschritten", estimatedTime: "Geschätzte Zeit", hours: "3-4 Stunden", prerequisites: "Voraussetzungen: MongoDB Lab und DuckDB Lab empfohlen" },
-                sidebar: {
-                    learningObjectives: "Lernziele",
-                    setupInstallation: "Setup & Installation",
-                    theoryOverview: "Theorie-Überblick",
-                    dataModel: "MegaStore Pipeline",
-                    exercise1: "Übung 1: SparkSession & DataFrames",
-                    exercise2: "Übung 2: Joins & Aggregationen",
-                    exercise3: "Übung 3: Window Functions & SQL",
-                    exercise4: "Übung 4: RDD Operationen",
-                    exercise5: "Übung 5: Performance & Optimierung",
-                    challenges: "Progressive Herausforderungen",
-                    selfCheck: "Selbstkontrolle",
-                    reflection: "Reflexion & Wirkliche Anwendungen",
-                    troubleshooting: "Fehlerbehebung"
-                },
-                objectives: [
-                    "Verteiltes Computing mit Apache Spark verstehen",
-                    "MapReduce-Paradigma beherrschen",
-                    "Spark RDDs und DataFrames nutzen",
-                    "SparkSQL für komplexe Analysen verwenden",
-                    "ETL-Pipelines für Datentransformation aufbauen"
-                ],
-                theory: {
-                    title: "Theorie-Überblick",
-                    whatIsSpark: "Was ist Apache Spark?",
-                    whatIsSparkDesc: "Apache Spark ist ein verteiltes Computing-Framework für schnelle, große Datenverarbeitung. Es läuft auf Cluster-Hardware und verteilt Datenverarbeitung über mehrere Maschinen für lineare Skalierbarkeit.",
-                    rddVsDataFrame: "RDD vs. DataFrame vs. Dataset",
-                    rddVsDataFrameDesc: "RDDs (Resilient Distributed Datasets) sind grundlegende abstrakte Sammlungen. DataFrames sind benannte, typisierte RDD-Spalten (ähnlich SQL-Tabellen). Datasets sind typsicher und kombinieren die Vorteile beider.",
-                    lazyEvaluation: "Lazy Evaluation",
-                    lazyEvaluationDesc: "Transformationen werden nicht sofort ausgeführt. Spark erstellt eine DAG (Directed Acyclic Graph) von Transformationen und führt sie nur aus, wenn eine Action aufgerufen wird. Dies ermöglicht Optimierungen.",
-                    architecture: "Spark-Architektur",
-                    architectureDesc: "Der Driver-Prozess führt Ihren Spark-Code aus und koordiniert Executors. Der Cluster Manager verwaltet Ressourcen. Executors führen tatsächliche Arbeit auf Datenpartitionen aus.",
-                    transformationsVsActions: "Transformationen vs. Aktionen",
-                    transformationsVsActionsDesc: "Transformationen (map, filter, join) erstellen neue RDDs ohne die zugrunde liegenden Daten zu ändern. Aktionen (collect, count, write) führen Berechnung aus und geben Ergebnisse zurück."
-                },
-                dataModel: {
-                    title: "MegaStore Pipeline",
-                    intro: "Das MegaStore e-Commerce-System fließt durch folgende Spark-Verarbeitungsphasen:",
-                    dataFlow: "Datenfluss: CSV/Parquet → SparkSession → Transformationen → Aggregationen → Output",
-                    customers: "Customers (Kunden): ID, Name, E-Mail, Registrierungsdatum, Land",
-                    products: "Products (Produkte): product_id, name, category, unit_price, stock_quantity",
-                    orders: "Orders (Bestellungen): order_id, customer_id, order_date, order_total, status",
-                    orderItems: "OrderItems (Bestellpositionen): order_item_id, order_id, product_id, quantity, unit_price",
-                    schema: "Daten sind in Parquet (komprimiert, kolumnar) für schnelle Spark-Verarbeitung gespeichert."
-                },
-                exercise1: {
-                    title: "Übung 1: Erste Schritte mit PySpark",
-                    intro: "Erstellen Sie eine SparkSession, laden Sie Daten und erkunden Sie die Struktur."
-                },
-                exercise2: {
-                    title: "Übung 2: Joins & Aggregationen",
-                    intro: "Lernen Sie, mehrere Datenquellen zu verbinden und komplexe Aggregationen durchzuführen."
-                },
-                exercise3: {
-                    title: "Übung 3: Window Functions & SQL",
-                    intro: "Verwenden Sie Window Functions und SparkSQL für erweiterte Analysen."
-                },
-                exercise4: {
-                    title: "Übung 4: RDD Operationen",
-                    intro: "Erkunden Sie das MapReduce-Paradigma mit Spark RDDs."
-                },
-                exercise5: {
-                    title: "Übung 5: Performance & Optimierung",
-                    intro: "Lernen Sie Techniken zur Optimierung von Spark-Jobs für höhere Geschwindigkeit."
-                },
-                challenges: {
-                    title: "Progressive Herausforderungen",
-                    level1: {
-                        title: "Anfänger - Top 5 Produktkategorien",
-                        challenge: "Finden Sie die 5 Produktkategorien mit den meisten Produkten",
-                        hypothesis: "Bevor Sie schreiben: Welche Kategorien haben Ihrer Meinung nach die meisten Produkte?",
-                        solution: "df.groupBy('category').count().orderBy(col('count').desc()).limit(5).show()",
-                        insight: "Elektronik und Haus & Garten dominieren typischerweise. Dies wird für Lagerplatzallokation verwendet."
-                    },
-                    level2: {
-                        title: "Fortgeschritten - Multi-Table Joins",
-                        challenge: "Berechnen Sie den Gesamtumsatz pro Kategorie, indem Sie orders, order_items und products verbinden",
-                        hint: "Hint: Verwenden Sie multiple joins mit groupBy und aggregations",
-                        realWorld: "Dies ist das Kern-E-Commerce-Reporting."
-                    },
-                    level3: {
-                        title: "Erweitert - Window Functions & Performance",
-                        challenge: "Für jeden Kunden: Rang ihre Bestellungen nach Datum und berechnen Sie kumulativen Umsatz",
-                        hint: "Hint: Verwenden Sie Window Functions mit partitionBy und orderBy",
-                        realWorld: "Customer-Lifetime-Value und Retention Analytics sind entscheidend."
-                    },
-                    level4: {
-                        title: "Boss Challenge - Empfehlungsmaschine",
-                        challenge: "Bauen Sie ein ALS (Alternating Least Squares) Recommender-System für Produkt-zu-Produkt Empfehlungen",
-                        concept: "ALS ist ein kollaboratives Filterungs-Framework. Es faktorisiert die user-item-Matrix, um versteckte Faktoren zu entdecken.",
-                        realWorld: "Empfehlungen generieren 35% des Amazon-Umsatzes. Dies ist das Kerngeschäftsmodell."
-                    }
-                },
-                selfCheck: {
-                    title: "Selbstkontrolle",
-                    questions: [
-                        { q: "Was ist Lazy Evaluation in Spark?", a: "Transformationen werden nicht sofort ausgeführt. Spark erstellt einen Plan (DAG) und führt ihn erst aus, wenn eine Action aufgerufen wird. Dies ermöglicht Optimierungen." },
-                        { q: "Unterschied zwischen Transformation und Action?", a: "Transformationen (map, filter, join) sind faul und geben neue RDDs zurück. Aktionen (collect, count, save) führen Berechnung aus und geben Ergebnisse an den Treiber zurück." },
-                        { q: "Wann sollten Sie cache() verwenden?", a: "Verwenden Sie cache(), wenn Sie ein RDD/DataFrame mehrfach verwenden. Dies speichert es im Speicher, um wiederholte Neuberechnungen zu vermeiden." },
-                        { q: "Was macht repartition()?", a: "repartition() ändert die Anzahl der Partitionen, indem Daten neu gemischt werden. Dies ist teuer, aber notwendig, um Daten neu zu verteilen." },
-                        { q: "Wie funktioniert der Catalyst Optimizer?", a: "Catalyst analysiert den Spark-Abfrageplan und wendet Optimierungen an: Push-downs, Join-Ordnung, Kolonnelimination. Es konvertiert DataFrame-Code in optimierte Spark-SQL." }
-                    ]
-                },
-                reflection: {
-                    title: "Reflexion & Wirkliche Anwendungen",
-                    prompts: [
-                        { title: "Was überraschte Sie?", desc: "Welcher Aspekt von Spark war unerwartet? Wie unterschied sich es von Ihren Erwartungen?" },
-                        { title: "Was war am schwierigsten?", desc: "Welche Konzepte waren am schwierigsten? Wo brauchen Sie mehr Übung?" },
-                        { title: "Erklären Sie Spark einem nicht-technischen CEO", desc: "Wie würden Sie Sparks Vorteile in einfachen Worten erklären?" },
-                        { title: "Welche MegaStore-Frage war am interessantesten?", desc: "Welche der Herausforderungen hat Sie am meisten fasziniert und warum?" }
-                    ],
-                    companies: {
-                        title: "Warum Spark? Unternehmen wie Netflix, Uber und Shopify nutzen Spark täglich:",
-                        list: [
-                            { name: "Netflix", desc: "Verarbeitet Petabytes an Video-Streaming-Daten für Empfehlungen", link: "https://www.slideshare.net/NezihYigitbasi/spark-on-yarn-netflix" },
-                            { name: "Uber", desc: "Analysiert täglich Terabytes an Fahrtdaten für Preisgestaltung und Routen", link: "https://vutr.substack.com/p/how-does-uber-handle-petabytes-of" },
-                            { name: "Shopify", desc: "Verarbeitet 67 Millionen Bestellungen in Minuten während Spitzenverkaufszeiten", link: "https://shopify.engineering/capturing-every-change-shopify-sharded-monolith" },
-                            { name: "Alibaba", desc: "Führt die größten Spark-Jobs der Welt für E-Commerce-Analysen aus", link: "https://github.com/vaquarkhan/Techies-Notes-wiki/blob/master/Apache-Spark-Case-Study.md" }
-                        ]
-                    },
-                    realWorld: "Wo wird Spark in der echten Welt verwendet",
-                    useCases: [
-                        { title: "Big Data ETL Pipelines", desc: "Datenimport, Bereinigung und Transformationen für Datenlakehouses. Netflix nutzt Spark für Petabytes an Datenverarbeitung täglich." },
-                        { title: "Echtzeit-Streaming", desc: "Spark Streaming verarbeitet IoT-Sensordaten, Clickstreams und Finanztransaktionen in Echtzeit." },
-                        { title: "Machine Learning", desc: "MLlib für verteiltes Training auf großen Datensätzen. Spark-NLP für natürliche Sprachverarbeitung." },
-                        { title: "Analytik & BI", desc: "Schnelle Ad-hoc-Abfragen über Milliarden von Datensätzen mit Spark SQL und Tableau-Integration." }
-                    ]
-                },
-                troubleshooting: {
-                    title: "Fehlerbehebung",
-                    commonErrors: "Häufige Fehler und Lösungen",
-                    errors: [
-                        { problem: "Java nicht gefunden / JAVA_HOME nicht gesetzt", solution: "Installieren Sie Java: sudo apt-get install openjdk-11-jdk && export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64" },
-                        { problem: "OutOfMemoryError beim Spark Job", solution: "Erhöhen Sie Executor-Speicher: spark-submit --executor-memory 8g script.py" },
-                        { problem: "Port 4040 wird bereits verwendet", solution: "Verwenden Sie einen anderen Port: spark.ui.port=4041" },
-                        { problem: "Docker-Container startet nicht", solution: "Überprüfen Sie Logs: docker logs spark-jupyter. Stellen Sie sicher, dass genug RAM verfügbar ist." },
-                        { problem: "Langsame Spark-Jobs", solution: "Prüfen Sie Partitionierung (repartition), nutzen Sie cache(), überprüfen Sie Join-Ordnung mit explain()" }
-                    ]
-                },
-                ui: {
-                    copy: "Kopieren",
-                    hypothesis: "Hypothese:",
-                    exampleSolution: "Beispiellösung:",
-                    concept: "Konzept:",
-                    realWorldInsight: "Praxis-Einblick:",
-                    realWorldImpact: "Praxis-Auswirkung:",
-                    solution: "Lösung:",
-                    dataSchema: "Datenschema",
-                    nextExercise: "Nächste Übung →"
-                }
+                back: "← Zurück zur Startseite",
+                welcome: "Willkommen zum Apache Spark Labor",
+                overview: "Überblick",
+                setup: "Setup & Installation",
+                fundamentals: "Grundlagen",
+                exercise1: "Übung 1: SparkSession & DataFrames",
+                exercise2: "Übung 2: DataFrame-Operationen",
+                exercise3: "Übung 3: Aggregationen",
+                exercise4: "Übung 4: Joins & Transformationen",
+                exercise5: "Übung 5: MegaStore-Analyse",
+                challenge: "Challenge: Churn-Prediction",
+                quiz: "Wissenstest",
+                outlook: "Ausblick & KI",
+                troubleshooting: "Fehlerbehebung",
+                whatYouLearn: "Was Sie lernen werden",
+                realWorldMotivation: "Warum Spark? Unternehmen wie Netflix, Uber und Shopify nutzen Spark täglich:",
+                netflixDesc: "Netflix: Verarbeitet Petabytes an Video-Streaming-Daten für Empfehlungen",
+                uberDesc: "Uber: Analysiert täglich Terabytes an Fahrtdaten für Preisgestaltung",
+                shopifyDesc: "Shopify: Verarbeitet 67 Millionen Bestellungen in Minuten",
+                alibabaDesc: "Alibaba: Führt die größten Spark-Jobs der Welt für E-Commerce aus",
+                sparkIs: "Was ist Apache Spark?",
+                distributedComputing: "Verteiltes Computing: Spark läuft auf Maschinen-Clustern für massive Skalierbarkeit",
+                inMemoryProcessing: "Speicherverarbeitung: 100x schneller als Hadoop MapReduce",
+                unifiedFramework: "Einheitliches Framework: Batch, SQL, Streaming, ML alles in einem",
+                estimatedTime: "⏱ Geschätzte Zeit:",
+                timeValue: "2-3 Stunden für alle 5 Übungen + Challenge",
+                prerequisites: "Voraussetzungen:",
+                prereqValue: "Grundlagen von Python und Datenverarbeitung empfohlen",
+                chapter: "Kapitel:",
+                chapterValue: "Kapitel 8 – Verteiltes Computing (Butscher: Big Data & Applications, THWS)",
+                architectureLearn: "Spark-Architektur und RDD/DataFrame-Modell",
+                crudLearn: "SparkSession und Datenladung",
+                aggregationLearn: "Aggregationen und Transformationen",
+                modelingLearn: "Joins und Window Functions",
+                realWorldLearn: "Realweltanwendungen und Performance-Optimierung",
+                sparkPopular: "Apache Spark ist ein verteiltes Computing-Framework für schnelle, große Datenverarbeitung auf Cluster-Hardware.",
+                whenToUseSpark: "Wann Spark verwenden?",
+                useCase: "Anwendungsfall",
+                excellent: "Ausgezeichnet",
+                notIdeal: "Nicht ideal",
+                distributedData: "Verteilte Datenverarbeitung",
+                builtInSupport: "Eingebaute Unterstützung",
+                requiresCustomCode: "Benötigt Custom-Code",
+                realTimeProcessing: "Echtzeit-Verarbeitung",
+                streamingSupport: "Streaming unterstützt",
+                batchOnly: "Nur Batch",
+                machinelearning: "Machine Learning",
+                mlLibIncluded: "MLlib enthalten",
+                requiresExternalLib: "Benötigt externe Lib",
+                estimate: "Geschätzte Zeit:",
+                estimateValue: "1-2 Stunden für diese Übung",
+                objective: "Ziel",
+                steps: "Schritte",
+                hint: "Hinweis",
+                copy: "Kopieren",
+                nextExercise: "Nächste Übung →",
+                fundamentalsIntro: "Spark-Grundlagen verstehen",
+                whatIsSparkSession: "Was ist eine SparkSession?",
+                sparkSessionDesc: "SparkSession ist der Einstiegspunkt für Spark-Funktionalität. Sie verwaltet die Verbindung zum Cluster und erstellt DataFrames.",
+                rddVsDataFrame: "RDD vs. DataFrame",
+                rddVsDataFrameDesc: "RDDs sind grundlegende Abstraktionen mit wenigen Optimierungen. DataFrames sind SQL-Tabellen mit Schema und Catalyst-Optimierung für bessere Performance.",
+                lazyEvaluation: "Lazy Evaluation",
+                lazyEvaluationDesc: "Transformationen (map, filter) werden nicht sofort ausgeführt. Spark erstellt einen Plan und führt ihn nur aus, wenn eine Action aufgerufen wird.",
+                setupIntro: "Docker-Setup für Apache Spark mit Jupyter",
+                step1: "Schritt 1: Docker installieren",
+                step1Desc: "Herunterladen von https://www.docker.com/products/docker-desktop",
+                step2: "Schritt 2: Spark-Image abrufen",
+                step2Code: "docker pull jupyter/pyspark-notebook:latest",
+                step3: "Schritt 3: Container starten",
+                step3Code: "docker run --name spark-jupyter -p 8888:8888 -p 4040:4040 -v $(pwd)/data:/home/jovyan/data jupyter/pyspark-notebook:latest",
+                step4: "Schritt 4: Jupyter öffnen",
+                step4Desc: "Öffnen Sie http://localhost:8888 in Ihrem Browser",
+                overview1Title: "Überblick: Spark für E-Commerce",
+                overview1Intro: "Das MegaStore e-Commerce-System fließt durch folgende Spark-Verarbeitungsphasen:",
+                dataFlow: "Datenfluss: CSV/Parquet → SparkSession → Transformationen → Aggregationen → Output",
+                schema: "Datenschema",
+                customers: "Kunden: customer_id, name, email, registration_date, country",
+                products: "Produkte: product_id, name, category, unit_price, stock_quantity",
+                orders: "Bestellungen: order_id, customer_id, order_date, order_total, status",
+                orderItems: "Bestellpositionen: order_item_id, order_id, product_id, quantity, unit_price",
+                schemaNote: "Daten sind in Parquet (komprimiert, kolumnar) für schnelle Spark-Verarbeitung gespeichert.",
+                ex1Title: "Übung 1: SparkSession erstellen und Daten laden",
+                ex1Intro: "Lernen Sie, eine SparkSession zu erstellen, Daten zu laden und zu erkunden.",
+                ex1Objective: "Ziel: Datenstruktur verstehen und grundlegende Exploration durchführen",
+                ex1Steps: "Schritte:",
+                ex1Step1: "Eine SparkSession mit appName 'MegaStore' erstellen",
+                ex1Step2: "orders.parquet von der lokalen Festplatte laden",
+                ex1Step3: "Mit printSchema() die Spalten und Typen anzeigen",
+                ex1Step4: "Mit show(5) die ersten 5 Zeilen anzeigen",
+                ex1Verify: "Überprüfung: Wie viele Spalten hat der DataFrame?",
+                ex1Expected: "Erwartet: order_id, customer_id, order_date, order_total, status (5 Spalten)",
+                ex2Title: "Übung 2: DataFrame-Operationen (select, filter, show)",
+                ex2Intro: "Lernen Sie grundlegende Datenmanipulation mit Spark DataFrames.",
+                ex2Objective: "Ziel: select() zum Filtern von Spalten und filter() zum Filtern von Zeilen üben",
+                ex2Steps: "Schritte:",
+                ex2Step1: "Nur die Spalten order_id, customer_id und order_total mit select() auswählen",
+                ex2Step2: "Nur Bestellungen mit order_total > 100 mit filter() auswählen",
+                ex2Step3: "Kombinieren Sie beide: select + filter in einer Kette",
+                ex2Step4: "Zählen Sie die gefilterten Zeilen mit count()",
+                ex2Verify: "Überprüfung: Wie viele Bestellungen über 100 Euro gibt es?",
+                ex2Expected: "Erwartet: ca. 30-40% aller Bestellungen",
+                ex3Title: "Übung 3: Aggregationen (groupBy, count, avg)",
+                ex3Intro: "Lernen Sie Daten mit Aggregationsfunktionen zusammenzufassen.",
+                ex3Objective: "Ziel: Daten mit groupBy aggregieren und Statistiken berechnen",
+                ex3Steps: "Schritte:",
+                ex3Step1: "Bestellungen nach customer_id mit groupBy() gruppieren",
+                ex3Step2: "Die Anzahl der Bestellungen pro Kunde mit count() berechnen",
+                ex3Step3: "Den durchschnittlichen Bestellwert mit avg() berechnen",
+                ex3Step4: "Ergebnisse nach Bestellanzahl absteigend sortieren",
+                ex3Verify: "Überprüfung: Welcher Kunde hat die meisten Bestellungen?",
+                ex3Expected: "Erwartet: Ein oder wenige Top-Kunden mit 5-10 Bestellungen",
+                ex4Title: "Übung 4: Joins & Transformationen",
+                ex4Intro: "Lernen Sie mehrere DataFrames zu verbinden und komplexe Transformationen durchzuführen.",
+                ex4Objective: "Ziel: Joins nutzen um Daten aus verschiedenen Tabellen zu kombinieren",
+                ex4Steps: "Schritte:",
+                ex4Step1: "orders mit customers per customer_id verbinden",
+                ex4Step2: "order_items mit products per product_id verbinden",
+                ex4Step3: "Mit withColumn() neue Spalten für Bestellkosten berechnen",
+                ex4Step4: "Nach Land gruppieren und Gesamtumsatz pro Land berechnen",
+                ex4Verify: "Überprüfung: Welches Land hat den höchsten Umsatz?",
+                ex4Expected: "Erwartet: USA oder Deutschland dominieren typischerweise",
+                ex5Title: "Übung 5: MegaStore-Analyse (Umsatz & Trends)",
+                ex5Intro: "Kombinieren Sie alles Gelernte für eine echte Business-Analyse.",
+                ex5Objective: "Ziel: Ein komplettes Analyse-Projekt mit mehreren Joins, Aggregationen und Sortierung",
+                ex5Steps: "Schritte:",
+                ex5Step1: "Alle 4 Tabellen (customers, products, orders, order_items) laden",
+                ex5Step2: "orders mit order_items per order_id verbinden",
+                ex5Step3: "order_items mit products per product_id verbinden",
+                ex5Step4: "Umsatz nach Produktkategorie und Monat berechnen",
+                ex5Step5: "Top 5 Kategorien und monatliche Trends visualisieren",
+                ex5Verify: "Überprüfung: Trend steigt oder fällt?",
+                ex5Expected: "Erwartet: Saisonale Muster, z.B. höhere Umsätze in Dezember",
+                challengeTitle: "Challenge: Churn-Prediction Vorbereitung",
+                challengeIntro: "Bauen Sie ein ML-Vorbereitungs-Projekt für Customer Churn Prediction auf.",
+                challengeObjective: "Ziel: Features für ein Machine-Learning-Modell vorbereiten",
+                challengeSteps: "Schritte:",
+                challengeStep1: "Für jeden Kunden RFM-Metriken berechnen (Recency, Frequency, Monetary)",
+                challengeStep2: "Recency: Tage seit letzter Bestellung",
+                challengeStep3: "Frequency: Gesamtzahl der Bestellungen",
+                challengeStep4: "Monetary: Gesamtumsatz pro Kunde",
+                challengeStep5: "Kunden segmentieren: VIP (high value), Regular, At-Risk (hohe Recency)",
+                challengeStep6: "Features als Parquet speichern für ML-Training",
+                challengeVerify: "Überprüfung: Wie viele At-Risk-Kunden gibt es (>90 Tage inaktiv)?",
+                challengeExpected: "Erwartet: 15-25% der Kunden",
+                challengeHint: "Tipp: Verwenden Sie max(order_date) und datediff() für Recency",
+                solutionLabel: "Lösung anzeigen",
+                quizTitle: "Wissenstest: Spark-Konzepte",
+                quizIntro: "Testen Sie Ihr Verständnis von Spark mit Multiple-Choice-Fragen.",
+                q1: "Was ist Lazy Evaluation in Spark?",
+                q1a: "Transformationen werden nicht sofort ausgeführt. Spark erstellt einen Plan und führt ihn erst aus, wenn eine Action aufgerufen wird.",
+                q1b: "Spark führt Transformationen in zufälliger Reihenfolge aus.",
+                q1c: "Daten werden nur in den RAM geladen, wenn Sie sie brauchen.",
+                q1d: "Alle Abfragen werden 1 Sekunde verzögert.",
+                q1Correct: "Antwort A",
+                q1Explanation: "Spark nutzt Lazy Evaluation, um den Abfrageplan zu optimieren, bevor Code ausgeführt wird.",
+                q2: "Unterschied zwischen Transformation und Action?",
+                q2a: "Transformationen sind schneller.",
+                q2b: "Transformationen geben neue RDDs zurück (faul). Aktionen führen Code aus und geben Ergebnisse zurück.",
+                q2c: "Es gibt keinen Unterschied.",
+                q2d: "Aktionen können nur map() sein.",
+                q2Correct: "Antwort B",
+                q2Explanation: "Transformationen (map, filter, join) sind faul. Aktionen (collect, count, write) führen tatsächliche Berechnung aus.",
+                q3: "Wann sollten Sie cache() verwenden?",
+                q3a: "Immer, um Speicherplatz zu sparen.",
+                q3b: "Wenn Sie ein RDD/DataFrame mehrfach verwenden, um Neuberechnung zu vermeiden.",
+                q3c: "cache() wird automatisch angewendet.",
+                q3d: "Nur wenn Ihr Cluster > 100 Maschinen hat.",
+                q3Correct: "Antwort B",
+                q3Explanation: "cache() speichert Daten im Speicher. Nutzen Sie es strategisch für RDDs, die mehrmals verwendet werden.",
+                q4: "Was macht repartition()?",
+                q4a: "Teilt Daten in neue Partitionen, um sie neu zu verteilen (teuer aber wichtig).",
+                q4b: "Entfernt leere Partitionen automatisch.",
+                q4c: "Verschlüsselt Daten für Sicherheit.",
+                q4d: "repartition() ist dasselbe wie cache().",
+                q4Correct: "Antwort A",
+                q4Explanation: "repartition() ist teuer (verursacht Shuffle), aber notwendig um Daten neu über Partitionen zu verteilen.",
+                q5: "Was ist ein RDD?",
+                q5a: "Ein Datenbank-Indextyp.",
+                q5b: "Resilient Distributed Dataset - eine unveränderliche, verteilte Datensammlung.",
+                q5c: "Eine SQL-Tabelle in Spark.",
+                q5d: "Ein Speicherformat wie Parquet.",
+                q5Correct: "Antwort B",
+                q5Explanation: "RDDs sind der Kern von Spark: unveränderliche, verteilte, fehlertolerante Datensammlungen.",
+                correctAnswer: "Korrekt!",
+                incorrectAnswer: "Falsch. Versuchen Sie es erneut.",
+                submittedAnswers: "Eingereichte Antworten:",
+                youScored: "Sie haben erreicht:",
+                outlookTitle: "Ausblick & KI-Integration",
+                advancedTopics: "Fortgeschrittene Themen",
+                advancedDesc: "Nachdem Sie Spark beherrschen, gibt es viele Spezialisierungen:",
+                sparkStreaming: "Spark Streaming: Verarbeitung von Live-Datenströmen (Clickstreams, Sensoren, Finanztransaktionen)",
+                sparkML: "MLlib: Distributed Machine Learning auf großen Datensätzen (Regression, Klassifikation, Clustering)",
+                deltaLake: "Delta Lake: ACID-Transaktionen und Zeitreisen für Datalakehouses",
+                sparkConnect: "Spark Connect: Neue API für Remote-Spark-Cluster ohne JVM erforderlich",
+                aiIntegration: "KI-Unterstützte Entwicklung",
+                aiDesc: "Mit Claude Code und MCP kannst du Spark-Entwicklung durch KI beschleunigen:",
+                mcpExplained: "MCP (Model Context Protocol): Standardisierte API für KI-Tools zur Zusammenarbeit",
+                claudeExplained: "Claude Code: KI-Assistent, der Code versteht und fehlerfreie Spark-Jobs schreiben kann",
+                aiPrompts: "Beispiele für AI-unterstützte Spark-Aufgaben:",
+                aiPrompt1Title: "Feature Engineering automatisieren",
+                aiPrompt1: "Schreibe einen Spark-Code, der aus einem DataFrame mit order_date, customer_id und order_amount automatisch RFM-Features extrahiert und als neue Spalten hinzufügt.",
+                aiPrompt2Title: "Performance-Debugging",
+                aiPrompt2: "Analysiere diesen Spark-Job und zeige Bottlenecks auf. Der Job braucht 10 Minuten statt 1 Minute. Wie kann man ihn mit caching, repartitioning und Join-Optimierung schneller machen?",
+                aiPrompt3Title: "MLlib Pipeline bauen",
+                aiPrompt3: "Erstelle eine komplette Spark ML Pipeline für Customer Churn Prediction: Datenladung, Feature Scaling, LogisticRegression Training, Modell Evaluation.",
+                troubleshootingTitle: "Fehlerbehebung",
+                commonProblems: "Häufige Probleme und Lösungen",
+                error1Problem: "Java nicht gefunden / JAVA_HOME nicht gesetzt",
+                error1Solution: "Installieren Sie Java und setzen Sie JAVA_HOME: export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64",
+                error2Problem: "OutOfMemoryError beim Spark Job",
+                error2Solution: "Erhöhen Sie Executor-Speicher: spark-submit --executor-memory 8g script.py",
+                error3Problem: "Port 4040 wird bereits verwendet",
+                error3Solution: "Verwenden Sie einen anderen Port: spark.ui.port=4041",
+                error4Problem: "Docker-Container startet nicht",
+                error4Solution: "Überprüfen Sie Logs: docker logs spark-jupyter. Stellen Sie sicher, dass genug RAM verfügbar ist.",
+                error5Problem: "Langsame Spark-Jobs",
+                error5Solution: "Prüfen Sie Partitionierung mit repartition(), nutzen Sie cache() strategisch, überprüfen Sie Join-Ordnung mit explain()",
             },
             en: {
-                nav: { backToOverview: "← Back to Overview", language: "Language" },
-                hero: { title: "Apache Spark Lab - Distributed Data Processing", chapter: "Chapter 8 - Distributed Computing (Butscher: Big Data & Applications, THWS)", difficulty: "Difficulty", advanced: "Advanced", estimatedTime: "Estimated Time", hours: "3-4 Hours", prerequisites: "Prerequisites: MongoDB Lab and DuckDB Lab recommended" },
-                sidebar: {
-                    learningObjectives: "Learning Objectives",
-                    setupInstallation: "Setup & Installation",
-                    theoryOverview: "Theory Overview",
-                    dataModel: "MegaStore Pipeline",
-                    exercise1: "Exercise 1: SparkSession & DataFrames",
-                    exercise2: "Exercise 2: Joins & Aggregations",
-                    exercise3: "Exercise 3: Window Functions & SQL",
-                    exercise4: "Exercise 4: RDD Operations",
-                    exercise5: "Exercise 5: Performance & Optimization",
-                    challenges: "Progressive Challenges",
-                    selfCheck: "Self-Check",
-                    reflection: "Reflection & Real-World Applications",
-                    troubleshooting: "Troubleshooting"
-                },
-                objectives: [
-                    "Understand distributed computing with Apache Spark",
-                    "Master the MapReduce paradigm",
-                    "Learn Spark RDDs and DataFrames",
-                    "Use SparkSQL for complex analytics",
-                    "Build ETL pipelines for data transformation"
-                ],
-                theory: {
-                    title: "Theory Overview",
-                    whatIsSpark: "What is Apache Spark?",
-                    whatIsSparkDesc: "Apache Spark is a distributed computing framework for fast, large-scale data processing. It runs on cluster hardware and distributes data processing across multiple machines for linear scalability.",
-                    rddVsDataFrame: "RDD vs. DataFrame vs. Dataset",
-                    rddVsDataFrameDesc: "RDDs (Resilient Distributed Datasets) are fundamental abstract collections. DataFrames are named, typed columns of RDDs (like SQL tables). Datasets are type-safe and combine benefits of both.",
-                    lazyEvaluation: "Lazy Evaluation",
-                    lazyEvaluationDesc: "Transformations are not executed immediately. Spark builds a DAG (Directed Acyclic Graph) of transformations and only executes when an Action is called. This enables optimizations.",
-                    architecture: "Spark Architecture",
-                    architectureDesc: "The Driver process runs your Spark code and coordinates Executors. The Cluster Manager manages resources. Executors do actual work on data partitions.",
-                    transformationsVsActions: "Transformations vs. Actions",
-                    transformationsVsActionsDesc: "Transformations (map, filter, join) create new RDDs without changing underlying data. Actions (collect, count, write) trigger computation and return results."
-                },
-                dataModel: {
-                    title: "MegaStore Pipeline",
-                    intro: "The MegaStore e-Commerce system flows through the following Spark processing stages:",
-                    dataFlow: "Data flow: CSV/Parquet → SparkSession → Transformations → Aggregations → Output",
-                    customers: "Customers: customer_id, name, email, registration_date, country",
-                    products: "Products: product_id, name, category, unit_price, stock_quantity",
-                    orders: "Orders: order_id, customer_id, order_date, order_total, status",
-                    orderItems: "OrderItems: order_item_id, order_id, product_id, quantity, unit_price",
-                    schema: "Data is stored in Parquet (compressed, columnar) for fast Spark processing."
-                },
-                exercise1: {
-                    title: "Exercise 1: First Steps with PySpark",
-                    intro: "Create a SparkSession, load data, and explore its structure."
-                },
-                exercise2: {
-                    title: "Exercise 2: Joins & Aggregations",
-                    intro: "Learn to join multiple data sources and perform complex aggregations."
-                },
-                exercise3: {
-                    title: "Exercise 3: Window Functions & SQL",
-                    intro: "Use Window Functions and SparkSQL for advanced analytics."
-                },
-                exercise4: {
-                    title: "Exercise 4: RDD Operations",
-                    intro: "Explore the MapReduce paradigm with Spark RDDs."
-                },
-                exercise5: {
-                    title: "Exercise 5: Performance & Optimization",
-                    intro: "Learn techniques to optimize Spark jobs for speed."
-                },
-                challenges: {
-                    title: "Progressive Challenges",
-                    level1: {
-                        title: "Getting Started - Top 5 Product Categories",
-                        challenge: "Find the 5 product categories with the most products",
-                        hypothesis: "Before you write: Which categories do you think have the most products? Why?",
-                        solution: "df.groupBy('category').count().orderBy(col('count').desc()).limit(5).show()",
-                        insight: "Electronics and Home & Garden typically dominate. This data drives shelf space and marketing budget allocation."
-                    },
-                    level2: {
-                        title: "Intermediate - Multi-Table Joins",
-                        challenge: "Calculate total revenue per product category by joining orders, order_items, and products",
-                        hint: "Hint: Use multiple joins with groupBy and aggregation functions",
-                        realWorld: "This is the core e-commerce reporting foundation."
-                    },
-                    level3: {
-                        title: "Advanced - Window Functions & Performance",
-                        challenge: "For each customer: rank their orders by date and calculate cumulative revenue",
-                        hint: "Hint: Use Window Functions with partitionBy and orderBy",
-                        realWorld: "Customer Lifetime Value and retention analytics are critical."
-                    },
-                    level4: {
-                        title: "Boss Challenge - Build a Recommendation Engine",
-                        challenge: "Implement ALS (Alternating Least Squares) collaborative filtering for product recommendations",
-                        concept: "ALS is a matrix factorization framework. It factors the user-item matrix to discover latent factors predicting preference.",
-                        realWorld: "Amazon generates 35% of revenue from recommendations. This is the core business model."
-                    }
-                },
-                selfCheck: {
-                    title: "Self-Check",
-                    questions: [
-                        { q: "What is lazy evaluation in Spark?", a: "Transformations are not executed immediately. Spark builds a plan (DAG) and only executes when an Action is called. This enables optimizations." },
-                        { q: "Difference between transformation and action?", a: "Transformations (map, filter, join) are lazy and return new RDDs. Actions (collect, count, save) trigger computation and return results to the driver." },
-                        { q: "When should you use cache()?", a: "Use cache() when you reuse an RDD/DataFrame multiple times. It stores in memory to avoid recomputation." },
-                        { q: "What does repartition() do?", a: "repartition() changes the number of partitions by shuffling data. It's expensive but necessary to redistribute data." },
-                        { q: "How does the Catalyst optimizer work?", a: "Catalyst analyzes your Spark query plan and applies optimizations: predicate push-downs, join reordering, column pruning. It converts DataFrame code to optimized Spark SQL." }
-                    ]
-                },
-                reflection: {
-                    title: "Reflection & Real-World Applications",
-                    prompts: [
-                        { title: "What surprised you?", desc: "Which aspect of Spark was unexpected? How did it differ from your expectations?" },
-                        { title: "What was the hardest part?", desc: "Which concepts were most challenging? Where do you need more practice?" },
-                        { title: "Explain Spark to a non-technical CEO", desc: "How would you explain Spark's benefits for business decisions in simple terms?" },
-                        { title: "Which MegaStore business question was most interesting?", desc: "Of all the challenges: Which fascinated you most and why?" }
-                    ],
-                    companies: {
-                        title: "Why Spark? Companies like Netflix, Uber, and Shopify use Spark daily:",
-                        list: [
-                            { name: "Netflix", desc: "Processes petabytes of video streaming data for recommendations", link: "https://www.slideshare.net/NezihYigitbasi/spark-on-yarn-netflix" },
-                            { name: "Uber", desc: "Analyzes terabytes of trip data daily for pricing and routes", link: "https://vutr.substack.com/p/how-does-uber-handle-petabytes-of" },
-                            { name: "Shopify", desc: "Processes 67 million orders in minutes during peak sales", link: "https://shopify.engineering/capturing-every-change-shopify-sharded-monolith" },
-                            { name: "Alibaba", desc: "Runs the world's largest Spark jobs for e-commerce analytics", link: "https://github.com/vaquarkhan/Techies-Notes-wiki/blob/master/Apache-Spark-Case-Study.md" }
-                        ]
-                    },
-                    realWorld: "Where Spark Is Used in the Real World",
-                    useCases: [
-                        { title: "Big Data ETL Pipelines", desc: "Data import, cleaning, and transformations for data lakes. Netflix processes petabytes daily with Spark." },
-                        { title: "Real-Time Streaming", desc: "Spark Streaming processes IoT sensor data, clickstreams, and financial transactions in real-time." },
-                        { title: "Machine Learning at Scale", desc: "MLlib for distributed model training on massive datasets. Spark-NLP for natural language processing." },
-                        { title: "Analytics & BI", desc: "Fast ad-hoc queries over billions of records with Spark SQL and Tableau integration." }
-                    ]
-                },
-                troubleshooting: {
-                    title: "Troubleshooting",
-                    commonErrors: "Common Errors and Solutions",
-                    errors: [
-                        { problem: "Java not found / JAVA_HOME not set", solution: "Install Java: sudo apt-get install openjdk-11-jdk && export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64" },
-                        { problem: "OutOfMemoryError in Spark job", solution: "Increase executor memory: spark-submit --executor-memory 8g script.py" },
-                        { problem: "Port 4040 already in use", solution: "Use a different port: spark.ui.port=4041" },
-                        { problem: "Docker container not starting", solution: "Check logs: docker logs spark-jupyter. Ensure sufficient RAM available." },
-                        { problem: "Slow Spark performance", solution: "Check partitioning (repartition), use cache() strategically, review join order with explain()" }
-                    ]
-                },
-                ui: {
-                    copy: "Copy",
-                    hypothesis: "Hypothesis:",
-                    exampleSolution: "Example Solution:",
-                    concept: "Concept:",
-                    realWorldInsight: "Real-World Insight:",
-                    realWorldImpact: "Real-World Impact:",
-                    solution: "Solution:",
-                    dataSchema: "Data Schema",
-                    nextExercise: "Next Exercise →"
-                }
+                back: "← Back to Landing Page",
+                welcome: "Welcome to Apache Spark Lab",
+                overview: "Overview",
+                setup: "Setup & Installation",
+                fundamentals: "Fundamentals",
+                exercise1: "Exercise 1: SparkSession & DataFrames",
+                exercise2: "Exercise 2: DataFrame Operations",
+                exercise3: "Exercise 3: Aggregations",
+                exercise4: "Exercise 4: Joins & Transformations",
+                exercise5: "Exercise 5: MegaStore Analysis",
+                challenge: "Challenge: Churn Prediction",
+                quiz: "Knowledge Test",
+                outlook: "Outlook & AI",
+                troubleshooting: "Troubleshooting",
+                whatYouLearn: "What You Will Learn",
+                realWorldMotivation: "Why Spark? Companies like Netflix, Uber, and Shopify use Spark daily:",
+                netflixDesc: "Netflix: Processes petabytes of video streaming data for recommendations",
+                uberDesc: "Uber: Analyzes terabytes of trip data daily for pricing",
+                shopifyDesc: "Shopify: Processes 67 million orders in minutes",
+                alibabaDesc: "Alibaba: Runs the world's largest Spark jobs for e-commerce",
+                sparkIs: "What is Apache Spark?",
+                distributedComputing: "Distributed Computing: Spark runs on machine clusters for massive scalability",
+                inMemoryProcessing: "In-Memory Processing: 100x faster than Hadoop MapReduce",
+                unifiedFramework: "Unified Framework: Batch, SQL, Streaming, ML all in one",
+                estimatedTime: "⏱ Estimated time:",
+                timeValue: "2-3 hours for all 5 exercises + challenge",
+                prerequisites: "Prerequisites:",
+                prereqValue: "Basic Python and data processing knowledge recommended",
+                chapter: "Chapter:",
+                chapterValue: "Chapter 8 – Distributed Computing (Butscher: Big Data & Applications, THWS)",
+                architectureLearn: "Spark architecture and RDD/DataFrame model",
+                crudLearn: "SparkSession and data loading",
+                aggregationLearn: "Aggregations and transformations",
+                modelingLearn: "Joins and Window Functions",
+                realWorldLearn: "Real-world applications and performance optimization",
+                sparkPopular: "Apache Spark is a distributed computing framework for fast, large-scale data processing on cluster hardware.",
+                whenToUseSpark: "When to Use Spark?",
+                useCase: "Use Case",
+                excellent: "Excellent",
+                notIdeal: "Not Ideal",
+                distributedData: "Distributed Data Processing",
+                builtInSupport: "Built-in Support",
+                requiresCustomCode: "Requires Custom Code",
+                realTimeProcessing: "Real-Time Processing",
+                streamingSupport: "Streaming Supported",
+                batchOnly: "Batch Only",
+                machinelearning: "Machine Learning",
+                mlLibIncluded: "MLlib Included",
+                requiresExternalLib: "Requires External Lib",
+                estimate: "Estimated time:",
+                estimateValue: "1-2 hours for this exercise",
+                objective: "Objective",
+                steps: "Steps",
+                hint: "Hint",
+                copy: "Copy",
+                nextExercise: "Next Exercise →",
+                fundamentalsIntro: "Understanding Spark Fundamentals",
+                whatIsSparkSession: "What is a SparkSession?",
+                sparkSessionDesc: "SparkSession is the entry point to Spark functionality. It manages the cluster connection and creates DataFrames.",
+                rddVsDataFrame: "RDD vs. DataFrame",
+                rddVsDataFrameDesc: "RDDs are basic abstractions with minimal optimizations. DataFrames are SQL tables with schema and Catalyst optimization for better performance.",
+                lazyEvaluation: "Lazy Evaluation",
+                lazyEvaluationDesc: "Transformations (map, filter) are not executed immediately. Spark builds a plan and only executes when an Action is called.",
+                setupIntro: "Docker Setup for Apache Spark with Jupyter",
+                step1: "Step 1: Install Docker",
+                step1Desc: "Download from https://www.docker.com/products/docker-desktop",
+                step2: "Step 2: Pull Spark Image",
+                step2Code: "docker pull jupyter/pyspark-notebook:latest",
+                step3: "Step 3: Start Container",
+                step3Code: "docker run --name spark-jupyter -p 8888:8888 -p 4040:4040 -v $(pwd)/data:/home/jovyan/data jupyter/pyspark-notebook:latest",
+                step4: "Step 4: Open Jupyter",
+                step4Desc: "Open http://localhost:8888 in your browser",
+                overview1Title: "Overview: Spark for E-Commerce",
+                overview1Intro: "The MegaStore e-commerce system flows through these Spark processing stages:",
+                dataFlow: "Data flow: CSV/Parquet → SparkSession → Transformations → Aggregations → Output",
+                schema: "Data Schema",
+                customers: "Customers: customer_id, name, email, registration_date, country",
+                products: "Products: product_id, name, category, unit_price, stock_quantity",
+                orders: "Orders: order_id, customer_id, order_date, order_total, status",
+                orderItems: "OrderItems: order_item_id, order_id, product_id, quantity, unit_price",
+                schemaNote: "Data is stored in Parquet (compressed, columnar) for fast Spark processing.",
+                ex1Title: "Exercise 1: Create SparkSession and Load Data",
+                ex1Intro: "Learn how to create a SparkSession, load data, and explore it.",
+                ex1Objective: "Objective: Understand data structure and perform basic exploration",
+                ex1Steps: "Steps:",
+                ex1Step1: "Create a SparkSession with appName 'MegaStore'",
+                ex1Step2: "Load orders.parquet from local disk",
+                ex1Step3: "Display columns and types with printSchema()",
+                ex1Step4: "Show first 5 rows with show(5)",
+                ex1Verify: "Verification: How many columns does the DataFrame have?",
+                ex1Expected: "Expected: order_id, customer_id, order_date, order_total, status (5 columns)",
+                ex2Title: "Exercise 2: DataFrame Operations (select, filter, show)",
+                ex2Intro: "Learn basic data manipulation with Spark DataFrames.",
+                ex2Objective: "Objective: Practice select() for column filtering and filter() for row filtering",
+                ex2Steps: "Steps:",
+                ex2Step1: "Select only order_id, customer_id, and order_total columns",
+                ex2Step2: "Filter for orders with order_total > 100",
+                ex2Step3: "Combine both: select + filter in one chain",
+                ex2Step4: "Count the filtered rows with count()",
+                ex2Verify: "Verification: How many orders over 100 are there?",
+                ex2Expected: "Expected: approximately 30-40% of all orders",
+                ex3Title: "Exercise 3: Aggregations (groupBy, count, avg)",
+                ex3Intro: "Learn to summarize data with aggregation functions.",
+                ex3Objective: "Objective: Aggregate data with groupBy and calculate statistics",
+                ex3Steps: "Steps:",
+                ex3Step1: "Group orders by customer_id",
+                ex3Step2: "Calculate count of orders per customer",
+                ex3Step3: "Calculate average order value with avg()",
+                ex3Step4: "Sort results by order count descending",
+                ex3Verify: "Verification: Which customer has the most orders?",
+                ex3Expected: "Expected: One or few top customers with 5-10 orders",
+                ex4Title: "Exercise 4: Joins & Transformations",
+                ex4Intro: "Learn to join multiple DataFrames and perform complex transformations.",
+                ex4Objective: "Objective: Use joins to combine data from different tables",
+                ex4Steps: "Steps:",
+                ex4Step1: "Join orders with customers on customer_id",
+                ex4Step2: "Join order_items with products on product_id",
+                ex4Step3: "Calculate order cost with withColumn()",
+                ex4Step4: "Group by country and calculate total revenue per country",
+                ex4Verify: "Verification: Which country has the highest revenue?",
+                ex4Expected: "Expected: USA or Germany typically dominate",
+                ex5Title: "Exercise 5: MegaStore Analysis (Revenue & Trends)",
+                ex5Intro: "Combine everything you learned for a real business analysis.",
+                ex5Objective: "Objective: Complete analysis project with multiple joins, aggregations, and sorting",
+                ex5Steps: "Steps:",
+                ex5Step1: "Load all 4 tables (customers, products, orders, order_items)",
+                ex5Step2: "Join orders with order_items on order_id",
+                ex5Step3: "Join order_items with products on product_id",
+                ex5Step4: "Calculate revenue by product category and month",
+                ex5Step5: "Analyze top 5 categories and monthly trends",
+                ex5Verify: "Verification: Is the trend rising or falling?",
+                ex5Expected: "Expected: Seasonal patterns, e.g., higher sales in December",
+                challengeTitle: "Challenge: Churn Prediction Preparation",
+                challengeIntro: "Build an ML preparation project for Customer Churn Prediction.",
+                challengeObjective: "Objective: Prepare features for a machine learning model",
+                challengeSteps: "Steps:",
+                challengeStep1: "Calculate RFM metrics for each customer (Recency, Frequency, Monetary)",
+                challengeStep2: "Recency: Days since last order",
+                challengeStep3: "Frequency: Total number of orders",
+                challengeStep4: "Monetary: Total revenue per customer",
+                challengeStep5: "Segment customers: VIP (high value), Regular, At-Risk (high recency)",
+                challengeStep6: "Save features as Parquet for ML training",
+                challengeVerify: "Verification: How many at-risk customers (>90 days inactive)?",
+                challengeExpected: "Expected: 15-25% of customers",
+                challengeHint: "Hint: Use max(order_date) and datediff() for recency",
+                solutionLabel: "Show Solution",
+                quizTitle: "Knowledge Test: Spark Concepts",
+                quizIntro: "Test your understanding of Spark with multiple-choice questions.",
+                q1: "What is Lazy Evaluation in Spark?",
+                q1a: "Transformations are not executed immediately. Spark builds a plan and only executes when an Action is called.",
+                q1b: "Spark executes transformations in random order.",
+                q1c: "Data is only loaded to RAM when you need it.",
+                q1d: "All queries are delayed by 1 second.",
+                q1Correct: "Answer A",
+                q1Explanation: "Spark uses lazy evaluation to optimize the query plan before executing code.",
+                q2: "Difference between transformation and action?",
+                q2a: "Transformations are faster.",
+                q2b: "Transformations return new RDDs (lazy). Actions execute code and return results.",
+                q2c: "There is no difference.",
+                q2d: "Actions can only be map().",
+                q2Correct: "Answer B",
+                q2Explanation: "Transformations (map, filter, join) are lazy. Actions (collect, count, write) trigger actual computation.",
+                q3: "When should you use cache()?",
+                q3a: "Always to save memory.",
+                q3b: "When you reuse an RDD/DataFrame multiple times to avoid recomputation.",
+                q3c: "cache() is applied automatically.",
+                q3d: "Only if your cluster has >100 machines.",
+                q3Correct: "Answer B",
+                q3Explanation: "cache() stores data in memory. Use it strategically for RDDs used multiple times.",
+                q4: "What does repartition() do?",
+                q4a: "Splits data into new partitions to redistribute (expensive but important).",
+                q4b: "Automatically removes empty partitions.",
+                q4c: "Encrypts data for security.",
+                q4d: "repartition() is the same as cache().",
+                q4Correct: "Answer A",
+                q4Explanation: "repartition() is expensive (causes shuffle) but necessary to redistribute data across partitions.",
+                q5: "What is an RDD?",
+                q5a: "A database index type.",
+                q5b: "Resilient Distributed Dataset - an immutable, distributed data collection.",
+                q5c: "A SQL table in Spark.",
+                q5d: "A storage format like Parquet.",
+                q5Correct: "Answer B",
+                q5Explanation: "RDDs are the foundation of Spark: immutable, distributed, fault-tolerant data collections.",
+                correctAnswer: "Correct!",
+                incorrectAnswer: "Wrong. Try again.",
+                submittedAnswers: "Your Answers:",
+                youScored: "You Scored:",
+                outlookTitle: "Outlook & AI Integration",
+                advancedTopics: "Advanced Topics",
+                advancedDesc: "After mastering Spark, there are many specializations:",
+                sparkStreaming: "Spark Streaming: Process live data streams (clickstreams, sensors, financial transactions)",
+                sparkML: "MLlib: Distributed machine learning on large datasets (regression, classification, clustering)",
+                deltaLake: "Delta Lake: ACID transactions and time travel for data lakehouses",
+                sparkConnect: "Spark Connect: New API for remote Spark clusters without JVM required",
+                aiIntegration: "AI-Assisted Development",
+                aiDesc: "With Claude Code and MCP, you can accelerate Spark development through AI:",
+                mcpExplained: "MCP (Model Context Protocol): Standard API for AI tools to collaborate",
+                claudeExplained: "Claude Code: AI assistant that understands code and writes correct Spark jobs",
+                aiPrompts: "Examples of AI-assisted Spark tasks:",
+                aiPrompt1Title: "Automate Feature Engineering",
+                aiPrompt1: "Write Spark code that automatically extracts RFM features from a DataFrame with order_date, customer_id, and order_amount, adding them as new columns.",
+                aiPrompt2Title: "Performance Debugging",
+                aiPrompt2: "Analyze this Spark job and show bottlenecks. The job takes 10 minutes instead of 1. How to speed it up with caching, repartitioning, and join optimization?",
+                aiPrompt3Title: "Build MLlib Pipeline",
+                aiPrompt3: "Create a complete Spark ML Pipeline for Customer Churn Prediction: data loading, feature scaling, LogisticRegression training, model evaluation.",
+                troubleshootingTitle: "Troubleshooting",
+                commonProblems: "Common Problems and Solutions",
+                error1Problem: "Java not found / JAVA_HOME not set",
+                error1Solution: "Install Java and set JAVA_HOME: export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64",
+                error2Problem: "OutOfMemoryError in Spark job",
+                error2Solution: "Increase executor memory: spark-submit --executor-memory 8g script.py",
+                error3Problem: "Port 4040 already in use",
+                error3Solution: "Use a different port: spark.ui.port=4041",
+                error4Problem: "Docker container not starting",
+                error4Solution: "Check logs: docker logs spark-jupyter. Ensure sufficient RAM available.",
+                error5Problem: "Slow Spark performance",
+                error5Solution: "Check partitioning with repartition(), use cache() strategically, review join order with explain()",
             },
             ar: {
                 back: "← العودة إلى الصفحة الرئيسية",
-                welcome: "مرحبا بك في معمل Apache Spark",
-                overview: "نظرة عامة",
-                technology: "مقدمة التكنولوجيا",
-                setup: "الإعداد والتثبيت",
-                fundamentals: "المبادئ الأساسية",
-                exercise1: "التمرين 1: DataFrames الأولى",
-                exercise2: "التمرين 2: استكشاف البيانات",
-                exercise3: "التمرين 3: MegaStore مع Spark",
-                exercise4: "التمرين 4: الدمج والتجميع",
-                exercise5: "التمرين 5: Spark SQL",
-                exercise6: "التمرين 6: وظائف النافذة",
-                exercise7: "التمرين 7: عمليات RDD",
-                exercise8: "التمرين 8: الأداء والتعلم الآلي",
-                selfCheck: "فحص ذاتي",
-                reflection: "التأمل والتطبيقات",
-                troubleshooting: "استكشاف الأخطاء",
-                resources: "موارد إضافية",
-                whatYouLearn: "ما ستتعلمه",
-                realWorldMotivation: "لماذا Spark؟ تستخدمه شركات مثل Netflix و Uber و Shopify يوميًا:",
-                netflixScale: "Netflix: معالجة بيتابايت من بيانات البث المرئي للتوصيات",
-                uberScale: "Uber: تحليل تيرابايت من بيانات الرحلات يوميًا للأسعار والمسارات",
-                shopifyScale: "Shopify: معالجة 67 مليون طلب في دقائق أثناء أوقات الذروة",
-                alibabaScale: "Alibaba: تشغيل أكبر وظائف Spark في العالم لتحليل التجارة الإلكترونية",
-                pinterestScale: "Pinterest: معالجة البيانات في الوقت الفعلي لمليارات تفاعلات المستخدمين",
-                sparkIs: "ما هو Apache Spark؟",
-                distributedComputing: "الحوسبة الموزعة: يعمل Spark على مجموعات الآلات لتحقيق قابلية توسع ضخمة",
-                speedAndEase: "سريع وسهل: معالجة في الذاكرة أسرع 100 مرة من Hadoop MapReduce",
-                unified: "إطار عمل موحد: معالجة الدفعات واستعلامات SQL والبث والتعلم الآلي كل شيء في واحد",
-
-                nav: { backToOverview: "← العودة إلى نظرة عامة", language: "اللغة" },
-                hero: { title: "معمل Apache Spark - معالجة البيانات الموزعة", chapter: "الفصل 8 - الحوسبة الموزعة (Butscher: Big Data & Applications, THWS)", difficulty: "الصعوبة", advanced: "متقدم", estimatedTime: "الوقت المقدر", hours: "3-4 ساعات", prerequisites: "المتطلبات الأساسية: معمل MongoDB و معمل DuckDB موصى به" },
-                sidebar: {
-                    learningObjectives: "أهداف التعلم",
-                    setupInstallation: "الإعداد والتثبيت",
-                    theoryOverview: "نظرة عامة على النظرية",
-                    dataModel: "خط أنابيب MegaStore",
-                    exercise1: "التمرين 1: SparkSession و DataFrames",
-                    exercise2: "التمرين 2: Joins و Aggregations",
-                    exercise3: "التمرين 3: Window Functions و SQL",
-                    exercise4: "التمرين 4: عمليات RDD",
-                    exercise5: "التمرين 5: الأداء والتحسين",
-                    challenges: "تحديات تدريجية",
-                    selfCheck: "فحص ذاتي",
-                    reflection: "الانعكاس والتطبيقات الحقيقية",
-                    troubleshooting: "استكشاف الأخطاء"
-                },
-                objectives: [
-                    "فهم الحوسبة الموزعة مع Apache Spark",
-                    "إتقان نموذج MapReduce",
-                    "تعلم Spark RDDs و DataFrames",
-                    "استخدام SparkSQL للتحليلات المعقدة",
-                    "بناء خطوط أنابيب ETL لتحويل البيانات"
-                ],
-                theory: {
-                    title: "نظرة عامة على النظرية",
-                    whatIsSpark: "ما هو Apache Spark؟",
-                    whatIsSparkDesc: "Apache Spark هو إطار عمل للحوسبة الموزعة لمعالجة البيانات الكبيرة بسرعة. يعمل على أجهزة الكتائب ويوزع معالجة البيانات على آلات متعددة لقابلية التوسع الخطية.",
-                    rddVsDataFrame: "RDD مقابل DataFrame مقابل Dataset",
-                    rddVsDataFrameDesc: "RDDs (مجموعات البيانات المرنة الموزعة) هي مجموعات مجردة أساسية. DataFrames هي أعمدة مسماة ومكتوبة من RDDs (مثل جداول SQL). Datasets آمنة النوع وتجمع فوائد كليهما.",
-                    lazyEvaluation: "التقييم الكسول",
-                    lazyEvaluationDesc: "التحويلات لا تُنفذ فوراً. Spark ينشئ DAG (رسم بياني موجه غير دوري) للتحويلات وينفذ فقط عند استدعاء الإجراء. هذا يتيح التحسينات.",
-                    architecture: "معمارية Spark",
-                    architectureDesc: "عملية Driver تشغل رمز Spark وتنسق Executors. Cluster Manager يدير الموارد. Executors تقوم بالعمل الفعلي على أقسام البيانات.",
-                    transformationsVsActions: "التحويلات مقابل الإجراءات",
-                    transformationsVsActionsDesc: "التحويلات (map, filter, join) تنشئ RDDs جديدة دون تغيير البيانات الأساسية. الإجراءات (collect, count, write) تشغل الحساب وتعيد النتائج."
-                },
-                dataModel: {
-                    title: "خط أنابيب MegaStore",
-                    intro: "نظام MegaStore للتجارة الإلكترونية يتدفق عبر مراحل معالجة Spark التالية:",
-                    dataFlow: "تدفق البيانات: CSV/Parquet → SparkSession → التحويلات → التجميعات → المخرجات",
-                    customers: "العملاء: معرف العميل، الاسم، البريد الإلكتروني، تاريخ التسجيل، البلد",
-                    products: "المنتجات: معرف_المنتج، الاسم، الفئة، سعر_الوحدة، كمية_المخزون",
-                    orders: "الطلبات: معرف_الطلب، معرف_العميل، تاريخ_الطلب، إجمالي_الطلب، الحالة",
-                    orderItems: "عناصر الطلب: معرف_عنصر_الطلب، معرف_الطلب، معرف_المنتج، الكمية، سعر_الوحدة",
-                    schema: "البيانات مخزنة في Parquet (مضغوطة، عمودية) لمعالجة Spark سريعة."
-                },
-                exercise1: {
-                    title: "التمرين 1: الخطوات الأولى مع PySpark",
-                    intro: "أنشئ SparkSession وحمل البيانات واستكشف هيكلها."
-                },
-                exercise2: {
-                    title: "التمرين 2: Joins و Aggregations",
-                    intro: "تعلم دمج عدة مصادر بيانات وإجراء تجميعات معقدة."
-                },
-                exercise3: {
-                    title: "التمرين 3: Window Functions و SQL",
-                    intro: "استخدم Window Functions و SparkSQL للتحليلات المتقدمة."
-                },
-                exercise4: {
-                    title: "التمرين 4: عمليات RDD",
-                    intro: "استكشف نموذج MapReduce مع Spark RDDs."
-                },
-                exercise5: {
-                    title: "التمرين 5: الأداء والتحسين",
-                    intro: "تعلم تقنيات تحسين وظائف Spark للحصول على السرعة."
-                },
-                challenges: {
-                    title: "تحديات تدريجية",
-                    level1: {
-                        title: "البدء - أفضل 5 فئات منتجات",
-                        challenge: "ابحث عن أفضل 5 فئات منتجات بها أكثر المنتجات",
-                        hypothesis: "قبل أن تكتب: أي الفئات تعتقد أن لديها أكثر المنتجات؟",
-                        solution: "df.groupBy('category').count().orderBy(col('count').desc()).limit(5).show()",
-                        insight: "الإلكترونيات والمنزل والحديقة عادة ما تهيمن. هذه البيانات تدفع تخصيص المساحة والميزانية."
-                    },
-                    level2: {
-                        title: "متقدم - Joins متعددة",
-                        challenge: "احسب إجمالي الإيرادات حسب الفئة بربط الطلبات وعناصر الطلب والمنتجات",
-                        hint: "تلميح: استخدم joins متعددة مع groupBy والدوال",
-                        realWorld: "هذا هو أساس التقارير الأساسية للتجارة الإلكترونية."
-                    },
-                    level3: {
-                        title: "متقدم - Window Functions والأداء",
-                        challenge: "لكل عميل: صنف طلباتهم حسب التاريخ واحسب الإيرادات التراكمية",
-                        hint: "تلميح: استخدم Window Functions مع partitionBy و orderBy",
-                        realWorld: "قيمة العميل طوال الحياة وتحليلات الاحتفاظ حاسمة."
-                    },
-                    level4: {
-                        title: "Boss Challenge - محرك التوصيات",
-                        challenge: "طبق تصفية ALS التعاونية لتوصيات المنتجات",
-                        concept: "ALS هي إطار تحليل المصفوفات. تحلل مصفوفة المستخدم-المنتج لاكتشاف العوامل الكامنة.",
-                        realWorld: "أمازون تحقق 35% من الإيرادات من التوصيات. هذا هو نموذج الأعمال الأساسي."
-                    }
-                },
-                selfCheck: {
-                    title: "فحص ذاتي",
-                    questions: [
-                        { q: "ما هو التقييم الكسول في Spark؟", a: "التحويلات لا تُنفذ فوراً. Spark ينشئ خطة (DAG) وينفذ فقط عند استدعاء الإجراء. هذا يتيح التحسينات." },
-                        { q: "الفرق بين التحويل والإجراء؟", a: "التحويلات (map, filter, join) كسولة وتعيد RDDs جديدة. الإجراءات (collect, count, save) تشغل الحساب وتعيد النتائج." },
-                        { q: "متى يجب استخدام cache()؟", a: "استخدم cache() عند إعادة استخدام RDD/DataFrame عدة مرات. يخزنها في الذاكرة لتجنب إعادة الحساب." },
-                        { q: "ماذا يفعل repartition()؟", a: "repartition() يغير عدد الأقسام بنقل البيانات. إنه مكلف لكنه ضروري لإعادة توزيع البيانات." },
-                        { q: "كيف يعمل محسّن Catalyst؟", a: "Catalyst يحلل خطة الاستعلام ويطبق التحسينات: دفع الشروط، إعادة ترتيب الدمج. يحول رمز DataFrame إلى Spark SQL محسّن." }
-                    ]
-                },
-                reflection: {
-                    title: "الانعكاس والتطبيقات الحقيقية",
-                    prompts: [
-                        { title: "ما الذي فاجأك؟", desc: "أي جانب من Spark كان غير متوقع؟ كيف اختلف عن توقعاتك؟" },
-                        { title: "ما كان الجزء الأصعب؟", desc: "أي المفاهيم كانت الأكثر تحدياً؟ أين تحتاج إلى مزيد من الممارسة؟" },
-                        { title: "شرح Spark لرئيس تنفيذي غير تقني", desc: "كيف تشرح فوائد Spark بكلمات بسيطة؟" },
-                        { title: "أي سؤال عمل MegaStore كان الأكثر اهتماماً؟", desc: "من بين كل التحديات: أيها أفتنتك أكثر ولماذا؟" }
-                    ],
-                    companies: {
-                        title: "لماذا Spark؟ تستخدمه شركات مثل Netflix و Uber و Shopify يومياً:",
-                        list: [
-                            { name: "Netflix", desc: "معالجة بيتابايت من بيانات البث المرئي للتوصيات", link: "https://www.slideshare.net/NezihYigitbasi/spark-on-yarn-netflix" },
-                            { name: "Uber", desc: "تحليل تيرابايت من بيانات الرحلات يومياً للأسعار والمسارات", link: "https://vutr.substack.com/p/how-does-uber-handle-petabytes-of" },
-                            { name: "Shopify", desc: "معالجة 67 مليون طلب في دقائق أثناء أوقات الذروة", link: "https://shopify.engineering/capturing-every-change-shopify-sharded-monolith" },
-                            { name: "Alibaba", desc: "تشغيل أكبر وظائف Spark في العالم لتحليل التجارة الإلكترونية", link: "https://github.com/vaquarkhan/Techies-Notes-wiki/blob/master/Apache-Spark-Case-Study.md" }
-                        ]
-                    },
-                    realWorld: "حيث يُستخدم Spark في العالم الحقيقي",
-                    useCases: [
-                        { title: "خطوط أنابيب ETL للبيانات الكبيرة", desc: "استيراد البيانات والتنظيف والتحويلات لبحيرات البيانات. Netflix تعالج بيتابايتات يومياً مع Spark." },
-                        { title: "البث الفعلي", desc: "Spark Streaming يعالج بيانات مستشعرات IoT والنقرات والمعاملات المالية في الوقت الفعلي." },
-                        { title: "التعلم الآلي بالحجم", desc: "MLlib للتدريب الموزع للنماذج على مجموعات بيانات ضخمة. Spark-NLP لمعالجة اللغة الطبيعية." },
-                        { title: "التحليلات والذكاء التجاري", desc: "استعلامات مرنة سريعة على مليارات السجلات مع Spark SQL وتكامل Tableau." }
-                    ]
-                },
-                troubleshooting: {
-                    title: "استكشاف الأخطاء",
-                    commonErrors: "الأخطاء الشائعة والحلول",
-                    errors: [
-                        { problem: "Java غير موجود / JAVA_HOME غير محدد", solution: "ثبت Java: sudo apt-get install openjdk-11-jdk && export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64" },
-                        { problem: "OutOfMemoryError في مهمة Spark", solution: "زيادة ذاكرة المنفذ: spark-submit --executor-memory 8g script.py" },
-                        { problem: "المنفذ 4040 قيد الاستخدام", solution: "استخدم منفذاً مختلفاً: spark.ui.port=4041" },
-                        { problem: "حاوية Docker لا تبدأ", solution: "تحقق من السجلات: docker logs spark-jupyter. تأكد من توفر ذاكرة كافية." },
-                        { problem: "أداء Spark بطيء", solution: "تحقق من التقسيم (repartition)، استخدم cache() بحكمة، اراجع ترتيب الدمج مع explain()" }
-                    ]
-                },
-                ui: {
-                    copy: "نسخ",
-                    hypothesis: "الفرضية:",
-                    exampleSolution: "حل مثالي:",
-                    concept: "المفهوم:",
-                    realWorldInsight: "رؤية واقعية:",
-                    realWorldImpact: "تأثير واقعي:",
-                    solution: "الحل:",
-                    dataSchema: "مخطط البيانات",
-                    nextExercise: "التمرين التالي ←"
-                }
+                copy: "نسخ",
             },
             uk: {
                 back: "← Повернутися на головну сторінку",
-                welcome: "Ласкаво просимо до Apache Spark Lab",
-                overview: "Огляд",
-                technology: "Введення в технологію",
-                setup: "Установка та налаштування",
-                fundamentals: "Основи",
-                exercise1: "Вправа 1: Перші DataFrames",
-                exercise2: "Вправа 2: Дослідження даних",
-                exercise3: "Вправа 3: MegaStore зі Spark",
-                exercise4: "Вправа 4: Об'єднання та агрегація",
-                exercise5: "Вправа 5: Spark SQL",
-                exercise6: "Вправа 6: Вікнові функції",
-                exercise7: "Вправа 7: Операції RDD",
-                exercise8: "Вправа 8: Продуктивність та машинне навчання",
-                selfCheck: "Самоперевірка",
-                reflection: "Рефлексія та застосування",
-                troubleshooting: "Розв'язання проблем",
-                resources: "Додаткові ресурси",
-                whatYouLearn: "Що ви вивчитимете",
-                realWorldMotivation: "Чому Spark? Компанії, як Netflix, Uber та Shopify, використовують Spark щодня:",
-                netflixScale: "Netflix: Обробка петабайтів даних потокового відео для рекомендацій",
-                uberScale: "Uber: Аналіз терабайтів даних поїздок щодня для цін та маршрутів",
-                shopifyScale: "Shopify: Обробка 67 мільйонів замовлень за кілька хвилин під час пікового продажу",
-                alibabaScale: "Alibaba: Запуск найбільших завдань Spark у світі для аналітики електронної комерції",
-                pinterestScale: "Pinterest: Обробка даних у реальному часі для мільярдів взаємодій користувачів",
-                sparkIs: "Що таке Apache Spark?",
-                distributedComputing: "Розподілена обчислювальна техніка: Spark працює на кластерах машин для масштабування",
-                speedAndEase: "Швидко та легко: обробка в пам'яті в 100 разів швидше, ніж Hadoop MapReduce",
-                unified: "Єдиний фреймворк: пакетна обробка, SQL запити, потоки, ML все в одному",
-
-                nav: { backToOverview: "← Повернутися до огляду", language: "Мова" },
-                hero: { title: "Лабораторія Apache Spark - розподілена обробка даних", chapter: "Розділ 8 - розподілені обчислення (Butscher: Big Data & Applications, THWS)", difficulty: "Складність", advanced: "Розширений", estimatedTime: "Орієнтовний час", hours: "3-4 години", prerequisites: "Передумови: MongoDB Lab та DuckDB Lab рекомендуються" },
-                sidebar: {
-                    learningObjectives: "Цілі навчання",
-                    setupInstallation: "Налаштування та встановлення",
-                    theoryOverview: "Огляд теорії",
-                    dataModel: "Конвеєр MegaStore",
-                    exercise1: "Вправа 1: SparkSession і DataFrames",
-                    exercise2: "Вправа 2: Joins та Aggregations",
-                    exercise3: "Вправа 3: Window Functions та SQL",
-                    exercise4: "Вправа 4: операції RDD",
-                    exercise5: "Вправа 5: Продуктивність та оптимізація",
-                    challenges: "Прогресивні виклики",
-                    selfCheck: "Самоперевірка",
-                    reflection: "Роздуми та реальні програми",
-                    troubleshooting: "Усунення неполадок"
-                },
-                objectives: [
-                    "Розуміти розподілені обчислення за допомогою Apache Spark",
-                    "Оволодіти парадигмою MapReduce",
-                    "Вивчити Spark RDDs та DataFrames",
-                    "Використовувати SparkSQL для складних аналітик",
-                    "Побудувати конвеєри ETL для трансформації даних"
-                ],
-                theory: {
-                    title: "Огляд теорії",
-                    whatIsSpark: "Що таке Apache Spark?",
-                    whatIsSparkDesc: "Apache Spark - це структура розподіленої обробки для швидкої обробки великих даних. Він працює на апаратному забезпеченні кластера та розподіляє обробку даних на кілька машин для лінійної масштабованості.",
-                    rddVsDataFrame: "RDD vs. DataFrame vs. Dataset",
-                    rddVsDataFrameDesc: "RDD (Resilient Distributed Datasets) - це основні абстрактні колекції. DataFrames - це іменовані, типізовані стовпці RDD (як таблиці SQL). Datasets є типобезпечними та об'єднують переваги обох.",
-                    lazyEvaluation: "Ледача оцінка",
-                    lazyEvaluationDesc: "Трансформації не виконуються негайно. Spark створює DAG (направлений ациклічний граф) трансформацій і виконує лише під час виклику Action. Це дозволяє оптимізацію.",
-                    architecture: "Архітектура Spark",
-                    architectureDesc: "Процес Driver запускає ваш код Spark і координує Executors. Cluster Manager управляє ресурсами. Executors виконують фактичну роботу над розділами даних.",
-                    transformationsVsActions: "Трансформації vs. Дії",
-                    transformationsVsActionsDesc: "Трансформації (map, filter, join) створюють нові RDD без зміни базових даних. Дії (collect, count, write) запускають обчислення та повертають результати."
-                },
-                dataModel: {
-                    title: "Конвеєр MegaStore",
-                    intro: "Система електронної комерції MegaStore проходить через наступні етапи обробки Spark:",
-                    dataFlow: "Потік даних: CSV/Parquet → SparkSession → Трансформації → Агрегації → Вихід",
-                    customers: "Клієнти: customer_id, ім'я, електронна пошта, дата реєстрації, країна",
-                    products: "Продукти: product_id, назва, категорія, unit_price, stock_quantity",
-                    orders: "Замовлення: order_id, customer_id, order_date, order_total, статус",
-                    orderItems: "Позиції замовлення: order_item_id, order_id, product_id, кількість, unit_price",
-                    schema: "Дані зберігаються в Parquet (стиснені, колонкові) для швидкої обробки Spark."
-                },
-                exercise1: {
-                    title: "Вправа 1: Перші кроки з PySpark",
-                    intro: "Створіть SparkSession, завантажте дані та вивчіть його структуру."
-                },
-                exercise2: {
-                    title: "Вправа 2: Joins та Aggregations",
-                    intro: "Дізнайтеся, як об'єднати кілька джерел даних та виконати складні агрегації."
-                },
-                exercise3: {
-                    title: "Вправа 3: Window Functions та SQL",
-                    intro: "Використовуйте Window Functions та SparkSQL для розширеної аналітики."
-                },
-                exercise4: {
-                    title: "Вправа 4: операції RDD",
-                    intro: "Дослідіть парадигму MapReduce з Spark RDDs."
-                },
-                exercise5: {
-                    title: "Вправа 5: Продуктивність та оптимізація",
-                    intro: "Дізнайтеся про методи оптимізації робіт Spark для швидкості."
-                },
-                challenges: {
-                    title: "Прогресивні виклики",
-                    level1: {
-                        title: "Початок - Top 5 категорій продуктів",
-                        challenge: "Знайдіть 5 категорій продуктів з найбільшою кількістю продуктів",
-                        hypothesis: "Перед тим як писати: які категорії, на вашу думку, мають найбільше продуктів?",
-                        solution: "df.groupBy('category').count().orderBy(col('count').desc()).limit(5).show()",
-                        insight: "Електроніка та Дім та Сад зазвичай домінують. Ці дані спрямовують розподіл місця та бюджету."
-                    },
-                    level2: {
-                        title: "Середній - Множинні Joins",
-                        challenge: "Розрахуйте загальний дохід за категорією, об'єднавши замовлення, позиції та продукти",
-                        hint: "Підказка: використовуйте множинні joins з groupBy та агрегаціями",
-                        realWorld: "Це основа базового звітування електронної комерції."
-                    },
-                    level3: {
-                        title: "Просунуто - Window Functions та Продуктивність",
-                        challenge: "Для кожного клієнта: ранжируйте їх замовлення за датою та розрахуйте кумулятивний дохід",
-                        hint: "Підказка: використовуйте Window Functions з partitionBy та orderBy",
-                        realWorld: "Customer Lifetime Value та аналітика утримання критичні."
-                    },
-                    level4: {
-                        title: "Boss Challenge - Побудуйте систему рекомендацій",
-                        challenge: "Впровадьте ALS (Alternating Least Squares) для фільтрування рекомендацій продуктів",
-                        concept: "ALS - це фреймворк матричної факторизації. Він факторує матрицю користувача-продукту для виявлення прихованих факторів.",
-                        realWorld: "Amazon генерує 35% доходу від рекомендацій. Це основна бізнес-модель."
-                    }
-                },
-                selfCheck: {
-                    title: "Самоперевірка",
-                    questions: [
-                        { q: "Що таке ледача оцінка в Spark?", a: "Трансформації не виконуються негайно. Spark створює план (DAG) і виконує лише під час виклику Action. Це дозволяє оптимізацію." },
-                        { q: "Різниця між трансформацією та дією?", a: "Трансформації (map, filter, join) є ледачими та повертають нові RDD. Дії (collect, count, save) запускають обчислення та повертають результати." },
-                        { q: "Коли варто використовувати cache()?", a: "Використовуйте cache() коли повторно використовуєте RDD/DataFrame кілька разів. Він зберігає в пам'яті, щоб уникнути перепрацювання." },
-                        { q: "Що робить repartition()?", a: "repartition() змінює кількість розділів шляхом перетасування даних. Це дорого, але необхідно для перерозподілу даних." },
-                        { q: "Як працює оптимізатор Catalyst?", a: "Catalyst аналізує план запиту Spark та застосовує оптимізацію: спускання предикатів, переупорядкування приєднань. Конвертує код DataFrame у оптимізований Spark SQL." }
-                    ]
-                },
-                reflection: {
-                    title: "Роздуми та реальні програми",
-                    prompts: [
-                        { title: "Що вас здивувало?", desc: "Який аспект Spark був неочікуваним? Чим він відрізнявся від ваших очікувань?" },
-                        { title: "Яка була найскладніша частина?", desc: "Які концепції були найскладнішими? Де вам потрібна більша практика?" },
-                        { title: "Поясніть Spark невиробничому генеральному директору", desc: "Як ви б пояснили переваги Spark простими словами?" },
-                        { title: "Яке питання бізнесу MegaStore було найцікавішим?", desc: "З усіх викликів: який вас найбільше зачарував і чому?" }
-                    ],
-                    companies: {
-                        title: "Чому Spark? Компанії, як Netflix, Uber та Shopify, використовують Spark щодня:",
-                        list: [
-                            { name: "Netflix", desc: "Обробка петабайтів даних потокового відео для рекомендацій", link: "https://www.slideshare.net/NezihYigitbasi/spark-on-yarn-netflix" },
-                            { name: "Uber", desc: "Аналіз терабайтів даних поїздок щодня для цін та маршрутів", link: "https://vutr.substack.com/p/how-does-uber-handle-petabytes-of" },
-                            { name: "Shopify", desc: "Обробка 67 мільйонів замовлень за кілька хвилин під час пікового продажу", link: "https://shopify.engineering/capturing-every-change-shopify-sharded-monolith" },
-                            { name: "Alibaba", desc: "Запуск найбільших завдань Spark у світі для аналітики електронної комерції", link: "https://github.com/vaquarkhan/Techies-Notes-wiki/blob/master/Apache-Spark-Case-Study.md" }
-                        ]
-                    },
-                    realWorld: "Де Spark використовується в реальному світі",
-                    useCases: [
-                        { title: "Великі конвеєри ETL", desc: "Імпорт даних, очищення та трансформації для озер даних. Netflix обробляє петабайти щодня за допомогою Spark." },
-                        { title: "Потокова обробка в реальному часі", desc: "Spark Streaming обробляє дані датчиків IoT, потоки натискання та фінансові операції в реальному часі." },
-                        { title: "Машинне навчання в масштабі", desc: "MLlib для розподіленого тренування моделей на величезних наборах даних. Spark-NLP для обробки природної мови." },
-                        { title: "Аналітика та BI", desc: "Швидкі ad-hoc запити над мільярдами записів з Spark SQL та інтеграцією Tableau." }
-                    ]
-                },
-                troubleshooting: {
-                    title: "Усунення неполадок",
-                    commonErrors: "Звичайні помилки та розв'язання",
-                    errors: [
-                        { problem: "Java не знайдено / JAVA_HOME не встановлено", solution: "Встановіть Java: sudo apt-get install openjdk-11-jdk && export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64" },
-                        { problem: "OutOfMemoryError у роботі Spark", solution: "Збільшіть пам'ять виконавця: spark-submit --executor-memory 8g script.py" },
-                        { problem: "Порт 4040 вже в використанні", solution: "Використовуйте інший порт: spark.ui.port=4041" },
-                        { problem: "Контейнер Docker не запускається", solution: "Перевірте журнали: docker logs spark-jupyter. Переконайтеся, що є достатньо оперативної пам'яті." },
-                        { problem: "Повільна продуктивність Spark", solution: "Перевірте розділення (repartition), використовуйте cache() стратегічно, переглядайте порядок join через explain()" }
-                    ]
-                },
-                ui: {
-                    copy: "Копіювати",
-                    hypothesis: "Гіпотеза:",
-                    exampleSolution: "Приклад рішення:",
-                    concept: "Концепція:",
-                    realWorldInsight: "Практичний інсайт:",
-                    realWorldImpact: "Практичний вплив:",
-                    solution: "Рішення:",
-                    dataSchema: "Схема даних",
-                    nextExercise: "Наступна вправа →"
-                }
+                copy: "Копіювати",
             },
             es: {
                 back: "← Volver a la página de inicio",
-                welcome: "Bienvenido al Laboratorio Apache Spark",
-                overview: "Descripción general",
-                technology: "Introducción a la tecnología",
-                setup: "Configuración e instalación",
-                fundamentals: "Fundamentos",
-                exercise1: "Ejercicio 1: Primeros DataFrames",
-                exercise2: "Ejercicio 2: Exploración de datos",
-                exercise3: "Ejercicio 3: MegaStore con Spark",
-                exercise4: "Ejercicio 4: Uniones y agregaciones",
-                exercise5: "Ejercicio 5: Spark SQL",
-                exercise6: "Ejercicio 6: Funciones de ventana",
-                exercise7: "Ejercicio 7: Operaciones RDD",
-                exercise8: "Ejercicio 8: Rendimiento y aprendizaje automático",
-                selfCheck: "Autoevaluación",
-                reflection: "Reflexión y aplicaciones",
-                troubleshooting: "Solución de problemas",
-                resources: "Recursos adicionales",
-                whatYouLearn: "Qué aprenderá",
-                realWorldMotivation: "¿Por qué Spark? Empresas como Netflix, Uber y Shopify usan Spark a diario:",
-                netflixScale: "Netflix: Procesar petabytes de datos de transmisión de video para recomendaciones",
-                uberScale: "Uber: Analizar terabytes de datos de viajes diariamente para precios y rutas",
-                shopifyScale: "Shopify: Procesar 67 millones de pedidos en minutos durante picos de ventas",
-                alibabaScale: "Alibaba: Ejecutar los trabajos de Spark más grandes del mundo para análisis de comercio electrónico",
-                pinterestScale: "Pinterest: Procesamiento de datos en tiempo real para miles de millones de interacciones de usuarios",
-                sparkIs: "¿Qué es Apache Spark?",
-                distributedComputing: "Computación distribuida: Spark se ejecuta en clústeres de máquinas para escalabilidad masiva",
-                speedAndEase: "Rápido y fácil: procesamiento en memoria 100 veces más rápido que Hadoop MapReduce",
-                unified: "Marco unificado: procesamiento por lotes, consultas SQL, streaming, ML todo en uno",
-
-                nav: { backToOverview: "← Volver a descripción general", language: "Idioma" },
-                hero: { title: "Lab de Apache Spark - Procesamiento de datos distribuido", chapter: "Capítulo 8 - Informática distribuida (Butscher: Big Data & Applications, THWS)", difficulty: "Dificultad", advanced: "Avanzado", estimatedTime: "Tiempo estimado", hours: "3-4 horas", prerequisites: "Requisitos previos: Laboratorio de MongoDB y Laboratorio de DuckDB recomendados" },
-                sidebar: {
-                    learningObjectives: "Objetivos de aprendizaje",
-                    setupInstallation: "Configuración e instalación",
-                    theoryOverview: "Descripción general de la teoría",
-                    dataModel: "Canalización MegaStore",
-                    exercise1: "Ejercicio 1: SparkSession y DataFrames",
-                    exercise2: "Ejercicio 2: Joins y Agregaciones",
-                    exercise3: "Ejercicio 3: Window Functions y SQL",
-                    exercise4: "Ejercicio 4: Operaciones RDD",
-                    exercise5: "Ejercicio 5: Rendimiento y optimización",
-                    challenges: "Desafíos progresivos",
-                    selfCheck: "Autoevaluación",
-                    reflection: "Reflexión y aplicaciones del mundo real",
-                    troubleshooting: "Solución de problemas"
-                },
-                objectives: [
-                    "Comprender la computación distribuida con Apache Spark",
-                    "Dominar el paradigma MapReduce",
-                    "Aprender Spark RDDs y DataFrames",
-                    "Utilizar SparkSQL para análisis complejos",
-                    "Construir canalizaciones ETL para transformación de datos"
-                ],
-                theory: {
-                    title: "Descripción general de la teoría",
-                    whatIsSpark: "¿Qué es Apache Spark?",
-                    whatIsSparkDesc: "Apache Spark es un marco de computación distribuida para procesamiento rápido de datos a gran escala. Se ejecuta en hardware de clúster y distribuye el procesamiento de datos entre múltiples máquinas para escalabilidad lineal.",
-                    rddVsDataFrame: "RDD vs. DataFrame vs. Dataset",
-                    rddVsDataFrameDesc: "Los RDD (Conjuntos de Datos Distribuidos Resilientes) son colecciones abstractas fundamentales. Los DataFrames son columnas nombradas y mecanografiadas de RDD (como tablas SQL). Los Datasets son type-safe y combinan lo mejor de ambos.",
-                    lazyEvaluation: "Evaluación perezosa",
-                    lazyEvaluationDesc: "Las transformaciones no se ejecutan inmediatamente. Spark construye un DAG (Gráfico Acíclico Dirigido) de transformaciones y solo ejecuta cuando se llama a una Acción. Esto permite optimizaciones.",
-                    architecture: "Arquitectura Spark",
-                    architectureDesc: "El proceso Driver ejecuta su código Spark y coordina Executors. El Cluster Manager gestiona recursos. Los Executors hacen trabajo real en particiones de datos.",
-                    transformationsVsActions: "Transformaciones vs. Acciones",
-                    transformationsVsActionsDesc: "Las transformaciones (map, filter, join) crean nuevos RDD sin cambiar datos subyacentes. Las acciones (collect, count, write) desencadenan cálculos y devuelven resultados."
-                },
-                dataModel: {
-                    title: "Canalización MegaStore",
-                    intro: "El sistema de comercio electrónico MegaStore fluye a través de las siguientes etapas de procesamiento de Spark:",
-                    dataFlow: "Flujo de datos: CSV/Parquet → SparkSession → Transformaciones → Agregaciones → Salida",
-                    customers: "Clientes: customer_id, nombre, correo electrónico, fecha_registro, país",
-                    products: "Productos: product_id, nombre, categoría, unit_price, stock_quantity",
-                    orders: "Pedidos: order_id, customer_id, order_date, order_total, estado",
-                    orderItems: "Elementos de Pedido: order_item_id, order_id, product_id, cantidad, unit_price",
-                    schema: "Los datos se almacenan en Parquet (comprimido, columnar) para procesamiento rápido de Spark."
-                },
-                exercise1: {
-                    title: "Ejercicio 1: Primeros pasos con PySpark",
-                    intro: "Crea una SparkSession, carga datos y explora su estructura."
-                },
-                exercise2: {
-                    title: "Ejercicio 2: Joins y Agregaciones",
-                    intro: "Aprende a unir múltiples fuentes de datos y realizar agregaciones complejas."
-                },
-                exercise3: {
-                    title: "Ejercicio 3: Window Functions y SQL",
-                    intro: "Utiliza Window Functions y SparkSQL para análisis avanzados."
-                },
-                exercise4: {
-                    title: "Ejercicio 4: Operaciones RDD",
-                    intro: "Explora el paradigma MapReduce con Spark RDDs."
-                },
-                exercise5: {
-                    title: "Ejercicio 5: Rendimiento y optimización",
-                    intro: "Aprende técnicas para optimizar trabajos de Spark para mayor velocidad."
-                },
-                challenges: {
-                    title: "Desafíos progresivos",
-                    level1: {
-                        title: "Comenzando - Top 5 Categorías de Productos",
-                        challenge: "Encuentra las 5 categorías de productos con más productos",
-                        hypothesis: "Antes de escribir: ¿Qué categorías crees que tienen más productos?",
-                        solution: "df.groupBy('category').count().orderBy(col('count').desc()).limit(5).show()",
-                        insight: "Electrónica y Casa y Jardín típicamente dominan. Esto impulsa la asignación de espacio y presupuesto."
-                    },
-                    level2: {
-                        title: "Intermedio - Joins Múltiples",
-                        challenge: "Calcula los ingresos totales por categoría uniendo pedidos, elementos y productos",
-                        hint: "Pista: usa joins múltiples con groupBy y agregaciones",
-                        realWorld: "Esta es la base de los informes de comercio electrónico."
-                    },
-                    level3: {
-                        title: "Avanzado - Window Functions y Rendimiento",
-                        challenge: "Para cada cliente: clasifica sus pedidos por fecha y calcula ingresos acumulados",
-                        hint: "Pista: usa Window Functions con partitionBy y orderBy",
-                        realWorld: "El valor de vida del cliente y los análisis de retención son críticos."
-                    },
-                    level4: {
-                        title: "Boss Challenge - Constructor de Sistema de Recomendación",
-                        challenge: "Implementa ALS (Alternating Least Squares) para recomendaciones colaborativas de productos",
-                        concept: "ALS es un marco de factorización de matrices. Factoriza la matriz usuario-producto para descubrir factores latentes.",
-                        realWorld: "Amazon genera el 35% de ingresos por recomendaciones. Este es el modelo de negocio central."
-                    }
-                },
-                selfCheck: {
-                    title: "Autoevaluación",
-                    questions: [
-                        { q: "¿Qué es la evaluación perezosa en Spark?", a: "Las transformaciones no se ejecutan inmediatamente. Spark construye un plan (DAG) y solo ejecuta cuando se llama a una Acción. Esto permite optimizaciones." },
-                        { q: "¿Diferencia entre transformación y acción?", a: "Las transformaciones (map, filter, join) son perezosas y devuelven nuevos RDD. Las acciones (collect, count, save) desencadenan cálculos y devuelven resultados." },
-                        { q: "¿Cuándo deberías usar cache()?", a: "Usa cache() cuando reutilizas un RDD/DataFrame múltiples veces. Lo almacena en memoria para evitar recompilación." },
-                        { q: "¿Qué hace repartition()?", a: "repartition() cambia el número de particiones barajando datos. Es costoso pero necesario para redistribuir datos." },
-                        { q: "¿Cómo funciona el optimizador Catalyst?", a: "Catalyst analiza tu plan de consulta Spark y aplica optimizaciones: empuje de predicados, reordenamiento de joins. Convierte código DataFrame a Spark SQL optimizado." }
-                    ]
-                },
-                reflection: {
-                    title: "Reflexión y aplicaciones del mundo real",
-                    prompts: [
-                        { title: "¿Qué te sorprendió?", desc: "¿Qué aspecto de Spark fue inesperado? ¿Cómo difirió de tus expectativas?" },
-                        { title: "¿Cuál fue la parte más difícil?", desc: "¿Qué conceptos fueron más desafiantes? ¿Dónde necesitas más práctica?" },
-                        { title: "Explica Spark a un CEO no técnico", desc: "¿Cómo explicarías los beneficios de Spark en términos simples?" },
-                        { title: "¿Cuál pregunta de negocio de MegaStore fue más interesante?", desc: "De todos los desafíos: ¿Cuál te fascinó más y por qué?" }
-                    ],
-                    companies: {
-                        title: "¿Por qué Spark? Empresas como Netflix, Uber y Shopify usan Spark a diario:",
-                        list: [
-                            { name: "Netflix", desc: "Procesar petabytes de datos de transmisión de video para recomendaciones", link: "https://www.slideshare.net/NezihYigitbasi/spark-on-yarn-netflix" },
-                            { name: "Uber", desc: "Analizar terabytes de datos de viajes diariamente para precios y rutas", link: "https://vutr.substack.com/p/how-does-uber-handle-petabytes-of" },
-                            { name: "Shopify", desc: "Procesar 67 millones de pedidos en minutos durante picos de ventas", link: "https://shopify.engineering/capturing-every-change-shopify-sharded-monolith" },
-                            { name: "Alibaba", desc: "Ejecutar los trabajos de Spark más grandes del mundo para análisis de comercio electrónico", link: "https://github.com/vaquarkhan/Techies-Notes-wiki/blob/master/Apache-Spark-Case-Study.md" }
-                        ]
-                    },
-                    realWorld: "Dónde se usa Spark en el mundo real",
-                    useCases: [
-                        { title: "Canalizaciones ETL de Big Data", desc: "Importación, limpieza y transformaciones de datos para lagos de datos. Netflix procesa petabytes diariamente con Spark." },
-                        { title: "Transmisión en tiempo real", desc: "Spark Streaming procesa datos de sensores IoT, secuencias de clics y transacciones financieras en tiempo real." },
-                        { title: "Aprendizaje automático a escala", desc: "MLlib para entrenamiento distribuido de modelos en conjuntos de datos masivos. Spark-NLP para procesamiento de lenguaje natural." },
-                        { title: "Análisis e BI", desc: "Consultas ad-hoc rápidas sobre miles de millones de registros con Spark SQL e integración de Tableau." }
-                    ]
-                },
-                troubleshooting: {
-                    title: "Solución de problemas",
-                    commonErrors: "Errores comunes y soluciones",
-                    errors: [
-                        { problem: "Java no encontrado / JAVA_HOME no configurado", solution: "Instala Java: sudo apt-get install openjdk-11-jdk && export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64" },
-                        { problem: "OutOfMemoryError en trabajo de Spark", solution: "Aumenta memoria de ejecutor: spark-submit --executor-memory 8g script.py" },
-                        { problem: "Puerto 4040 ya en uso", solution: "Usa un puerto diferente: spark.ui.port=4041" },
-                        { problem: "Contenedor Docker no inicia", solution: "Verifica logs: docker logs spark-jupyter. Asegúrate de tener suficiente RAM." },
-                        { problem: "Rendimiento lento de Spark", solution: "Verifica particionamiento (repartition), usa cache() estratégicamente, revisa orden de join con explain()" }
-                    ]
-                },
-                ui: {
-                    copy: "Copiar",
-                    hypothesis: "Hipótesis:",
-                    exampleSolution: "Solución de ejemplo:",
-                    concept: "Concepto:",
-                    realWorldInsight: "Perspectiva del mundo real:",
-                    realWorldImpact: "Impacto del mundo real:",
-                    solution: "Solución:",
-                    dataSchema: "Esquema de datos",
-                    nextExercise: "Siguiente ejercicio →"
-                }
+                copy: "Copiar",
             },
             tr: {
-                back: "← Ana Sayfaya Geri Dön",
-                welcome: "Apache Spark Lab'a Hoş Geldiniz",
-                overview: "Genel Bakış",
-                technology: "Teknoloji Tanıtımı",
-                setup: "Kurulum ve İnstallasyon",
-                fundamentals: "Temelleri",
-                exercise1: "Egzersiz 1: İlk DataFrames",
-                exercise2: "Egzersiz 2: Veri Keşfi",
-                exercise3: "Egzersiz 3: Spark ile MegaStore",
-                exercise4: "Egzersiz 4: Birleştirmeler ve Toplamalar",
-                exercise5: "Egzersiz 5: Spark SQL",
-                exercise6: "Egzersiz 6: Pencere Fonksiyonları",
-                exercise7: "Egzersiz 7: RDD İşlemleri",
-                exercise8: "Egzersiz 8: Performans ve ML",
-                selfCheck: "Kendi Kendine Kontrol",
-                reflection: "Yansıtma ve Uygulamalar",
-                troubleshooting: "Sorun Giderme",
-                resources: "Ek Kaynaklar",
-                whatYouLearn: "Neler Öğreneceksiniz",
-                realWorldMotivation: "Neden Spark? Netflix, Uber ve Shopify gibi şirketler Spark'ı günlük olarak kullanır:",
-                netflixScale: "Netflix: Öneriler için petabayt video akış verilerini işleme",
-                uberScale: "Uber: Fiyatlandırma ve rotalar için günlük terabayt yolculuk verileri analiz etme",
-                shopifyScale: "Shopify: Yoğun satış dönemlerinde dakikalar içinde 67 milyon siparişi işleme",
-                alibabaScale: "Alibaba: E-ticaret analitiği için dünyanın en büyük Spark işlerini çalıştırma",
-                pinterestScale: "Pinterest: Milyarlarca kullanıcı etkileşimi için gerçek zamanlı veri işleme",
-                sparkIs: "Apache Spark Nedir?",
-                distributedComputing: "Dağıtılmış Bilişim: Spark, büyük ölçekli ölçeklenebilirlik için makine kümelerinde çalışır",
-                speedAndEase: "Hızlı ve Kolay: Hadoop MapReduce'tan 100 kat daha hızlı bellek içi işleme",
-                unified: "Birleşik Çerçeve: Toplu işleme, SQL sorguları, akış, ML hepsi bir arada",
-
-                nav: { backToOverview: "← Genel Bakışa Dön", language: "Dil" },
-                hero: { title: "Apache Spark Lab - Dağıtılmış Veri İşleme", chapter: "Bölüm 8 - Dağıtılmış Bilişim (Butscher: Big Data & Applications, THWS)", difficulty: "Zorluk", advanced: "İleri", estimatedTime: "Tahmini Süre", hours: "3-4 Saat", prerequisites: "Ön Koşullar: MongoDB Lab ve DuckDB Lab önerilir" },
-                sidebar: {
-                    learningObjectives: "Öğrenme Hedefleri",
-                    setupInstallation: "Kurulum ve İnstallation",
-                    theoryOverview: "Teori Özeti",
-                    dataModel: "MegaStore Pipeline",
-                    exercise1: "Alıştırma 1: SparkSession & DataFrames",
-                    exercise2: "Alıştırma 2: Joins & Aggregations",
-                    exercise3: "Alıştırma 3: Window Functions & SQL",
-                    exercise4: "Alıştırma 4: RDD Operasyonları",
-                    exercise5: "Alıştırma 5: Performans & Optimizasyon",
-                    challenges: "Kademeli Zorluklar",
-                    selfCheck: "Öz Kontrol",
-                    reflection: "Yansıtma & Gerçek Dünya Uygulamaları",
-                    troubleshooting: "Sorun Giderme"
-                },
-                objectives: [
-                    "Apache Spark ile dağıtılmış hesaplamayı anlamak",
-                    "MapReduce paradigmasını öğrenmek",
-                    "Spark RDDs ve DataFrames'i öğrenmek",
-                    "SparkSQL'i karmaşık analitik için kullanmak",
-                    "Veri dönüştürme için ETL boru hatları oluşturmak"
-                ],
-                theory: {
-                    title: "Teori Özeti",
-                    whatIsSpark: "Apache Spark Nedir?",
-                    whatIsSparkDesc: "Apache Spark, hızlı, büyük ölçekli veri işleme için dağıtılmış bir bilgi işlem çerçevesidir. Küme donanımında çalışır ve veri işlemeyi doğrusal ölçeklenebilirlik için birden çok makineye dağıtır.",
-                    rddVsDataFrame: "RDD vs. DataFrame vs. Dataset",
-                    rddVsDataFrameDesc: "RDD'ler (Dirençli Dağıtılmış Veri Kümeleri) temel soyut koleksiyonlardır. DataFrame'ler, adlandırılmış, yazılı RDD sütunlarıdır (SQL tabloları gibi). Dataset'ler tür güvenli ve her ikisinin avantajlarını birleştirir.",
-                    lazyEvaluation: "Tembel Değerlendirme",
-                    lazyEvaluationDesc: "Dönüşümler hemen yürütülmez. Spark dönüşümlerin bir DAG'ını (Directed Acyclic Graph) oluşturur ve yalnızca bir Action çağrıldığında yürütür. Bu optimizasyonları etkinleştirir.",
-                    architecture: "Spark Mimarisi",
-                    architectureDesc: "Driver işlemi Spark kodunuzu çalıştırır ve Executors'u koordine eder. Cluster Manager kaynakları yönetir. Executors veri bölümlerinde gerçek işi yapar.",
-                    transformationsVsActions: "Dönüşümler vs. İşlemler",
-                    transformationsVsActionsDesc: "Dönüşümler (map, filter, join) temel verileri değiştirmeden yeni RDD'ler oluşturur. İşlemler (collect, count, write) hesaplamayı tetikler ve sonuçları döndürür."
-                },
-                dataModel: {
-                    title: "MegaStore Pipeline",
-                    intro: "MegaStore e-Ticaret sistemi aşağıdaki Spark işleme aşamalarından geçer:",
-                    dataFlow: "Veri akışı: CSV/Parquet → SparkSession → Dönüşümler → Toplamaları → Çıktı",
-                    customers: "Müşteriler: customer_id, ad, e-posta, kayıt_tarihi, ülke",
-                    products: "Ürünler: product_id, ad, kategori, unit_price, stock_quantity",
-                    orders: "Siparişler: order_id, customer_id, order_date, order_total, durum",
-                    orderItems: "Sipariş Öğeleri: order_item_id, order_id, product_id, miktar, unit_price",
-                    schema: "Veriler hızlı Spark işleme için Parquet (sıkıştırılmış, sütunlu) içinde depolanır."
-                },
-                exercise1: {
-                    title: "Alıştırma 1: PySpark ile İlk Adımlar",
-                    intro: "SparkSession oluşturun, veri yükleyin ve yapısını keşfedin."
-                },
-                exercise2: {
-                    title: "Alıştırma 2: Joins & Aggregations",
-                    intro: "Birden fazla veri kaynağını birleştirmeyi ve karmaşık toplamalar yapmayı öğrenin."
-                },
-                exercise3: {
-                    title: "Alıştırma 3: Window Functions & SQL",
-                    intro: "İleri analitik için Window Functions ve SparkSQL'i kullanın."
-                },
-                exercise4: {
-                    title: "Alıştırma 4: RDD Operasyonları",
-                    intro: "Spark RDDs ile MapReduce paradigmasını keşfedin."
-                },
-                exercise5: {
-                    title: "Alıştırma 5: Performans & Optimizasyon",
-                    intro: "Spark işlerini hız için optimize etmeyi öğrenin."
-                },
-                challenges: {
-                    title: "Kademeli Zorluklar",
-                    level1: {
-                        title: "Başlangıç - Top 5 Ürün Kategorileri",
-                        challenge: "En fazla ürüne sahip 5 ürün kategorisini bulun",
-                        hypothesis: "Yazılmadan önce: Hangi kategorilerin en fazla ürüne sahip olduğunu düşünüyorsunuz?",
-                        solution: "df.groupBy('category').count().orderBy(col('count').desc()).limit(5).show()",
-                        insight: "Elektronik ve Ev & Bahçe tipik olarak hakim durumdadır. Bu veriler alan ve bütçe tahsisini yönlendirir."
-                    },
-                    level2: {
-                        title: "Orta - Çoklu Birleştirmeler",
-                        challenge: "Siparişler, sipariş öğeleri ve ürünleri birleştirerek kategori başına toplam geliri hesaplayın",
-                        hint: "İpucu: groupBy ve aggregation fonksiyonları ile çoklu joins kullanın",
-                        realWorld: "Bu, temel e-ticaret raporlamasıdır."
-                    },
-                    level3: {
-                        title: "Gelişmiş - Window Functions ve Performans",
-                        challenge: "Her müşteri için: siparişlerini tarihe göre sıralayın ve kümülatif geliri hesaplayın",
-                        hint: "İpucu: partitionBy ve orderBy ile Window Functions kullanın",
-                        realWorld: "Müşteri Yaşam Boyu Değeri ve tutma analitikleri kritiktir."
-                    },
-                    level4: {
-                        title: "Boss Challenge - Öneri Motorunu Oluşturun",
-                        challenge: "Ürün önerileri için ALS (Alternating Least Squares) işbirliğine dayalı filtrelemeyi uygulayın",
-                        concept: "ALS, bir matris çarpanlaştırma çerçevesidir. Gizli faktörleri keşfetmek için kullanıcı-ürün matrisini çarpanlaştırır.",
-                        realWorld: "Amazon gelirinin %35'ini önerilerden elde eder. Bu temel iş modelidir."
-                    }
-                },
-                selfCheck: {
-                    title: "Öz Kontrol",
-                    questions: [
-                        { q: "Spark'ta tembel değerlendirme nedir?", a: "Dönüşümler hemen yürütülmez. Spark bir plan (DAG) oluşturur ve yalnızca bir İşlem çağrıldığında yürütür. Bu optimizasyonları etkinleştirir." },
-                        { q: "Dönüşüm ve işlem arasındaki fark?", a: "Dönüşümler (map, filter, join) tembeldir ve yeni RDD'ler döndürür. İşlemler (collect, count, save) hesaplamayı tetikler ve sonuçlar döndürür." },
-                        { q: "cache() ne zaman kullanmalısınız?", a: "Bir RDD/DataFrame'i birden çok kez yeniden kullandığınızda cache() kullanın. Rekomputasyondan kaçınmak için bellekte saklar." },
-                        { q: "repartition() ne yapar?", a: "repartition(), verileri karıştırarak bölüm sayısını değiştirir. Pahalıdır ancak verileri yeniden dağıtmak için gereklidir." },
-                        { q: "Catalyst optimizer nasıl çalışır?", a: "Catalyst, Spark sorgu planınızı analiz eder ve optimizasyonlar uygular: yüklem push-down'ları, join yeniden sıralaması. DataFrame kodunu optimize edilmiş Spark SQL'e dönüştürür." }
-                    ]
-                },
-                reflection: {
-                    title: "Yansıtma & Gerçek Dünya Uygulamaları",
-                    prompts: [
-                        { title: "Sizi şaşırtan neydi?", desc: "Spark'ın hangi yönü beklenmediydi? Beklentilerinizden nasıl farklıydı?" },
-                        { title: "En zor kısım neydi?", desc: "Hangi konseptler en zor oldu? Nerede daha fazla pratik yapmanız gerekiyor?" },
-                        { title: "Spark'ı teknik olmayan bir CEO'ya açıklayın", desc: "Spark'ın avantajlarını basit terimlerle nasıl açıklardınız?" },
-                        { title: "MegaStore'ın hangi iş sorusu en ilginçti?", desc: "Tüm zorluklar arasından: Hangi sizi en çok büyüledi ve neden?" }
-                    ],
-                    companies: {
-                        title: "Neden Spark? Netflix, Uber ve Shopify gibi şirketler Spark'ı günlük olarak kullanır:",
-                        list: [
-                            { name: "Netflix", desc: "Öneriler için petabayt video akış verilerini işleme", link: "https://www.slideshare.net/NezihYigitbasi/spark-on-yarn-netflix" },
-                            { name: "Uber", desc: "Fiyatlandırma ve rotalar için günlük terabayt yolculuk verileri analiz etme", link: "https://vutr.substack.com/p/how-does-uber-handle-petabytes-of" },
-                            { name: "Shopify", desc: "Yoğun satış dönemlerinde dakikalar içinde 67 milyon siparişi işleme", link: "https://shopify.engineering/capturing-every-change-shopify-sharded-monolith" },
-                            { name: "Alibaba", desc: "E-ticaret analitiği için dünyanın en büyük Spark işlerini çalıştırma", link: "https://github.com/vaquarkhan/Techies-Notes-wiki/blob/master/Apache-Spark-Case-Study.md" }
-                        ]
-                    },
-                    realWorld: "Spark'ın Gerçek Dünyada Kullanıldığı Yerler",
-                    useCases: [
-                        { title: "Big Data ETL Boru Hatları", desc: "Veri gölü için veri içe aktarma, temizleme ve dönüştürme. Netflix günde petabayt işler Spark ile." },
-                        { title: "Gerçek Zamanlı Akış", desc: "Spark Streaming, IoT sensör verilerini, tıklama akışlarını ve finansal işlemleri gerçek zamanlı olarak işler." },
-                        { title: "Ölçekte Makine Öğrenmesi", desc: "Büyük veri kümeleri üzerinde dağıtılmış model eğitimi için MLlib. Doğal dil işleme için Spark-NLP." },
-                        { title: "Analitik & BI", desc: "Spark SQL ve Tableau entegrasyonu ile milyarlarca kayıt üzerinde hızlı geçici sorgular." }
-                    ]
-                },
-                troubleshooting: {
-                    title: "Sorun Giderme",
-                    commonErrors: "Yaygın Hatalar ve Çözümler",
-                    errors: [
-                        { problem: "Java bulunamadı / JAVA_HOME ayarlanmadı", solution: "Java yükleyin: sudo apt-get install openjdk-11-jdk && export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64" },
-                        { problem: "Spark işinde OutOfMemoryError", solution: "Executor belleğini artırın: spark-submit --executor-memory 8g script.py" },
-                        { problem: "Port 4040 zaten kullanılıyor", solution: "Farklı bir port kullanın: spark.ui.port=4041" },
-                        { problem: "Docker konteyner başlamıyor", solution: "Günlükleri kontrol edin: docker logs spark-jupyter. Yeterli RAM olduğundan emin olun." },
-                        { problem: "Yavaş Spark performansı", solution: "Bölümlemeyi kontrol edin (repartition), cache() stratejik olarak kullanın, explain() ile join sırasını gözden geçirin" }
-                    ]
-                },
-                ui: {
-                    copy: "Kopyala",
-                    hypothesis: "Hipotez:",
-                    exampleSolution: "Örnek Çözüm:",
-                    concept: "Konsept:",
-                    realWorldInsight: "Gerçek Dünya İçgörüsü:",
-                    realWorldImpact: "Gerçek Dünya Etkisi:",
-                    solution: "Çözüm:",
-                    dataSchema: "Veri Şeması",
-                    nextExercise: "Sonraki Alıştırma →"
-                }
+                back: "← Ana Sayfaya Dön",
+                copy: "Kopyala",
             }
         };
 
-        const CodeBlock = ({ code, language = 'python', t }) => {
-            const ref = useRef(null);
+        function App() {
+            const [language, setLanguage] = useState('de');
+            const [activeSection, setActiveSection] = useState('overview');
+            const [expandedHints, setExpandedHints] = useState({});
+            const [quizAnswers, setQuizAnswers] = useState({});
 
-            useEffect(() => {
-                if (ref.current) {
-                    ref.current.querySelectorAll('pre code').forEach((block) => {
-                        hljs.highlightElement(block);
-                    });
-                }
-            }, [code]);
+            const t = translations[language];
 
-            const copyCode = () => {
-                navigator.clipboard.writeText(code);
-                const button = ref.current?.querySelector('.copy-button');
-                if (button) {
-                    button.classList.add('copied');
-                    setTimeout(() => button.classList.remove('copied'), 2000);
-                }
+            const copyToClipboard = (text) => {
+                navigator.clipboard.writeText(text);
+                alert(t.copy);
+            };
+
+            const toggleHint = (hintId) => {
+                setExpandedHints(prev => ({ ...prev, [hintId]: !prev[hintId] }));
+            };
+
+            const handleQuizAnswer = (questionId, answer) => {
+                setQuizAnswers(prev => ({ ...prev, [questionId]: answer }));
+            };
+
+            const isQuizAnswerCorrect = (questionId, answer) => {
+                const correctAnswers = {
+                    q1: 'a',
+                    q2: 'b',
+                    q3: 'b',
+                    q4: 'a',
+                    q5: 'b'
+                };
+                return correctAnswers[questionId] === answer;
             };
 
             return (
-                <div className="code-block" ref={ref}>
-                    <div className="code-block-header">
-                        <span>{language}</span>
-                        <button className="copy-button" onClick={copyCode}>{t?.ui?.copy || 'Copy'}</button>
-                    </div>
-                    <div className="code-block-content">
-                        <pre><code className={`language-${language}`}>{code}</code></pre>
-                    </div>
-                </div>
-            );
-        };
-
-        const ChallengeCard = ({ level, t }) => {
-            const [isOpen, setIsOpen] = useState(false);
-            const challenges = t.challenges;
-            const levelKey = `level${level}`;
-            const challenge = challenges[levelKey];
-
-            if (!challenge) return null;
-
-            const difficultyMap = {
-                1: 'difficulty-beginner',
-                2: 'difficulty-intermediate',
-                3: 'difficulty-advanced',
-                4: 'difficulty-boss'
-            };
-
-            return (
-                <div className="challenge-card">
-                    <div className="challenge-header" onClick={() => setIsOpen(!isOpen)}>
-                        <div>
-                            <h3 className="challenge-title">{challenge.title}</h3>
+                <div dir={language === 'ar' ? 'rtl' : 'ltr'}>
+                    <div className="header">
+                        <div className="header-left">
+                            <button className="back-btn" onClick={() => window.history.back()}>{t.back}</button>
+                            <div className="header-title">Spark Lab</div>
                         </div>
-                        <div className={`challenge-toggle ${isOpen ? 'open' : ''}`}>▶</div>
+                        <div className="lang-switcher">
+                            {['de', 'en', 'ar', 'uk', 'es', 'tr'].map(lang => (
+                                <button key={lang} className={'lang-btn ' + (language === lang ? 'active' : '')} onClick={() => setLanguage(lang)}>
+                                    {lang.toUpperCase()}
+                                </button>
+                            ))}
+                        </div>
                     </div>
-                    <div className={`challenge-content ${isOpen ? 'open' : ''}`}>
-                        <p className="mb-4"><strong>{challenge.challenge}</strong></p>
-                        {challenge.hypothesis && <div className="card hypothesis-box mb-4"><p><strong>{t.ui.hypothesis}</strong> {challenge.hypothesis}</p></div>}
-                        {challenge.hint && <div className="card learning-box mb-4"><p>{challenge.hint}</p></div>}
-                        {challenge.solution && <div className="card mb-4"><p><strong>{t.ui.exampleSolution}</strong> {challenge.solution}</p></div>}
-                        {challenge.concept && <div className="card mb-4"><p><strong>{t.ui.concept}</strong> {challenge.concept}</p></div>}
-                        {challenge.insight && <div className="card insight-box"><p><strong>{t.ui.realWorldInsight}</strong> {challenge.insight}</p></div>}
-                        {challenge.realWorld && <div className="card insight-box"><p><strong>{t.ui.realWorldImpact}</strong> {challenge.realWorld}</p></div>}
-                    </div>
-                </div>
-            );
-        };
 
-        const SelfCheckQuestion = ({ question, answer }) => {
-            const [isOpen, setIsOpen] = useState(false);
-
-            return (
-                <div className="self-check-question">
-                    <div className="question-text" onClick={() => setIsOpen(!isOpen)}>
-                        <span>{question}</span>
-                        <span className="answer-toggle">{isOpen ? '▼' : '▶'}</span>
-                    </div>
-                    <div className={`answer-text ${isOpen ? 'open' : ''}`}>
-                        {answer}
-                    </div>
-                </div>
-            );
-        };
-
-        const LabApp = () => {
-            const [lang, setLang] = useState('de');
-            const [activeSection, setActiveSection] = useState('learningObjectives');
-            const t = translations[lang] || translations.de;
-
-            useEffect(() => {
-                document.documentElement.lang = lang;
-                document.documentElement.dir = (lang === 'ar') ? 'rtl' : 'ltr';
-            }, [lang]);
-
-            return (
-                <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
-                    <nav className="navbar">
-                        <div className="navbar-content">
-                            <button onClick={() => window.location.href = 'index.html'} style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#E25A1C', textDecoration: 'none', fontSize: '1rem', fontWeight: '600' }}>
-                                {t.nav.backToOverview}
-                            </button>
-                            <h1 className="logo">Spark Lab</h1>
-                            <div className="language-switcher" style={{ display: 'flex', gap: '0.5rem' }}>
-                                {[['de','DE'],['en','EN'],['ar','AR'],['uk','UK'],['es','ES'],['tr','TR']].map(([code, label]) => (
-                                    <button key={code} onClick={() => setLang(code)} className={`lang-btn ${lang === code ? 'active' : ''}`} style={{ padding: '0.5rem 0.75rem', borderRadius: '0.375rem', border: lang === code ? '2px solid #E8792F' : '2px solid #e5e7eb', background: lang === code ? '#E8792F' : 'white', cursor: 'pointer', fontWeight: 600, fontSize: '0.875rem', color: lang === code ? 'white' : '#666' }}>{label}</button>
-                                ))}
+                    <div className="sidebar">
+                        {[
+                            { id: 'overview', label: t.overview },
+                            { id: 'setup', label: t.setup },
+                            { id: 'fundamentals', label: t.fundamentals },
+                            { id: 'exercise1', label: t.exercise1 },
+                            { id: 'exercise2', label: t.exercise2 },
+                            { id: 'exercise3', label: t.exercise3 },
+                            { id: 'exercise4', label: t.exercise4 },
+                            { id: 'exercise5', label: t.exercise5 },
+                            { id: 'challenge', label: t.challenge },
+                            { id: 'quiz', label: t.quiz },
+                            { id: 'outlook', label: t.outlook },
+                            { id: 'troubleshooting', label: t.troubleshooting }
+                        ].map(item => (
+                            <div key={item.id} className={'sidebar-item ' + (activeSection === item.id ? 'active' : '')} onClick={() => setActiveSection(item.id)}>
+                                {item.label}
                             </div>
-                        </div>
-                    </nav>
+                        ))}
+                    </div>
 
-                    <div style={{ display: 'flex', flex: 1 }}>
-                        <aside className="sidebar" style={{ width: '250px', minWidth: '250px' }}>
-                            <nav style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
-                                {Object.entries(t.sidebar).map(([key, value]) => (
-                                    <a key={key} href={`#${key}`} onClick={(e) => { e.preventDefault(); setActiveSection(key); }} className="sidebar-link" style={{ color: activeSection === key ? '#E25A1C' : '#1B3A5C' }}>{value}</a>
+                    <div className="main-content">
+                        {activeSection === 'overview' && (
+                            <section className="section active">
+                                <h2 className="section-header">{t.overview1Title}</h2>
+                                <div className="lesson-box">
+                                    <h3 style={{ color: '#E8792F', marginBottom: '1rem' }}>{t.whatYouLearn}</h3>
+                                    <p>{t.realWorldMotivation}</p>
+                                    <ul style={{ listStyle: 'none', paddingLeft: 0, marginTop: '1rem' }}>
+                                        <li style={{ marginBottom: '0.5rem' }}><strong>Netflix:</strong> {t.netflixDesc}</li>
+                                        <li style={{ marginBottom: '0.5rem' }}><strong>Uber:</strong> {t.uberDesc}</li>
+                                        <li style={{ marginBottom: '0.5rem' }}><strong>Shopify:</strong> {t.shopifyDesc}</li>
+                                        <li><strong>Alibaba:</strong> {t.alibabaDesc}</li>
+                                    </ul>
+                                </div>
+
+                                <div className="card">
+                                    <h3 className="subsection-header">{t.sparkIs}</h3>
+                                    <ul style={{ listStyle: 'none', paddingLeft: 0 }}>
+                                        <li style={{ marginBottom: '0.75rem' }}><strong>• {t.distributedComputing}</strong></li>
+                                        <li style={{ marginBottom: '0.75rem' }}><strong>• {t.inMemoryProcessing}</strong></li>
+                                        <li><strong>• {t.unifiedFramework}</strong></li>
+                                    </ul>
+                                </div>
+
+                                <div className="card">
+                                    <h3 className="subsection-header">{t.estimatedTime}</h3>
+                                    <p><strong>{t.timeValue}</strong></p>
+                                    <p style={{ marginTop: '1rem' }}><strong>{t.prerequisites}</strong> {t.prereqValue}</p>
+                                    <p style={{ marginTop: '1rem' }}><strong>{t.chapter}</strong> {t.chapterValue}</p>
+                                </div>
+
+                                <div className="card">
+                                    <h3 className="subsection-header" style={{ marginTop: 0 }}>{t.overview1Intro}</h3>
+                                    <p><strong>{t.dataFlow}</strong></p>
+                                    <h4 style={{ marginTop: '1.5rem', marginBottom: '0.5rem', fontWeight: 600, color: '#1B3A5C' }}>{t.schema}</h4>
+                                    <ul style={{ lineHeight: '1.8', marginLeft: 0, listStyle: 'none', paddingLeft: 0 }}>
+                                        <li>• {t.customers}</li>
+                                        <li>• {t.products}</li>
+                                        <li>• {t.orders}</li>
+                                        <li>• {t.orderItems}</li>
+                                    </ul>
+                                    <p style={{ marginTop: '1rem' }}>{t.schemaNote}</p>
+                                </div>
+                            </section>
+                        )}
+
+                        {activeSection === 'setup' && (
+                            <section className="section active">
+                                <h2 className="section-header">{t.setup}</h2>
+                                <p>{t.setupIntro}</p>
+
+                                <div className="card">
+                                    <h4 className="subsection-header" style={{ marginTop: 0 }}>{t.step1}</h4>
+                                    <p>{t.step1Desc}</p>
+                                </div>
+
+                                <div className="card">
+                                    <h4 className="subsection-header" style={{ marginTop: 0 }}>{t.step2}</h4>
+                                    <div className="code-block" style={{ position: 'relative' }}>
+                                        <button className="copy-btn" onClick={() => copyToClipboard('docker pull jupyter/pyspark-notebook:latest')}>{t.copy}</button>
+                                        <code>{t.step2Code}</code>
+                                    </div>
+                                </div>
+
+                                <div className="card">
+                                    <h4 className="subsection-header" style={{ marginTop: 0 }}>{t.step3}</h4>
+                                    <div className="code-block" style={{ position: 'relative' }}>
+                                        <button className="copy-btn" onClick={() => copyToClipboard('docker run --name spark-jupyter -p 8888:8888 -p 4040:4040 -v $(pwd)/data:/home/jovyan/data jupyter/pyspark-notebook:latest')}>{t.copy}</button>
+                                        <code>{t.step3Code}</code>
+                                    </div>
+                                </div>
+
+                                <div className="card">
+                                    <h4 className="subsection-header" style={{ marginTop: 0 }}>{t.step4}</h4>
+                                    <p>{t.step4Desc}</p>
+                                </div>
+                            </section>
+                        )}
+
+                        {activeSection === 'fundamentals' && (
+                            <section className="section active">
+                                <h2 className="section-header">{t.fundamentals}</h2>
+                                <p>{t.fundamentalsIntro}</p>
+
+                                <div className="card">
+                                    <h3 className="subsection-header">{t.whatIsSparkSession}</h3>
+                                    <p>{t.sparkSessionDesc}</p>
+                                </div>
+
+                                <div className="card">
+                                    <h3 className="subsection-header">{t.rddVsDataFrame}</h3>
+                                    <p>{t.rddVsDataFrameDesc}</p>
+                                </div>
+
+                                <div className="card">
+                                    <h3 className="subsection-header">{t.lazyEvaluation}</h3>
+                                    <p>{t.lazyEvaluationDesc}</p>
+                                </div>
+                            </section>
+                        )}
+
+                        {activeSection === 'exercise1' && (
+                            <section className="section active">
+                                <h2 className="section-header">{t.ex1Title}</h2>
+                                <p>{t.ex1Intro}</p>
+                                <div className="badge badge-beginner">{t.exercise1}</div>
+                                <div className="badge" style={{ background: '#e0e7ff', color: '#3730a3' }}>{t.estimate} {t.estimateValue}</div>
+
+                                <div className="card">
+                                    <h4 style={{ marginTop: 0, fontWeight: 600, color: '#1B3A5C' }}>{t.objective}</h4>
+                                    <p>{t.ex1Objective}</p>
+
+                                    <h4 style={{ fontWeight: 600, color: '#1B3A5C', marginTop: '1rem' }}>{t.ex1Steps}</h4>
+                                    <ol style={{ marginLeft: '1.5rem', lineHeight: '1.8' }}>
+                                        <li>{t.ex1Step1}</li>
+                                        <li>{t.ex1Step2}</li>
+                                        <li>{t.ex1Step3}</li>
+                                        <li>{t.ex1Step4}</li>
+                                    </ol>
+                                </div>
+
+                                <div className="code-block" style={{ position: 'relative' }}>
+                                    <button className="copy-btn" onClick={() => copyToClipboard('from pyspark.sql import SparkSession\n\nspark = SparkSession.builder.appName("MegaStore").master("local[*]").getOrCreate()\norders = spark.read.parquet("data/orders.parquet")\norders.printSchema()\norders.show(5)')}>{t.copy}</button>
+                                    <code>{'from pyspark.sql import SparkSession\n\nspark = SparkSession.builder.appName("MegaStore").master("local[*]").getOrCreate()\norders = spark.read.parquet("data/orders.parquet")\norders.printSchema()\norders.show(5)'}</code>
+                                </div>
+
+                                <div className="card">
+                                    <h4 style={{ marginTop: 0, fontWeight: 600, color: '#1B3A5C' }}>{t.ex1Verify}</h4>
+                                    <p><strong>{t.ex1Expected}</strong></p>
+                                </div>
+
+                                <button className="btn-accent" onClick={() => setActiveSection('exercise2')} style={{ marginTop: '2rem' }}>{t.nextExercise}</button>
+                            </section>
+                        )}
+
+                        {activeSection === 'exercise2' && (
+                            <section className="section active">
+                                <h2 className="section-header">{t.ex2Title}</h2>
+                                <p>{t.ex2Intro}</p>
+                                <div className="badge badge-beginner">{t.exercise2}</div>
+
+                                <div className="card">
+                                    <h4 style={{ marginTop: 0, fontWeight: 600, color: '#1B3A5C' }}>{t.objective}</h4>
+                                    <p>{t.ex2Objective}</p>
+
+                                    <h4 style={{ fontWeight: 600, color: '#1B3A5C', marginTop: '1rem' }}>{t.ex2Steps}</h4>
+                                    <ol style={{ marginLeft: '1.5rem', lineHeight: '1.8' }}>
+                                        <li>{t.ex2Step1}</li>
+                                        <li>{t.ex2Step2}</li>
+                                        <li>{t.ex2Step3}</li>
+                                        <li>{t.ex2Step4}</li>
+                                    </ol>
+                                </div>
+
+                                <div className="code-block" style={{ position: 'relative' }}>
+                                    <button className="copy-btn" onClick={() => copyToClipboard('from pyspark.sql.functions import col\n\norders_filtered = orders \\\n    .select("order_id", "customer_id", "order_total") \\\n    .filter(col("order_total") > 100)\n\norders_filtered.show()\norders_filtered.count()')}>{t.copy}</button>
+                                    <code>{'from pyspark.sql.functions import col\n\norders_filtered = orders \\\n    .select("order_id", "customer_id", "order_total") \\\n    .filter(col("order_total") > 100)\n\norders_filtered.show()\norders_filtered.count()'}</code>
+                                </div>
+
+                                <div className="card">
+                                    <h4 style={{ marginTop: 0, fontWeight: 600, color: '#1B3A5C' }}>{t.ex2Verify}</h4>
+                                    <p><strong>{t.ex2Expected}</strong></p>
+                                </div>
+
+                                <button className="btn-accent" onClick={() => setActiveSection('exercise3')} style={{ marginTop: '2rem' }}>{t.nextExercise}</button>
+                            </section>
+                        )}
+
+                        {activeSection === 'exercise3' && (
+                            <section className="section active">
+                                <h2 className="section-header">{t.ex3Title}</h2>
+                                <p>{t.ex3Intro}</p>
+                                <div className="badge badge-beginner">{t.exercise3}</div>
+
+                                <div className="card">
+                                    <h4 style={{ marginTop: 0, fontWeight: 600, color: '#1B3A5C' }}>{t.objective}</h4>
+                                    <p>{t.ex3Objective}</p>
+
+                                    <h4 style={{ fontWeight: 600, color: '#1B3A5C', marginTop: '1rem' }}>{t.ex3Steps}</h4>
+                                    <ol style={{ marginLeft: '1.5rem', lineHeight: '1.8' }}>
+                                        <li>{t.ex3Step1}</li>
+                                        <li>{t.ex3Step2}</li>
+                                        <li>{t.ex3Step3}</li>
+                                        <li>{t.ex3Step4}</li>
+                                    </ol>
+                                </div>
+
+                                <div className="code-block" style={{ position: 'relative' }}>
+                                    <button className="copy-btn" onClick={() => copyToClipboard('from pyspark.sql.functions import avg, count, col\n\ncustomer_stats = orders.groupBy("customer_id") \\\n    .agg(count("order_id").alias("order_count"), \\\n         avg("order_total").alias("avg_order_value")) \\\n    .orderBy(col("order_count").desc())\n\ncustomer_stats.show()')}>{t.copy}</button>
+                                    <code>{'from pyspark.sql.functions import avg, count, col\n\ncustomer_stats = orders.groupBy("customer_id") \\\n    .agg(count("order_id").alias("order_count"), \\\n         avg("order_total").alias("avg_order_value")) \\\n    .orderBy(col("order_count").desc())\n\ncustomer_stats.show()'}</code>
+                                </div>
+
+                                <div className="card">
+                                    <h4 style={{ marginTop: 0, fontWeight: 600, color: '#1B3A5C' }}>{t.ex3Verify}</h4>
+                                    <p><strong>{t.ex3Expected}</strong></p>
+                                </div>
+
+                                <button className="btn-accent" onClick={() => setActiveSection('exercise4')} style={{ marginTop: '2rem' }}>{t.nextExercise}</button>
+                            </section>
+                        )}
+
+                        {activeSection === 'exercise4' && (
+                            <section className="section active">
+                                <h2 className="section-header">{t.ex4Title}</h2>
+                                <p>{t.ex4Intro}</p>
+                                <div className="badge badge-beginner">{t.exercise4}</div>
+
+                                <div className="card">
+                                    <h4 style={{ marginTop: 0, fontWeight: 600, color: '#1B3A5C' }}>{t.objective}</h4>
+                                    <p>{t.ex4Objective}</p>
+
+                                    <h4 style={{ fontWeight: 600, color: '#1B3A5C', marginTop: '1rem' }}>{t.ex4Steps}</h4>
+                                    <ol style={{ marginLeft: '1.5rem', lineHeight: '1.8' }}>
+                                        <li>{t.ex4Step1}</li>
+                                        <li>{t.ex4Step2}</li>
+                                        <li>{t.ex4Step3}</li>
+                                        <li>{t.ex4Step4}</li>
+                                    </ol>
+                                </div>
+
+                                <div className="code-block" style={{ position: 'relative' }}>
+                                    <button className="copy-btn" onClick={() => copyToClipboard('from pyspark.sql.functions import sum, col\n\norder_items = spark.read.parquet("data/order_items.parquet")\nproducts = spark.read.parquet("data/products.parquet")\ncustomers = spark.read.parquet("data/customers.parquet")\n\nrevenue_by_country = orders \\\n    .join(customers, "customer_id") \\\n    .join(order_items, "order_id") \\\n    .join(products, "product_id") \\\n    .groupBy("country") \\\n    .agg(sum(col("quantity") * col("unit_price")).alias("revenue")) \\\n    .orderBy(col("revenue").desc())\n\nrevenue_by_country.show()')}>{t.copy}</button>
+                                    <code>{'from pyspark.sql.functions import sum, col\n\norder_items = spark.read.parquet("data/order_items.parquet")\nproducts = spark.read.parquet("data/products.parquet")\ncustomers = spark.read.parquet("data/customers.parquet")\n\nrevenue_by_country = orders \\\n    .join(customers, "customer_id") \\\n    .join(order_items, "order_id") \\\n    .join(products, "product_id") \\\n    .groupBy("country") \\\n    .agg(sum(col("quantity") * col("unit_price")).alias("revenue")) \\\n    .orderBy(col("revenue").desc())\n\nrevenue_by_country.show()'}</code>
+                                </div>
+
+                                <div className="card">
+                                    <h4 style={{ marginTop: 0, fontWeight: 600, color: '#1B3A5C' }}>{t.ex4Verify}</h4>
+                                    <p><strong>{t.ex4Expected}</strong></p>
+                                </div>
+
+                                <button className="btn-accent" onClick={() => setActiveSection('exercise5')} style={{ marginTop: '2rem' }}>{t.nextExercise}</button>
+                            </section>
+                        )}
+
+                        {activeSection === 'exercise5' && (
+                            <section className="section active">
+                                <h2 className="section-header">{t.ex5Title}</h2>
+                                <p>{t.ex5Intro}</p>
+                                <div className="badge badge-beginner">{t.exercise5}</div>
+
+                                <div className="card">
+                                    <h4 style={{ marginTop: 0, fontWeight: 600, color: '#1B3A5C' }}>{t.objective}</h4>
+                                    <p>{t.ex5Objective}</p>
+
+                                    <h4 style={{ fontWeight: 600, color: '#1B3A5C', marginTop: '1rem' }}>{t.ex5Steps}</h4>
+                                    <ol style={{ marginLeft: '1.5rem', lineHeight: '1.8' }}>
+                                        <li>{t.ex5Step1}</li>
+                                        <li>{t.ex5Step2}</li>
+                                        <li>{t.ex5Step3}</li>
+                                        <li>{t.ex5Step4}</li>
+                                        <li>{t.ex5Step5}</li>
+                                    </ol>
+                                </div>
+
+                                <div className="code-block" style={{ position: 'relative' }}>
+                                    <button className="copy-btn" onClick={() => copyToClipboard('from pyspark.sql.functions import month, year, sum, round, col\n\nrevenue_by_category_month = orders \\\n    .join(order_items, "order_id") \\\n    .join(products, "product_id") \\\n    .groupBy(year("order_date").alias("year"), \\\n             month("order_date").alias("month"), \\\n             "category") \\\n    .agg(round(sum(col("quantity") * col("unit_price")), 2).alias("revenue")) \\\n    .orderBy(col("year"), col("month"), col("revenue").desc())\n\nrevenue_by_category_month.show(20)')}>{t.copy}</button>
+                                    <code>{'from pyspark.sql.functions import month, year, sum, round, col\n\nrevenue_by_category_month = orders \\\n    .join(order_items, "order_id") \\\n    .join(products, "product_id") \\\n    .groupBy(year("order_date").alias("year"), \\\n             month("order_date").alias("month"), \\\n             "category") \\\n    .agg(round(sum(col("quantity") * col("unit_price")), 2).alias("revenue")) \\\n    .orderBy(col("year"), col("month"), col("revenue").desc())\n\nrevenue_by_category_month.show(20)'}</code>
+                                </div>
+
+                                <div className="card">
+                                    <h4 style={{ marginTop: 0, fontWeight: 600, color: '#1B3A5C' }}>{t.ex5Verify}</h4>
+                                    <p><strong>{t.ex5Expected}</strong></p>
+                                </div>
+
+                                <button className="btn-accent" onClick={() => setActiveSection('challenge')} style={{ marginTop: '2rem' }}>{t.nextExercise}</button>
+                            </section>
+                        )}
+
+                        {activeSection === 'challenge' && (
+                            <section className="section active">
+                                <h2 className="section-header">{t.challengeTitle}</h2>
+                                <p>{t.challengeIntro}</p>
+                                <div className="badge badge-challenge">Challenge</div>
+
+                                <div className="card">
+                                    <h4 style={{ marginTop: 0, fontWeight: 600, color: '#1B3A5C' }}>{t.objective}</h4>
+                                    <p>{t.challengeObjective}</p>
+
+                                    <h4 style={{ fontWeight: 600, color: '#1B3A5C', marginTop: '1rem' }}>{t.challengeSteps}</h4>
+                                    <ol style={{ marginLeft: '1.5rem', lineHeight: '1.8' }}>
+                                        <li>{t.challengeStep1}</li>
+                                        <li>{t.challengeStep2}</li>
+                                        <li>{t.challengeStep3}</li>
+                                        <li>{t.challengeStep4}</li>
+                                        <li>{t.challengeStep5}</li>
+                                        <li>{t.challengeStep6}</li>
+                                    </ol>
+
+                                    <div className="hint-box" style={{ marginTop: '1.5rem' }}>
+                                        <div className="hint-title">{t.hint}</div>
+                                        <p>{t.challengeHint}</p>
+                                    </div>
+                                </div>
+
+                                <div className="card">
+                                    <h4 style={{ marginTop: 0, fontWeight: 600, color: '#1B3A5C' }}>{t.challengeVerify}</h4>
+                                    <p><strong>{t.challengeExpected}</strong></p>
+                                </div>
+
+                                <div className="expandable" onClick={() => toggleHint('solution')}>
+                                    <div className="expandable-header">
+                                        {t.solutionLabel}
+                                        <span className="expandable-chevron">▼</span>
+                                    </div>
+                                    {expandedHints['solution'] && (
+                                        <div className="expandable-content">
+                                            <div className="code-block" style={{ position: 'relative' }}>
+                                                <button className="copy-btn" onClick={() => copyToClipboard('from pyspark.sql.functions import max, datediff, current_date, col, when\n\nrfm = orders \\\n    .join(customers, "customer_id") \\\n    .groupBy("customer_id", "name") \\\n    .agg(\n        datediff(current_date(), max("order_date")).alias("recency"),\n        count("order_id").alias("frequency"),\n        sum("order_total").alias("monetary")\n    )\n\nat_risk = rfm.filter(col("recency") > 90)\nat_risk.show()\nprint(f"At-risk customers: {at_risk.count()}")')}>{t.copy}</button>
+                                                <code>{'from pyspark.sql.functions import max, datediff, current_date, col, when, count, sum\n\nrfm = orders \\\n    .join(customers, "customer_id") \\\n    .groupBy("customer_id", "name") \\\n    .agg(\n        datediff(current_date(), max("order_date")).alias("recency"),\n        count("order_id").alias("frequency"),\n        sum("order_total").alias("monetary")\n    )\n\nat_risk = rfm.filter(col("recency") > 90)\nat_risk.show()\nprint(f"At-risk customers: {at_risk.count()}")'}</code>
+                                            </div>
+                                        </div>
+                                    )}
+                                </div>
+                            </section>
+                        )}
+
+                        {activeSection === 'quiz' && (
+                            <section className="section active">
+                                <h2 className="section-header">{t.quizTitle}</h2>
+                                <p>{t.quizIntro}</p>
+
+                                {['q1', 'q2', 'q3', 'q4', 'q5'].map(qid => (
+                                    <div key={qid} className="quiz-item" onClick={() => toggleHint(qid)}>
+                                        <div className="quiz-item-question">
+                                            <span>{t[qid]}</span>
+                                            <span>{expandedHints[qid] ? '▼' : '▶'}</span>
+                                        </div>
+                                        {expandedHints[qid] && (
+                                            <div className="quiz-options">
+                                                {['a', 'b', 'c', 'd'].map(opt => {
+                                                    const isCorrect = isQuizAnswerCorrect(qid, opt);
+                                                    const isSelected = quizAnswers[qid] === opt;
+                                                    return (
+                                                        <div
+                                                            key={opt}
+                                                            className={'quiz-option ' + (isSelected ? (isCorrect ? 'correct' : 'incorrect') : '')}
+                                                            onClick={(e) => { e.stopPropagation(); handleQuizAnswer(qid, opt); }}
+                                                        >
+                                                            <strong>{opt.toUpperCase()}.</strong> {t[qid + opt]}
+                                                            {isSelected && (
+                                                                <>
+                                                                    {' '}
+                                                                    {isCorrect ? '✓' : '✗'}
+                                                                    {!isCorrect && (
+                                                                        <div style={{ fontSize: '0.85rem', marginTop: '0.5rem', color: '#666' }}>
+                                                                            {t[qid + 'Explanation']}
+                                                                        </div>
+                                                                    )}
+                                                                </>
+                                                            )}
+                                                        </div>
+                                                    );
+                                                })}
+                                            </div>
+                                        )}
+                                    </div>
                                 ))}
-                            </nav>
-                        </aside>
+                            </section>
+                        )}
 
-                        <main style={{ flex: 1, maxWidth: '900px', margin: '0 auto', width: '100%', padding: '2rem 1.5rem' }}>
-                            <section className="hero-section" style={{ marginBottom: '3rem', marginLeft: '-1.5rem', marginRight: '-1.5rem', marginTop: '-2rem', paddingLeft: '1.5rem', paddingRight: '1.5rem' }}>
-                                <div className="hero-content">
-                                    <h1 style={{ fontSize: '3rem', fontWeight: 'bold', marginBottom: '1rem' }}>{t.hero.title}</h1>
-                                    <p style={{ fontSize: '1.25rem', marginBottom: '0.5rem' }}>{t.hero.chapter}</p>
-                                    {t.hero.prerequisites && <p style={{ fontSize: '0.95rem', marginBottom: '2rem', opacity: 0.95 }}>📋 {t.hero.prerequisites}</p>}
-                                    <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
-                                        <span className="difficulty-badge difficulty-advanced">{t.hero.advanced}</span>
-                                        <span style={{ color: 'white' }}>⏱️ {t.hero.estimatedTime}: {t.hero.hours}</span>
+                        {activeSection === 'outlook' && (
+                            <section className="section active">
+                                <h2 className="section-header">{t.outlookTitle}</h2>
+
+                                <div className="outlook-section">
+                                    <div className="outlook-part">
+                                        <h3 className="outlook-title">{t.advancedTopics}</h3>
+                                        <p>{t.advancedDesc}</p>
+                                        <ul className="outlook-list">
+                                            <li><strong>Spark Streaming:</strong> {t.sparkStreaming}</li>
+                                            <li><strong>MLlib:</strong> {t.sparkML}</li>
+                                            <li><strong>Delta Lake:</strong> {t.deltaLake}</li>
+                                            <li><strong>Spark Connect:</strong> {t.sparkConnect}</li>
+                                        </ul>
+                                    </div>
+
+                                    <div className="outlook-part">
+                                        <h3 className="outlook-title">{t.aiIntegration}</h3>
+                                        <p>{t.aiDesc}</p>
+                                        <ul className="outlook-list">
+                                            <li><strong>MCP:</strong> {t.mcpExplained}</li>
+                                            <li><strong>Claude Code:</strong> {t.claudeExplained}</li>
+                                        </ul>
+
+                                        <h4 style={{ marginTop: '1.5rem', fontWeight: 600, color: '#1B3A5C', marginBottom: '1rem' }}>{t.aiPrompts}</h4>
+                                        <div className="prompt-example">
+                                            <strong>{t.aiPrompt1Title}:</strong><br />
+                                            {t.aiPrompt1}
+                                        </div>
+                                        <div className="prompt-example">
+                                            <strong>{t.aiPrompt2Title}:</strong><br />
+                                            {t.aiPrompt2}
+                                        </div>
+                                        <div className="prompt-example">
+                                            <strong>{t.aiPrompt3Title}:</strong><br />
+                                            {t.aiPrompt3}
+                                        </div>
                                     </div>
                                 </div>
                             </section>
+                        )}
 
-                            {activeSection === 'learningObjectives' && (
-                                <section id="learningObjectives" className="section">
-                                    <h2 className="section-header">{t.sidebar.learningObjectives}</h2>
-                                    <ul className="numbered-list">
-                                        {t.objectives.map((obj, idx) => (<li key={idx}><span>{obj}</span></li>))}
-                                    </ul>
-                                    {t.reflection && t.reflection.companies && (
-                                        <div style={{ marginTop: '2rem' }}>
-                                            <h3 className="subsection-header">{t.reflection.companies.title}</h3>
-                                            <ul className="check-list">
-                                                {t.reflection.companies.list.map((item, idx) => (
-                                                    <li key={idx}>
-                                                        <span>
-                                                            {item.name}: {item.desc}
-                                                            <a className="source-link" href={item.link} target="_blank" rel="noopener noreferrer">[Source]</a>
-                                                        </span>
-                                                    </li>
-                                                ))}
-                                            </ul>
-                                        </div>
-                                    )}
-                                </section>
-                            )}
+                        {activeSection === 'troubleshooting' && (
+                            <section className="section active">
+                                <h2 className="section-header">{t.troubleshootingTitle}</h2>
+                                <p>{t.commonProblems}</p>
 
-                            {activeSection === 'setupInstallation' && (
-                                <section id="setupInstallation" className="section">
-                                    <h2 className="section-header">{t.sidebar.setupInstallation}</h2>
-                                    <CodeBlock code="docker run --name spark-jupyter -p 8888:8888 -p 4040:4040 -v $(pwd)/data:/home/jovyan/data jupyter/pyspark-notebook:latest" language="bash" t={t} />
-                                </section>
-                            )}
-
-                            {activeSection === 'theoryOverview' && (
-                                <section id="theoryOverview" className="section">
-                                    <h2 className="section-header">{t.theory.title}</h2>
-
-                                    <div className="card learning-box mb-6">
-                                        <h3 className="subsection-header">{t.theory.whatIsSpark}</h3>
-                                        <p>{t.theory.whatIsSparkDesc}</p>
+                                {[
+                                    { problem: t.error1Problem, solution: t.error1Solution },
+                                    { problem: t.error2Problem, solution: t.error2Solution },
+                                    { problem: t.error3Problem, solution: t.error3Solution },
+                                    { problem: t.error4Problem, solution: t.error4Solution },
+                                    { problem: t.error5Problem, solution: t.error5Solution }
+                                ].map((err, idx) => (
+                                    <div key={idx} className="card">
+                                        <h4 style={{ marginTop: 0, color: '#E8792F', fontWeight: 600 }}>{err.problem}</h4>
+                                        <p><strong>{t.copy}:</strong> {err.solution}</p>
                                     </div>
-
-                                    <div className="card learning-box mb-6">
-                                        <h3 className="subsection-header">{t.theory.rddVsDataFrame}</h3>
-                                        <p>{t.theory.rddVsDataFrameDesc}</p>
-                                    </div>
-
-                                    <div className="card learning-box mb-6">
-                                        <h3 className="subsection-header">{t.theory.lazyEvaluation}</h3>
-                                        <p>{t.theory.lazyEvaluationDesc}</p>
-                                    </div>
-
-                                    <div className="card learning-box mb-6">
-                                        <h3 className="subsection-header">{t.theory.architecture}</h3>
-                                        <p>{t.theory.architectureDesc}</p>
-                                    </div>
-
-                                    <div className="card learning-box">
-                                        <h3 className="subsection-header">{t.theory.transformationsVsActions}</h3>
-                                        <p>{t.theory.transformationsVsActionsDesc}</p>
-                                    </div>
-                                </section>
-                            )}
-
-                            {activeSection === 'dataModel' && (
-                                <section id="dataModel" className="section">
-                                    <h2 className="section-header">{t.dataModel.title}</h2>
-                                    <p className="mb-6">{t.dataModel.intro}</p>
-
-                                    <div className="card mb-6">
-                                        <h3 className="subsection-header">{t.dataModel.dataFlow}</h3>
-                                        <p>{t.dataModel.dataFlow}</p>
-                                    </div>
-
-                                    <div className="card mb-6">
-                                        <h3 className="subsection-header">{t.ui.dataSchema}</h3>
-                                        <ul style={{ lineHeight: '1.8' }}>
-                                            <li>• {t.dataModel.customers}</li>
-                                            <li>• {t.dataModel.products}</li>
-                                            <li>• {t.dataModel.orders}</li>
-                                            <li>• {t.dataModel.orderItems}</li>
-                                        </ul>
-                                        <p style={{ marginTop: '1rem' }}>{t.dataModel.schema}</p>
-                                    </div>
-                                </section>
-                            )}
-
-                            {activeSection === 'exercise1' && (
-                                <section id="exercise1" className="section">
-                                    <h2 className="section-header">{t.sidebar.exercise1}</h2>
-                                    <p>{t.exercise1.intro}</p>
-                                    <CodeBlock code={`from pyspark.sql import SparkSession
-
-spark = SparkSession.builder.appName("MegaStore").master("local[*]").getOrCreate()
-orders = spark.read.parquet("data/orders.parquet")
-orders.printSchema()
-orders.show(5)`} language="python" t={t} />
-                                    <button onClick={() => setActiveSection('exercise2')} style={{ marginTop: '2rem', padding: '0.75rem 1.5rem', backgroundColor: '#E25A1C', color: 'white', border: 'none', borderRadius: '0.375rem', cursor: 'pointer', fontWeight: '600', fontSize: '1rem' }}>{t.ui.nextExercise}</button>
-                                </section>
-                            )}
-
-                            {activeSection === 'exercise2' && (
-                                <section id="exercise2" className="section">
-                                    <h2 className="section-header">{t.sidebar.exercise2}</h2>
-                                    <p>{t.exercise2.intro}</p>
-                                    <CodeBlock code={`from pyspark.sql.functions import col, sum, count, round as spark_round
-
-order_items = spark.read.parquet("data/order_items.parquet")
-products = spark.read.csv("data/products.csv", header=True, inferSchema=True)
-
-revenue_by_category = order_items \\
-    .join(products, "product_id") \\
-    .groupBy("category") \\
-    .agg(spark_round(sum(col("quantity") * col("unit_price")), 2).alias("revenue")) \\
-    .orderBy(col("revenue").desc())
-
-revenue_by_category.show()`} language="python" t={t} />
-                                    <button onClick={() => setActiveSection('exercise3')} style={{ marginTop: '2rem', padding: '0.75rem 1.5rem', backgroundColor: '#E25A1C', color: 'white', border: 'none', borderRadius: '0.375rem', cursor: 'pointer', fontWeight: '600', fontSize: '1rem' }}>{t.ui.nextExercise}</button>
-                                </section>
-                            )}
-
-                            {activeSection === 'exercise3' && (
-                                <section id="exercise3" className="section">
-                                    <h2 className="section-header">{t.sidebar.exercise3}</h2>
-                                    <p>{t.exercise3.intro}</p>
-                                    <CodeBlock code={`from pyspark.sql.window import Window
-from pyspark.sql.functions import row_number, lag
-
-orders.createOrReplaceTempView("orders")
-window_spec = Window.partitionBy("customer_id").orderBy("order_date")
-orders_with_rank = orders.withColumn("order_rank", row_number().over(window_spec))
-orders_with_rank.show()`} language="python" t={t} />
-                                    <button onClick={() => setActiveSection('exercise4')} style={{ marginTop: '2rem', padding: '0.75rem 1.5rem', backgroundColor: '#E25A1C', color: 'white', border: 'none', borderRadius: '0.375rem', cursor: 'pointer', fontWeight: '600', fontSize: '1rem' }}>{t.ui.nextExercise}</button>
-                                </section>
-                            )}
-
-                            {activeSection === 'exercise4' && (
-                                <section id="exercise4" className="section">
-                                    <h2 className="section-header">{t.sidebar.exercise4}</h2>
-                                    <p>{t.exercise4.intro}</p>
-                                    <CodeBlock code={"orders_rdd = orders.rdd\ncustomer_revenue = orders_rdd \\\n    .map(lambda row: (row.customer_id, float(row.order_total))) \\\n    .reduceByKey(lambda a, b: a + b) \\\n    .sortBy(lambda x: -x[1])\n\nfor customer_id, revenue in customer_revenue.take(10):\n    print(f\"Customer {customer_id}: ${revenue:.2f}\")"} language="python" t={t} />
-                                    <button onClick={() => setActiveSection('exercise5')} style={{ marginTop: '2rem', padding: '0.75rem 1.5rem', backgroundColor: '#E25A1C', color: 'white', border: 'none', borderRadius: '0.375rem', cursor: 'pointer', fontWeight: '600', fontSize: '1rem' }}>{t.ui.nextExercise}</button>
-                                </section>
-                            )}
-
-                            {activeSection === 'exercise5' && (
-                                <section id="exercise5" className="section">
-                                    <h2 className="section-header">{t.sidebar.exercise5}</h2>
-                                    <p>{t.exercise5.intro}</p>
-                                    <CodeBlock code={`orders.cache()
-orders.count()
-orders.groupBy("customer_id").agg(sum("order_total")).explain(True)`} language="python" t={t} />
-                                    <button onClick={() => setActiveSection('challenges')} style={{ marginTop: '2rem', padding: '0.75rem 1.5rem', backgroundColor: '#E25A1C', color: 'white', border: 'none', borderRadius: '0.375rem', cursor: 'pointer', fontWeight: '600', fontSize: '1rem' }}>{t.ui.nextExercise}</button>
-                                </section>
-                            )}
-
-                            {activeSection === 'challenges' && (
-                                <section id="challenges" className="section">
-                                    <h2 className="section-header">{t.challenges.title}</h2>
-                                    <ChallengeCard level={1} t={t} />
-                                    <ChallengeCard level={2} t={t} />
-                                    <ChallengeCard level={3} t={t} />
-                                    <ChallengeCard level={4} t={t} />
-                                </section>
-                            )}
-
-                            {activeSection === 'selfCheck' && (
-                                <section id="selfCheck" className="section">
-                                    <h2 className="section-header">{t.selfCheck.title}</h2>
-                                    <div className="space-y-3">
-                                        {t.selfCheck.questions.map((item, i) => (
-                                            <SelfCheckQuestion key={i} question={item.q} answer={item.a} />
-                                        ))}
-                                    </div>
-                                </section>
-                            )}
-
-                            {activeSection === 'reflection' && (
-                                <section id="reflection" className="section">
-                                    <h2 className="section-header">{t.reflection.title}</h2>
-                                    <div className="space-y-4 mb-8">
-                                        {t.reflection.prompts.map((prompt, i) => (
-                                            <div key={i} className="card hypothesis-box">
-                                                <h4 className="font-bold mb-2">{prompt.title}</h4>
-                                                <p>{prompt.desc}</p>
-                                            </div>
-                                        ))}
-                                    </div>
-
-                                    <h3 className="subsection-header">{t.reflection.realWorld}</h3>
-                                    <div className="space-y-3">
-                                        {t.reflection.useCases.map((useCase, i) => (
-                                            <div key={i} className="card insight-box">
-                                                <h4 className="font-bold mb-2">{useCase.title}</h4>
-                                                <p>{useCase.desc}</p>
-                                            </div>
-                                        ))}
-                                    </div>
-                                </section>
-                            )}
-
-                            {activeSection === 'troubleshooting' && (
-                                <section id="troubleshooting" className="section">
-                                    <h2 className="section-header">{t.troubleshooting.title}</h2>
-                                    <h3 className="subsection-header">{t.troubleshooting.commonErrors}</h3>
-                                    <div className="space-y-3">
-                                        {t.troubleshooting.errors.map((error, i) => (
-                                            <div key={i} className="card">
-                                                <h4 className="font-bold mb-2">{error.problem}</h4>
-                                                <p style={{ color: '#4b5563' }}><strong>{t.ui.solution}</strong> {error.solution}</p>
-                                            </div>
-                                        ))}
-                                    </div>
-                                </section>
-                            )}
-                        </main>
+                                ))}
+                            </section>
+                        )}
                     </div>
                 </div>
             );
-        };
+        }
 
-        ReactDOM.createRoot(document.getElementById('root')).render(<LabApp />);
+        ReactDOM.createRoot(document.getElementById('root')).render(<App />);
     </script>
 </body>
 </html>
