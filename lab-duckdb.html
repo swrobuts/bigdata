@@ -107,8 +107,8 @@
             border-color: #E8792F;
         }
         .lang-btn:hover { background-color: rgba(255, 255, 255, 0.1); }
-        h2 { font-size: 2rem; font-weight: 700; margin: 2rem 0 1rem 0; }
-        h3 { font-size: 1.5rem; font-weight: 600; margin: 1.5rem 0 0.75rem 0; }
+        h2 { font-size: 2rem; font-weight: 700; margin: 2rem 0 1rem 0; border-left: 4px solid #E8792F; padding-left: 1rem; color: #1B3A5C; }
+        h3 { font-size: 1.4rem; font-weight: 600; margin: 1.5rem 0 0.75rem 0; border-left: 3px solid #E8792F; padding-left: 0.75rem; color: #1B3A5C; }
         h4 { font-size: 1.25rem; font-weight: 600; margin: 1rem 0 0.5rem 0; }
         p { margin: 0.75rem 0; }
         .lesson-box {
@@ -141,17 +141,19 @@
             overflow-x: auto;
         }
         .code-block {
-            background-color: #f5f5f5;
-            border: 1px solid #ddd;
-            padding: 1rem;
+            background-color: #1e293b;
+            border-left: 4px solid #E8792F;
             border-radius: 0.5rem;
+            padding: 1.25rem 1rem 1rem 1rem;
             margin: 1rem 0;
             position: relative;
             overflow-x: auto;
         }
         .code-block code {
             font-family: 'Courier New', monospace;
-            font-size: 0.9rem;
+            font-size: 0.875rem;
+            color: #e2e8f0;
+            white-space: pre-wrap;
         }
         .copy-btn {
             position: absolute;
@@ -178,6 +180,39 @@
         .badge-beginner { background-color: #4CAF50; color: white; }
         .badge-challenge { background-color: #f44336; color: white; }
         .badge-time { background-color: #2196F3; color: white; }
+        /* Step number circles – docker-guide design */
+        .step-number {
+            background-color: #E8792F;
+            color: white;
+            width: 2rem;
+            height: 2rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            flex-shrink: 0;
+            font-size: 0.85rem;
+        }
+        .step-item {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.25rem;
+            align-items: flex-start;
+        }
+        .step-item-content {
+            flex: 1;
+            padding-top: 0.2rem;
+            color: #374151;
+            line-height: 1.6;
+        }
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        section {
+            animation: slideIn 0.4s ease-out;
+        }
         .expandable-header {
             cursor: pointer;
             user-select: none;
@@ -913,7 +948,16 @@
             return t;
         };
 
-        function Exercise({ number, title, goal, code, output, explain, task, hint, solution, verify, t }) {
+        function StepItem({ number, children }) {
+            return (
+                <div className="step-item">
+                    <div className="step-number">{number}</div>
+                    <div className="step-item-content">{children}</div>
+                </div>
+            );
+        }
+
+                function Exercise({ number, title, goal, code, output, explain, task, hint, solution, verify, t }) {
             const [showSolution, setShowSolution] = React.useState(false);
 
             return (
@@ -1083,13 +1127,13 @@
                             <h2>{t.overview}</h2>
                             <div className="lesson-box">
                                 <h4>{t.welcomeTitle}</h4>
-                                <ul>
-                                    <li>✓ {t.whatIsDuckDB}</li>
-                                    <li>✓ {t.inProcessDB}</li>
-                                    <li>✓ {t.columnarStorage}</li>
-                                    <li>✓ {t.sqlNative}</li>
-                                    <li>✓ {t.estimatedTime}</li>
-                                </ul>
+                                <div style={{ marginTop: '0.75rem' }}>
+                                    <StepItem number="✓">{t.whatIsDuckDB}</StepItem>
+                                    <StepItem number="✓">{t.inProcessDB}</StepItem>
+                                    <StepItem number="✓">{t.columnarStorage}</StepItem>
+                                    <StepItem number="✓">{t.sqlNative}</StepItem>
+                                    <StepItem number="✓">{t.estimatedTime}</StepItem>
+                                </div>
                             </div>
 
                             <h3>{t.whatIsDuckDB}</h3>
@@ -1142,42 +1186,39 @@
 
                         <section id="setup">
                             <h2>{t.setup}</h2>
-                            <h3>{t.step} 1: {t.step1Title}</h3>
-                            <div className="code-block">
-                                <button className="copy-btn" onClick={() => {
-                                    navigator.clipboard.writeText(t.step1Code);
-                                    alert(t.copied);
-                                }}>{t.copy}</button>
-                                <code>{t.step1Code}</code>
-                            </div>
 
-                            <h3>{t.step} 2: {t.step2Title}</h3>
-                            <div className="code-block">
-                                <button className="copy-btn" onClick={() => {
-                                    navigator.clipboard.writeText(t.step2Code);
-                                    alert(t.copied);
-                                }}>{t.copy}</button>
-                                <code>{t.step2Code}</code>
-                            </div>
-                            <p>{t.step2Expected}</p>
+                            <StepItem number="1">
+                                <strong>{t.step1Title}</strong>
+                                <div className="code-block" style={{ marginTop: '0.5rem' }}>
+                                    <button className="copy-btn" onClick={() => { navigator.clipboard.writeText(t.step1Code); alert(t.copied); }}>{t.copy}</button>
+                                    <code>{t.step1Code}</code>
+                                </div>
+                            </StepItem>
 
-                            <h3>{t.step} 3: {t.step3Title}</h3>
-                            <div className="code-block">
-                                <button className="copy-btn" onClick={() => {
-                                    navigator.clipboard.writeText(t.step3Code);
-                                    alert(t.copied);
-                                }}>{t.copy}</button>
-                                <code>{t.step3Code}</code>
-                            </div>
+                            <StepItem number="2">
+                                <strong>{t.step2Title}</strong>
+                                <div className="code-block" style={{ marginTop: '0.5rem' }}>
+                                    <button className="copy-btn" onClick={() => { navigator.clipboard.writeText(t.step2Code); alert(t.copied); }}>{t.copy}</button>
+                                    <code>{t.step2Code}</code>
+                                </div>
+                                <p style={{ marginTop: '0.5rem' }}>{t.step2Expected}</p>
+                            </StepItem>
 
-                            <h3>{t.step} 4: {t.step4Title}</h3>
-                            <div className="code-block">
-                                <button className="copy-btn" onClick={() => {
-                                    navigator.clipboard.writeText(t.step4Code);
-                                    alert(t.copied);
-                                }}>{t.copy}</button>
-                                <code>{t.step4Code}</code>
-                            </div>
+                            <StepItem number="3">
+                                <strong>{t.step3Title}</strong>
+                                <div className="code-block" style={{ marginTop: '0.5rem' }}>
+                                    <button className="copy-btn" onClick={() => { navigator.clipboard.writeText(t.step3Code); alert(t.copied); }}>{t.copy}</button>
+                                    <code>{t.step3Code}</code>
+                                </div>
+                            </StepItem>
+
+                            <StepItem number="4">
+                                <strong>{t.step4Title}</strong>
+                                <div className="code-block" style={{ marginTop: '0.5rem' }}>
+                                    <button className="copy-btn" onClick={() => { navigator.clipboard.writeText(t.step4Code); alert(t.copied); }}>{t.copy}</button>
+                                    <code>{t.step4Code}</code>
+                                </div>
+                            </StepItem>
 
                             <h3>{t.verification}</h3>
                             <p>{t.verifyInstallation}</p>
@@ -1244,13 +1285,13 @@
                             <p><strong>{t.challengeTitle}</strong></p>
                             <p>{t.challengeIntro}</p>
                             <h3>{t.challengeSteps}</h3>
-                            <ol style={{ marginLeft: '1.5rem', marginTop: '0.5rem' }}>
-                                <li>{t.challengeStep1}</li>
-                                <li>{t.challengeStep2}</li>
-                                <li>{t.challengeStep3}</li>
-                                <li>{t.challengeStep4}</li>
-                                <li>{t.challengeStep5}</li>
-                            </ol>
+                            <div style={{ marginTop: '0.75rem' }}>
+                                <StepItem number="1">{t.challengeStep1}</StepItem>
+                                <StepItem number="2">{t.challengeStep2}</StepItem>
+                                <StepItem number="3">{t.challengeStep3}</StepItem>
+                                <StepItem number="4">{t.challengeStep4}</StepItem>
+                                <StepItem number="5">{t.challengeStep5}</StepItem>
+                            </div>
                             <div className="hint-box"><strong>{t.hint}:</strong> {t.challengeHint}</div>
                             <div className="expandable-header" onClick={function() {
                                 const content = this.nextElementSibling;
@@ -1286,29 +1327,29 @@
                         <section id="outlook">
                             <h2>{t.outlook}</h2>
                             <h3>{t.advancedTopics}</h3>
-                            <ul style={{ marginLeft: '1.5rem', marginTop: '0.5rem' }}>
-                                <li>{t.extensions}</li>
-                                <li>{t.pandas}</li>
-                                <li>{t.advanced}</li>
-                                <li>{t.performance}</li>
-                            </ul>
+                            <div style={{ marginTop: '0.75rem' }}>
+                                <StepItem number="1">{t.extensions}</StepItem>
+                                <StepItem number="2">{t.pandas}</StepItem>
+                                <StepItem number="3">{t.advanced}</StepItem>
+                                <StepItem number="4">{t.performance}</StepItem>
+                            </div>
 
                             <h3>{t.aiIntegration}</h3>
                             <p>{t.aiDescription}</p>
 
                             <h4>Prompt Examples:</h4>
-                            <ul style={{ marginLeft: '1.5rem', marginTop: '0.5rem' }}>
-                                <li>"{t.promptExample1}"</li>
-                                <li>"{t.promptExample2}"</li>
-                                <li>"{t.promptExample3}"</li>
-                            </ul>
+                            <div style={{ marginTop: '0.75rem' }}>
+                                <StepItem number="1">"{t.promptExample1}"</StepItem>
+                                <StepItem number="2">"{t.promptExample2}"</StepItem>
+                                <StepItem number="3">"{t.promptExample3}"</StepItem>
+                            </div>
 
                             <h3>{t.furtherResources}</h3>
-                            <ul style={{ marginLeft: '1.5rem', marginTop: '0.5rem' }}>
-                                <li>{t.resource1}</li>
-                                <li>{t.resource2}</li>
-                                <li>{t.resource3}</li>
-                            </ul>
+                            <div style={{ marginTop: '0.75rem' }}>
+                                <StepItem number="1">{t.resource1}</StepItem>
+                                <StepItem number="2">{t.resource2}</StepItem>
+                                <StepItem number="3">{t.resource3}</StepItem>
+                            </div>
                         </section>
 
                         <section id="troubleshooting">
