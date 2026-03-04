@@ -298,6 +298,13 @@
                 exerciseTitle: "Übung",
                 yourTask: "Ihre Aufgabe",
                 solution: "Lösung",
+                exampleTitle: "Beispiel",
+                explainTitle: "Erklärung",
+                verifyTitle: "Überprüfung",
+                whyNeo4j: "Warum Neo4j?",
+                megastoreScenarioTitle: "MegaStore Szenario",
+                expectedResult: "Erwartetes Ergebnis:",
+                furtherResources: "Weiterführende Ressourcen",
                 realWorldMotivation: "Neo4j wird von führenden Unternehmen wie NASA, Walmart und eBay verwendet, um komplexe Beziehungen in großen Datenmengen zu verwalten. Graph-Datenbanken ermöglichen es, Millionen von Knoten und Beziehungen effizient zu speichern und durchsuchen, ohne auf teure JOINs-Operationen angewiesen zu sein, die in SQL-Systemen bei großen Netzwerken sehr langsam werden.",
                 nasaDesc: "Verwaltet Weltraummissionen, Satellitenbeziehungen und Abhängigkeiten zwischen Komponenten. Graph-Technologie ermöglicht schnelle Analyse von Missionsrisiken und Ressourcentzuordnung.",
                 walmartDesc: "Optimiert Supply-Chain-Netzwerke durch Analyse von Lieferanten-, Transport- und Kundennetzwerken. Beziehungs-Abfragen ermöglichen es, komplexe Lieferketten-Bottlenecks schneller zu identifizieren als in relationalen Systemen.",
@@ -559,6 +566,13 @@
                 exerciseTitle: "Exercise",
                 yourTask: "Your Task",
                 solution: "Solution",
+                exampleTitle: "Example",
+                explainTitle: "Explanation",
+                verifyTitle: "Verification",
+                whyNeo4j: "Why Neo4j?",
+                megastoreScenarioTitle: "MegaStore Scenario",
+                expectedResult: "Expected Result:",
+                furtherResources: "Further Resources",
                 realWorldMotivation: "Neo4j is used by leading companies like NASA, Walmart, and eBay to manage complex relationships in large datasets. Graph databases enable efficient storage and querying of millions of nodes and relationships without relying on expensive JOIN operations that become very slow in SQL systems when working with large networks.",
                 nasaDesc: "Manages space missions, satellite relationships, and component dependencies. Graph technology enables rapid mission risk analysis and resource allocation optimization.",
                 walmartDesc: "Optimizes supply chain networks by analyzing supplier, transport, and customer networks. Relationship queries help identify supply chain bottlenecks faster than relational systems.",
@@ -949,13 +963,13 @@
                     </div>
 
                     <div className="card">
-                        <h3 className="subsection-header">Beispiel (Show)</h3>
+                        <h3 className="subsection-header">{t.exampleTitle} (Show)</h3>
                         {renderCodeBlock(showCode, `Example ${num}`)}
                         <div className="output-box">{output}</div>
                     </div>
 
                     <div className="card">
-                        <h3 className="subsection-header">Erklärung (Explain)</h3>
+                        <h3 className="subsection-header">{t.explainTitle} (Explain)</h3>
                         <p>{explain}</p>
                     </div>
 
@@ -982,7 +996,7 @@
                     </div>
 
                     <div className="card">
-                        <h3 className="subsection-header">Überprüfung (Verify)</h3>
+                        <h3 className="subsection-header">{t.verifyTitle} (Verify)</h3>
                         <p>{verify}</p>
                     </div>
 
@@ -1052,7 +1066,7 @@
                             </div>
 
                             <div className="card">
-                                <h3 className="subsection-header">Warum Neo4j?</h3>
+                                <h3 className="subsection-header">{t.whyNeo4j}</h3>
                                 <p>{t.realWorldMotivation}</p>
                                 <div style={{marginTop: '0.75rem'}}>
                                     <StepItem number="1"><strong>NASA:</strong> {t.nasaDesc}</StepItem>
@@ -1072,7 +1086,7 @@
                             </div>
 
                             <div className="card">
-                                <h3 className="subsection-header">MegaStore Szenario</h3>
+                                <h3 className="subsection-header">{t.megastoreScenarioTitle}</h3>
                                 <p>In diesem Labor arbeiten Sie mit einem E-Commerce-Datensatz namens MegaStore:</p>
                                 <div className="table-responsive">
                                     <table>
@@ -1218,7 +1232,7 @@
                             </div>
 
                             <div className="card">
-                                <h3 className="subsection-header">Erwartetes Ergebnis:</h3>
+                                <h3 className="subsection-header">{t.expectedResult}</h3>
                                 <p>{t.challengeExpected}</p>
                             </div>
 
@@ -1292,7 +1306,7 @@
                                 </div>
 
                                 <div className="outlook-part">
-                                    <h3 className="outlook-title">Weiterführende Ressourcen</h3>
+                                    <h3 className="outlook-title">{t.furtherResources}</h3>
                                     <div style={{marginTop: '0.75rem'}}>
                                         <StepItem number="1"><a href="https://neo4j.com/docs/" target="_blank" rel="noopener noreferrer">Neo4j Dokumentation</a></StepItem>
                                         <StepItem number="2"><a href="https://neo4j.com/graphacademy/" target="_blank" rel="noopener noreferrer">Neo4j GraphAcademy</a></StepItem>
