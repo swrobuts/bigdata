@@ -35,7 +35,7 @@
         .card { background: white; border-radius: 0.75rem; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); padding: 1.5rem; margin-bottom: 1.5rem; }
         .card:hover { box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); }
         .code-block {
-            background: #1B3A5C;
+            background: #1e293b;
             border-left: 4px solid #E8792F;
             border-radius: 0.5rem;
             padding: 1rem;
@@ -66,6 +66,32 @@
             transition: all 0.2s;
         }
         .copy-btn:hover { opacity: 0.85; }
+        /* Step number circles – docker-guide design */
+        .step-number {
+            background-color: #E8792F;
+            color: white;
+            width: 2rem;
+            height: 2rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            flex-shrink: 0;
+            font-size: 0.85rem;
+        }
+        .step-item {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.25rem;
+            align-items: flex-start;
+        }
+        .step-item-content {
+            flex: 1;
+            padding-top: 0.2rem;
+            color: #374151;
+            line-height: 1.6;
+        }
         .header {
             position: fixed;
             top: 0;
@@ -122,10 +148,11 @@
         .sidebar-item.active { background: rgba(232, 121, 47, 0.1); border-left-color: #E8792F; color: #E8792F; font-weight: 600; }
         .main-content { margin-left: 280px; padding: 5rem 3rem 2rem 3rem; background: #fafbfc; min-height: 100vh; }
         .section { display: none; }
-        .section.active { display: block; animation: fadeIn 0.3s; }
+        .section.active { display: block; animation: slideIn 0.35s ease-out; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        .section-header { font-size: 2rem; font-weight: 700; color: #1B3A5C; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 4px solid #E8792F; }
-        .subsection-header { font-size: 1.25rem; font-weight: 600; color: #1B3A5C; margin-top: 1.5rem; margin-bottom: 1rem; }
+        @keyframes slideIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+        .section-header { font-size: 2rem; font-weight: 700; color: #1B3A5C; margin-bottom: 1.5rem; padding-left: 1rem; border-left: 4px solid #E8792F; }
+        .subsection-header { font-size: 1.2rem; font-weight: 600; color: #1B3A5C; margin-top: 1.5rem; margin-bottom: 1rem; border-left: 3px solid #E8792F; padding-left: 0.75rem; }
         .badge {
             display: inline-block;
             padding: 0.25rem 0.75rem;
@@ -430,7 +457,12 @@
 
                 challengeTitle: "Challenge: Betrugserkennung",
                 challengeDesc: "Finden Sie verdächtige Transaktionsmuster in einem Transaktionsgraph. Dies ist ein reales Sicherheits-Use-Case, wo Graph-Analyse Muster erkennt, die in flachen SQL-Abfragen verborgen bleiben würden. Ihre Betrugserkennungs-Abteilung verlässt sich auf diese Analysen.",
-                challengeSteps: "Schritte:\n1. Identifizieren Sie Kunden mit mehreren Bestellungen an einem Tag - ungewöhnliche Aktivität\n2. Finden Sie ungewöhnlich große Bestellungen (z.B. > 5000) - Anomalie-Erkennung\n3. Entdecken Sie Kunden, die die gleiche Adresse teilen - Verbindungs-Analyse\n4. Suchen Sie nach zirkulären Zahlungsmustern (A→B→C→A) - Money-Laundering-Erkennung\n5. Kombinieren Sie Erkenntnisse für ein Betrugsscore-System - Risiko-Bewertung",
+                challengeSteps: "Schritte:",
+                challengeStep1: "Identifizieren Sie Kunden mit mehreren Bestellungen an einem Tag – ungewöhnliche Aktivität",
+                challengeStep2: "Finden Sie ungewöhnlich große Bestellungen (z.B. > 5000) – Anomalie-Erkennung",
+                challengeStep3: "Entdecken Sie Kunden, die die gleiche Adresse teilen – Verbindungs-Analyse",
+                challengeStep4: "Suchen Sie nach zirkulären Zahlungsmustern (A→B→C→A) – Money-Laundering-Erkennung",
+                challengeStep5: "Kombinieren Sie Erkenntnisse für ein Betrugsscore-System – Risiko-Bewertung",
                 challengeHint: "Verwenden Sie WITH für mehrstufige Abfragen, um Ergebnisse zu verketten. Kombinieren Sie COUNT mit WHERE für Häufigkeits-Analysen. Dies ähnelt der Verkettung von Subqueries in SQL, aber ist in Graphen intuitiver.",
                 challengeSolution: "MATCH (c:Customer)-[p:PLACED]->(o:Order)\nWHERE o.order_total > 5000\nRETURN c.name, count(o) as high_value_orders\nORDER BY high_value_orders DESC",
                 challengeExpected: "Liste verdächtiger Kunden mit hohen Bestellwerten und deren Häufigkeit. Kunden mit mehreren High-Value-Orders haben höheres Betrugsrisiko.",
@@ -678,7 +710,12 @@
 
                 challengeTitle: "Challenge: Fraud Detection",
                 challengeDesc: "Find suspicious transaction patterns in a transaction graph. This is a real security use case where graph analysis detects patterns that would remain hidden in flat SQL queries. Your fraud detection department relies on this analysis.",
-                challengeSteps: "Steps:\n1. Identify customers with multiple orders on the same day - unusual activity\n2. Find unusually large orders (e.g., > 5000) - anomaly detection\n3. Discover customers sharing the same address - connection analysis\n4. Search for circular payment patterns (A→B→C→A) - money-laundering detection\n5. Combine insights for a fraud scoring system - risk assessment",
+                challengeSteps: "Steps:",
+                challengeStep1: "Identify customers with multiple orders on the same day – unusual activity",
+                challengeStep2: "Find unusually large orders (e.g., > 5000) – anomaly detection",
+                challengeStep3: "Discover customers sharing the same address – connection analysis",
+                challengeStep4: "Search for circular payment patterns (A→B→C→A) – money-laundering detection",
+                challengeStep5: "Combine insights for a fraud scoring system – risk assessment",
                 challengeHint: "Use WITH for multi-stage queries to chain results. Combine COUNT with WHERE for frequency analysis. This is similar to chaining subqueries in SQL but more intuitive in graphs.",
                 challengeSolution: "MATCH (c:Customer)-[p:PLACED]->(o:Order)\nWHERE o.order_total > 5000\nRETURN c.name, count(o) as high_value_orders\nORDER BY high_value_orders DESC",
                 challengeExpected: "List of suspicious customers with high-value orders and their frequency. Customers with multiple high-value orders have higher fraud risk.",
@@ -867,6 +904,13 @@
                 { id: 'troubleshooting', label: t.troubleshooting },
             ];
 
+            const StepItem = ({ number, children }) => (
+                <div className="step-item">
+                    <div className="step-number">{number}</div>
+                    <div className="step-item-content">{children}</div>
+                </div>
+            );
+
             const renderCodeBlock = (code, label) => (
                 <div className="code-block">
                     <button className="copy-btn" onClick={() => copyToClipboard(code)}>
@@ -970,32 +1014,32 @@
 
                             <div className="lesson-box">
                                 <h3 className="subsection-header">{t.whatYouLearn}</h3>
-                                <ul style={{marginLeft: '1.5rem'}}>
-                                    <li>Grundkonzepte von Graph-Datenbanken verstehen</li>
-                                    <li>Cypher-Abfragesprache beherrschen</li>
-                                    <li>Knoten und Beziehungen erstellen und abfragen</li>
-                                    <li>Pattern Matching für komplexe Abfragen nutzen</li>
-                                    <li>Graph-Traversierung für Empfehlungssysteme implementieren</li>
-                                </ul>
+                                <div style={{marginTop: '0.75rem'}}>
+                                    <StepItem number="✓">Grundkonzepte von Graph-Datenbanken verstehen</StepItem>
+                                    <StepItem number="✓">Cypher-Abfragesprache beherrschen</StepItem>
+                                    <StepItem number="✓">Knoten und Beziehungen erstellen und abfragen</StepItem>
+                                    <StepItem number="✓">Pattern Matching für komplexe Abfragen nutzen</StepItem>
+                                    <StepItem number="✓">Graph-Traversierung für Empfehlungssysteme implementieren</StepItem>
+                                </div>
                             </div>
 
                             <div className="card">
                                 <h3 className="subsection-header">{t.neo4jIs}</h3>
-                                <ul style={{marginLeft: '1.5rem'}}>
-                                    <li><strong>{t.graphDatabase}</strong></li>
-                                    <li><strong>{t.cypherLanguage}</strong></li>
-                                    <li><strong>{t.acidCompliant}</strong></li>
-                                </ul>
+                                <div style={{marginTop: '0.75rem'}}>
+                                    <StepItem number="✓">{t.graphDatabase}</StepItem>
+                                    <StepItem number="✓">{t.cypherLanguage}</StepItem>
+                                    <StepItem number="✓">{t.acidCompliant}</StepItem>
+                                </div>
                             </div>
 
                             <div className="card">
                                 <h3 className="subsection-header">Warum Neo4j?</h3>
                                 <p>{t.realWorldMotivation}</p>
-                                <ul style={{marginLeft: '1.5rem', marginTop: '1rem'}}>
-                                    <li><strong>NASA:</strong> {t.nasaDesc}</li>
-                                    <li><strong>Walmart:</strong> {t.walmartDesc}</li>
-                                    <li><strong>eBay:</strong> {t.ebayDesc}</li>
-                                </ul>
+                                <div style={{marginTop: '0.75rem'}}>
+                                    <StepItem number="1"><strong>NASA:</strong> {t.nasaDesc}</StepItem>
+                                    <StepItem number="2"><strong>Walmart:</strong> {t.walmartDesc}</StepItem>
+                                    <StepItem number="3"><strong>eBay:</strong> {t.ebayDesc}</StepItem>
+                                </div>
                             </div>
 
                             <div className="card">
@@ -1047,37 +1091,37 @@
                             <h2 className="section-header">{t.setup}</h2>
                             <p>{t.setupSteps}</p>
 
-                            <div className="card">
-                                <h3 className="subsection-header">Schritt 1: {t.step1}</h3>
-                                <p>{t.step1Desc}</p>
+                            <StepItem number="1">
+                                <strong>{t.step1}</strong>
+                                <p style={{margin: '0.4rem 0'}}>{t.step1Desc}</p>
                                 {renderCodeBlock(t.step1Cmd, 'Setup Step 1')}
-                            </div>
+                            </StepItem>
 
-                            <div className="card">
-                                <h3 className="subsection-header">Schritt 2: {t.step2}</h3>
-                                <p>{t.step2Desc}</p>
+                            <StepItem number="2">
+                                <strong>{t.step2}</strong>
+                                <p style={{margin: '0.4rem 0'}}>{t.step2Desc}</p>
                                 {renderCodeBlock(t.step2Cmd, 'Setup Step 2')}
-                            </div>
+                            </StepItem>
 
-                            <div className="card">
-                                <h3 className="subsection-header">Schritt 3: {t.step3}</h3>
-                                <p>{t.step3Desc}</p>
+                            <StepItem number="3">
+                                <strong>{t.step3}</strong>
+                                <p style={{margin: '0.4rem 0'}}>{t.step3Desc}</p>
                                 {renderCodeBlock(t.step3Cmd, 'Setup Step 3')}
-                            </div>
+                            </StepItem>
 
-                            <div className="card">
-                                <h3 className="subsection-header">Schritt 4: {t.step4}</h3>
-                                <p>{t.step4Desc}</p>
+                            <StepItem number="4">
+                                <strong>{t.step4}</strong>
+                                <p style={{margin: '0.4rem 0'}}>{t.step4Desc}</p>
                                 {renderCodeBlock(t.step4Cmd, 'Setup Step 4')}
-                            </div>
+                            </StepItem>
 
                             <div className="lesson-box">
                                 <h3 className="subsection-header">{t.verifySetup}</h3>
-                                <ul style={{marginLeft: '1.5rem'}}>
-                                    <li>✓ {t.verifyStep1}</li>
-                                    <li>✓ {t.verifyStep2}</li>
-                                    <li>✓ {t.verifyStep3}</li>
-                                </ul>
+                                <div style={{marginTop: '0.75rem'}}>
+                                    <StepItem number="✓">{t.verifyStep1}</StepItem>
+                                    <StepItem number="✓">{t.verifyStep2}</StepItem>
+                                    <StepItem number="✓">{t.verifyStep3}</StepItem>
+                                </div>
                             </div>
                         </div>
 
@@ -1127,8 +1171,14 @@
                             </div>
 
                             <div className="card">
-                                <h3 className="subsection-header">Schritte:</h3>
-                                <p style={{whiteSpace: 'pre-wrap'}}>{t.challengeSteps}</p>
+                                <h3 className="subsection-header">{t.challengeSteps}</h3>
+                                <div style={{marginTop: '0.75rem'}}>
+                                    <StepItem number="1">{t.challengeStep1}</StepItem>
+                                    <StepItem number="2">{t.challengeStep2}</StepItem>
+                                    <StepItem number="3">{t.challengeStep3}</StepItem>
+                                    <StepItem number="4">{t.challengeStep4}</StepItem>
+                                    <StepItem number="5">{t.challengeStep5}</StepItem>
+                                </div>
                             </div>
 
                             <div className="hint-box">
@@ -1204,32 +1254,32 @@
                             <div className="outlook-section">
                                 <div className="outlook-part">
                                     <h3 className="outlook-title">{t.outlookAdvanced}</h3>
-                                    <ul className="outlook-list">
-                                        <li>{t.outlookGDS}</li>
-                                        <li>{t.outlookCommunity}</li>
-                                        <li>{t.outlookPageRank}</li>
-                                        <li>{t.outlookShortestPath}</li>
-                                    </ul>
+                                    <div style={{marginTop: '0.75rem'}}>
+                                        <StepItem number="1">{t.outlookGDS}</StepItem>
+                                        <StepItem number="2">{t.outlookCommunity}</StepItem>
+                                        <StepItem number="3">{t.outlookPageRank}</StepItem>
+                                        <StepItem number="4">{t.outlookShortestPath}</StepItem>
+                                    </div>
                                 </div>
 
                                 <div className="outlook-part">
                                     <h3 className="outlook-title">{t.outlookAI}</h3>
                                     <p>{t.outlookAIDesc}</p>
-                                    <ul className="outlook-list">
-                                        <li>{t.outlookExample1}</li>
-                                        <li>{t.outlookExample2}</li>
-                                        <li>{t.outlookExample3}</li>
-                                    </ul>
+                                    <div style={{marginTop: '0.75rem'}}>
+                                        <StepItem number="1">{t.outlookExample1}</StepItem>
+                                        <StepItem number="2">{t.outlookExample2}</StepItem>
+                                        <StepItem number="3">{t.outlookExample3}</StepItem>
+                                    </div>
                                 </div>
 
                                 <div className="outlook-part">
                                     <h3 className="outlook-title">Weiterführende Ressourcen</h3>
-                                    <ul className="outlook-list">
-                                        <li><a href="https://neo4j.com/docs/" target="_blank" rel="noopener noreferrer">Neo4j Dokumentation</a></li>
-                                        <li><a href="https://neo4j.com/graphacademy/" target="_blank" rel="noopener noreferrer">Neo4j GraphAcademy</a></li>
-                                        <li><a href="https://community.neo4j.com/" target="_blank" rel="noopener noreferrer">Neo4j Community</a></li>
-                                        <li><a href="https://github.com/neo4j/neo4j" target="_blank" rel="noopener noreferrer">Neo4j GitHub</a></li>
-                                    </ul>
+                                    <div style={{marginTop: '0.75rem'}}>
+                                        <StepItem number="1"><a href="https://neo4j.com/docs/" target="_blank" rel="noopener noreferrer">Neo4j Dokumentation</a></StepItem>
+                                        <StepItem number="2"><a href="https://neo4j.com/graphacademy/" target="_blank" rel="noopener noreferrer">Neo4j GraphAcademy</a></StepItem>
+                                        <StepItem number="3"><a href="https://community.neo4j.com/" target="_blank" rel="noopener noreferrer">Neo4j Community</a></StepItem>
+                                        <StepItem number="4"><a href="https://github.com/neo4j/neo4j" target="_blank" rel="noopener noreferrer">Neo4j GitHub</a></StepItem>
+                                    </div>
                                 </div>
                             </div>
 
