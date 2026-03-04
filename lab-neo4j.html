@@ -143,6 +143,9 @@
             border-left: 4px solid transparent;
             transition: all 0.2s;
             font-size: 0.95rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
         .sidebar-item:hover { background: #f3f4f6; border-left-color: #E8792F; }
         .sidebar-item.active { background: rgba(232, 121, 47, 0.1); border-left-color: #E8792F; color: #E8792F; font-weight: 600; }
@@ -388,7 +391,7 @@
                 ex6Hint: "Muster: (alice)-[:PURCHASED]->(produkt)<-[:PURCHASED]-(anderer_kunde). Lesen Sie das Muster von links nach rechts: Alice kaufte ein Produkt, das auch ein anderer Kunde kaufte.",
                 ex6Solution: "MATCH (c:Customer {name: 'Alice'})-[:PURCHASED]->(p:Product)<-[:PURCHASED]-(similar:Customer)\nWHERE similar.name <> c.name\nRETURN similar.name, count(p) as shared_products\nORDER BY shared_products DESC",
                 ex6Verify: "Sie sollten Kunden sehen, die ähnliche Produkte gekauft haben.",
-        exercise7: 'Übung 7: MERGE – Knoten sicher anlegen',
+        exercise7: 'Übung 7: MERGE',
         ex7Title: 'Übung 7: MERGE – Knoten sicher anlegen',
         ex7Time: '~15 Min',
         ex7Goal: 'Lerne MERGE: Erstelle Knoten und Beziehungen nur wenn sie noch nicht existieren.',
@@ -399,7 +402,7 @@
         ex7Hint: 'Tipp: MERGE (p:Product {id: "tablet_01"}) ON CREATE SET p.name = "Tablet Air", p.price = 599 RETURN p',
         ex7Solution: 'MERGE (p1:Product {id: "tablet_01"}) ON CREATE SET p1.name = "Tablet Air", p1.price = 599\nMERGE (p2:Product {id: "phone_01"}) ON CREATE SET p2.name = "Smartphone X", p2.price = 799\nMERGE (p3:Product {id: "watch_01"}) ON CREATE SET p3.name = "Smartwatch", p3.price = 299\nRETURN p1, p2, p3',
         ex7Verify: 'Beim ersten Ausführen werden Knoten erstellt, beim zweiten Mal nur gefunden – keine Duplikate.',
-        exercise8: 'Übung 8: Beziehungseigenschaften',
+        exercise8: 'Übung 8: Rel.-Eigenschaften',
         ex8Title: 'Übung 8: Beziehungseigenschaften',
         ex8Time: '~15 Min',
         ex8Goal: 'Speichere Daten direkt an Beziehungen – nicht nur an Knoten.',
@@ -410,7 +413,7 @@
         ex8Hint: 'Tipp: MATCH (c:Customer {name: "Bob"}), (p:Product {name: "Smartphone X"}) MERGE (c)-[r:REVIEWED]->(p) ON CREATE SET r.rating=4, r.comment="Sehr gut"',
         ex8Solution: 'MATCH (c:Customer {name: "Bob"}), (p:Product {name: "Smartphone X"})\nMERGE (c)-[r:REVIEWED]->(p)\nON CREATE SET r.rating = 4, r.comment = "Sehr gut", r.date = date()\nRETURN c, r, p',
         ex8Verify: 'Bewertungen von Alice (5) und Bob (4) für ihre jeweiligen Produkte.',
-        exercise9: 'Übung 9: Variable-Length Paths',
+        exercise9: 'Übung 9: Var.-Length Paths',
         ex9Title: 'Übung 9: Variable-Length Paths',
         ex9Time: '~20 Min',
         ex9Goal: 'Finde Verbindungen über mehrere Hops – die Stärke von Graphdatenbanken.',
@@ -432,7 +435,7 @@
         ex10Hint: 'Tipp: MATCH (p:Product) OPTIONAL MATCH (c)-[r:REVIEWED]->(p) RETURN p.name, COUNT(r) AS bewertungen ORDER BY bewertungen DESC',
         ex10Solution: 'MATCH (p:Product)\nOPTIONAL MATCH (c:Customer)-[r:REVIEWED]->(p)\nRETURN p.name, p.category, COUNT(r) AS bewertungen, coalesce(avg(r.rating), 0) AS avg_rating\nORDER BY bewertungen DESC',
         ex10Verify: 'Alle Produkte erscheinen – auch die ohne Bewertungen (bewertungen = 0).',
-        exercise11: 'Übung 11: Graph-Metriken & Zentralität',
+        exercise11: 'Übung 11: Graph-Metriken',
         ex11Title: 'Übung 11: Graph-Metriken & Zentralität',
         ex11Time: '~20 Min',
         ex11Goal: 'Identifiziere wichtige Knoten anhand von Verbindungen und Grad-Zentralität.',
@@ -443,7 +446,7 @@
         ex11Hint: 'Tipp: MATCH (c)-[:PURCHASED]->(p)<-[:PURCHASED]-(other) WHERE c<>other RETURN c.name, count(DISTINCT other) AS netzwerk ORDER BY netzwerk DESC LIMIT 3',
         ex11Solution: 'MATCH (c:Customer)-[:PURCHASED]->(p:Product)<-[:PURCHASED]-(other:Customer)\nWHERE c <> other\nRETURN c.name, count(DISTINCT other) AS verbundene_kunden, count(DISTINCT p) AS gemeinsame_produkte\nORDER BY verbundene_kunden DESC LIMIT 3',
         ex11Verify: 'Top-3 Kunden nach Anzahl der Kunden mit gemeinsamen Käufen.',
-        exercise12: 'Übung 12: Komplette Graph-Analyse',
+        exercise12: 'Übung 12: Graph-Analyse',
         ex12Title: 'Übung 12: Komplette Graph-Analyse',
         ex12Time: '~25 Min',
         ex12Goal: 'Kombiniere alle Cypher-Konzepte für eine vollständige Kundenanalyse.',
@@ -641,7 +644,7 @@
                 ex6Hint: "Pattern: (alice)-[:PURCHASED]->(product)<-[:PURCHASED]-(other_customer). Read this pattern from left to right: Alice bought a product that another customer also bought.",
                 ex6Solution: "MATCH (c:Customer {name: 'Alice'})-[:PURCHASED]->(p:Product)<-[:PURCHASED]-(similar:Customer)\nWHERE similar.name <> c.name\nRETURN similar.name, count(p) as shared_products\nORDER BY shared_products DESC",
                 ex6Verify: "You should see customers who bought similar products.",
-        exercise7: 'Exercise 7: MERGE – Safe Node Creation',
+        exercise7: 'Exercise 7: MERGE',
         ex7Title: 'Exercise 7: MERGE – Safe Node Creation',
         ex7Time: '~15 min',
         ex7Goal: 'Learn MERGE: create nodes and relationships only if they do not already exist.',
@@ -652,7 +655,7 @@
         ex7Hint: 'Hint: MERGE (p:Product {id: "tablet_01"}) ON CREATE SET p.name = "Tablet Air", p.price = 599 RETURN p',
         ex7Solution: 'MERGE (p1:Product {id: "tablet_01"}) ON CREATE SET p1.name = "Tablet Air", p1.price = 599\nMERGE (p2:Product {id: "phone_01"}) ON CREATE SET p2.name = "Smartphone X", p2.price = 799\nMERGE (p3:Product {id: "watch_01"}) ON CREATE SET p3.name = "Smartwatch", p3.price = 299\nRETURN p1, p2, p3',
         ex7Verify: 'First run creates nodes, second run only finds them – no duplicates.',
-        exercise8: 'Exercise 8: Relationship Properties',
+        exercise8: 'Exercise 8: Rel. Properties',
         ex8Title: 'Exercise 8: Relationship Properties',
         ex8Time: '~15 min',
         ex8Goal: 'Store data directly on relationships – not just on nodes.',
@@ -663,7 +666,7 @@
         ex8Hint: 'Hint: MATCH (c:Customer {name: "Bob"}), (p:Product {name: "Smartphone X"}) MERGE (c)-[r:REVIEWED]->(p) ON CREATE SET r.rating=4, r.comment="Very good"',
         ex8Solution: 'MATCH (c:Customer {name: "Bob"}), (p:Product {name: "Smartphone X"})\nMERGE (c)-[r:REVIEWED]->(p)\nON CREATE SET r.rating = 4, r.comment = "Very good", r.date = date()\nRETURN c, r, p',
         ex8Verify: 'Reviews from Alice (5) and Bob (4) for their respective products.',
-        exercise9: 'Exercise 9: Variable-Length Paths',
+        exercise9: 'Exercise 9: Var.-Length Paths',
         ex9Title: 'Exercise 9: Variable-Length Paths',
         ex9Time: '~20 min',
         ex9Goal: 'Find connections across multiple hops – the power of graph databases.',
@@ -685,7 +688,7 @@
         ex10Hint: 'Hint: MATCH (p:Product) OPTIONAL MATCH (c)-[r:REVIEWED]->(p) RETURN p.name, COUNT(r) AS reviews ORDER BY reviews DESC',
         ex10Solution: 'MATCH (p:Product)\nOPTIONAL MATCH (c:Customer)-[r:REVIEWED]->(p)\nRETURN p.name, p.category, COUNT(r) AS reviews, coalesce(avg(r.rating), 0) AS avg_rating\nORDER BY reviews DESC',
         ex10Verify: 'All products appear – including those with 0 reviews.',
-        exercise11: 'Exercise 11: Graph Metrics & Centrality',
+        exercise11: 'Exercise 11: Graph Metrics',
         ex11Title: 'Exercise 11: Graph Metrics & Centrality',
         ex11Time: '~20 min',
         ex11Goal: 'Identify important nodes in the network using connections and degree centrality.',
@@ -696,7 +699,7 @@
         ex11Hint: 'Hint: MATCH (c)-[:PURCHASED]->(p)<-[:PURCHASED]-(other) WHERE c<>other RETURN c.name, count(DISTINCT other) AS network ORDER BY network DESC LIMIT 3',
         ex11Solution: 'MATCH (c:Customer)-[:PURCHASED]->(p:Product)<-[:PURCHASED]-(other:Customer)\nWHERE c <> other\nRETURN c.name, count(DISTINCT other) AS connected_customers, count(DISTINCT p) AS shared_products\nORDER BY connected_customers DESC LIMIT 3',
         ex11Verify: 'Top-3 customers by number of customers with shared purchases.',
-        exercise12: 'Exercise 12: Complete Graph Analysis',
+        exercise12: 'Exercise 12: Graph Analysis',
         ex12Title: 'Exercise 12: Complete Graph Analysis',
         ex12Time: '~25 min',
         ex12Goal: 'Combine all Cypher concepts for a complete customer analysis.',
