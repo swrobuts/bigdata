@@ -35,7 +35,7 @@
         .card { background: white; border-radius: 0.75rem; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); padding: 1.5rem; margin-bottom: 1.5rem; }
         .card:hover { box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); }
         .code-block {
-            background: #1B3A5C;
+            background: #1e293b;
             border-left: 4px solid #E8792F;
             border-radius: 0.5rem;
             padding: 1rem;
@@ -66,6 +66,32 @@
             transition: all 0.2s;
         }
         .copy-btn:hover { opacity: 0.85; }
+        /* Step number circles – docker-guide design */
+        .step-number {
+            background-color: #E8792F;
+            color: white;
+            width: 2rem;
+            height: 2rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            flex-shrink: 0;
+            font-size: 0.85rem;
+        }
+        .step-item {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.25rem;
+            align-items: flex-start;
+        }
+        .step-item-content {
+            flex: 1;
+            padding-top: 0.2rem;
+            color: #374151;
+            line-height: 1.6;
+        }
         .header {
             position: fixed;
             top: 0;
@@ -117,15 +143,19 @@
             border-left: 4px solid transparent;
             transition: all 0.2s;
             font-size: 0.95rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
         .sidebar-item:hover { background: #f3f4f6; border-left-color: #E8792F; }
         .sidebar-item.active { background: rgba(232, 121, 47, 0.1); border-left-color: #E8792F; color: #E8792F; font-weight: 600; }
         .main-content { margin-left: 280px; padding: 5rem 3rem 2rem 3rem; background: #fafbfc; min-height: 100vh; }
         .section { display: none; }
-        .section.active { display: block; animation: fadeIn 0.3s; }
+        .section.active { display: block; animation: slideIn 0.35s ease-out; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        .section-header { font-size: 2rem; font-weight: 700; color: #1B3A5C; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 4px solid #E8792F; }
-        .subsection-header { font-size: 1.25rem; font-weight: 600; color: #1B3A5C; margin-top: 1.5rem; margin-bottom: 1rem; }
+        @keyframes slideIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+        .section-header { font-size: 2rem; font-weight: 700; color: #1B3A5C; margin-bottom: 1.5rem; padding-left: 1rem; border-left: 4px solid #E8792F; }
+        .subsection-header { font-size: 1.2rem; font-weight: 600; color: #1B3A5C; margin-top: 1.5rem; margin-bottom: 1rem; border-left: 3px solid #E8792F; padding-left: 0.75rem; }
         .badge {
             display: inline-block;
             padding: 0.25rem 0.75rem;
@@ -409,12 +439,12 @@
                 challengeName: "Challenge: RFM-Analyse",
                 challengeDesc: "Berechnen Sie RFM-Metriken (Recency, Frequency, Monetary) für Kunden und identifizieren Sie Top-Kunden.",
                 challengeSteps: "Schritte:",
-                challengeStep1: "1. Laden Sie customers.csv und orders.csv",
-                challengeStep2: "2. Joinen Sie beide Tabellen über customer_id",
-                challengeStep3: "3. Gruppieren Sie nach Kunde und berechnen Sie: Anzahl Bestellungen (Frequency) und Gesamtumsatz (Monetary)",
-                challengeStep4: "4. Sortieren Sie nach Gesamtumsatz absteigend",
-                challengeStep5: "5. Zeigen Sie die Top-10 Kunden nach Umsatz",
-                challengeStep6: "6. Optional: Erstellen Sie ein Segment 'High-Value' für Kunden mit Umsatz > 10000$",
+                challengeStep1: "Laden Sie customers.csv und orders.csv",
+                challengeStep2: "Joinen Sie beide Tabellen über customer_id",
+                challengeStep3: "Gruppieren Sie nach Kunde und berechnen Sie: Anzahl Bestellungen (Frequency) und Gesamtumsatz (Monetary)",
+                challengeStep4: "Sortieren Sie nach Gesamtumsatz absteigend",
+                challengeStep5: "Zeigen Sie die Top-10 Kunden nach Umsatz",
+                challengeStep6: "Optional: Erstellen Sie ein Segment 'High-Value' für Kunden mit Umsatz > 10000$",
                 challengeHint: "Hinweis: Verwenden Sie groupBy(), agg() mit count() und sum(), und orderBy() mit limit()",
                 challengeSolution: "from pyspark.sql.functions import count, sum, when\n\n# Beide Dateien laden\ncustomers = spark.read.csv(\"/home/jovyan/data/customers.csv\", header=True, inferSchema=True)\norders = spark.read.csv(\"/home/jovyan/data/orders.csv\", header=True, inferSchema=True)\n\n# RFM Berechnung\ndf_rfm = customers.join(orders, \"customer_id\") \\\n    .groupBy(\"customer_id\", \"name\") \\\n    .agg(\n        count(\"order_id\").alias(\"frequency\"),\n        sum(\"order_total\").alias(\"monetary\")\n    )\n\n# Top-10 Kunden nach Umsatz\ndf_rfm.orderBy(\"monetary\", ascending=False).limit(10).show()\n\n# Optional: High-Value Segmentierung\ndf_rfm_segment = df_rfm.withColumn(\"segment\",\n    when(col(\"monetary\") > 10000, \"High-Value\").otherwise(\"Standard\")\n)\ndf_rfm_segment.filter(col(\"segment\") == \"High-Value\").show()",
                 challengeExpected: "Top 10 Customers:\ncustomer_id | name | frequency | monetary\n45 | John Doe | 12 | 45000\n67 | Maria Garcia | 8 | 32000",
@@ -669,12 +699,12 @@
                 challengeName: "Challenge: RFM Analysis",
                 challengeDesc: "Calculate RFM metrics (Recency, Frequency, Monetary) for customers and identify top customers.",
                 challengeSteps: "Steps:",
-                challengeStep1: "1. Load customers.csv and orders.csv",
-                challengeStep2: "2. Join both tables on customer_id",
-                challengeStep3: "3. Group by customer and calculate: Number of orders (Frequency) and Total revenue (Monetary)",
-                challengeStep4: "4. Sort by total revenue descending",
-                challengeStep5: "5. Show the top 10 customers by revenue",
-                challengeStep6: "6. Optional: Create a 'High-Value' segment for customers with revenue > 10000$",
+                challengeStep1: "Load customers.csv and orders.csv",
+                challengeStep2: "Join both tables on customer_id",
+                challengeStep3: "Group by customer and calculate: Number of orders (Frequency) and Total revenue (Monetary)",
+                challengeStep4: "Sort by total revenue descending",
+                challengeStep5: "Show the top 10 customers by revenue",
+                challengeStep6: "Optional: Create a 'High-Value' segment for customers with revenue > 10000$",
                 challengeHint: "Hint: Use groupBy(), agg() with count() and sum(), and orderBy() with limit()",
                 challengeSolution: "from pyspark.sql.functions import count, sum, when\n\n# Load both files\ncustomers = spark.read.csv(\"/home/jovyan/data/customers.csv\", header=True, inferSchema=True)\norders = spark.read.csv(\"/home/jovyan/data/orders.csv\", header=True, inferSchema=True)\n\n# RFM calculation\ndf_rfm = customers.join(orders, \"customer_id\") \\\n    .groupBy(\"customer_id\", \"name\") \\\n    .agg(\n        count(\"order_id\").alias(\"frequency\"),\n        sum(\"order_total\").alias(\"monetary\")\n    )\n\n# Top 10 customers by revenue\ndf_rfm.orderBy(\"monetary\", ascending=False).limit(10).show()\n\n# Optional: High-Value segmentation\ndf_rfm_segment = df_rfm.withColumn(\"segment\",\n    when(col(\"monetary\") > 10000, \"High-Value\").otherwise(\"Standard\")\n)\ndf_rfm_segment.filter(col(\"segment\") == \"High-Value\").show()",
                 challengeExpected: "Top 10 Customers:\ncustomer_id | name | frequency | monetary\n45 | John Doe | 12 | 45000",
@@ -789,6 +819,13 @@
                 get: (target, prop) => target[prop] !== undefined ? target[prop] : translations['de'][prop]
             });
 
+            const StepItem = ({ number, children }) => (
+                <div className="step-item">
+                    <div className="step-number">{number}</div>
+                    <div className="step-item-content">{children}</div>
+                </div>
+            );
+
             const copyToClipboard = (text) => {
                 navigator.clipboard.writeText(text);
                 alert(t.copy + '!');
@@ -810,14 +847,14 @@
                             <div className="lesson-box">
                                 <h3 style={{fontWeight: 600, marginBottom: '1rem'}}>{t.whatYouLearn}</h3>
                                 <p>{t.sparkWillLearn}</p>
-                                <h4 style={{marginTop: '1rem', marginBottom: '0.5rem'}}>{t.learningGoals}</h4>
-                                <ul style={{paddingLeft: '1.5rem', marginTop: '0.5rem'}}>
-                                    <li>{t.goal1}</li>
-                                    <li>{t.goal2}</li>
-                                    <li>{t.goal3}</li>
-                                    <li>{t.goal4}</li>
-                                    <li>{t.goal5}</li>
-                                </ul>
+                                <h4 style={{marginTop: '1rem', marginBottom: '0.75rem'}}>{t.learningGoals}</h4>
+                                <div>
+                                    <StepItem number="✓">{t.goal1}</StepItem>
+                                    <StepItem number="✓">{t.goal2}</StepItem>
+                                    <StepItem number="✓">{t.goal3}</StepItem>
+                                    <StepItem number="✓">{t.goal4}</StepItem>
+                                    <StepItem number="✓">{t.goal5}</StepItem>
+                                </div>
                             </div>
 
                             <h2 className="subsection-header">{t.realWorldMotivation}</h2>
@@ -853,12 +890,12 @@
 
                             <h2 className="subsection-header">{t.megastoreName}</h2>
                             <p>{t.megastoreDesc}</p>
-                            <ul style={{paddingLeft: '1.5rem', marginTop: '0.5rem'}}>
-                                <li>{t.customersTable}</li>
-                                <li>{t.productsTable}</li>
-                                <li>{t.ordersTable}</li>
-                                <li>{t.orderItemsTable}</li>
-                            </ul>
+                            <div style={{marginTop: '0.75rem'}}>
+                                <StepItem number="✓">{t.customersTable}</StepItem>
+                                <StepItem number="✓">{t.productsTable}</StepItem>
+                                <StepItem number="✓">{t.ordersTable}</StepItem>
+                                <StepItem number="✓">{t.orderItemsTable}</StepItem>
+                            </div>
                         </div>
                     );
                 }
@@ -869,28 +906,36 @@
                             <h1 className="section-header">{t.setup}</h1>
                             <p>{t.setupIntro}</p>
 
-                            <h2 className="subsection-header">{t.step1}</h2>
-                            <p>{t.step1Desc}</p>
-                            <div className="code-block">
-                                <button className="copy-btn" onClick={() => copyToClipboard('docker pull jupyter/pyspark-notebook:latest')}>{t.copy}</button>
-                                <code>docker pull jupyter/pyspark-notebook:latest</code>
-                            </div>
+                            <StepItem number="1">
+                                <strong>{t.step1}</strong>
+                                <p style={{margin: '0.4rem 0'}}>{t.step1Desc}</p>
+                                <div className="code-block" style={{marginTop: '0.5rem'}}>
+                                    <button className="copy-btn" onClick={() => copyToClipboard('docker pull jupyter/pyspark-notebook:latest')}>{t.copy}</button>
+                                    <code>docker pull jupyter/pyspark-notebook:latest</code>
+                                </div>
+                            </StepItem>
 
-                            <h2 className="subsection-header">{t.step2}</h2>
-                            <p>{t.step2Desc}</p>
-                            <div className="code-block">
-                                <button className="copy-btn" onClick={() => copyToClipboard('docker run --name spark-lab -p 8888:8888 -p 4040:4040 -v $(pwd)/data:/home/jovyan/data jupyter/pyspark-notebook:latest')}>{t.copy}</button>
-                                <code>docker run --name spark-lab -p 8888:8888 -p 4040:4040 -v $(pwd)/data:/home/jovyan/data jupyter/pyspark-notebook:latest</code>
-                            </div>
+                            <StepItem number="2">
+                                <strong>{t.step2}</strong>
+                                <p style={{margin: '0.4rem 0'}}>{t.step2Desc}</p>
+                                <div className="code-block" style={{marginTop: '0.5rem'}}>
+                                    <button className="copy-btn" onClick={() => copyToClipboard('docker run --name spark-lab -p 8888:8888 -p 4040:4040 -v $(pwd)/data:/home/jovyan/data jupyter/pyspark-notebook:latest')}>{t.copy}</button>
+                                    <code>docker run --name spark-lab -p 8888:8888 -p 4040:4040 -v $(pwd)/data:/home/jovyan/data jupyter/pyspark-notebook:latest</code>
+                                </div>
+                            </StepItem>
 
-                            <h2 className="subsection-header">{t.step3}</h2>
-                            <p>{t.step3Desc}</p>
-                            <div className="code-block">
-                                <code>docker logs spark-lab | grep token</code>
-                            </div>
+                            <StepItem number="3">
+                                <strong>{t.step3}</strong>
+                                <p style={{margin: '0.4rem 0'}}>{t.step3Desc}</p>
+                                <div className="code-block" style={{marginTop: '0.5rem'}}>
+                                    <code>docker logs spark-lab | grep token</code>
+                                </div>
+                            </StepItem>
 
-                            <h2 className="subsection-header">{t.step4}</h2>
-                            <p>{t.step4Desc}</p>
+                            <StepItem number="4">
+                                <strong>{t.step4}</strong>
+                                <p style={{margin: '0.4rem 0'}}>{t.step4Desc}</p>
+                            </StepItem>
 
                             <h2 className="subsection-header">{t.verify}</h2>
                             <p>{t.verifyDesc}</p>
@@ -1777,14 +1822,14 @@
                             <p>{t.challengeDesc}</p>
 
                             <h2 className="subsection-header">{t.challengeSteps}</h2>
-                            <ol style={{paddingLeft: '1.5rem', marginTop: '0.5rem'}}>
-                                <li>{t.challengeStep1}</li>
-                                <li>{t.challengeStep2}</li>
-                                <li>{t.challengeStep3}</li>
-                                <li>{t.challengeStep4}</li>
-                                <li>{t.challengeStep5}</li>
-                                <li>{t.challengeStep6}</li>
-                            </ol>
+                            <div style={{marginTop: '0.75rem'}}>
+                                <StepItem number="1">{t.challengeStep1}</StepItem>
+                                <StepItem number="2">{t.challengeStep2}</StepItem>
+                                <StepItem number="3">{t.challengeStep3}</StepItem>
+                                <StepItem number="4">{t.challengeStep4}</StepItem>
+                                <StepItem number="5">{t.challengeStep5}</StepItem>
+                                <StepItem number="6">{t.challengeStep6}</StepItem>
+                            </div>
 
                             <div className="hint-box">
                                 <div className="hint-title">{t.hint}</div>
@@ -1951,12 +1996,12 @@
 
                             <div className="outlook-part">
                                 <div className="outlook-title">{t.advancedTitle}</div>
-                                <ul className="outlook-list">
-                                    <li>Spark Streaming: Verarbeite Echtzeit-Daten mit Spark</li>
-                                    <li>MLlib: Machine Learning Library für Spark-native Modelle</li>
-                                    <li>Delta Lake: ACID-Transaktionen und Zeitreisen in Data Lakes</li>
-                                    <li>Spark Connect: Entfernte Spark-Cluster über Python Client</li>
-                                </ul>
+                                <div style={{marginTop: '0.75rem'}}>
+                                    <StepItem number="1">Spark Streaming: Verarbeite Echtzeit-Daten mit Spark</StepItem>
+                                    <StepItem number="2">MLlib: Machine Learning Library für Spark-native Modelle</StepItem>
+                                    <StepItem number="3">Delta Lake: ACID-Transaktionen und Zeitreisen in Data Lakes</StepItem>
+                                    <StepItem number="4">Spark Connect: Entfernte Spark-Cluster über Python Client</StepItem>
+                                </div>
                             </div>
 
                             <div className="outlook-part">
@@ -1966,19 +2011,21 @@
 
                             <div className="outlook-part">
                                 <div className="outlook-title">{t.promptExamplesTitle}</div>
-                                <div className="prompt-example">{t.prompt1}</div>
-                                <div className="prompt-example">{t.prompt2}</div>
-                                <div className="prompt-example">{t.prompt3}</div>
+                                <div style={{marginTop: '0.75rem'}}>
+                                    <StepItem number="1">{t.prompt1}</StepItem>
+                                    <StepItem number="2">{t.prompt2}</StepItem>
+                                    <StepItem number="3">{t.prompt3}</StepItem>
+                                </div>
                             </div>
 
                             <div className="outlook-part">
                                 <div className="outlook-title">{t.resourcesTitle}</div>
-                                <ul className="outlook-list">
-                                    <li><a href="https://spark.apache.org/docs/latest/" style={{color: '#E8792F', textDecoration: 'none'}} target="_blank">Apache Spark Official Docs</a></li>
-                                    <li><a href="https://spark.apache.org/docs/latest/tuning.html" style={{color: '#E8792F', textDecoration: 'none'}} target="_blank">Spark Performance Tuning</a></li>
-                                    <li><a href="https://spark.apache.org/docs/latest/api/python/" style={{color: '#E8792F', textDecoration: 'none'}} target="_blank">PySpark API</a></li>
-                                    <li>Learning Spark (O'Reilly)</li>
-                                </ul>
+                                <div style={{marginTop: '0.75rem'}}>
+                                    <StepItem number="1"><a href="https://spark.apache.org/docs/latest/" style={{color: '#E8792F', textDecoration: 'none'}} target="_blank">Apache Spark Official Docs</a></StepItem>
+                                    <StepItem number="2"><a href="https://spark.apache.org/docs/latest/tuning.html" style={{color: '#E8792F', textDecoration: 'none'}} target="_blank">Spark Performance Tuning</a></StepItem>
+                                    <StepItem number="3"><a href="https://spark.apache.org/docs/latest/api/python/" style={{color: '#E8792F', textDecoration: 'none'}} target="_blank">PySpark API</a></StepItem>
+                                    <StepItem number="4">Learning Spark (O'Reilly)</StepItem>
+                                </div>
                             </div>
 
                             <button className="btn-accent" onClick={() => setActiveSection('troubleshooting')} style={{marginTop: '2rem'}}>{t.nextExercise}</button>
