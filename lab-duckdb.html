@@ -327,16 +327,28 @@
                 troubleshooting: 'Fehlerbehebung',
 
                 // Overview
-                welcomeTitle: 'Was Sie lernen werden',
-                welcomeGoals: 'Nach diesem Lab verstehen Sie:',
+                welcomeTitle: 'Was Sie in diesem Lab lernen',
+                welcomeGoals: 'Nach diesem Lab können Sie:',
+                welcomeGoal1: 'DuckDB installieren und eine erste In-Memory-Datenbankverbindung aufbauen',
+                welcomeGoal2: 'CSV-Dateien direkt mit SQL abfragen – ohne vorherigen Datenimport',
+                welcomeGoal3: 'Aggregationen, GROUP BY und Joins auf echten Geschäftsdaten anwenden',
+                welcomeGoal4: 'Reale Business-Fragen mit dem MegaStore-Datensatz analysieren',
+                welcomeGoal5: 'DuckDB sinnvoll in Python-Skripten einsetzen',
                 whatIsDuckDB: 'Was ist DuckDB?',
-                inProcessDB: 'In-Process Datenbank — Läuft direkt in Ihrem Python-Prozess, kein Server nötig',
-                columnarStorage: 'Spalten-orientierte Speicherung — Extrem schnell für analytische Abfragen',
-                sqlNative: 'SQL-nativ — Vollständige SQL-Unterstützung mit analytischen Erweiterungen',
+                inProcessDB: 'In-Process-Datenbank',
+                inProcessDBDesc: 'DuckDB läuft direkt im selben Prozess wie Ihr Python-Skript – ganz ohne Server, Netzwerkverbindung oder aufwendige Konfiguration. Sie installieren das Paket einmalig mit pip, importieren es in Ihr Skript, und können sofort Abfragen ausführen. Das macht DuckDB ideal für schnelle Datenanalysen, Prototypen und Lehrszenarien.',
+                columnarStorage: 'Spaltenorientierte Speicherung',
+                columnarStorageDesc: 'Anders als klassische Zeilendatenbanken (z.B. SQLite oder MySQL) speichert DuckDB Daten spaltenweise. Das bedeutet: Analytische Abfragen, die nur einige Spalten aus tausenden Zeilen lesen, sind extrem schnell. GROUP BY, Aggregationen und Filteroperationen über große Datensätze profitieren besonders davon – und genau das braucht man in der Datenanalyse täglich.',
+                sqlNative: 'SQL-nativ mit analytischen Erweiterungen',
+                sqlNativeDesc: 'DuckDB spricht vollständiges ANSI-SQL – die gleichen Abfragen wie in PostgreSQL oder MySQL. Darüber hinaus bietet es leistungsstarke Erweiterungen: Fensterfunktionen, List-Aggregationen und das direkte Abfragen von CSV- oder Parquet-Dateien, ohne vorherigen Datenimport. So lässt sich auch mit großen Dateien arbeiten, als wären es Datenbanktabellen.',
                 whyDuckDB: 'Warum DuckDB?',
-                motherduck: 'MotherDuck: Sichere Cloud-Analytik für Startups und Unternehmen',
-                dbtLabs: 'dbt Labs: Integration in Daten-Transformations-Pipelines',
-                observable: 'Observable: Interaktive Datenvisualisierung und Datenanalyse',
+                whyDuckDBDesc: 'DuckDB hat sich in kurzer Zeit als Standard-Werkzeug für lokale Datenanalyse etabliert. Namhafte Unternehmen setzen es produktiv ein – ein Zeichen, dass es nicht nur für Lernzwecke, sondern auch für echte Geschäftsanwendungen geeignet ist.',
+                motherduck: 'MotherDuck – Cloud-Analytik auf DuckDB-Basis',
+                motherDuckDesc: 'MotherDuck nutzt DuckDB als Backend für sichere, skalierbare Cloud-Analysen. Startups und Unternehmen können damit große Datensätze ohne eigene Serverinfrastruktur analysieren.',
+                dbtLabs: 'dbt Labs – Datentransformations-Pipelines',
+                dbtLabsDesc: 'dbt Labs integriert DuckDB in moderne Datenpipelines. Dateningenieure können SQL-Modelle lokal schnell entwickeln und testen, bevor sie in die Produktion überführt werden.',
+                observable: 'Observable – Interaktive Visualisierungen',
+                observableDesc: 'Observable nutzt DuckDB für interaktive Datenvisualisierungen direkt im Browser – ganz ohne Backend-Server. Das macht komplexe Analysen für jeden zugänglich.',
                 estimatedTime: 'Geschätzte Zeit',
                 estimatedTimeValue: '90-120 Minuten für alle Übungen',
                 requirements: 'Voraussetzungen',
@@ -641,16 +653,28 @@
                 troubleshooting: 'Troubleshooting',
 
                 // Overview
-                welcomeTitle: 'What You\'ll Learn',
-                welcomeGoals: 'After this lab you\'ll understand:',
+                welcomeTitle: 'What You\'ll Learn in This Lab',
+                welcomeGoals: 'After this lab you\'ll be able to:',
+                welcomeGoal1: 'Install DuckDB and establish a first in-memory database connection',
+                welcomeGoal2: 'Query CSV files directly with SQL – without any prior data import',
+                welcomeGoal3: 'Apply aggregations, GROUP BY and joins on real business data',
+                welcomeGoal4: 'Analyze real business questions using the MegaStore dataset',
+                welcomeGoal5: 'Use DuckDB effectively in Python scripts',
                 whatIsDuckDB: 'What is DuckDB?',
-                inProcessDB: 'In-Process Database — Runs directly in your Python process, no server needed',
-                columnarStorage: 'Columnar Storage — Extremely fast for analytical queries',
-                sqlNative: 'SQL-Native — Full SQL support with analytical extensions',
+                inProcessDB: 'In-Process Database',
+                inProcessDBDesc: 'DuckDB runs directly in the same process as your Python script – no server, no network connection, no complex configuration required. Install the package once with pip, import it into your script, and you can start querying immediately. This makes DuckDB ideal for quick data analysis, prototyping, and learning.',
+                columnarStorage: 'Columnar Storage',
+                columnarStorageDesc: 'Unlike traditional row-based databases (e.g. SQLite or MySQL), DuckDB stores data column by column. This means: analytical queries that read only a few columns from thousands of rows are extremely fast. GROUP BY, aggregations, and filter operations across large datasets benefit especially – and that is exactly what data analysis requires every day.',
+                sqlNative: 'SQL-Native with Analytical Extensions',
+                sqlNativeDesc: 'DuckDB speaks full ANSI-SQL – the same queries as PostgreSQL or MySQL. On top of that, it offers powerful extensions: window functions, list aggregations, and direct querying of CSV or Parquet files without prior data import. This lets you work with large files as if they were database tables.',
                 whyDuckDB: 'Why DuckDB?',
-                motherduck: 'MotherDuck: Secure cloud analytics for startups and enterprises',
-                dbtLabs: 'dbt Labs: Integration into data transformation pipelines',
-                observable: 'Observable: Interactive data visualization and analysis',
+                whyDuckDBDesc: 'DuckDB has quickly established itself as the standard tool for local data analysis. Leading companies use it in production – a sign that it is suitable not just for learning, but for real business applications as well.',
+                motherduck: 'MotherDuck – Cloud Analytics on DuckDB',
+                motherDuckDesc: 'MotherDuck uses DuckDB as its backend for secure, scalable cloud analytics. Startups and enterprises can analyze large datasets without managing their own server infrastructure.',
+                dbtLabs: 'dbt Labs – Data Transformation Pipelines',
+                dbtLabsDesc: 'dbt Labs integrates DuckDB into modern data pipelines. Data engineers can quickly develop and test SQL models locally before deploying them to production.',
+                observable: 'Observable – Interactive Visualizations',
+                observableDesc: 'Observable uses DuckDB for interactive data visualizations directly in the browser – without any backend server. This makes complex analyses accessible to everyone.',
                 estimatedTime: 'Estimated Time',
                 estimatedTimeValue: '90-120 minutes for all exercises',
                 requirements: 'Requirements',
@@ -1126,25 +1150,49 @@
                         <section id="overview">
                             <h2>{t.overview}</h2>
                             <div className="lesson-box">
-                                <h4>{t.welcomeTitle}</h4>
-                                <div style={{ marginTop: '0.75rem' }}>
-                                    <StepItem number="✓">{t.whatIsDuckDB}</StepItem>
-                                    <StepItem number="✓">{t.inProcessDB}</StepItem>
-                                    <StepItem number="✓">{t.columnarStorage}</StepItem>
-                                    <StepItem number="✓">{t.sqlNative}</StepItem>
-                                    <StepItem number="✓">{t.estimatedTime}</StepItem>
+                                <h4 style={{ marginTop: 0 }}>{t.welcomeTitle}</h4>
+                                <p style={{ marginBottom: '0.75rem', color: '#555' }}>{t.welcomeGoals}</p>
+                                <div>
+                                    <StepItem number="✓">{t.welcomeGoal1}</StepItem>
+                                    <StepItem number="✓">{t.welcomeGoal2}</StepItem>
+                                    <StepItem number="✓">{t.welcomeGoal3}</StepItem>
+                                    <StepItem number="✓">{t.welcomeGoal4}</StepItem>
+                                    <StepItem number="✓">{t.welcomeGoal5}</StepItem>
                                 </div>
                             </div>
 
                             <h3>{t.whatIsDuckDB}</h3>
-                            <p><strong>{t.inProcessDB}</strong></p>
-                            <p><strong>{t.columnarStorage}</strong></p>
-                            <p><strong>{t.sqlNative}</strong></p>
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem', marginTop: '0.75rem' }}>
+                                <div style={{ borderLeft: '3px solid #E8792F', paddingLeft: '1rem' }}>
+                                    <h4 style={{ color: '#1B3A5C', fontWeight: '700', marginBottom: '0.4rem', marginTop: 0 }}>{t.inProcessDB}</h4>
+                                    <p style={{ margin: 0, color: '#374151', lineHeight: '1.65' }}>{t.inProcessDBDesc}</p>
+                                </div>
+                                <div style={{ borderLeft: '3px solid #E8792F', paddingLeft: '1rem' }}>
+                                    <h4 style={{ color: '#1B3A5C', fontWeight: '700', marginBottom: '0.4rem', marginTop: 0 }}>{t.columnarStorage}</h4>
+                                    <p style={{ margin: 0, color: '#374151', lineHeight: '1.65' }}>{t.columnarStorageDesc}</p>
+                                </div>
+                                <div style={{ borderLeft: '3px solid #E8792F', paddingLeft: '1rem' }}>
+                                    <h4 style={{ color: '#1B3A5C', fontWeight: '700', marginBottom: '0.4rem', marginTop: 0 }}>{t.sqlNative}</h4>
+                                    <p style={{ margin: 0, color: '#374151', lineHeight: '1.65' }}>{t.sqlNativeDesc}</p>
+                                </div>
+                            </div>
 
                             <h3>{t.whyDuckDB}</h3>
-                            <p>• {t.motherduck}</p>
-                            <p>• {t.dbtLabs}</p>
-                            <p>• {t.observable}</p>
+                            <p style={{ color: '#374151', lineHeight: '1.65' }}>{t.whyDuckDBDesc}</p>
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginTop: '0.75rem' }}>
+                                <div style={{ borderLeft: '3px solid #E8792F', paddingLeft: '1rem' }}>
+                                    <h4 style={{ color: '#1B3A5C', fontWeight: '700', marginBottom: '0.3rem', marginTop: 0 }}>{t.motherduck}</h4>
+                                    <p style={{ margin: 0, color: '#374151', lineHeight: '1.65' }}>{t.motherDuckDesc}</p>
+                                </div>
+                                <div style={{ borderLeft: '3px solid #E8792F', paddingLeft: '1rem' }}>
+                                    <h4 style={{ color: '#1B3A5C', fontWeight: '700', marginBottom: '0.3rem', marginTop: 0 }}>{t.dbtLabs}</h4>
+                                    <p style={{ margin: 0, color: '#374151', lineHeight: '1.65' }}>{t.dbtLabsDesc}</p>
+                                </div>
+                                <div style={{ borderLeft: '3px solid #E8792F', paddingLeft: '1rem' }}>
+                                    <h4 style={{ color: '#1B3A5C', fontWeight: '700', marginBottom: '0.3rem', marginTop: 0 }}>{t.observable}</h4>
+                                    <p style={{ margin: 0, color: '#374151', lineHeight: '1.65' }}>{t.observableDesc}</p>
+                                </div>
+                            </div>
 
                             <h3>{t.estimatedTime}</h3>
                             <p>{t.estimatedTimeValue}</p>
