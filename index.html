@@ -541,22 +541,23 @@ const LAB_ICONS = [ICON_LAYERS, ICON_FILTER, ICON_NETWORK, ICON_TERMINAL];
                     duckdb_lang: 'SQL',
                     duckdb_server: 'Embedded',
                     duckdb_learn: 'Niedrig',
-                    tree_title: 'Entscheidungsfluss: Was ist dein Problem?',
-                    tree_q1: 'Daten > 100 GB und verteilt?',
+                    tree_title: 'Entscheidungshilfe: Was ist dein Problem?',
+                    tree_subtitle: 'Vier Technologien für unterschiedliche Datenprobleme – diese Übersicht hilft bei der Auswahl.',
+                    tree_q1: 'Sehr große Datenmengen oder verteilte Verarbeitung?',
                     tree_q2: 'Flexible, verschachtelte Dokumente?',
-                    tree_q3: 'Komplexe Beziehungen/Netzwerke?',
+                    tree_q3: 'Komplexe Beziehungen / Netzwerke?',
                     tree_q4: 'Schnelle lokale SQL-Analyse?',
                     tree_yes: 'Ja',
                     tree_no: 'Nein',
                     comparison_title: 'Spark vs. DuckDB',
                     comparison_subtitle: 'Die häufigste Frage: Wann brauche ich Spark?',
-                    comparison_intro: 'Beide Tools machen Datenanalyse. Der Unterschied liegt in der Skalierung:',
+                    comparison_intro: 'Beide Tools eignen sich für Datenanalyse. Der wichtigste Unterschied liegt in Skalierung und Betriebsmodell:',
                     comparison_spark_title: 'Apache Spark',
-                    comparison_spark_desc: 'Verteilt auf vielen Maschinen. Nötig für: Daten > 100GB, ML-Pipelines, Streaming, Team-Zusammenarbeit mit Cluster.',
+                    comparison_spark_desc: 'Verteilt über mehrere Maschinen. Geeignet für große Datenmengen, ETL, Streaming und ML-Workflows.',
                     comparison_duckdb_title: 'DuckDB',
-                    comparison_duckdb_desc: 'Lokal auf einer Maschine, blitzschnell. Nötig für: Daten auf dem Laptop, schnelle Exploration, kein Setup, perfekt für prototyping.',
+                    comparison_duckdb_desc: 'Läuft lokal auf einer Maschine. Geeignet für schnelle SQL-Analysen, Exploration, Prototyping und lokale Auswertungen.',
                     comparison_rule: 'Faustregel:',
-                    comparison_rule_text: 'Passt es auf deinen Laptop? → DuckDB. Braucht es ein Cluster? → Spark.',
+                    comparison_rule_text: 'Lokal und unkompliziert → DuckDB. Verteilte Verarbeitung → Spark.',
                 },
                 bonus: {
                     title: 'Bonus: Project Phil in der Praxis',
@@ -797,22 +798,23 @@ const LAB_ICONS = [ICON_LAYERS, ICON_FILTER, ICON_NETWORK, ICON_TERMINAL];
                     duckdb_lang: 'SQL',
                     duckdb_server: 'Embedded',
                     duckdb_learn: 'Low',
-                    tree_title: 'Decision Flow: What is your problem?',
-                    tree_q1: 'Data > 100 GB and distributed?',
+                    tree_title: 'Decision Aid: What is your problem?',
+                    tree_subtitle: 'Four technologies for different data challenges – this overview helps you choose.',
+                    tree_q1: 'Very large datasets or distributed processing?',
                     tree_q2: 'Flexible, nested documents?',
-                    tree_q3: 'Complex relationships/networks?',
+                    tree_q3: 'Complex relationships / networks?',
                     tree_q4: 'Fast local SQL analysis?',
                     tree_yes: 'Yes',
                     tree_no: 'No',
                     comparison_title: 'Spark vs. DuckDB',
                     comparison_subtitle: 'The most common question: When do I need Spark?',
-                    comparison_intro: 'Both tools do data analysis. The difference lies in scalability:',
+                    comparison_intro: 'Both tools are suitable for data analysis. The key difference lies in scalability and deployment model:',
                     comparison_spark_title: 'Apache Spark',
-                    comparison_spark_desc: 'Distributed across many machines. Needed for: Data > 100GB, ML pipelines, streaming, team collaboration with a cluster.',
+                    comparison_spark_desc: 'Distributed across multiple machines. Suited for large datasets, ETL, streaming, and ML workflows.',
                     comparison_duckdb_title: 'DuckDB',
-                    comparison_duckdb_desc: 'Local on one machine, lightning fast. Needed for: Data on your laptop, rapid exploration, zero setup, perfect for prototyping.',
+                    comparison_duckdb_desc: 'Runs locally on a single machine. Suited for fast SQL queries, exploration, prototyping, and local analytics.',
                     comparison_rule: 'Rule of thumb:',
-                    comparison_rule_text: 'Does it fit on your laptop? → DuckDB. Does it need a cluster? → Spark.',
+                    comparison_rule_text: 'Local and straightforward → DuckDB. Distributed processing → Spark.',
                 },
                 bonus: {
                     title: 'Bonus: Project Phil in Practice',
@@ -1053,22 +1055,23 @@ const LAB_ICONS = [ICON_LAYERS, ICON_FILTER, ICON_NETWORK, ICON_TERMINAL];
                     duckdb_lang: 'SQL',
                     duckdb_server: 'Embedded',
                     duckdb_learn: 'منخفض',
-                    tree_title: 'تدفق القرار: ما هي مشكلتك؟',
-                    tree_q1: 'بيانات > 100 GB وموزعة؟',
-                    tree_q2: 'مستندات مرنة وفنية؟',
-                    tree_q3: 'علاقات/شبكات معقدة؟',
+                    tree_title: 'مساعدة القرار: ما هي مشكلتك؟',
+                    tree_subtitle: 'أربع تقنيات لمشاكل بيانات مختلفة – هذه النظرة العامة تساعدك في الاختيار.',
+                    tree_q1: 'بيانات كبيرة جداً أو معالجة موزعة؟',
+                    tree_q2: 'مستندات مرنة ومتداخلة؟',
+                    tree_q3: 'علاقات / شبكات معقدة؟',
                     tree_q4: 'تحليل SQL محلي سريع؟',
                     tree_yes: 'نعم',
                     tree_no: 'لا',
                     comparison_title: 'Spark مقابل DuckDB',
-                    comparison_subtitle: 'السؤال الأكثر شيوعًا: متى أحتاج إلى Spark؟',
-                    comparison_intro: 'تعمل كلا الأداتين في تحليل البيانات. الفرق يكمن في التوسع:',
+                    comparison_subtitle: 'السؤال الأكثر شيوعاً: متى أحتاج Spark؟',
+                    comparison_intro: 'كلتا الأداتين مناسبتان لتحليل البيانات. الفرق الرئيسي يكمن في التوسع ونموذج التشغيل:',
                     comparison_spark_title: 'Apache Spark',
-                    comparison_spark_desc: 'موزع على عدة أجهزة. مطلوب لـ: بيانات > 100GB, ML pipelines, streaming, تعاون فريقي مع cluster.',
+                    comparison_spark_desc: 'موزع عبر عدة أجهزة. مناسب لمجموعات البيانات الكبيرة، ETL، البث المباشر وسير عمل ML.',
                     comparison_duckdb_title: 'DuckDB',
-                    comparison_duckdb_desc: 'محلي على جهاز واحد, سريع جدًا. مطلوب لـ: بيانات على جهاز الكمبيوتر, استكشاف سريع, بدون إعداد, مثالي للنماذج الأولية.',
+                    comparison_duckdb_desc: 'يعمل محلياً على جهاز واحد. مناسب لاستعلامات SQL السريعة، الاستكشاف، النماذج الأولية والتحليلات المحلية.',
                     comparison_rule: 'قاعدة عملية:',
-                    comparison_rule_text: 'هل يناسب جهاز الكمبيوتر الخاص بك؟ → DuckDB. هل يحتاج إلى cluster؟ → Spark.',
+                    comparison_rule_text: 'محلي وبسيط → DuckDB. معالجة موزعة → Spark.',
                 },
                 bonus: {
                     title: 'إضافة: Project Phil في التطبيق',
@@ -1309,22 +1312,23 @@ const LAB_ICONS = [ICON_LAYERS, ICON_FILTER, ICON_NETWORK, ICON_TERMINAL];
                     duckdb_lang: 'SQL',
                     duckdb_server: 'Embedded',
                     duckdb_learn: 'Низька',
-                    tree_title: 'Блок-схема рішення: Яка ваша проблема?',
-                    tree_q1: 'Дані > 100 GB і розподілені?',
+                    tree_title: 'Допомога у виборі: Яка ваша проблема?',
+                    tree_subtitle: 'Чотири технології для різних задач з даними – цей огляд допоможе вам обрати.',
+                    tree_q1: 'Дуже великі дані або розподілена обробка?',
                     tree_q2: 'Гнучкі, вкладені документи?',
-                    tree_q3: 'Складні зв\'язки/мережі?',
+                    tree_q3: 'Складні зв\'язки / мережі?',
                     tree_q4: 'Швидкий локальний SQL-аналіз?',
                     tree_yes: 'Так',
                     tree_no: 'Ні',
                     comparison_title: 'Spark vs. DuckDB',
-                    comparison_subtitle: 'Найчастіше питання: Коли мне потребен Spark?',
-                    comparison_intro: 'Обидва інструменти роблять аналіз даних. Різниця полягає в масштабованості:',
+                    comparison_subtitle: 'Найчастіше питання: Коли мені потрібен Spark?',
+                    comparison_intro: 'Обидва інструменти підходять для аналізу даних. Ключова різниця полягає в масштабованості та моделі розгортання:',
                     comparison_spark_title: 'Apache Spark',
-                    comparison_spark_desc: 'Розподілений на багатьох машинах. Потрібно для: Дані > 100GB, ML pipelines, streaming, командна співпраця з cluster.',
+                    comparison_spark_desc: 'Розподілений на кількох машинах. Підходить для великих наборів даних, ETL, потокової обробки та ML-воркфлоу.',
                     comparison_duckdb_title: 'DuckDB',
-                    comparison_duckdb_desc: 'Локально на одній машині, блискавично швидко. Потрібно для: Дані на вашому ноутбуку, швидке дослідження, без настройки, ідеально для прототипування.',
+                    comparison_duckdb_desc: 'Працює локально на одній машині. Підходить для швидких SQL-запитів, дослідження, прототипування та локальної аналітики.',
                     comparison_rule: 'Практичне правило:',
-                    comparison_rule_text: 'Вміститься на вашому ноутбуці? → DuckDB. Потребує cluster? → Spark.',
+                    comparison_rule_text: 'Локально і просто → DuckDB. Розподілена обробка → Spark.',
                 },
                 bonus: {
                     title: 'Бонус: Project Phil на практиці',
@@ -1565,22 +1569,23 @@ const LAB_ICONS = [ICON_LAYERS, ICON_FILTER, ICON_NETWORK, ICON_TERMINAL];
                     duckdb_lang: 'SQL',
                     duckdb_server: 'Embedded',
                     duckdb_learn: 'Bajo',
-                    tree_title: 'Flujo de decisión: ¿Cuál es tu problema?',
-                    tree_q1: '¿Datos > 100 GB y distribuidos?',
+                    tree_title: 'Ayuda para decidir: ¿Cuál es tu problema?',
+                    tree_subtitle: 'Cuatro tecnologías para diferentes problemas de datos – esta guía te ayuda a elegir.',
+                    tree_q1: '¿Conjuntos de datos muy grandes o procesamiento distribuido?',
                     tree_q2: '¿Documentos flexibles y anidados?',
-                    tree_q3: '¿Relaciones/redes complejas?',
+                    tree_q3: '¿Relaciones / redes complejas?',
                     tree_q4: '¿Análisis SQL local rápido?',
                     tree_yes: 'Sí',
                     tree_no: 'No',
                     comparison_title: 'Spark vs. DuckDB',
                     comparison_subtitle: 'La pregunta más común: ¿Cuándo necesito Spark?',
-                    comparison_intro: 'Ambas herramientas hacen análisis de datos. La diferencia está en la escalabilidad:',
+                    comparison_intro: 'Ambas herramientas son adecuadas para el análisis de datos. La diferencia clave está en la escalabilidad y el modelo de despliegue:',
                     comparison_spark_title: 'Apache Spark',
-                    comparison_spark_desc: 'Distribuido en múltiples máquinas. Necesario para: Datos > 100GB, ML pipelines, streaming, colaboración de equipo con cluster.',
+                    comparison_spark_desc: 'Distribuido en múltiples máquinas. Adecuado para grandes conjuntos de datos, ETL, streaming y flujos de trabajo ML.',
                     comparison_duckdb_title: 'DuckDB',
-                    comparison_duckdb_desc: 'Local en una máquina, rápido como el rayo. Necesario para: Datos en tu portátil, exploración rápida, sin configuración, perfecto para prototipado.',
+                    comparison_duckdb_desc: 'Se ejecuta localmente en una máquina. Adecuado para consultas SQL rápidas, exploración, prototipado y análisis local.',
                     comparison_rule: 'Regla práctica:',
-                    comparison_rule_text: '¿Cabe en tu portátil? → DuckDB. ¿Necesita un cluster? → Spark.',
+                    comparison_rule_text: 'Local y sencillo → DuckDB. Procesamiento distribuido → Spark.',
                 },
                 bonus: {
                     title: 'Bonus: Project Phil en Práctica',
@@ -1821,22 +1826,23 @@ const LAB_ICONS = [ICON_LAYERS, ICON_FILTER, ICON_NETWORK, ICON_TERMINAL];
                     duckdb_lang: 'SQL',
                     duckdb_server: 'Embedded',
                     duckdb_learn: 'Düşük',
-                    tree_title: 'Karar Akışı: Sorununuz nedir?',
-                    tree_q1: 'Veriler > 100 GB ve dağıtılmış mı?',
-                    tree_q2: 'Esnek, iç içe belgeler mi?',
-                    tree_q3: 'Karmaşık ilişkiler/ağlar mı?',
-                    tree_q4: 'Hızlı yerel SQL analizi mi?',
+                    tree_title: 'Karar Yardımı: Sorununuz nedir?',
+                    tree_subtitle: 'Farklı veri sorunları için dört teknoloji – bu genel bakış seçim yapmanıza yardımcı olur.',
+                    tree_q1: 'Çok büyük veri kümeleri veya dağıtılmış işleme?',
+                    tree_q2: 'Esnek, iç içe belgeler?',
+                    tree_q3: 'Karmaşık ilişkiler / ağlar?',
+                    tree_q4: 'Hızlı yerel SQL analizi?',
                     tree_yes: 'Evet',
                     tree_no: 'Hayır',
                     comparison_title: 'Spark vs. DuckDB',
-                    comparison_subtitle: 'En sık sorulan soru: Ne zaman Spark\'a ihtiyacım var?',
-                    comparison_intro: 'Her iki araç da veri analizi yapar. Fark ölçeklenebilirlikte yatar:',
+                    comparison_subtitle: 'En sık sorulan soru: Ne zaman Spark\'a ihtiyacım var?'a ihtiyacım var?',
+                    comparison_intro: 'Her iki araç da veri analizi için uygundur. Temel fark ölçeklenebilirlik ve dağıtım modelindedir:',
                     comparison_spark_title: 'Apache Spark',
-                    comparison_spark_desc: 'Birçok makineye dağıtılmış. Gerekli: Veriler > 100GB, ML pipelines, akış, kümeyle takım işbirliği.',
+                    comparison_spark_desc: 'Birden fazla makineye dağıtılmış. Büyük veri kümeleri, ETL, akış ve ML iş akışları için uygundur.',
                     comparison_duckdb_title: 'DuckDB',
-                    comparison_duckdb_desc: 'Bir makinede yerel, yıldırım hızında. Gerekli: Laptop\'unuzdaki veriler, hızlı keşif, kurulum yok, prototipler için mükemmel.',
+                    comparison_duckdb_desc: 'Tek bir makinede yerel olarak çalışır. Hızlı SQL sorguları, keşif, prototipleme ve yerel analitik için uygundur.',
                     comparison_rule: 'Pratik kural:',
-                    comparison_rule_text: 'Laptop\'unuza sığıyor mu? → DuckDB. Cluster\'a ihtiyacı var mı? → Spark.',
+                    comparison_rule_text: 'Yerel ve basit → DuckDB. Dağıtılmış işleme → Spark.',
                 },
                 bonus: {
                     title: 'Bonus: Project Phil Pratikte',
@@ -2242,22 +2248,26 @@ const LAB_ICONS = [ICON_LAYERS, ICON_FILTER, ICON_NETWORK, ICON_TERMINAL];
                                 </table>
                             </div>
 
-                            {/* Decision Tree */}
+                            {/* Decision Tree – Entscheidungshilfe */}
                             <div style={{ marginBottom: '4rem', textAlign: 'center' }} ref={ref}>
-                                <h3 style={{ fontSize: '1.3rem', fontWeight: 900, color: '#0F2744', marginBottom: '2.5rem', letterSpacing: '-0.01em' }}>{t.decision.tree_title}</h3>
-                                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1.5rem' }}>
+                                <h3 style={{ fontSize: '1.5rem', fontWeight: 900, color: '#0F2744', marginBottom: '0.75rem', letterSpacing: '-0.02em' }}>{t.decision.tree_title}</h3>
+                                <p style={{ color: '#64748b', fontSize: '0.95rem', lineHeight: 1.6, marginBottom: '2.5rem', maxWidth: 600, margin: '0 auto 2.5rem' }}>{t.decision.tree_subtitle}</p>
+                                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '1.25rem' }}>
                                     {[
-                                        { q: t.decision.tree_q1, tech: 'Spark', color: '#E8792F', yes: true },
-                                        { q: t.decision.tree_q2, tech: 'MongoDB', color: '#10b981', yes: true },
-                                        { q: t.decision.tree_q3, tech: 'Neo4j', color: '#0ea5e9', yes: true },
-                                        { q: t.decision.tree_q4, tech: 'DuckDB', color: '#f59e0b', yes: true }
+                                        { q: t.decision.tree_q1, tech: 'Spark', color: '#E8792F', logo: 'https://upload.wikimedia.org/wikipedia/commons/f/f3/Apache_Spark_logo.svg' },
+                                        { q: t.decision.tree_q2, tech: 'MongoDB', color: '#10b981', logo: 'https://cdn.worldvectorlogo.com/logos/mongodb-icon-1.svg' },
+                                        { q: t.decision.tree_q3, tech: 'Neo4j', color: '#0ea5e9', logo: 'https://dist.neo4j.com/wp-content/uploads/20210423062553/neo4j-symbol-color.svg' },
+                                        { q: t.decision.tree_q4, tech: 'DuckDB', color: '#f59e0b', logo: 'https://duckdb.org/images/logo-dl/DuckDB_Logo-stacked.svg' }
                                     ].map((item, i) => (
-                                        <div key={i} style={{ background: 'white', border: `2px solid ${item.color}`, borderRadius: 10, padding: '1.5rem', boxShadow: '0 2px 8px rgba(0,0,0,0.06)' }}>
-                                            <div style={{ color: '#4b5563', fontSize: '0.9rem', fontWeight: 600, marginBottom: '1rem' }}>{item.q}</div>
-                                            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem' }}>
+                                        <div key={i} style={{ background: 'white', border: `2px solid ${item.color}20`, borderRadius: 12, padding: '1.5rem 1.25rem', boxShadow: '0 2px 12px rgba(0,0,0,0.05)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'space-between', minHeight: '180px' }}>
+                                            <div style={{ color: '#374151', fontSize: '0.88rem', fontWeight: 600, lineHeight: 1.5, marginBottom: '1.25rem', textAlign: 'center' }}>{item.q}</div>
+                                            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                                                 <span style={{ fontWeight: 700, color: '#1B3A5C', fontSize: '0.85rem' }}>{t.decision.tree_yes}</span>
-                                                <span style={{ color: item.color, fontWeight: 900, fontSize: '1.2rem' }}>→</span>
-                                                <span style={{ background: item.color, color: 'white', fontWeight: 800, padding: '0.4rem 0.8rem', borderRadius: 6, fontSize: '0.85rem' }}>{item.tech}</span>
+                                                <span style={{ color: item.color, fontWeight: 900, fontSize: '1.3rem' }}>→</span>
+                                                <span style={{ background: item.color, color: 'white', fontWeight: 800, padding: '0.4rem 0.9rem', borderRadius: 8, fontSize: '0.85rem', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                                                    <img src={item.logo} alt={item.tech} style={{ height: 16, width: 16, filter: 'brightness(0) invert(1)' }} onError={(e) => e.target.style.display='none'} />
+                                                    {item.tech}
+                                                </span>
                                             </div>
                                         </div>
                                     ))}
@@ -2265,29 +2275,34 @@ const LAB_ICONS = [ICON_LAYERS, ICON_FILTER, ICON_NETWORK, ICON_TERMINAL];
                             </div>
 
                             {/* Spark vs DuckDB Comparison Card */}
-                            <div style={{ background: 'white', borderRadius: 14, padding: '2.5rem', boxShadow: '0 8px 32px rgba(27,58,92,0.08)', border: '2px solid rgba(232,121,47,0.15)' }} ref={ref}>
-                                <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1.5rem', flexWrap: 'wrap' }}>
-                                    <span style={{ background: '#E8792F', color: 'white', fontWeight: 800, fontSize: '0.72rem', padding: '0.3rem 0.75rem', borderRadius: 999 }}>⚡ FAQ</span>
+                            <div style={{ background: 'linear-gradient(180deg, #fafbfc 0%, #ffffff 100%)', borderRadius: 16, padding: '2.5rem', boxShadow: '0 8px 32px rgba(27,58,92,0.06)', border: '1.5px solid #e2e8f0' }} ref={ref}>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1.25rem', flexWrap: 'wrap' }}>
+                                    <span style={{ background: '#E8792F', color: 'white', fontWeight: 800, fontSize: '0.72rem', padding: '0.3rem 0.75rem', borderRadius: 999 }}>+ FAQ</span>
                                     <h3 style={{ fontSize: '1.25rem', fontWeight: 900, color: '#0F2744', margin: 0, letterSpacing: '-0.01em' }}>{t.decision.comparison_title}</h3>
                                 </div>
-                                <p style={{ color: '#64748b', fontSize: '0.95rem', marginBottom: '1.5rem', fontStyle: 'italic' }}>{t.decision.comparison_subtitle}</p>
+                                <p style={{ color: '#374151', fontSize: '0.95rem', marginBottom: '0.75rem' }}>{t.decision.comparison_subtitle}</p>
                                 <p style={{ color: '#4b5563', fontSize: '0.9rem', lineHeight: 1.65, marginBottom: '2rem' }}>{t.decision.comparison_intro}</p>
 
-                                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '2rem', marginBottom: '2rem' }}>
+                                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.5rem', marginBottom: '2rem' }}>
                                     {[
-                                        { title: t.decision.comparison_spark_title, desc: t.decision.comparison_spark_desc, color: '#E8792F' },
-                                        { title: t.decision.comparison_duckdb_title, desc: t.decision.comparison_duckdb_desc, color: '#f59e0b' }
+                                        { title: t.decision.comparison_spark_title, desc: t.decision.comparison_spark_desc, color: '#E8792F', bgFrom: 'rgba(232,121,47,0.06)', bgTo: 'rgba(232,121,47,0.02)', logo: 'https://upload.wikimedia.org/wikipedia/commons/f/f3/Apache_Spark_logo.svg' },
+                                        { title: t.decision.comparison_duckdb_title, desc: t.decision.comparison_duckdb_desc, color: '#f59e0b', bgFrom: 'rgba(245,158,11,0.06)', bgTo: 'rgba(245,158,11,0.02)', logo: 'https://duckdb.org/images/logo-dl/DuckDB_Logo-stacked.svg' }
                                     ].map((item, i) => (
-                                        <div key={i} style={{ borderLeft: `4px solid ${item.color}`, paddingLeft: '1.5rem' }}>
-                                            <h4 style={{ fontWeight: 900, color: '#0F2744', marginBottom: '0.75rem', fontSize: '1rem' }}>{item.title}</h4>
-                                            <p style={{ color: '#4b5563', fontSize: '0.88rem', lineHeight: 1.65, margin: 0 }}>{item.desc}</p>
+                                        <div key={i} style={{ background: `linear-gradient(135deg, ${item.bgFrom} 0%, ${item.bgTo} 100%)`, border: `1.5px solid ${item.color}25`, borderRadius: 12, padding: '1.5rem' }}>
+                                            <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '1rem' }}>
+                                                <span style={{ background: item.color, color: 'white', fontWeight: 800, fontSize: '0.8rem', padding: '0.35rem 0.75rem', borderRadius: 8, display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                                                    {item.title}
+                                                </span>
+                                                <img src={item.logo} alt={item.title} style={{ height: 28 }} onError={(e) => e.target.style.display='none'} />
+                                            </div>
+                                            <p style={{ color: '#4b5563', fontSize: '0.88rem', lineHeight: 1.7, margin: 0 }}>{item.desc}</p>
                                         </div>
                                     ))}
                                 </div>
 
-                                <div style={{ background: 'rgba(232,121,47,0.08)', borderRadius: 8, padding: '1.25rem', borderLeft: '4px solid #E8792F' }}>
+                                <div style={{ background: 'rgba(232,121,47,0.06)', borderRadius: 10, padding: '1.25rem 1.5rem', borderLeft: '4px solid #E8792F' }}>
                                     <div style={{ fontWeight: 900, color: '#1B3A5C', marginBottom: '0.5rem', fontSize: '0.95rem' }}>{t.decision.comparison_rule}</div>
-                                    <p style={{ color: '#4b5563', fontSize: '0.9rem', lineHeight: 1.6, margin: 0, fontWeight: 600 }}>"{t.decision.comparison_rule_text}"</p>
+                                    <p style={{ color: '#4b5563', fontSize: '0.9rem', lineHeight: 1.7, margin: 0, fontWeight: 600 }}>{t.decision.comparison_rule_text}</p>
                                 </div>
                             </div>
                         </div>
