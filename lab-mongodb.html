@@ -456,6 +456,38 @@
             .main-content { margin-left: 0; padding: 5rem 1.5rem 2rem 1.5rem; }
             html[dir="rtl"] .main-content { margin-right: 0; }
         }
+
+        /* Footer */
+        .lab-footer {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid #e5e7eb;
+            text-align: center;
+            color: #6b7280;
+            font-size: 0.9rem;
+        }
+        .lab-footer p { color: #6b7280; margin: 0.25rem 0; }
+
+        /* Comparison Cards (used in overview sections) */
+        .vs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 1rem; }
+        .vs-card { border-radius: 0.75rem; padding: 1.25rem; }
+        .vs-card-left { background: #f0f4f8; border-top: 4px solid #6b7280; }
+        .vs-card-right { background: #fef5f1; border-top: 4px solid #E8792F; }
+        .vs-card h4 { color: #1B3A5C; font-weight: 700; margin-bottom: 0.75rem; margin-top: 0; }
+        .vs-card ul { color: #374151; line-height: 1.8; padding-left: 1.2rem; }
+        .vs-card li { margin: 0.25rem 0; }
+        /* Feature list with orange left border */
+        .feature-item { border-left: 3px solid #E8792F; padding-left: 1rem; margin-bottom: 1rem; }
+        .feature-item h4 { color: #1B3A5C; font-weight: 700; margin-bottom: 0.4rem; margin-top: 0; }
+        .feature-item p { margin: 0; color: #374151; line-height: 1.65; }
+        /* Intro paragraph styling */
+        .intro-text { color: #374151; line-height: 1.7; font-size: 1.05rem; margin-bottom: 1.5rem; }
+        .intro-link { color: #E8792F; font-weight: 600; text-decoration: none; }
+        .intro-link:hover { text-decoration: underline; }
+
+        /* Back to Home Link */
+        .back-link { color: white; text-decoration: none; font-size: 0.9rem; opacity: 0.8; white-space: nowrap; transition: opacity 0.2s; }
+        .back-link:hover { opacity: 1; }
     </style>
 </head>
 <body>
@@ -2602,8 +2634,8 @@ function App() {
     return (
         <div>
             <header className="header">
-                <div style={{display: 'flex', alignItems: 'center', gap: '1rem'}}>
-                    <a href="index.html" style={{color: 'white', textDecoration: 'none', fontSize: '0.9rem', opacity: 0.8, whiteSpace: 'nowrap'}}>{t.backToHome}</a>
+                <div className="header-left">
+                    <a href="index.html" className="back-link">{t.backToHome}</a>
                     <h1>{t.mongodbTitle}</h1>
                 </div>
                 <div className="lang-selector">
@@ -2668,8 +2700,8 @@ function App() {
 
                         <h3>{t.mongodbArchTitle}</h3>
                         <p style={{marginBottom: '1rem'}}>{t.mongodbArchDesc}</p>
-                        <div className="code-block" style={{borderLeftColor: '#1B3A5C'}}>
-                            <code style={{color: '#93c5fd', fontSize: '0.8rem', lineHeight: 1.6}}>{t.mongodbArchDiagram}</code>
+                        <div className="code-block">
+                            <code style={{color: '#e2e8f0', whiteSpace: 'pre', fontSize: '0.85rem', lineHeight: 1.6}}>{t.mongodbArchDiagram}</code>
                         </div>
 
                         <h3>{t.mongodbVsSQLTitle}</h3>
@@ -3333,9 +3365,9 @@ function App() {
                         ))}
                     </section>
                 )}
-                <footer style={{ marginTop: '3rem', paddingTop: '2rem', borderTop: '1px solid #ddd', textAlign: 'center', color: '#666', fontSize: '0.9rem' }}>
+                <footer className="lab-footer">
                     <p>Prof. Dr. Robert Butscher · THWS - Technische Hochschule Würzburg-Schweinfurt</p>
-                    <p style={{ marginTop: '0.5rem' }}>© 2026 Big Data Lab</p>
+                    <p>© 2026 Big Data Lab</p>
                 </footer>
             </main>
         </div>
