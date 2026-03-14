@@ -35,3 +35,6 @@ public/
 # Legacy nested repo (outdated copy, use root files)
 bigdata/
 generate_neo4j_lab.py
+translate_labs.py
+*.bak
+*.log
