@@ -3,368 +3,316 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Big Data & Anwendungen - Big Data Lab THWS</title>
+    <title>Big Data & Anwendungen – Big Data Lab | THWS BBA</title>
     <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/lucide@latest"></script>
     <style>
-        * {
-            scroll-behavior: smooth;
-        }
-
+        * { scroll-behavior: smooth; box-sizing: border-box; }
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
             overflow-x: hidden;
+            margin: 0;
         }
 
-        html[dir="rtl"] {
-            direction: rtl;
-            text-align: right;
-        }
+        html[dir="rtl"] { direction: rtl; text-align: right; }
+        html[dir="rtl"] * { text-align: inherit; }
 
-        html[dir="rtl"] * {
-            text-align: inherit;
-        }
-
+        /* ── Hero ── */
         .hero-gradient {
             background: #1B3A5C;
             position: relative;
             overflow: hidden;
         }
-
         .animated-bg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            opacity: 0.1;
+            position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            opacity: 0.10;
             background-image:
-                radial-gradient(circle at 20% 50%, rgba(232, 121, 47, 0.3) 0%, transparent 50%),
-                radial-gradient(circle at 80% 80%, rgba(27, 58, 92, 0.3) 0%, transparent 50%);
-            animation: float 15s ease-in-out infinite;
+                radial-gradient(circle at 20% 50%, rgba(232,121,47,0.5) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255,255,255,0.2) 0%, transparent 50%);
+            animation: floatBg 18s ease-in-out infinite;
+        }
+        @keyframes floatBg {
+            0%, 100% { transform: translate(0,0); }
+            50% { transform: translate(20px,-20px); }
         }
 
-        @keyframes float {
-            0%, 100% {
-                transform: translate(0, 0);
-            }
-            50% {
-                transform: translate(30px, -30px);
-            }
-        }
-
-        .fade-in {
-            animation: fadeIn 0.8s ease-in;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .slide-in-left {
-            animation: slideInLeft 0.8s ease-out;
-        }
-
-        @keyframes slideInLeft {
-            from {
-                opacity: 0;
-                transform: translateX(-40px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        .slide-in-right {
-            animation: slideInRight 0.8s ease-out;
-        }
-
-        @keyframes slideInRight {
-            from {
-                opacity: 0;
-                transform: translateX(40px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        .pulse-float {
-            animation: pulseFloat 3s ease-in-out infinite;
-        }
-
-        @keyframes pulseFloat {
-            0%, 100% {
-                transform: translateY(0px);
-            }
-            50% {
-                transform: translateY(-10px);
-            }
-        }
-
-        .stat-number {
-            font-size: 3.5rem;
-            font-weight: 900;
-            color: #E8792F;
-            font-variant-numeric: tabular-nums;
-        }
-
-        .lab-card {
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            border: 2px solid transparent;
-        }
-
-        .lab-card:hover {
-            transform: translateY(-8px);
-            border-color: #E8792F;
-            box-shadow: 0 20px 40px rgba(232, 121, 47, 0.15);
-        }
-
-        .code-block {
-            background: #1e293b;
-            border-left: 4px solid #E8792F;
-            color: #e2e8f0;
-            font-family: 'Monaco', 'Courier New', monospace;
-            padding: 1.5rem;
-            border-radius: 0.5rem;
-            overflow-x: auto;
-        }
-
-        .copy-button {
-            background: #E8792F;
-            transition: background 0.2s;
-        }
-
-        .copy-button:hover {
-            background: #d4652b;
-        }
-
-        .difficulty-badge {
-            display: inline-block;
-            padding: 0.25rem 0.75rem;
-            border-radius: 9999px;
-            font-size: 0.875rem;
-            font-weight: 600;
-        }
-
-        .difficulty-beginner {
-            background: #dcfce7;
-            color: #166534;
-        }
-
-        .difficulty-intermediate {
-            background: #fef3c7;
-            color: #92400e;
-        }
-
-        .difficulty-advanced {
-            background: #fee2e2;
-            color: #991b1b;
-        }
-
-        .icon-wrapper {
-            width: 4rem;
-            height: 4rem;
-            background: rgba(232, 121, 47, 0.9);
-            border-radius: 0.75rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-        }
-
-        .scroll-reveal {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.6s ease, transform 0.6s ease;
-        }
-
-        .scroll-reveal.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .data-flow {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-
-        .data-flow-item {
-            background: white;
-            border: 1px solid rgba(232,121,47,0.3);
-            border-radius: 0.5rem;
-            padding: 1rem 1.5rem;
-            font-weight: 600;
-            color: #1B3A5C;
-            flex: 1;
-            min-width: 150px;
-            text-align: center;
-        }
-
-        .data-flow-arrow {
-            font-size: 1.5rem;
-            color: #E8792F;
-            font-weight: bold;
-            animation: arrowPulse 2s ease-in-out infinite;
-        }
-
-        @keyframes arrowPulse {
-            0%, 100% {
-                opacity: 1;
-            }
-            50% {
-                opacity: 0.5;
-                transform: translateX(5px);
-            }
-        }
-
+        /* ── Navbar ── */
         .navbar {
             background: white;
-            box-shadow: 0 1px 12px rgba(0, 0, 0, 0.05);
-            position: sticky;
-            top: 0;
-            z-index: 50;
+            box-shadow: 0 1px 12px rgba(0,0,0,0.06);
+            position: sticky; top: 0; z-index: 50;
+            height: 60px;
         }
 
-        .navbar-content {
-            max-width: 7xl;
-            margin: 0 auto;
-            padding: 1rem 1.5rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, #1B3A5C 0%, #2D5A7B 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .language-switcher {
-            display: flex;
-            gap: 0.5rem;
-            align-items: center;
-        }
-
-        .lang-btn {
-            padding: 0.5rem 0.75rem;
-            border-radius: 0.375rem;
-            border: 2px solid #e5e7eb;
-            background: white;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 0.875rem;
-            color: #666;
-            transition: all 0.2s;
-        }
-
-        .lang-btn.active {
-            background: #E8792F;
-            color: white;
-            border-color: #E8792F;
-        }
-
-        .lang-btn:hover {
-            border-color: #E8792F;
-        }
-
-        .section-divider {
-            height: 1px;
-            background: linear-gradient(to right, transparent 5%, rgba(232,121,47,0.2) 30%, rgba(27,58,92,0.15) 70%, transparent 95%);
-            margin: 2rem auto;
-            max-width: 80%;
-        }
-
+        /* ── Stat Bar ── */
         .stat-bar {
             background: white;
-            border: none;
-            position: relative;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            box-shadow: 0 -1px 0 rgba(27,58,92,0.08), 0 4px 20px rgba(0,0,0,0.05);
+            flex-shrink: 0;
         }
-
         .stat-item {
             text-align: center;
-            padding: 2rem 1.5rem;
+            padding: 1.75rem 1.5rem;
             position: relative;
         }
-
         .stat-item + .stat-item::before {
             content: '';
-            position: absolute;
-            left: 0;
-            top: 25%;
-            height: 50%;
-            width: 1px;
-            background: rgba(27,58,92,0.1);
+            position: absolute; left: 0; top: 25%; height: 50%;
+            width: 1px; background: rgba(27,58,92,0.12);
+        }
+        .stat-number {
+            font-size: 2.75rem; font-weight: 900;
+            color: #E8792F; font-variant-numeric: tabular-nums;
+            line-height: 1;
+        }
+        .stat-label {
+            font-size: 0.7rem; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 0.1em;
+            color: #1B3A5C; margin-top: 0.4rem;
         }
 
-        .stat-bar .stat-number {
-            color: #E8792F;
-            font-size: 3rem;
+        /* ── Animations ── */
+        .fade-in { animation: fadeIn 0.8s ease-in both; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(16px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        .scroll-reveal {
+            opacity: 0; transform: translateY(24px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        .scroll-reveal.visible { opacity: 1; transform: translateY(0); }
+
+        /* ── Language toggle ── */
+        .lang-btn {
+            padding: 0.35rem 0.6rem; border-radius: 0.375rem;
+            border: 2px solid #e5e7eb; background: white;
+            cursor: pointer; font-weight: 700; font-size: 0.72rem;
+            color: #666; transition: all 0.2s;
+        }
+        .lang-btn.active  { background: #E8792F; color: white; border-color: #E8792F; }
+        .lang-btn:hover:not(.active) { border-color: #1B3A5C; color: #1B3A5C; }
+
+        /* ── Quote Section ── */
+        .quote-section {
+            background: #FAFAFA;
+            padding: 4rem 2rem;
+            border-top: 1px solid #E5E7EB;
+            border-bottom: 1px solid #E5E7EB;
+        }
+        .quote-inner {
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 2.5rem;
+        }
+        .quote-portrait {
+            width: 120px; height: 120px;
+            border-radius: 50%;
+            flex-shrink: 0;
+            object-fit: cover;
+        }
+        .quote-text-block {
+            opacity: 0;
+            transform: translateX(48px);
+            transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.2s,
+                        transform 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.2s;
+            flex: 1;
+        }
+        .quote-text-block.q-visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        .quote-body {
+            font-family: Georgia, 'Times New Roman', serif;
+            font-size: 1.1rem; line-height: 1.7;
+            color: #1A1A1A; font-style: italic;
+            font-weight: 400; margin-bottom: 1.25rem;
+        }
+        .quote-name {
+            font-weight: 700; font-size: 0.85rem;
+            color: #1B3A5C; letter-spacing: 0.02em;
+        }
+        .quote-role {
+            font-size: 0.72rem; color: #9CA3AF; font-weight: 500;
+        }
+        @media (max-width: 640px) {
+            .quote-inner { flex-direction: column; gap: 2rem; text-align: center; }
+            .quote-portrait { align-self: center; }
         }
 
-        .stat-bar .stat-label {
+        /* ── Data Flow ── */
+        .flow-row {
+            display: flex; align-items: center;
+            gap: 0; flex-wrap: nowrap;
+            overflow-x: auto; padding-bottom: 4px;
+        }
+        .flow-box {
+            background: white;
+            border: 1.5px solid rgba(27,58,92,0.3);
+            border-radius: 6px;
+            padding: 0.9rem 1.4rem;
+            font-weight: 700; font-size: 0.9rem;
             color: #1B3A5C;
-            font-weight: 700;
-            font-size: 0.85rem;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
+            white-space: nowrap;
+            flex: 1;
+            text-align: center;
+            min-width: 100px;
+        }
+        .flow-arrow {
+            color: #E8792F; font-size: 1.2rem; font-weight: 900;
+            flex-shrink: 0; padding: 0 0.6rem;
+            animation: arrowPulse 2.5s ease-in-out infinite;
+        }
+        @keyframes arrowPulse {
+            0%, 100% { opacity: 1; transform: translateX(0); }
+            50%       { opacity: 0.55; transform: translateX(4px); }
+        }
+        html[dir="rtl"] .flow-row { flex-direction: row-reverse; }
+        html[dir="rtl"] .flow-arrow { transform: scaleX(-1); }
+
+        /* ── Lab Cards ── */
+        .lab-card {
+            background: white;
+            border: 1.5px solid rgba(27,58,92,0.14);
+            border-top: 3px solid #1B3A5C;
+            border-radius: 10px;
+            padding: 1.75rem;
+            transition: all 0.28s cubic-bezier(0.4,0,0.2,1);
+            display: flex; flex-direction: column;
+            min-height: 240px;
+            text-decoration: none; color: inherit;
+            position: relative;
+        }
+        .lab-card:hover {
+            transform: translateY(-6px);
+            border-color: #E8792F;
+            border-top-color: #E8792F;
+            box-shadow: 0 16px 32px rgba(232,121,47,0.12);
+        }
+        .lab-card-num {
+            position: absolute; top: 1rem; right: 1.25rem;
+            font-size: 2.2rem; font-weight: 900;
+            color: rgba(27,58,92,0.08);
+            line-height: 1; font-variant-numeric: tabular-nums;
+            pointer-events: none; user-select: none;
+        }
+        .lab-icon-box {
+            width: 40px; height: 40px;
+            background: #1B3A5C;
+            border-radius: 6px;
+            display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0; margin-bottom: 1rem;
+        }
+        .lab-icon-box svg { color: white; }
+        .lab-title {
+            font-size: 1rem; font-weight: 800;
+            color: #0F2744; line-height: 1.25;
+            margin-bottom: 0.2rem;
+        }
+        .lab-subtitle {
+            font-size: 0.78rem; color: #94a3b8;
+            font-weight: 600; text-transform: uppercase;
+            letter-spacing: 0.04em; margin-bottom: 0.85rem;
+        }
+        .lab-desc {
+            font-size: 0.84rem; color: #4b5563;
+            line-height: 1.6; flex: 1;
+            margin-bottom: 1.1rem;
+        }
+        .lab-footer {
+            display: flex; align-items: center;
+            justify-content: space-between; margin-top: auto;
+        }
+        .diff-badge {
+            font-size: 0.72rem; font-weight: 700;
+            padding: 0.25rem 0.65rem; border-radius: 4px;
+        }
+        .diff-beginner    { background: #dcfce7; color: #166534; }
+        .diff-intermediate { background: #fef3c7; color: #92400e; }
+        .diff-advanced    { background: #fee2e2; color: #991b1b; }
+        .lab-cta {
+            font-size: 0.82rem; font-weight: 700;
+            color: #E8792F;
         }
 
-        .nav-scroll-hidden {
-            overflow: hidden;
+        /* ── Docker steps ── */
+        .docker-step {
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px; padding: 1.25rem;
+            backdrop-filter: blur(4px);
+        }
+        .docker-step-label {
+            font-size: 0.72rem; font-weight: 800;
+            text-transform: uppercase; letter-spacing: 0.08em;
+            color: rgba(255,255,255,0.6); margin-bottom: 0.6rem;
+        }
+        .docker-step-code {
+            font-family: 'Monaco','Courier New', monospace;
+            font-size: 0.82rem; color: #fff;
+            background: rgba(0,0,0,0.25); border-radius: 6px;
+            padding: 0.65rem 0.85rem; line-height: 1.5;
         }
 
-        html[dir="rtl"] .data-flow {
-            flex-direction: row-reverse;
+        /* ── Geometric deco ── */
+        .geo-deco {
+            position: absolute; right: 2.5rem; top: 2rem;
+            opacity: 0.09; pointer-events: none;
         }
 
-        html[dir="rtl"] .data-flow-arrow {
-            transform: scaleX(-1);
+        /* ── V-cards ── */
+        .v-card {
+            background: white;
+            border: 1.5px solid rgba(27,58,92,0.12);
+            border-radius: 10px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: box-shadow 0.2s;
         }
+        .v-card:hover { box-shadow: 0 8px 24px rgba(27,58,92,0.08); }
 
         @media (max-width: 768px) {
-            .stat-number {
-                font-size: 2.5rem;
-            }
-
-            .data-flow {
-                flex-direction: column;
-            }
-
-            .data-flow-arrow {
-                transform: rotate(90deg);
-            }
-
-            html[dir="rtl"] .data-flow-arrow {
-                transform: rotate(90deg) scaleX(-1);
-            }
+            .stat-number { font-size: 2rem; }
+            .stat-item + .stat-item::before { display: none; }
+            .flow-row { flex-direction: column; }
+            .flow-arrow { transform: rotate(90deg); }
+            html[dir="rtl"] .flow-arrow { transform: rotate(90deg) scaleX(-1); }
         }
     </style>
 </head>
 <body>
-    <div id="root"></div>
+<div id="root"></div>
 
-    <script type="text/babel">
-        const { useState, useEffect, useRef } = React;
+<script type="text/babel">
+const { useState, useEffect, useRef } = React;
+
+/* ── Lucide-style SVG icon renderer ── */
+const Icon = ({ paths, size = 20, strokeWidth = 2, className = '' }) => (
+    <svg
+        width={size} height={size} viewBox="0 0 24 24"
+        fill="none" stroke="currentColor"
+        strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round"
+        className={className}
+    >
+        {(Array.isArray(paths) ? paths : [paths]).map((d, i) => (
+            typeof d === 'string' ? <path key={i} d={d}/> : d
+        ))}
+    </svg>
+);
+
+/* ── SVG icon paths ── */
+const ICON_DATABASE = [<ellipse key="e1" cx="12" cy="5" rx="9" ry="3"/>, 'M3 5v14a9 3 0 0 0 18 0V5', 'M3 12a9 3 0 0 0 18 0'];
+const ICON_LAYERS   = ['M12 2 2 7l10 5 10-5-10-5z','M2 17l10 5 10-5','M2 12l10 5 10-5'];
+const ICON_FILTER   = ['M22 3H2l8 9.46V19l4 2v-8.54L22 3'];
+const ICON_NETWORK  = ['M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z','M3.27 6.96L12 12.01l8.73-5.05','M12 22.08V12'];
+const ICON_ZOOMBOX  = ['M11 8L8 12h6l-3 4','M12 2C10.9 2 10 2.9 10 4v1c0 1.1.9 2 2 2s2-.9 2-2V4c0-1.1-.9-2-2-2z'];
+const ICON_CODE     = ['M10 20l4-16','M4.93 4.93l4.24 4.24-4.24 4.24','M19.07 4.93l-4.24 4.24 4.24 4.24'];
+const ICON_GITHUB   = ['M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4','M9 18c-4.51 2-5-2-7-2'];
+const ICON_TERMINAL = ['M4 17l6-6-6-6','M12 19h8'];
+const LAB_ICONS = [ICON_LAYERS, ICON_FILTER, ICON_NETWORK, ICON_TERMINAL];
 
         const translations = {
             de: {
@@ -1533,346 +1481,279 @@
             }
         };
 
+        /* ── CountUp Component ── */
+        const CountUp = ({ end, suffix = '', duration = 2000 }) => {
+            const [count, setCount] = useState(0);
+            const [hasStarted, setHasStarted] = useState(false);
+            const ref = useRef(null);
+
+            useEffect(() => {
+                const observer = new IntersectionObserver(
+                    ([entry]) => { if (entry.isIntersecting && !hasStarted) setHasStarted(true); },
+                    { threshold: 0.5 }
+                );
+                if (ref.current) observer.observe(ref.current);
+                return () => observer.disconnect();
+            }, [hasStarted]);
+
+            useEffect(() => {
+                if (!hasStarted) return;
+                const startTime = Date.now();
+                const numEnd = parseFloat(end);
+                const tick = () => {
+                    const elapsed = Date.now() - startTime;
+                    const progress = Math.min(elapsed / duration, 1);
+                    const eased = 1 - Math.pow(1 - progress, 3);
+                    setCount(Math.round(eased * numEnd));
+                    if (progress < 1) requestAnimationFrame(tick);
+                };
+                requestAnimationFrame(tick);
+            }, [hasStarted, end, duration]);
+
+            return <span ref={ref}>{count}{suffix}</span>;
+        };
+
+        /* ── Main App ── */
         function App() {
             const [language, setLanguage] = useState('de');
-            const [scrollPosition, setScrollPosition] = useState(0);
             const t = translations[language];
+            const revealRefs = useRef([]);
+            const ref = el => { if (el && !revealRefs.current.includes(el)) revealRefs.current.push(el); };
 
             useEffect(() => {
                 document.documentElement.lang = language;
-                document.documentElement.dir = language === 'ar' ? 'rtl' : 'ltr';
+                if (language === 'ar') {
+                    document.documentElement.dir = 'rtl';
+                } else {
+                    document.documentElement.dir = 'ltr';
+                }
             }, [language]);
 
             useEffect(() => {
-                const handleScroll = () => {
-                    setScrollPosition(window.scrollY);
+                const obs = new IntersectionObserver(
+                    entries => entries.forEach(e => e.isIntersecting && e.target.classList.add('visible')),
+                    { threshold: 0.08 }
+                );
+                revealRefs.current.forEach(el => el && obs.observe(el));
+                return () => obs.disconnect();
+            }, [language]);
 
-                    const reveals = document.querySelectorAll('.scroll-reveal');
-                    reveals.forEach(el => {
-                        const rect = el.getBoundingClientRect();
-                        if (rect.top < window.innerHeight * 0.85) {
-                            el.classList.add('visible');
+            /* Quote slide-in */
+            useEffect(() => {
+                const textBlock = document.querySelector('.quote-text-block');
+                if (!textBlock) return;
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            textBlock.classList.add('q-visible');
+                            observer.disconnect();
                         }
                     });
-                };
-
-                window.addEventListener('scroll', handleScroll);
-                return () => window.removeEventListener('scroll', handleScroll);
+                }, { threshold: 0.25 });
+                observer.observe(textBlock);
+                return () => observer.disconnect();
             }, []);
 
-            const copyToClipboard = (text) => {
-                navigator.clipboard.writeText(text);
-                alert('Copied to clipboard!');
-            };
-
-            const CountUp = ({ end, suffix = '', duration = 2000 }) => {
-                const [count, setCount] = useState(0);
-                const [hasStarted, setHasStarted] = useState(false);
-                const ref = useRef(null);
-
-                useEffect(() => {
-                    const observer = new IntersectionObserver(
-                        ([entry]) => {
-                            if (entry.isIntersecting && !hasStarted) {
-                                setHasStarted(true);
-                            }
-                        },
-                        { threshold: 0.5 }
-                    );
-                    if (ref.current) observer.observe(ref.current);
-                    return () => observer.disconnect();
-                }, [hasStarted]);
-
-                useEffect(() => {
-                    if (!hasStarted) return;
-                    const startTime = Date.now();
-                    const numEnd = parseFloat(end);
-                    const timer = setInterval(() => {
-                        const elapsed = Date.now() - startTime;
-                        const progress = Math.min(elapsed / duration, 1);
-                        const eased = 1 - Math.pow(1 - progress, 3);
-                        setCount(Math.round(eased * numEnd));
-                        if (progress >= 1) clearInterval(timer);
-                    }, 16);
-                    return () => clearInterval(timer);
-                }, [hasStarted, end, duration]);
-
-                return <span ref={ref}>{count}{suffix}</span>;
-            };
-
-            const TechLogo = ({ name, size = 32 }) => {
-                const logos = {
-                    mongodb: <svg width={size} height={size} viewBox="0 0 24 24" fill="white"><path d="M17.193 9.555c-1.264-5.58-4.252-7.414-4.573-8.115-.28-.394-.53-.954-.735-1.44-.036.495-.055.685-.523 1.184-.723.566-4.438 3.682-4.74 10.02-.282 5.912 4.27 9.435 4.888 9.884l.07.05A73.49 73.49 0 0 1 11.91 24h.25c.056-.997.126-1.813.18-2.397l.04-.327c.397-.197 4.524-2.434 4.848-7.463.162-2.514-.478-4.258-.036-4.258z"/></svg>,
-                    duckdb: <svg width={size} height={size} viewBox="0 0 24 24" fill="white"><path d="M12 0C5.363 0 0 5.363 0 12s5.363 12 12 12 12-5.363 12-12S18.637 0 12 0zm3.5 16.5c-1.933 0-3.5-1.567-3.5-3.5V11c0-1.933 1.567-3.5 3.5-3.5S19 9.067 19 11v2c0 1.933-1.567 3.5-3.5 3.5zM8 7.5h2.5c.276 0 .5.224.5.5v8c0 .276-.224.5-.5.5H8c-2.21 0-4-1.79-4-4s1.79-4 4-4z"/></svg>,
-                    neo4j: <svg width={size} height={size} viewBox="0 0 24 24" fill="white"><circle cx="12" cy="6" r="3.5" stroke="white" strokeWidth="1" fill="none"/><circle cx="6" cy="17" r="3.5" stroke="white" strokeWidth="1" fill="none"/><circle cx="18" cy="17" r="3.5" stroke="white" strokeWidth="1" fill="none"/><line x1="10" y1="8.5" x2="7.5" y2="14" stroke="white" strokeWidth="1.5"/><line x1="14" y1="8.5" x2="16.5" y2="14" stroke="white" strokeWidth="1.5"/><line x1="9.5" y1="17" x2="14.5" y2="17" stroke="white" strokeWidth="1.5"/></svg>,
-                    spark: <svg width={size} height={size} viewBox="0 0 24 24" fill="white"><path d="M12 2L4 7v6l8 5 8-5V7l-8-5zm0 2.18L17.82 7.5 12 10.82 6.18 7.5 12 4.18zM5 8.27l6.5 3.73v7.23L5 15.5V8.27zm13 0v7.23l-6.5 3.73V12z"/></svg>
-                };
-                return logos[name] || null;
-            };
-
-            const LucideIcon = ({ d, size = 24 }) => (
-                <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">{d}</svg>
-            );
-
-            const icons = {
-                users: <><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></>,
-                shoppingBag: <><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></>,
-                creditCard: <><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><path d="M1 10h22"/></>,
-                trendingUp: <><polyline points="23 6 13.5 15.5 8.5 10.5 1 17"/><polyline points="17 6 23 6 23 12"/></>,
-                database: <><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14a9 3 0 0 0 18 0V5"/><path d="M3 12a9 3 0 0 0 18 0"/></>,
-                settings: <><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></>,
-                building: <><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18"/><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"/><path d="M10 6h4"/><path d="M10 10h4"/><path d="M10 14h4"/><path d="M10 18h4"/></>,
-                lightbulb: <><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1.3-1.4 2-3.3 2-5.5 0-4.6-3.5-8-8-8s-8 3.4-8 8c0 2.1.7 4.1 2 5.5.7.7 1.3 1.5 1.5 2.5"/><path d="M9 18h6"/><path d="M10 21h4"/></>,
-                heart: <><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></>
-            };
+            const DiffMap = { beginner: 'diff-beginner', intermediate: 'diff-intermediate', advanced: 'diff-advanced' };
 
             const labsData = [
-                {
-                    key: 'mongodb',
-                    color: '#00684A',
-                    difficulty: 'beginner'
-                },
-                {
-                    key: 'duckdb',
-                    color: '#FFC107',
-                    difficulty: 'beginner'
-                },
-                {
-                    key: 'neo4j',
-                    color: '#018BFF',
-                    difficulty: 'beginner'
-                },
-                {
-                    key: 'spark',
-                    color: '#E25A1C',
-                    difficulty: 'intermediate'
-                }
+                { key: 'mongodb', icon: ICON_LAYERS, diff: 'beginner' },
+                { key: 'duckdb',  icon: ICON_FILTER, diff: 'beginner' },
+                { key: 'neo4j',   icon: ICON_NETWORK, diff: 'beginner' },
+                { key: 'spark',   icon: ICON_TERMINAL, diff: 'intermediate' }
             ];
 
             return (
-                <div className="w-full">
-                    {/* Navigation */}
+                <div>
+                    {/* ── Navbar ── */}
                     <nav className="navbar">
-                        <div className="navbar-content">
-                            <div className="logo">Big Data Lab</div>
-                            <div style={{display: 'flex', gap: '1.5rem', alignItems: 'center'}}>
-                                {[
-                                    {id: 'about-section', label: t.nav.about},
-                                    {id: 'bigdata-section', label: t.nav.bigdata},
-                                    {id: 'concept-section', label: t.nav.concept},
-                                    {id: 'case-study-section', label: t.nav.case_study},
-                                    {id: 'getting-started-section', label: t.nav.getting_started},
-                                    {id: 'labs-section', label: t.nav.labs},
-                                    {id: 'bonus-section', label: t.nav.bonus}
-                                ].map((item, idx) => (
-                                    <a key={idx} href={'#' + item.id} style={{color: '#1B3A5C', fontWeight: '500', fontSize: '0.875rem', textDecoration: 'none'}}
-                                       onClick={(e) => { e.preventDefault(); document.getElementById(item.id).scrollIntoView({behavior: 'smooth'}); }}>
-                                        {item.label}
-                                    </a>
-                                ))}
+                        <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 1.5rem', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                                <div style={{ width: 32, height: 32, background: '#1B3A5C', borderRadius: 6, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                    <Icon paths={ICON_DATABASE} size={16} style={{color:'white', stroke:'white'}}/>
+                                </div>
+                                <span style={{ fontSize: '1.2rem', fontWeight: 800, color: '#0F2744', letterSpacing: '-0.02em' }}>Big Data Lab</span>
                             </div>
-                            <div className="language-switcher">
-                                {['DE', 'EN', 'AR', 'UK', 'ES', 'TR'].map(lang => (
-                                    <button
-                                        key={lang}
-                                        onClick={() => setLanguage(lang.toLowerCase())}
-                                        className={`lang-btn ${language === lang.toLowerCase() ? 'active' : ''}`}
-                                    >
-                                        {lang}
-                                    </button>
-                                ))}
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '2rem' }}>
+                                <div className="hidden md:flex" style={{ gap: '1.5rem', display: 'flex' }}>
+                                    {[['#labs', t.nav.labs], ['#docker', t.nav.getting_started], ['#about', t.nav.about]].map(([href, label]) => (
+                                        <a key={href} href={href} style={{ color: '#64748b', fontWeight: 600, fontSize: '0.875rem', textDecoration: 'none', transition: 'color 0.15s' }}
+                                           onMouseOver={e => e.target.style.color='#1B3A5C'} onMouseOut={e => e.target.style.color='#64748b'}>{label}</a>
+                                    ))}
+                                </div>
+                                <div style={{ display: 'flex', gap: '0.35rem' }}>
+                                    {['DE','EN','AR','UK','ES','TR'].map(l => (
+                                        <button key={l} className={`lang-btn ${language === l.toLowerCase() ? 'active' : ''}`}
+                                                onClick={() => setLanguage(l.toLowerCase())}>{l}</button>
+                                    ))}
+                                </div>
                             </div>
                         </div>
                     </nav>
 
-                    {/* Hero + Stats = exactly one viewport */}
-                    <div style={{minHeight: 'calc(100vh - 58px)', display: 'flex', flexDirection: 'column'}}>
-                        {/* Hero Section */}
-                        <section className="hero-gradient relative w-full flex-1 flex items-center justify-center overflow-hidden">
+                    {/* ── Hero + Stats = one viewport ── */}
+                    <div style={{ minHeight: 'calc(100vh - 60px)', display: 'flex', flexDirection: 'column' }}>
+
+                        {/* Hero */}
+                        <section className="hero-gradient fade-in" style={{ flex: 1, position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '4rem 1.5rem' }}>
                             <div className="animated-bg"></div>
-                            <div className="relative z-10 max-w-6xl mx-auto px-6 text-center">
-                                <h1 className="text-5xl md:text-7xl font-black text-white mb-6 fade-in leading-tight">
+
+                            {/* Bauhaus geometric decoration */}
+                            <div className="geo-deco">
+                                <svg width="240" height="240" viewBox="0 0 240 240">
+                                    <rect x="10" y="10" width="80" height="80" fill="white" rx="4"/>
+                                    <rect x="100" y="10" width="80" height="80" fill="white" rx="4" opacity="0.6"/>
+                                    <rect x="10" y="100" width="80" height="80" fill="white" rx="4" opacity="0.5"/>
+                                    <rect x="100" y="100" width="80" height="80" fill="white" rx="4" opacity="0.25"/>
+                                    <circle cx="210" cy="210" r="22" fill="white" opacity="0.35"/>
+                                </svg>
+                            </div>
+
+                            <div style={{ position: 'relative', zIndex: 10, maxWidth: 760, textAlign: 'center' }}>
+                                {/* Badge */}
+                                <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', background: 'rgba(255,255,255,0.15)', borderRadius: 999, padding: '0.4rem 1rem', marginBottom: '1.5rem', backdropFilter: 'blur(8px)', fontSize: '0.82rem', fontWeight: 600, color: 'rgba(255,255,255,0.9)' }}>
+                                    THWS BBA · Sommersemester 2026
+                                </div>
+                                <h1 style={{ fontSize: 'clamp(2.2rem, 5vw, 3.75rem)', fontWeight: 900, color: 'white', lineHeight: 1.1, marginBottom: '1rem', letterSpacing: '-0.02em' }}>
                                     {t.hero.headline}
                                 </h1>
-                                <p className="text-xl md:text-2xl text-gray-100 mb-8 fade-in" style={{ animationDelay: '0.1s' }}>
+                                <p style={{ fontSize: '1.15rem', fontWeight: 600, color: 'rgba(255,255,255,0.88)', marginBottom: '0.5rem' }}>
+                                    Big Data Lab – THWS Business School | Prof. Dr. Robert Butscher
+                                </p>
+                                <p style={{ fontSize: '1rem', color: 'rgba(255,255,255,0.65)', marginBottom: '2.5rem' }}>
                                     {t.hero.tagline}
                                 </p>
-                                <button
-                                    onClick={() => {
-                                        document.getElementById('getting-started-section').scrollIntoView({ behavior: 'smooth' });
-                                    }}
-                                    className="inline-block text-white font-bold py-4 px-10 rounded-xl text-lg transition-all transform hover:scale-105 fade-in"
-                                    style={{ background: 'rgba(232,121,47,0.95)', animationDelay: '0.2s' }}
-                                >
-                                    {t.hero.cta}
-                                </button>
+                                <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
+                                    <a href="#labs" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', background: '#E8792F', color: 'white', fontWeight: 700, padding: '0.9rem 2rem', borderRadius: 10, fontSize: '1rem', textDecoration: 'none', transition: 'transform 0.15s' }}
+                                       onMouseOver={e => e.currentTarget.style.transform='translateY(-2px)'} onMouseOut={e => e.currentTarget.style.transform='none'}>
+                                        {t.hero.cta} →
+                                    </a>
+                                    <a href="#docker" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', background: 'rgba(255,255,255,0.15)', color: 'white', fontWeight: 700, padding: '0.9rem 2rem', borderRadius: 10, fontSize: '1rem', textDecoration: 'none', backdropFilter: 'blur(4px)', transition: 'background 0.15s' }}
+                                       onMouseOver={e => e.currentTarget.style.background='rgba(255,255,255,0.22)'} onMouseOut={e => e.currentTarget.style.background='rgba(255,255,255,0.15)'}>
+                                        <Icon paths={ICON_TERMINAL} size={18}/> Docker Guide
+                                    </a>
+                                </div>
                             </div>
                         </section>
 
-                        {/* Stats Bar - sits at bottom of viewport on load */}
-                        <section className="stat-bar" style={{flexShrink: 0}}>
-                            <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4">
+                        {/* Stats Bar */}
+                        <section className="stat-bar">
+                            <div style={{ maxWidth: 900, margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(4,1fr)' }}>
                                 {[
-                                    { label: t.stats.labs, value: 4, suffix: '' },
-                                    { label: t.stats.case_study, value: 1, suffix: '' },
-                                    { label: t.stats.languages, value: 6, suffix: '' },
-                                    { label: t.stats.hands_on, value: 100, suffix: '%' }
-                                ].map((stat, idx) => (
-                                    <div key={idx} className="stat-item">
-                                        <div className="stat-number"><CountUp end={stat.value} suffix={stat.suffix} /></div>
-                                        <div className="stat-label">{stat.label}</div>
+                                    { val: 4, label: t.stats.labs },
+                                    { val: 1, label: t.stats.case_study },
+                                    { val: 6, label: t.stats.languages },
+                                    { val: 100, suffix: '%', label: t.stats.hands_on }
+                                ].map((s, i) => (
+                                    <div key={i} className="stat-item">
+                                        <div className="stat-number"><CountUp end={s.val} suffix={s.suffix || ''} /></div>
+                                        <div className="stat-label">{s.label}</div>
                                     </div>
                                 ))}
                             </div>
                         </section>
-                    </div>
 
-                    {/* Deming Quote */}
-                    <section className="py-24 lg:py-32" style={{background: 'white'}}>
-                        <div className="max-w-4xl mx-auto px-6">
-                            <div className="scroll-reveal">
-                                <div className="flex flex-col sm:flex-row items-center gap-8 sm:gap-14">
-                                    <div className="flex-shrink-0">
-                                        <div style={{width: '9rem', height: '9rem', borderRadius: '50%', overflow: 'hidden', border: '2px solid #e5e5e5', background: '#e5e5e5'}}>
-                                            <img src="deming.jpg" alt="W. Edwards Deming" style={{width: '100%', height: '100%', objectFit: 'cover'}} loading="lazy" />
-                                        </div>
-                                    </div>
-                                    <div style={{textAlign: 'center', flex: 1}} className="sm:text-left">
-                                        <p style={{fontSize: '1.75rem', fontWeight: 800, lineHeight: 1.3, letterSpacing: '-0.02em', marginBottom: '1rem', color: '#1B3A5C'}}>
-                                            {t.deming.quote}
-                                        </p>
-                                        <p style={{color: '#a3a3a3', fontSize: '0.875rem'}}>
-                                            <span style={{fontWeight: 500, color: '#737373'}}>{t.deming.author}</span> · {t.deming.role}
-                                        </p>
-                                    </div>
+                    </div>{/* end viewport-height wrapper */}
+
+                    {/* ── Deming Quote ── */}
+                    <section className="quote-section">
+                        <div className="quote-inner">
+                            <img src="deming.jpg" alt="W. Edwards Deming" className="quote-portrait" />
+                            <div className="quote-text-block">
+                                <p className="quote-body">{t.deming.quote}</p>
+                                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.2rem' }}>
+                                    <span className="quote-name">— {t.deming.author}</span>
+                                    <span className="quote-role">{t.deming.role}</span>
                                 </div>
                             </div>
                         </div>
                     </section>
 
-                    {/* Big Data Introduction */}
-                    <section id="bigdata-section" className="py-32 px-6" style={{background: "linear-gradient(180deg, rgba(248,250,252,0.5) 0%, white 100%)"}}>
-                        <div className="max-w-6xl mx-auto">
-                            <h2 className="text-4xl md:text-5xl font-black text-gray-900 mb-8 text-center scroll-reveal">
-                                {t.bigdata.title}
-                            </h2>
-                            <p className="text-xl text-gray-700 text-center mb-6 max-w-4xl mx-auto scroll-reveal">
-                                {t.bigdata.intro}
-                            </p>
-                            <div className="text-center mb-12 scroll-reveal">
-                                <div className="inline-block rounded-xl px-8 py-5" style={{background: 'rgba(232,121,47,0.04)', border: '1px solid rgba(232,121,47,0.15)'}}>
-                                    <p className="text-lg font-bold mb-1" style={{color: '#E8792F'}}>{t.bigdata.fact}</p>
-                                    <p className="text-xs text-gray-500">{t.bigdata.factSource}</p>
-                                </div>
+                    {/* ── Big Data: The 5 Vs ── */}
+                    <section style={{ padding: '5rem 1.5rem', background: 'white' }} ref={ref}>
+                        <div style={{ maxWidth: 1200, margin: '0 auto' }}>
+                            <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
+                                <h2 style={{ fontSize: 'clamp(1.6rem,3vw,2.25rem)', fontWeight: 800, color: '#0F2744', marginBottom: '0.75rem' }}>{t.bigdata.title}</h2>
+                                <p style={{ color: '#64748b', maxWidth: 600, margin: '0 auto', fontSize: '0.95rem' }}>{t.bigdata.intro}</p>
                             </div>
-
-                            {/* Gartner's Original 3 Vs */}
-                            <div className="grid md:grid-cols-3 gap-8 mb-8 scroll-reveal">
+                            {/* 3 primary Vs */}
+                            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem', marginBottom: '1rem' }}>
                                 {[
-                                    {title: t.bigdata.v_volume, desc: t.bigdata.v_volume_desc},
-                                    {title: t.bigdata.v_velocity, desc: t.bigdata.v_velocity_desc},
-                                    {title: t.bigdata.v_variety, desc: t.bigdata.v_variety_desc}
-                                ].map((v, idx) => (
-                                    <div key={idx} className="bg-white rounded-xl p-7 text-center hover:shadow-lg transition-all" style={{border: '1px solid rgba(232,121,47,0.2)', background: 'rgba(255,255,255,0.8)'}}>
-                                        <div className="w-12 h-12 rounded-full mx-auto mb-3 flex items-center justify-center text-white font-black text-xl" style={{background: 'rgba(232,121,47,0.85)'}}>V</div>
-                                        <h3 className="text-xl font-bold text-gray-900 mb-2">{v.title}</h3>
-                                        <p className="text-sm text-gray-600">{v.desc}</p>
+                                    { title: t.bigdata.v_volume, desc: t.bigdata.v_volume_desc },
+                                    { title: t.bigdata.v_velocity, desc: t.bigdata.v_velocity_desc },
+                                    { title: t.bigdata.v_variety, desc: t.bigdata.v_variety_desc }
+                                ].map((v, i) => (
+                                    <div key={i} className="v-card">
+                                        <div style={{ width: 36, height: 36, borderRadius: '50%', background: 'rgba(232,121,47,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 0.75rem', fontWeight: 900, fontSize: '1rem', color: '#E8792F' }}>V</div>
+                                        <h3 style={{ fontWeight: 800, color: '#0F2744', fontSize: '1rem', marginBottom: '0.35rem' }}>{v.title}</h3>
+                                        <p style={{ color: '#64748b', fontSize: '0.84rem', lineHeight: 1.6 }}>{v.desc}</p>
                                     </div>
                                 ))}
                             </div>
-
-                            {/* Additional 2 Vs */}
-                            <div className="grid md:grid-cols-2 gap-8 max-w-2xl mx-auto mb-8 scroll-reveal">
+                            {/* 2 additional Vs */}
+                            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '1rem', maxWidth: 500, margin: '0 auto 1.5rem' }}>
                                 {[
-                                    {title: t.bigdata.v_veracity, desc: t.bigdata.v_veracity_desc},
-                                    {title: t.bigdata.v_value, desc: t.bigdata.v_value_desc}
-                                ].map((v, idx) => (
-                                    <div key={idx} className="bg-white rounded-xl p-6 text-center hover:shadow-md transition-all" style={{border: '1px dashed rgba(27,58,92,0.2)'}}>
-                                        <div className="w-10 h-10 rounded-full mx-auto mb-3 flex items-center justify-center font-bold text-lg" style={{background: 'rgba(27,58,92,0.06)', color: '#1B3A5C', border: '1px solid rgba(27,58,92,0.2)'}}>V</div>
-                                        <h3 className="text-lg font-bold text-gray-900 mb-2">{v.title}</h3>
-                                        <p className="text-sm text-gray-600">{v.desc}</p>
+                                    { title: t.bigdata.v_veracity, desc: t.bigdata.v_veracity_desc },
+                                    { title: t.bigdata.v_value, desc: t.bigdata.v_value_desc }
+                                ].map((v, i) => (
+                                    <div key={i} style={{ background: 'white', border: '1.5px dashed rgba(27,58,92,0.2)', borderRadius: 10, padding: '1.25rem', textAlign: 'center' }}>
+                                        <div style={{ width: 32, height: 32, borderRadius: '50%', background: 'rgba(27,58,92,0.06)', border: '1px solid rgba(27,58,92,0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 0.6rem', fontWeight: 800, fontSize: '0.9rem', color: '#1B3A5C' }}>V</div>
+                                        <h3 style={{ fontWeight: 800, color: '#0F2744', fontSize: '0.95rem', marginBottom: '0.3rem' }}>{v.title}</h3>
+                                        <p style={{ color: '#64748b', fontSize: '0.82rem', lineHeight: 1.5 }}>{v.desc}</p>
                                     </div>
                                 ))}
                             </div>
-                            <p className="text-center text-sm text-gray-500 italic scroll-reveal">{t.bigdata.gartnerNote}</p>
+                            <p style={{ textAlign: 'center', color: '#94a3b8', fontSize: '0.78rem', fontStyle: 'italic' }}>{t.bigdata.gartnerNote}</p>
+                        </div>
+                    </section>
 
-                            {/* Data Sources */}
-                            <div className="mt-20 scroll-reveal">
-                                <h3 className="text-3xl font-black text-gray-900 mb-4 text-center">{t.bigdata.sources_title}</h3>
-                                <p className="text-lg text-gray-600 text-center mb-10 max-w-3xl mx-auto">{t.bigdata.sources_intro}</p>
-                                <div className="grid md:grid-cols-4 gap-6">
-                                    {[
-                                        {title: t.bigdata.source_iot, desc: t.bigdata.source_iot_desc, icon: icons.settings, accent: '#00684A'},
-                                        {title: t.bigdata.source_social, desc: t.bigdata.source_social_desc, icon: icons.users, accent: '#018BFF'},
-                                        {title: t.bigdata.source_enterprise, desc: t.bigdata.source_enterprise_desc, icon: icons.building, accent: '#E8792F'},
-                                        {title: t.bigdata.source_mobile, desc: t.bigdata.source_mobile_desc, icon: icons.creditCard, accent: '#7C3AED'}
-                                    ].map((source, idx) => (
-                                        <div key={idx} className="bg-white rounded-xl p-7 text-center hover:shadow-lg transition-all duration-300 group" style={{border: '1px solid rgba(0,0,0,0.06)', borderTop: `2px solid ${source.accent}40`}}>
-                                            <div className="w-12 h-12 rounded-full mx-auto mb-4 flex items-center justify-center transition-colors" style={{background: source.accent + '0D', color: source.accent}}>
-                                                <LucideIcon d={source.icon} size={22} />
-                                            </div>
-                                            <h4 className="text-base font-bold text-gray-900 mb-2">{source.title}</h4>
-                                            <p className="text-sm text-gray-600 leading-relaxed">{source.desc}</p>
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
+                    {/* ── Case Study: Data Flow ── */}
+                    <section style={{ padding: '5rem 1.5rem', background: '#f8fafc' }} ref={ref}>
+                        <div style={{ maxWidth: 1200, margin: '0 auto' }}>
+                            <h2 style={{ textAlign: 'center', fontSize: 'clamp(1.6rem,3vw,2.25rem)', fontWeight: 800, color: '#0F2744', marginBottom: '0.5rem' }}>{t.case_study.title}</h2>
+                            <p style={{ textAlign: 'center', color: '#64748b', marginBottom: '2.5rem', fontSize: '0.95rem', maxWidth: 600, margin: '0 auto 2.5rem' }}>{t.case_study.intro}</p>
 
-                            {/* AI Connection */}
-                            <div className="mt-20 scroll-reveal">
-                                <h3 className="text-3xl font-black text-gray-900 mb-4 text-center">{t.bigdata.ai_title}</h3>
-                                <p className="text-lg text-gray-600 text-center mb-10 max-w-3xl mx-auto">{t.bigdata.ai_intro}</p>
-                                <div className="grid md:grid-cols-3 gap-6">
-                                    {[
-                                        {title: t.bigdata.ai_point1_title, desc: t.bigdata.ai_point1_desc, num: '01'},
-                                        {title: t.bigdata.ai_point2_title, desc: t.bigdata.ai_point2_desc, num: '02'},
-                                        {title: t.bigdata.ai_point3_title, desc: t.bigdata.ai_point3_desc, num: '03'}
-                                    ].map((point, idx) => (
-                                        <div key={idx} className="relative p-8 rounded-xl" style={{background: 'rgba(27,58,92,0.92)', backdropFilter: 'blur(8px)'}}>
-                                            <div className="text-5xl font-black mb-4" style={{color: 'rgba(255,255,255,0.2)', lineHeight: '1'}}>{point.num}</div>
-                                            <h4 className="text-lg font-bold text-white mb-3">{point.title}</h4>
-                                            <p className="text-sm leading-relaxed" style={{color: 'rgba(255,255,255,0.8)'}}>{point.desc}</p>
-                                        </div>
-                                    ))}
-                                </div>
+                            {/* Data flow row */}
+                            <p style={{ textAlign: 'center', color: '#94a3b8', fontSize: '0.78rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '1rem' }}>{t.case_study.flow}</p>
+                            <div className="flow-row" style={{ justifyContent: 'stretch', marginBottom: '2.5rem' }}>
+                                {[t.case_study.orders, t.case_study.storage, t.case_study.relationships, t.case_study.analytics_text, t.case_study.batch].map((item, i) => (
+                                    <React.Fragment key={i}>
+                                        <div className="flow-box">{item}</div>
+                                        {i < 4 && <span className="flow-arrow">→</span>}
+                                    </React.Fragment>
+                                ))}
                             </div>
                         </div>
                     </section>
 
-                    <div className="section-divider"></div>
-
-                    {/* About Course - Expanded */}
-                    <section id="about-section" className="py-28 px-6 bg-white">
-                        <div className="max-w-6xl mx-auto">
-                            <h2 className="text-4xl md:text-5xl font-black text-gray-900 mb-12 text-center scroll-reveal">
-                                {t.about.title}
-                            </h2>
-                            <p className="text-xl text-gray-700 text-center mb-12 max-w-4xl mx-auto scroll-reveal leading-relaxed">
-                                {t.about.description}
-                            </p>
-
-                            <div className="grid md:grid-cols-2 gap-12 mb-12">
-                                <div className="scroll-reveal">
-                                    <h3 className="text-2xl font-bold mb-4" style={{color: '#1B3A5C'}}>{t.about.audience}</h3>
-                                    <p className="text-lg text-gray-700 mb-8">{t.about.audience_desc}</p>
-
-                                    <h3 className="text-2xl font-bold mb-4" style={{color: '#1B3A5C'}}>{t.about.special}</h3>
-                                    <ul className="space-y-3">
-                                        {[t.about.special1, t.about.special2, t.about.special3, t.about.special4].map((item, idx) => (
-                                            <li key={idx} className="flex items-start gap-3">
-                                                <span className="font-bold mt-1" style={{color: '#E8792F'}}>✓</span>
-                                                <span className="text-gray-700">{item}</span>
+                    {/* ── About ── */}
+                    <section id="about" style={{ padding: '5rem 1.5rem', background: 'white' }}>
+                        <div style={{ maxWidth: 960, margin: '0 auto' }} ref={ref}>
+                            <h2 style={{ fontSize: '1.75rem', fontWeight: 900, color: '#0F2744', marginBottom: '2rem', letterSpacing: '-0.02em' }}>{t.about.title}</h2>
+                            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(340px,1fr))', gap: '3rem' }}>
+                                <div>
+                                    <p style={{ color: '#4b5563', lineHeight: 1.75, marginBottom: '1.5rem', fontSize: '0.95rem' }}>{t.about.description}</p>
+                                    <div style={{ background: 'rgba(27,58,92,0.05)', borderLeft: '4px solid #1B3A5C', borderRadius: '0 8px 8px 0', padding: '1.25rem 1.5rem' }}>
+                                        <h3 style={{ fontWeight: 800, color: '#0F2744', marginBottom: '0.5rem', fontSize: '0.95rem' }}>{t.about.audience}</h3>
+                                        <p style={{ color: '#4b5563', fontSize: '0.88rem', lineHeight: 1.7, margin: 0 }}>{t.about.audience_desc}</p>
+                                    </div>
+                                    <h3 style={{ fontWeight: 800, color: '#0F2744', marginTop: '1.5rem', marginBottom: '1rem', fontSize: '0.95rem' }}>{t.about.special}</h3>
+                                    <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
+                                        {[t.about.special1, t.about.special2, t.about.special3, t.about.special4].map((s, i) => (
+                                            <li key={i} style={{ display: 'flex', gap: '0.75rem', alignItems: 'flex-start' }}>
+                                                <span style={{ color: '#16a34a', fontWeight: 800, fontSize: '0.9rem', flexShrink: 0 }}>✓</span>
+                                                <span style={{ color: '#4b5563', fontSize: '0.88rem', lineHeight: 1.65 }}>{s}</span>
                                             </li>
                                         ))}
                                     </ul>
                                 </div>
-                                <div className="scroll-reveal">
-                                    <h3 className="text-2xl font-bold mb-6" style={{color: '#E8792F'}}>{t.about.learning}</h3>
-                                    <ul className="space-y-3">
-                                        {[t.about.obj1, t.about.obj2, t.about.obj3, t.about.obj4, t.about.obj5].map((obj, idx) => (
-                                            <li key={idx} className="flex items-start gap-3">
-                                                <span className="font-bold mt-1" style={{color: '#E8792F'}}>✓</span>
-                                                <span className="text-gray-700">{obj}</span>
+                                <div>
+                                    <h3 style={{ fontWeight: 800, color: '#0F2744', marginBottom: '1.25rem', fontSize: '0.95rem' }}>{t.about.learning}</h3>
+                                    <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
+                                        {[t.about.obj1, t.about.obj2, t.about.obj3, t.about.obj4, t.about.obj5].map((g, i) => (
+                                            <li key={i} style={{ display: 'flex', gap: '0.75rem', alignItems: 'flex-start' }}>
+                                                <span style={{ color: '#E8792F', fontWeight: 800, fontSize: '0.9rem', flexShrink: 0, marginTop: '0.1rem' }}>✓</span>
+                                                <span style={{ color: '#4b5563', fontSize: '0.88rem', lineHeight: 1.65 }}>{g}</span>
                                             </li>
                                         ))}
                                     </ul>
@@ -1881,239 +1762,27 @@
                         </div>
                     </section>
 
-                    <div className="section-divider"></div>
-
-                    {/* Learning Concept */}
-                    <section id="concept-section" className="py-28 px-6 bg-white">
-                        <div className="max-w-6xl mx-auto">
-                            <h2 className="text-4xl md:text-5xl font-black text-gray-900 mb-8 text-center scroll-reveal">
-                                {t.concept.title}
-                            </h2>
-                            <p className="text-xl text-gray-700 text-center mb-12 max-w-4xl mx-auto scroll-reveal">
-                                {t.concept.intro}
-                            </p>
-                            <div className="grid md:grid-cols-2 gap-8 scroll-reveal">
-                                {[
-                                    {title: t.concept.method1_title, desc: t.concept.method1_desc, icon: (
-                                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
-                                            <rect x="4" y="14" width="40" height="24" rx="2" stroke="#1B3A5C" strokeWidth="3" fill="none"/>
-                                            <rect x="12" y="20" width="10" height="12" fill="#E8792F"/>
-                                            <rect x="26" y="20" width="10" height="12" fill="#1B3A5C"/>
-                                        </svg>
-                                    )},
-                                    {title: t.concept.method2_title, desc: t.concept.method2_desc, icon: (
-                                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
-                                            <circle cx="12" cy="36" r="5" fill="#e2e8f0" stroke="#1B3A5C" strokeWidth="2"/>
-                                            <circle cx="22" cy="26" r="5" fill="#e2e8f0" stroke="#1B3A5C" strokeWidth="2"/>
-                                            <circle cx="32" cy="18" r="5" fill="#E8792F" stroke="#E8792F" strokeWidth="2"/>
-                                            <circle cx="42" cy="8" r="5" fill="#1B3A5C" stroke="#1B3A5C" strokeWidth="2"/>
-                                            <line x1="15" y1="33" x2="19" y2="29" stroke="#1B3A5C" strokeWidth="2"/>
-                                            <line x1="25" y1="23" x2="29" y2="21" stroke="#1B3A5C" strokeWidth="2"/>
-                                            <line x1="35" y1="15" x2="39" y2="11" stroke="#1B3A5C" strokeWidth="2"/>
-                                        </svg>
-                                    )},
-                                    {title: t.concept.method3_title, desc: t.concept.method3_desc, icon: (
-                                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
-                                            <circle cx="20" cy="20" r="14" stroke="#1B3A5C" strokeWidth="3" fill="none"/>
-                                            <line x1="30" y1="30" x2="44" y2="44" stroke="#E8792F" strokeWidth="4" strokeLinecap="round"/>
-                                            <circle cx="20" cy="20" r="4" fill="#E8792F"/>
-                                        </svg>
-                                    )},
-                                    {title: t.concept.method4_title, desc: t.concept.method4_desc, icon: (
-                                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
-                                            <rect x="4" y="4" width="18" height="40" rx="1" stroke="#1B3A5C" strokeWidth="3" fill="none"/>
-                                            <rect x="26" y="4" width="18" height="40" rx="1" stroke="#1B3A5C" strokeWidth="3" fill="none"/>
-                                            <line x1="8" y1="14" x2="18" y2="14" stroke="#E8792F" strokeWidth="2"/>
-                                            <line x1="8" y1="20" x2="16" y2="20" stroke="#e2e8f0" strokeWidth="2"/>
-                                            <line x1="8" y1="26" x2="18" y2="26" stroke="#e2e8f0" strokeWidth="2"/>
-                                            <line x1="30" y1="14" x2="40" y2="14" stroke="#E8792F" strokeWidth="2"/>
-                                            <line x1="30" y1="20" x2="38" y2="20" stroke="#e2e8f0" strokeWidth="2"/>
-                                            <line x1="30" y1="26" x2="40" y2="26" stroke="#e2e8f0" strokeWidth="2"/>
-                                        </svg>
-                                    )}
-                                ].map((method, idx) => (
-                                    <div key={idx} className="bg-white rounded-xl p-8 hover:shadow-lg transition-all duration-300" style={{border: '1px solid rgba(0,0,0,0.06)', borderLeft: '3px solid rgba(27,58,92,0.6)'}}>
-                                        <div className="mb-4">{method.icon}</div>
-                                        <h3 className="text-xl font-bold text-gray-900 mb-3">{method.title}</h3>
-                                        <p className="text-gray-700 leading-relaxed">{method.desc}</p>
-                                    </div>
-                                ))}
+                    {/* ── Lab Cards ── */}
+                    <section id="labs" style={{ padding: '5rem 1.5rem', background: '#f8fafc' }}>
+                        <div style={{ maxWidth: 1200, margin: '0 auto' }}>
+                            <div style={{ textAlign: 'center', marginBottom: '3rem' }} ref={ref}>
+                                <h2 style={{ fontSize: 'clamp(1.8rem, 3.5vw, 2.5rem)', fontWeight: 900, color: '#0F2744', marginBottom: '0.6rem', letterSpacing: '-0.02em' }}>{t.labs.title}</h2>
                             </div>
-                        </div>
-                    </section>
-
-                    <div className="section-divider"></div>
-
-                    {/* Case Study - Expanded */}
-                    <section id="case-study-section" className="py-28 px-6" style={{background: "linear-gradient(180deg, rgba(248,250,252,0.5) 0%, white 100%)"}}>
-                        <div className="max-w-6xl mx-auto">
-                            <h2 className="text-4xl md:text-5xl font-black text-gray-900 mb-12 text-center scroll-reveal">
-                                {t.case_study.title}
-                            </h2>
-
-                            <div className="scroll-reveal mb-12">
-                                <p className="text-xl text-gray-700 text-center mb-10">{t.case_study.story}</p>
-                                <div className="grid md:grid-cols-2 gap-8 mb-10">
-                                    {[
-                                        {text: t.case_study.challenge1, num: '01'},
-                                        {text: t.case_study.challenge2, num: '02'},
-                                        {text: t.case_study.challenge3, num: '03'},
-                                        {text: t.case_study.challenge4, num: '04'}
-                                    ].map((challenge, idx) => (
-                                        <div key={idx} className="bg-white rounded-xl p-7 scroll-reveal flex gap-4 items-start hover:shadow-lg transition-all duration-300" style={{border: '1px solid rgba(0,0,0,0.06)', borderLeft: '3px solid rgba(232,121,47,0.5)'}}>
-                                            <span className="text-2xl font-black flex-shrink-0" style={{color: '#E8792F', fontVariantNumeric: 'tabular-nums', letterSpacing: '-0.05em'}}>{challenge.num}</span>
-                                            <p className="text-gray-800 font-medium leading-relaxed">{challenge.text}</p>
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
-
-                            <div className="scroll-reveal mb-12">
-                                <div className="rounded-xl p-12 text-center" style={{background: 'rgba(27,58,92,0.95)'}}>
-                                    <p className="text-xl font-bold text-white leading-relaxed">{t.case_study.your_role}</p>
-                                </div>
-                            </div>
-
-                            <div className="scroll-reveal mb-12">
-                                <div className="grid md:grid-cols-4 gap-4">
-                                    {[
-                                        {text: t.case_study.lab_mongodb, color: '#00684A', logo: 'mongodb'},
-                                        {text: t.case_study.lab_duckdb, color: '#FFC107', logo: 'duckdb'},
-                                        {text: t.case_study.lab_neo4j, color: '#018BFF', logo: 'neo4j'},
-                                        {text: t.case_study.lab_spark, color: '#E25A1C', logo: 'spark'}
-                                    ].map((lab, idx) => (
-                                        <div key={idx} className="bg-white rounded-xl p-5 text-center hover:shadow-md transition-all duration-300" style={{border: '1px solid rgba(0,0,0,0.06)'}}>
-                                            <div className="w-10 h-10 rounded-lg mx-auto mb-3 flex items-center justify-center" style={{background: lab.color + 'E6'}}>
-                                                <TechLogo name={lab.logo} size={20} />
-                                            </div>
-                                            <p className="text-sm text-gray-700 font-semibold">{lab.text}</p>
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-
-                    <div className="section-divider"></div>
-
-                    {/* Architecture - Technology Pipeline */}
-                    <section id="architecture-section" className="py-28 px-6 bg-white">
-                        <div className="max-w-6xl mx-auto">
-                            <h2 className="text-4xl md:text-5xl font-black text-gray-900 mb-6 text-center scroll-reveal">
-                                {t.architecture.title}
-                            </h2>
-                            <p className="text-xl text-gray-600 text-center mb-16 scroll-reveal">
-                                {t.architecture.desc}
-                            </p>
-
-                            <div className="scroll-reveal">
-                                <div className="grid grid-cols-2 md:grid-cols-5 gap-6">
-                                    {[
-                                        { step: t.architecture.ingest, desc: t.architecture.ingestDesc, tech: 'MegaStore Data', color: '#1B3A5C', icon: icons.database },
-                                        { step: t.architecture.store, desc: t.architecture.storeDesc, tech: 'MongoDB', color: '#00684A', logo: 'mongodb' },
-                                        { step: t.architecture.connect, desc: t.architecture.connectDesc, tech: 'Neo4j', color: '#018BFF', logo: 'neo4j' },
-                                        { step: t.architecture.analyze, desc: t.architecture.analyzeDesc, tech: 'DuckDB', color: '#FFC107', logo: 'duckdb' },
-                                        { step: t.architecture.scale, desc: t.architecture.scaleDesc, tech: 'Apache Spark', color: '#E25A1C', logo: 'spark' }
-                                    ].map((item, idx) => (
-                                        <div key={idx} className="p-6 text-center bg-white rounded-xl hover:shadow-lg transition-all duration-300" style={{border: '1px solid rgba(0,0,0,0.05)', borderTop: `2px solid ${item.color}60`}}>
-                                            <div className="w-14 h-14 rounded-lg mx-auto mb-4 flex items-center justify-center" style={{background: item.color, color: 'white'}}>
-                                                {item.logo ? <TechLogo name={item.logo} size={24} /> : <LucideIcon d={item.icon} size={24} />}
-                                            </div>
-                                            <div className="text-xs font-bold uppercase tracking-wider mb-2" style={{color: item.color}}>{item.tech}</div>
-                                            <h3 className="text-lg font-bold text-gray-900 mb-2">{item.step}</h3>
-                                            <p className="text-sm text-gray-600">{item.desc}</p>
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-
-                    <div className="section-divider"></div>
-
-                    {/* Getting Started - Docker Guide CTA */}
-                    <section id="getting-started-section" className="py-24 px-6" style={{ background: '#1B3A5C' }}>
-                        <div className="max-w-4xl mx-auto text-center">
-                            <h2 className="text-4xl md:text-5xl font-black text-white mb-6 scroll-reveal">
-                                {t.getting_started.title}
-                            </h2>
-                            <p className="text-xl text-blue-200 mb-4 scroll-reveal">
-                                {t.getting_started.docker}
-                            </p>
-                            <p className="text-lg text-blue-300 mb-10 scroll-reveal">
-                                {t.getting_started.prereq}
-                            </p>
-                            <a
-                                href="docker-guide.html"
-                                className="inline-block text-white font-bold py-4 px-10 rounded-xl text-xl transition-all scroll-reveal hover:shadow-lg" style={{background: "rgba(232,121,47,0.9)"}}
-                            >
-                                {t.getting_started.step1}
-                            </a>
-                            <div className="mt-8 grid md:grid-cols-3 gap-6 scroll-reveal">
-                                <div className="rounded-xl p-6" style={{background: 'rgba(255,255,255,0.08)'}}>
-                                    <div className="text-3xl font-bold text-white mb-2">1</div>
-                                    <p className="text-blue-200">{t.getting_started.step2}</p>
-                                </div>
-                                <div className="rounded-xl p-6" style={{background: 'rgba(255,255,255,0.08)'}}>
-                                    <div className="text-3xl font-bold text-white mb-2">2</div>
-                                    <p className="text-blue-200">{t.getting_started.step3}</p>
-                                </div>
-                                <div className="rounded-xl p-6" style={{background: 'rgba(255,255,255,0.08)'}}>
-                                    <div className="text-3xl font-bold text-white mb-2">3</div>
-                                    <p className="text-blue-200">{t.getting_started.copy}</p>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-
-                    <div className="section-divider"></div>
-
-                    {/* Labs Section */}
-                    <section id="labs-section" className="py-28 px-6" style={{background: "linear-gradient(180deg, white 0%, rgba(248,250,252,0.5) 100%)"}}>
-                        <div className="max-w-7xl mx-auto">
-                            <h2 className="text-4xl md:text-5xl font-black text-gray-900 mb-16 text-center scroll-reveal">
-                                {t.labs.title}
-                            </h2>
-
-                            <div className="grid md:grid-cols-2 gap-12">
-                                {labsData.map((lab, idx) => {
-                                    const labInfo = t.labs[lab.key];
-                                    const difficultyMap = {
-                                        beginner: 'difficulty-beginner',
-                                        intermediate: 'difficulty-intermediate',
-                                        advanced: 'difficulty-advanced'
-                                    };
-                                    const labNum = String(idx + 1).padStart(2, '0');
-
+                            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.25rem' }}>
+                                {labsData.map((lab, i) => {
+                                    const info = t.labs[lab.key];
                                     return (
-                                        <a key={idx} href={`lab-${lab.key}.html`} className="group block scroll-reveal" style={{textDecoration: 'none'}}>
-                                            <div className="relative bg-white rounded-xl overflow-hidden transition-all duration-300 hover:shadow-2xl" style={{border: '1px solid rgba(0,0,0,0.06)'}}>
-                                                {/* Colored header bar */}
-                                                <div className="relative overflow-hidden" style={{background: lab.color, padding: '2rem 2rem 1.5rem'}}>
-                                                    <div className="absolute top-0 right-0 text-8xl font-black leading-none" style={{color: 'rgba(255,255,255,0.08)', transform: 'translate(10px, -10px)'}}>{labNum}</div>
-                                                    <div className="relative z-10 flex items-center gap-4">
-                                                        <div className="flex-shrink-0 w-12 h-12 rounded-lg flex items-center justify-center" style={{background: 'rgba(255,255,255,0.2)', backdropFilter: 'blur(4px)'}}>
-                                                            <TechLogo name={lab.key} size={24} />
-                                                        </div>
-                                                        <div>
-                                                            <h3 className="text-xl font-black text-white leading-tight">{labInfo.name}</h3>
-                                                            <p className="text-sm font-medium" style={{color: 'rgba(255,255,255,0.8)'}}>{labInfo.subtitle}</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                {/* Content area */}
-                                                <div className="p-6">
-                                                    <div className="flex items-center gap-2 mb-4">
-                                                        <span className={`difficulty-badge ${difficultyMap[lab.difficulty]}`}>{labInfo.difficulty}</span>
-                                                        <span className="text-xs font-semibold uppercase tracking-wider text-gray-400">{labInfo.chapter}</span>
-                                                    </div>
-                                                    <p className="text-gray-600 text-sm leading-relaxed mb-5">{labInfo.desc}</p>
-                                                    <div className="flex items-center font-bold text-sm transition-all group-hover:gap-3 gap-1" style={{color: lab.color}}>
-                                                        <span>{labInfo.cta}</span>
-                                                        <span className="transition-transform group-hover:translate-x-1">&rarr;</span>
-                                                    </div>
-                                                </div>
+                                        <a key={i} href={`lab-${lab.key}.html`} className="lab-card" ref={ref}>
+                                            <span className="lab-card-num">{String(i+1).padStart(2,'0')}</span>
+                                            <div className="lab-icon-box">
+                                                <Icon paths={lab.icon} size={20}/>
+                                            </div>
+                                            <div className="lab-title">{info.name}</div>
+                                            <div className="lab-subtitle">{info.subtitle}</div>
+                                            <p className="lab-desc">{info.desc}</p>
+                                            <div className="lab-footer">
+                                                <span className={`diff-badge ${DiffMap[lab.diff]}`}>{info.difficulty}</span>
+                                                <span className="lab-cta">{info.cta} →</span>
                                             </div>
                                         </a>
                                     );
@@ -2122,69 +1791,101 @@
                         </div>
                     </section>
 
-                    <div className="section-divider"></div>
-
-                    {/* Bonus: Project Phil */}
-                    <section id="bonus-section" className="py-28 px-6" style={{background: 'linear-gradient(135deg, #0f172a 0%, #1B3A5C 60%, #0f172a 100%)'}}>
-                        <div className="max-w-5xl mx-auto">
-                            <div className="scroll-reveal" style={{textAlign:'center', marginBottom:'3rem'}}>
-                                <span style={{display:'inline-block', background:'rgba(232,121,47,0.18)', color:'#E8792F', fontWeight:700, fontSize:'0.75rem', letterSpacing:'0.1em', textTransform:'uppercase', padding:'0.3rem 1rem', borderRadius:999, marginBottom:'1rem'}}>Bonus</span>
-                                <h2 className="text-4xl md:text-5xl font-black text-white mb-4">{t.bonus.title}</h2>
-                                <p style={{color:'rgba(255,255,255,0.6)', fontSize:'1rem', maxWidth:'42rem', margin:'0 auto'}}>{t.bonus.subtitle}</p>
+                    {/* ── Docker CTA ── */}
+                    <section id="docker" style={{ padding: '5rem 1.5rem', background: '#1B3A5C' }}>
+                        <div style={{ maxWidth: 1200, margin: '0 auto', color: 'white' }} ref={ref}>
+                            <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
+                                <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '1rem' }}>
+                                    <div style={{ background: 'rgba(255,255,255,0.15)', borderRadius: 12, padding: '1rem', display: 'inline-flex' }}>
+                                        <Icon paths={ICON_TERMINAL} size={32}/>
+                                    </div>
+                                </div>
+                                <h2 style={{ fontSize: 'clamp(1.6rem,3vw,2.25rem)', fontWeight: 900, marginBottom: '0.75rem', letterSpacing: '-0.02em' }}>{t.getting_started.title}</h2>
+                                <p style={{ color: 'rgba(255,255,255,0.75)', fontSize: '1rem' }}>{t.getting_started.docker}</p>
                             </div>
-
-                            <div className="scroll-reveal" style={{background:'rgba(255,255,255,0.04)', border:'1px solid rgba(255,255,255,0.1)', borderRadius:16, padding:'2rem', marginBottom:'2rem'}}>
-                                <p style={{color:'rgba(255,255,255,0.8)', lineHeight:1.7, fontSize:'0.95rem'}}>{t.bonus.intro}</p>
+                            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(250px,1fr))', gap: '1rem', marginBottom: '2.5rem' }}>
+                                {[
+                                    { label: '1. Docker Desktop', code: t.getting_started.step2 },
+                                    { label: '2. Repository', code: t.getting_started.step3 },
+                                    { label: '3. Loslegen', code: t.getting_started.copy }
+                                ].map((s, i) => (
+                                    <div key={i} className="docker-step">
+                                        <div className="docker-step-label">{s.label}</div>
+                                        <div className="docker-step-code">{s.code}</div>
+                                    </div>
+                                ))}
                             </div>
+                            <div style={{ textAlign: 'center' }}>
+                                <a href="docker-guide.html" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', background: '#E8792F', color: 'white', fontWeight: 800, padding: '1rem 2.25rem', borderRadius: 10, fontSize: '1rem', textDecoration: 'none' }}>
+                                    {t.getting_started.step1}
+                                </a>
+                            </div>
+                        </div>
+                    </section>
 
-                            <div className="scroll-reveal" style={{marginBottom:'2rem'}}>
-                                <p style={{color:'rgba(255,255,255,0.5)', fontSize:'0.78rem', fontWeight:700, letterSpacing:'0.1em', textTransform:'uppercase', marginBottom:'1.25rem'}}>{t.bonus.tech_title}</p>
-                                <div className="grid md:grid-cols-2 gap-4">
+                    {/* ── Bonus: Project Phil ── */}
+                    <section style={{ padding: '0 1.5rem 4rem', background: 'white', paddingTop: '4rem' }}>
+                        <div style={{ maxWidth: 1200, margin: '0 auto' }}>
+                            <div
+                               style={{
+                                   background: 'linear-gradient(135deg, rgba(27,58,92,0.08) 0%, rgba(27,58,92,0.16) 100%)',
+                                   borderRadius: 14, padding: '2rem 2.25rem',
+                                   boxShadow: '0 8px 32px rgba(27,58,92,0.06)',
+                                   border: '1.5px solid rgba(27,58,92,0.15)'
+                               }}
+                               ref={ref}>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.75rem', flexWrap: 'wrap' }}>
+                                    <span style={{ background: '#E8792F', color: 'white', fontWeight: 800, fontSize: '0.72rem', padding: '0.2rem 0.65rem', borderRadius: 999 }}>
+                                        ⭐ Bonus
+                                    </span>
+                                    <span style={{ background: 'rgba(27,58,92,0.1)', color: '#1B3A5C', fontWeight: 700, fontSize: '0.72rem', padding: '0.2rem 0.65rem', borderRadius: 999 }}>
+                                        {t.bonus.subtitle}
+                                    </span>
+                                </div>
+                                <div style={{ fontSize: '1.3rem', fontWeight: 900, color: '#0F2744', marginBottom: '0.5rem', letterSpacing: '-0.01em' }}>
+                                    {t.bonus.title}
+                                </div>
+                                <p style={{ color: '#4b5563', fontSize: '0.88rem', lineHeight: 1.65, margin: '0 0 1.5rem 0' }}>
+                                    {t.bonus.intro}
+                                </p>
+                                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '0.75rem', marginBottom: '1.5rem' }}>
                                     {t.bonus.techs.map((tech, i) => (
-                                        <div key={i} style={{background:'rgba(255,255,255,0.05)', border:'1px solid rgba(255,255,255,0.08)', borderRadius:10, padding:'1.25rem'}}>
-                                            <div style={{display:'flex', alignItems:'center', gap:'0.6rem', marginBottom:'0.5rem', flexWrap:'wrap'}}>
-                                                <span style={{fontWeight:700, color:'white', fontSize:'0.9rem'}}>{tech.name}</span>
-                                                <span style={{background:'rgba(3,137,207,0.25)', color:'#60c8f5', fontSize:'0.7rem', fontWeight:700, padding:'0.15rem 0.6rem', borderRadius:999}}>{tech.badge}</span>
+                                        <div key={i} style={{ background: 'rgba(255,255,255,0.7)', border: '1px solid rgba(27,58,92,0.1)', borderRadius: 8, padding: '1rem' }}>
+                                            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.4rem', flexWrap: 'wrap' }}>
+                                                <span style={{ fontWeight: 700, color: '#0F2744', fontSize: '0.85rem' }}>{tech.name}</span>
+                                                <span style={{ background: 'rgba(27,58,92,0.1)', color: '#1B3A5C', fontSize: '0.65rem', fontWeight: 700, padding: '0.15rem 0.5rem', borderRadius: 999 }}>{tech.badge}</span>
                                             </div>
-                                            <p style={{color:'rgba(255,255,255,0.55)', fontSize:'0.83rem', lineHeight:1.6, margin:0}}>{tech.desc}</p>
+                                            <p style={{ color: '#64748b', fontSize: '0.8rem', lineHeight: 1.55, margin: 0 }}>{tech.desc}</p>
                                         </div>
                                     ))}
                                 </div>
-                            </div>
-
-                            <div className="scroll-reveal" style={{textAlign:'center'}}>
                                 <a href="https://swrobuts.github.io/phil-website/" target="_blank" rel="noopener noreferrer"
-                                   style={{display:'inline-flex', alignItems:'center', gap:'0.5rem', background:'#E8792F', color:'white', fontWeight:700, fontSize:'0.95rem', padding:'0.9rem 2rem', borderRadius:8, textDecoration:'none', transition:'opacity 0.2s'}}
-                                   onMouseOver={e => e.currentTarget.style.opacity='0.85'}
-                                   onMouseOut={e => e.currentTarget.style.opacity='1'}>
+                                   style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', color: '#E8792F', fontWeight: 700, fontSize: '0.88rem', textDecoration: 'none' }}>
                                     {t.bonus.cta}
                                 </a>
                             </div>
                         </div>
                     </section>
 
-                    {/* Footer */}
-                    <footer className="text-white py-20 px-6" style={{background: "rgba(17,24,39,0.97)"}}>
-                        <div className="max-w-6xl mx-auto text-center">
-                            <p className="text-lg mb-4">{t.footer.built}</p>
-                            <p className="text-gray-400 mb-2">{t.footer.thws}</p>
-                            <p className="text-gray-400 mb-6">{t.footer.professor}</p>
-                            <div className="border-t border-gray-700 pt-8">
-                                <a
-                                    href="https://github.com/swrobuts/bigdata"
-                                    className="text-orange-500 hover:text-orange-400 font-semibold transition-colors"
-                                >
-                                    {t.footer.github} →
-                                </a>
-                            </div>
+                    {/* ── Footer ── */}
+                    <footer style={{ padding: '2.5rem 1.5rem', background: '#0f172a', textAlign: 'center' }}>
+                        <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '1rem' }}>
+                            <Icon paths={ICON_CODE} size={20} style={{ color: '#475569', stroke: '#475569' }}/>
+                        </div>
+                        <p style={{ fontWeight: 700, color: '#e2e8f0', marginBottom: '0.3rem', fontSize: '0.9rem' }}>{t.footer.built}</p>
+                        <p style={{ color: '#64748b', fontSize: '0.82rem', marginBottom: '0.25rem' }}>{t.footer.professor}</p>
+                        <p style={{ color: '#475569', fontSize: '0.72rem', marginBottom: '0.5rem' }}>{t.footer.thws}</p>
+                        <div style={{ marginTop: '1.25rem' }}>
+                            <a href="https://github.com/swrobuts/bigdata" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', color: '#60a5fa', fontSize: '0.82rem', textDecoration: 'none' }}>
+                                <Icon paths={ICON_GITHUB} size={14}/> {t.footer.github}
+                            </a>
                         </div>
                     </footer>
                 </div>
             );
         }
 
-        const root = ReactDOM.createRoot(document.getElementById('root'));
-        root.render(<App />);
+        ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
     </script>
 </body>
 </html>
