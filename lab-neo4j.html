@@ -313,6 +313,21 @@
                 graphDatabase: "Graph Database - Speichert Daten als vernetzte Knoten und Beziehungen statt in Tabellen. Im Gegensatz zu SQL-Datenbanken, die Daten in Zeilen und Spalten organisieren, modelliert Neo4j die Realität als ein Netzwerk von Entitäten und ihren Verbindungen, was besonders für Netzwerkanalysen effizient ist.",
                 cypherLanguage: "Cypher Query Language - Spezialisierte Abfragesprache für Graphen. Cypher ist deklarativ wie SQL, aber optimiert für Pfad- und Traversierungs-Abfragen, was komplexe Beziehungs-Abfragen intuitiver und schneller macht.",
                 acidCompliant: "ACID-Compliant - Sichert Datenkonsistenz und Zuverlässigkeit bei Transaktionen ein. Dies garantiert, dass Daten nicht beschädigt werden, auch wenn Fehler während einer Änderung auftreten, genau wie bei relationalen Datenbanken.",
+                neo4jIntro: 'Neo4j ist die weltweit führende Graphdatenbank. Als Open-Source-Projekt gestartet, wird Neo4j heute von Unternehmen wie NASA, Walmart, eBay und vielen anderen eingesetzt, um vernetzte Daten effizient zu speichern, abzufragen und zu analysieren. Im Gegensatz zu relationalen Datenbanken speichert Neo4j Daten als Knoten und Beziehungen – genau so, wie wir über die reale Welt denken.',
+                neo4jWebsite: 'Mehr erfahren auf',
+                neo4jArchTitle: 'Neo4j Architektur',
+                neo4jArchDesc: 'Neo4j verwendet einen nativen Graphspeicher mit indexfreier Adjazenz – jeder Knoten kennt seine direkten Nachbarn physisch. Das ermöglicht Traversierungen in konstanter Zeit, unabhängig von der Gesamtgröße des Graphen. Die Kommunikation erfolgt über das Bolt-Protokoll.',
+                neo4jArchDiagram: '┌─────────────┐\n│ Client App  │\n│ (Browser,   │\n│  Python,    │\n│  Java...)   │\n└──────┬──────┘\n       │ Bolt Protocol\n       ▼\n┌──────────────────────┐\n│    Neo4j Server      │\n│ ┌──────────────────┐ │\n│ │   Graph Engine   │ │\n│ │  (Cypher Query   │ │\n│ │   Processor)     │ │\n│ └────────┬─────────┘ │\n│ ┌────────▼─────────┐ │\n│ │  Native Graph    │ │\n│ │   Storage        │ │\n│ │ (Index-Free      │ │\n│ │  Adjacency)      │ │\n│ └────────┬─────────┘ │\n└──────────┼───────────┘\n           ▼\n     ┌──────────┐\n     │   Disk   │\n     └──────────┘',
+                neo4jVsRelTitle: 'Graph vs. Relationale Datenbank',
+                neo4jVsRelDesc: 'Graph-Datenbanken und relationale Datenbanken lösen unterschiedliche Probleme optimal. Hier ein Vergleich der grundlegenden Konzepte:',
+                neo4jVsRelRelational: 'Relationale DB',
+                neo4jVsRelGraph: 'Graph DB (Neo4j)',
+                propertyGraphTitle: 'Das Property-Graph-Modell',
+                propertyGraphDesc: 'Neo4j implementiert das Property-Graph-Modell: Knoten haben Labels und Properties, Beziehungen haben Typen und Properties. Beide können beliebige Schlüssel-Wert-Paare speichern.',
+                propertyGraphDiagram: '(Person {name:"Alice", age:30})\n        │\n        │ :KNOWS {since: 2020}\n        ▼\n(Person {name:"Bob", age:25})\n        │\n        │ :WORKS_AT {role: "Engineer"}\n        ▼\n(Company {name:"ACME", city:"Berlin"})',
+                propertyGraphExplanation: 'In diesem Beispiel sind Person und Company Labels (Kategorien), name/age/city sind Properties (Eigenschaften), und KNOWS/WORKS_AT sind Beziehungstypen mit eigenen Properties. Diese Struktur bildet reale Zusammenhänge natürlich ab.',
+                traversalTitle: 'Graph-Traversierung',
+                traversalDesc: 'Der entscheidende Vorteil von Neo4j: Während relationale Datenbanken bei tiefen Verknüpfungen teure JOIN-Operationen benötigen (die mit der Datenmenge wachsen), traversiert Neo4j Beziehungen in konstanter Zeit O(1). Bei einer Abfrage wie "Finde alle Freunde von Freunden" durchläuft Neo4j einfach die gespeicherten Zeiger – unabhängig davon, ob der Graph 1.000 oder 1.000.000 Knoten hat.',
                 estimatedTime: "Geschätzte Zeit",
                 timeValue: "3–4 Stunden für alle 12 Übungen",
                 prerequisites: "Voraussetzungen",
@@ -581,6 +596,21 @@
                 graphDatabase: "Graph Database - Stores data as interconnected nodes and relationships instead of tables. Unlike SQL databases that organize data in rows and columns, Neo4j models reality as a network of entities and their connections, which is especially efficient for network analysis.",
                 cypherLanguage: "Cypher Query Language - Specialized query language for graphs that is declarative like SQL but optimized for path and traversal queries, making relationship-heavy queries more intuitive and faster.",
                 acidCompliant: "ACID-Compliant - Guarantees data consistency and reliability in transactions. This ensures data cannot be corrupted even if an error occurs during an operation, just like in relational databases.",
+                neo4jIntro: 'Neo4j is the world\'s leading graph database. Started as an open-source project, Neo4j is now used by companies like NASA, Walmart, eBay, and many others to efficiently store, query, and analyze connected data. Unlike relational databases, Neo4j stores data as nodes and relationships – exactly how we think about the real world.',
+                neo4jWebsite: 'Learn more at',
+                neo4jArchTitle: 'Neo4j Architecture',
+                neo4jArchDesc: 'Neo4j uses native graph storage with index-free adjacency – each node physically knows its direct neighbors. This enables traversals in constant time, regardless of the overall graph size. Communication happens via the Bolt protocol.',
+                neo4jArchDiagram: '┌─────────────┐\n│ Client App  │\n│ (Browser,   │\n│  Python,    │\n│  Java...)   │\n└──────┬──────┘\n       │ Bolt Protocol\n       ▼\n┌──────────────────────┐\n│    Neo4j Server      │\n│ ┌──────────────────┐ │\n│ │   Graph Engine   │ │\n│ │  (Cypher Query   │ │\n│ │   Processor)     │ │\n│ └────────┬─────────┘ │\n│ ┌────────▼─────────┐ │\n│ │  Native Graph    │ │\n│ │   Storage        │ │\n│ │ (Index-Free      │ │\n│ │  Adjacency)      │ │\n│ └────────┬─────────┘ │\n└──────────┼───────────┘\n           ▼\n     ┌──────────┐\n     │   Disk   │\n     └──────────┘',
+                neo4jVsRelTitle: 'Graph vs. Relational Database',
+                neo4jVsRelDesc: 'Graph databases and relational databases optimally solve different problems. Here is a comparison of the fundamental concepts:',
+                neo4jVsRelRelational: 'Relational DB',
+                neo4jVsRelGraph: 'Graph DB (Neo4j)',
+                propertyGraphTitle: 'The Property Graph Model',
+                propertyGraphDesc: 'Neo4j implements the Property Graph Model: nodes have labels and properties, relationships have types and properties. Both can store arbitrary key-value pairs.',
+                propertyGraphDiagram: '(Person {name:"Alice", age:30})\n        │\n        │ :KNOWS {since: 2020}\n        ▼\n(Person {name:"Bob", age:25})\n        │\n        │ :WORKS_AT {role: "Engineer"}\n        ▼\n(Company {name:"ACME", city:"Berlin"})',
+                propertyGraphExplanation: 'In this example, Person and Company are labels (categories), name/age/city are properties (attributes), and KNOWS/WORKS_AT are relationship types with their own properties. This structure naturally maps real-world connections.',
+                traversalTitle: 'Graph Traversal',
+                traversalDesc: 'The decisive advantage of Neo4j: While relational databases need expensive JOIN operations for deep connections (which grow with data size), Neo4j traverses relationships in constant time O(1). For a query like "Find all friends of friends," Neo4j simply follows stored pointers – regardless of whether the graph has 1,000 or 1,000,000 nodes.',
                 estimatedTime: "Estimated Time",
                 timeValue: "3–4 hours for all 12 exercises",
                 prerequisites: "Prerequisites",
@@ -918,6 +948,21 @@
             graphDatabase: 'قاعدة بيانات الرسم البياني - تخزن البيانات كعقد مترابطة وعلاقات بدلاً من الجداول. على عكس قواعد البيانات العلائقية التي تنظم البيانات في صفوف وأعمدة، يقوم Neo4j بنمذجة الواقع كشبكة من الكيانات والاتصالات بينها، مما يجعلها فعالة بشكل خاص لتحليل الشبكات.',
             cypherLanguage: 'لغة الاستعلام Cypher - لغة استعلام متخصصة للرسوم البيانية. Cypher تصريحية مثل SQL، لكنها محسّنة لاستعلامات المسارات والاجتياز، مما يجعل استعلامات العلاقات المعقدة أكثر حدسية وسرعة.',
             acidCompliant: 'متوافق مع ACID - يضمن اتساق البيانات والموثوقية في المعاملات. يضمن هذا عدم تلف البيانات، حتى في حالة حدوث أخطاء أثناء التعديل، تماماً كما في قواعد البيانات العلائقية.',
+            neo4jIntro: 'Neo4j هي قاعدة بيانات الرسوم البيانية الرائدة عالمياً. بدأت كمشروع مفتوح المصدر، وتستخدمها الآن شركات مثل NASA وWalmart وeBay وغيرها لتخزين البيانات المترابطة واستعلامها وتحليلها بكفاءة. على عكس قواعد البيانات العلائقية، تخزن Neo4j البيانات كعُقد وعلاقات – تماماً كما نفكر في العالم الحقيقي.',
+            neo4jWebsite: 'اعرف المزيد على',
+            neo4jArchTitle: 'بنية Neo4j',
+            neo4jArchDesc: 'تستخدم Neo4j تخزين رسوم بياني أصلي مع تجاور خالٍ من الفهرسة – كل عقدة تعرف جيرانها المباشرين فعلياً. يتيح ذلك التنقل في وقت ثابت، بغض النظر عن الحجم الكلي للرسم البياني. يتم الاتصال عبر بروتوكول Bolt.',
+            neo4jArchDiagram: '┌─────────────┐\n│ Client App  │\n│ (Browser,   │\n│  Python,    │\n│  Java...)   │\n└──────┬──────┘\n       │ Bolt Protocol\n       ▼\n┌──────────────────────┐\n│    Neo4j Server      │\n│ ┌──────────────────┐ │\n│ │   Graph Engine   │ │\n│ │  (Cypher Query   │ │\n│ │   Processor)     │ │\n│ └────────┬─────────┘ │\n│ ┌────────▼─────────┐ │\n│ │  Native Graph    │ │\n│ │   Storage        │ │\n│ │ (Index-Free      │ │\n│ │  Adjacency)      │ │\n│ └────────┬─────────┘ │\n└──────────┼───────────┘\n           ▼\n     ┌──────────┐\n     │   Disk   │\n     └──────────┘',
+            neo4jVsRelTitle: 'قاعدة بيانات الرسوم البيانية مقابل قاعدة البيانات العلائقية',
+            neo4jVsRelDesc: 'تحل قواعد بيانات الرسوم البيانية وقواعد البيانات العلائقية مشاكل مختلفة بشكل مثالي. إليك مقارنة بين المفاهيم الأساسية:',
+            neo4jVsRelRelational: 'قاعدة بيانات علائقية',
+            neo4jVsRelGraph: 'قاعدة بيانات رسوم بيانية (Neo4j)',
+            propertyGraphTitle: 'نموذج الرسم البياني للخصائص',
+            propertyGraphDesc: 'تطبق Neo4j نموذج الرسم البياني للخصائص: العُقد لها تسميات وخصائص، والعلاقات لها أنواع وخصائص. كلاهما يمكنه تخزين أزواج مفتاح-قيمة عشوائية.',
+            propertyGraphDiagram: '(Person {name:"Alice", age:30})\n        │\n        │ :KNOWS {since: 2020}\n        ▼\n(Person {name:"Bob", age:25})\n        │\n        │ :WORKS_AT {role: "Engineer"}\n        ▼\n(Company {name:"ACME", city:"Berlin"})',
+            propertyGraphExplanation: 'في هذا المثال، Person وCompany هي تسميات (فئات)، name/age/city هي خصائص (سمات)، وKNOWS/WORKS_AT هي أنواع علاقات مع خصائصها الخاصة. هذا الهيكل يعكس العلاقات الواقعية بشكل طبيعي.',
+            traversalTitle: 'التنقل في الرسم البياني',
+            traversalDesc: 'الميزة الحاسمة لـ Neo4j: بينما تحتاج قواعد البيانات العلائقية إلى عمليات JOIN مكلفة للروابط العميقة (التي تنمو مع حجم البيانات)، تتنقل Neo4j عبر العلاقات في وقت ثابت O(1). لاستعلام مثل "أوجد جميع أصدقاء الأصدقاء"، تتبع Neo4j ببساطة المؤشرات المخزنة – بغض النظر عما إذا كان الرسم البياني يحتوي على 1,000 أو 1,000,000 عقدة.',
             estimatedTime: 'الوقت المقدّر',
             timeValue: '3–4 ساعات لجميع 12 تمريناً',
             prerequisites: 'المتطلبات الأساسية',
@@ -1192,6 +1237,21 @@
             graphDatabase: 'Графова база даних — зберігає дані як взаємопов\'язані вузли та зв\'язки замість таблиць. На відміну від реляційних баз даних, які організовують дані в рядки та стовпці, Neo4j моделює реальність як мережу сутностей та зв\'язків між ними, що робить її особливо ефективною для аналізу мереж.',
             cypherLanguage: 'Мова запитів Cypher — спеціалізована мова запитів для графів. Cypher є декларативною, як SQL, але оптимізована для запитів шляхів та обходу, що робить складні запити до відносин більш інтуїтивними та швидкими.',
             acidCompliant: 'Відповідає ACID — гарантує узгодженість даних та надійність транзакцій. Це гарантує, що дані не будуть пошкоджені навіть у випадку помилок під час модифікації, як у реляційних базах даних.',
+            neo4jIntro: 'Neo4j — це провідна у світі графова база даних. Розпочавши як проєкт з відкритим кодом, Neo4j тепер використовується компаніями, такими як NASA, Walmart, eBay та багатьма іншими для ефективного зберігання, запитів та аналізу пов\'язаних даних. На відміну від реляційних баз даних, Neo4j зберігає дані як вузли та зв\'язки – саме так, як ми думаємо про реальний світ.',
+            neo4jWebsite: 'Дізнайтеся більше на',
+            neo4jArchTitle: 'Архітектура Neo4j',
+            neo4jArchDesc: 'Neo4j використовує нативне графове сховище з безіндексною суміжністю – кожен вузол фізично знає своїх прямих сусідів. Це дозволяє обхід за постійний час, незалежно від загального розміру графа. Зв\'язок відбувається через протокол Bolt.',
+            neo4jArchDiagram: '┌─────────────┐\n│ Client App  │\n│ (Browser,   │\n│  Python,    │\n│  Java...)   │\n└──────┬──────┘\n       │ Bolt Protocol\n       ▼\n┌──────────────────────┐\n│    Neo4j Server      │\n│ ┌──────────────────┐ │\n│ │   Graph Engine   │ │\n│ │  (Cypher Query   │ │\n│ │   Processor)     │ │\n│ └────────┬─────────┘ │\n│ ┌────────▼─────────┐ │\n│ │  Native Graph    │ │\n│ │   Storage        │ │\n│ │ (Index-Free      │ │\n│ │  Adjacency)      │ │\n│ └────────┬─────────┘ │\n└──────────┼───────────┘\n           ▼\n     ┌──────────┐\n     │   Disk   │\n     └──────────┘',
+            neo4jVsRelTitle: 'Графова vs. Реляційна база даних',
+            neo4jVsRelDesc: 'Графові та реляційні бази даних оптимально вирішують різні завдання. Ось порівняння основних концепцій:',
+            neo4jVsRelRelational: 'Реляційна БД',
+            neo4jVsRelGraph: 'Графова БД (Neo4j)',
+            propertyGraphTitle: 'Модель графа властивостей',
+            propertyGraphDesc: 'Neo4j реалізує модель графа властивостей: вузли мають мітки та властивості, зв\'язки мають типи та властивості. Обидва можуть зберігати довільні пари ключ-значення.',
+            propertyGraphDiagram: '(Person {name:"Alice", age:30})\n        │\n        │ :KNOWS {since: 2020}\n        ▼\n(Person {name:"Bob", age:25})\n        │\n        │ :WORKS_AT {role: "Engineer"}\n        ▼\n(Company {name:"ACME", city:"Berlin"})',
+            propertyGraphExplanation: 'У цьому прикладі Person і Company — це мітки (категорії), name/age/city — властивості (атрибути), а KNOWS/WORKS_AT — типи зв\'язків з власними властивостями. Ця структура природно відображає зв\'язки реального світу.',
+            traversalTitle: 'Обхід графа',
+            traversalDesc: 'Вирішальна перевага Neo4j: тоді як реляційні бази даних потребують дорогих операцій JOIN для глибоких зв\'язків (які зростають з обсягом даних), Neo4j обходить зв\'язки за постійний час O(1). Для запиту типу "Знайти всіх друзів друзів" Neo4j просто слідує збереженим вказівникам – незалежно від того, чи граф має 1 000 чи 1 000 000 вузлів.',
             estimatedTime: 'Орієнтовний час',
             timeValue: '3–4 години для всіх 12 вправ',
             prerequisites: 'Передумови',
@@ -1466,6 +1526,21 @@
             graphDatabase: 'Base de datos de gráficos - almacena datos como nodos interconectados y relaciones en lugar de tablas. A diferencia de las bases de datos relacionales que organizan datos en filas y columnas, Neo4j modela la realidad como una red de entidades y conexiones entre ellas, lo que la hace particularmente eficiente para análisis de redes.',
             cypherLanguage: 'Lenguaje de consulta Cypher - lenguaje de consulta especializado para gráficos. Cypher es declarativo como SQL, pero está optimizado para consultas de rutas y recorridos, haciendo que las consultas de relaciones complejas sean más intuitivas y rápidas.',
             acidCompliant: 'Compatible con ACID - garantiza la consistencia de datos y confiabilidad en transacciones. Esto asegura que los datos no se corrompan, incluso si ocurren errores durante las modificaciones, tal como en las bases de datos relacionales.',
+            neo4jIntro: 'Neo4j es la base de datos de grafos líder en el mundo. Iniciada como un proyecto de código abierto, Neo4j es utilizada hoy por empresas como NASA, Walmart, eBay y muchas otras para almacenar, consultar y analizar datos conectados de manera eficiente. A diferencia de las bases de datos relacionales, Neo4j almacena datos como nodos y relaciones – exactamente como pensamos sobre el mundo real.',
+            neo4jWebsite: 'Más información en',
+            neo4jArchTitle: 'Arquitectura de Neo4j',
+            neo4jArchDesc: 'Neo4j utiliza almacenamiento de grafos nativo con adyacencia sin índice – cada nodo conoce físicamente a sus vecinos directos. Esto permite recorridos en tiempo constante, independientemente del tamaño total del grafo. La comunicación se realiza a través del protocolo Bolt.',
+            neo4jArchDiagram: '┌─────────────┐\n│ Client App  │\n│ (Browser,   │\n│  Python,    │\n│  Java...)   │\n└──────┬──────┘\n       │ Bolt Protocol\n       ▼\n┌──────────────────────┐\n│    Neo4j Server      │\n│ ┌──────────────────┐ │\n│ │   Graph Engine   │ │\n│ │  (Cypher Query   │ │\n│ │   Processor)     │ │\n│ └────────┬─────────┘ │\n│ ┌────────▼─────────┐ │\n│ │  Native Graph    │ │\n│ │   Storage        │ │\n│ │ (Index-Free      │ │\n│ │  Adjacency)      │ │\n│ └────────┬─────────┘ │\n└──────────┼───────────┘\n           ▼\n     ┌──────────┐\n     │   Disk   │\n     └──────────┘',
+            neo4jVsRelTitle: 'Base de datos de grafos vs. relacional',
+            neo4jVsRelDesc: 'Las bases de datos de grafos y las bases de datos relacionales resuelven diferentes problemas de manera óptima. Aquí una comparación de los conceptos fundamentales:',
+            neo4jVsRelRelational: 'BD Relacional',
+            neo4jVsRelGraph: 'BD de Grafos (Neo4j)',
+            propertyGraphTitle: 'El Modelo de Grafo de Propiedades',
+            propertyGraphDesc: 'Neo4j implementa el Modelo de Grafo de Propiedades: los nodos tienen etiquetas y propiedades, las relaciones tienen tipos y propiedades. Ambos pueden almacenar pares clave-valor arbitrarios.',
+            propertyGraphDiagram: '(Person {name:"Alice", age:30})\n        │\n        │ :KNOWS {since: 2020}\n        ▼\n(Person {name:"Bob", age:25})\n        │\n        │ :WORKS_AT {role: "Engineer"}\n        ▼\n(Company {name:"ACME", city:"Berlin"})',
+            propertyGraphExplanation: 'En este ejemplo, Person y Company son etiquetas (categorías), name/age/city son propiedades (atributos), y KNOWS/WORKS_AT son tipos de relación con sus propias propiedades. Esta estructura mapea naturalmente las conexiones del mundo real.',
+            traversalTitle: 'Recorrido de Grafos',
+            traversalDesc: 'La ventaja decisiva de Neo4j: mientras las bases de datos relacionales necesitan costosas operaciones JOIN para conexiones profundas (que crecen con el volumen de datos), Neo4j recorre relaciones en tiempo constante O(1). Para una consulta como "Encontrar todos los amigos de amigos", Neo4j simplemente sigue punteros almacenados – independientemente de si el grafo tiene 1.000 o 1.000.000 nodos.',
             estimatedTime: 'Tiempo estimado',
             timeValue: '3–4 horas para los 12 ejercicios',
             prerequisites: 'Requisitos previos',
@@ -1740,6 +1815,21 @@
             graphDatabase: 'Grafik veritabanı - verileri tablo yerine birbiriyle bağlantılı düğümler ve ilişkiler olarak depolayan bir veritabanı türüdür. İlişkisel veritabanlarının verileri satır ve sütunlara organize etmesinin aksine, Neo4j gerçekliği varlıklar ve bunlar arasındaki bağlantılardan oluşan bir ağ olarak modelleyerek, ağ analizi için özellikle etkili hale getirmektedir.',
             cypherLanguage: 'Cypher sorgu dili - grafikler için özel bir sorgu dilidir. Cypher, SQL gibi bildirimseldir ancak yol sorguları ve geçiş için optimize edilmiştir, karmaşık ilişki sorgularını daha sezgisel ve hızlı hale getirmektedir.',
             acidCompliant: 'ACID uyumlu - işlemlerde veri tutarlılığı ve güvenilirliği garanti eden bir özelliktir. Bu, ilişkisel veritabanlarında olduğu gibi, değiştirilme sırasında hatalar meydansa bile verilerin bozulmamasını garanti etmektedir.',
+            neo4jIntro: 'Neo4j, dünyanın önde gelen graf veritabanıdır. Açık kaynak bir proje olarak başlayan Neo4j, bugün NASA, Walmart, eBay ve birçok başka şirket tarafından bağlantılı verileri verimli bir şekilde depolamak, sorgulamak ve analiz etmek için kullanılmaktadır. İlişkisel veritabanlarından farklı olarak Neo4j, verileri düğümler ve ilişkiler olarak saklar – tam olarak gerçek dünya hakkında düşündüğümüz gibi.',
+            neo4jWebsite: 'Daha fazla bilgi için',
+            neo4jArchTitle: 'Neo4j Mimarisi',
+            neo4jArchDesc: 'Neo4j, indeks-bağımsız komşuluk ile yerel graf depolama kullanır – her düğüm doğrudan komşularını fiziksel olarak bilir. Bu, grafın toplam boyutundan bağımsız olarak sabit zamanda geçiş yapılmasını sağlar. İletişim Bolt protokolü üzerinden gerçekleşir.',
+            neo4jArchDiagram: '┌─────────────┐\n│ Client App  │\n│ (Browser,   │\n│  Python,    │\n│  Java...)   │\n└──────┬──────┘\n       │ Bolt Protocol\n       ▼\n┌──────────────────────┐\n│    Neo4j Server      │\n│ ┌──────────────────┐ │\n│ │   Graph Engine   │ │\n│ │  (Cypher Query   │ │\n│ │   Processor)     │ │\n│ └────────┬─────────┘ │\n│ ┌────────▼─────────┐ │\n│ │  Native Graph    │ │\n│ │   Storage        │ │\n│ │ (Index-Free      │ │\n│ │  Adjacency)      │ │\n│ └────────┬─────────┘ │\n└──────────┼───────────┘\n           ▼\n     ┌──────────┐\n     │   Disk   │\n     └──────────┘',
+            neo4jVsRelTitle: 'Graf vs. İlişkisel Veritabanı',
+            neo4jVsRelDesc: 'Graf veritabanları ve ilişkisel veritabanları farklı sorunları optimal şekilde çözer. İşte temel kavramların karşılaştırması:',
+            neo4jVsRelRelational: 'İlişkisel VT',
+            neo4jVsRelGraph: 'Graf VT (Neo4j)',
+            propertyGraphTitle: 'Özellik Graf Modeli',
+            propertyGraphDesc: 'Neo4j, Özellik Graf Modelini uygular: düğümlerin etiketleri ve özellikleri, ilişkilerin türleri ve özellikleri vardır. Her ikisi de rastgele anahtar-değer çiftleri depolayabilir.',
+            propertyGraphDiagram: '(Person {name:"Alice", age:30})\n        │\n        │ :KNOWS {since: 2020}\n        ▼\n(Person {name:"Bob", age:25})\n        │\n        │ :WORKS_AT {role: "Engineer"}\n        ▼\n(Company {name:"ACME", city:"Berlin"})',
+            propertyGraphExplanation: 'Bu örnekte, Person ve Company etiketlerdir (kategoriler), name/age/city özelliklerdir (nitelikler), KNOWS/WORKS_AT ise kendi özelliklerine sahip ilişki türleridir. Bu yapı gerçek dünya bağlantılarını doğal olarak eşler.',
+            traversalTitle: 'Graf Gezinme',
+            traversalDesc: 'Neo4j\'nin belirleyici avantajı: İlişkisel veritabanları derin bağlantılar için pahalı JOIN işlemlerine ihtiyaç duyarken (veri hacmiyle büyüyen), Neo4j ilişkileri sabit zamanda O(1) gezer. "Tüm arkadaşların arkadaşlarını bul" gibi bir sorgu için Neo4j depolanan işaretçileri takip eder – grafın 1.000 veya 1.000.000 düğüm içerip içermediğinden bağımsız olarak.',
             estimatedTime: 'Tahmini Süre',
             timeValue: 'Tüm 12 alıştırma için 3–4 saat',
             prerequisites: 'Ön Koşullar',
@@ -2065,6 +2155,16 @@
                         <div className="section" style={{display: activeSection === 'overview' ? 'block' : 'none'}}>
                             <h2 className="section-header">{t.overview}</h2>
 
+                            {/* Introduction */}
+                            <p style={{color: '#374151', lineHeight: '1.7', fontSize: '1.05rem', marginBottom: '1.5rem'}}>
+                                {t.neo4jIntro}
+                            </p>
+                            <p style={{marginBottom: '2rem'}}>
+                                <a href="https://neo4j.com" target="_blank" rel="noopener noreferrer" style={{color: '#E8792F', fontWeight: 600, textDecoration: 'none'}}>
+                                    {t.neo4jWebsite} neo4j.com →
+                                </a>
+                            </p>
+
                             <div className="lesson-box">
                                 <h3 className="subsection-header">{t.whatYouLearn}</h3>
                                 <div style={{marginTop: '0.75rem'}}>
@@ -2092,6 +2192,43 @@
                                     <StepItem number="1"><strong>NASA:</strong> {t.nasaDesc}</StepItem>
                                     <StepItem number="2"><strong>Walmart:</strong> {t.walmartDesc}</StepItem>
                                     <StepItem number="3"><strong>eBay:</strong> {t.ebayDesc}</StepItem>
+                                </div>
+                            </div>
+
+                            {/* Architecture */}
+                            <div className="card" style={{marginTop: '2rem'}}>
+                                <h3 className="subsection-header">{t.neo4jArchTitle}</h3>
+                                <p style={{color: '#374151', lineHeight: '1.7', marginBottom: '1rem'}}>{t.neo4jArchDesc}</p>
+                                <div className="code-block">
+                                    <code style={{color: '#00d084', whiteSpace: 'pre', fontSize: '0.85rem'}}>{t.neo4jArchDiagram}</code>
+                                </div>
+                            </div>
+
+                            {/* Graph vs Relational Comparison */}
+                            <div className="card" style={{marginTop: '1.5rem'}}>
+                                <h3 className="subsection-header">{t.neo4jVsRelTitle}</h3>
+                                <p style={{color: '#374151', lineHeight: '1.7', marginBottom: '1rem'}}>{t.neo4jVsRelDesc}</p>
+                                <div style={{display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem'}}>
+                                    <div style={{background: '#f0f4f8', borderRadius: '0.75rem', padding: '1.25rem', borderTop: '4px solid #6b7280'}}>
+                                        <h4 style={{color: '#1B3A5C', fontWeight: 700, marginBottom: '0.75rem', marginTop: 0}}>{t.neo4jVsRelRelational}</h4>
+                                        <ul style={{color: '#374151', lineHeight: '1.8', paddingLeft: '1.2rem'}}>
+                                            <li>Tables → Rows → Columns</li>
+                                            <li>JOIN Operations</li>
+                                            <li>Foreign Keys</li>
+                                            <li>SQL</li>
+                                            <li>Schema-first</li>
+                                        </ul>
+                                    </div>
+                                    <div style={{background: '#fef5f1', borderRadius: '0.75rem', padding: '1.25rem', borderTop: '4px solid #E8792F'}}>
+                                        <h4 style={{color: '#1B3A5C', fontWeight: 700, marginBottom: '0.75rem', marginTop: 0}}>{t.neo4jVsRelGraph}</h4>
+                                        <ul style={{color: '#374151', lineHeight: '1.8', paddingLeft: '1.2rem'}}>
+                                            <li>Nodes → Relationships → Properties</li>
+                                            <li>Traversals</li>
+                                            <li>Direct Pointers</li>
+                                            <li>Cypher</li>
+                                            <li>Schema-optional</li>
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
 
@@ -2181,6 +2318,22 @@
                         {/* FUNDAMENTALS */}
                         <div className="section" style={{display: activeSection === 'fundamentals' ? 'block' : 'none'}}>
                             <h2 className="section-header">{t.fundamentals}</h2>
+
+                            {/* Property Graph Model */}
+                            <div className="card">
+                                <h3 className="subsection-header">{t.propertyGraphTitle}</h3>
+                                <p style={{color: '#374151', lineHeight: '1.7', marginBottom: '1rem'}}>{t.propertyGraphDesc}</p>
+                                <div className="code-block">
+                                    <code style={{color: '#00d084', whiteSpace: 'pre', fontSize: '0.85rem'}}>{t.propertyGraphDiagram}</code>
+                                </div>
+                                <p style={{color: '#374151', lineHeight: '1.7', marginTop: '1rem', background: '#fef5f1', padding: '1rem', borderRadius: '0.5rem'}}>{t.propertyGraphExplanation}</p>
+                            </div>
+
+                            {/* Graph Traversal */}
+                            <div className="card">
+                                <h3 className="subsection-header">{t.traversalTitle}</h3>
+                                <p style={{color: '#374151', lineHeight: '1.7'}}>{t.traversalDesc}</p>
+                            </div>
 
                             <div className="card">
                                 <h3 className="subsection-header">{t.nodesLabel}</h3>

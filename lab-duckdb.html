@@ -349,6 +349,20 @@
                 dbtLabsDesc: 'dbt Labs integriert DuckDB in moderne Datenpipelines. Dateningenieure können SQL-Modelle lokal schnell entwickeln und testen, bevor sie in die Produktion überführt werden.',
                 observable: 'Observable – Interaktive Visualisierungen',
                 observableDesc: 'Observable nutzt DuckDB für interaktive Datenvisualisierungen direkt im Browser – ganz ohne Backend-Server. Das macht komplexe Analysen für jeden zugänglich.',
+                duckdbIntro: 'DuckDB ist ein modernes, eingebettetes analytisches Datenbanksystem – oft als „SQLite für Analytik" beschrieben. Es läuft direkt in Ihrem Prozess (Python, R, Node.js) ohne separaten Server und ist speziell für analytische Abfragen auf großen Datenmengen optimiert. Seit seiner Entwicklung an der CWI Amsterdam hat sich DuckDB zu einem der am schnellsten wachsenden Datenbankprojekte entwickelt.',
+                duckdbWebsite: 'Mehr erfahren auf',
+                duckdbArchTitle: 'DuckDB Architektur',
+                duckdbArchDesc: 'DuckDB ist eine In-Process-Datenbank: Sie wird als Bibliothek in Ihre Anwendung eingebettet, ohne separaten Server oder Daemon. Die vektorisierte Ausführungsengine verarbeitet Daten spaltenweise in Batches für maximale Performance.',
+                duckdbArchDiagram: '┌─────────────────────────────────┐\n│      Ihre Anwendung             │\n│   (Python / R / Node.js / CLI)  │\n│ ┌─────────────────────────────┐ │\n│ │      DuckDB Engine          │ │\n│ │ ┌─────────────────────────┐ │ │\n│ │ │  Vectorized Execution   │ │ │\n│ │ │  (Batch Processing)     │ │ │\n│ │ └────────────┬────────────┘ │ │\n│ │ ┌────────────▼────────────┐ │ │\n│ │ │  Columnar Storage       │ │ │\n│ │ │  (Spaltenorientiert)    │ │ │\n│ │ └────────────┬────────────┘ │ │\n│ └──────────────┼──────────────┘ │\n└────────────────┼────────────────┘\n                 ▼\n    ┌─────────────────────────┐\n    │     Datenquellen        │\n    │  CSV │ Parquet │ JSON   │\n    │  PostgreSQL │ MySQL    │\n    │  S3  │ HTTP   │ Excel  │\n    └─────────────────────────┘',
+                duckdbVsTitle: 'DuckDB vs. Andere Datenbanken',
+                duckdbVsDesc: 'DuckDB füllt eine einzigartige Nische: analytische Abfragen ohne die Komplexität eines Servers. Hier der Vergleich mit traditionellen Ansätzen:',
+                duckdbVsOLTP: 'OLTP (PostgreSQL, MySQL)',
+                duckdbVsOLAP: 'OLAP (DuckDB)',
+                olapTitle: 'OLAP vs. OLTP',
+                olapDesc: 'DuckDB ist für OLAP (Online Analytical Processing) optimiert – das bedeutet: wenige, aber komplexe Abfragen über viele Zeilen. Im Gegensatz dazu sind OLTP-Systeme (Online Transaction Processing) wie PostgreSQL oder MySQL für viele kleine Transaktionen (INSERT, UPDATE) optimiert. DuckDB liest Spalten statt Zeilen und kann dadurch analytische Abfragen um Größenordnungen schneller ausführen.',
+                vectorizedTitle: 'Vektorisierte Ausführung',
+                vectorizedDesc: 'DuckDB verarbeitet Daten nicht Zeile für Zeile, sondern in Vektoren (Batches von ~2048 Werten). Diese vektorisierte Ausführung nutzt CPU-Caches und SIMD-Instruktionen optimal aus – ähnlich wie moderne CPUs für Multimedia optimiert sind.',
+                vectorizedExplanation: 'In der Praxis bedeutet dies: Eine Aggregation über 1 Million Zeilen wird nicht als 1 Million einzelne Operationen ausgeführt, sondern als ~500 hochoptimierte Batch-Operationen. Das ist der Grund, warum DuckDB bei analytischen Abfragen oft 10-100x schneller ist als SQLite.',
                 estimatedTime: 'Geschätzte Zeit',
                 estimatedTimeValue: '3–4 Stunden für alle 12 Übungen',
                 requirements: 'Voraussetzungen',
@@ -676,6 +690,20 @@
                 dbtLabsDesc: 'dbt Labs integrates DuckDB into modern data pipelines. Data engineers can quickly develop and test SQL models locally before deploying them to production.',
                 observable: 'Observable – Interactive Visualizations',
                 observableDesc: 'Observable uses DuckDB for interactive data visualizations directly in the browser – without any backend server. This makes complex analyses accessible to everyone.',
+                duckdbIntro: 'DuckDB is a modern, embedded analytical database system – often described as "SQLite for analytics." It runs directly in your process (Python, R, Node.js) without a separate server and is specifically optimized for analytical queries on large datasets. Since its development at CWI Amsterdam, DuckDB has become one of the fastest-growing database projects.',
+                duckdbWebsite: 'Learn more at',
+                duckdbArchTitle: 'DuckDB Architecture',
+                duckdbArchDesc: 'DuckDB is an in-process database: it is embedded as a library in your application, without a separate server or daemon. The vectorized execution engine processes data column-wise in batches for maximum performance.',
+                duckdbArchDiagram: '┌─────────────────────────────────┐\n│      Your Application           │\n│   (Python / R / Node.js / CLI)  │\n│ ┌─────────────────────────────┐ │\n│ │      DuckDB Engine          │ │\n│ │ ┌─────────────────────────┐ │ │\n│ │ │  Vectorized Execution   │ │ │\n│ │ │  (Batch Processing)     │ │ │\n│ │ └────────────┬────────────┘ │ │\n│ │ ┌────────────▼────────────┐ │ │\n│ │ │  Columnar Storage       │ │ │\n│ │ │  (Column-oriented)      │ │ │\n│ │ └────────────┬────────────┘ │ │\n│ └──────────────┼──────────────┘ │\n└────────────────┼────────────────┘\n                 ▼\n    ┌─────────────────────────┐\n    │     Data Sources        │\n    │  CSV │ Parquet │ JSON   │\n    │  PostgreSQL │ MySQL    │\n    │  S3  │ HTTP   │ Excel  │\n    └─────────────────────────┘',
+                duckdbVsTitle: 'DuckDB vs. Other Databases',
+                duckdbVsDesc: 'DuckDB fills a unique niche: analytical queries without the complexity of a server. Here is the comparison with traditional approaches:',
+                duckdbVsOLTP: 'OLTP (PostgreSQL, MySQL)',
+                duckdbVsOLAP: 'OLAP (DuckDB)',
+                olapTitle: 'OLAP vs. OLTP',
+                olapDesc: 'DuckDB is optimized for OLAP (Online Analytical Processing) – meaning: few but complex queries across many rows. In contrast, OLTP systems (Online Transaction Processing) like PostgreSQL or MySQL are optimized for many small transactions (INSERT, UPDATE). DuckDB reads columns instead of rows and can therefore execute analytical queries orders of magnitude faster.',
+                vectorizedTitle: 'Vectorized Execution',
+                vectorizedDesc: 'DuckDB does not process data row by row, but in vectors (batches of ~2048 values). This vectorized execution optimally utilizes CPU caches and SIMD instructions – similar to how modern CPUs are optimized for multimedia.',
+                vectorizedExplanation: 'In practice, this means: An aggregation over 1 million rows is not executed as 1 million individual operations, but as ~500 highly optimized batch operations. This is why DuckDB is often 10-100x faster than SQLite for analytical queries.',
                 estimatedTime: 'Estimated Time',
                 estimatedTimeValue: '3–4 hours for all 12 exercises',
                 requirements: 'Requirements',
@@ -1001,6 +1029,20 @@
             dbtLabsDesc: 'تدمج dbt Labs DuckDB في خطوط أنابيب البيانات الحديثة. يمكن لمهندسي البيانات تطوير واختبار نماذج SQL محلياً بسرعة قبل نشرها في الإنتاج.',
             observable: 'Observable – التصورات التفاعلية',
             observableDesc: 'تستخدم Observable DuckDB لتصورات البيانات التفاعلية مباشرة في المتصفح – بدون أي خادم خلفي. هذا يجعل التحليلات المعقدة في متناول الجميع.',
+            duckdbIntro: 'DuckDB هو نظام قاعدة بيانات تحليلي مدمج حديث – يوصف غالباً بأنه "SQLite للتحليلات". يعمل مباشرة في عمليتك (Python، R، Node.js) بدون خادم منفصل وهو مُحسَّن خصيصاً للاستعلامات التحليلية على مجموعات البيانات الكبيرة. منذ تطويره في CWI أمستردام، أصبح DuckDB أحد أسرع مشاريع قواعد البيانات نمواً.',
+            duckdbWebsite: 'اعرف المزيد على',
+            duckdbArchTitle: 'بنية DuckDB',
+            duckdbArchDesc: 'DuckDB هي قاعدة بيانات داخل العملية: يتم تضمينها كمكتبة في تطبيقك، بدون خادم أو خدمة منفصلة. يعالج محرك التنفيذ المتجه البيانات عمودياً في دفعات لتحقيق أقصى أداء.',
+            duckdbArchDiagram: '┌─────────────────────────────────┐\n│      Your Application           │\n│   (Python / R / Node.js / CLI)  │\n│ ┌─────────────────────────────┐ │\n│ │      DuckDB Engine          │ │\n│ │ ┌─────────────────────────┐ │ │\n│ │ │  Vectorized Execution   │ │ │\n│ │ │  (Batch Processing)     │ │ │\n│ │ └────────────┬────────────┘ │ │\n│ │ ┌────────────▼────────────┐ │ │\n│ │ │  Columnar Storage       │ │ │\n│ │ │  (Column-oriented)      │ │ │\n│ │ └────────────┬────────────┘ │ │\n│ └──────────────┼──────────────┘ │\n└────────────────┼────────────────┘\n                 ▼\n    ┌─────────────────────────┐\n    │     Data Sources        │\n    │  CSV │ Parquet │ JSON   │\n    │  PostgreSQL │ MySQL    │\n    │  S3  │ HTTP   │ Excel  │\n    └─────────────────────────┘',
+            duckdbVsTitle: 'DuckDB مقابل قواعد البيانات الأخرى',
+            duckdbVsDesc: 'يملأ DuckDB مكانة فريدة: استعلامات تحليلية بدون تعقيد الخادم. إليك المقارنة مع الأساليب التقليدية:',
+            duckdbVsOLTP: 'OLTP (PostgreSQL، MySQL)',
+            duckdbVsOLAP: 'OLAP (DuckDB)',
+            olapTitle: 'OLAP مقابل OLTP',
+            olapDesc: 'DuckDB مُحسَّن لـ OLAP (المعالجة التحليلية عبر الإنترنت) – أي: استعلامات قليلة ولكن معقدة عبر صفوف كثيرة. في المقابل، أنظمة OLTP (معالجة المعاملات عبر الإنترنت) مثل PostgreSQL أو MySQL مُحسَّنة للعديد من المعاملات الصغيرة (INSERT، UPDATE). يقرأ DuckDB الأعمدة بدلاً من الصفوف ويمكنه بالتالي تنفيذ الاستعلامات التحليلية بسرعة أكبر بمراتب.',
+            vectorizedTitle: 'التنفيذ المتجه',
+            vectorizedDesc: 'لا يعالج DuckDB البيانات صفاً بصف، بل في متجهات (دفعات من ~2048 قيمة). يستغل هذا التنفيذ المتجه ذاكرات CPU المؤقتة وتعليمات SIMD بشكل مثالي – مشابه لكيفية تحسين المعالجات الحديثة للوسائط المتعددة.',
+            vectorizedExplanation: 'عملياً، هذا يعني: لا يتم تنفيذ تجميع على مليون صف كمليون عملية فردية، بل كـ ~500 عملية دفعية مُحسَّنة للغاية. هذا هو السبب في أن DuckDB غالباً ما يكون أسرع بـ 10-100 مرة من SQLite في الاستعلامات التحليلية.',
             estimatedTime: 'الوقت المقدر',
             estimatedTimeValue: '3–4 ساعات لجميع 12 تمريناً',
             requirements: 'المتطلبات',
@@ -1299,6 +1341,20 @@
             dbtLabsDesc: 'dbt Labs інтегрує DuckDB у сучасні конвеєри даних. Інженери даних можуть швидко розробляти та тестувати моделі SQL локально перед розгортанням у виробництво.',
             observable: 'Observable – інтерактивні візуалізації',
             observableDesc: 'Observable використовує DuckDB для інтерактивних візуалізацій даних безпосередньо у браузері – без жодного бекенду. Це робить складний аналіз доступним для всіх.',
+            duckdbIntro: 'DuckDB — це сучасна, вбудована аналітична система управління базами даних — часто описувана як "SQLite для аналітики". Вона працює безпосередньо у вашому процесі (Python, R, Node.js) без окремого сервера і спеціально оптимізована для аналітичних запитів на великих наборах даних. З моменту розробки в CWI Амстердам, DuckDB стала одним з найшвидше зростаючих проєктів баз даних.',
+            duckdbWebsite: 'Дізнайтеся більше на',
+            duckdbArchTitle: 'Архітектура DuckDB',
+            duckdbArchDesc: 'DuckDB — це база даних у процесі: вона вбудовується як бібліотека у ваш додаток, без окремого сервера чи демона. Векторизований механізм виконання обробляє дані по стовпцях пакетами для максимальної продуктивності.',
+            duckdbArchDiagram: '┌─────────────────────────────────┐\n│      Your Application           │\n│   (Python / R / Node.js / CLI)  │\n│ ┌─────────────────────────────┐ │\n│ │      DuckDB Engine          │ │\n│ │ ┌─────────────────────────┐ │ │\n│ │ │  Vectorized Execution   │ │ │\n│ │ │  (Batch Processing)     │ │ │\n│ │ └────────────┬────────────┘ │ │\n│ │ ┌────────────▼────────────┐ │ │\n│ │ │  Columnar Storage       │ │ │\n│ │ │  (Column-oriented)      │ │ │\n│ │ └────────────┬────────────┘ │ │\n│ └──────────────┼──────────────┘ │\n└────────────────┼────────────────┘\n                 ▼\n    ┌─────────────────────────┐\n    │     Data Sources        │\n    │  CSV │ Parquet │ JSON   │\n    │  PostgreSQL │ MySQL    │\n    │  S3  │ HTTP   │ Excel  │\n    └─────────────────────────┘',
+            duckdbVsTitle: 'DuckDB vs. Інші бази даних',
+            duckdbVsDesc: 'DuckDB займає унікальну нішу: аналітичні запити без складності сервера. Ось порівняння з традиційними підходами:',
+            duckdbVsOLTP: 'OLTP (PostgreSQL, MySQL)',
+            duckdbVsOLAP: 'OLAP (DuckDB)',
+            olapTitle: 'OLAP vs. OLTP',
+            olapDesc: 'DuckDB оптимізований для OLAP (онлайн-аналітична обробка) – це означає: мало, але складних запитів по багатьох рядках. На противагу, системи OLTP (онлайн-обробка транзакцій) як PostgreSQL або MySQL оптимізовані для багатьох малих транзакцій (INSERT, UPDATE). DuckDB читає стовпці замість рядків і тому може виконувати аналітичні запити на порядки швидше.',
+            vectorizedTitle: 'Векторизоване виконання',
+            vectorizedDesc: 'DuckDB обробляє дані не рядок за рядком, а у векторах (пакетах по ~2048 значень). Це векторизоване виконання оптимально використовує кеші CPU та інструкції SIMD – подібно до того, як сучасні процесори оптимізовані для мультимедіа.',
+            vectorizedExplanation: 'На практиці це означає: агрегація по 1 мільйону рядків виконується не як 1 мільйон окремих операцій, а як ~500 високооптимізованих пакетних операцій. Ось чому DuckDB часто в 10-100 разів швидший за SQLite для аналітичних запитів.',
             estimatedTime: 'Приблизний час',
             estimatedTimeValue: '3–4 години для всіх 12 вправ',
             requirements: 'Вимоги',
@@ -1597,6 +1653,20 @@
             dbtLabsDesc: 'dbt Labs integra DuckDB en canalizaciones de datos modernas. Los ingenieros de datos pueden desarrollar y probar modelos SQL localmente rápidamente antes de desplegarlos en producción.',
             observable: 'Observable: visualizaciones interactivas',
             observableDesc: 'Observable utiliza DuckDB para visualizaciones de datos interactivas directamente en el navegador, sin ningún servidor backend. Esto hace que los análisis complejos sean accesibles para todos.',
+            duckdbIntro: 'DuckDB es un sistema de base de datos analítico embebido y moderno – a menudo descrito como "SQLite para análisis". Se ejecuta directamente en su proceso (Python, R, Node.js) sin un servidor separado y está específicamente optimizado para consultas analíticas en grandes conjuntos de datos. Desde su desarrollo en CWI Ámsterdam, DuckDB se ha convertido en uno de los proyectos de bases de datos de más rápido crecimiento.',
+            duckdbWebsite: 'Más información en',
+            duckdbArchTitle: 'Arquitectura de DuckDB',
+            duckdbArchDesc: 'DuckDB es una base de datos en proceso: se integra como biblioteca en su aplicación, sin servidor o daemon separado. El motor de ejecución vectorizado procesa datos por columnas en lotes para máximo rendimiento.',
+            duckdbArchDiagram: '┌─────────────────────────────────┐\n│      Su Aplicación              │\n│   (Python / R / Node.js / CLI)  │\n│ ┌─────────────────────────────┐ │\n│ │      DuckDB Engine          │ │\n│ │ ┌─────────────────────────┐ │ │\n│ │ │  Vectorized Execution   │ │ │\n│ │ │  (Batch Processing)     │ │ │\n│ │ └────────────┬────────────┘ │ │\n│ │ ┌────────────▼────────────┐ │ │\n│ │ │  Columnar Storage       │ │ │\n│ │ │  (Orientado a columnas) │ │ │\n│ │ └────────────┬────────────┘ │ │\n│ └──────────────┼──────────────┘ │\n└────────────────┼────────────────┘\n                 ▼\n    ┌─────────────────────────┐\n    │     Fuentes de Datos    │\n    │  CSV │ Parquet │ JSON   │\n    │  PostgreSQL │ MySQL    │\n    │  S3  │ HTTP   │ Excel  │\n    └─────────────────────────┘',
+            duckdbVsTitle: 'DuckDB vs. Otras Bases de Datos',
+            duckdbVsDesc: 'DuckDB llena un nicho único: consultas analíticas sin la complejidad de un servidor. Aquí la comparación con enfoques tradicionales:',
+            duckdbVsOLTP: 'OLTP (PostgreSQL, MySQL)',
+            duckdbVsOLAP: 'OLAP (DuckDB)',
+            olapTitle: 'OLAP vs. OLTP',
+            olapDesc: 'DuckDB está optimizado para OLAP (Procesamiento Analítico en Línea) – esto significa: pocas pero complejas consultas sobre muchas filas. En contraste, los sistemas OLTP (Procesamiento de Transacciones en Línea) como PostgreSQL o MySQL están optimizados para muchas transacciones pequeñas (INSERT, UPDATE). DuckDB lee columnas en lugar de filas y por lo tanto puede ejecutar consultas analíticas órdenes de magnitud más rápido.',
+            vectorizedTitle: 'Ejecución Vectorizada',
+            vectorizedDesc: 'DuckDB no procesa datos fila por fila, sino en vectores (lotes de ~2048 valores). Esta ejecución vectorizada utiliza óptimamente las cachés de CPU e instrucciones SIMD – similar a cómo las CPUs modernas están optimizadas para multimedia.',
+            vectorizedExplanation: 'En la práctica, esto significa: una agregación sobre 1 millón de filas no se ejecuta como 1 millón de operaciones individuales, sino como ~500 operaciones por lotes altamente optimizadas. Esta es la razón por la que DuckDB es a menudo 10-100x más rápido que SQLite para consultas analíticas.',
             estimatedTime: 'Tiempo estimado',
             estimatedTimeValue: '3–4 horas para los 12 ejercicios',
             requirements: 'Requisitos',
@@ -1895,6 +1965,20 @@
             dbtLabsDesc: 'dbt Labs, DuckDB\'yi modern veri ardışık düzenlerine entegre eder. Veri mühendisleri, SQL modellerini üretimde yayınlamadan önce yerel olarak hızlı bir şekilde geliştirip test edebilir.',
             observable: 'Observable – Etkileşimli Görselleştirmeler',
             observableDesc: 'Observable, DuckDB\'yi tarayıcıda doğrudan etkileşimli veri görselleştirmeleri için kullanır – hiç arka uç sunucusu olmadan. Bu, karmaşık analizleri herkes için erişilebilir hale getirir.',
+            duckdbIntro: 'DuckDB, modern, gömülü bir analitik veritabanı sistemidir – genellikle "Analitik için SQLite" olarak tanımlanır. Python, R, Node.js sürecinizde doğrudan ayrı bir sunucu olmadan çalışır ve büyük veri kümeleri üzerindeki analitik sorgular için özel olarak optimize edilmiştir. CWI Amsterdam\'da geliştirilmesinden bu yana, DuckDB en hızlı büyüyen veritabanı projelerinden biri haline gelmiştir.',
+            duckdbWebsite: 'Daha fazla bilgi için',
+            duckdbArchTitle: 'DuckDB Mimarisi',
+            duckdbArchDesc: 'DuckDB bir süreç-içi veritabanıdır: uygulamanıza bir kütüphane olarak gömülür, ayrı bir sunucu veya daemon gerekmez. Vektörize yürütme motoru, maksimum performans için verileri sütun bazında toplu olarak işler.',
+            duckdbArchDiagram: '┌─────────────────────────────────┐\n│      Your Application           │\n│   (Python / R / Node.js / CLI)  │\n│ ┌─────────────────────────────┐ │\n│ │      DuckDB Engine          │ │\n│ │ ┌─────────────────────────┐ │ │\n│ │ │  Vectorized Execution   │ │ │\n│ │ │  (Batch Processing)     │ │ │\n│ │ └────────────┬────────────┘ │ │\n│ │ ┌────────────▼────────────┐ │ │\n│ │ │  Columnar Storage       │ │ │\n│ │ │  (Column-oriented)      │ │ │\n│ │ └────────────┬────────────┘ │ │\n│ └──────────────┼──────────────┘ │\n└────────────────┼────────────────┘\n                 ▼\n    ┌─────────────────────────┐\n    │     Data Sources        │\n    │  CSV │ Parquet │ JSON   │\n    │  PostgreSQL │ MySQL    │\n    │  S3  │ HTTP   │ Excel  │\n    └─────────────────────────┘',
+            duckdbVsTitle: 'DuckDB vs. Diğer Veritabanları',
+            duckdbVsDesc: 'DuckDB benzersiz bir niş doldurur: sunucu karmaşıklığı olmadan analitik sorgular. İşte geleneksel yaklaşımlarla karşılaştırma:',
+            duckdbVsOLTP: 'OLTP (PostgreSQL, MySQL)',
+            duckdbVsOLAP: 'OLAP (DuckDB)',
+            olapTitle: 'OLAP vs. OLTP',
+            olapDesc: 'DuckDB, OLAP (Çevrimiçi Analitik İşleme) için optimize edilmiştir – bu, birçok satır üzerinde az ama karmaşık sorgular anlamına gelir. Buna karşılık, PostgreSQL veya MySQL gibi OLTP (Çevrimiçi İşlem İşleme) sistemleri birçok küçük işlem (INSERT, UPDATE) için optimize edilmiştir. DuckDB satırlar yerine sütunları okur ve bu nedenle analitik sorguları büyüklük sıraları daha hızlı yürütebilir.',
+            vectorizedTitle: 'Vektörize Yürütme',
+            vectorizedDesc: 'DuckDB verileri satır satır değil, vektörler halinde (~2048 değerlik toplu işler) işler. Bu vektörize yürütme, CPU önbelleklerini ve SIMD talimatlarını optimal şekilde kullanır – modern CPU\'ların multimedya için optimize edilmesine benzer.',
+            vectorizedExplanation: 'Pratikte bu şu anlama gelir: 1 milyon satır üzerindeki bir toplama, 1 milyon bireysel işlem olarak değil, ~500 yüksek oranda optimize edilmiş toplu işlem olarak yürütülür. DuckDB\'nin analitik sorgularda SQLite\'dan genellikle 10-100x daha hızlı olmasının nedeni budur.',
             estimatedTime: 'Tahmini Süre',
             estimatedTimeValue: 'Tüm 12 alıştırma için 3–4 saat',
             requirements: 'Gereksinimler',
@@ -2339,6 +2423,15 @@
                     <main className="main-content">
                         <section id="overview">
                             <h2>{t.overview}</h2>
+                            {/* Introduction */}
+                            <p style={{color: '#374151', lineHeight: '1.7', fontSize: '1.05rem', marginBottom: '1.5rem'}}>
+                                {t.duckdbIntro}
+                            </p>
+                            <p style={{marginBottom: '2rem'}}>
+                                <a href="https://duckdb.org" target="_blank" rel="noopener noreferrer" style={{color: '#E8792F', fontWeight: 600, textDecoration: 'none'}}>
+                                    {t.duckdbWebsite} duckdb.org →
+                                </a>
+                            </p>
                             <div className="lesson-box">
                                 <h4 style={{ marginTop: 0 }}>{t.welcomeTitle}</h4>
                                 <p style={{ marginBottom: '0.75rem', color: '#555' }}>{t.welcomeGoals}</p>
@@ -2420,6 +2513,39 @@
                                     </tr>
                                 </tbody>
                             </table>
+
+                            {/* Architecture */}
+                            <h3>{t.duckdbArchTitle}</h3>
+                            <p style={{color: '#374151', lineHeight: '1.7', marginBottom: '1rem'}}>{t.duckdbArchDesc}</p>
+                            <div className="code-block">
+                                <code style={{color: '#e2e8f0', whiteSpace: 'pre', fontSize: '0.85rem'}}>{t.duckdbArchDiagram}</code>
+                            </div>
+
+                            {/* DuckDB vs Others Comparison */}
+                            <h3>{t.duckdbVsTitle}</h3>
+                            <p style={{color: '#374151', lineHeight: '1.7', marginBottom: '1rem'}}>{t.duckdbVsDesc}</p>
+                            <div style={{display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem', marginTop: '1rem'}}>
+                                <div style={{background: '#f0f4f8', borderRadius: '0.75rem', padding: '1.25rem', borderTop: '4px solid #6b7280'}}>
+                                    <h4 style={{color: '#1B3A5C', fontWeight: 700, marginBottom: '0.75rem', marginTop: 0}}>{t.duckdbVsOLTP}</h4>
+                                    <ul style={{color: '#374151', lineHeight: '1.8', paddingLeft: '1.2rem'}}>
+                                        <li>Client-Server Architecture</li>
+                                        <li>Row-oriented Storage</li>
+                                        <li>Optimized for INSERT/UPDATE</li>
+                                        <li>Many small Transactions</li>
+                                        <li>Requires Installation & Config</li>
+                                    </ul>
+                                </div>
+                                <div style={{background: '#fef5f1', borderRadius: '0.75rem', padding: '1.25rem', borderTop: '4px solid #E8792F'}}>
+                                    <h4 style={{color: '#1B3A5C', fontWeight: 700, marginBottom: '0.75rem', marginTop: 0}}>{t.duckdbVsOLAP}</h4>
+                                    <ul style={{color: '#374151', lineHeight: '1.8', paddingLeft: '1.2rem'}}>
+                                        <li>In-Process (Embedded)</li>
+                                        <li>Column-oriented Storage</li>
+                                        <li>Optimized for SELECT/Aggregations</li>
+                                        <li>Complex Analytical Queries</li>
+                                        <li>Zero Configuration</li>
+                                    </ul>
+                                </div>
+                            </div>
                         </section>
 
                         <section id="setup">
@@ -2466,6 +2592,19 @@
                         <section id="fundamentals">
                             <h2>{t.fundamentalsTitle}</h2>
                             <h3>{t.conceptsTitle}</h3>
+                            {/* OLAP vs OLTP */}
+                            <div className="lesson-box" style={{marginBottom: '1.5rem'}}>
+                                <h4 style={{marginTop: 0, color: '#E8792F'}}>{t.olapTitle}</h4>
+                                <p style={{color: '#374151', lineHeight: '1.7'}}>{t.olapDesc}</p>
+                            </div>
+
+                            {/* Vectorized Execution */}
+                            <div className="lesson-box" style={{marginBottom: '1.5rem'}}>
+                                <h4 style={{marginTop: 0, color: '#E8792F'}}>{t.vectorizedTitle}</h4>
+                                <p style={{color: '#374151', lineHeight: '1.7', marginBottom: '0.75rem'}}>{t.vectorizedDesc}</p>
+                                <p style={{color: '#374151', lineHeight: '1.7', background: '#fff', padding: '1rem', borderRadius: '0.5rem', borderLeft: '3px solid #E8792F'}}>{t.vectorizedExplanation}</p>
+                            </div>
+
                             <h4>{t.concept1}</h4>
                             <p>{t.concept1Desc}</p>
                             <h4>{t.concept2}</h4>
