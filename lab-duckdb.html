@@ -165,6 +165,7 @@
                 overview: 'Überblick',
                 setup: 'Installation & Setup',
                 fundamentals: 'Grundlagen',
+                tooling: 'Tooling & Anbindung',
                 exercise1: 'Übung 1: Erste Schritte',
                 exercise2: 'Übung 2: Daten laden & erkunden',
                 exercise3: 'Übung 3: Abfragen mit Filtern',
@@ -266,6 +267,35 @@
                 sqliteCons: 'Zeilenorientiert, Langsam für große Analysen',
                 postgresPros: 'Robust, Umfangreich',
                 postgresCons: 'Komplexer, Server nötig',
+
+                // Tooling & Integration
+                toolingTitle: 'Tooling & Anbindung',
+                toolingIntro: 'DuckDB ist anders — keine Server, keine Konfiguration. Hier zeigen wir, wie Sie DuckDB aus verschiedenen Tools heraus nutzen können. Das Besondere: Alle können direkt auf CSV-, Parquet- und andere Dateien zugreifen, ohne Daten vorher zu importieren!',
+                toolingSpecial: 'Das ist DuckBBs Superpower: SELECT * FROM \'file.parquet\' funktioniert sofort.',
+                jupyterNotebook: 'Jupyter Notebook',
+                jupyterDesc: 'Bereits in Ihrem Docker-Container installiert. Starten Sie den Notebook-Server und schreiben Sie SQL direkt in Zellen:',
+                jupyterCode: 'SELECT category, COUNT(*) as cnt, ROUND(AVG(price),2) as avg_price\nFROM \'/home/jovyan/data/products.csv\'\nGROUP BY category\nORDER BY cnt DESC',
+                jupyterNote: 'Keine Daten zu laden, keine Konvertierung — DuckDB liest die CSV direkt!',
+                pythonDuckDB: 'Python (duckdb)',
+                pythonDesc: 'Mit pip installierbar und ideal für Skripte, die Parquet UND CSV abfragen:',
+                pythonCode: 'import duckdb\n\nconn = duckdb.connect(\':memory:\')\n\n# CSV direkt abfragen\nresult = conn.execute(\'SELECT * FROM read_csv_auto("/home/jovyan/data/orders.csv") LIMIT 5\').fetchall()\nprint(result)',
+                pythonAnalysis: 'Monatliche Umsatztrends:',
+                pythonAnalysisCode: 'import duckdb\nimport pandas as pd\nfrom datetime import datetime\n\nconn = duckdb.connect(\':memory:\')\n\n# Monatliche Umsätze\nmonthly = conn.execute(\'\'\"\n  SELECT \n    strftime(CAST(order_date AS DATE), \'%Y-%m\') as month,\n    SUM(total_amount) as revenue,\n    COUNT(*) as order_count\n  FROM read_csv_auto(\'/home/jovyan/data/orders.csv\')\n  GROUP BY 1 ORDER BY 1\n\'\'\').df()\n\nprint(monthly)',
+                rDBI: 'R (duckdb + DBI)',
+                rDesc: 'DuckDB im R-Ökosystem mit DBI-Interface:',
+                rCode: 'library(duckdb)\nlibrary(DBI)\n\nconn <- dbConnect(duckdb())\n\n# Produktkategorie-Analyse\nresult <- dbGetQuery(conn, \'\n  SELECT category, COUNT(*) as cnt, ROUND(AVG(price), 2) as avg_price\n  FROM read_csv_auto(\\\"/home/jovyan/data/products.csv\\\")\n  GROUP BY category\n  ORDER BY cnt DESC\n\')\n\nprint(result)',
+                dbeaver: 'DBeaver',
+                dbeaverDesc: 'Visueller SQL-Client mit DuckDB-Unterstützung:',
+                dbeaverSteps: '1. DuckDB-Treiber installieren (in DBeaver vorhanden)\\n2. Neue Datenbank-Verbindung: DuckDB\\n3. .duckdb-Datei erstellen oder auf Speicher setzen\\n4. CSVs als externe Tabellen attachen\\n5. Grafisch durchsuchen & analysieren',
+                datagrid: 'DataGrip',
+                datagridDesc: 'JetBrains IDE mit DuckDB-Plugin:',
+                datagridNote: 'Gleiches Prinzip wie DBeaver — Datei-basiert, keine Serverkonfiguration nötig.',
+                cliTool: 'Command Line (DuckDB CLI)',
+                cliDesc: 'Ein-Liner für schnelle Analysen direkt im Terminal:',
+                cliCode: 'duckdb -c "SELECT category, COUNT(*) as cnt FROM read_csv_auto(\'/home/jovyan/data/products.csv\') GROUP BY category"',
+                vscode: 'VS Code',
+                vscodeDesc: 'SQL-Extensions mit DuckDB-Support installieren und lokal SQL debuggen.',
+                keyMessage: 'Das Wichtigste: DuckDB braucht keinen Server, keine Connection-Strings, keine Konfiguration. Überall wo Sie arbeiten — Python, R, Jupyter, CLI, GUI — Sie greifen auf Ihre Daten zu, als wären Sie in einer echten Datenbank. Aber viel schneller und lokaler!',
 
                 // Exercises
                 beginner: 'Anfänger',
@@ -506,6 +536,7 @@
                 overview: 'Overview',
                 setup: 'Installation & Setup',
                 fundamentals: 'Fundamentals',
+                tooling: 'Tooling & Integration',
                 exercise1: 'Exercise 1: Getting Started',
                 exercise2: 'Exercise 2: Loading & Exploring Data',
                 exercise3: 'Exercise 3: Filtering Queries',
@@ -607,6 +638,35 @@
                 sqliteCons: 'Row-oriented, Slow for large analytics',
                 postgresPros: 'Robust, Feature-rich',
                 postgresCons: 'Complex, Server required',
+
+                // Tooling & Integration
+                toolingTitle: 'Tooling & Integration',
+                toolingIntro: 'DuckDB is different — no server, no configuration. Here we show you how to use DuckDB from various tools. The key feature: everyone can directly access CSV, Parquet, and other files without pre-importing data!',
+                toolingSpecial: 'This is DuckDB\'s superpower: SELECT * FROM \'file.parquet\' works immediately.',
+                jupyterNotebook: 'Jupyter Notebook',
+                jupyterDesc: 'Already installed in your Docker container. Start the notebook server and write SQL directly in cells:',
+                jupyterCode: 'SELECT category, COUNT(*) as cnt, ROUND(AVG(price),2) as avg_price\nFROM \'/home/jovyan/data/products.csv\'\nGROUP BY category\nORDER BY cnt DESC',
+                jupyterNote: 'No data loading, no conversion — DuckDB reads the CSV directly!',
+                pythonDuckDB: 'Python (duckdb)',
+                pythonDesc: 'Installable via pip and perfect for scripts that query Parquet AND CSV:',
+                pythonCode: 'import duckdb\n\nconn = duckdb.connect(\':memory:\')\n\n# Query CSV directly\nresult = conn.execute(\'SELECT * FROM read_csv_auto("/home/jovyan/data/orders.csv") LIMIT 5\').fetchall()\nprint(result)',
+                pythonAnalysis: 'Monthly revenue trends:',
+                pythonAnalysisCode: 'import duckdb\nimport pandas as pd\nfrom datetime import datetime\n\nconn = duckdb.connect(\':memory:\')\n\n# Monthly revenues\nmonthly = conn.execute(\'\'\"\n  SELECT \n    strftime(CAST(order_date AS DATE), \'%Y-%m\') as month,\n    SUM(total_amount) as revenue,\n    COUNT(*) as order_count\n  FROM read_csv_auto(\'/home/jovyan/data/orders.csv\')\n  GROUP BY 1 ORDER BY 1\n\'\'\').df()\n\nprint(monthly)',
+                rDBI: 'R (duckdb + DBI)',
+                rDesc: 'DuckDB in the R ecosystem with DBI interface:',
+                rCode: 'library(duckdb)\nlibrary(DBI)\n\nconn <- dbConnect(duckdb())\n\n# Product category analysis\nresult <- dbGetQuery(conn, \'\n  SELECT category, COUNT(*) as cnt, ROUND(AVG(price), 2) as avg_price\n  FROM read_csv_auto(\\\"/home/jovyan/data/products.csv\\\")\n  GROUP BY category\n  ORDER BY cnt DESC\n\')\n\nprint(result)',
+                dbeaver: 'DBeaver',
+                dbeaverDesc: 'Visual SQL client with DuckDB support:',
+                dbeaverSteps: '1. Install DuckDB driver (built-in in DBeaver)\\n2. New database connection: DuckDB\\n3. Create .duckdb file or set to memory\\n4. Attach CSVs as external tables\\n5. Browse & analyze graphically',
+                datagrid: 'DataGrip',
+                datagridDesc: 'JetBrains IDE with DuckDB plugin:',
+                datagridNote: 'Same principle as DBeaver — file-based, no server configuration needed.',
+                cliTool: 'Command Line (DuckDB CLI)',
+                cliDesc: 'One-liners for quick analysis directly in the terminal:',
+                cliCode: 'duckdb -c "SELECT category, COUNT(*) as cnt FROM read_csv_auto(\'/home/jovyan/data/products.csv\') GROUP BY category"',
+                vscode: 'VS Code',
+                vscodeDesc: 'Install SQL extensions with DuckDB support and debug SQL locally.',
+                keyMessage: 'The key point: DuckDB needs no server, no connection strings, no configuration. Wherever you work — Python, R, Jupyter, CLI, GUI — you access your data as if it were in a real database. But much faster and local!',
 
                 // Exercises
                 beginner: 'Beginner',
@@ -847,6 +907,7 @@
             overview: 'نظرة عامة',
             setup: 'الإعداد',
             fundamentals: 'الأساسيات',
+            tooling: 'الأدوات والتكامل',
             exercise1: 'التمرين 1',
             exercise2: 'التمرين 2',
             exercise3: 'التمرين 3',
@@ -942,6 +1003,33 @@
             sqliteCons: 'موجه للصفوف، بطيء للتحليلات الكبيرة',
             postgresPros: 'قوي، غني بالميزات',
             postgresCons: 'معقد، يتطلب خادماً',
+            toolingTitle: 'الأدوات والتكامل',
+            toolingIntro: 'DuckDB مختلف — لا توجد خوادم، لا توجد تكوينات معقدة. نحن هنا نريك كيفية استخدام DuckDB من أدوات مختلفة. الميزة الرئيسية: يمكن الجميع الوصول مباشرة إلى ملفات CSV و Parquet وملفات أخرى دون الحاجة إلى استيراد البيانات مسبقاً!',
+            toolingSpecial: 'هذه هي قوة DuckDB: SELECT * FROM \'file.parquet\' يعمل فوراً.',
+            jupyterNotebook: 'Jupyter Notebook',
+            jupyterDesc: 'مثبت بالفعل في حاويتك Docker. ابدأ خادم الكمبيوتر الدفتري واكتب SQL مباشرة في الخلايا:',
+            jupyterCode: 'SELECT category, COUNT(*) as cnt, ROUND(AVG(price),2) as avg_price\nFROM \'/home/jovyan/data/products.csv\'\nGROUP BY category\nORDER BY cnt DESC',
+            jupyterNote: 'لا حاجة لتحميل البيانات، لا تحويل — يقرأ DuckDB ملف CSV مباشرة!',
+            pythonDuckDB: 'Python (duckdb)',
+            pythonDesc: 'قابل للتثبيت عبر pip ومثالي للبرامج النصية التي تسأل عن Parquet و CSV:',
+            pythonCode: 'import duckdb\n\nconn = duckdb.connect(\':memory:\')\n\n# استعلام CSV مباشرة\nresult = conn.execute(\'SELECT * FROM read_csv_auto("/home/jovyan/data/orders.csv") LIMIT 5\').fetchall()\nprint(result)',
+            pythonAnalysis: 'اتجاهات الإيرادات الشهرية:',
+            pythonAnalysisCode: 'import duckdb\nimport pandas as pd\nfrom datetime import datetime\n\nconn = duckdb.connect(\':memory:\')\n\n# الإيرادات الشهرية\nmonthly = conn.execute(\'\'\"\n  SELECT \n    strftime(CAST(order_date AS DATE), \'%Y-%m\') as month,\n    SUM(total_amount) as revenue,\n    COUNT(*) as order_count\n  FROM read_csv_auto(\'/home/jovyan/data/orders.csv\')\n  GROUP BY 1 ORDER BY 1\n\'\'\').df()\n\nprint(monthly)',
+            rDBI: 'R (duckdb + DBI)',
+            rDesc: 'DuckDB في نظام R البيئي مع واجهة DBI:',
+            rCode: 'library(duckdb)\nlibrary(DBI)\n\nconn <- dbConnect(duckdb())\n\n# تحليل فئة المنتج\nresult <- dbGetQuery(conn, \'\n  SELECT category, COUNT(*) as cnt, ROUND(AVG(price), 2) as avg_price\n  FROM read_csv_auto(\\\"/home/jovyan/data/products.csv\\\")\n  GROUP BY category\n  ORDER BY cnt DESC\n\')\n\nprint(result)',
+            dbeaver: 'DBeaver',
+            dbeaverDesc: 'عميل SQL مرئي مع دعم DuckDB:',
+            dbeaverSteps: '1. تثبيت برنامج تشغيل DuckDB (مدمج في DBeaver)\\n2. اتصال قاعدة بيانات جديد: DuckDB\\n3. إنشاء ملف .duckdb أو تعيين الذاكرة\\n4. إرفاق ملفات CSV كجداول خارجية\\n5. استعراض وتحليل بصرياً',
+            datagrid: 'DataGrip',
+            datagridDesc: 'JetBrains IDE مع مكون إضافي DuckDB:',
+            datagridNote: 'نفس مبدأ DBeaver — قائم على الملف، لا يتطلب تكوين الخادم.',
+            cliTool: 'سطر الأوامر (DuckDB CLI)',
+            cliDesc: 'سطر واحد للتحليل السريع مباشرة في الطرفية:',
+            cliCode: 'duckdb -c "SELECT category, COUNT(*) as cnt FROM read_csv_auto(\'/home/jovyan/data/products.csv\') GROUP BY category"',
+            vscode: 'VS Code',
+            vscodeDesc: 'تثبيت امتدادات SQL مع دعم DuckDB وتصحيح SQL محلياً.',
+            keyMessage: 'النقطة الرئيسية: DuckDB لا يحتاج إلى خادم، لا سلاسل اتصال، لا تكوين. أينما تعمل — Python أو R أو Jupyter أو CLI أو GUI — تمكنك من الوصول إلى بياناتك كما لو كانت في قاعدة بيانات حقيقية. لكن أسرع بكثير وموضعية!',
             beginner: 'مبتدئ',
             time: 'الوقت',
             learningGoal: 'الهدف التعليمي',
@@ -1159,6 +1247,7 @@
             overview: 'Огляд',
             setup: 'Налаштування',
             fundamentals: 'Основи',
+            tooling: 'Інструменти та інтеграція',
             exercise1: 'Вправа 1',
             exercise2: 'Вправа 2',
             exercise3: 'Вправа 3',
@@ -1254,6 +1343,33 @@
             sqliteCons: 'орієнтований на рядки, повільний для великих аналітик',
             postgresPros: 'потужний, багатофункціональний',
             postgresCons: 'складний, вимагає серверу',
+            toolingTitle: 'Інструменти та інтеграція',
+            toolingIntro: 'DuckDB відрізняється — ніяких серверів, ніякої складної конфігурації. Тут ми показуємо вам, як використовувати DuckDB з різних інструментів. Ключова особливість: кожен може безпосередньо отримати доступ до файлів CSV, Parquet та інших без необхідності попереднього імпорту даних!',
+            toolingSpecial: 'Це сила DuckDB: SELECT * FROM \'file.parquet\' працює одразу.',
+            jupyterNotebook: 'Jupyter Notebook',
+            jupyterDesc: 'Уже встановлено у вашому контейнері Docker. Запустіть сервер ноутбука та пишіть SQL безпосередньо в клітинках:',
+            jupyterCode: 'SELECT category, COUNT(*) as cnt, ROUND(AVG(price),2) as avg_price\nFROM \'/home/jovyan/data/products.csv\'\nGROUP BY category\nORDER BY cnt DESC',
+            jupyterNote: 'Немає завантаження даних, немає перетворень — DuckDB читає CSV безпосередньо!',
+            pythonDuckDB: 'Python (duckdb)',
+            pythonDesc: 'Встановлювати можна через pip і це ідеально для скриптів, які запитують Parquet І CSV:',
+            pythonCode: 'import duckdb\n\nconn = duckdb.connect(\':memory:\')\n\n# Запит CSV безпосередньо\nresult = conn.execute(\'SELECT * FROM read_csv_auto("/home/jovyan/data/orders.csv") LIMIT 5\').fetchall()\nprint(result)',
+            pythonAnalysis: 'Тенденції щомісячних доходів:',
+            pythonAnalysisCode: 'import duckdb\nimport pandas as pd\nfrom datetime import datetime\n\nconn = duckdb.connect(\':memory:\')\n\n# Щомісячні доходи\nmonthly = conn.execute(\'\'\"\n  SELECT \n    strftime(CAST(order_date AS DATE), \'%Y-%m\') as month,\n    SUM(total_amount) as revenue,\n    COUNT(*) as order_count\n  FROM read_csv_auto(\'/home/jovyan/data/orders.csv\')\n  GROUP BY 1 ORDER BY 1\n\'\'\').df()\n\nprint(monthly)',
+            rDBI: 'R (duckdb + DBI)',
+            rDesc: 'DuckDB в екосистемі R з інтерфейсом DBI:',
+            rCode: 'library(duckdb)\nlibrary(DBI)\n\nconn <- dbConnect(duckdb())\n\n# Аналіз категорії продукту\nresult <- dbGetQuery(conn, \'\n  SELECT category, COUNT(*) as cnt, ROUND(AVG(price), 2) as avg_price\n  FROM read_csv_auto(\\\"/home/jovyan/data/products.csv\\\")\n  GROUP BY category\n  ORDER BY cnt DESC\n\')\n\nprint(result)',
+            dbeaver: 'DBeaver',
+            dbeaverDesc: 'Візуальний клієнт SQL з підтримкою DuckDB:',
+            dbeaverSteps: '1. Встановіть драйвер DuckDB (вбудований у DBeaver)\\n2. Нове з\'єднання бази даних: DuckDB\\n3. Створіть файл .duckdb або встановіть пам\'ять\\n4. Додайте файли CSV як зовнішні таблиці\\n5. Переглядайте та аналізуйте графічно',
+            datagrid: 'DataGrip',
+            datagridDesc: 'JetBrains IDE з плагіном DuckDB:',
+            datagridNote: 'Той самий принцип, що й DBeaver — на основі файлів, без необхідності конфігурації сервера.',
+            cliTool: 'Командний рядок (DuckDB CLI)',
+            cliDesc: 'Однорядкові команди для швидкого аналізу безпосередньо в терміналі:',
+            cliCode: 'duckdb -c "SELECT category, COUNT(*) as cnt FROM read_csv_auto(\'/home/jovyan/data/products.csv\') GROUP BY category"',
+            vscode: 'VS Code',
+            vscodeDesc: 'Встановіть розширення SQL з підтримкою DuckDB та дебажте SQL локально.',
+            keyMessage: 'Ключовий момент: DuckDB не потребує сервера, рядків з\'єднання, конфігурації. Де б ви не працювали — Python, R, Jupyter, CLI, GUI — ви маєте доступ до своїх даних, як якби вони були в справжній базі даних. Але набагато швидше та локально!',
             beginner: 'Початківець',
             time: 'Час',
             learningGoal: 'Навчальна мета',
@@ -1471,6 +1587,7 @@
             overview: 'Descripción general',
             setup: 'Configuración',
             fundamentals: 'Fundamentos',
+            tooling: 'Herramientas e integración',
             exercise1: 'Ejercicio 1',
             exercise2: 'Ejercicio 2',
             exercise3: 'Ejercicio 3',
@@ -1566,6 +1683,33 @@
             sqliteCons: 'Orientado a filas, lento para análisis grandes',
             postgresPros: 'Potente, rico en características',
             postgresCons: 'Complejo, requiere servidor',
+            toolingTitle: 'Herramientas e integración',
+            toolingIntro: 'DuckDB es diferente — sin servidores, sin configuración compleja. Aquí te mostramos cómo utilizar DuckDB desde varias herramientas. La característica clave: todos pueden acceder directamente a archivos CSV, Parquet y otros sin necesidad de importar datos previamente!',
+            toolingSpecial: 'Este es el superpoder de DuckDB: SELECT * FROM \'file.parquet\' funciona inmediatamente.',
+            jupyterNotebook: 'Jupyter Notebook',
+            jupyterDesc: 'Ya instalado en tu contenedor Docker. Inicia el servidor de notebooks y escribe SQL directamente en las celdas:',
+            jupyterCode: 'SELECT category, COUNT(*) as cnt, ROUND(AVG(price),2) as avg_price\nFROM \'/home/jovyan/data/products.csv\'\nGROUP BY category\nORDER BY cnt DESC',
+            jupyterNote: '¡Sin cargar datos, sin conversión — DuckDB lee el CSV directamente!',
+            pythonDuckDB: 'Python (duckdb)',
+            pythonDesc: 'Instalable a través de pip e ideal para scripts que consultan Parquet Y CSV:',
+            pythonCode: 'import duckdb\n\nconn = duckdb.connect(\':memory:\')\n\n# Consultar CSV directamente\nresult = conn.execute(\'SELECT * FROM read_csv_auto("/home/jovyan/data/orders.csv") LIMIT 5\').fetchall()\nprint(result)',
+            pythonAnalysis: 'Tendencias de ingresos mensuales:',
+            pythonAnalysisCode: 'import duckdb\nimport pandas as pd\nfrom datetime import datetime\n\nconn = duckdb.connect(\':memory:\')\n\n# Ingresos mensuales\nmonthly = conn.execute(\'\'\"\n  SELECT \n    strftime(CAST(order_date AS DATE), \'%Y-%m\') as month,\n    SUM(total_amount) as revenue,\n    COUNT(*) as order_count\n  FROM read_csv_auto(\'/home/jovyan/data/orders.csv\')\n  GROUP BY 1 ORDER BY 1\n\'\'\').df()\n\nprint(monthly)',
+            rDBI: 'R (duckdb + DBI)',
+            rDesc: 'DuckDB en el ecosistema R con interfaz DBI:',
+            rCode: 'library(duckdb)\nlibrary(DBI)\n\nconn <- dbConnect(duckdb())\n\n# Análisis de categoría de producto\nresult <- dbGetQuery(conn, \'\n  SELECT category, COUNT(*) as cnt, ROUND(AVG(price), 2) as avg_price\n  FROM read_csv_auto(\\\"/home/jovyan/data/products.csv\\\")\n  GROUP BY category\n  ORDER BY cnt DESC\n\')\n\nprint(result)',
+            dbeaver: 'DBeaver',
+            dbeaverDesc: 'Cliente SQL visual con soporte para DuckDB:',
+            dbeaverSteps: '1. Instala el controlador DuckDB (incorporado en DBeaver)\\n2. Nueva conexión de base de datos: DuckDB\\n3. Crea un archivo .duckdb o establece en memoria\\n4. Adjunta archivos CSV como tablas externas\\n5. Explora y analiza gráficamente',
+            datagrid: 'DataGrip',
+            datagridDesc: 'JetBrains IDE con plugin DuckDB:',
+            datagridNote: 'El mismo principio que DBeaver — basado en archivos, sin configuración de servidor necesaria.',
+            cliTool: 'Línea de comandos (DuckDB CLI)',
+            cliDesc: 'Comandos de una línea para análisis rápido directamente en la terminal:',
+            cliCode: 'duckdb -c "SELECT category, COUNT(*) as cnt FROM read_csv_auto(\'/home/jovyan/data/products.csv\') GROUP BY category"',
+            vscode: 'VS Code',
+            vscodeDesc: 'Instala extensiones SQL con soporte para DuckDB y depura SQL localmente.',
+            keyMessage: '¡El punto clave: DuckDB no necesita servidor, cadenas de conexión, ni configuración. Dondequiera que trabajes — Python, R, Jupyter, CLI, GUI — accedes a tus datos como si estuvieran en una base de datos real. Pero mucho más rápido y localmente!',
             beginner: 'Principiante',
             time: 'Tiempo',
             learningGoal: 'Objetivo de aprendizaje',
@@ -1783,6 +1927,7 @@
             overview: 'Genel Bakış',
             setup: 'Kurulum',
             fundamentals: 'Temel Bilgiler',
+            tooling: 'Araçlar ve Entegrasyon',
             exercise1: 'Alıştırma 1',
             exercise2: 'Alıştırma 2',
             exercise3: 'Alıştırma 3',
@@ -1878,6 +2023,33 @@
             sqliteCons: 'Satır yönelimli, büyük analizler için yavaş',
             postgresPros: 'Güçlü, zengin özelliklere sahip',
             postgresCons: 'Karmaşık, sunucu gerektirir',
+            toolingTitle: 'Araçlar ve Entegrasyon',
+            toolingIntro: 'DuckDB farklıdır — sunucu yok, karmaşık yapılandırma yok. Burada size DuckDB\'yi çeşitli araçlardan nasıl kullanacağınızı gösteriyoruz. Temel özellik: herkes verileri önceden içe aktarmaya gerek kalmadan doğrudan CSV, Parquet ve diğer dosyalara erişebilir!',
+            toolingSpecial: 'Bu DuckDB\'nin süper gücü: SELECT * FROM \'file.parquet\' hemen çalışır.',
+            jupyterNotebook: 'Jupyter Notebook',
+            jupyterDesc: 'Docker konteynerinizde zaten yüklüdür. Notebook sunucusunu başlatın ve hücrelerde doğrudan SQL yazın:',
+            jupyterCode: 'SELECT category, COUNT(*) as cnt, ROUND(AVG(price),2) as avg_price\nFROM \'/home/jovyan/data/products.csv\'\nGROUP BY category\nORDER BY cnt DESC',
+            jupyterNote: 'Veri yükleme yok, dönüşüm yok — DuckDB CSV\'yi doğrudan okur!',
+            pythonDuckDB: 'Python (duckdb)',
+            pythonDesc: 'pip aracılığıyla kurulabilir ve Parquet VE CSV\'yi sorgulayan komut dosyaları için ideal:',
+            pythonCode: 'import duckdb\n\nconn = duckdb.connect(\':memory:\')\n\n# CSV\'yi doğrudan sorgula\nresult = conn.execute(\'SELECT * FROM read_csv_auto("/home/jovyan/data/orders.csv") LIMIT 5\').fetchall()\nprint(result)',
+            pythonAnalysis: 'Aylık gelir eğilimleri:',
+            pythonAnalysisCode: 'import duckdb\nimport pandas as pd\nfrom datetime import datetime\n\nconn = duckdb.connect(\':memory:\')\n\n# Aylık gelirler\nmonthly = conn.execute(\'\'\"\n  SELECT \n    strftime(CAST(order_date AS DATE), \'%Y-%m\') as month,\n    SUM(total_amount) as revenue,\n    COUNT(*) as order_count\n  FROM read_csv_auto(\'/home/jovyan/data/orders.csv\')\n  GROUP BY 1 ORDER BY 1\n\'\'\').df()\n\nprint(monthly)',
+            rDBI: 'R (duckdb + DBI)',
+            rDesc: 'R ekosisteminde DuckDB ve DBI arabirimi:',
+            rCode: 'library(duckdb)\nlibrary(DBI)\n\nconn <- dbConnect(duckdb())\n\n# Ürün kategorisi analizi\nresult <- dbGetQuery(conn, \'\n  SELECT category, COUNT(*) as cnt, ROUND(AVG(price), 2) as avg_price\n  FROM read_csv_auto(\\\"/home/jovyan/data/products.csv\\\")\n  GROUP BY category\n  ORDER BY cnt DESC\n\')\n\nprint(result)',
+            dbeaver: 'DBeaver',
+            dbeaverDesc: 'DuckDB desteğine sahip görsel SQL istemcisi:',
+            dbeaverSteps: '1. DuckDB sürücüsünü kurun (DBeaver\'de yerleşikdir)\\n2. Yeni veritabanı bağlantısı: DuckDB\\n3. .duckdb dosyası oluşturun veya belleğe ayarlayın\\n4. CSV dosyalarını harici tablo olarak ekleyin\\n5. Grafik olarak göz atın ve analiz edin',
+            datagrid: 'DataGrip',
+            datagridDesc: 'DuckDB eklentisine sahip JetBrains IDE:',
+            datagridNote: 'DBeaver ile aynı ilke — dosya tabanlı, sunucu yapılandırması gerekli değil.',
+            cliTool: 'Komut Satırı (DuckDB CLI)',
+            cliDesc: 'Terminal\'de hızlı analiz için tek satırlık komutlar:',
+            cliCode: 'duckdb -c "SELECT category, COUNT(*) as cnt FROM read_csv_auto(\'/home/jovyan/data/products.csv\') GROUP BY category"',
+            vscode: 'VS Code',
+            vscodeDesc: 'DuckDB desteğine sahip SQL uzantılarını kurun ve SQL\'i yerel olarak ayıklayın.',
+            keyMessage: 'Temel nokta: DuckDB\'nin sunucuya, bağlantı dizelerine veya yapılandırmaya ihtiyacı yoktur. Nerede çalışırsanız çalışın — Python, R, Jupyter, CLI, GUI — verilerinize gerçek bir veritabanındaymış gibi erişebilirsiniz. Ama çok daha hızlı ve yerel olarak!',
             beginner: 'Başlangıç',
             time: 'Zaman',
             learningGoal: 'Öğrenme Hedefi',
@@ -2255,6 +2427,7 @@
                 { id: 'overview', label: t.overview },
                 { id: 'setup', label: t.setup },
                 { id: 'fundamentals', label: t.fundamentals },
+                { id: 'tooling', label: t.tooling },
                 { id: 'exercise1', label: t.exercise1 },
                 { id: 'exercise2', label: t.exercise2 },
                 { id: 'exercise3', label: t.exercise3 },
@@ -2529,6 +2702,96 @@
                                     </tr>
                                 </tbody>
                             </table>
+                        </section>
+
+                        <section id="tooling">
+                            <h2>{t.toolingTitle}</h2>
+                            <p style={{color: '#374151', lineHeight: '1.7', fontSize: '1.05rem', marginBottom: '1.5rem'}}>
+                                {t.toolingIntro}
+                            </p>
+                            <div className="lesson-box" style={{backgroundColor: '#FFF4E6', borderLeftColor: '#E8792F', marginBottom: '2rem'}}>
+                                <h4 style={{color: '#E8792F', marginTop: 0}}>DuckDB ist anders!</h4>
+                                <p style={{fontWeight: 600, color: '#374151', marginBottom: '0.5rem'}}>
+                                    {t.toolingSpecial}
+                                </p>
+                                <p style={{color: '#374151', marginBottom: 0}}>
+                                    Kein Server, keine Konfiguration, keine Connection-Strings — nur: {' '}
+                                    <code style={{backgroundColor: '#f0f0f0', padding: '0.2rem 0.6rem', borderRadius: '0.375rem', fontFamily: 'monospace'}}>SELECT * FROM 'data.parquet'</code>
+                                </p>
+                            </div>
+
+                            <h3>{t.jupyterNotebook}</h3>
+                            <p>{t.jupyterDesc}</p>
+                            <div className="code-block">
+                                <button className="copy-btn" onClick={() => { navigator.clipboard.writeText(t.jupyterCode); alert(t.copied); }}>{t.copy}</button>
+                                <code>{t.jupyterCode}</code>
+                            </div>
+                            <div className="tip-box">
+                                <strong>Ergebnis:</strong> DuckDB wird sofort verwendet, ohne Datei-Import oder Preprocessing!
+                            </div>
+
+                            <h3>{t.pythonDuckDB}</h3>
+                            <p>{t.pythonDesc}</p>
+                            <div className="code-block">
+                                <button className="copy-btn" onClick={() => { navigator.clipboard.writeText(t.pythonCode); alert(t.copied); }}>{t.copy}</button>
+                                <code>{t.pythonCode}</code>
+                            </div>
+                            <p><strong>{t.pythonAnalysis}</strong></p>
+                            <div className="code-block">
+                                <button className="copy-btn" onClick={() => { navigator.clipboard.writeText(t.pythonAnalysisCode); alert(t.copied); }}>{t.copy}</button>
+                                <code>{t.pythonAnalysisCode}</code>
+                            </div>
+                            <div className="output-box">month       revenue  order_count
+2024-01           15234.50           145
+2024-02           18956.23           172
+2024-03           22341.80           198</div>
+
+                            <h3>{t.rDBI}</h3>
+                            <p>{t.rDesc}</p>
+                            <div className="code-block">
+                                <button className="copy-btn" onClick={() => { navigator.clipboard.writeText(t.rCode); alert(t.copied); }}>{t.copy}</button>
+                                <code>{t.rCode}</code>
+                            </div>
+
+                            <h3>{t.dbeaver}</h3>
+                            <p>{t.dbeaverDesc}</p>
+                            <div className="lesson-box">
+                                <h4>Schritte:</h4>
+                                <p style={{whiteSpace: 'pre-wrap', fontFamily: 'monospace', fontSize: '0.9rem', color: '#4b5563'}}>
+                                    {t.dbeaverSteps}
+                                </p>
+                            </div>
+                            <p style={{fontSize: '0.95rem', color: '#666'}}>
+                                Danach: Visuelle Datenbank-Exploration wie bei PostgreSQL — aber lokal und ohne Serverkonfiguration!
+                            </p>
+
+                            <h3>{t.datagrid}</h3>
+                            <p>{t.datagridDesc}</p>
+                            <p style={{color: '#666', fontSize: '0.95rem'}}>{t.datagridNote}</p>
+
+                            <h3>{t.cliTool}</h3>
+                            <p>{t.cliDesc}</p>
+                            <div className="code-block">
+                                <button className="copy-btn" onClick={() => { navigator.clipboard.writeText(t.cliCode); alert(t.copied); }}>{t.copy}</button>
+                                <code>{t.cliCode}</code>
+                            </div>
+
+                            <h3>{t.vscode}</h3>
+                            <p>{t.vscodeDesc}</p>
+
+                            <h3 style={{marginTop: '2rem', color: '#1B3A5C'}}>Die Kernaussage</h3>
+                            <div className="concept-box" style={{backgroundColor: 'rgba(232, 121, 47, 0.06)', borderLeftColor: '#E8792F'}}>
+                                <p style={{fontWeight: 600, color: '#E8792F', marginBottom: '0.75rem'}}>
+                                    {t.keyMessage}
+                                </p>
+                                <ul style={{color: '#4b5563', paddingLeft: '1.5rem'}}>
+                                    <li>Überall verfügbar: Python, R, Jupyter, CLI, GUIs</li>
+                                    <li>Keine Infrastruktur-Komplexität</li>
+                                    <li>Echte Datenbank-Performance für Analytics</li>
+                                    <li>Funktioniert mit CSV, Parquet, JSON, und mehr</li>
+                                    <li>Perfekt zum Lernen und für Production-Use</li>
+                                </ul>
+                            </div>
                         </section>
 
                         <Exercise number={1} t={t} />

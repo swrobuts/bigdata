@@ -487,7 +487,55 @@ const translations = {
         hint: 'Hinweis',
         showSolution: 'Lösung anzeigen',
         hideSolution: 'Lösung verstecken',
-        verification: 'Überprüfung'
+        verification: 'Überprüfung',
+        tooling: 'Tooling & Anbindung',
+        toolingTitle: 'Tooling & Anbindung',
+        toolingDesc: 'Ihr Container läuft. Und nun? So verbinden Sie sich mit verschiedenen Tools und arbeiten sofort mit MegaStore-Daten.',
+        mongosh: 'mongosh (CLI)',
+        mongoshDesc: 'Die offizielle MongoDB-Befehlszeilen-Shell — schnell und mächtig für interaktive Abfragen. Bereits in Ihrem Container verfügbar.',
+        mongoshExample: 'Die teuerste Produktkategorie finden:',
+        mongoshCode: 'docker exec -it megastore-mongodb mongosh megastore\n\ndb.order_items.aggregate([\n  { $lookup: { from: "products", localField: "product_id", foreignField: "product_id", as: "product" }},\n  { $unwind: "$product" },\n  { $group: { _id: "$product.category", avg_price: { $avg: "$product.unit_price" }}},\n  { $sort: { avg_price: -1 }}\n])',
+        mongoexpress: 'Mongo Express (Web UI)',
+        mongoexpressDesc: 'Webbasierte MongoDB-Admin-Oberfläche. Collections durchsuchen, Dokumente anzeigen und Daten direkt im Browser bearbeiten.',
+        mongoexpressAccess: 'Zugang:',
+        mongoexpressLink: 'http://localhost:8081',
+        mongoexpressLogin: 'Login: admin / pass',
+        mongoexpressExample: 'Durchsuchen Sie die customers-Collection:',
+        mongoexpressExplain: 'Klicken Sie auf "megastore" → "customers" → alle Dokumente mit schöner Oberfläche. Perfekt für schnelle Datenexploration.',
+        compass: 'MongoDB Compass (GUI)',
+        compassDesc: 'Professionelle MongoDB-GUI mit visuellem Query Builder. Kostenlos zum Download. Komplexe Abfragen visuell erstellen ohne Syntax zu kennen.',
+        compassConnection: 'Verbindungszeichenfolge:',
+        compassConnectionStr: 'mongodb://localhost:27017/megastore',
+        compassExample: 'Bauen Sie eine Aggregations-Pipeline visuell auf:',
+        compassCode: 'Verbindung: mongodb://localhost:27017/megastore\n\n1. Klicken Sie auf "Aggregations"-Reiter\n2. Stage 1 hinzufügen: $match → { status: "completed" }\n3. Stage 2 hinzufügen: $group → Nach customer_id gruppieren, total_amount summieren\n4. Stage 3 hinzufügen: $sort → { total: -1 }\n5. Ergebnisse in Echtzeit anschauen, während Sie aufbauen\n\nErgebnis: Top-Kunden nach Umsatz aus abgeschlossenen Bestellungen',
+        dbeaver: 'DBeaver (Universal DB Tool)',
+        dbeaverDesc: 'Universal-Datenbank-IDE mit Unterstützung für 500+ Datenbanken einschließlich MongoDB. Mächtig für Entwickler und Analysten.',
+        dbeaverConnection: 'Verbindungseinstellungen:',
+        dbeaverSettings: 'Host: localhost\nPort: 27017\nDatabase: megastore\n\nDBeaver zeigt MongoDB-Daten in einer vertrauten SQL-ähnlichen Oberfläche.',
+        dbeaverExample: 'Führen Sie eine Abfrage aus:',
+        dbeaverCode: '// DBeaver MongoDB-Konsole\ndb.customers.find({\n  $and: [\n    { registration_date: { $gte: "2023-01-01" } },\n    { city: "Berlin" }\n  ]\n}, { name: 1, email: 1, city: 1 })',
+        python: 'Python (pymongo)',
+        pythonDesc: 'Verbinden Sie sich von Python-Anwendungen mit MongoDB. Perfekt für Data-Science und Automatisierungsskripte.',
+        pythonSetup: 'Installieren und Verbinden:',
+        pythonCode: 'pip install pymongo\n\nfrom pymongo import MongoClient\nclient = MongoClient("mongodb://localhost:27017/")\ndb = client["megastore"]\n\n# Top-5-Kunden nach lifetime_value mit Stadt\nresult = list(db.customers.aggregate([\n  { "$lookup": { "from": "orders", "localField": "customer_id", "foreignField": "customer_id", "as": "orders" }},\n  { "$addFields": { "lifetime_value": { "$sum": "$orders.total_amount" }}},\n  { "$sort": { "lifetime_value": -1 }},\n  { "$limit": 5 },\n  { "$project": { "name": 1, "city": 1, "lifetime_value": 1 }}\n]))\n\nfor customer in result:\n    print(f"{customer[\'name\']} aus {customer[\'city\']}: ${customer[\'lifetime_value\']:.2f}")',
+        r: 'R (mongolite)',
+        rDesc: 'Verbinden Sie sich von R mit MongoDB für statistische Analysen und Data Science. Integriert sich nahtlos mit ggplot2 und tidyverse.',
+        rSetup: 'Installieren und Verbinden:',
+        rCode: 'install.packages("mongolite")\nlibrary(mongolite)\n\n# Verbinden\ncon <- mongo(collection = "orders", db = "megastore", url = "mongodb://localhost:27017")\n\n# Bestellungen nach Monat aggregieren\nresult <- con$aggregate(\'[\n  { "$group": { "_id": { "$dateToString": { "format": "%Y-%m", "date": "$order_date" }}, "total_orders": { "$sum": 1 }, "total_revenue": { "$sum": "$total_amount" }}},\n  { "$sort": { "_id": 1 }}\n]\')\n\nprint(result)\nplot(result$total_revenue, main="Umsatz nach Monat", type="l")',
+        datagripTitle: 'DataGrip (JetBrains IDE)',
+        datagripDesc: 'Professionelle Datenbank-IDE mit MongoDB-Unterstützung. MongoDB-Daten erstellen, bearbeiten und visualisieren mit voller IDE-Integration.',
+        datagripConnection: 'Verbindungszeichenfolge:',
+        datagripConnectionStr: 'mongodb://localhost:27017',
+        datagripPlugin: 'MongoDB-Plugin erforderlich (standardmäßig in DataGrip installiert).',
+        datagripExample: 'Abgeschlossene Bestellungen abfragen:',
+        datagripCode: 'db.orders.find(\n  { status: "completed" },\n  { _id: 1, customer_id: 1, order_date: 1, total_amount: 1 }\n).sort({ order_date: -1 }).limit(20)',
+        toolingNote: 'Wählen Sie Ihr Tool basierend auf Ihrem Workflow:',
+        toolingNote1: 'mongosh: Schnelle CLI-Abfragen während der Entwicklung',
+        toolingNote2: 'Mongo Express: Visuelle Erkundung im Browser, keine Installation erforderlich',
+        toolingNote3: 'Compass: Komplexe Aggregationen visuell erstellen',
+        toolingNote4: 'Python: Arbeitsabläufe in Ihrer Anwendung automatisieren',
+        toolingNote5: 'R: Statistische Analysen und Berichterstattung',
+        toolingNote6: 'DBeaver / DataGrip: Professionelle IDE-Integration'
     },
     en: {
         backToHome: '← Back to Overview',
@@ -818,7 +866,55 @@ const translations = {
         hint: 'Hint',
         showSolution: 'Show Solution',
         hideSolution: 'Hide Solution',
-        verification: 'Verification'
+        verification: 'Verification',
+        tooling: 'Tooling & Connection',
+        toolingTitle: 'Tooling & Connection',
+        toolingDesc: 'Your container is running. What\'s next? Here\'s how to connect with different tools and immediately work with MegaStore data.',
+        mongosh: 'mongosh (CLI)',
+        mongoshDesc: 'The official MongoDB command-line shell — fast and powerful for interactive queries. Already available in your container.',
+        mongoshExample: 'Find the most expensive product category:',
+        mongoshCode: 'docker exec -it megastore-mongodb mongosh megastore\n\ndb.order_items.aggregate([\n  { $lookup: { from: "products", localField: "product_id", foreignField: "product_id", as: "product" }},\n  { $unwind: "$product" },\n  { $group: { _id: "$product.category", avg_price: { $avg: "$product.unit_price" }}},\n  { $sort: { avg_price: -1 }}\n])',
+        mongoexpress: 'Mongo Express (Web UI)',
+        mongoexpressDesc: 'Web-based MongoDB admin interface. Browse collections, view documents, and edit data directly in your browser.',
+        mongoexpressAccess: 'Access:',
+        mongoexpressLink: 'http://localhost:8081',
+        mongoexpressLogin: 'Login: admin / pass',
+        mongoexpressExample: 'Browse the customers collection:',
+        mongoexpressExplain: 'Click on "megastore" → "customers" → view all documents with a nice UI. Perfect for quick data exploration.',
+        compass: 'MongoDB Compass (GUI)',
+        compassDesc: 'Professional MongoDB GUI with visual query builder. Free to download. Build complex queries visually without knowing the syntax.',
+        compassConnection: 'Connection String:',
+        compassConnectionStr: 'mongodb://localhost:27017/megastore',
+        compassExample: 'Build an aggregation pipeline visually:',
+        compassCode: 'Connection: mongodb://localhost:27017/megastore\n\n1. Click "Aggregations" tab\n2. Add Stage 1: $match → { status: "completed" }\n3. Add Stage 2: $group → Group by customer_id, sum total_amount\n4. Add Stage 3: $sort → { total: -1 }\n5. View results in real-time as you build\n\nResult: Top customers by revenue from completed orders',
+        dbeaver: 'DBeaver (Universal DB Tool)',
+        dbeaverDesc: 'Universal database IDE supporting 500+ databases including MongoDB. Powerful for both developers and analysts.',
+        dbeaverConnection: 'Connection Settings:',
+        dbeaverSettings: 'Host: localhost\nPort: 27017\nDatabase: megastore\n\nDBeaver shows MongoDB data in a familiar SQL-like interface.',
+        dbeaverExample: 'Execute a query:',
+        dbeaverCode: '// DBeaver MongoDB console\ndb.customers.find({\n  $and: [\n    { registration_date: { $gte: "2023-01-01" } },\n    { city: "Berlin" }\n  ]\n}, { name: 1, email: 1, city: 1 })',
+        python: 'Python (pymongo)',
+        pythonDesc: 'Connect to MongoDB from Python applications. Perfect for data science and automation scripts.',
+        pythonSetup: 'Install and Connect:',
+        pythonCode: 'pip install pymongo\n\nfrom pymongo import MongoClient\nclient = MongoClient("mongodb://localhost:27017/")\ndb = client["megastore"]\n\n# Find Top 5 customers by lifetime_value with city\nresult = list(db.customers.aggregate([\n  { "$lookup": { "from": "orders", "localField": "customer_id", "foreignField": "customer_id", "as": "orders" }},\n  { "$addFields": { "lifetime_value": { "$sum": "$orders.total_amount" }}},\n  { "$sort": { "lifetime_value": -1 }},\n  { "$limit": 5 },\n  { "$project": { "name": 1, "city": 1, "lifetime_value": 1 }}\n]))\n\nfor customer in result:\n    print(f"{customer[\'name\']} from {customer[\'city\']}: ${customer[\'lifetime_value\']:.2f}")',
+        r: 'R (mongolite)',
+        rDesc: 'Connect to MongoDB from R for statistical analysis and data science. Integrates seamlessly with ggplot2 and tidyverse.',
+        rSetup: 'Install and Connect:',
+        rCode: 'install.packages("mongolite")\nlibrary(mongolite)\n\n# Connect\ncon <- mongo(collection = "orders", db = "megastore", url = "mongodb://localhost:27017")\n\n# Aggregate orders by month\nresult <- con$aggregate(\'[\n  { "$group": { "_id": { "$dateToString": { "format": "%Y-%m", "date": "$order_date" }}, "total_orders": { "$sum": 1 }, "total_revenue": { "$sum": "$total_amount" }}},\n  { "$sort": { "_id": 1 }}\n]\')\n\nprint(result)\nplot(result$total_revenue, main="Revenue by Month", type="l")',
+        datagripTitle: 'DataGrip (JetBrains IDE)',
+        datagripDesc: 'Professional database IDE with MongoDB support. Create, edit, and visualize MongoDB data with full IDE integration.',
+        datagripConnection: 'Connection String:',
+        datagripConnectionStr: 'mongodb://localhost:27017',
+        datagripPlugin: 'MongoDB plugin required (installed by default in DataGrip).',
+        datagripExample: 'Query completed orders:',
+        datagripCode: 'db.orders.find(\n  { status: "completed" },\n  { _id: 1, customer_id: 1, order_date: 1, total_amount: 1 }\n).sort({ order_date: -1 }).limit(20)',
+        toolingNote: 'Choose your tool based on your workflow:',
+        toolingNote1: 'mongosh: Quick CLI queries during development',
+        toolingNote2: 'Mongo Express: Visual exploration in browser, no installation needed',
+        toolingNote3: 'Compass: Build complex aggregations visually',
+        toolingNote4: 'Python: Automate workflows in your application',
+        toolingNote5: 'R: Statistical analysis and reporting',
+        toolingNote6: 'DBeaver / DataGrip: Professional IDE integration'
     },
     ar: {
         backToHome: '← إلى النظرة العامة',
@@ -1170,7 +1266,55 @@ const translations = {
         startDate: '$last_order_date',
         unit: 'يوم',
         Book: 'MongoDB in Action',
-        Problem: 'تم رفض الاتصال'
+        Problem: 'تم رفض الاتصال',
+        tooling: 'الأدوات والربط',
+        toolingTitle: 'الأدوات والربط',
+        toolingDesc: 'الحاوية الخاصة بك تعمل. والآن؟ إليك كيفية الاتصال بأدوات مختلفة والعمل فوراً مع بيانات MegaStore.',
+        mongosh: 'mongosh (سطر الأوامر)',
+        mongoshDesc: 'الغلاف الرسمي لسطر أوامر MongoDB - سريع وقوي للاستعلامات التفاعلية. متاح بالفعل في الحاوية الخاصة بك.',
+        mongoshExample: 'ابحث عن فئة المنتج الأغلى:',
+        mongoshCode: 'docker exec -it megastore-mongodb mongosh megastore\n\ndb.order_items.aggregate([\n  { $lookup: { from: "products", localField: "product_id", foreignField: "product_id", as: "product" }},\n  { $unwind: "$product" },\n  { $group: { _id: "$product.category", avg_price: { $avg: "$product.unit_price" }}},\n  { $sort: { avg_price: -1 }}\n])',
+        mongoexpress: 'Mongo Express (واجهة ويب)',
+        mongoexpressDesc: 'واجهة ويب لإدارة MongoDB. استعرض المجموعات واعرض المستندات وعدّل البيانات مباشرة في المتصفح.',
+        mongoexpressAccess: 'الوصول:',
+        mongoexpressLink: 'http://localhost:8081',
+        mongoexpressLogin: 'تسجيل الدخول: admin / pass',
+        mongoexpressExample: 'استعرض مجموعة العملاء:',
+        mongoexpressExplain: 'انقر على "megastore" → "customers" → عرض جميع المستندات بواجهة جميلة. مثالي للاستكشاف السريع للبيانات.',
+        compass: 'MongoDB Compass (واجهة رسومية)',
+        compassDesc: 'واجهة رسومية احترافية لـ MongoDB مع منشئ استعلامات مرئي. مجاني للتحميل. بناء استعلامات معقدة بصرياً بدون معرفة الصيغة.',
+        compassConnection: 'سلسلة الاتصال:',
+        compassConnectionStr: 'mongodb://localhost:27017/megastore',
+        compassExample: 'بناء خط أنابيب التجميع بصرياً:',
+        compassCode: 'الاتصال: mongodb://localhost:27017/megastore\n\n1. انقر على علامة التبويب "التجميعات"\n2. أضف المرحلة 1: $match → { status: "completed" }\n3. أضف المرحلة 2: $group → تجميع حسب customer_id, مجموع total_amount\n4. أضف المرحلة 3: $sort → { total: -1 }\n5. عرض النتائج في الوقت الفعلي أثناء البناء\n\nالنتيجة: أفضل العملاء من حيث الإيرادات من الطلبات المكتملة',
+        dbeaver: 'DBeaver (أداة قاعدة البيانات العامة)',
+        dbeaverDesc: 'بيئة تطوير قاعدة بيانات عامة تدعم أكثر من 500 قاعدة بيانات بما في ذلك MongoDB. قوية للمطورين والمحللين.',
+        dbeaverConnection: 'إعدادات الاتصال:',
+        dbeaverSettings: 'Host: localhost\nPort: 27017\nDatabase: megastore\n\nتعرض DBeaver بيانات MongoDB في واجهة شبيهة بـ SQL.',
+        dbeaverExample: 'تنفيذ استعلام:',
+        dbeaverCode: '// وحدة تحكم MongoDB في DBeaver\ndb.customers.find({\n  $and: [\n    { registration_date: { $gte: "2023-01-01" } },\n    { city: "Berlin" }\n  ]\n}, { name: 1, email: 1, city: 1 })',
+        python: 'Python (pymongo)',
+        pythonDesc: 'الاتصال بـ MongoDB من تطبيقات Python. مثالي لعلوم البيانات وسكريبتات الأتمتة.',
+        pythonSetup: 'التثبيت والاتصال:',
+        pythonCode: 'pip install pymongo\n\nfrom pymongo import MongoClient\nclient = MongoClient("mongodb://localhost:27017/")\ndb = client["megastore"]\n\n# أفضل 5 عملاء من حيث القيمة الدائمة مع المدينة\nresult = list(db.customers.aggregate([\n  { "$lookup": { "from": "orders", "localField": "customer_id", "foreignField": "customer_id", "as": "orders" }},\n  { "$addFields": { "lifetime_value": { "$sum": "$orders.total_amount" }}},\n  { "$sort": { "lifetime_value": -1 }},\n  { "$limit": 5 },\n  { "$project": { "name": 1, "city": 1, "lifetime_value": 1 }}\n]))\n\nfor customer in result:\n    print(f"{customer[\'name\']} من {customer[\'city\']}: ${customer[\'lifetime_value\']:.2f}")',
+        r: 'R (mongolite)',
+        rDesc: 'الاتصال بـ MongoDB من R للتحليل الإحصائي وعلوم البيانات. التكامل السلس مع ggplot2 و tidyverse.',
+        rSetup: 'التثبيت والاتصال:',
+        rCode: 'install.packages("mongolite")\nlibrary(mongolite)\n\n# الاتصال\ncon <- mongo(collection = "orders", db = "megastore", url = "mongodb://localhost:27017")\n\n# تجميع الطلبات حسب الشهر\nresult <- con$aggregate(\'[\n  { "$group": { "_id": { "$dateToString": { "format": "%Y-%m", "date": "$order_date" }}, "total_orders": { "$sum": 1 }, "total_revenue": { "$sum": "$total_amount" }}},\n  { "$sort": { "_id": 1 }}\n]\')\n\nprint(result)\nplot(result$total_revenue, main="الإيرادات حسب الشهر", type="l")',
+        datagripTitle: 'DataGrip (بيئة تطوير JetBrains)',
+        datagripDesc: 'بيئة تطوير قاعدة بيانات احترافية مع دعم MongoDB. إنشاء وتعديل وتصور بيانات MongoDB مع التكامل الكامل للبيئة.',
+        datagripConnection: 'سلسلة الاتصال:',
+        datagripConnectionStr: 'mongodb://localhost:27017',
+        datagripPlugin: 'مطلوب مكون إضافي MongoDB (مثبت بشكل افتراضي في DataGrip).',
+        datagripExample: 'استعلام الطلبات المكتملة:',
+        datagripCode: 'db.orders.find(\n  { status: "completed" },\n  { _id: 1, customer_id: 1, order_date: 1, total_amount: 1 }\n).sort({ order_date: -1 }).limit(20)',
+        toolingNote: 'اختر أداتك بناءً على سير عملك:',
+        toolingNote1: 'mongosh: استعلامات سطر أوامر سريعة أثناء التطوير',
+        toolingNote2: 'Mongo Express: استكشاف بصري في المتصفح، بدون حاجة لتثبيت',
+        toolingNote3: 'Compass: بناء التجميعات المعقدة بصرياً',
+        toolingNote4: 'Python: أتمتة سير العمل في التطبيق الخاص بك',
+        toolingNote5: 'R: التحليل الإحصائي والتقارير',
+        toolingNote6: 'DBeaver / DataGrip: التكامل الاحترافي مع البيئة'
     },
     uk: {
         backToHome: '← До огляду',
@@ -1522,7 +1666,55 @@ const translations = {
         startDate: '$last_order_date',
         unit: 'день',
         Book: 'MongoDB in Action',
-        Problem: 'З\'єднання відхилено'
+        Problem: 'З\'єднання відхилено',
+        tooling: 'Інструментарій та підключення',
+        toolingTitle: 'Інструментарій та підключення',
+        toolingDesc: 'Ваш контейнер запущений. Що далі? Ось як підключитися до різних інструментів та одразу почати роботу з даними MegaStore.',
+        mongosh: 'mongosh (CLI)',
+        mongoshDesc: 'Офіційна оболонка командного рядка MongoDB - швидка та потужна для інтерактивних запитів. Вже доступна у вашому контейнері.',
+        mongoshExample: 'Знайти найдорожчу категорію продуктів:',
+        mongoshCode: 'docker exec -it megastore-mongodb mongosh megastore\n\ndb.order_items.aggregate([\n  { $lookup: { from: "products", localField: "product_id", foreignField: "product_id", as: "product" }},\n  { $unwind: "$product" },\n  { $group: { _id: "$product.category", avg_price: { $avg: "$product.unit_price" }}},\n  { $sort: { avg_price: -1 }}\n])',
+        mongoexpress: 'Mongo Express (Веб-інтерфейс)',
+        mongoexpressDesc: 'Веб-інтерфейс адміністрування MongoDB. Переглядайте колекції, переглядайте документи та редагуйте дані прямо в браузері.',
+        mongoexpressAccess: 'Доступ:',
+        mongoexpressLink: 'http://localhost:8081',
+        mongoexpressLogin: 'Вхід: admin / pass',
+        mongoexpressExample: 'Переглядайте колекцію customers:',
+        mongoexpressExplain: 'Натисніть на "megastore" → "customers" → переглядайте всі документи з гарним інтерфейсом. Ідеально для швидкого дослідження даних.',
+        compass: 'MongoDB Compass (GUI)',
+        compassDesc: 'Професійний GUI для MongoDB з візуальним конструктором запитів. Безплатно для завантаження. Будуйте складні запити візуально без знання синтаксису.',
+        compassConnection: 'Рядок підключення:',
+        compassConnectionStr: 'mongodb://localhost:27017/megastore',
+        compassExample: 'Побудуйте конвеєр агрегації візуально:',
+        compassCode: 'Підключення: mongodb://localhost:27017/megastore\n\n1. Натисніть вкладку "Aggregations"\n2. Додайте Сцену 1: $match → { status: "completed" }\n3. Додайте Сцену 2: $group → Групувати за customer_id, сумувати total_amount\n4. Додайте Сцену 3: $sort → { total: -1 }\n5. Переглядайте результати в реальному часі під час побудови\n\nРезультат: Найкращі клієнти за доходом з завершених замовлень',
+        dbeaver: 'DBeaver (Універсальний інструмент БД)',
+        dbeaverDesc: 'Універсальна IDE для баз даних, що підтримує понад 500 БД, включаючи MongoDB. Потужна для розробників та аналітиків.',
+        dbeaverConnection: 'Параметри підключення:',
+        dbeaverSettings: 'Host: localhost\nPort: 27017\nDatabase: megastore\n\nDBeaver показує дані MongoDB у знайомому SQL-подібному інтерфейсі.',
+        dbeaverExample: 'Виконайте запит:',
+        dbeaverCode: '// Консоль MongoDB DBeaver\ndb.customers.find({\n  $and: [\n    { registration_date: { $gte: "2023-01-01" } },\n    { city: "Berlin" }\n  ]\n}, { name: 1, email: 1, city: 1 })',
+        python: 'Python (pymongo)',
+        pythonDesc: 'Підключайтесь до MongoDB із програм Python. Ідеально для науки про дані та сценаріїв автоматизації.',
+        pythonSetup: 'Встановлення та підключення:',
+        pythonCode: 'pip install pymongo\n\nfrom pymongo import MongoClient\nclient = MongoClient("mongodb://localhost:27017/")\ndb = client["megastore"]\n\n# Топ-5 клієнтів за довічною вартістю з містом\nresult = list(db.customers.aggregate([\n  { "$lookup": { "from": "orders", "localField": "customer_id", "foreignField": "customer_id", "as": "orders" }},\n  { "$addFields": { "lifetime_value": { "$sum": "$orders.total_amount" }}},\n  { "$sort": { "lifetime_value": -1 }},\n  { "$limit": 5 },\n  { "$project": { "name": 1, "city": 1, "lifetime_value": 1 }}\n]))\n\nfor customer in result:\n    print(f"{customer[\'name\']} з {customer[\'city\']}: ${customer[\'lifetime_value\']:.2f}")',
+        r: 'R (mongolite)',
+        rDesc: 'Підключайтесь до MongoDB з R для статистичного аналізу та науки про дані. Безпроблемна інтеграція з ggplot2 та tidyverse.',
+        rSetup: 'Встановлення та підключення:',
+        rCode: 'install.packages("mongolite")\nlibrary(mongolite)\n\n# Підключення\ncon <- mongo(collection = "orders", db = "megastore", url = "mongodb://localhost:27017")\n\n# Агрегація замовлень за місяцем\nresult <- con$aggregate(\'[\n  { "$group": { "_id": { "$dateToString": { "format": "%Y-%m", "date": "$order_date" }}, "total_orders": { "$sum": 1 }, "total_revenue": { "$sum": "$total_amount" }}},\n  { "$sort": { "_id": 1 }}\n]\')\n\nprint(result)\nplot(result$total_revenue, main="Дохід по місяцях", type="l")',
+        datagripTitle: 'DataGrip (IDE JetBrains)',
+        datagripDesc: 'Професійна IDE для баз даних з підтримкою MongoDB. Створюйте, редагуйте та візуалізуйте дані MongoDB з повною інтеграцією IDE.',
+        datagripConnection: 'Рядок підключення:',
+        datagripConnectionStr: 'mongodb://localhost:27017',
+        datagripPlugin: 'Потрібен плагін MongoDB (встановлено за замовчуванням у DataGrip).',
+        datagripExample: 'Запит завершених замовлень:',
+        datagripCode: 'db.orders.find(\n  { status: "completed" },\n  { _id: 1, customer_id: 1, order_date: 1, total_amount: 1 }\n).sort({ order_date: -1 }).limit(20)',
+        toolingNote: 'Виберіть інструмент залежно від вашого робочого процесу:',
+        toolingNote1: 'mongosh: Швидкі запити CLI під час розробки',
+        toolingNote2: 'Mongo Express: Візуальне дослідження в браузері, не потрібна установка',
+        toolingNote3: 'Compass: Будуйте складні агрегації візуально',
+        toolingNote4: 'Python: Автоматизуйте робочі процеси у вашій програмі',
+        toolingNote5: 'R: Статистичний аналіз та звітність',
+        toolingNote6: 'DBeaver / DataGrip: Професійна інтеграція з IDE'
     },
     es: {
         backToHome: '← Volver a la descripción general',
@@ -1874,7 +2066,55 @@ const translations = {
         startDate: '$last_order_date',
         unit: 'día',
         Book: 'MongoDB in Action',
-        Problem: 'Conexión rechazada'
+        Problem: 'Conexión rechazada',
+        tooling: 'Herramientas y Conexión',
+        toolingTitle: 'Herramientas y Conexión',
+        toolingDesc: 'Su contenedor está ejecutándose. ¿Y ahora? Así es como conectarse con diferentes herramientas y trabajar inmediatamente con datos de MegaStore.',
+        mongosh: 'mongosh (CLI)',
+        mongoshDesc: 'El shell oficial de línea de comandos de MongoDB - rápido y potente para consultas interactivas. Ya disponible en su contenedor.',
+        mongoshExample: 'Encuentra la categoría de producto más cara:',
+        mongoshCode: 'docker exec -it megastore-mongodb mongosh megastore\n\ndb.order_items.aggregate([\n  { $lookup: { from: "products", localField: "product_id", foreignField: "product_id", as: "product" }},\n  { $unwind: "$product" },\n  { $group: { _id: "$product.category", avg_price: { $avg: "$product.unit_price" }}},\n  { $sort: { avg_price: -1 }}\n])',
+        mongoexpress: 'Mongo Express (Interfaz Web)',
+        mongoexpressDesc: 'Interfaz web de administración de MongoDB. Examine colecciones, vea documentos y edite datos directamente en su navegador.',
+        mongoexpressAccess: 'Acceso:',
+        mongoexpressLink: 'http://localhost:8081',
+        mongoexpressLogin: 'Inicio de sesión: admin / pass',
+        mongoexpressExample: 'Explore la colección de clientes:',
+        mongoexpressExplain: 'Haga clic en "megastore" → "customers" → vea todos los documentos con una bonita interfaz. Perfecto para una rápida exploración de datos.',
+        compass: 'MongoDB Compass (GUI)',
+        compassDesc: 'GUI profesional de MongoDB con constructor visual de consultas. Gratuito para descargar. Cree consultas complejas visualmente sin conocer la sintaxis.',
+        compassConnection: 'Cadena de conexión:',
+        compassConnectionStr: 'mongodb://localhost:27017/megastore',
+        compassExample: 'Construya una tubería de agregación visualmente:',
+        compassCode: 'Conexión: mongodb://localhost:27017/megastore\n\n1. Haga clic en la pestaña "Agregaciones"\n2. Agregue Etapa 1: $match → { status: "completed" }\n3. Agregue Etapa 2: $group → Agrupar por customer_id, sumar total_amount\n4. Agregue Etapa 3: $sort → { total: -1 }\n5. Vea los resultados en tiempo real mientras construye\n\nResultado: Clientes principales por ingresos de pedidos completados',
+        dbeaver: 'DBeaver (Herramienta de BD Universal)',
+        dbeaverDesc: 'IDE de base de datos universal que admite más de 500 bases de datos, incluida MongoDB. Poderosa para desarrolladores y analistas.',
+        dbeaverConnection: 'Configuración de conexión:',
+        dbeaverSettings: 'Host: localhost\nPort: 27017\nDatabase: megastore\n\nDBeaver muestra datos de MongoDB en una interfaz similar a SQL.',
+        dbeaverExample: 'Ejecute una consulta:',
+        dbeaverCode: '// Consola MongoDB de DBeaver\ndb.customers.find({\n  $and: [\n    { registration_date: { $gte: "2023-01-01" } },\n    { city: "Berlin" }\n  ]\n}, { name: 1, email: 1, city: 1 })',
+        python: 'Python (pymongo)',
+        pythonDesc: 'Conéctese a MongoDB desde aplicaciones Python. Perfecto para ciencia de datos y scripts de automatización.',
+        pythonSetup: 'Instalar y conectar:',
+        pythonCode: 'pip install pymongo\n\nfrom pymongo import MongoClient\nclient = MongoClient("mongodb://localhost:27017/")\ndb = client["megastore"]\n\n# Top 5 clientes por valor de vida útil con ciudad\nresult = list(db.customers.aggregate([\n  { "$lookup": { "from": "orders", "localField": "customer_id", "foreignField": "customer_id", "as": "orders" }},\n  { "$addFields": { "lifetime_value": { "$sum": "$orders.total_amount" }}},\n  { "$sort": { "lifetime_value": -1 }},\n  { "$limit": 5 },\n  { "$project": { "name": 1, "city": 1, "lifetime_value": 1 }}\n]))\n\nfor customer in result:\n    print(f"{customer[\'name\']} de {customer[\'city\']}: ${customer[\'lifetime_value\']:.2f}")',
+        r: 'R (mongolite)',
+        rDesc: 'Conéctese a MongoDB desde R para análisis estadístico y ciencia de datos. Se integra perfectamente con ggplot2 y tidyverse.',
+        rSetup: 'Instalar y conectar:',
+        rCode: 'install.packages("mongolite")\nlibrary(mongolite)\n\n# Conectar\ncon <- mongo(collection = "orders", db = "megastore", url = "mongodb://localhost:27017")\n\n# Agregar pedidos por mes\nresult <- con$aggregate(\'[\n  { "$group": { "_id": { "$dateToString": { "format": "%Y-%m", "date": "$order_date" }}, "total_orders": { "$sum": 1 }, "total_revenue": { "$sum": "$total_amount" }}},\n  { "$sort": { "_id": 1 }}\n]\')\n\nprint(result)\nplot(result$total_revenue, main="Ingresos por Mes", type="l")',
+        datagripTitle: 'DataGrip (IDE de JetBrains)',
+        datagripDesc: 'IDE profesional de base de datos con soporte para MongoDB. Cree, edite y visualice datos de MongoDB con integración IDE completa.',
+        datagripConnection: 'Cadena de conexión:',
+        datagripConnectionStr: 'mongodb://localhost:27017',
+        datagripPlugin: 'Complemento MongoDB requerido (instalado por defecto en DataGrip).',
+        datagripExample: 'Consultar pedidos completados:',
+        datagripCode: 'db.orders.find(\n  { status: "completed" },\n  { _id: 1, customer_id: 1, order_date: 1, total_amount: 1 }\n).sort({ order_date: -1 }).limit(20)',
+        toolingNote: 'Elija su herramienta según su flujo de trabajo:',
+        toolingNote1: 'mongosh: Consultas rápidas de CLI durante el desarrollo',
+        toolingNote2: 'Mongo Express: Exploración visual en el navegador, sin instalación necesaria',
+        toolingNote3: 'Compass: Cree agregaciones complejas visualmente',
+        toolingNote4: 'Python: Automatice flujos de trabajo en su aplicación',
+        toolingNote5: 'R: Análisis estadístico e informes',
+        toolingNote6: 'DBeaver / DataGrip: Integración IDE profesional'
     },
     tr: {
         backToHome: '← Genel Bakışa Dön',
@@ -2226,7 +2466,55 @@ const translations = {
         startDate: '$last_order_date',
         unit: 'gün',
         Book: 'MongoDB in Action',
-        Problem: 'Bağlantı reddedildi'
+        Problem: 'Bağlantı reddedildi',
+        tooling: 'Araçlar ve Bağlantı',
+        toolingTitle: 'Araçlar ve Bağlantı',
+        toolingDesc: 'Konteyneriniz çalışıyor. Peki şimdi ne? Farklı araçlara nasıl bağlanılır ve hemen MegaStore verileriyle çalışmaya başlayın.',
+        mongosh: 'mongosh (CLI)',
+        mongoshDesc: 'Resmi MongoDB komut satırı kabuğu - etkileşimli sorgular için hızlı ve güçlü. Konteynerinizde zaten mevcut.',
+        mongoshExample: 'En pahalı ürün kategorisini bulun:',
+        mongoshCode: 'docker exec -it megastore-mongodb mongosh megastore\n\ndb.order_items.aggregate([\n  { $lookup: { from: "products", localField: "product_id", foreignField: "product_id", as: "product" }},\n  { $unwind: "$product" },\n  { $group: { _id: "$product.category", avg_price: { $avg: "$product.unit_price" }}},\n  { $sort: { avg_price: -1 }}\n])',
+        mongoexpress: 'Mongo Express (Web UI)',
+        mongoexpressDesc: 'MongoDB web tabanlı yönetim arayüzü. Koleksiyonları inceleyin, belgeleri görüntüleyin ve tarayıcıda doğrudan verileri düzenleyin.',
+        mongoexpressAccess: 'Erişim:',
+        mongoexpressLink: 'http://localhost:8081',
+        mongoexpressLogin: 'Giriş: admin / pass',
+        mongoexpressExample: 'müşteriler koleksiyonunu inceleyin:',
+        mongoexpressExplain: '"megastore" → "customers" → güzel bir arayüzle tüm belgeleri görüntüleyin. Hızlı veri keşfi için mükemmel.',
+        compass: 'MongoDB Compass (GUI)',
+        compassDesc: 'MongoDB için profesyonel GUI, görsel sorgu oluşturucu ile. İndirilmesi ücretsiz. Sözdizimi bilmeden karmaşık sorguları görsel olarak oluşturun.',
+        compassConnection: 'Bağlantı Dizesi:',
+        compassConnectionStr: 'mongodb://localhost:27017/megastore',
+        compassExample: 'Bir toplama işlem hattını görsel olarak oluşturun:',
+        compassCode: 'Bağlantı: mongodb://localhost:27017/megastore\n\n1. "Aggregations" sekmesine tıklayın\n2. Aşama 1 ekleyin: $match → { status: "completed" }\n3. Aşama 2 ekleyin: $group → customer_id\'ye göre gruplandır, total_amount topla\n4. Aşama 3 ekleyin: $sort → { total: -1 }\n5. İnşa ederken sonuçları gerçek zamanlı görüntüleyin\n\nSonuç: Tamamlanan siparişlerden gelire göre en iyi müşteriler',
+        dbeaver: 'DBeaver (Evrensel Veritabanı Aracı)',
+        dbeaverDesc: 'MongoDB dahil 500+ veritabanını destekleyen evrensel veritabanı IDE. Geliştiriciler ve analistler için güçlü.',
+        dbeaverConnection: 'Bağlantı Ayarları:',
+        dbeaverSettings: 'Host: localhost\nPort: 27017\nDatabase: megastore\n\nDBeaver, MongoDB verilerini SQL benzeri bir arayüzde gösterir.',
+        dbeaverExample: 'Bir sorgu çalıştırın:',
+        dbeaverCode: '// DBeaver MongoDB konsolu\ndb.customers.find({\n  $and: [\n    { registration_date: { $gte: "2023-01-01" } },\n    { city: "Berlin" }\n  ]\n}, { name: 1, email: 1, city: 1 })',
+        python: 'Python (pymongo)',
+        pythonDesc: 'Python uygulamalarından MongoDB\'ye bağlanın. Veri bilimi ve otomasyon betikleri için mükemmel.',
+        pythonSetup: 'Yükle ve Bağlan:',
+        pythonCode: 'pip install pymongo\n\nfrom pymongo import MongoClient\nclient = MongoClient("mongodb://localhost:27017/")\ndb = client["megastore"]\n\n# Şehir ile ömür boyu değere göre en iyi 5 müşteri\nresult = list(db.customers.aggregate([\n  { "$lookup": { "from": "orders", "localField": "customer_id", "foreignField": "customer_id", "as": "orders" }},\n  { "$addFields": { "lifetime_value": { "$sum": "$orders.total_amount" }}},\n  { "$sort": { "lifetime_value": -1 }},\n  { "$limit": 5 },\n  { "$project": { "name": 1, "city": 1, "lifetime_value": 1 }}\n]))\n\nfor customer in result:\n    print(f"{customer[\'name\']} şehrinden {customer[\'city\']}: ${customer[\'lifetime_value\']:.2f}")',
+        r: 'R (mongolite)',
+        rDesc: 'MongoDB\'ye R\'den bağlanın istatistiksel analiz ve veri bilimi için. ggplot2 ve tidyverse ile sorunsuz entegrasyon.',
+        rSetup: 'Yükle ve Bağlan:',
+        rCode: 'install.packages("mongolite")\nlibrary(mongolite)\n\n# Bağlan\ncon <- mongo(collection = "orders", db = "megastore", url = "mongodb://localhost:27017")\n\n# Siparişleri aya göre topla\nresult <- con$aggregate(\'[\n  { "$group": { "_id": { "$dateToString": { "format": "%Y-%m", "date": "$order_date" }}, "total_orders": { "$sum": 1 }, "total_revenue": { "$sum": "$total_amount" }}},\n  { "$sort": { "_id": 1 }}\n]\')\n\nprint(result)\nplot(result$total_revenue, main="Aya Göre Gelir", type="l")',
+        datagripTitle: 'DataGrip (JetBrains IDE)',
+        datagripDesc: 'MongoDB desteği olan profesyonel veritabanı IDE. MongoDB verilerini tam IDE entegrasyonu ile oluşturun, düzenleyin ve görselleştirin.',
+        datagripConnection: 'Bağlantı Dizesi:',
+        datagripConnectionStr: 'mongodb://localhost:27017',
+        datagripPlugin: 'MongoDB eklentisi gerekli (DataGrip\'te varsayılan olarak yüklü).',
+        datagripExample: 'Tamamlanan siparişleri sorgula:',
+        datagripCode: 'db.orders.find(\n  { status: "completed" },\n  { _id: 1, customer_id: 1, order_date: 1, total_amount: 1 }\n).sort({ order_date: -1 }).limit(20)',
+        toolingNote: 'İş akışınıza göre aracınızı seçin:',
+        toolingNote1: 'mongosh: Geliştirme sırasında hızlı CLI sorguları',
+        toolingNote2: 'Mongo Express: Tarayıcıda görsel keşif, kurulum gerekli değil',
+        toolingNote3: 'Compass: Karmaşık toplamaları görsel olarak oluşturun',
+        toolingNote4: 'Python: Uygulamanızdaki iş akışlarını otomatikleştirin',
+        toolingNote5: 'R: İstatistiksel analiz ve raporlama',
+        toolingNote6: 'DBeaver / DataGrip: Profesyonel IDE entegrasyonu'
     }
 };
 
@@ -2331,7 +2619,7 @@ function App() {
             </header>
 
             <aside className="sidebar">
-                {['overview', 'setup', 'fundamentals', 'exercise1', 'exercise2', 'exercise3', 'exercise4', 'exercise5', 'exercise6', 'exercise7', 'exercise8', 'exercise9', 'exercise10', 'exercise11', 'exercise12', 'challenge', 'quiz', 'outlook', 'troubleshooting'].map(section => (
+                {['overview', 'setup', 'tooling', 'fundamentals', 'exercise1', 'exercise2', 'exercise3', 'exercise4', 'exercise5', 'exercise6', 'exercise7', 'exercise8', 'exercise9', 'exercise10', 'exercise11', 'exercise12', 'challenge', 'quiz', 'outlook', 'troubleshooting'].map(section => (
                     <div
                         key={section}
                         className={`sidebar-item ${activeSection === section ? 'active' : ''}`}
@@ -2538,6 +2826,86 @@ function App() {
                                 </tr>
                             </tbody>
                         </table>
+                    </section>
+
+                <section id="tooling">
+                        <h2>{t.toolingTitle}</h2>
+                        <p>{t.toolingDesc}</p>
+
+                        <div className="lesson-box" style={{marginBottom: '2rem'}}>
+                            <h3>{t.mongosh}</h3>
+                            <p>{t.mongoshDesc}</p>
+                            <p><strong>{t.mongoshExample}</strong></p>
+                            <CodeBlock code={t.mongoshCode} />
+                            <p style={{marginTop: '1rem', color: '#4b5563'}}>Die Abfrage findet alle Produktkategorien und zeigt ihre durchschnittlichen Preise - sortiert von teuer zu billig.</p>
+                        </div>
+
+                        <div className="card">
+                            <h3>{t.mongoexpress}</h3>
+                            <p>{t.mongoexpressDesc}</p>
+                            <p><strong>{t.mongoexpressAccess}</strong></p>
+                            <p className="prompt-example"><strong>URL:</strong> {t.mongoexpressLink}</p>
+                            <p className="prompt-example"><strong>{t.mongoexpressLogin}</strong></p>
+                            <p><strong>{t.mongoexpressExample}</strong></p>
+                            <p>{t.mongoexpressExplain}</p>
+                        </div>
+
+                        <div className="lesson-box" style={{marginTop: '2rem', marginBottom: '2rem'}}>
+                            <h3>{t.compass}</h3>
+                            <p>{t.compassDesc}</p>
+                            <p><strong>{t.compassConnection}</strong></p>
+                            <p className="prompt-example">{t.compassConnectionStr}</p>
+                            <p style={{marginTop: '1rem'}}><strong>{t.compassExample}</strong></p>
+                            <CodeBlock code={t.compassCode} />
+                            <p style={{marginTop: '1rem', color: '#4b5563'}}>Compass ist ideal für visuelle Aggregationen - drücken Sie einfach "Play" nach jeder Stufe, um das Ergebnis zu sehen.</p>
+                        </div>
+
+                        <div className="card">
+                            <h3>{t.dbeaver}</h3>
+                            <p>{t.dbeaverDesc}</p>
+                            <p><strong>{t.dbeaverConnection}</strong></p>
+                            <CodeBlock code={t.dbeaverSettings} />
+                            <p style={{marginTop: '1rem'}}><strong>{t.dbeaverExample}</strong></p>
+                            <CodeBlock code={t.dbeaverCode} />
+                        </div>
+
+                        <div className="lesson-box" style={{marginTop: '2rem', marginBottom: '2rem'}}>
+                            <h3>{t.python}</h3>
+                            <p>{t.pythonDesc}</p>
+                            <p><strong>{t.pythonSetup}</strong></p>
+                            <CodeBlock code={t.pythonCode} />
+                            <p style={{marginTop: '1rem', color: '#4b5563'}}>Mit pymongo können Sie komplexe Aggregationen direkt in Ihrem Python-Code schreiben und die Ergebnisse in Dataframes oder CSV exportieren.</p>
+                        </div>
+
+                        <div className="card">
+                            <h3>{t.r}</h3>
+                            <p>{t.rDesc}</p>
+                            <p><strong>{t.rSetup}</strong></p>
+                            <CodeBlock code={t.rCode} />
+                            <p style={{marginTop: '1rem', color: '#374151'}}>Mit mongolite können Sie MongoDB-Daten direkt in R-Datenrahmen laden und mit ggplot2 oder anderen Paketen visualisieren.</p>
+                        </div>
+
+                        <div className="lesson-box" style={{marginTop: '2rem'}}>
+                            <h3>{t.datagripTitle}</h3>
+                            <p>{t.datagripDesc}</p>
+                            <p><strong>{t.datagripConnection}</strong></p>
+                            <p className="prompt-example">{t.datagripConnectionStr}</p>
+                            <p style={{marginTop: '1rem'}}>{t.datagripPlugin}</p>
+                            <p style={{marginTop: '1rem'}}><strong>{t.datagripExample}</strong></p>
+                            <CodeBlock code={t.datagripCode} />
+                        </div>
+
+                        <div className="lesson-box" style={{marginTop: '2rem', marginBottom: '2rem'}}>
+                            <h3>{t.toolingNote}</h3>
+                            <ul>
+                                <li>{t.toolingNote1}</li>
+                                <li>{t.toolingNote2}</li>
+                                <li>{t.toolingNote3}</li>
+                                <li>{t.toolingNote4}</li>
+                                <li>{t.toolingNote5}</li>
+                                <li>{t.toolingNote6}</li>
+                            </ul>
+                        </div>
                     </section>
 
                 <section id="exercise1">

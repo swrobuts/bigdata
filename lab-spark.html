@@ -227,6 +227,46 @@
                 step4Desc: "Öffnen Sie http://localhost:8888 und geben Sie den Token ein. Port 4040 zeigt die Spark-UI.",
                 verify: "Überprüfung: So prüfen Sie, ob alles funktioniert",
                 verifyDesc: "Erstellen Sie in Jupyter eine neue Python-Zelle und führen Sie aus:",
+                tooling: "Tooling & Anbindung",
+                toolingIntro: "Jetzt haben Sie den Container gestartet — und nun?",
+                toolingDesc: "Der Spark-Container läuft, aber wie verbinden Sie sich mit echten Werkzeugen? Diese Sektion zeigt praktische Beispiele für die wichtigsten Entwicklungsumgebungen.",
+                jupyterNotebook: "Jupyter Notebook (lokal im Container)",
+                jupyterDesc: "Jupyter ist bereits im Container installiert und läuft auf Port 8888. Das ist der einfachste Einstiegspunkt für PySpark-Code.",
+                jupyterTitle: "Was kann ich damit machen?",
+                jupyterFeature1: "Interaktives Schreiben und sofortige Ausführung von PySpark-Code",
+                jupyterFeature2: "Visualisierung von DataFrames und Ergebnissen",
+                jupyterFeature3: "Kombination von Code, Dokumentation und Markdown",
+                jupyterCodeTitle: "Top-5 Produktkategorien nach Bestellmenge:",
+                jupyterCode: "from pyspark.sql import SparkSession\nfrom pyspark.sql.functions import count, sum\n\n# SparkSession (bereits gestartet in Jupyter)\nspark = SparkSession.builder.appName(\"Top5\").getOrCreate()\n\n# MegaStore-Daten laden\nproducts = spark.read.csv(\"/home/jovyan/data/products.csv\", header=True, inferSchema=True)\norder_items = spark.read.csv(\"/home/jovyan/data/order_items.csv\", header=True, inferSchema=True)\n\n# Verbindung und Aggregation\ntop5 = order_items.join(products, \"product_id\") \\\n    .groupBy(\"category\") \\\n    .agg(count(\"*\").alias(\"order_count\")) \\\n    .orderBy(\"order_count\", ascending=False) \\\n    .limit(5)\n\ntop5.show()\nprint(\"✓ Top 5 Kategorien geladen!\")",
+                jupyterOutput: "category         | order_count\nElectronics      | 450\nHome & Garden    | 380\nClothing         | 320\nSports           | 290\nBooks            | 210\n✓ Top 5 Kategorien geladen!",
+                pythonScript: "Python-Script (lokal auf Ihrem PC)",
+                pythonScriptDesc: "Spark läuft überall dort, wo Python läuft. Installieren Sie pyspark auf Ihrem Rechner und verbinden Sie sich mit dem Container-Cluster.",
+                pythonInstall: "Installation auf Ihrem Rechner:",
+                pythonInstallCode: "pip install pyspark",
+                pythonScriptTitle: "Top-Kunden nach Gesamtumsatz:",
+                pythonScriptCode: "from pyspark.sql import SparkSession\nfrom pyspark.sql.functions import sum\n\n# Verbindung zum Cluster im Container\nspark = SparkSession.builder \\\n    .appName(\"TopCustomersLocal\") \\\n    .master(\"spark://localhost:7077\") \\\n    .getOrCreate()\n\n# CSV-Dateien laden (von Container-Volume)\ncustomers = spark.read.csv(\"/home/jovyan/data/customers.csv\", header=True, inferSchema=True)\norders = spark.read.csv(\"/home/jovyan/data/orders.csv\", header=True, inferSchema=True)\n\n# Verbindung und Aggregation\ntop_customers = customers.join(orders, \"customer_id\") \\\n    .groupBy(\"customer_id\", \"name\") \\\n    .agg(sum(\"total_amount\").alias(\"total_revenue\")) \\\n    .orderBy(\"total_revenue\", ascending=False) \\\n    .limit(10)\n\ntop_customers.show(truncate=False)",
+                pythonScriptOutput: "customer_id | name              | total_revenue\n1001        | John Doe          | 25000.50\n1003        | Maria Garcia      | 18500.25\n1008        | Anna Schmidt      | 12300.75\n...",
+                rLanguage: "R mit sparklyr",
+                rLanguageDesc: "R-Anwender können sparklyr verwenden, um direkt auf Spark-Cluster zuzugreifen. Die Syntax ist R-native und integriert sich nahtlos in die tidyverse-Welt.",
+                rInstall: "Installation von sparklyr:",
+                rInstallCode: "install.packages(\"sparklyr\")\nlibrary(sparklyr)\nspark_install()",
+                rTitle: "Durchschnittliche Bestellmenge pro Kundensegment:",
+                rCode: "library(sparklyr)\nlibrary(dplyr)\n\n# Verbindung zum Container-Cluster\nsc <- spark_connect(\n  master = \"local\",\n  app_name = \"spark_r_megastore\"\n)\n\n# Daten laden\norders_tbl <- spark_read_csv(\n  sc,\n  name = \"orders\",\n  path = \"/home/jovyan/data/orders.csv\"\n)\n\ncustomers_tbl <- spark_read_csv(\n  sc,\n  name = \"customers\",\n  path = \"/home/jovyan/data/customers.csv\"\n)\n\n# Aggregation: durchschnittlicher Bestellwert pro Land\navg_by_country <- customers_tbl %>%\n  left_join(orders_tbl, by = \"customer_id\") %>%\n  group_by(country) %>%\n  summarise(\n    avg_order = mean(total_amount, na.rm = TRUE),\n    order_count = n()\n  ) %>%\n  arrange(desc(avg_order))\n\nshow_query(avg_by_country)\navg_by_country %>% collect()",
+                rOutput: "country     | avg_order  | order_count\nGermany     | 2500.50    | 250\nFrance      | 2300.25    | 180\nSpain       | 2150.75    | 150",
+                dbeaver: "DBeaver / DataGrip (GUI-Tool)",
+                dbeaverDesc: "Spark hat keinen Thrift Server in diesem Container, aber Sie können trotzdem über die Spark UI auf Port 4040 einen Blick auf laufende Jobs werfen. Für vollständige SQL-IDE-Integration brauchten Sie einen externen Spark Thrift Server.",
+                dbeaverNote: "HINWEIS: Der Docker-Container jupyter/pyspark-notebook hat keinen Thrift Server aktiviert. Das ist normal — Spark wird hier hauptsächlich über PySpark/R verwendet.",
+                dbeaverSparkUI: "Alternative: Spark UI für Jobüberwachung",
+                dbeaverSparkUIDesc: "Öffnen Sie http://localhost:4040 um laufende und abgeschlossene Spark-Jobs zu monitoren:",
+                dbeaverSparkUIFeatures: "Sie sehen dort: Stages, Task-Details, Memory Usage, Executor-Logs",
+                vsCode: "VS Code mit Jupyter Extension",
+                vsCodeDesc: "VS Code ist eine populäre IDE mit offizieller Jupyter-Unterstützung. Sie können Jupyter-Notebooks direkt in VS Code ausführen — und auf den Container-Kernel zugreifen.",
+                vsCodeInstall: "1. Installieren Sie die 'Jupyter' Extension in VS Code",
+                vsCodeStep2: "2. Öffnen Sie eine .ipynb Datei oder erstellen Sie eine neue",
+                vsCodeStep3: "3. Wählen Sie 'Select Kernel' und verbinden Sie sich mit dem Container",
+                vsCodeTitle: "Kundentreuepunkte und Churn-Risk berechnen:",
+                vsCodeCode: "from pyspark.sql import SparkSession\nfrom pyspark.sql.functions import count, avg, when, datediff, current_date\n\nspark = SparkSession.builder.appName(\"CustomerChurn\").getOrCreate()\n\n# Laden und Vorbereitung\ncustomers = spark.read.csv(\"/home/jovyan/data/customers.csv\", header=True, inferSchema=True)\norders = spark.read.csv(\"/home/jovyan/data/orders.csv\", header=True, inferSchema=True)\n\n# RFM: Recency, Frequency, Monetary\nrfm = orders.groupBy(\"customer_id\") \\\n    .agg(\n        count(\"*\").alias(\"frequency\"),\n        avg(\"total_amount\").alias(\"avg_value\")\n    )\n\n# Mit Kundendaten join\nrfm_with_customers = customers.join(rfm, \"customer_id\") \\\n    .select(\"customer_id\", \"name\", \"country\", \"frequency\", \"avg_value\")\n\nrfm_with_customers.orderBy(\"frequency\", ascending=False).limit(10).show()",
+                vsCodeOutput: "customer_id | name         | country  | frequency | avg_value\n1001        | John Doe     | Germany  | 15        | 1666.70\n1003        | Maria Garcia | Spain    | 12        | 1541.67\n1008        | Anna Schmidt | Germany  | 10        | 1230.08",
                 fundamentalsIntro: "Kern-Konzepte von Apache Spark",
                 whatIsSparkSession: "1. SparkSession – Der Einstiegspunkt",
                 sparkSessionDesc: "SparkSession ist das zentrale Objekt in Spark. Sie verwaltet die Verbindung zum Cluster und erstellt DataFrames.",
@@ -512,6 +552,46 @@
                 step4Desc: "Open http://localhost:8888 and enter the token. Port 4040 shows the Spark UI.",
                 verify: "Verification: Check if everything works",
                 verifyDesc: "Create a new Python cell in Jupyter and run:",
+                tooling: "Tooling & Integration",
+                toolingIntro: "You've started the container — now what?",
+                toolingDesc: "The Spark container is running, but how do you connect with real tools? This section shows practical examples for the most important development environments.",
+                jupyterNotebook: "Jupyter Notebook (Local in Container)",
+                jupyterDesc: "Jupyter is already installed in the container and runs on port 8888. It is the easiest entry point for PySpark code.",
+                jupyterTitle: "What can I do with it?",
+                jupyterFeature1: "Interactive writing and immediate execution of PySpark code",
+                jupyterFeature2: "Visualization of DataFrames and results",
+                jupyterFeature3: "Combination of code, documentation and markdown",
+                jupyterCodeTitle: "Top 5 product categories by order quantity:",
+                jupyterCode: "from pyspark.sql import SparkSession\nfrom pyspark.sql.functions import count, sum\n\n# SparkSession (already started in Jupyter)\nspark = SparkSession.builder.appName(\"Top5\").getOrCreate()\n\n# Load MegaStore data\nproducts = spark.read.csv(\"/home/jovyan/data/products.csv\", header=True, inferSchema=True)\norder_items = spark.read.csv(\"/home/jovyan/data/order_items.csv\", header=True, inferSchema=True)\n\n# Join and aggregate\ntop5 = order_items.join(products, \"product_id\") \\\n    .groupBy(\"category\") \\\n    .agg(count(\"*\").alias(\"order_count\")) \\\n    .orderBy(\"order_count\", ascending=False) \\\n    .limit(5)\n\ntop5.show()\nprint(\"✓ Top 5 categories loaded!\")",
+                jupyterOutput: "category         | order_count\nElectronics      | 450\nHome & Garden    | 380\nClothing         | 320\nSports           | 290\nBooks            | 210\n✓ Top 5 categories loaded!",
+                pythonScript: "Python Script (Local on Your PC)",
+                pythonScriptDesc: "Spark runs anywhere Python runs. Install pyspark on your machine and connect to the container cluster.",
+                pythonInstall: "Installation on your machine:",
+                pythonInstallCode: "pip install pyspark",
+                pythonScriptTitle: "Top customers by total revenue:",
+                pythonScriptCode: "from pyspark.sql import SparkSession\nfrom pyspark.sql.functions import sum\n\n# Connect to cluster in container\nspark = SparkSession.builder \\\n    .appName(\"TopCustomersLocal\") \\\n    .master(\"spark://localhost:7077\") \\\n    .getOrCreate()\n\n# Load CSV files (from container volume)\ncustomers = spark.read.csv(\"/home/jovyan/data/customers.csv\", header=True, inferSchema=True)\norders = spark.read.csv(\"/home/jovyan/data/orders.csv\", header=True, inferSchema=True)\n\n# Join and aggregate\ntop_customers = customers.join(orders, \"customer_id\") \\\n    .groupBy(\"customer_id\", \"name\") \\\n    .agg(sum(\"total_amount\").alias(\"total_revenue\")) \\\n    .orderBy(\"total_revenue\", ascending=False) \\\n    .limit(10)\n\ntop_customers.show(truncate=False)",
+                pythonScriptOutput: "customer_id | name              | total_revenue\n1001        | John Doe          | 25000.50\n1003        | Maria Garcia      | 18500.25\n1008        | Anna Schmidt      | 12300.75",
+                rLanguage: "R with sparklyr",
+                rLanguageDesc: "R users can use sparklyr to directly access Spark clusters. The syntax is native R and integrates seamlessly with the tidyverse world.",
+                rInstall: "Installation of sparklyr:",
+                rInstallCode: "install.packages(\"sparklyr\")\nlibrary(sparklyr)\nspark_install()",
+                rTitle: "Average order value by customer country:",
+                rCode: "library(sparklyr)\nlibrary(dplyr)\n\n# Connect to container cluster\nsc <- spark_connect(\n  master = \"local\",\n  app_name = \"spark_r_megastore\"\n)\n\n# Load data\norders_tbl <- spark_read_csv(\n  sc,\n  name = \"orders\",\n  path = \"/home/jovyan/data/orders.csv\"\n)\n\ncustomers_tbl <- spark_read_csv(\n  sc,\n  name = \"customers\",\n  path = \"/home/jovyan/data/customers.csv\"\n)\n\n# Aggregation: average order value by country\navg_by_country <- customers_tbl %>%\n  left_join(orders_tbl, by = \"customer_id\") %>%\n  group_by(country) %>%\n  summarise(\n    avg_order = mean(total_amount, na.rm = TRUE),\n    order_count = n()\n  ) %>%\n  arrange(desc(avg_order))\n\nshow_query(avg_by_country)\navg_by_country %>% collect()",
+                rOutput: "country     | avg_order  | order_count\nGermany     | 2500.50    | 250\nFrance      | 2300.25    | 180\nSpain       | 2150.75    | 150",
+                dbeaver: "DBeaver / DataGrip (GUI Tool)",
+                dbeaverDesc: "Spark does not have a Thrift Server in this container, but you can still take a look at running jobs via the Spark UI on port 4040. For full SQL IDE integration, you would need an external Spark Thrift Server.",
+                dbeaverNote: "NOTE: The Docker container jupyter/pyspark-notebook does not have Thrift Server enabled. This is normal — Spark is primarily used here via PySpark/R.",
+                dbeaverSparkUI: "Alternative: Spark UI for Job Monitoring",
+                dbeaverSparkUIDesc: "Open http://localhost:4040 to monitor running and completed Spark jobs:",
+                dbeaverSparkUIFeatures: "You will see there: Stages, Task Details, Memory Usage, Executor Logs",
+                vsCode: "VS Code with Jupyter Extension",
+                vsCodeDesc: "VS Code is a popular IDE with official Jupyter support. You can run Jupyter notebooks directly in VS Code — and access the container kernel.",
+                vsCodeInstall: "1. Install the 'Jupyter' extension in VS Code",
+                vsCodeStep2: "2. Open a .ipynb file or create a new one",
+                vsCodeStep3: "3. Select 'Select Kernel' and connect to the container",
+                vsCodeTitle: "Calculate customer loyalty points and churn risk:",
+                vsCodeCode: "from pyspark.sql import SparkSession\nfrom pyspark.sql.functions import count, avg, when, datediff, current_date\n\nspark = SparkSession.builder.appName(\"CustomerChurn\").getOrCreate()\n\n# Load and prepare\ncustomers = spark.read.csv(\"/home/jovyan/data/customers.csv\", header=True, inferSchema=True)\norders = spark.read.csv(\"/home/jovyan/data/orders.csv\", header=True, inferSchema=True)\n\n# RFM: Recency, Frequency, Monetary\nrfm = orders.groupBy(\"customer_id\") \\\n    .agg(\n        count(\"*\").alias(\"frequency\"),\n        avg(\"total_amount\").alias(\"avg_value\")\n    )\n\n# Join with customer data\nrfm_with_customers = customers.join(rfm, \"customer_id\") \\\n    .select(\"customer_id\", \"name\", \"country\", \"frequency\", \"avg_value\")\n\nrfm_with_customers.orderBy(\"frequency\", ascending=False).limit(10).show()",
+                vsCodeOutput: "customer_id | name         | country  | frequency | avg_value\n1001        | John Doe     | Germany  | 15        | 1666.70\n1003        | Maria Garcia | Spain    | 12        | 1541.67\n1008        | Anna Schmidt | Germany  | 10        | 1230.08",
                 fundamentalsIntro: "Core Concepts of Apache Spark",
                 whatIsSparkSession: "1. SparkSession – The Entry Point",
                 sparkSessionDesc: "SparkSession is the central object in Spark. It manages the cluster connection and creates DataFrames.",
@@ -813,6 +893,46 @@
             step4Desc: 'افتح http://localhost:8888 وأدخل الرمز. يعرض المنفذ 4040 واجهة Spark.',
             verify: 'التحقق: كيفية التحقق من أن كل شيء يعمل',
             verifyDesc: 'أنشئ خلية Python جديدة في Jupyter وقم بتنفيذها:',
+            tooling: 'الأدوات والتكامل',
+            toolingIntro: 'لقد بدأت الحاوية - والآن؟',
+            toolingDesc: 'الحاوية الخاصة بـ Spark تعمل، لكن كيف تتصل بالأدوات الحقيقية؟ يوضح هذا القسم أمثلة عملية لأهم بيئات التطوير.',
+            jupyterNotebook: 'Jupyter Notebook (محلياً في الحاوية)',
+            jupyterDesc: 'Jupyter مثبت بالفعل في الحاوية ويعمل على المنفذ 8888. إنه أسهل نقطة دخول لكود PySpark.',
+            jupyterTitle: 'ماذا يمكنني أن أفعل معه؟',
+            jupyterFeature1: 'كتابة وتنفيذ فوري لكود PySpark التفاعلي',
+            jupyterFeature2: 'تصور DataFrames والنتائج',
+            jupyterFeature3: 'مزيج من الكود والتوثيق والـ Markdown',
+            jupyterCodeTitle: 'أفضل 5 فئات منتجات حسب كمية الطلبات:',
+            jupyterCode: 'from pyspark.sql import SparkSession\nfrom pyspark.sql.functions import count, sum\n\n# SparkSession (مشغل بالفعل في Jupyter)\nspark = SparkSession.builder.appName(\"Top5\").getOrCreate()\n\n# تحميل بيانات MegaStore\nproducts = spark.read.csv(\"/home/jovyan/data/products.csv\", header=True, inferSchema=True)\norder_items = spark.read.csv(\"/home/jovyan/data/order_items.csv\", header=True, inferSchema=True)\n\n# الربط والتجميع\ntop5 = order_items.join(products, \"product_id\") \\\n    .groupBy(\"category\") \\\n    .agg(count(\"*\").alias(\"order_count\")) \\\n    .orderBy(\"order_count\", ascending=False) \\\n    .limit(5)\n\ntop5.show()\nprint(\"✓ تم تحميل أفضل 5 فئات!\")',
+            jupyterOutput: 'category         | order_count\nElectronics      | 450\nHome & Garden    | 380\nClothing         | 320\nSports           | 290\nBooks            | 210\n✓ تم تحميل أفضل 5 فئات!',
+            pythonScript: 'Python Script (محلياً على جهاز الكمبيوتر الخاص بك)',
+            pythonScriptDesc: 'Spark يعمل في أي مكان يعمل فيه Python. قم بتثبيت pyspark على جهازك والاتصال بعنقود الحاوية.',
+            pythonInstall: 'التثبيت على جهاز الكمبيوتر الخاص بك:',
+            pythonInstallCode: 'pip install pyspark',
+            pythonScriptTitle: 'أفضل العملاء حسب إجمالي الإيرادات:',
+            pythonScriptCode: 'from pyspark.sql import SparkSession\nfrom pyspark.sql.functions import sum\n\n# الاتصال بالعنقود في الحاوية\nspark = SparkSession.builder \\\n    .appName(\"TopCustomersLocal\") \\\n    .master(\"spark://localhost:7077\") \\\n    .getOrCreate()\n\n# تحميل ملفات CSV (من حجم الحاوية)\ncustomers = spark.read.csv(\"/home/jovyan/data/customers.csv\", header=True, inferSchema=True)\norders = spark.read.csv(\"/home/jovyan/data/orders.csv\", header=True, inferSchema=True)\n\n# الربط والتجميع\ntop_customers = customers.join(orders, \"customer_id\") \\\n    .groupBy(\"customer_id\", \"name\") \\\n    .agg(sum(\"total_amount\").alias(\"total_revenue\")) \\\n    .orderBy(\"total_revenue\", ascending=False) \\\n    .limit(10)\n\ntop_customers.show(truncate=False)',
+            pythonScriptOutput: 'customer_id | name              | total_revenue\n1001        | John Doe          | 25000.50\n1003        | Maria Garcia      | 18500.25\n1008        | Anna Schmidt      | 12300.75',
+            rLanguage: 'R مع sparklyr',
+            rLanguageDesc: 'يمكن لمستخدمي R استخدام sparklyr للوصول مباشرة إلى عناقيد Spark. الصيغة أصلية R وتتكامل بسلاسة مع عالم tidyverse.',
+            rInstall: 'تثبيت sparklyr:',
+            rInstallCode: 'install.packages(\"sparklyr\")\nlibrary(sparklyr)\nspark_install()',
+            rTitle: 'متوسط قيمة الطلب حسب دول العملاء:',
+            rCode: 'library(sparklyr)\nlibrary(dplyr)\n\n# الاتصال بعنقود الحاوية\nsc <- spark_connect(\n  master = \"local\",\n  app_name = \"spark_r_megastore\"\n)\n\n# تحميل البيانات\norders_tbl <- spark_read_csv(\n  sc,\n  name = \"orders\",\n  path = \"/home/jovyan/data/orders.csv\"\n)\n\ncustomers_tbl <- spark_read_csv(\n  sc,\n  name = \"customers\",\n  path = \"/home/jovyan/data/customers.csv\"\n)\n\n# التجميع: متوسط قيمة الطلب حسب الدول\navg_by_country <- customers_tbl %>%\n  left_join(orders_tbl, by = \"customer_id\") %>%\n  group_by(country) %>%\n  summarise(\n    avg_order = mean(total_amount, na.rm = TRUE),\n    order_count = n()\n  ) %>%\n  arrange(desc(avg_order))\n\nshow_query(avg_by_country)\navg_by_country %>% collect()',
+            rOutput: 'country     | avg_order  | order_count\nGermany     | 2500.50    | 250\nFrance      | 2300.25    | 180\nSpain       | 2150.75    | 150',
+            dbeaver: 'DBeaver / DataGrip (أداة واجهة رسومية)',
+            dbeaverDesc: 'Spark ليس لديه خادم Thrift في هذه الحاوية، لكن يمكنك الاطلاع على الوظائف الجارية عبر Spark UI على المنفذ 4040. للحصول على تكامل SQL IDE الكامل، ستحتاج إلى خادم Spark Thrift خارجي.',
+            dbeaverNote: 'ملاحظة: حاوية Docker jupyter/pyspark-notebook لم يتم تفعيل Thrift Server. هذا طبيعي - يتم استخدام Spark هنا بشكل أساسي عبر PySpark/R.',
+            dbeaverSparkUI: 'بديل: Spark UI لمراقبة الوظائف',
+            dbeaverSparkUIDesc: 'افتح http://localhost:4040 لمراقبة الوظائف الجارية والمكتملة من Spark:',
+            dbeaverSparkUIFeatures: 'سترى هناك: المراحل، تفاصيل المهام، استخدام الذاكرة، سجلات Executor',
+            vsCode: 'VS Code مع Jupyter Extension',
+            vsCodeDesc: 'VS Code هي بيئة تطوير متكاملة شهيرة مع دعم Jupyter الرسمي. يمكنك تشغيل أجهزة كمبيوتر Jupyter مباشرة في VS Code - والوصول إلى نواة الحاوية.',
+            vsCodeInstall: '1. قم بتثبيت ملحق "Jupyter" في VS Code',
+            vsCodeStep2: '2. افتح ملف .ipynb أو أنشئ ملفاً جديداً',
+            vsCodeStep3: '3. اختر "حدد النواة" والاتصل بالحاوية',
+            vsCodeTitle: 'حساب نقاط ولاء العملاء ومخاطر الفقدان:',
+            vsCodeCode: 'from pyspark.sql import SparkSession\nfrom pyspark.sql.functions import count, avg, when, datediff, current_date\n\nspark = SparkSession.builder.appName(\"CustomerChurn\").getOrCreate()\n\n# التحميل والإعداد\ncustomers = spark.read.csv(\"/home/jovyan/data/customers.csv\", header=True, inferSchema=True)\norders = spark.read.csv(\"/home/jovyan/data/orders.csv\", header=True, inferSchema=True)\n\n# RFM: Recency, Frequency, Monetary\nrfm = orders.groupBy(\"customer_id\") \\\n    .agg(\n        count(\"*\").alias(\"frequency\"),\n        avg(\"total_amount\").alias(\"avg_value\")\n    )\n\n# الربط ببيانات العملاء\nrfm_with_customers = customers.join(rfm, \"customer_id\") \\\n    .select(\"customer_id\", \"name\", \"country\", \"frequency\", \"avg_value\")\n\nrfm_with_customers.orderBy(\"frequency\", ascending=False).limit(10).show()',
+            vsCodeOutput: 'customer_id | name         | country  | frequency | avg_value\n1001        | John Doe     | Germany  | 15        | 1666.70\n1003        | Maria Garcia | Spain    | 12        | 1541.67\n1008        | Anna Schmidt | Germany  | 10        | 1230.08',
             fundamentalsIntro: 'المفاهيم الأساسية لـ Apache Spark',
             whatIsSparkSession: '1. SparkSession – نقطة الدخول',
             sparkSessionDesc: 'SparkSession هو الكائن المركزي في Spark. إنها تدير الاتصال بالمجموعة وتنشئ DataFrames.',
@@ -1114,6 +1234,46 @@
             step4Desc: 'Відкрийте http://localhost:8888 і введіть токен. Порт 4040 відображає інтерфейс Spark.',
             verify: 'Перевірка: як переконатися, що все працює',
             verifyDesc: 'Створіть нову комірку Python у Jupyter та виконайте її:',
+            tooling: 'Інструменти та інтеграція',
+            toolingIntro: 'Ви запустили контейнер — а тепер?',
+            toolingDesc: 'Контейнер Spark працює, але як підключитися до реальних інструментів? Цей розділ показує практичні приклади для найважливіших середовищ розробки.',
+            jupyterNotebook: 'Jupyter Notebook (локально в контейнері)',
+            jupyterDesc: 'Jupyter вже встановлений у контейнері та працює на порту 8888. Це найпростіша точка входу для кодування PySpark.',
+            jupyterTitle: 'Що я можу з цим робити?',
+            jupyterFeature1: 'Інтерактивне написання та негайне виконання коду PySpark',
+            jupyterFeature2: 'Візуалізація DataFrames та результатів',
+            jupyterFeature3: 'Комбінація коду, документації та Markdown',
+            jupyterCodeTitle: 'Топ 5 категорій продуктів за кількістю замовлень:',
+            jupyterCode: 'from pyspark.sql import SparkSession\nfrom pyspark.sql.functions import count, sum\n\n# SparkSession (вже запущено в Jupyter)\nspark = SparkSession.builder.appName(\"Top5\").getOrCreate()\n\n# Завантаження даних MegaStore\nproducts = spark.read.csv(\"/home/jovyan/data/products.csv\", header=True, inferSchema=True)\norder_items = spark.read.csv(\"/home/jovyan/data/order_items.csv\", header=True, inferSchema=True)\n\n# Об\'єднання та агрегація\ntop5 = order_items.join(products, \"product_id\") \\\n    .groupBy(\"category\") \\\n    .agg(count(\"*\").alias(\"order_count\")) \\\n    .orderBy(\"order_count\", ascending=False) \\\n    .limit(5)\n\ntop5.show()\nprint(\"✓ Топ 5 категорій завантажено!\")',
+            jupyterOutput: 'category         | order_count\nElectronics      | 450\nHome & Garden    | 380\nClothing         | 320\nSports           | 290\nBooks            | 210\n✓ Топ 5 категорій завантажено!',
+            pythonScript: 'Python Script (локально на вашому ПК)',
+            pythonScriptDesc: 'Spark працює скрізь, де працює Python. Встановіть pyspark на свій комп\'ютер і підключіться до кластера контейнера.',
+            pythonInstall: 'Встановлення на вашому комп\'ютері:',
+            pythonInstallCode: 'pip install pyspark',
+            pythonScriptTitle: 'Топ клієнтів за загальним доходом:',
+            pythonScriptCode: 'from pyspark.sql import SparkSession\nfrom pyspark.sql.functions import sum\n\n# Підключення до кластера в контейнері\nspark = SparkSession.builder \\\n    .appName(\"TopCustomersLocal\") \\\n    .master(\"spark://localhost:7077\") \\\n    .getOrCreate()\n\n# Завантаження CSV-файлів (з обсягу контейнера)\ncustomers = spark.read.csv(\"/home/jovyan/data/customers.csv\", header=True, inferSchema=True)\norders = spark.read.csv(\"/home/jovyan/data/orders.csv\", header=True, inferSchema=True)\n\n# Об\'єднання та агрегація\ntop_customers = customers.join(orders, \"customer_id\") \\\n    .groupBy(\"customer_id\", \"name\") \\\n    .agg(sum(\"total_amount\").alias(\"total_revenue\")) \\\n    .orderBy(\"total_revenue\", ascending=False) \\\n    .limit(10)\n\ntop_customers.show(truncate=False)',
+            pythonScriptOutput: 'customer_id | name              | total_revenue\n1001        | John Doe          | 25000.50\n1003        | Maria Garcia      | 18500.25\n1008        | Anna Schmidt      | 12300.75',
+            rLanguage: 'R із sparklyr',
+            rLanguageDesc: 'Користувачі R можуть використовувати sparklyr для прямого доступу до кластерів Spark. Синтаксис є нативним R і безмісцево інтегрується зі світом tidyverse.',
+            rInstall: 'Встановлення sparklyr:',
+            rInstallCode: 'install.packages(\"sparklyr\")\nlibrary(sparklyr)\nspark_install()',
+            rTitle: 'Середня вартість замовлення за країною клієнта:',
+            rCode: 'library(sparklyr)\nlibrary(dplyr)\n\n# Підключення до кластера контейнера\nsc <- spark_connect(\n  master = \"local\",\n  app_name = \"spark_r_megastore\"\n)\n\n# Завантаження даних\norders_tbl <- spark_read_csv(\n  sc,\n  name = \"orders\",\n  path = \"/home/jovyan/data/orders.csv\"\n)\n\ncustomers_tbl <- spark_read_csv(\n  sc,\n  name = \"customers\",\n  path = \"/home/jovyan/data/customers.csv\"\n)\n\n# Агрегація: середня вартість замовлення за країною\navg_by_country <- customers_tbl %>%\n  left_join(orders_tbl, by = \"customer_id\") %>%\n  group_by(country) %>%\n  summarise(\n    avg_order = mean(total_amount, na.rm = TRUE),\n    order_count = n()\n  ) %>%\n  arrange(desc(avg_order))\n\nshow_query(avg_by_country)\navg_by_country %>% collect()',
+            rOutput: 'country     | avg_order  | order_count\nGermany     | 2500.50    | 250\nFrance      | 2300.25    | 180\nSpain       | 2150.75    | 150',
+            dbeaver: 'DBeaver / DataGrip (інструмент GUI)',
+            dbeaverDesc: 'Spark не має сервера Thrift у цьому контейнері, але ви все ще можете переглядати запущені завдання через Spark UI на порту 4040. Для повної інтеграції SQL IDE вам потрібен зовнішній сервер Spark Thrift.',
+            dbeaverNote: 'ПРИМІТКА: контейнер Docker jupyter/pyspark-notebook не має увімкненого Thrift Server. Це нормально — Spark тут використовується переважно через PySpark/R.',
+            dbeaverSparkUI: 'Альтернатива: Spark UI для моніторингу завдань',
+            dbeaverSparkUIDesc: 'Відкрийте http://localhost:4040 щоб моніторити запущені та завершені завдання Spark:',
+            dbeaverSparkUIFeatures: 'Ви побачите там: етапи, деталі завдань, використання пам\'яті, журнали Executor',
+            vsCode: 'VS Code з розширенням Jupyter',
+            vsCodeDesc: 'VS Code — це популярна IDE з офіційною підтримкою Jupyter. Ви можете запускати блокноти Jupyter прямо в VS Code — і отримувати доступ до ядра контейнера.',
+            vsCodeInstall: '1. Встановіть розширення "Jupyter" у VS Code',
+            vsCodeStep2: '2. Відкрийте файл .ipynb або створіть новий',
+            vsCodeStep3: '3. Виберіть "Вибір ядра" та підключіться до контейнера',
+            vsCodeTitle: 'Розрахунок балів лояльності клієнтів та ризику оспалення:',
+            vsCodeCode: 'from pyspark.sql import SparkSession\nfrom pyspark.sql.functions import count, avg, when, datediff, current_date\n\nspark = SparkSession.builder.appName(\"CustomerChurn\").getOrCreate()\n\n# Завантаження та підготовка\ncustomers = spark.read.csv(\"/home/jovyan/data/customers.csv\", header=True, inferSchema=True)\norders = spark.read.csv(\"/home/jovyan/data/orders.csv\", header=True, inferSchema=True)\n\n# RFM: Recency, Frequency, Monetary\nrfm = orders.groupBy(\"customer_id\") \\\n    .agg(\n        count(\"*\").alias(\"frequency\"),\n        avg(\"total_amount\").alias(\"avg_value\")\n    )\n\n# Об\'єднання з даними клієнтів\nrfm_with_customers = customers.join(rfm, \"customer_id\") \\\n    .select(\"customer_id\", \"name\", \"country\", \"frequency\", \"avg_value\")\n\nrfm_with_customers.orderBy(\"frequency\", ascending=False).limit(10).show()',
+            vsCodeOutput: 'customer_id | name         | country  | frequency | avg_value\n1001        | John Doe     | Germany  | 15        | 1666.70\n1003        | Maria Garcia | Spain    | 12        | 1541.67\n1008        | Anna Schmidt | Germany  | 10        | 1230.08',
             fundamentalsIntro: 'Основні концепції Apache Spark',
             whatIsSparkSession: '1. SparkSession – точка входу',
             sparkSessionDesc: 'SparkSession — це центральний об\'єкт у Spark. Вона керує підключенням до кластера та створює DataFrames.',
@@ -1415,6 +1575,46 @@
             step4Desc: 'Abra http://localhost:8888 e ingrese el token. El puerto 4040 muestra la interfaz de Spark.',
             verify: 'Verificación: Cómo verificar que todo funciona',
             verifyDesc: 'Cree una nueva celda de Python en Jupyter y ejecútela:',
+            tooling: 'Herramientas e Integración',
+            toolingIntro: 'Ha iniciado el contenedor — ¿y ahora?',
+            toolingDesc: 'El contenedor de Spark está funcionando, pero ¿cómo se conecta con herramientas reales? Esta sección muestra ejemplos prácticos para los entornos de desarrollo más importantes.',
+            jupyterNotebook: 'Jupyter Notebook (localmente en el contenedor)',
+            jupyterDesc: 'Jupyter ya está instalado en el contenedor y se ejecuta en el puerto 8888. Es el punto de entrada más fácil para el código PySpark.',
+            jupyterTitle: '¿Qué puedo hacer con él?',
+            jupyterFeature1: 'Escritura interactiva y ejecución inmediata de código PySpark',
+            jupyterFeature2: 'Visualización de DataFrames y resultados',
+            jupyterFeature3: 'Combinación de código, documentación y Markdown',
+            jupyterCodeTitle: 'Top 5 categorías de productos por cantidad de pedidos:',
+            jupyterCode: 'from pyspark.sql import SparkSession\nfrom pyspark.sql.functions import count, sum\n\n# SparkSession (ya iniciada en Jupyter)\nspark = SparkSession.builder.appName(\"Top5\").getOrCreate()\n\n# Cargar datos de MegaStore\nproducts = spark.read.csv(\"/home/jovyan/data/products.csv\", header=True, inferSchema=True)\norder_items = spark.read.csv(\"/home/jovyan/data/order_items.csv\", header=True, inferSchema=True)\n\n# Unir y agregar\ntop5 = order_items.join(products, \"product_id\") \\\n    .groupBy(\"category\") \\\n    .agg(count(\"*\").alias(\"order_count\")) \\\n    .orderBy(\"order_count\", ascending=False) \\\n    .limit(5)\n\ntop5.show()\nprint(\"✓ ¡Top 5 categorías cargadas!\")',
+            jupyterOutput: 'category         | order_count\nElectronics      | 450\nHome & Garden    | 380\nClothing         | 320\nSports           | 290\nBooks            | 210\n✓ ¡Top 5 categorías cargadas!',
+            pythonScript: 'Script de Python (localmente en tu PC)',
+            pythonScriptDesc: 'Spark se ejecuta en cualquier lugar donde se ejecute Python. Instale pyspark en su máquina y conéctese al clúster del contenedor.',
+            pythonInstall: 'Instalación en tu máquina:',
+            pythonInstallCode: 'pip install pyspark',
+            pythonScriptTitle: 'Clientes principales por ingresos totales:',
+            pythonScriptCode: 'from pyspark.sql import SparkSession\nfrom pyspark.sql.functions import sum\n\n# Conectarse al clúster en el contenedor\nspark = SparkSession.builder \\\n    .appName(\"TopCustomersLocal\") \\\n    .master(\"spark://localhost:7077\") \\\n    .getOrCreate()\n\n# Cargar archivos CSV (desde el volumen del contenedor)\ncustomers = spark.read.csv(\"/home/jovyan/data/customers.csv\", header=True, inferSchema=True)\norders = spark.read.csv(\"/home/jovyan/data/orders.csv\", header=True, inferSchema=True)\n\n# Unir y agregar\ntop_customers = customers.join(orders, \"customer_id\") \\\n    .groupBy(\"customer_id\", \"name\") \\\n    .agg(sum(\"total_amount\").alias(\"total_revenue\")) \\\n    .orderBy(\"total_revenue\", ascending=False) \\\n    .limit(10)\n\ntop_customers.show(truncate=False)',
+            pythonScriptOutput: 'customer_id | name              | total_revenue\n1001        | John Doe          | 25000.50\n1003        | Maria Garcia      | 18500.25\n1008        | Anna Schmidt      | 12300.75',
+            rLanguage: 'R con sparklyr',
+            rLanguageDesc: 'Los usuarios de R pueden usar sparklyr para acceder directamente a clústeres de Spark. La sintaxis es R nativa e se integra sin problemas con el mundo de tidyverse.',
+            rInstall: 'Instalación de sparklyr:',
+            rInstallCode: 'install.packages(\"sparklyr\")\nlibrary(sparklyr)\nspark_install()',
+            rTitle: 'Valor promedio de pedido por país del cliente:',
+            rCode: 'library(sparklyr)\nlibrary(dplyr)\n\n# Conectarse al clúster del contenedor\nsc <- spark_connect(\n  master = \"local\",\n  app_name = \"spark_r_megastore\"\n)\n\n# Cargar datos\norders_tbl <- spark_read_csv(\n  sc,\n  name = \"orders\",\n  path = \"/home/jovyan/data/orders.csv\"\n)\n\ncustomers_tbl <- spark_read_csv(\n  sc,\n  name = \"customers\",\n  path = \"/home/jovyan/data/customers.csv\"\n)\n\n# Agregación: valor promedio de pedido por país\navg_by_country <- customers_tbl %>%\n  left_join(orders_tbl, by = \"customer_id\") %>%\n  group_by(country) %>%\n  summarise(\n    avg_order = mean(total_amount, na.rm = TRUE),\n    order_count = n()\n  ) %>%\n  arrange(desc(avg_order))\n\nshow_query(avg_by_country)\navg_by_country %>% collect()',
+            rOutput: 'country     | avg_order  | order_count\nGermany     | 2500.50    | 250\nFrance      | 2300.25    | 180\nSpain       | 2150.75    | 150',
+            dbeaver: 'DBeaver / DataGrip (herramienta GUI)',
+            dbeaverDesc: 'Spark no tiene un servidor Thrift en este contenedor, pero aún puede ver trabajos en ejecución a través de la interfaz de usuario de Spark en el puerto 4040. Para la integración completa del IDE de SQL, necesitaría un servidor Spark Thrift externo.',
+            dbeaverNote: 'NOTA: El contenedor Docker jupyter/pyspark-notebook no tiene Thrift Server habilitado. Esto es normal — Spark se usa aquí principalmente a través de PySpark/R.',
+            dbeaverSparkUI: 'Alternativa: interfaz de usuario de Spark para monitoreo de trabajos',
+            dbeaverSparkUIDesc: 'Abra http://localhost:4040 para monitorear trabajos de Spark en ejecución y completados:',
+            dbeaverSparkUIFeatures: 'Verá allí: etapas, detalles de tareas, uso de memoria, registros de ejecutor',
+            vsCode: 'VS Code con extensión Jupyter',
+            vsCodeDesc: 'VS Code es un IDE popular con soporte oficial de Jupyter. Puede ejecutar cuadernos de Jupyter directamente en VS Code — y acceder al núcleo del contenedor.',
+            vsCodeInstall: '1. Instale la extensión "Jupyter" en VS Code',
+            vsCodeStep2: '2. Abra un archivo .ipynb o cree uno nuevo',
+            vsCodeStep3: '3. Seleccione "Seleccionar kernel" y conéctese al contenedor',
+            vsCodeTitle: 'Calcular puntos de lealtad del cliente y riesgo de abandono:',
+            vsCodeCode: 'from pyspark.sql import SparkSession\nfrom pyspark.sql.functions import count, avg, when, datediff, current_date\n\nspark = SparkSession.builder.appName(\"CustomerChurn\").getOrCreate()\n\n# Cargar y preparar\ncustomers = spark.read.csv(\"/home/jovyan/data/customers.csv\", header=True, inferSchema=True)\norders = spark.read.csv(\"/home/jovyan/data/orders.csv\", header=True, inferSchema=True)\n\n# RFM: Recency, Frequency, Monetary\nrfm = orders.groupBy(\"customer_id\") \\\n    .agg(\n        count(\"*\").alias(\"frequency\"),\n        avg(\"total_amount\").alias(\"avg_value\")\n    )\n\n# Unir con datos de clientes\nrfm_with_customers = customers.join(rfm, \"customer_id\") \\\n    .select(\"customer_id\", \"name\", \"country\", \"frequency\", \"avg_value\")\n\nrfm_with_customers.orderBy(\"frequency\", ascending=False).limit(10).show()',
+            vsCodeOutput: 'customer_id | name         | country  | frequency | avg_value\n1001        | John Doe     | Germany  | 15        | 1666.70\n1003        | Maria Garcia | Spain    | 12        | 1541.67\n1008        | Anna Schmidt | Germany  | 10        | 1230.08',
             fundamentalsIntro: 'Conceptos fundamentales de Apache Spark',
             whatIsSparkSession: '1. SparkSession – punto de entrada',
             sparkSessionDesc: 'SparkSession es el objeto central en Spark. Gestiona la conexión al clúster y crea DataFrames.',
@@ -1716,6 +1916,46 @@
             step4Desc: 'http://localhost:8888 açın ve kodu girin. Bağlantı noktası 4040 Spark arayüzünü gösterir.',
             verify: 'Doğrulama: Her şeyin çalıştığını Nasıl Doğrularsınız',
             verifyDesc: 'Jupyter\'de yeni bir Python hücresi oluşturun ve çalıştırın:',
+            tooling: 'Araçlar ve Entegrasyon',
+            toolingIntro: 'Konteyneri başlattınız — peki ya şimdi?',
+            toolingDesc: 'Spark konteyneri çalışıyor, ancak gerçek araçlarla nasıl bağlanırsınız? Bu bölüm en önemli geliştirme ortamları için pratik örnekler gösterir.',
+            jupyterNotebook: 'Jupyter Not Defteri (Konteynerde Yerel)',
+            jupyterDesc: 'Jupyter zaten konteyner içine yüklenmiştir ve 8888 portunda çalışır. PySpark kodu için en kolay giriş noktasıdır.',
+            jupyterTitle: 'Bununla ne yapabilirim?',
+            jupyterFeature1: 'PySpark kodunun etkileşimli yazılması ve acil yürütülmesi',
+            jupyterFeature2: 'DataFrame ve sonuçların görselleştirilmesi',
+            jupyterFeature3: 'Kod, belgelendirme ve Markdown kombinasyonu',
+            jupyterCodeTitle: 'Sipariş miktarına göre en iyi 5 ürün kategorisi:',
+            jupyterCode: 'from pyspark.sql import SparkSession\nfrom pyspark.sql.functions import count, sum\n\n# SparkSession (Jupyter\'de zaten başlatıldı)\nspark = SparkSession.builder.appName(\"Top5\").getOrCreate()\n\n# MegaStore verilerini yükle\nproducts = spark.read.csv(\"/home/jovyan/data/products.csv\", header=True, inferSchema=True)\norder_items = spark.read.csv(\"/home/jovyan/data/order_items.csv\", header=True, inferSchema=True)\n\n# Birleştir ve topla\ntop5 = order_items.join(products, \"product_id\") \\\n    .groupBy(\"category\") \\\n    .agg(count(\"*\").alias(\"order_count\")) \\\n    .orderBy(\"order_count\", ascending=False) \\\n    .limit(5)\n\ntop5.show()\nprint(\"✓ En iyi 5 kategori yüklendi!\")',
+            jupyterOutput: 'category         | order_count\nElectronics      | 450\nHome & Garden    | 380\nClothing         | 320\nSports           | 290\nBooks            | 210\n✓ En iyi 5 kategori yüklendi!',
+            pythonScript: 'Python Betiği (Bilgisayarınızda Yerel)',
+            pythonScriptDesc: 'Spark, Python\'ın çalıştığı her yerde çalışır. Makinenize pyspark yükleyin ve konteyner kümesine bağlanın.',
+            pythonInstall: 'Bilgisayarınıza Yükleme:',
+            pythonInstallCode: 'pip install pyspark',
+            pythonScriptTitle: 'Toplam gelire göre en iyi müşteriler:',
+            pythonScriptCode: 'from pyspark.sql import SparkSession\nfrom pyspark.sql.functions import sum\n\n# Konteyner içindeki kümeye bağlan\nspark = SparkSession.builder \\\n    .appName(\"TopCustomersLocal\") \\\n    .master(\"spark://localhost:7077\") \\\n    .getOrCreate()\n\n# CSV dosyalarını yükle (konteyner hacminden)\ncustomers = spark.read.csv(\"/home/jovyan/data/customers.csv\", header=True, inferSchema=True)\norders = spark.read.csv(\"/home/jovyan/data/orders.csv\", header=True, inferSchema=True)\n\n# Birleştir ve topla\ntop_customers = customers.join(orders, \"customer_id\") \\\n    .groupBy(\"customer_id\", \"name\") \\\n    .agg(sum(\"total_amount\").alias(\"total_revenue\")) \\\n    .orderBy(\"total_revenue\", ascending=False) \\\n    .limit(10)\n\ntop_customers.show(truncate=False)',
+            pythonScriptOutput: 'customer_id | name              | total_revenue\n1001        | John Doe          | 25000.50\n1003        | Maria Garcia      | 18500.25\n1008        | Anna Schmidt      | 12300.75',
+            rLanguage: 'sparklyr ile R',
+            rLanguageDesc: 'R kullanıcıları, Spark kümelerine doğrudan erişmek için sparklyr\'ı kullanabilirler. Söz dizimi yerel R\'dir ve tidyverse dünyası ile sorunsuzca entegre olur.',
+            rInstall: 'sparklyr Yüklemesi:',
+            rInstallCode: 'install.packages(\"sparklyr\")\nlibrary(sparklyr)\nspark_install()',
+            rTitle: 'Müşteri ülkesine göre ortalama sipariş değeri:',
+            rCode: 'library(sparklyr)\nlibrary(dplyr)\n\n# Konteyner kümesine bağlan\nsc <- spark_connect(\n  master = \"local\",\n  app_name = \"spark_r_megastore\"\n)\n\n# Verileri yükle\norders_tbl <- spark_read_csv(\n  sc,\n  name = \"orders\",\n  path = \"/home/jovyan/data/orders.csv\"\n)\n\ncustomers_tbl <- spark_read_csv(\n  sc,\n  name = \"customers\",\n  path = \"/home/jovyan/data/customers.csv\"\n)\n\n# Toplama: ülkeye göre ortalama sipariş değeri\navg_by_country <- customers_tbl %>%\n  left_join(orders_tbl, by = \"customer_id\") %>%\n  group_by(country) %>%\n  summarise(\n    avg_order = mean(total_amount, na.rm = TRUE),\n    order_count = n()\n  ) %>%\n  arrange(desc(avg_order))\n\nshow_query(avg_by_country)\navg_by_country %>% collect()',
+            rOutput: 'country     | avg_order  | order_count\nGermany     | 2500.50    | 250\nFrance      | 2300.25    | 180\nSpain       | 2150.75    | 150',
+            dbeaver: 'DBeaver / DataGrip (GUI Aracı)',
+            dbeaverDesc: 'Spark bu konteyner içinde Thrift Server\'a sahip değildir, ancak yine de 4040 portundaki Spark UI aracılığıyla çalışan işleri görebilirsiniz. Tam SQL IDE entegrasyonu için harici bir Spark Thrift Server\'a ihtiyacınız olacaktır.',
+            dbeaverNote: 'NOT: Docker konteyneri jupyter/pyspark-notebook Thrift Server\'ı etkinleştirilmemiş şekilde gelir. Bu normaldir — Spark burada esas olarak PySpark/R aracılığıyla kullanılır.',
+            dbeaverSparkUI: 'Alternatif: İş İzlemesi için Spark UI',
+            dbeaverSparkUIDesc: 'Çalışan ve tamamlanan Spark işlerini izlemek için http://localhost:4040 açın:',
+            dbeaverSparkUIFeatures: 'Orada göreceksiniz: Aşamalar, Görev Ayrıntıları, Bellek Kullanımı, Executor Günlükleri',
+            vsCode: 'Jupyter Uzantısı ile VS Code',
+            vsCodeDesc: 'VS Code, resmi Jupyter desteği olan popüler bir IDE\'dir. Jupyter dizüstü bilgisayarlarını doğrudan VS Code\'da çalıştırabilirsiniz — ve konteyner çekirdeğine erişebilirsiniz.',
+            vsCodeInstall: '1. VS Code\'da "Jupyter" uzantısını yükleyin',
+            vsCodeStep2: '2. .ipynb dosyası açın veya yeni bir dosya oluşturun',
+            vsCodeStep3: '3. "Çekirdeği Seç" i seçin ve konteynere bağlanın',
+            vsCodeTitle: 'Müşteri sadakat puanlarını ve çekilme riskini hesaplayın:',
+            vsCodeCode: 'from pyspark.sql import SparkSession\nfrom pyspark.sql.functions import count, avg, when, datediff, current_date\n\nspark = SparkSession.builder.appName(\"CustomerChurn\").getOrCreate()\n\n# Yükle ve hazırla\ncustomers = spark.read.csv(\"/home/jovyan/data/customers.csv\", header=True, inferSchema=True)\norders = spark.read.csv(\"/home/jovyan/data/orders.csv\", header=True, inferSchema=True)\n\n# RFM: Recency, Frequency, Monetary\nrfm = orders.groupBy(\"customer_id\") \\\n    .agg(\n        count(\"*\").alias(\"frequency\"),\n        avg(\"total_amount\").alias(\"avg_value\")\n    )\n\n# Müşteri verileri ile birleştir\nrfm_with_customers = customers.join(rfm, \"customer_id\") \\\n    .select(\"customer_id\", \"name\", \"country\", \"frequency\", \"avg_value\")\n\nrfm_with_customers.orderBy(\"frequency\", ascending=False).limit(10).show()',
+            vsCodeOutput: 'customer_id | name         | country  | frequency | avg_value\n1001        | John Doe     | Germany  | 15        | 1666.70\n1003        | Maria Garcia | Spain    | 12        | 1541.67\n1008        | Anna Schmidt | Germany  | 10        | 1230.08',
             fundamentalsIntro: 'Apache Spark\'ın Temel Kavramları',
             whatIsSparkSession: '1. SparkSession – Giriş Noktası',
             sparkSessionDesc: 'SparkSession, Spark\'taki merkezi nesnedir. Kümeyle bağlantıyı yönetir ve DataFrames oluşturur.',
@@ -1937,6 +2177,7 @@
         const sidebarItems = [
             { id: 'overview', label: 'overview' },
             { id: 'setup', label: 'setup' },
+            { id: 'tooling', label: 'tooling' },
             { id: 'fundamentals', label: 'fundamentals' },
             { id: 'exercise1', label: 'exercise1' },
             { id: 'exercise2', label: 'exercise2' },
@@ -2160,6 +2401,114 @@
                                 <button className="copy-btn" onClick={() => copyToClipboard('from pyspark.sql import SparkSession\nspark = SparkSession.builder.appName("test").getOrCreate()\nprint(spark.version)')}>{t.copy}</button>
                                 <code>from pyspark.sql import SparkSession\nspark = SparkSession.builder.appName("test").getOrCreate()\nprint(spark.version)</code>
                             </div>
+                        </section>
+
+                        <section id="tooling">
+                            <h2>{t.tooling}</h2>
+                            <p style={{fontSize: '1.1rem', marginBottom: '1.5rem', fontStyle: 'italic'}}>{t.toolingIntro}</p>
+                            <p>{t.toolingDesc}</p>
+
+                            <h3 style={{marginTop: '2.5rem'}}>{t.jupyterNotebook}</h3>
+                            <p>{t.jupyterDesc}</p>
+                            <div className="lesson-box">
+                                <h4>{t.jupyterTitle}</h4>
+                                <ul>
+                                    <li>{t.jupyterFeature1}</li>
+                                    <li>{t.jupyterFeature2}</li>
+                                    <li>{t.jupyterFeature3}</li>
+                                </ul>
+                            </div>
+                            <h4>{t.jupyterCodeTitle}</h4>
+                            <div className="code-wrapper">
+                                <button className="copy-btn" onClick={() => copyToClipboard(t.jupyterCode)}>{t.copy}</button>
+                                <div className="code-block">
+                                    <code>{t.jupyterCode}</code>
+                                </div>
+                            </div>
+                            <h4>{t.expected}</h4>
+                            <div className="output-box">{t.jupyterOutput}</div>
+
+                            <h3 style={{marginTop: '2.5rem'}}>{t.pythonScript}</h3>
+                            <p>{t.pythonScriptDesc}</p>
+                            <p style={{backgroundColor: '#fffbeb', border: '1px solid #fbbf24', borderLeft: '4px solid #fbbf24', padding: '1rem 1.25rem', borderRadius: '0.5rem', marginBottom: '1.25rem', fontSize: '0.95rem', color: '#92400e'}}>
+                                <strong>Schritt 1:</strong> {t.pythonInstall}
+                            </p>
+                            <div className="code-wrapper">
+                                <button className="copy-btn" onClick={() => copyToClipboard(t.pythonInstallCode)}>{t.copy}</button>
+                                <div className="code-block">
+                                    <code>{t.pythonInstallCode}</code>
+                                </div>
+                            </div>
+                            <h4>{t.pythonScriptTitle}</h4>
+                            <div className="code-wrapper">
+                                <button className="copy-btn" onClick={() => copyToClipboard(t.pythonScriptCode)}>{t.copy}</button>
+                                <div className="code-block">
+                                    <code>{t.pythonScriptCode}</code>
+                                </div>
+                            </div>
+                            <h4>{t.expected}</h4>
+                            <div className="output-box">{t.pythonScriptOutput}</div>
+
+                            <h3 style={{marginTop: '2.5rem'}}>{t.rLanguage}</h3>
+                            <p>{t.rLanguageDesc}</p>
+                            <p style={{backgroundColor: '#fffbeb', border: '1px solid #fbbf24', borderLeft: '4px solid #fbbf24', padding: '1rem 1.25rem', borderRadius: '0.5rem', marginBottom: '1.25rem', fontSize: '0.95rem', color: '#92400e'}}>
+                                <strong>Schritt 1:</strong> {t.rInstall}
+                            </p>
+                            <div className="code-wrapper">
+                                <button className="copy-btn" onClick={() => copyToClipboard(t.rInstallCode)}>{t.copy}</button>
+                                <div className="code-block">
+                                    <code>{t.rInstallCode}</code>
+                                </div>
+                            </div>
+                            <h4>{t.rTitle}</h4>
+                            <div className="code-wrapper">
+                                <button className="copy-btn" onClick={() => copyToClipboard(t.rCode)}>{t.copy}</button>
+                                <div className="code-block">
+                                    <code>{t.rCode}</code>
+                                </div>
+                            </div>
+                            <h4>{t.expected}</h4>
+                            <div className="output-box">{t.rOutput}</div>
+
+                            <h3 style={{marginTop: '2.5rem'}}>{t.dbeaver}</h3>
+                            <p>{t.dbeaverDesc}</p>
+                            <div className="lesson-box" style={{backgroundColor: '#f0fdf4', borderLeftColor: '#22c55e'}}>
+                                <h4 style={{color: '#22c55e'}}>{t.dbeaverNote}</h4>
+                                <p>{t.dbeaverSparkUI}</p>
+                            </div>
+                            <p style={{marginTop: '1rem'}}>{t.dbeaverSparkUIDesc}</p>
+                            <div className="card">
+                                <p style={{marginBottom: '0.5rem'}}><strong>✓ {t.dbeaverSparkUIFeatures}</strong></p>
+                            </div>
+
+                            <h3 style={{marginTop: '2.5rem'}}>{t.vsCode}</h3>
+                            <p>{t.vsCodeDesc}</p>
+                            <div className="lesson-box">
+                                <h4>{t.objective}</h4>
+                                <div style={{marginLeft: '0', marginTop: '0.5rem'}}>
+                                    <div className="step-item">
+                                        <div className="step-number">1</div>
+                                        <div className="step-item-content">{t.vsCodeInstall}</div>
+                                    </div>
+                                    <div className="step-item">
+                                        <div className="step-number">2</div>
+                                        <div className="step-item-content">{t.vsCodeStep2}</div>
+                                    </div>
+                                    <div className="step-item">
+                                        <div className="step-number">3</div>
+                                        <div className="step-item-content">{t.vsCodeStep3}</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <h4>{t.vsCodeTitle}</h4>
+                            <div className="code-wrapper">
+                                <button className="copy-btn" onClick={() => copyToClipboard(t.vsCodeCode)}>{t.copy}</button>
+                                <div className="code-block">
+                                    <code>{t.vsCodeCode}</code>
+                                </div>
+                            </div>
+                            <h4>{t.expected}</h4>
+                            <div className="output-box">{t.vsCodeOutput}</div>
                         </section>
 
                         <section id="fundamentals">

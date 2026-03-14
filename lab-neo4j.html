@@ -175,7 +175,36 @@
                 quiz: "Wissenstest",
                 outlook: "Ausblick & KI",
                 troubleshooting: "Fehlerbehebung",
+                tooling: "Tooling & Anbindung",
                 copy: "Kopieren",
+                toolingTitle: "Tooling & Anbindung",
+                toolingIntro: "Graphen sind am beeindruckendsten, wenn man sie visualisiert und in verschiedenen Tools nutzt. Neo4j bietet zahlreiche Möglichkeiten, mit der Datenbank von deiner bevorzugten Plattform aus zu arbeiten.",
+                neobrowserLabel: "Neo4j Browser",
+                neobrowserDesc: "Der eingebaute Web-Interface von Neo4j (http://localhost:7474). Keine Authentifizierung erforderlich.",
+                neobrowserQuery: "Top 5 Kunden mit den meisten Käufen:",
+                cyphershellLabel: "cypher-shell (CLI)",
+                cyphershellDesc: "Kommandozeilen-Tool für direkte Cypher-Abfragen über das Terminal.",
+                cyphershellCommand: "In Docker:",
+                dbeaver: "DBeaver",
+                dbeaverDesc: "Universal Database-Tool mit Neo4j-Plugin-Unterstützung.",
+                dbeaverConnection: "Verbindung: bolt://localhost:7687 (keine Authentifizierung)",
+                dbeaverFeature: "Bietet visuelle Graph-Ansicht und Beziehungs-Navigation.",
+                datagripLabel: "JetBrains DataGrip",
+                datagripDesc: "Professional Database IDE mit vollständiger Neo4j-Unterstützung.",
+                datagripConnection: "Verbindung: bolt://localhost:7687 (keine Authentifizierung)",
+                pythonLabel: "Python (neo4j-driver)",
+                pythonDesc: "Offizieller Python-Treiber für programmgesteuerten Zugriff.",
+                pythonInstall: "Installation:",
+                pythonExample: "Beispiel: Produktempfehlungen über Einkaufsbeziehungen",
+                pythonCode: "from neo4j import GraphDatabase\n\nURI = 'bolt://localhost:7687'\ndriver = GraphDatabase.driver(URI, auth=None)\n\ndef find_product_recommendations(product_id):\n    with driver.session() as session:\n        result = session.run(\n            'MATCH (p:Product {id: $id})-[:BOUGHT_TOGETHER*1..3]-(rec:Product) '\n            'RETURN DISTINCT rec.name, rec.price LIMIT 10',\n            id=product_id\n        )\n        return [record.data() for record in result]\n\ndriver.close()",
+                rLabel: "R (neo4r)",
+                rDesc: "R-Paket für Graph-Datenbank-Zugriff und Visualisierung.",
+                rInstall: "Installation:",
+                rExample: "Beispiel: Kundensegmente und Kaufverhalten visualisieren",
+                rCode: "install.packages('neo4r')\nlibrary(neo4r)\nlibrary(igraph)\n\ncon <- neo4j_api$new(\n  url = 'http://localhost:7474',\n  user = 'neo4j',\n  password = 'neo4j'\n)\n\nquery <- 'MATCH (c:Customer)-[:PURCHASED]->(p:Product)\nRETURN c.name AS customer, p.category AS category, count(*) AS purchases\nLIMIT 20'\n\nresult <- call_neo4j(query, con)\ndf <- as.data.frame(result)\nhead(df)",
+                bloomLabel: "Neo4j Bloom",
+                bloomDesc: "Moderne visuelle Graph-Explorer-Anwendung (in Neo4j Desktop enthalten).",
+                bloomFeature: "Ermöglicht intuitive Visualisierung und Exploration von Graph-Strukturen ohne Cypher-Kenntnisse.",
                 whatYouLearn: "Was Sie lernen werden",
                 whatYouLearn1: "Grundkonzepte von Graph-Datenbanken verstehen",
                 whatYouLearn2: "Cypher-Abfragesprache beherrschen",
@@ -459,7 +488,36 @@
                 quiz: "Knowledge Test",
                 outlook: "Outlook & AI",
                 troubleshooting: "Troubleshooting",
+                tooling: "Tooling & Integration",
                 copy: "Copy",
+                toolingTitle: "Tooling & Integration",
+                toolingIntro: "Graphs are most impressive when visualized and used in different tools. Neo4j offers numerous ways to connect to your database from your preferred platform.",
+                neobrowserLabel: "Neo4j Browser",
+                neobrowserDesc: "Neo4j's built-in web interface (http://localhost:7474). No authentication required.",
+                neobrowserQuery: "Top 5 customers with the most purchases:",
+                cyphershellLabel: "cypher-shell (CLI)",
+                cyphershellDesc: "Command-line tool for direct Cypher queries from the terminal.",
+                cyphershellCommand: "In Docker:",
+                dbeaver: "DBeaver",
+                dbeaverDesc: "Universal database tool with Neo4j plugin support.",
+                dbeaverConnection: "Connection: bolt://localhost:7687 (no authentication)",
+                dbeaverFeature: "Provides visual graph view and relationship navigation.",
+                datagripLabel: "JetBrains DataGrip",
+                datagripDesc: "Professional database IDE with full Neo4j support.",
+                datagripConnection: "Connection: bolt://localhost:7687 (no authentication)",
+                pythonLabel: "Python (neo4j-driver)",
+                pythonDesc: "Official Python driver for programmatic access.",
+                pythonInstall: "Installation:",
+                pythonExample: "Example: Product recommendations via purchase relationships",
+                pythonCode: "from neo4j import GraphDatabase\n\nURI = 'bolt://localhost:7687'\ndriver = GraphDatabase.driver(URI, auth=None)\n\ndef find_product_recommendations(product_id):\n    with driver.session() as session:\n        result = session.run(\n            'MATCH (p:Product {id: $id})-[:BOUGHT_TOGETHER*1..3]-(rec:Product) '\n            'RETURN DISTINCT rec.name, rec.price LIMIT 10',\n            id=product_id\n        )\n        return [record.data() for record in result]\n\ndriver.close()",
+                rLabel: "R (neo4r)",
+                rDesc: "R package for graph database access and visualization.",
+                rInstall: "Installation:",
+                rExample: "Example: Customer segments and purchase behavior visualization",
+                rCode: "install.packages('neo4r')\nlibrary(neo4r)\nlibrary(igraph)\n\ncon <- neo4j_api$new(\n  url = 'http://localhost:7474',\n  user = 'neo4j',\n  password = 'neo4j'\n)\n\nquery <- 'MATCH (c:Customer)-[:PURCHASED]->(p:Product)\nRETURN c.name AS customer, p.category AS category, count(*) AS purchases\nLIMIT 20'\n\nresult <- call_neo4j(query, con)\ndf <- as.data.frame(result)\nhead(df)",
+                bloomLabel: "Neo4j Bloom",
+                bloomDesc: "Modern visual graph explorer application (included with Neo4j Desktop).",
+                bloomFeature: "Enables intuitive visualization and exploration of graph structures without Cypher knowledge.",
                 whatYouLearn: "What You'll Learn",
                 whatYouLearn1: "Understand the core concepts of graph databases",
                 whatYouLearn2: "Master the Cypher query language",
@@ -812,7 +870,36 @@
             quiz: 'الاختبار',
             outlook: 'آفاق',
             troubleshooting: 'الدعم',
+            tooling: 'الأدوات والتكامل',
             copy: 'نسخ',
+            toolingTitle: 'الأدوات والتكامل',
+            toolingIntro: 'تكون الرسوم البيانية أكثر إثارة عند تصورها واستخدامها في أدوات مختلفة. يوفر Neo4j طرقًا عديدة للاتصال بقاعدة البيانات من منصتك المفضلة.',
+            neobrowserLabel: 'Neo4j Browser',
+            neobrowserDesc: 'واجهة الويب المدمجة في Neo4j (http://localhost:7474). بدون مصادقة مطلوبة.',
+            neobrowserQuery: 'أفضل 5 عملاء برأكبر عدد عمليات شراء:',
+            cyphershellLabel: 'cypher-shell (CLI)',
+            cyphershellDesc: 'أداة سطر الأوامر للاستعلامات Cypher المباشرة من الطرفية.',
+            cyphershellCommand: 'في Docker:',
+            dbeaver: 'DBeaver',
+            dbeaverDesc: 'أداة قاعدة بيانات عالمية مع دعم إضافة Neo4j.',
+            dbeaverConnection: 'الاتصال: bolt://localhost:7687 (بدون مصادقة)',
+            dbeaverFeature: 'توفر عرض الرسم البياني البصري وملاحة العلاقات.',
+            datagripLabel: 'JetBrains DataGrip',
+            datagripDesc: 'IDE قاعدة بيانات احترافية مع دعم كامل لـ Neo4j.',
+            datagripConnection: 'الاتصال: bolt://localhost:7687 (بدون مصادقة)',
+            pythonLabel: 'Python (neo4j-driver)',
+            pythonDesc: 'برنامج التشغيل الرسمي لـ Python للوصول البرمجي.',
+            pythonInstall: 'التثبيت:',
+            pythonExample: 'مثال: توصيات المنتج عبر علاقات الشراء',
+            pythonCode: "from neo4j import GraphDatabase\n\nURI = 'bolt://localhost:7687'\ndriver = GraphDatabase.driver(URI, auth=None)\n\ndef find_product_recommendations(product_id):\n    with driver.session() as session:\n        result = session.run(\n            'MATCH (p:Product {id: $id})-[:BOUGHT_TOGETHER*1..3]-(rec:Product) '\n            'RETURN DISTINCT rec.name, rec.price LIMIT 10',\n            id=product_id\n        )\n        return [record.data() for record in result]\n\ndriver.close()",
+            rLabel: 'R (neo4r)',
+            rDesc: 'حزمة R لوصول قاعدة بيانات الرسم البياني والتصور.',
+            rInstall: 'التثبيت:',
+            rExample: 'مثال: تصور قطاعات العملاء وسلوك الشراء',
+            rCode: "install.packages('neo4r')\nlibrary(neo4r)\nlibrary(igraph)\n\ncon <- neo4j_api\$new(\n  url = 'http://localhost:7474',\n  user = 'neo4j',\n  password = 'neo4j'\n)\n\nquery <- 'MATCH (c:Customer)-[:PURCHASED]->(p:Product)\nRETURN c.name AS customer, p.category AS category, count(*) AS purchases\nLIMIT 20'\n\nresult <- call_neo4j(query, con)\ndf <- as.data.frame(result)\nhead(df)",
+            bloomLabel: 'Neo4j Bloom',
+            bloomDesc: 'تطبيق مستكشف الرسم البياني البصري الحديث (مضمن في Neo4j Desktop).',
+            bloomFeature: 'يتيح تصور واستكشاف حدسي لهياكل الرسم البياني دون معرفة Cypher.',
             whatYouLearn: 'ما ستتعلمه',
             whatYouLearn1: 'فهم المفاهيم الأساسية لقواعد بيانات الرسوم البيانية',
             whatYouLearn2: 'إتقان لغة الاستعلام Cypher',
@@ -1102,7 +1189,36 @@
             quiz: 'Тест',
             outlook: 'Перспективи',
             troubleshooting: 'Підтримка',
+            tooling: 'Інструменти та інтеграція',
             copy: 'Копіювати',
+            toolingTitle: 'Інструменти та інтеграція',
+            toolingIntro: 'Графи найбільш вражаючі, коли вони візуалізовані та використовуються в різних інструментах. Neo4j пропонує численні способи підключення до вашої бази даних з вашої улюбленої платформи.',
+            neobrowserLabel: 'Neo4j Browser',
+            neobrowserDesc: 'Вбудований веб-інтерфейс Neo4j (http://localhost:7474). Аутентифікація не потрібна.',
+            neobrowserQuery: 'Топ-5 клієнтів з найбільшою кількістю покупок:',
+            cyphershellLabel: 'cypher-shell (CLI)',
+            cyphershellDesc: 'Інструмент командного рядка для прямих запитів Cypher з терміналу.',
+            cyphershellCommand: 'У Docker:',
+            dbeaver: 'DBeaver',
+            dbeaverDesc: 'Універсальний інструмент бази даних з підтримкою плагіну Neo4j.',
+            dbeaverConnection: 'Підключення: bolt://localhost:7687 (без аутентифікації)',
+            dbeaverFeature: 'Надає видимість графіка та навігацію за зв\'язками.',
+            datagripLabel: 'JetBrains DataGrip',
+            datagripDesc: 'Професійна IDE бази даних з повною підтримкою Neo4j.',
+            datagripConnection: 'Підключення: bolt://localhost:7687 (без аутентифікації)',
+            pythonLabel: 'Python (neo4j-driver)',
+            pythonDesc: 'Офіційний драйвер Python для програмного доступу.',
+            pythonInstall: 'Установка:',
+            pythonExample: 'Приклад: рекомендації продуктів через взаємозв\'язки покупок',
+            pythonCode: "from neo4j import GraphDatabase\n\nURI = 'bolt://localhost:7687'\ndriver = GraphDatabase.driver(URI, auth=None)\n\ndef find_product_recommendations(product_id):\n    with driver.session() as session:\n        result = session.run(\n            'MATCH (p:Product {id: $id})-[:BOUGHT_TOGETHER*1..3]-(rec:Product) '\n            'RETURN DISTINCT rec.name, rec.price LIMIT 10',\n            id=product_id\n        )\n        return [record.data() for record in result]\n\ndriver.close()",
+            rLabel: 'R (neo4r)',
+            rDesc: 'R-пакет для доступу та візуалізації бази даних графіка.',
+            rInstall: 'Установка:',
+            rExample: 'Приклад: візуалізація сегментів клієнтів та поведінки покупок',
+            rCode: "install.packages('neo4r')\nlibrary(neo4r)\nlibrary(igraph)\n\ncon <- neo4j_api\$new(\n  url = 'http://localhost:7474',\n  user = 'neo4j',\n  password = 'neo4j'\n)\n\nquery <- 'MATCH (c:Customer)-[:PURCHASED]->(p:Product)\nRETURN c.name AS customer, p.category AS category, count(*) AS purchases\nLIMIT 20'\n\nresult <- call_neo4j(query, con)\ndf <- as.data.frame(result)\nhead(df)",
+            bloomLabel: 'Neo4j Bloom',
+            bloomDesc: 'Сучасна програма для візуального дослідження графіків (включена в Neo4j Desktop).',
+            bloomFeature: 'Дозволяє інтуїтивну візуалізацію та дослідження структур графіків без знання Cypher.',
             whatYouLearn: 'Чого ви навчитеся',
             whatYouLearn1: 'Розуміння фундаментальних концепцій баз даних графів',
             whatYouLearn2: 'Оволодіння мовою запитів Cypher',
@@ -1392,7 +1508,36 @@
             quiz: 'Prueba',
             outlook: 'Perspectivas',
             troubleshooting: 'Soporte',
+            tooling: 'Herramientas e integración',
             copy: 'Copiar',
+            toolingTitle: 'Herramientas e integración',
+            toolingIntro: 'Los gráficos son más impresionantes cuando se visualizan y se utilizan en diferentes herramientas. Neo4j ofrece numerosas formas de conectarse a su base de datos desde su plataforma preferida.',
+            neobrowserLabel: 'Neo4j Browser',
+            neobrowserDesc: 'Interfaz web integrada de Neo4j (http://localhost:7474). No se requiere autenticación.',
+            neobrowserQuery: 'Top 5 clientes con más compras:',
+            cyphershellLabel: 'cypher-shell (CLI)',
+            cyphershellDesc: 'Herramienta de línea de comandos para consultas Cypher directas desde la terminal.',
+            cyphershellCommand: 'En Docker:',
+            dbeaver: 'DBeaver',
+            dbeaverDesc: 'Herramienta universal de base de datos con soporte del complemento Neo4j.',
+            dbeaverConnection: 'Conexión: bolt://localhost:7687 (sin autenticación)',
+            dbeaverFeature: 'Proporciona vista de gráfico visual y navegación de relaciones.',
+            datagripLabel: 'JetBrains DataGrip',
+            datagripDesc: 'IDE de base de datos profesional con soporte completo de Neo4j.',
+            datagripConnection: 'Conexión: bolt://localhost:7687 (sin autenticación)',
+            pythonLabel: 'Python (neo4j-driver)',
+            pythonDesc: 'Controlador oficial de Python para acceso programático.',
+            pythonInstall: 'Instalación:',
+            pythonExample: 'Ejemplo: Recomendaciones de productos a través de relaciones de compra',
+            pythonCode: "from neo4j import GraphDatabase\n\nURI = 'bolt://localhost:7687'\ndriver = GraphDatabase.driver(URI, auth=None)\n\ndef find_product_recommendations(product_id):\n    with driver.session() as session:\n        result = session.run(\n            'MATCH (p:Product {id: $id})-[:BOUGHT_TOGETHER*1..3]-(rec:Product) '\n            'RETURN DISTINCT rec.name, rec.price LIMIT 10',\n            id=product_id\n        )\n        return [record.data() for record in result]\n\ndriver.close()",
+            rLabel: 'R (neo4r)',
+            rDesc: 'Paquete R para acceso y visualización de bases de datos de gráficos.',
+            rInstall: 'Instalación:',
+            rExample: 'Ejemplo: Visualización de segmentos de clientes y comportamiento de compra',
+            rCode: "install.packages('neo4r')\nlibrary(neo4r)\nlibrary(igraph)\n\ncon <- neo4j_api\$new(\n  url = 'http://localhost:7474',\n  user = 'neo4j',\n  password = 'neo4j'\n)\n\nquery <- 'MATCH (c:Customer)-[:PURCHASED]->(p:Product)\nRETURN c.name AS customer, p.category AS category, count(*) AS purchases\nLIMIT 20'\n\nresult <- call_neo4j(query, con)\ndf <- as.data.frame(result)\nhead(df)",
+            bloomLabel: 'Neo4j Bloom',
+            bloomDesc: 'Aplicación moderna de explorador de gráficos visuales (incluida en Neo4j Desktop).',
+            bloomFeature: 'Permite visualización e exploración intuitiva de estructuras de gráficos sin conocimiento de Cypher.',
             whatYouLearn: 'Lo que aprenderá',
             whatYouLearn1: 'Comprender los conceptos fundamentales de bases de datos de grafos',
             whatYouLearn2: 'Dominar el lenguaje de consulta Cypher',
@@ -1682,7 +1827,36 @@
             quiz: 'Test',
             outlook: 'Görünüm',
             troubleshooting: 'Destek',
+            tooling: 'Araçlar ve entegrasyon',
             copy: 'Kopyala',
+            toolingTitle: 'Araçlar ve entegrasyon',
+            toolingIntro: 'Grafikler görselleştirildiğinde ve farklı araçlarda kullanıldığında en etkileyici olur. Neo4j, tercih ettiğiniz platformdan veritabanınıza bağlanmanın çok sayıda yolunu sunar.',
+            neobrowserLabel: 'Neo4j Browser',
+            neobrowserDesc: 'Neo4j\'nin yerleşik web arayüzü (http://localhost:7474). Kimlik doğrulama gerekmez.',
+            neobrowserQuery: 'En çok satın alma yapan ilk 5 müşteri:',
+            cyphershellLabel: 'cypher-shell (CLI)',
+            cyphershellDesc: 'Terminal\'den doğrudan Cypher sorgularını için komut satırı aracı.',
+            cyphershellCommand: 'Docker\'da:',
+            dbeaver: 'DBeaver',
+            dbeaverDesc: 'Neo4j eklenti desteğine sahip evrensel veritabanı aracı.',
+            dbeaverConnection: 'Bağlantı: bolt://localhost:7687 (kimlik doğrulama yok)',
+            dbeaverFeature: 'Görsel grafik görünümü ve ilişki navigasyonu sağlar.',
+            datagripLabel: 'JetBrains DataGrip',
+            datagripDesc: 'Neo4j için tam destek içeren profesyonel veritabanı IDE.',
+            datagripConnection: 'Bağlantı: bolt://localhost:7687 (kimlik doğrulama yok)',
+            pythonLabel: 'Python (neo4j-driver)',
+            pythonDesc: 'Programlı erişim için resmi Python sürücüsü.',
+            pythonInstall: 'Yükleme:',
+            pythonExample: 'Örnek: Satın alma ilişkileri aracılığıyla ürün önerileri',
+            pythonCode: "from neo4j import GraphDatabase\n\nURI = 'bolt://localhost:7687'\ndriver = GraphDatabase.driver(URI, auth=None)\n\ndef find_product_recommendations(product_id):\n    with driver.session() as session:\n        result = session.run(\n            'MATCH (p:Product {id: $id})-[:BOUGHT_TOGETHER*1..3]-(rec:Product) '\n            'RETURN DISTINCT rec.name, rec.price LIMIT 10',\n            id=product_id\n        )\n        return [record.data() for record in result]\n\ndriver.close()",
+            rLabel: 'R (neo4r)',
+            rDesc: 'Grafik veritabanı erişimi ve görselleştirme için R paketi.',
+            rInstall: 'Yükleme:',
+            rExample: 'Örnek: Müşteri segmentleri ve satın alma davranışı görselleştirme',
+            rCode: "install.packages('neo4r')\nlibrary(neo4r)\nlibrary(igraph)\n\ncon <- neo4j_api\$new(\n  url = 'http://localhost:7474',\n  user = 'neo4j',\n  password = 'neo4j'\n)\n\nquery <- 'MATCH (c:Customer)-[:PURCHASED]->(p:Product)\nRETURN c.name AS customer, p.category AS category, count(*) AS purchases\nLIMIT 20'\n\nresult <- call_neo4j(query, con)\ndf <- as.data.frame(result)\nhead(df)",
+            bloomLabel: 'Neo4j Bloom',
+            bloomDesc: 'Neo4j Desktop\'te bulunan modern görsel grafik explorer uygulaması.',
+            bloomFeature: 'Cypher bilgisi olmadan grafik yapılarının sezgisel görselleştirilmesini ve keşfedilmesini sağlar.',
             whatYouLearn: 'Öğrenecekleriniz',
             whatYouLearn1: 'Grafik veritabanlarının temel kavramlarını anlamak',
             whatYouLearn2: 'Cypher sorgu dilinde uzmanlaşmak',
@@ -1939,6 +2113,7 @@
                 { id: 'overview', label: t.overview },
                 { id: 'setup', label: t.setup },
                 { id: 'fundamentals', label: t.fundamentals },
+                { id: 'tooling', label: t.tooling },
                 { id: 'exercise1', label: t.exercise1 },
                 { id: 'exercise2', label: t.exercise2 },
                 { id: 'exercise3', label: t.exercise3 },
@@ -2261,6 +2436,95 @@
                                 <h3>{t.cypherLabel}</h3>
                                 <p>{t.cypherDesc}</p>
                                 {renderCodeBlock(t.cypherCode, 'Cypher Example')}
+                            </div>
+                        </section>
+
+                        {/* TOOLING & INTEGRATION */}
+                        <section id="tooling">
+                            <h2>{t.toolingTitle}</h2>
+                            <div className="card" style={{background: 'linear-gradient(135deg, rgba(232,121,47,0.08) 0%, rgba(232,121,47,0.04) 100%)', borderLeft: '4px solid var(--accent)'}}>
+                                <p style={{fontSize: '1.05rem', lineHeight: '1.8', color: '#1f2937', fontStyle: 'italic'}}>{t.toolingIntro}</p>
+                            </div>
+
+                            {/* Neo4j Browser */}
+                            <div className="card">
+                                <h3>{t.neobrowserLabel}</h3>
+                                <p>{t.neobrowserDesc}</p>
+                                <div className="code-block">
+                                    <button className="copy-btn" onClick={() => copyToClipboard('http://localhost:7474')}>{t.copy}</button>
+                                    <code>http://localhost:7474</code>
+                                </div>
+                                <p style={{marginTop: '1rem', fontWeight: '500'}}>{t.neobrowserQuery}</p>
+                                {renderCodeBlock('MATCH (c:Customer)-[:PURCHASED]->(p:Product) RETURN c.name, count(p) AS purchases ORDER BY purchases DESC LIMIT 5', 'Neo4j Browser')}
+                            </div>
+
+                            {/* cypher-shell */}
+                            <div className="card">
+                                <h3>{t.cyphershellLabel}</h3>
+                                <p>{t.cyphershellDesc}</p>
+                                <p style={{marginTop: '1rem', fontWeight: '500'}}>{t.cyphershellCommand}</p>
+                                {renderCodeBlock('docker exec -it megastore-neo4j cypher-shell', 'cypher-shell')}
+                                <p style={{marginTop: '1rem', fontStyle: 'italic', color: '#666'}}>Beispiel (Find product recommendation paths):</p>
+                                {renderCodeBlock('MATCH path = (p1:Product)-[:BOUGHT_TOGETHER*1..2]-(p2:Product) WHERE p1.id = \"LAPTOP-001\" RETURN p2.name, length(path) LIMIT 10', 'Product Recommendations')}
+                            </div>
+
+                            {/* DBeaver */}
+                            <div className="card">
+                                <h3>{t.dbeaver}</h3>
+                                <p>{t.dbeaverDesc}</p>
+                                <p style={{marginTop: '0.75rem'}}><strong>{t.dbeaverConnection}</strong></p>
+                                <p>{t.dbeaverFeature}</p>
+                                <div className="code-block">
+                                    <button className="copy-btn" onClick={() => copyToClipboard('bolt://localhost:7687')}>{t.copy}</button>
+                                    <code>bolt://localhost:7687</code>
+                                </div>
+                            </div>
+
+                            {/* DataGrip */}
+                            <div className="card">
+                                <h3>{t.datagripLabel}</h3>
+                                <p>{t.datagripDesc}</p>
+                                <p style={{marginTop: '0.75rem'}}><strong>{t.datagripConnection}</strong></p>
+                                <p style={{marginTop: '0.75rem'}}>DataGrip offers native graph visualization and relationship exploration through the Neo4j driver integration.</p>
+                            </div>
+
+                            {/* Python */}
+                            <div className="card">
+                                <h3>{t.pythonLabel}</h3>
+                                <p>{t.pythonDesc}</p>
+                                <p style={{marginTop: '1rem', fontWeight: '500'}}>{t.pythonInstall}</p>
+                                {renderCodeBlock('pip install neo4j', 'Python Installation')}
+                                <p style={{marginTop: '1rem', fontWeight: '500'}}>{t.pythonExample}:</p>
+                                {renderCodeBlock(t.pythonCode, 'Python Example')}
+                            </div>
+
+                            {/* R */}
+                            <div className="card">
+                                <h3>{t.rLabel}</h3>
+                                <p>{t.rDesc}</p>
+                                <p style={{marginTop: '1rem', fontWeight: '500'}}>{t.rInstall}</p>
+                                {renderCodeBlock("install.packages('neo4r')\nlibrary(neo4r)", 'R Installation')}
+                                <p style={{marginTop: '1rem', fontWeight: '500'}}>{t.rExample}:</p>
+                                {renderCodeBlock(t.rCode, 'R Example')}
+                            </div>
+
+                            {/* Neo4j Bloom */}
+                            <div className="card">
+                                <h3>{t.bloomLabel}</h3>
+                                <p>{t.bloomDesc}</p>
+                                <p style={{marginTop: '1rem'}}>{t.bloomFeature}</p>
+                                <p style={{marginTop: '1rem', fontSize: '0.9rem', color: '#666'}}>Bloom is perfect for business users and analysts who want to explore graphs visually without writing Cypher queries.</p>
+                            </div>
+
+                            {/* Summary Card */}
+                            <div className="card" style={{background: '#f3f4f6', borderLeft: '4px solid #10b981'}}>
+                                <h3>Quick Reference</h3>
+                                <div style={{marginTop: '1rem', fontSize: '0.95rem', lineHeight: '1.8'}}>
+                                    <p><strong>Web Browser:</strong> http://localhost:7474</p>
+                                    <p><strong>Bolt Protocol:</strong> bolt://localhost:7687</p>
+                                    <p><strong>All tools:</strong> No authentication required (NEO4J_AUTH=none)</p>
+                                    <p><strong>Real-time sync:</strong> Use the loaded MegaStore data with all these tools</p>
+                                </div>
                             </div>
                         </section>
 
