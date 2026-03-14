@@ -11,483 +11,140 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-light.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            background-color: #fafbfc;
-            color: #1B3A5C;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
-            line-height: 1.6;
-        }
-        /* RTL Support */
-        html[dir="rtl"] body { text-align: right; }
-        html[dir="rtl"] .sidebar { left: auto; right: 0; border-right: none; border-left: 1px solid #e5e7eb; }
-        html[dir="rtl"] .sidebar-item { border-left: none; border-right: 4px solid transparent; }
-        html[dir="rtl"] .sidebar-item:hover { border-right-color: #E8792F; }
-        html[dir="rtl"] .sidebar-item.active { border-right-color: #E8792F; }
-        html[dir="rtl"] .main-content { margin-left: 0; margin-right: 280px; }
-        html[dir="rtl"] .badge { margin-left: 0.5rem; margin-right: 0; }
-        html[dir="rtl"] .code-block { border-left: none; border-right: 4px solid #E8792F; }
-        html[dir="rtl"] .output-box { border-left: none; border-right: 4px solid #E8792F; }
-        html[dir="rtl"] h2, html[dir="rtl"] .section-header { border-left: none; border-right: 4px solid #E8792F; padding-left: 0; padding-right: 1rem; }
-        html[dir="rtl"] h3, html[dir="rtl"] .subsection-header { border-left: none; border-right: 3px solid #E8792F; padding-left: 0; padding-right: 0.75rem; }
-        html[dir="rtl"] .lesson-box { border-left: none; border-right: 4px solid #E8792F; }
-        html[dir="rtl"] .hint-box { border-left: none; border-right: 4px solid #2196F3; }
+        :root { --primary: #1B3A5C; --accent: #E8792F; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #fafbfc; color: #374151; line-height: 1.7; }
 
-        /* Accent Utilities */
-        .accent-line { border-top: 4px solid #E8792F; }
-        .accent-border { border: 2px solid #E8792F; }
-        .accent-bg { background-color: #E8792F; }
+        /* RTL */
+        html[dir="rtl"] .sidebar { left: auto; right: 0; border-right: none; border-left: 1px solid #ddd; }
+        html[dir="rtl"] .sidebar-item { border-left: none; border-right: 3px solid transparent; }
+        html[dir="rtl"] .sidebar-item.active { border-right-color: var(--accent); }
+        html[dir="rtl"] .main-content { margin-left: 0; margin-right: 260px; }
+        html[dir="rtl"] .code-block { border-left: none; border-right: 4px solid var(--accent); }
+        html[dir="rtl"] .concept-box { border-left: none; border-right: 4px solid var(--primary); }
 
-        /* Buttons */
-        .btn-accent {
-            background-color: #E8792F;
-            color: white;
-            padding: 0.75rem 1.5rem;
-            border-radius: 0.75rem;
-            border: none;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.2s;
-        }
-        .btn-accent:hover { opacity: 0.9; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(232, 121, 47, 0.3); }
-        .btn-outline {
-            background: transparent;
-            color: #E8792F;
-            border: 2px solid #E8792F;
-            padding: 0.65rem 1.4rem;
-            border-radius: 0.75rem;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.2s;
-        }
-        .btn-outline:hover { background: #E8792F; color: white; }
-
-        /* Cards */
-        .card {
-            background: white;
-            border-radius: 0.75rem;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-            padding: 1.5rem;
-            margin-bottom: 1.5rem;
-        }
-        .card:hover { box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); }
-        .card h4 { color: #1B3A5C; margin-bottom: 0.75rem; font-weight: 700; }
-
-        /* Code Blocks */
-        .code-block {
-            background: #1e293b;
-            border-left: 4px solid #E8792F;
-            border-radius: 0.5rem;
-            padding: 1.25rem 1rem 1rem 1rem;
-            margin: 1rem 0;
-            position: relative;
-            overflow-x: auto;
-        }
-        .code-block code {
-            color: #e2e8f0;
-            font-family: 'Monaco', 'Courier New', monospace;
-            font-size: 0.875rem;
-            line-height: 1.6;
-            display: block;
-            white-space: pre;
-        }
-        .copy-btn {
-            position: absolute;
-            top: 0.5rem;
-            right: 0.5rem;
-            background: #E8792F;
-            color: white;
-            border: none;
-            padding: 0.4rem 0.8rem;
-            border-radius: 0.35rem;
-            cursor: pointer;
-            font-size: 0.8rem;
-            font-weight: 600;
-            transition: all 0.2s;
-        }
-        .copy-btn:hover { opacity: 0.85; }
-
-        /* Step Items */
-        .step-number {
-            background-color: #E8792F;
-            color: white;
-            width: 2rem;
-            height: 2rem;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            flex-shrink: 0;
-            font-size: 0.85rem;
-        }
-        .step-item {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 1.25rem;
-            align-items: flex-start;
-        }
-        .step-item-content {
-            flex: 1;
-            padding-top: 0.2rem;
-            color: #374151;
-            line-height: 1.6;
-        }
-
-        /* Header / Navbar */
-        .header, header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            background: #1B3A5C;
-            z-index: 50;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 2rem;
-            height: 4rem;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
-        }
+        /* Header */
+        .header, header { position: fixed; top: 0; left: 0; right: 0; background: var(--primary); height: 4rem; padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; z-index: 50; box-shadow: 0 2px 12px rgba(0,0,0,0.15); }
         .header-left { display: flex; align-items: center; gap: 1rem; }
-        .back-btn {
-            background: none;
-            border: none;
-            color: #E8792F;
-            font-size: 1.5rem;
-            cursor: pointer;
-            font-weight: bold;
-            text-decoration: none;
-            transition: opacity 0.2s;
-        }
-        .back-btn:hover { opacity: 0.8; }
-        .header-title, .header h1 {
-            color: white;
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin: 0;
-        }
-        .lang-switcher, .lang-selector, .lang-select {
-            display: flex;
-            gap: 0.5rem;
-            align-items: center;
-        }
-        .lang-btn, .lang-selector button {
-            background: transparent;
-            color: rgba(255, 255, 255, 0.7);
-            border: 1px solid rgba(255, 255, 255, 0.25);
-            padding: 0.4rem 0.8rem;
-            border-radius: 0.35rem;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 0.8rem;
-            transition: all 0.2s;
-        }
-        .lang-btn:hover, .lang-selector button:hover { background: rgba(255, 255, 255, 0.1); color: white; }
-        .lang-btn.active, .lang-selector button.active { background: #E8792F; color: white; border-color: #E8792F; }
+        .back-link { color: rgba(255,255,255,0.7); text-decoration: none; font-size: 0.85rem; font-weight: 600; transition: color 0.2s; white-space: nowrap; }
+        .back-link:hover { color: white; }
+        .header-title, .header h1, header h1 { color: white; font-size: 1.35rem; font-weight: 700; margin: 0; }
+        .lang-switcher, .lang-selector, .lang-select { display: flex; gap: 0.4rem; align-items: center; }
+        .lang-btn, .lang-selector button { padding: 0.35rem 0.65rem; border-radius: 0.375rem; border: 2px solid rgba(255,255,255,0.25); background: transparent; cursor: pointer; font-weight: 700; font-size: 0.75rem; color: rgba(255,255,255,0.6); transition: all 0.2s; }
+        .lang-btn:hover:not(.active), .lang-selector button:hover:not(.active) { border-color: rgba(255,255,255,0.5); color: white; }
+        .lang-btn.active, .lang-selector button.active { background: var(--accent); color: white; border-color: var(--accent); }
 
         /* Sidebar */
-        .sidebar {
-            position: fixed;
-            left: 0;
-            top: 4rem;
-            width: 280px;
-            height: calc(100vh - 4rem);
-            background: white;
-            border-right: 1px solid #e5e7eb;
-            padding: 1rem 0;
-            overflow-y: auto;
-            z-index: 40;
-        }
-        .sidebar-item {
-            display: block;
-            width: 100%;
-            text-align: left;
-            padding: 0.7rem 1.5rem;
-            color: #4b5563;
-            cursor: pointer;
-            border: none;
-            background: none;
-            border-left: 4px solid transparent;
-            transition: all 0.2s;
-            font-size: 0.9rem;
-            font-family: inherit;
-            line-height: 1.4;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            text-decoration: none;
-        }
-        .sidebar-item:hover { background: #f9fafb; border-left-color: #E8792F; color: #1B3A5C; }
-        .sidebar-item.active {
-            background: rgba(232, 121, 47, 0.08);
-            border-left-color: #E8792F;
-            color: #E8792F;
-            font-weight: 600;
-        }
+        .sidebar { position: fixed; left: 0; top: 4rem; width: 260px; height: calc(100vh - 4rem); background: #f0f4f8; border-right: 1px solid #ddd; overflow-y: auto; padding: 1.5rem 0; z-index: 40; }
+        .sidebar-item { display: block; width: 100%; text-align: left; padding: 0.65rem 1.5rem; cursor: pointer; border: none; background: none; border-left: 3px solid transparent; font-weight: 500; font-size: 0.85rem; color: #4b5563; transition: all 0.2s; font-family: inherit; text-decoration: none; line-height: 1.4; }
+        .sidebar-item:hover { background: #e1eaf5; color: var(--primary); }
+        .sidebar-item.active { background: rgba(232,121,47,0.08); color: var(--accent); border-left-color: var(--accent); font-weight: 700; }
 
         /* Main Content */
-        .main-content {
-            margin-left: 280px;
-            padding: 5rem 3rem 3rem 3rem;
-            background: #fafbfc;
-            min-height: 100vh;
-            max-width: 1200px;
-        }
+        .main-content { margin-left: 260px; padding: 5.5rem 3rem 3rem 3rem; max-width: 1000px; }
 
-        /* Sections */
-        .section { display: none; }
-        .section.active { display: block; animation: slideIn 0.3s ease-out; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        @keyframes slideIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+        /* Typography */
+        h2, .section-header { color: var(--primary); font-size: 1.75rem; font-weight: 800; margin: 3rem 0 0.75rem 0; line-height: 1.3; }
+        h2:first-child, .section-header:first-child { margin-top: 0; }
+        h3, .subsection-header { color: var(--primary); font-size: 1.15rem; font-weight: 700; margin: 2rem 0 0.5rem 0; }
+        h4 { font-size: 1rem; font-weight: 700; color: var(--primary); margin: 1.25rem 0 0.4rem 0; }
+        p { color: #4b5563; line-height: 1.7; margin-bottom: 0.75rem; }
 
-        /* Section Headers */
-        h2, .section-header {
-            font-size: 1.85rem;
-            font-weight: 700;
-            color: #1B3A5C;
-            margin: 0 0 1.5rem 0;
-            padding-left: 1rem;
-            border-left: 4px solid #E8792F;
-            line-height: 1.3;
-        }
-        h3, .subsection-header {
-            font-size: 1.25rem;
-            font-weight: 600;
-            color: #1B3A5C;
-            margin: 2rem 0 1rem 0;
-            border-left: 3px solid #E8792F;
-            padding-left: 0.75rem;
-            line-height: 1.3;
-        }
-        h4 {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: #1B3A5C;
-            margin: 1.25rem 0 0.5rem 0;
-        }
-        p { margin: 0.75rem 0; color: #374151; line-height: 1.7; }
+        /* Code Blocks */
+        .code-wrapper { position: relative; }
+        .code-block { background: #1e293b; border-left: 4px solid var(--accent); color: #e2e8f0; font-family: 'Courier New', monospace; padding: 1.25rem; border-radius: 0.5rem; font-size: 0.85rem; margin: 1rem 0; white-space: pre; overflow-x: auto; line-height: 1.55; }
+        .code-block code { color: inherit; font-family: inherit; font-size: inherit; line-height: inherit; display: block; white-space: pre; background: none; }
+        .copy-btn { position: absolute; top: 0.6rem; right: 0.5rem; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.18); color: #94a3b8; border-radius: 0.375rem; padding: 0.2rem 0.6rem; font-size: 0.72rem; cursor: pointer; transition: all 0.2s; opacity: 0; font-family: -apple-system, BlinkMacSystemFont, sans-serif; line-height: 1.5; user-select: none; }
+        .code-wrapper:hover .copy-btn, .code-block:hover .copy-btn { opacity: 1; }
+        .copy-btn:hover { background: rgba(255,255,255,0.18); color: #e2e8f0; }
+        .copy-btn.copied { color: #4ade80; border-color: rgba(74,222,128,0.4); opacity: 1; }
+
+        /* Output Box */
+        .output-box { background: #f8fafc; border: 1px solid #e2e8f0; color: #334155; padding: 1rem; border-radius: 0.5rem; font-family: 'Courier New', monospace; font-size: 0.85rem; overflow-x: auto; margin: 1rem 0; line-height: 1.55; white-space: pre-wrap; max-height: 400px; overflow-y: auto; }
+
+        /* Info Boxes */
+        .lesson-box, .concept-box { background: rgba(27,58,92,0.04); border-left: 4px solid var(--primary); padding: 1.25rem; border-radius: 0.5rem; margin: 1.25rem 0; }
+        .lesson-box h4, .concept-box h4 { margin-top: 0; color: var(--primary); }
+        .lesson-box ul, .concept-box ul { margin-left: 1.5rem; margin-top: 0.5rem; }
+        .lesson-box li, .concept-box li { margin: 0.3rem 0; color: #4b5563; }
+        .hint-box, .info-box { background: #eff6ff; border-left: 4px solid #3b82f6; padding: 1rem 1.25rem; border-radius: 0.5rem; margin: 1rem 0; font-size: 0.95rem; color: #1e40af; }
+        .tip-box { background: #fffbeb; border-left: 4px solid #fbbf24; padding: 1rem 1.25rem; border-radius: 0.5rem; margin: 1rem 0; font-size: 0.95rem; color: #92400e; }
+        .challenge-box { background: #f0fdf4; border-left: 4px solid #22c55e; padding: 1rem 1.25rem; border-radius: 0.5rem; margin: 1rem 0; }
+
+        /* Cards */
+        .card { background: white; border: 1px solid #e5e7eb; border-radius: 0.75rem; padding: 1.5rem; margin-bottom: 1.25rem; box-shadow: 0 1px 3px rgba(0,0,0,0.04); }
+        .card:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+        .card h4 { color: var(--primary); margin-top: 0; }
 
         /* Badges */
-        .badge {
-            display: inline-block;
-            padding: 0.25rem 0.75rem;
-            border-radius: 9999px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            margin-right: 0.5rem;
-            margin-bottom: 0.5rem;
-        }
+        .badge { display: inline-block; padding: 0.2rem 0.7rem; border-radius: 9999px; font-size: 0.75rem; font-weight: 700; margin-right: 0.4rem; }
         .badge-beginner { background: #d1fae5; color: #065f46; }
         .badge-intermediate { background: #fef08a; color: #713f12; }
         .badge-advanced { background: #fed7aa; color: #7c2d12; }
         .badge-challenge { background: #fecaca; color: #7f1d1d; }
         .badge-time { background: #dbeafe; color: #1e40af; }
 
-        /* Expandable Items */
-        .expandable {
-            background: #f9fafb;
-            border: 1px solid #e5e7eb;
-            border-radius: 0.5rem;
-            padding: 1rem 1.25rem;
-            margin: 1rem 0;
-            cursor: pointer;
-            transition: all 0.2s;
-            user-select: none;
-        }
-        .expandable:hover { background: #f3f4f6; border-color: #d1d5db; }
-        .expandable-header {
-            font-weight: 600;
-            color: #E8792F;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 0.5rem;
-        }
-        .expandable-content {
-            margin-top: 1rem;
-            padding-top: 1rem;
-            border-top: 1px solid #e5e7eb;
-            color: #374151;
-            line-height: 1.7;
-        }
-        .expandable-chevron { transition: transform 0.25s; font-size: 0.9rem; }
-        .expandable.expanded .expandable-chevron { transform: rotate(180deg); }
+        /* Step Items */
+        .step-number { background: var(--accent); color: white; width: 1.75rem; height: 1.75rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; flex-shrink: 0; font-size: 0.8rem; }
+        .step-item { display: flex; gap: 0.75rem; margin-bottom: 1rem; align-items: flex-start; }
+        .step-item-content { flex: 1; padding-top: 0.1rem; color: #4b5563; line-height: 1.6; }
 
-        /* Output Box (terminal-style) */
-        .output-box {
-            background: #1B3A5C;
-            color: #00d084;
-            padding: 1rem;
-            border-radius: 0.5rem;
-            font-family: 'Monaco', 'Courier New', monospace;
-            font-size: 0.875rem;
-            overflow-x: auto;
-            margin: 1rem 0;
-            border-left: 4px solid #E8792F;
-            line-height: 1.5;
-            max-height: 400px;
-            overflow-y: auto;
-            white-space: pre-wrap;
-        }
-
-        /* Lesson & Hint Boxes */
-        .lesson-box {
-            background-color: #fef5f1;
-            border-left: 4px solid #E8792F;
-            padding: 1.25rem 1.5rem;
-            border-radius: 0.5rem;
-            margin: 1.25rem 0;
-        }
-        .lesson-box h4 { margin-top: 0; color: #1B3A5C; }
-        .lesson-box ul { margin-left: 1.5rem; margin-top: 0.5rem; }
-        .lesson-box li { margin: 0.4rem 0; color: #374151; }
-        .hint-box {
-            background-color: #eff6ff;
-            border-left: 4px solid #3b82f6;
-            padding: 1rem 1.25rem;
-            border-radius: 0.5rem;
-            margin: 1rem 0;
-            font-size: 0.95rem;
-            color: #1e40af;
-            line-height: 1.6;
-        }
+        /* Expandable */
+        .expandable { background: white; border: 1px solid #e5e7eb; border-radius: 0.5rem; padding: 0.85rem 1.15rem; margin: 0.75rem 0; cursor: pointer; transition: all 0.2s; user-select: none; }
+        .expandable:hover { border-color: #d1d5db; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+        .expandable-header { font-weight: 600; color: var(--accent); display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; font-size: 0.95rem; }
+        .expandable-content { margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid #e5e7eb; color: #4b5563; line-height: 1.7; }
 
         /* Quiz */
-        .quiz-item {
-            background: white;
-            border: 1px solid #e5e7eb;
-            border-radius: 0.75rem;
-            padding: 1.5rem;
-            margin-bottom: 1.25rem;
-        }
-        .quiz-options { display: flex; flex-direction: column; gap: 0.5rem; margin-top: 1rem; }
-        .quiz-option {
-            display: block;
-            width: 100%;
-            text-align: left;
-            padding: 0.75rem 1rem;
-            border: 2px solid #e5e7eb;
-            border-radius: 0.5rem;
-            background: white;
-            cursor: pointer;
-            font-family: inherit;
-            font-size: 0.95rem;
-            color: #374151;
-            transition: all 0.2s;
-        }
-        .quiz-option:hover { border-color: #E8792F; background: #fef5f1; }
-        .quiz-option.selected { border-color: #E8792F; background: #fef5f1; color: #1B3A5C; font-weight: 500; }
-        .quiz-option.correct { border-color: #10b981; background: #d1fae5; }
-        .quiz-option.incorrect { border-color: #ef4444; background: #fee2e2; }
-        .quiz-feedback {
-            margin-top: 0.75rem;
-            padding: 0.75rem 1rem;
-            border-radius: 0.5rem;
-            font-size: 0.95rem;
-            line-height: 1.5;
-        }
+        .quiz-option { display: block; width: 100%; padding: 0.75rem 1rem; border: 2px solid #e5e7eb; border-radius: 0.5rem; cursor: pointer; margin-bottom: 0.5rem; font-size: 0.9rem; text-align: left; background: white; transition: all 0.2s; font-family: inherit; color: #374151; }
+        .quiz-option:hover { border-color: var(--accent); background: #fef5f1; }
+        .quiz-option.selected { border-color: var(--accent); background: #fef5f1; font-weight: 500; }
+        .quiz-option.correct { border-color: #22c55e; background: #f0fdf4; }
+        .quiz-option.incorrect, .quiz-option.wrong { border-color: #ef4444; background: #fef2f2; }
+        .quiz-feedback { margin-top: 0.5rem; padding: 0.75rem 1rem; border-radius: 0.5rem; font-size: 0.9rem; line-height: 1.5; }
 
         /* Tables */
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 1rem 0;
-            font-size: 0.95rem;
-        }
-        th {
-            background: #1B3A5C;
-            color: white;
-            padding: 0.75rem 1rem;
-            text-align: left;
-            font-weight: 600;
-        }
-        td {
-            padding: 0.75rem 1rem;
-            border-bottom: 1px solid #e5e7eb;
-            color: #374151;
-        }
-        tr:hover td { background: #f9fafb; }
-        .comparison-table, .schema-table { border-radius: 0.5rem; overflow: hidden; }
+        table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.9rem; }
+        th { background: var(--primary); color: white; padding: 0.65rem 1rem; text-align: left; font-weight: 600; font-size: 0.85rem; }
+        td { padding: 0.65rem 1rem; border-bottom: 1px solid #e5e7eb; color: #4b5563; font-size: 0.9rem; }
+        tr:hover td { background: #f8fafc; }
+        table { border-radius: 0.5rem; overflow: hidden; }
 
-        /* Next Exercise Button */
-        .next-button, .next-exercise-btn {
-            display: inline-block;
-            margin-top: 1.5rem;
-            padding: 0.75rem 1.5rem;
-            background: #E8792F;
-            color: white;
-            border: none;
-            border-radius: 0.5rem;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 0.95rem;
-            text-decoration: none;
-            transition: all 0.2s;
-        }
-        .next-button:hover, .next-exercise-btn:hover { opacity: 0.9; transform: translateY(-1px); }
+        /* Buttons */
+        .btn-accent { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.65rem 1.4rem; border-radius: 0.5rem; font-weight: 700; text-decoration: none; font-size: 0.9rem; transition: all 0.2s; border: 2px solid var(--accent); color: var(--accent); background: white; cursor: pointer; }
+        .btn-accent:hover { background: var(--accent); color: white; }
+        .next-button, .next-exercise-btn { display: inline-block; margin-top: 1.25rem; padding: 0.6rem 1.2rem; background: var(--accent); color: white; border: none; border-radius: 0.5rem; cursor: pointer; font-weight: 600; font-size: 0.9rem; text-decoration: none; transition: all 0.2s; }
+        .next-button:hover, .next-exercise-btn:hover { opacity: 0.9; }
 
-        /* Prompt Example */
-        .prompt-example {
-            background: #f9fafb;
-            border: 1px solid #e5e7eb;
-            border-radius: 0.5rem;
-            padding: 1rem;
-            margin: 1rem 0;
-            font-family: 'Monaco', 'Courier New', monospace;
-            font-size: 0.9rem;
-            color: #1B3A5C;
-            overflow-x: auto;
-        }
-
-        /* Outlook Section */
-        .outlook-card {
-            background: white;
-            border-radius: 0.75rem;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-            padding: 1.5rem;
-            margin-bottom: 1.25rem;
-            border-top: 3px solid #E8792F;
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .sidebar { display: none; }
-            .main-content { margin-left: 0; padding: 5rem 1.5rem 2rem 1.5rem; }
-            html[dir="rtl"] .main-content { margin-right: 0; }
-        }
-
-        /* Footer */
-        .lab-footer {
-            margin-top: 3rem;
-            padding-top: 2rem;
-            border-top: 1px solid #e5e7eb;
-            text-align: center;
-            color: #6b7280;
-            font-size: 0.9rem;
-        }
-        .lab-footer p { color: #6b7280; margin: 0.25rem 0; }
-
-        /* Comparison Cards (used in overview sections) */
-        .vs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 1rem; }
+        /* Comparison Cards */
+        .vs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin: 1rem 0; }
         .vs-card { border-radius: 0.75rem; padding: 1.25rem; }
         .vs-card-left { background: #f0f4f8; border-top: 4px solid #6b7280; }
-        .vs-card-right { background: #fef5f1; border-top: 4px solid #E8792F; }
-        .vs-card h4 { color: #1B3A5C; font-weight: 700; margin-bottom: 0.75rem; margin-top: 0; }
-        .vs-card ul { color: #374151; line-height: 1.8; padding-left: 1.2rem; }
-        .vs-card li { margin: 0.25rem 0; }
-        /* Feature list with orange left border */
-        .feature-item { border-left: 3px solid #E8792F; padding-left: 1rem; margin-bottom: 1rem; }
-        .feature-item h4 { color: #1B3A5C; font-weight: 700; margin-bottom: 0.4rem; margin-top: 0; }
-        .feature-item p { margin: 0; color: #374151; line-height: 1.65; }
-        /* Intro paragraph styling */
-        .intro-text { color: #374151; line-height: 1.7; font-size: 1.05rem; margin-bottom: 1.5rem; }
-        .intro-link { color: #E8792F; font-weight: 600; text-decoration: none; }
+        .vs-card-right { background: #fef5f1; border-top: 4px solid var(--accent); }
+        .vs-card h4 { color: var(--primary); font-weight: 700; margin-bottom: 0.75rem; margin-top: 0; }
+        .vs-card ul { color: #4b5563; line-height: 1.8; padding-left: 1.2rem; }
+        .feature-item { border-left: 3px solid var(--accent); padding-left: 1rem; margin-bottom: 1rem; }
+        .feature-item h4 { color: var(--primary); font-weight: 700; margin-bottom: 0.3rem; margin-top: 0; }
+        .feature-item p { margin: 0; }
+        .intro-text { font-size: 1.05rem; margin-bottom: 1.5rem; }
+        .intro-link { color: var(--accent); font-weight: 600; text-decoration: none; }
         .intro-link:hover { text-decoration: underline; }
 
-        /* Back to Home Link */
-        .back-link { color: white; text-decoration: none; font-size: 0.9rem; opacity: 0.8; white-space: nowrap; transition: opacity 0.2s; }
-        .back-link:hover { opacity: 1; }
+        /* Outlook */
+        .outlook-card { background: white; border: 1px solid #e5e7eb; border-radius: 0.75rem; padding: 1.5rem; margin-bottom: 1rem; border-top: 3px solid var(--accent); }
+
+        /* Footer */
+        .lab-footer { margin-top: 3rem; padding-top: 2rem; border-top: 1px solid #e5e7eb; text-align: center; color: #9ca3af; font-size: 0.85rem; }
+        .lab-footer p { color: #9ca3af; margin: 0.25rem 0; }
+
+        /* Section spacing for scroll-based navigation */
+        section[id] { padding-top: 1rem; margin-bottom: 2rem; scroll-margin-top: 5rem; }
+
+        /* Prompt Example */
+        .prompt-example { background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 0.5rem; padding: 1rem; margin: 1rem 0; font-family: 'Courier New', monospace; font-size: 0.85rem; color: var(--primary); overflow-x: auto; }
+
+        /* Responsive */
+        @media (max-width: 768px) { .sidebar { display: none; } .main-content { margin-left: 0; padding: 5rem 1.5rem 2rem 1.5rem; } html[dir="rtl"] .main-content { margin-right: 0; } }
     </style>
 </head>
 <body>
@@ -2297,6 +1954,23 @@
         function LabApp() {
             const [language, setLanguage] = useState('de');
             const [activeSection, setActiveSection] = useState('overview');
+
+                // IntersectionObserver for sidebar scroll tracking
+                React.useEffect(() => {
+                    const sections = document.querySelectorAll('section[id]');
+                    const observer = new IntersectionObserver((entries) => {
+                        entries.forEach(entry => {
+                            if (entry.isIntersecting && entry.intersectionRatio > 0.15) {
+                                setActiveSection(entry.target.id);
+                                // Scroll sidebar item into view
+                                const sidebarItem = document.querySelector(`.sidebar-item.active`);
+                                if (sidebarItem) sidebarItem.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+                            }
+                        });
+                    }, { rootMargin: '-80px 0px -60% 0px', threshold: [0.15, 0.5] });
+                    sections.forEach(s => observer.observe(s));
+                    return () => observer.disconnect();
+                }, []);
             const [expandedQuiz, setExpandedQuiz] = useState(null);
             const [quizAnswers, setQuizAnswers] = useState({});
             const [expandedCode, setExpandedCode] = useState(null);
@@ -2325,11 +1999,33 @@
                 setQuizAnswers({ ...quizAnswers, [qNum]: answer });
             };
 
-            const renderSection = () => {
-                if (activeSection === 'overview') {
-                    return (
-                        <div className="section active">
-                            <h1 className="section-header">Apache Spark</h1>
+            return (
+                <div>
+                    <div className="header">
+                        <div className="header-left">
+                            <a href="index.html" className="back-link">{t.backToHome}</a>
+                            <h1 className="header-title">Apache Spark Lab</h2>
+                        </div>
+                        <div className="lang-switcher">
+                            {['de', 'en', 'ar', 'uk', 'es', 'tr'].map(lang => (
+                                <button key={lang} className={'lang-btn' + (language === lang ? ' active' : '')} onClick={() => setLanguage(lang)}>
+                                    {lang.toUpperCase()}
+                                </button>
+                            ))}
+                        </div>
+                    </div>
+
+                    <div className="sidebar">
+                        {sidebarItems.map(item => (
+                            <button key={item.id} className={'sidebar-item' + (activeSection === item.id ? ' active' : '')} onClick={() => { setActiveSection(item.id); document.getElementById(item.id)?.scrollIntoView({behavior:'smooth', block:'start'}); }}>
+                                {t[item.label]}
+                            </button>
+                        ))}
+                    </div>
+
+                    <div className="main-content">
+                        <section id="overview">
+                            <h2>Apache Spark</h2>
                             <div className="lesson-box">
                                 <h3 style={{fontWeight: 600, marginBottom: '1rem'}}>{t.whatYouLearn}</h3>
                                 <p>{t.sparkWillLearn}</p>
@@ -2343,7 +2039,7 @@
                                 </div>
                             </div>
 
-                            <h2 className="subsection-header">{t.realWorldMotivation}</h2>
+                            <h3>{t.realWorldMotivation}</h3>
                             <div className="card">
                                 <p><strong>Netflix:</strong> {t.netflixDesc}</p>
                             </div>
@@ -2357,7 +2053,7 @@
                                 <p><strong>Alibaba:</strong> {t.alibabaDesc}</p>
                             </div>
 
-                            <h2 className="subsection-header">{t.sparkIs}</h2>
+                            <h3>{t.sparkIs}</h3>
                             <div className="card">
                                 <p style={{lineHeight: 1.75, marginBottom: '1rem'}}>{t.sparkIntro}</p>
                                 <a href="https://spark.apache.org/" target="_blank" rel="noopener noreferrer" style={{color: '#E8792F', fontWeight: 700, textDecoration: 'none'}}>
@@ -2374,13 +2070,13 @@
                                 <p><strong>3.</strong> {t.unifiedFramework}</p>
                             </div>
 
-                            <h2 className="subsection-header">{t.sparkArchTitle}</h2>
+                            <h3>{t.sparkArchTitle}</h3>
                             <p style={{marginBottom: '1rem'}}>{t.sparkArchDesc}</p>
                             <div className="code-block">
                                 <code style={{color: '#e2e8f0', whiteSpace: 'pre', fontSize: '0.85rem', lineHeight: 1.6}}>{t.sparkArchDiagram}</code>
                             </div>
 
-                            <h2 className="subsection-header">{t.sparkVsPandasTitle}</h2>
+                            <h3>{t.sparkVsPandasTitle}</h3>
                             <p style={{marginBottom: '1rem'}}>{t.sparkVsPandasDesc}</p>
                             <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1rem'}}>
                                 <div className="card" style={{borderTop: '3px solid #306998'}}>
@@ -2393,7 +2089,7 @@
                                 </div>
                             </div>
 
-                            <h2 className="subsection-header">{t.sparkComponentsTitle}</h2>
+                            <h3>{t.sparkComponentsTitle}</h3>
                             <p style={{marginBottom: '0.75rem'}}>{t.sparkComponentsDesc}</p>
                             <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '0.75rem'}}>
                                 <div className="card"><p><strong>📊 {t.sparkCompSQL}</strong></p></div>
@@ -2402,13 +2098,13 @@
                                 <div className="card"><p><strong>🔗 {t.sparkCompGraphX}</strong></p></div>
                             </div>
 
-                            <h2 className="subsection-header">{t.estimatedTime}</h2>
+                            <h3>{t.estimatedTime}</h3>
                             <p>{t.timeValue}</p>
 
-                            <h2 className="subsection-header">{t.prerequisites}</h2>
+                            <h3>{t.prerequisites}</h3>
                             <p>{t.prereqValue}</p>
 
-                            <h2 className="subsection-header">{t.megastoreName}</h2>
+                            <h3>{t.megastoreName}</h3>
                             <p>{t.megastoreDesc}</p>
                             <div style={{marginTop: '0.75rem'}}>
                                 <StepItem number="✓">{t.customersTable}</StepItem>
@@ -2416,14 +2112,10 @@
                                 <StepItem number="✓">{t.ordersTable}</StepItem>
                                 <StepItem number="✓">{t.orderItemsTable}</StepItem>
                             </div>
-                        </div>
-                    );
-                }
+                        </section>
 
-                if (activeSection === 'setup') {
-                    return (
-                        <div className="section active">
-                            <h1 className="section-header">{t.setup}</h1>
+                        <section id="setup">
+                            <h2>{t.setup}</h2>
                             <p>{t.setupIntro}</p>
 
                             <StepItem number="1">
@@ -2457,23 +2149,19 @@
                                 <p style={{margin: '0.4rem 0'}}>{t.step4Desc}</p>
                             </StepItem>
 
-                            <h2 className="subsection-header">{t.verify}</h2>
+                            <h3>{t.verify}</h3>
                             <p>{t.verifyDesc}</p>
                             <div className="code-block">
                                 <button className="copy-btn" onClick={() => copyToClipboard('from pyspark.sql import SparkSession\nspark = SparkSession.builder.appName("test").getOrCreate()\nprint(spark.version)')}>{t.copy}</button>
                                 <code>from pyspark.sql import SparkSession\nspark = SparkSession.builder.appName("test").getOrCreate()\nprint(spark.version)</code>
                             </div>
-                        </div>
-                    );
-                }
+                        </section>
 
-                if (activeSection === 'fundamentals') {
-                    return (
-                        <div className="section active">
-                            <h1 className="section-header">{t.fundamentals}</h1>
+                        <section id="fundamentals">
+                            <h2>{t.fundamentals}</h2>
                             <p>{t.fundamentalsIntro}</p>
 
-                            <h2 className="subsection-header">{t.whatIsSparkSession}</h2>
+                            <h3>{t.whatIsSparkSession}</h3>
                             <p>{t.sparkSessionDesc}</p>
                             <p style={{color: '#4b5563', marginTop: '0.5rem', lineHeight: 1.75}}>{t.sparkSessionDetailDesc}</p>
                             <div className="code-block">
@@ -2481,19 +2169,19 @@
                                 <code>{t.sparkSessionExample}</code>
                             </div>
 
-                            <h2 className="subsection-header">{t.rddVsDataFrame}</h2>
+                            <h3>{t.rddVsDataFrame}</h3>
                             <p>{t.rddVsDataFrameDesc}</p>
                             <p style={{color: '#4b5563', marginTop: '0.5rem', lineHeight: 1.75}}>{t.rddVsDataFrameDetail}</p>
 
-                            <h2 className="subsection-header">{t.lazyEvaluation}</h2>
+                            <h3>{t.lazyEvaluation}</h3>
                             <p>{t.lazyEvaluationDesc}</p>
                             <p style={{color: '#4b5563', marginTop: '0.5rem', lineHeight: 1.75}}>{t.lazyEvaluationDetail}</p>
 
-                            <h2 className="subsection-header">{t.transformationsVsActions}</h2>
+                            <h3>{t.transformationsVsActions}</h3>
                             <p>{t.transformationsVsActionsDesc}</p>
                             <p style={{color: '#4b5563', marginTop: '0.5rem', lineHeight: 1.75}}>{t.transformationsVsActionsDetail}</p>
 
-                            <h2 className="subsection-header">{t.whenToUseSpark}</h2>
+                            <h3>{t.whenToUseSpark}</h3>
                             <table style={{width: '100%', borderCollapse: 'collapse', marginTop: '1rem'}}>
                                 <tr style={{backgroundColor: '#f3f4f6'}}>
                                     <th style={{border: '1px solid #e5e7eb', padding: '0.75rem', textAlign: 'left'}}>{t.useCase}</th>
@@ -2516,35 +2204,30 @@
                                     <td style={{border: '1px solid #e5e7eb', padding: '0.75rem'}}>Single Machine</td>
                                 </tr>
                             </table>
-                        </div>
-                    );
-                }
+                        </section>
 
-                // Exercise 1
-                if (activeSection === 'exercise1') {
-                    return (
-                        <div className="section active">
-                            <h1 className="section-header">{t.exercise1}</h1>
+                        <section id="exercise1">
+                            <h2>{t.exercise1}</h2>
                             <div style={{marginBottom: '1rem'}}>
                                 <span className="badge badge-beginner">{t.beginner}</span>
                                 <span className="badge badge-time">~15 Min</span>
                             </div>
-                            <h2 className="subsection-header">{t.objective}</h2>
+                            <h3>{t.objective}</h3>
                             <p>{t.ex1Objective}</p>
 
-                            <h2 className="subsection-header">{t.example}</h2>
+                            <h3>{t.example}</h3>
                             <div className="code-block">
                                 <button className="copy-btn" onClick={() => copyToClipboard(t.ex1Code)}>{t.copy}</button>
                                 <code>{t.ex1Code}</code>
                             </div>
 
-                            <h2 className="subsection-header">{t.expected}</h2>
+                            <h3>{t.expected}</h3>
                             <div className="output-box">{t.ex1Output}</div>
 
-                            <h2 className="subsection-header">{t.explanation}</h2>
+                            <h3>{t.explanation}</h3>
                             <p style={{whiteSpace: 'pre-line'}}>{t.ex1Explain}</p>
 
-                            <h2 className="subsection-header">{t.practice}</h2>
+                            <h3>{t.practice}</h3>
                             <p>{t.ex1Practice}</p>
 
                             <div className="hint-box">
@@ -2567,39 +2250,34 @@
                                 )}
                             </div>
 
-                            <h2 className="subsection-header">{t.verification}</h2>
+                            <h3>{t.verification}</h3>
                             <p>{t.ex1Output}</p>
 
-                            <button className="btn-accent" onClick={() => setActiveSection('exercise2')} style={{marginTop: '2rem'}}>{t.nextExercise}</button>
-                        </div>
-                    );
-                }
+                            <button className="btn-accent" onClick={() => { setActiveSection('exercise2'); document.getElementById('exercise2')?.scrollIntoView({behavior:'smooth', block:'start'}); }} style={{marginTop: '2rem'}}>{t.nextExercise}</button>
+                        </section>
 
-                // Exercise 2
-                if (activeSection === 'exercise2') {
-                    return (
-                        <div className="section active">
-                            <h1 className="section-header">{t.exercise2}</h1>
+                        <section id="exercise2">
+                            <h2>{t.exercise2}</h2>
                             <div style={{marginBottom: '1rem'}}>
                                 <span className="badge badge-beginner">{t.beginner}</span>
                                 <span className="badge badge-time">~15 Min</span>
                             </div>
-                            <h2 className="subsection-header">{t.objective}</h2>
+                            <h3>{t.objective}</h3>
                             <p>{t.ex2Objective}</p>
 
-                            <h2 className="subsection-header">{t.example}</h2>
+                            <h3>{t.example}</h3>
                             <div className="code-block">
                                 <button className="copy-btn" onClick={() => copyToClipboard(t.ex2Code)}>{t.copy}</button>
                                 <code>{t.ex2Code}</code>
                             </div>
 
-                            <h2 className="subsection-header">{t.expected}</h2>
+                            <h3>{t.expected}</h3>
                             <div className="output-box">{t.ex2Output}</div>
 
-                            <h2 className="subsection-header">{t.explanation}</h2>
+                            <h3>{t.explanation}</h3>
                             <p style={{whiteSpace: 'pre-line'}}>{t.ex2Explain}</p>
 
-                            <h2 className="subsection-header">{t.practice}</h2>
+                            <h3>{t.practice}</h3>
                             <p>{t.ex2Practice}</p>
 
                             <div className="hint-box">
@@ -2622,36 +2300,31 @@
                                 )}
                             </div>
 
-                            <button className="btn-accent" onClick={() => setActiveSection('exercise3')} style={{marginTop: '2rem'}}>{t.nextExercise}</button>
-                        </div>
-                    );
-                }
+                            <button className="btn-accent" onClick={() => { setActiveSection('exercise3'); document.getElementById('exercise3')?.scrollIntoView({behavior:'smooth', block:'start'}); }} style={{marginTop: '2rem'}}>{t.nextExercise}</button>
+                        </section>
 
-                // Exercise 3
-                if (activeSection === 'exercise3') {
-                    return (
-                        <div className="section active">
-                            <h1 className="section-header">{t.exercise3}</h1>
+                        <section id="exercise3">
+                            <h2>{t.exercise3}</h2>
                             <div style={{marginBottom: '1rem'}}>
                                 <span className="badge badge-beginner">{t.beginner}</span>
                                 <span className="badge badge-time">~15 Min</span>
                             </div>
-                            <h2 className="subsection-header">{t.objective}</h2>
+                            <h3>{t.objective}</h3>
                             <p>{t.ex3Objective}</p>
 
-                            <h2 className="subsection-header">{t.example}</h2>
+                            <h3>{t.example}</h3>
                             <div className="code-block">
                                 <button className="copy-btn" onClick={() => copyToClipboard(t.ex3Code)}>{t.copy}</button>
                                 <code>{t.ex3Code}</code>
                             </div>
 
-                            <h2 className="subsection-header">{t.expected}</h2>
+                            <h3>{t.expected}</h3>
                             <div className="output-box">{t.ex3Output}</div>
 
-                            <h2 className="subsection-header">{t.explanation}</h2>
+                            <h3>{t.explanation}</h3>
                             <p style={{whiteSpace: 'pre-line'}}>{t.ex3Explain}</p>
 
-                            <h2 className="subsection-header">{t.practice}</h2>
+                            <h3>{t.practice}</h3>
                             <p>{t.ex3Practice}</p>
 
                             <div className="hint-box">
@@ -2674,36 +2347,31 @@
                                 )}
                             </div>
 
-                            <button className="btn-accent" onClick={() => setActiveSection('exercise4')} style={{marginTop: '2rem'}}>{t.nextExercise}</button>
-                        </div>
-                    );
-                }
+                            <button className="btn-accent" onClick={() => { setActiveSection('exercise4'); document.getElementById('exercise4')?.scrollIntoView({behavior:'smooth', block:'start'}); }} style={{marginTop: '2rem'}}>{t.nextExercise}</button>
+                        </section>
 
-                // Exercise 4
-                if (activeSection === 'exercise4') {
-                    return (
-                        <div className="section active">
-                            <h1 className="section-header">{t.exercise4}</h1>
+                        <section id="exercise4">
+                            <h2>{t.exercise4}</h2>
                             <div style={{marginBottom: '1rem'}}>
                                 <span className="badge badge-beginner">{t.beginner}</span>
                                 <span className="badge badge-time">~15 Min</span>
                             </div>
-                            <h2 className="subsection-header">{t.objective}</h2>
+                            <h3>{t.objective}</h3>
                             <p>{t.ex4Objective}</p>
 
-                            <h2 className="subsection-header">{t.example}</h2>
+                            <h3>{t.example}</h3>
                             <div className="code-block">
                                 <button className="copy-btn" onClick={() => copyToClipboard(t.ex4Code)}>{t.copy}</button>
                                 <code>{t.ex4Code}</code>
                             </div>
 
-                            <h2 className="subsection-header">{t.expected}</h2>
+                            <h3>{t.expected}</h3>
                             <div className="output-box">{t.ex4Output}</div>
 
-                            <h2 className="subsection-header">{t.explanation}</h2>
+                            <h3>{t.explanation}</h3>
                             <p style={{whiteSpace: 'pre-line'}}>{t.ex4Explain}</p>
 
-                            <h2 className="subsection-header">{t.practice}</h2>
+                            <h3>{t.practice}</h3>
                             <p>{t.ex4Practice}</p>
 
                             <div className="hint-box">
@@ -2726,36 +2394,31 @@
                                 )}
                             </div>
 
-                            <button className="btn-accent" onClick={() => setActiveSection('exercise5')} style={{marginTop: '2rem'}}>{t.nextExercise}</button>
-                        </div>
-                    );
-                }
+                            <button className="btn-accent" onClick={() => { setActiveSection('exercise5'); document.getElementById('exercise5')?.scrollIntoView({behavior:'smooth', block:'start'}); }} style={{marginTop: '2rem'}}>{t.nextExercise}</button>
+                        </section>
 
-                // Exercise 5
-                if (activeSection === 'exercise5') {
-                    return (
-                        <div className="section active">
-                            <h1 className="section-header">{t.exercise5}</h1>
+                        <section id="exercise5">
+                            <h2>{t.exercise5}</h2>
                             <div style={{marginBottom: '1rem'}}>
                                 <span className="badge badge-beginner">{t.beginner}</span>
                                 <span className="badge badge-time">~15 Min</span>
                             </div>
-                            <h2 className="subsection-header">{t.objective}</h2>
+                            <h3>{t.objective}</h3>
                             <p>{t.ex5Objective}</p>
 
-                            <h2 className="subsection-header">{t.example}</h2>
+                            <h3>{t.example}</h3>
                             <div className="code-block">
                                 <button className="copy-btn" onClick={() => copyToClipboard(t.ex5Code)}>{t.copy}</button>
                                 <code>{t.ex5Code}</code>
                             </div>
 
-                            <h2 className="subsection-header">{t.expected}</h2>
+                            <h3>{t.expected}</h3>
                             <div className="output-box">{t.ex5Output}</div>
 
-                            <h2 className="subsection-header">{t.explanation}</h2>
+                            <h3>{t.explanation}</h3>
                             <p style={{whiteSpace: 'pre-line'}}>{t.ex5Explain}</p>
 
-                            <h2 className="subsection-header">{t.practice}</h2>
+                            <h3>{t.practice}</h3>
                             <p>{t.ex5Practice}</p>
 
                             <div className="hint-box">
@@ -2778,36 +2441,31 @@
                                 )}
                             </div>
 
-                            <button className="btn-accent" onClick={() => setActiveSection('exercise6')} style={{marginTop: '2rem'}}>{t.nextExercise}</button>
-                        </div>
-                    );
-                }
+                            <button className="btn-accent" onClick={() => { setActiveSection('exercise6'); document.getElementById('exercise6')?.scrollIntoView({behavior:'smooth', block:'start'}); }} style={{marginTop: '2rem'}}>{t.nextExercise}</button>
+                        </section>
 
-                // Exercise 6
-                if (activeSection === 'exercise6') {
-                    return (
-                        <div className="section active">
-                            <h1 className="section-header">{t.exercise6}</h1>
+                        <section id="exercise6">
+                            <h2>{t.exercise6}</h2>
                             <div style={{marginBottom: '1rem'}}>
                                 <span className="badge badge-intermediate">Intermediate</span>
                                 <span className="badge badge-time">~15 Min</span>
                             </div>
-                            <h2 className="subsection-header">{t.objective}</h2>
+                            <h3>{t.objective}</h3>
                             <p>{t.ex6Objective}</p>
 
-                            <h2 className="subsection-header">{t.example}</h2>
+                            <h3>{t.example}</h3>
                             <div className="code-block">
                                 <button className="copy-btn" onClick={() => copyToClipboard(t.ex6Code)}>{t.copy}</button>
                                 <code>{t.ex6Code}</code>
                             </div>
 
-                            <h2 className="subsection-header">{t.expected}</h2>
+                            <h3>{t.expected}</h3>
                             <div className="output-box">{t.ex6Output}</div>
 
-                            <h2 className="subsection-header">{t.explanation}</h2>
+                            <h3>{t.explanation}</h3>
                             <p style={{whiteSpace: 'pre-line'}}>{t.ex6Explain}</p>
 
-                            <h2 className="subsection-header">{t.practice}</h2>
+                            <h3>{t.practice}</h3>
                             <p>{t.ex6Practice}</p>
 
                             <div className="hint-box">
@@ -2830,36 +2488,31 @@
                                 )}
                             </div>
 
-                            <button className="btn-accent" onClick={() => setActiveSection('exercise7')} style={{marginTop: '2rem'}}>{t.nextExercise}</button>
-                        </div>
-                    );
-                }
+                            <button className="btn-accent" onClick={() => { setActiveSection('exercise7'); document.getElementById('exercise7')?.scrollIntoView({behavior:'smooth', block:'start'}); }} style={{marginTop: '2rem'}}>{t.nextExercise}</button>
+                        </section>
 
-                // Exercise 7
-                if (activeSection === 'exercise7') {
-                    return (
-                        <div className="section active">
-                            <h1 className="section-header">{t.exercise7}</h1>
+                        <section id="exercise7">
+                            <h2>{t.exercise7}</h2>
                             <div style={{marginBottom: '1rem'}}>
                                 <span className="badge badge-intermediate">Intermediate</span>
                                 <span className="badge badge-time">~20 Min</span>
                             </div>
-                            <h2 className="subsection-header">{t.objective}</h2>
+                            <h3>{t.objective}</h3>
                             <p>{t.ex7Objective}</p>
 
-                            <h2 className="subsection-header">{t.example}</h2>
+                            <h3>{t.example}</h3>
                             <div className="code-block">
                                 <button className="copy-btn" onClick={() => copyToClipboard(t.ex7Code)}>{t.copy}</button>
                                 <code>{t.ex7Code}</code>
                             </div>
 
-                            <h2 className="subsection-header">{t.expected}</h2>
+                            <h3>{t.expected}</h3>
                             <div className="output-box">{t.ex7Output}</div>
 
-                            <h2 className="subsection-header">{t.explanation}</h2>
+                            <h3>{t.explanation}</h3>
                             <p style={{whiteSpace: 'pre-line'}}>{t.ex7Explain}</p>
 
-                            <h2 className="subsection-header">{t.practice}</h2>
+                            <h3>{t.practice}</h3>
                             <p>{t.ex7Practice}</p>
 
                             <div className="hint-box">
@@ -2882,36 +2535,31 @@
                                 )}
                             </div>
 
-                            <button className="btn-accent" onClick={() => setActiveSection('exercise8')} style={{marginTop: '2rem'}}>{t.nextExercise}</button>
-                        </div>
-                    );
-                }
+                            <button className="btn-accent" onClick={() => { setActiveSection('exercise8'); document.getElementById('exercise8')?.scrollIntoView({behavior:'smooth', block:'start'}); }} style={{marginTop: '2rem'}}>{t.nextExercise}</button>
+                        </section>
 
-                // Exercise 8
-                if (activeSection === 'exercise8') {
-                    return (
-                        <div className="section active">
-                            <h1 className="section-header">{t.exercise8}</h1>
+                        <section id="exercise8">
+                            <h2>{t.exercise8}</h2>
                             <div style={{marginBottom: '1rem'}}>
                                 <span className="badge badge-intermediate">Intermediate</span>
                                 <span className="badge badge-time">~20 Min</span>
                             </div>
-                            <h2 className="subsection-header">{t.objective}</h2>
+                            <h3>{t.objective}</h3>
                             <p>{t.ex8Objective}</p>
 
-                            <h2 className="subsection-header">{t.example}</h2>
+                            <h3>{t.example}</h3>
                             <div className="code-block">
                                 <button className="copy-btn" onClick={() => copyToClipboard(t.ex8Code)}>{t.copy}</button>
                                 <code>{t.ex8Code}</code>
                             </div>
 
-                            <h2 className="subsection-header">{t.expected}</h2>
+                            <h3>{t.expected}</h3>
                             <div className="output-box">{t.ex8Output}</div>
 
-                            <h2 className="subsection-header">{t.explanation}</h2>
+                            <h3>{t.explanation}</h3>
                             <p style={{whiteSpace: 'pre-line'}}>{t.ex8Explain}</p>
 
-                            <h2 className="subsection-header">{t.practice}</h2>
+                            <h3>{t.practice}</h3>
                             <p>{t.ex8Practice}</p>
 
                             <div className="hint-box">
@@ -2934,36 +2582,31 @@
                                 )}
                             </div>
 
-                            <button className="btn-accent" onClick={() => setActiveSection('exercise9')} style={{marginTop: '2rem'}}>{t.nextExercise}</button>
-                        </div>
-                    );
-                }
+                            <button className="btn-accent" onClick={() => { setActiveSection('exercise9'); document.getElementById('exercise9')?.scrollIntoView({behavior:'smooth', block:'start'}); }} style={{marginTop: '2rem'}}>{t.nextExercise}</button>
+                        </section>
 
-                // Exercise 9
-                if (activeSection === 'exercise9') {
-                    return (
-                        <div className="section active">
-                            <h1 className="section-header">{t.exercise9}</h1>
+                        <section id="exercise9">
+                            <h2>{t.exercise9}</h2>
                             <div style={{marginBottom: '1rem'}}>
                                 <span className="badge badge-intermediate">Intermediate</span>
                                 <span className="badge badge-time">~15 Min</span>
                             </div>
-                            <h2 className="subsection-header">{t.objective}</h2>
+                            <h3>{t.objective}</h3>
                             <p>{t.ex9Objective}</p>
 
-                            <h2 className="subsection-header">{t.example}</h2>
+                            <h3>{t.example}</h3>
                             <div className="code-block">
                                 <button className="copy-btn" onClick={() => copyToClipboard(t.ex9Code)}>{t.copy}</button>
                                 <code>{t.ex9Code}</code>
                             </div>
 
-                            <h2 className="subsection-header">{t.expected}</h2>
+                            <h3>{t.expected}</h3>
                             <div className="output-box">{t.ex9Output}</div>
 
-                            <h2 className="subsection-header">{t.explanation}</h2>
+                            <h3>{t.explanation}</h3>
                             <p style={{whiteSpace: 'pre-line'}}>{t.ex9Explain}</p>
 
-                            <h2 className="subsection-header">{t.practice}</h2>
+                            <h3>{t.practice}</h3>
                             <p>{t.ex9Practice}</p>
 
                             <div className="hint-box">
@@ -2986,36 +2629,31 @@
                                 )}
                             </div>
 
-                            <button className="btn-accent" onClick={() => setActiveSection('exercise10')} style={{marginTop: '2rem'}}>{t.nextExercise}</button>
-                        </div>
-                    );
-                }
+                            <button className="btn-accent" onClick={() => { setActiveSection('exercise10'); document.getElementById('exercise10')?.scrollIntoView({behavior:'smooth', block:'start'}); }} style={{marginTop: '2rem'}}>{t.nextExercise}</button>
+                        </section>
 
-                // Exercise 10
-                if (activeSection === 'exercise10') {
-                    return (
-                        <div className="section active">
-                            <h1 className="section-header">{t.exercise10}</h1>
+                        <section id="exercise10">
+                            <h2>{t.exercise10}</h2>
                             <div style={{marginBottom: '1rem'}}>
                                 <span className="badge badge-intermediate">Intermediate</span>
                                 <span className="badge badge-time">~20 Min</span>
                             </div>
-                            <h2 className="subsection-header">{t.objective}</h2>
+                            <h3>{t.objective}</h3>
                             <p>{t.ex10Objective}</p>
 
-                            <h2 className="subsection-header">{t.example}</h2>
+                            <h3>{t.example}</h3>
                             <div className="code-block">
                                 <button className="copy-btn" onClick={() => copyToClipboard(t.ex10Code)}>{t.copy}</button>
                                 <code>{t.ex10Code}</code>
                             </div>
 
-                            <h2 className="subsection-header">{t.expected}</h2>
+                            <h3>{t.expected}</h3>
                             <div className="output-box">{t.ex10Output}</div>
 
-                            <h2 className="subsection-header">{t.explanation}</h2>
+                            <h3>{t.explanation}</h3>
                             <p style={{whiteSpace: 'pre-line'}}>{t.ex10Explain}</p>
 
-                            <h2 className="subsection-header">{t.practice}</h2>
+                            <h3>{t.practice}</h3>
                             <p>{t.ex10Practice}</p>
 
                             <div className="hint-box">
@@ -3038,36 +2676,31 @@
                                 )}
                             </div>
 
-                            <button className="btn-accent" onClick={() => setActiveSection('exercise11')} style={{marginTop: '2rem'}}>{t.nextExercise}</button>
-                        </div>
-                    );
-                }
+                            <button className="btn-accent" onClick={() => { setActiveSection('exercise11'); document.getElementById('exercise11')?.scrollIntoView({behavior:'smooth', block:'start'}); }} style={{marginTop: '2rem'}}>{t.nextExercise}</button>
+                        </section>
 
-                // Exercise 11
-                if (activeSection === 'exercise11') {
-                    return (
-                        <div className="section active">
-                            <h1 className="section-header">{t.exercise11}</h1>
+                        <section id="exercise11">
+                            <h2>{t.exercise11}</h2>
                             <div style={{marginBottom: '1rem'}}>
                                 <span className="badge badge-advanced">Advanced</span>
                                 <span className="badge badge-time">~25 Min</span>
                             </div>
-                            <h2 className="subsection-header">{t.objective}</h2>
+                            <h3>{t.objective}</h3>
                             <p>{t.ex11Objective}</p>
 
-                            <h2 className="subsection-header">{t.example}</h2>
+                            <h3>{t.example}</h3>
                             <div className="code-block">
                                 <button className="copy-btn" onClick={() => copyToClipboard(t.ex11Code)}>{t.copy}</button>
                                 <code>{t.ex11Code}</code>
                             </div>
 
-                            <h2 className="subsection-header">{t.expected}</h2>
+                            <h3>{t.expected}</h3>
                             <div className="output-box">{t.ex11Output}</div>
 
-                            <h2 className="subsection-header">{t.explanation}</h2>
+                            <h3>{t.explanation}</h3>
                             <p style={{whiteSpace: 'pre-line'}}>{t.ex11Explain}</p>
 
-                            <h2 className="subsection-header">{t.practice}</h2>
+                            <h3>{t.practice}</h3>
                             <p>{t.ex11Practice}</p>
 
                             <div className="hint-box">
@@ -3090,36 +2723,31 @@
                                 )}
                             </div>
 
-                            <button className="btn-accent" onClick={() => setActiveSection('exercise12')} style={{marginTop: '2rem'}}>{t.nextExercise}</button>
-                        </div>
-                    );
-                }
+                            <button className="btn-accent" onClick={() => { setActiveSection('exercise12'); document.getElementById('exercise12')?.scrollIntoView({behavior:'smooth', block:'start'}); }} style={{marginTop: '2rem'}}>{t.nextExercise}</button>
+                        </section>
 
-                // Exercise 12
-                if (activeSection === 'exercise12') {
-                    return (
-                        <div className="section active">
-                            <h1 className="section-header">{t.exercise12}</h1>
+                        <section id="exercise12">
+                            <h2>{t.exercise12}</h2>
                             <div style={{marginBottom: '1rem'}}>
                                 <span className="badge badge-advanced">Advanced</span>
                                 <span className="badge badge-time">~25 Min</span>
                             </div>
-                            <h2 className="subsection-header">{t.objective}</h2>
+                            <h3>{t.objective}</h3>
                             <p>{t.ex12Objective}</p>
 
-                            <h2 className="subsection-header">{t.example}</h2>
+                            <h3>{t.example}</h3>
                             <div className="code-block">
                                 <button className="copy-btn" onClick={() => copyToClipboard(t.ex12Code)}>{t.copy}</button>
                                 <code>{t.ex12Code}</code>
                             </div>
 
-                            <h2 className="subsection-header">{t.expected}</h2>
+                            <h3>{t.expected}</h3>
                             <div className="output-box">{t.ex12Output}</div>
 
-                            <h2 className="subsection-header">{t.explanation}</h2>
+                            <h3>{t.explanation}</h3>
                             <p style={{whiteSpace: 'pre-line'}}>{t.ex12Explain}</p>
 
-                            <h2 className="subsection-header">{t.practice}</h2>
+                            <h3>{t.practice}</h3>
                             <p>{t.ex12Practice}</p>
 
                             <div className="hint-box">
@@ -3142,210 +2770,18 @@
                                 )}
                             </div>
 
-                            <button className="btn-accent" onClick={() => setActiveSection('challenge')} style={{marginTop: '2rem'}}>{t.nextExercise}</button>
-                        </div>
-                    );
-                }
+                            <button className="btn-accent" onClick={() => { setActiveSection('challenge'); document.getElementById('challenge')?.scrollIntoView({behavior:'smooth', block:'start'}); }} style={{marginTop: '2rem'}}>{t.nextExercise}</button>
+                        </section>
 
-                // Exercise 7
-                if (activeSection === 'exercise7') {
-                    return (
-                        <div className="section active">
-                            <h1 className="section-header">{t.exercise7}</h1>
-                            <div style={{marginBottom: '1rem'}}>
-                                <span className="badge badge-beginner">{t.beginner}</span>
-                                <span className="badge badge-time">~15 Min</span>
-                            </div>
-                            <h2 className="subsection-header">{t.objective}</h2>
-                            <p>{t.ex7Objective}</p>
-                            <h2 className="subsection-header">{t.example}</h2>
-                            <div className="code-block">
-                                <button className="copy-btn" onClick={() => copyToClipboard(t.ex7Code)}>{t.copy}</button>
-                                <code>{t.ex7Code}</code>
-                            </div>
-                            <div className="output-box">{t.ex7Output}</div>
-                            <h2 className="subsection-header">{t.explanation}</h2>
-                            <p>{t.ex7Explain}</p>
-                            <h2 className="subsection-header">{t.yourTask}</h2>
-                            <p>{t.ex7Practice}</p>
-                            <div className="hint-box"><strong>{t.hint}:</strong> {t.ex7Hint}</div>
-                            <div className="expandable" onClick={() => toggleExpanded('ex7sol')} style={{cursor: 'pointer'}}>
-                                <div className="expandable-header">{t.showSolution}<span className="expandable-chevron">▼</span></div>
-                                {expandedItems['ex7sol'] && (<div className="expandable-content"><div className="code-block"><code>{t.ex7Solution}</code></div></div>)}
-                            </div>
-                            <button className="btn-accent" onClick={() => setActiveSection('exercise8')} style={{marginTop: '2rem'}}>{t.nextExercise}</button>
-                        </div>
-                    );
-                }
 
-                // Exercise 8
-                if (activeSection === 'exercise8') {
-                    return (
-                        <div className="section active">
-                            <h1 className="section-header">{t.exercise8}</h1>
-                            <div style={{marginBottom: '1rem'}}>
-                                <span className="badge badge-beginner">{t.beginner}</span>
-                                <span className="badge badge-time">~15 Min</span>
-                            </div>
-                            <h2 className="subsection-header">{t.objective}</h2>
-                            <p>{t.ex8Objective}</p>
-                            <h2 className="subsection-header">{t.example}</h2>
-                            <div className="code-block">
-                                <button className="copy-btn" onClick={() => copyToClipboard(t.ex8Code)}>{t.copy}</button>
-                                <code>{t.ex8Code}</code>
-                            </div>
-                            <div className="output-box">{t.ex8Output}</div>
-                            <h2 className="subsection-header">{t.explanation}</h2>
-                            <p>{t.ex8Explain}</p>
-                            <h2 className="subsection-header">{t.yourTask}</h2>
-                            <p>{t.ex8Practice}</p>
-                            <div className="hint-box"><strong>{t.hint}:</strong> {t.ex8Hint}</div>
-                            <div className="expandable" onClick={() => toggleExpanded('ex8sol')} style={{cursor: 'pointer'}}>
-                                <div className="expandable-header">{t.showSolution}<span className="expandable-chevron">▼</span></div>
-                                {expandedItems['ex8sol'] && (<div className="expandable-content"><div className="code-block"><code>{t.ex8Solution}</code></div></div>)}
-                            </div>
-                            <button className="btn-accent" onClick={() => setActiveSection('exercise9')} style={{marginTop: '2rem'}}>{t.nextExercise}</button>
-                        </div>
-                    );
-                }
-
-                // Exercise 9
-                if (activeSection === 'exercise9') {
-                    return (
-                        <div className="section active">
-                            <h1 className="section-header">{t.exercise9}</h1>
-                            <div style={{marginBottom: '1rem'}}>
-                                <span className="badge badge-beginner">{t.beginner}</span>
-                                <span className="badge badge-time">~20 Min</span>
-                            </div>
-                            <h2 className="subsection-header">{t.objective}</h2>
-                            <p>{t.ex9Objective}</p>
-                            <h2 className="subsection-header">{t.example}</h2>
-                            <div className="code-block">
-                                <button className="copy-btn" onClick={() => copyToClipboard(t.ex9Code)}>{t.copy}</button>
-                                <code>{t.ex9Code}</code>
-                            </div>
-                            <div className="output-box">{t.ex9Output}</div>
-                            <h2 className="subsection-header">{t.explanation}</h2>
-                            <p>{t.ex9Explain}</p>
-                            <h2 className="subsection-header">{t.yourTask}</h2>
-                            <p>{t.ex9Practice}</p>
-                            <div className="hint-box"><strong>{t.hint}:</strong> {t.ex9Hint}</div>
-                            <div className="expandable" onClick={() => toggleExpanded('ex9sol')} style={{cursor: 'pointer'}}>
-                                <div className="expandable-header">{t.showSolution}<span className="expandable-chevron">▼</span></div>
-                                {expandedItems['ex9sol'] && (<div className="expandable-content"><div className="code-block"><code>{t.ex9Solution}</code></div></div>)}
-                            </div>
-                            <button className="btn-accent" onClick={() => setActiveSection('exercise10')} style={{marginTop: '2rem'}}>{t.nextExercise}</button>
-                        </div>
-                    );
-                }
-
-                // Exercise 10
-                if (activeSection === 'exercise10') {
-                    return (
-                        <div className="section active">
-                            <h1 className="section-header">{t.exercise10}</h1>
-                            <div style={{marginBottom: '1rem'}}>
-                                <span className="badge badge-beginner">{t.beginner}</span>
-                                <span className="badge badge-time">~20 Min</span>
-                            </div>
-                            <h2 className="subsection-header">{t.objective}</h2>
-                            <p>{t.ex10Objective}</p>
-                            <h2 className="subsection-header">{t.example}</h2>
-                            <div className="code-block">
-                                <button className="copy-btn" onClick={() => copyToClipboard(t.ex10Code)}>{t.copy}</button>
-                                <code>{t.ex10Code}</code>
-                            </div>
-                            <div className="output-box">{t.ex10Output}</div>
-                            <h2 className="subsection-header">{t.explanation}</h2>
-                            <p>{t.ex10Explain}</p>
-                            <h2 className="subsection-header">{t.yourTask}</h2>
-                            <p>{t.ex10Practice}</p>
-                            <div className="hint-box"><strong>{t.hint}:</strong> {t.ex10Hint}</div>
-                            <div className="expandable" onClick={() => toggleExpanded('ex10sol')} style={{cursor: 'pointer'}}>
-                                <div className="expandable-header">{t.showSolution}<span className="expandable-chevron">▼</span></div>
-                                {expandedItems['ex10sol'] && (<div className="expandable-content"><div className="code-block"><code>{t.ex10Solution}</code></div></div>)}
-                            </div>
-                            <button className="btn-accent" onClick={() => setActiveSection('exercise11')} style={{marginTop: '2rem'}}>{t.nextExercise}</button>
-                        </div>
-                    );
-                }
-
-                // Exercise 11
-                if (activeSection === 'exercise11') {
-                    return (
-                        <div className="section active">
-                            <h1 className="section-header">{t.exercise11}</h1>
-                            <div style={{marginBottom: '1rem'}}>
-                                <span className="badge badge-beginner">{t.beginner}</span>
-                                <span className="badge badge-time">~20 Min</span>
-                            </div>
-                            <h2 className="subsection-header">{t.objective}</h2>
-                            <p>{t.ex11Objective}</p>
-                            <h2 className="subsection-header">{t.example}</h2>
-                            <div className="code-block">
-                                <button className="copy-btn" onClick={() => copyToClipboard(t.ex11Code)}>{t.copy}</button>
-                                <code>{t.ex11Code}</code>
-                            </div>
-                            <div className="output-box">{t.ex11Output}</div>
-                            <h2 className="subsection-header">{t.explanation}</h2>
-                            <p>{t.ex11Explain}</p>
-                            <h2 className="subsection-header">{t.yourTask}</h2>
-                            <p>{t.ex11Practice}</p>
-                            <div className="hint-box"><strong>{t.hint}:</strong> {t.ex11Hint}</div>
-                            <div className="expandable" onClick={() => toggleExpanded('ex11sol')} style={{cursor: 'pointer'}}>
-                                <div className="expandable-header">{t.showSolution}<span className="expandable-chevron">▼</span></div>
-                                {expandedItems['ex11sol'] && (<div className="expandable-content"><div className="code-block"><code>{t.ex11Solution}</code></div></div>)}
-                            </div>
-                            <button className="btn-accent" onClick={() => setActiveSection('exercise12')} style={{marginTop: '2rem'}}>{t.nextExercise}</button>
-                        </div>
-                    );
-                }
-
-                // Exercise 12
-                if (activeSection === 'exercise12') {
-                    return (
-                        <div className="section active">
-                            <h1 className="section-header">{t.exercise12}</h1>
-                            <div style={{marginBottom: '1rem'}}>
-                                <span className="badge badge-beginner">{t.beginner}</span>
-                                <span className="badge badge-time">~25 Min</span>
-                            </div>
-                            <h2 className="subsection-header">{t.objective}</h2>
-                            <p>{t.ex12Objective}</p>
-                            <h2 className="subsection-header">{t.example}</h2>
-                            <div className="code-block">
-                                <button className="copy-btn" onClick={() => copyToClipboard(t.ex12Code)}>{t.copy}</button>
-                                <code>{t.ex12Code}</code>
-                            </div>
-                            <div className="output-box">{t.ex12Output}</div>
-                            <h2 className="subsection-header">{t.explanation}</h2>
-                            <p>{t.ex12Explain}</p>
-                            <h2 className="subsection-header">{t.yourTask}</h2>
-                            <p>{t.ex12Practice}</p>
-                            <div className="hint-box"><strong>{t.hint}:</strong> {t.ex12Hint}</div>
-                            <div className="expandable" onClick={() => toggleExpanded('ex12sol')} style={{cursor: 'pointer'}}>
-                                <div className="expandable-header">{t.showSolution}<span className="expandable-chevron">▼</span></div>
-                                {expandedItems['ex12sol'] && (<div className="expandable-content"><div className="code-block"><code>{t.ex12Solution}</code></div></div>)}
-                            </div>
-                            <button className="btn-accent" onClick={() => setActiveSection('challenge')} style={{marginTop: '2rem'}}>{t.nextExercise}</button>
-                        </div>
-                    );
-                }
-
-                
-
-                // Challenge
-                if (activeSection === 'challenge') {
-                    return (
-                        <div className="section active">
-                            <h1 className="section-header">{t.challengeName}</h1>
+                        <section id="challenge">
+                            <h2>{t.challengeName}</h2>
                             <div style={{marginBottom: '1rem'}}>
                                 <span className="badge badge-challenge">Challenge</span>
                             </div>
                             <p>{t.challengeDesc}</p>
 
-                            <h2 className="subsection-header">{t.challengeSteps}</h2>
+                            <h3>{t.challengeSteps}</h3>
                             <div style={{marginTop: '0.75rem'}}>
                                 <StepItem number="1">{t.challengeStep1}</StepItem>
                                 <StepItem number="2">{t.challengeStep2}</StepItem>
@@ -3375,19 +2811,14 @@
                                 )}
                             </div>
 
-                            <h2 className="subsection-header">{t.verification}</h2>
+                            <h3>{t.verification}</h3>
                             <p>{t.challengeExpected}</p>
 
-                            <button className="btn-accent" onClick={() => setActiveSection('quiz')} style={{marginTop: '2rem'}}>{t.nextExercise}</button>
-                        </div>
-                    );
-                }
+                            <button className="btn-accent" onClick={() => { setActiveSection('quiz'); document.getElementById('quiz')?.scrollIntoView({behavior:'smooth', block:'start'}); }} style={{marginTop: '2rem'}}>{t.nextExercise}</button>
+                        </section>
 
-                // Quiz
-                if (activeSection === 'quiz') {
-                    return (
-                        <div className="section active">
-                            <h1 className="section-header">{t.quizTitle}</h1>
+                        <section id="quiz">
+                            <h2>{t.quizTitle}</h2>
                             <p>{t.quizDesc}</p>
 
                             {[1,2,3,4,5,6].map(qNum => (
@@ -3507,16 +2938,11 @@
                                 </div>
                             ))}
 
-                            <button className="btn-accent" onClick={() => setActiveSection('outlook')} style={{marginTop: '2rem'}}>{t.nextExercise}</button>
-                        </div>
-                    );
-                }
+                            <button className="btn-accent" onClick={() => { setActiveSection('outlook'); document.getElementById('outlook')?.scrollIntoView({behavior:'smooth', block:'start'}); }} style={{marginTop: '2rem'}}>{t.nextExercise}</button>
+                        </section>
 
-                // Outlook
-                if (activeSection === 'outlook') {
-                    return (
-                        <div className="section active">
-                            <h1 className="section-header">{t.outlookTitle}</h1>
+                        <section id="outlook">
+                            <h2>{t.outlookTitle}</h2>
 
                             <div className="outlook-part">
                                 <div className="outlook-title">{t.advancedTitle}</div>
@@ -3552,16 +2978,11 @@
                                 </div>
                             </div>
 
-                            <button className="btn-accent" onClick={() => setActiveSection('troubleshooting')} style={{marginTop: '2rem'}}>{t.nextExercise}</button>
-                        </div>
-                    );
-                }
+                            <button className="btn-accent" onClick={() => { setActiveSection('troubleshooting'); document.getElementById('troubleshooting')?.scrollIntoView({behavior:'smooth', block:'start'}); }} style={{marginTop: '2rem'}}>{t.nextExercise}</button>
+                        </section>
 
-                // Troubleshooting
-                if (activeSection === 'troubleshooting') {
-                    return (
-                        <div className="section active">
-                            <h1 className="section-header">{t.tsTitle}</h1>
+                        <section id="troubleshooting">
+                            <h2>{t.tsTitle}</h2>
 
                             <div className="card">
                                 <h3 style={{fontWeight: 600, marginBottom: '0.5rem'}}>{t.ts1Title}</h3>
@@ -3587,37 +3008,8 @@
                                 <h3 style={{fontWeight: 600, marginBottom: '0.5rem'}}>{t.ts5Title}</h3>
                                 <p>{t.ts5Desc}</p>
                             </div>
-                        </div>
-                    );
-                }
-            };
+                        </section>
 
-            return (
-                <div>
-                    <div className="header">
-                        <div className="header-left">
-                            <a href="index.html" className="back-link">{t.backToHome}</a>
-                            <h1 className="header-title">Apache Spark Lab</h1>
-                        </div>
-                        <div className="lang-switcher">
-                            {['de', 'en', 'ar', 'uk', 'es', 'tr'].map(lang => (
-                                <button key={lang} className={'lang-btn' + (language === lang ? ' active' : '')} onClick={() => setLanguage(lang)}>
-                                    {lang.toUpperCase()}
-                                </button>
-                            ))}
-                        </div>
-                    </div>
-
-                    <div className="sidebar">
-                        {sidebarItems.map(item => (
-                            <button key={item.id} className={'sidebar-item' + (activeSection === item.id ? ' active' : '')} onClick={() => setActiveSection(item.id)}>
-                                {t[item.label]}
-                            </button>
-                        ))}
-                    </div>
-
-                    <div className="main-content">
-                        {renderSection()}
                         <footer className="lab-footer">
                             <p>Prof. Dr. Robert Butscher · THWS - Technische Hochschule Würzburg-Schweinfurt</p>
                             <p>© 2026 Big Data Lab</p>
