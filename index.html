@@ -344,6 +344,11 @@ const LAB_ICONS = [ICON_LAYERS, ICON_FILTER, ICON_NETWORK, ICON_TERMINAL];
                     author: 'W. Edwards Deming',
                     role: 'Statistiker, Qualitätspionier'
                 },
+                humby: {
+                    quote: '"Data is the new oil."',
+                    author: 'Clive Humby',
+                    role: 'Mathematiker, Datenpionier'
+                },
                 about: {
                     title: 'Über den Kurs',
                     description: 'Der Kurs "Schwerpunkt Big Data & Anwendungen" im BBA-Studiengang soll Theorie mit praxisnahen Übungen verbinden. In diesem begleitenden Kursmaterial arbeiten Sie mit echten Big Data Technologien in Docker-Containern – keine Simulationen, sondern die Tools, die auch in der Industrie eingesetzt werden. Alternativ können Sie auch kostenfrei Kontingente bei den jeweiligen Anbietern in der Cloud nutzen (MongoDB Atlas, MotherDuck, Neo4j Aura, Databricks Community). Ein Vorteil von Docker: Sie behalten die volle Kontrolle über Ihre Daten und Infrastruktur – ohne Abhängigkeit von einem einzelnen Cloud-Anbieter.',
@@ -537,6 +542,11 @@ const LAB_ICONS = [ICON_LAYERS, ICON_FILTER, ICON_NETWORK, ICON_TERMINAL];
                     quote: '"In God we trust; all others must bring data."',
                     author: 'W. Edwards Deming',
                     role: 'Statistician, Quality Pioneer'
+                },
+                humby: {
+                    quote: '"Data is the new oil."',
+                    author: 'Clive Humby',
+                    role: 'Mathematician, Data Pioneer'
                 },
                 about: {
                     title: 'About the Course',
@@ -732,6 +742,11 @@ const LAB_ICONS = [ICON_LAYERS, ICON_FILTER, ICON_NETWORK, ICON_TERMINAL];
                     author: 'و. إدواردز ديمينغ',
                     role: 'إحصائي، رائد الجودة'
                 },
+                humby: {
+                    quote: '"البيانات هي النفط الجديد."',
+                    author: 'كلايف همبي',
+                    role: 'عالم رياضيات، رائد البيانات'
+                },
                 about: {
                     title: 'حول الدورة',
                     description: 'تهدف دورة "البيانات الضخمة والتطبيقات" في برنامج BBA إلى الجمع بين النظرية والتمارين العملية. في هذه المواد التعليمية المرافقة، تعمل مع تقنيات البيانات الضخمة الحقيقية في حاويات Docker – لا محاكاة، بل الأدوات المستخدمة في الصناعة. بدلاً من ذلك، يمكنك استخدام الحصص المجانية من مزودي الخدمات السحابية (MongoDB Atlas, MotherDuck, Neo4j Aura, Databricks Community). ميزة Docker: تحتفظ بالتحكم الكامل في بياناتك وبنيتك التحتية – دون الاعتماد على مزود سحابي واحد.',
@@ -925,6 +940,11 @@ const LAB_ICONS = [ICON_LAYERS, ICON_FILTER, ICON_NETWORK, ICON_TERMINAL];
                     quote: '"Ми довіряємо Богу; всі інші повинні надати дані."',
                     author: 'В. Едвардс Демінг',
                     role: 'Статистик, піонер якості'
+                },
+                humby: {
+                    quote: '"Дані — це нова нафта."',
+                    author: 'Клайв Хамбі',
+                    role: 'Математик, піонер даних'
                 },
                 about: {
                     title: 'Про курс',
@@ -1120,6 +1140,11 @@ const LAB_ICONS = [ICON_LAYERS, ICON_FILTER, ICON_NETWORK, ICON_TERMINAL];
                     author: 'W. Edwards Deming',
                     role: 'Estadístico, pionero de la calidad'
                 },
+                humby: {
+                    quote: '"Los datos son el nuevo petróleo."',
+                    author: 'Clive Humby',
+                    role: 'Matemático, pionero de los datos'
+                },
                 about: {
                     title: 'Sobre el Curso',
                     description: 'El curso "Big Data y Aplicaciones" en el programa BBA busca combinar teoría con ejercicios prácticos. En este material de curso acompañante, trabajas con tecnologías reales de Big Data en contenedores Docker – sin simulaciones, sino las herramientas utilizadas en la industria. Alternativamente, puedes usar niveles gratuitos de los proveedores en la nube (MongoDB Atlas, MotherDuck, Neo4j Aura, Databricks Community). Una ventaja de Docker: mantienes el control total sobre tus datos e infraestructura – sin depender de un único proveedor en la nube.',
@@ -1313,6 +1338,11 @@ const LAB_ICONS = [ICON_LAYERS, ICON_FILTER, ICON_NETWORK, ICON_TERMINAL];
                     quote: '"Tanrı\'ya güveniriz; diğerlerinin veri getirmesi gerekir."',
                     author: 'W. Edwards Deming',
                     role: 'İstatistikçi, kalite öncüsü'
+                },
+                humby: {
+                    quote: '"Veri yeni petroldür."',
+                    author: 'Clive Humby',
+                    role: 'Matematikçi, veri öncüsü'
                 },
                 about: {
                     title: 'Kurs Hakkında',
@@ -1517,6 +1547,7 @@ const LAB_ICONS = [ICON_LAYERS, ICON_FILTER, ICON_NETWORK, ICON_TERMINAL];
         /* ── Main App ── */
         function App() {
             const [language, setLanguage] = useState('de');
+            const [quoteKey] = useState(() => Math.random() < 0.6 ? 'deming' : 'humby');
             const t = translations[language];
             const revealRefs = useRef([]);
             const ref = el => { if (el && !revealRefs.current.includes(el)) revealRefs.current.push(el); };
@@ -1656,15 +1687,15 @@ const LAB_ICONS = [ICON_LAYERS, ICON_FILTER, ICON_NETWORK, ICON_TERMINAL];
 
                     </div>{/* end viewport-height wrapper */}
 
-                    {/* ── Deming Quote ── */}
+                    {/* ── Quote (zufällig Deming 60% / Humby 40%) ── */}
                     <section className="quote-section">
                         <div className="quote-inner">
-                            <img src="deming.jpg" alt="W. Edwards Deming" className="quote-portrait" />
+                            <img src={quoteKey === 'deming' ? 'deming.jpg' : 'humby.jpg'} alt={t[quoteKey].author} className="quote-portrait" />
                             <div className="quote-text-block">
-                                <p className="quote-body">{t.deming.quote}</p>
+                                <p className="quote-body">{t[quoteKey].quote}</p>
                                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.2rem' }}>
-                                    <span className="quote-name">— {t.deming.author}</span>
-                                    <span className="quote-role">{t.deming.role}</span>
+                                    <span className="quote-name">— {t[quoteKey].author}</span>
+                                    <span className="quote-role">{t[quoteKey].role}</span>
                                 </div>
                             </div>
                         </div>
