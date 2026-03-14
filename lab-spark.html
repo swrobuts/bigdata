@@ -148,8 +148,12 @@
         /* Prompt Example */
         .prompt-example { background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 0.5rem; padding: 1rem; margin: 1rem 0; font-family: 'Courier New', monospace; font-size: 0.85rem; color: var(--primary); overflow-x: auto; }
 
+        /* Progress Bar */
+        .progress-bar-container { position: fixed; top: 4rem; left: 260px; right: 0; height: 3px; background: #e2e8f0; z-index: 45; }
+        .progress-bar-fill { height: 100%; background: var(--accent); transition: width 0.3s ease; }
+        .progress-label { position: fixed; top: 4.25rem; right: 1rem; background: white; padding: 0.15rem 0.6rem; border-radius: 0.25rem; font-size: 0.7rem; font-weight: 600; color: var(--accent); z-index: 46; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
         /* Responsive */
-        @media (max-width: 768px) { .sidebar { display: none; } .main-content { margin-left: 0; padding: 5rem 1.5rem 2rem 1.5rem; } html[dir="rtl"] .main-content { margin-right: 0; } }
+        @media (max-width: 768px) { .sidebar { display: none; } .main-content { margin-left: 0; padding: 5rem 1.5rem 2rem 1.5rem; } html[dir="rtl"] .main-content { margin-right: 0; } .progress-bar-container { left: 0; } }
     </style>
 </head>
 <body>
@@ -162,6 +166,7 @@
                 backToHome: '← Zur Übersicht',
                 back: "← Zurück zur Startseite",
                 overview: "Überblick",
+                datamodel: "Datenmodell",
                 setup: "Setup & Installation",
                 fundamentals: "Grundlagen",
                 exercise1: "Übung 1: Erste Schritte",
@@ -216,6 +221,22 @@
                 productsTable: "products: Produktkatalog (ID, Name, Kategorie, Preis, Bestand)",
                 ordersTable: "orders: Bestellungen (ID, Kunden-ID, Datum, Gesamtbetrag, Status)",
                 orderItemsTable: "order_items: Bestellpositionen (ID, Bestell-ID, Produkt-ID, Menge, Preis)",
+                megastoreDatamodelTitle: "MegaStore Datenmodell",
+                megastoreDatamodelDesc: "Dies ist das Datenmodell des MegaStore — eines fiktiven deutschen E-Commerce-Unternehmens. Es besteht aus 4 Kernentitäten und mehreren unterstützenden Tabellen.",
+                megastoreStats: "Datengröße:",
+                megastoreStat1: "~50.000 Kunden",
+                megastoreStat2: "~500.000 Bestellungen",
+                megastoreStat3: "~1.2M Bestellpositionen",
+                megastoreStat4: "~5.000 Produkte",
+                datamodelTableCustomers: "CUSTOMERS",
+                datamodelTableOrders: "ORDERS",
+                datamodelTableOrderItems: "ORDER_ITEMS",
+                datamodelTableProducts: "PRODUCTS",
+                datamodelFieldPK: "Primärschlüssel",
+                datamodelFieldFK: "Fremdschlüssel",
+                datamodelFieldReg: "Reguläres Feld",
+                datamodelNote: "Zusätzliche Tabellen:",
+                datamodelNoteDesc: "In Neo4j-Labs sind auch verfügbar: suppliers, reviews, clickstream, product_relationships, customer_relationships",
                 setupIntro: "Docker-basiertes Setup für Apache Spark mit Jupyter Notebook",
                 step1: "Schritt 1: Docker-Image herunterladen",
                 step1Desc: "Laden Sie das offizielle PySpark-Jupyter-Image herunter:",
@@ -482,11 +503,17 @@
                 ts4Desc: "Fehler: 'Error: No such image'. Lösung: Image herunterladen: 'docker pull jupyter/pyspark-notebook:latest'",
                 ts5Title: "Problem 5: Langsame Jobs",
                 ts5Desc: "Lösung: partition count prüfen (repartition()), cache() für wiederholte Zugriffe nutzen, explain() zur Ausführungsplan-Analyse verwenden",
+                labDuration: "~150 Min.",
+                levelBeginner: "Anfänger",
+                levelIntermediate: "Fortgeschritten",
+                levelAdvanced: "Komplex",
+                exerciseProgress: "Übung",
             },
             en: {
                 backToHome: '← Back to Overview',
                 back: "← Back to Home",
                 overview: "Overview",
+                datamodel: "Data Model",
                 setup: "Setup & Installation",
                 fundamentals: "Fundamentals",
                 exercise1: "Exercise 1: First Steps",
@@ -541,6 +568,22 @@
                 productsTable: "products: Product catalog (ID, Name, Category, Price, Stock)",
                 ordersTable: "orders: Orders (ID, Customer ID, Date, Total Amount, Status)",
                 orderItemsTable: "order_items: Order line items (ID, Order ID, Product ID, Quantity, Price)",
+                megastoreDatamodelTitle: "MegaStore Data Model",
+                megastoreDatamodelDesc: "This is the data model of MegaStore — a fictional German e-commerce company. It consists of 4 core entities and several supporting tables.",
+                megastoreStats: "Data Size:",
+                megastoreStat1: "~50,000 customers",
+                megastoreStat2: "~500,000 orders",
+                megastoreStat3: "~1.2M order items",
+                megastoreStat4: "~5,000 products",
+                datamodelTableCustomers: "CUSTOMERS",
+                datamodelTableOrders: "ORDERS",
+                datamodelTableOrderItems: "ORDER_ITEMS",
+                datamodelTableProducts: "PRODUCTS",
+                datamodelFieldPK: "Primary Key",
+                datamodelFieldFK: "Foreign Key",
+                datamodelFieldReg: "Regular Field",
+                datamodelNote: "Additional Tables:",
+                datamodelNoteDesc: "In Neo4j labs, also available: suppliers, reviews, clickstream, product_relationships, customer_relationships",
                 setupIntro: "Docker-based setup for Apache Spark with Jupyter Notebook",
                 step1: "Step 1: Download Docker Image",
                 step1Desc: "Download the official PySpark Jupyter image:",
@@ -807,6 +850,11 @@
                 ts4Desc: "Error: 'Error: No such image'. Solution: Pull image: 'docker pull jupyter/pyspark-notebook:latest'",
                 ts5Title: "Problem 5: Slow jobs",
                 ts5Desc: "Solution: Check partition count (repartition()), use cache() for repeated access, use explain() to analyze execution plan",
+                labDuration: "~150 Min.",
+                levelBeginner: "Beginner",
+                levelIntermediate: "Intermediate",
+                levelAdvanced: "Advanced",
+                exerciseProgress: "Exercise",
             },
             ar: {
             backToHome: '← العودة إلى النظرة العامة',
@@ -828,6 +876,7 @@
             image: 'docker pull jupyter/pyspark-notebook:latest',
             back: '← العودة',
             overview: 'نظرة عامة',
+            datamodel: 'نموذج البيانات',
             setup: 'الإعداد',
             fundamentals: 'الأساسيات',
             exercise1: 'تمرين 1',
@@ -882,6 +931,22 @@
             productsTable: 'products: كتالوج المنتجات (المعرّف، الاسم، الفئة، السعر، المخزون)',
             ordersTable: 'orders: الطلبات (المعرّف، معرّف العميل، التاريخ، الإجمالي، الحالة)',
             orderItemsTable: 'order_items: بنود الطلب (المعرّف، معرّف الطلب، معرّف المنتج، الكمية، السعر)',
+            megastoreDatamodelTitle: 'نموذج بيانات MegaStore',
+            megastoreDatamodelDesc: 'هذا هو نموذج البيانات لـ MegaStore — شركة تجارة إلكترونية ألمانية افتراضية. يتكون من 4 كيانات أساسية وعدة جداول داعمة.',
+            megastoreStats: 'حجم البيانات:',
+            megastoreStat1: '~50.000 عميل',
+            megastoreStat2: '~500.000 طلب',
+            megastoreStat3: '~1.2M عناصر الطلب',
+            megastoreStat4: '~5.000 منتج',
+            datamodelTableCustomers: 'CUSTOMERS',
+            datamodelTableOrders: 'ORDERS',
+            datamodelTableOrderItems: 'ORDER_ITEMS',
+            datamodelTableProducts: 'PRODUCTS',
+            datamodelFieldPK: 'المفتاح الأساسي',
+            datamodelFieldFK: 'المفتاح الأجنبي',
+            datamodelFieldReg: 'حقل عادي',
+            datamodelNote: 'جداول إضافية:',
+            datamodelNoteDesc: 'في معامل Neo4j، متاح أيضًا: suppliers, reviews, clickstream, product_relationships, customer_relationships',
             setupIntro: 'إعداد قائم على Docker لـ Apache Spark مع Jupyter Notebook',
             step1: 'الخطوة 1: تحميل صورة Docker',
             step1Desc: 'قم بتحميل صورة PySpark-Jupyter الرسمية:',
@@ -1147,7 +1212,12 @@
             ts4Title: 'المشكلة 4: خطأ Docker',
             ts4Desc: 'الخطأ: \'Error: No such image\'. الحل: تنزيل الصورة: \'docker pull jupyter/pyspark-notebook:latest\'',
             ts5Title: 'المشكلة 5: مهام بطيئة',
-            ts5Desc: 'الحل: التحقق من عدد التقسيمات (repartition())، استخدام cache() للوصول المتكرر، استخدام explain() لتحليل خطة التنفيذ'
+            ts5Desc: 'الحل: التحقق من عدد التقسيمات (repartition())، استخدام cache() للوصول المتكرر، استخدام explain() لتحليل خطة التنفيذ',
+            labDuration: '~150 دقيقة',
+            levelBeginner: 'مبتدئ',
+            levelIntermediate: 'متوسط',
+            levelAdvanced: 'متقدم',
+            exerciseProgress: 'تمرين'
         },
             uk: {
             backToHome: '← Повернутися до огляду',
@@ -1169,6 +1239,7 @@
             image: 'docker pull jupyter/pyspark-notebook:latest',
             back: '← Назад',
             overview: 'Огляд',
+            datamodel: 'Модель даних',
             setup: 'Налаштування',
             fundamentals: 'Основи',
             exercise1: 'Завдання 1',
@@ -1223,6 +1294,22 @@
             productsTable: 'products: каталог продуктів (ідентифікатор, ім\'я, категорія, ціна, запас)',
             ordersTable: 'orders: замовлення (ідентифікатор, ідентифікатор клієнта, дата, сума, статус)',
             orderItemsTable: 'order_items: позиції замовлення (ідентифікатор, ідентифікатор замовлення, ідентифікатор продукту, кількість, ціна)',
+            megastoreDatamodelTitle: 'Модель даних MegaStore',
+            megastoreDatamodelDesc: 'Це модель даних MegaStore — вигаданої німецької компанії електронної комерції. Вона складається з 4 основних сутностей та кількох допоміжних таблиць.',
+            megastoreStats: 'Розмір даних:',
+            megastoreStat1: '~50.000 клієнтів',
+            megastoreStat2: '~500.000 замовлень',
+            megastoreStat3: '~1.2M товарів замовлення',
+            megastoreStat4: '~5.000 продуктів',
+            datamodelTableCustomers: 'CUSTOMERS',
+            datamodelTableOrders: 'ORDERS',
+            datamodelTableOrderItems: 'ORDER_ITEMS',
+            datamodelTableProducts: 'PRODUCTS',
+            datamodelFieldPK: 'Первинний ключ',
+            datamodelFieldFK: 'Іноземний ключ',
+            datamodelFieldReg: 'Звичайне поле',
+            datamodelNote: 'Додаткові таблиці:',
+            datamodelNoteDesc: 'У Neo4j-лабах також доступні: suppliers, reviews, clickstream, product_relationships, customer_relationships',
             setupIntro: 'Docker-установка для Apache Spark з Jupyter Notebook',
             step1: 'Крок 1: завантаження образу Docker',
             step1Desc: 'Завантажте офіційний образ PySpark-Jupyter:',
@@ -1488,7 +1575,12 @@
             ts4Title: 'Проблема 4: Помилка Docker',
             ts4Desc: 'Помилка: \'Error: No such image\'. Рішення: Завантажте образ: \'docker pull jupyter/pyspark-notebook:latest\'',
             ts5Title: 'Проблема 5: Повільні завдання',
-            ts5Desc: 'Рішення: Перевірте кількість розділів (repartition()), використовуйте cache() для повторного доступу, використовуйте explain() для аналізу плану виконання'
+            ts5Desc: 'Рішення: Перевірте кількість розділів (repartition()), використовуйте cache() для повторного доступу, використовуйте explain() для аналізу плану виконання',
+            labDuration: '~150 Хв.',
+            levelBeginner: 'Початківець',
+            levelIntermediate: 'Проміжний',
+            levelAdvanced: 'Розширений',
+            exerciseProgress: 'Вправа'
         },
             es: {
             backToHome: '← Volver a la descripción general',
@@ -1510,6 +1602,7 @@
             image: 'docker pull jupyter/pyspark-notebook:latest',
             back: '← Atrás',
             overview: 'Descripción general',
+            datamodel: 'Modelo de Datos',
             setup: 'Configuración',
             fundamentals: 'Fundamentos',
             exercise1: 'Ejercicio 1',
@@ -1564,6 +1657,22 @@
             productsTable: 'products: catálogo de productos (ID, nombre, categoría, precio, inventario)',
             ordersTable: 'orders: pedidos (ID, ID de cliente, fecha, total, estado)',
             orderItemsTable: 'order_items: artículos del pedido (ID, ID de pedido, ID de producto, cantidad, precio)',
+            megastoreDatamodelTitle: 'Modelo de Datos de MegaStore',
+            megastoreDatamodelDesc: 'Este es el modelo de datos de MegaStore — una compañía de comercio electrónico alemana ficticia. Consta de 4 entidades principales y varias tablas de apoyo.',
+            megastoreStats: 'Tamaño de Datos:',
+            megastoreStat1: '~50.000 clientes',
+            megastoreStat2: '~500.000 pedidos',
+            megastoreStat3: '~1.2M artículos de pedido',
+            megastoreStat4: '~5.000 productos',
+            datamodelTableCustomers: 'CUSTOMERS',
+            datamodelTableOrders: 'ORDERS',
+            datamodelTableOrderItems: 'ORDER_ITEMS',
+            datamodelTableProducts: 'PRODUCTS',
+            datamodelFieldPK: 'Clave Principal',
+            datamodelFieldFK: 'Clave Foránea',
+            datamodelFieldReg: 'Campo Regular',
+            datamodelNote: 'Tablas Adicionales:',
+            datamodelNoteDesc: 'En los laboratorios de Neo4j, también disponibles: suppliers, reviews, clickstream, product_relationships, customer_relationships',
             setupIntro: 'Configuración basada en Docker para Apache Spark con Jupyter Notebook',
             step1: 'Paso 1: Descargar imagen Docker',
             step1Desc: 'Descargue la imagen oficial de PySpark-Jupyter:',
@@ -1829,7 +1938,12 @@
             ts4Title: 'Problema 4: Error de Docker',
             ts4Desc: 'Error: \'Error: No such image\'. Solución: Descargar la imagen: \'docker pull jupyter/pyspark-notebook:latest\'',
             ts5Title: 'Problema 5: Tareas lentas',
-            ts5Desc: 'Solución: Verifique el número de particiones (repartition()), utilice cache() para acceso repetido, utilice explain() para analizar el plan de ejecución'
+            ts5Desc: 'Solución: Verifique el número de particiones (repartition()), utilice cache() para acceso repetido, utilice explain() para analizar el plan de ejecución',
+            labDuration: '~150 Min.',
+            levelBeginner: 'Principiante',
+            levelIntermediate: 'Intermedio',
+            levelAdvanced: 'Avanzado',
+            exerciseProgress: 'Ejercicio'
         },
             tr: {
             backToHome: '← Genel Özete Dön',
@@ -1851,6 +1965,7 @@
             image: 'docker pull jupyter/pyspark-notebook:latest',
             back: '← Geri',
             overview: 'Genel Bakış',
+            datamodel: 'Veri Modeli',
             setup: 'Kurulum',
             fundamentals: 'Temel Bilgiler',
             exercise1: 'Alıştırma 1',
@@ -1905,6 +2020,22 @@
             productsTable: 'products: ürün kataloğu (kimlik, ad, kategori, fiyat, stok)',
             ordersTable: 'orders: siparişler (kimlik, müşteri_kimliği, tarih, toplam, durum)',
             orderItemsTable: 'order_items: sipariş kalemleri (kimlik, sipariş_kimliği, ürün_kimliği, miktar, fiyat)',
+            megastoreDatamodelTitle: 'MegaStore Veri Modeli',
+            megastoreDatamodelDesc: 'Bu, MegaStore\'un veri modelidir — kurgusal bir Alman e-ticaret şirketi. 4 temel varlık ve birkaç destekleyici tablodan oluşur.',
+            megastoreStats: 'Veri Boyutu:',
+            megastoreStat1: '~50.000 müşteri',
+            megastoreStat2: '~500.000 sipariş',
+            megastoreStat3: '~1.2M sipariş öğesi',
+            megastoreStat4: '~5.000 ürün',
+            datamodelTableCustomers: 'CUSTOMERS',
+            datamodelTableOrders: 'ORDERS',
+            datamodelTableOrderItems: 'ORDER_ITEMS',
+            datamodelTableProducts: 'PRODUCTS',
+            datamodelFieldPK: 'Birincil Anahtar',
+            datamodelFieldFK: 'Yabancı Anahtar',
+            datamodelFieldReg: 'Normal Alan',
+            datamodelNote: 'Ek Tablolar:',
+            datamodelNoteDesc: 'Neo4j laboratorilerinde ayrıca şunlar mevcuttur: suppliers, reviews, clickstream, product_relationships, customer_relationships',
             setupIntro: 'Apache Spark için Docker Tabanlı Kurulum ve Jupyter Notebook',
             step1: 'Adım 1: Docker İmajını İndir',
             step1Desc: 'Resmi PySpark-Jupyter imajını indir:',
@@ -2170,12 +2301,19 @@
             ts4Title: 'Sorun 4: Docker Hatası',
             ts4Desc: 'Hata: \'Error: No such image\'. Çözüm: Görüntüyü indirin: \'docker pull jupyter/pyspark-notebook:latest\'',
             ts5Title: 'Sorun 5: Yavaş Görevler',
-            ts5Desc: 'Çözüm: Bölüm sayısını doğrulayın (repartition()), tekrarlanan erişim için cache() kullanın, yürütme planını analiz etmek için explain() kullanın'
+            ts5Desc: 'Çözüm: Bölüm sayısını doğrulayın (repartition()), tekrarlanan erişim için cache() kullanın, yürütme planını analiz etmek için explain() kullanın',
+            labDuration: '~150 Dak.',
+            levelBeginner: 'Başlangıç',
+            levelIntermediate: 'Orta Seviye',
+            levelAdvanced: 'İleri',
+            exerciseProgress: 'Alıştırma'
         },
         };
 
         const sidebarItems = [
             { id: 'overview', label: 'overview' },
+            { id: 'datamodel', label: 'datamodel' },
+            { id: 'datamodel', label: 'datamodel' },
             { id: 'setup', label: 'setup' },
             { id: 'tooling', label: 'tooling' },
             { id: 'fundamentals', label: 'fundamentals' },
@@ -2200,6 +2338,9 @@
         function LabApp() {
             const [language, setLanguage] = useState('de');
             const [activeSection, setActiveSection] = useState('overview');
+            const [progress, setProgress] = React.useState(0);
+            const [currentExercise, setCurrentExercise] = React.useState(0);
+            const totalExercises = 12;
 
                 // IntersectionObserver for sidebar scroll tracking
                 React.useEffect(() => {
@@ -2217,6 +2358,22 @@
                     sections.forEach(s => observer.observe(s));
                     return () => observer.disconnect();
                 }, []);
+
+                // Progress bar tracking
+                React.useEffect(() => {
+                    const handleScroll = () => {
+                        const exercises = document.querySelectorAll('section[id^="exercise"]');
+                        let current = 0;
+                        exercises.forEach((ex, i) => {
+                            if (ex.getBoundingClientRect().top < window.innerHeight / 2) current = i + 1;
+                        });
+                        setCurrentExercise(current);
+                        setProgress(current / totalExercises * 100);
+                    };
+                    window.addEventListener('scroll', handleScroll);
+                    return () => window.removeEventListener('scroll', handleScroll);
+                }, []);
+
             const [expandedQuiz, setExpandedQuiz] = useState(null);
             const [quizAnswers, setQuizAnswers] = useState({});
             const [expandedCode, setExpandedCode] = useState(null);
@@ -2261,6 +2418,15 @@
                         </div>
                     </div>
 
+                    {currentExercise > 0 && (
+                        <div>
+                            <div className="progress-bar-container">
+                                <div className="progress-bar-fill" style={{width: `${progress}%`}}></div>
+                            </div>
+                            <div className="progress-label">{currentExercise}/{totalExercises}</div>
+                        </div>
+                    )}
+
                     <div className="sidebar">
                         {sidebarItems.map(item => (
                             <button key={item.id} className={'sidebar-item' + (activeSection === item.id ? ' active' : '')} onClick={() => { setActiveSection(item.id); document.getElementById(item.id)?.scrollIntoView({behavior:'smooth', block:'start'}); }}>
@@ -2272,6 +2438,9 @@
                     <div className="main-content">
                         <section id="overview">
                             <h2>Apache Spark</h2>
+                            <div style={{marginBottom: '1rem'}}>
+                                <span className="badge badge-time">⏱ {t.labDuration}</span>
+                            </div>
                             <div className="lesson-box">
                                 <h3>{t.whatYouLearn}</h3>
                                 <p>{t.sparkWillLearn}</p>
@@ -2357,6 +2526,117 @@
                                 <StepItem number="✓">{t.productsTable}</StepItem>
                                 <StepItem number="✓">{t.ordersTable}</StepItem>
                                 <StepItem number="✓">{t.orderItemsTable}</StepItem>
+                            </div>
+                        </section>
+
+                        <section id="datamodel">
+                            <h2>{t.megastoreDatamodelTitle}</h2>
+                            <p style={{lineHeight: 1.6, marginBottom: '1.5rem'}}>{t.megastoreDatamodelDesc}</p>
+
+                            <h3 style={{marginTop: '1.5rem', marginBottom: '0.5rem'}}>{t.megastoreStats}</h3>
+                            <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '0.75rem', marginBottom: '2rem'}}>
+                                <div className="card" style={{textAlign: 'center', padding: '0.75rem'}}>
+                                    <p style={{fontSize: '0.9rem', margin: '0'}}>{t.megastoreStat1}</p>
+                                </div>
+                                <div className="card" style={{textAlign: 'center', padding: '0.75rem'}}>
+                                    <p style={{fontSize: '0.9rem', margin: '0'}}>{t.megastoreStat2}</p>
+                                </div>
+                                <div className="card" style={{textAlign: 'center', padding: '0.75rem'}}>
+                                    <p style={{fontSize: '0.9rem', margin: '0'}}>{t.megastoreStat3}</p>
+                                </div>
+                                <div className="card" style={{textAlign: 'center', padding: '0.75rem'}}>
+                                    <p style={{fontSize: '0.9rem', margin: '0'}}>{t.megastoreStat4}</p>
+                                </div>
+                            </div>
+
+                            <h3 style={{marginTop: '2rem', marginBottom: '1.5rem'}}>Entity-Relationship Diagram (ERD)</h3>
+                            <div style={{
+                                display: 'grid',
+                                gridTemplateColumns: 'repeat(2, 1fr)',
+                                gap: '1.5rem',
+                                marginBottom: '2rem'
+                            }}>
+                                {/* CUSTOMERS Table */}
+                                <div className="card" style={{borderLeft: '4px solid #E8792F', padding: '1rem'}}>
+                                    <h4 style={{color: '#E8792F', margin: '0 0 0.75rem 0', fontSize: '1rem', fontWeight: 'bold'}}>{t.datamodelTableCustomers}</h4>
+                                    <div style={{fontSize: '0.85rem', lineHeight: 1.8}}>
+                                        <div style={{color: '#d97706', fontWeight: 'bold'}}>🔑 customer_id (PK)</div>
+                                        <div>first_name</div>
+                                        <div>last_name</div>
+                                        <div>email</div>
+                                        <div>city</div>
+                                        <div>country</div>
+                                        <div>registration_date</div>
+                                        <div>customer_segment</div>
+                                        <div>lifetime_value</div>
+                                        <div>total_orders</div>
+                                        <div>preferred_payment</div>
+                                    </div>
+                                </div>
+
+                                {/* PRODUCTS Table */}
+                                <div className="card" style={{borderLeft: '4px solid #06B6D4', padding: '1rem'}}>
+                                    <h4 style={{color: '#06B6D4', margin: '0 0 0.75rem 0', fontSize: '1rem', fontWeight: 'bold'}}>{t.datamodelTableProducts}</h4>
+                                    <div style={{fontSize: '0.85rem', lineHeight: 1.8}}>
+                                        <div style={{color: '#d97706', fontWeight: 'bold'}}>🔑 product_id (PK)</div>
+                                        <div>name</div>
+                                        <div>category</div>
+                                        <div>subcategory</div>
+                                        <div>brand</div>
+                                        <div>price</div>
+                                        <div>cost_price</div>
+                                        <div>rating_avg</div>
+                                        <div>in_stock</div>
+                                        <div>stock_quantity</div>
+                                    </div>
+                                </div>
+
+                                {/* ORDERS Table */}
+                                <div className="card" style={{borderLeft: '4px solid #8B5CF6', padding: '1rem'}}>
+                                    <h4 style={{color: '#8B5CF6', margin: '0 0 0.75rem 0', fontSize: '1rem', fontWeight: 'bold'}}>{t.datamodelTableOrders}</h4>
+                                    <div style={{fontSize: '0.85rem', lineHeight: 1.8}}>
+                                        <div style={{color: '#d97706', fontWeight: 'bold'}}>🔑 order_id (PK)</div>
+                                        <div style={{color: '#d97706', fontWeight: 'bold'}}>🔗 customer_id (FK)</div>
+                                        <div>order_date</div>
+                                        <div>status</div>
+                                        <div>total_amount</div>
+                                        <div>discount_amount</div>
+                                        <div>shipping_cost</div>
+                                        <div>payment_method</div>
+                                        <div>delivery_days</div>
+                                    </div>
+                                </div>
+
+                                {/* ORDER_ITEMS Table */}
+                                <div className="card" style={{borderLeft: '4px solid #10B981', padding: '1rem'}}>
+                                    <h4 style={{color: '#10B981', margin: '0 0 0.75rem 0', fontSize: '1rem', fontWeight: 'bold'}}>{t.datamodelTableOrderItems}</h4>
+                                    <div style={{fontSize: '0.85rem', lineHeight: 1.8}}>
+                                        <div style={{color: '#d97706', fontWeight: 'bold'}}>🔑 item_id (PK)</div>
+                                        <div style={{color: '#d97706', fontWeight: 'bold'}}>🔗 order_id (FK)</div>
+                                        <div style={{color: '#d97706', fontWeight: 'bold'}}>🔗 product_id (FK)</div>
+                                        <div>quantity</div>
+                                        <div>unit_price</div>
+                                        <div>total_price</div>
+                                        <div>discount_percent</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <h3 style={{marginTop: '2rem', marginBottom: '1rem'}}>Relationships</h3>
+                            <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1rem', marginBottom: '2rem'}}>
+                                <div className="concept-box" style={{borderTop: '3px solid #E8792F'}}>
+                                    <p style={{margin: '0', fontSize: '0.9rem'}}><strong>CUSTOMERS 1:N ORDERS</strong><br/>via customer_id</p>
+                                </div>
+                                <div className="concept-box" style={{borderTop: '3px solid #8B5CF6'}}>
+                                    <p style={{margin: '0', fontSize: '0.9rem'}}><strong>ORDERS 1:N ORDER_ITEMS</strong><br/>via order_id</p>
+                                </div>
+                                <div className="concept-box" style={{borderTop: '3px solid #06B6D4'}}>
+                                    <p style={{margin: '0', fontSize: '0.9rem'}}><strong>PRODUCTS 1:N ORDER_ITEMS</strong><br/>via product_id</p>
+                                </div>
+                            </div>
+
+                            <div className="lesson-box" style={{marginTop: '2rem'}}>
+                                <p style={{marginTop: '0'}}><strong>{t.datamodelNote}</strong> {t.datamodelNoteDesc}</p>
                             </div>
                         </section>
 
@@ -2563,7 +2843,7 @@
                         <section id="exercise1">
                             <h2>{t.exercise1}</h2>
                             <div style={{marginBottom: '1rem'}}>
-                                <span className="badge badge-beginner">{t.beginner}</span>
+                                <span className="badge badge-beginner">{t.levelBeginner}</span>
                                 <span className="badge badge-time">~15 Min</span>
                             </div>
                             <h3>{t.objective}</h3>
@@ -2613,7 +2893,7 @@
                         <section id="exercise2">
                             <h2>{t.exercise2}</h2>
                             <div style={{marginBottom: '1rem'}}>
-                                <span className="badge badge-beginner">{t.beginner}</span>
+                                <span className="badge badge-beginner">{t.levelBeginner}</span>
                                 <span className="badge badge-time">~15 Min</span>
                             </div>
                             <h3>{t.objective}</h3>
@@ -2660,7 +2940,7 @@
                         <section id="exercise3">
                             <h2>{t.exercise3}</h2>
                             <div style={{marginBottom: '1rem'}}>
-                                <span className="badge badge-beginner">{t.beginner}</span>
+                                <span className="badge badge-beginner">{t.levelBeginner}</span>
                                 <span className="badge badge-time">~15 Min</span>
                             </div>
                             <h3>{t.objective}</h3>
@@ -2707,7 +2987,7 @@
                         <section id="exercise4">
                             <h2>{t.exercise4}</h2>
                             <div style={{marginBottom: '1rem'}}>
-                                <span className="badge badge-beginner">{t.beginner}</span>
+                                <span className="badge badge-beginner">{t.levelBeginner}</span>
                                 <span className="badge badge-time">~15 Min</span>
                             </div>
                             <h3>{t.objective}</h3>
@@ -2754,7 +3034,7 @@
                         <section id="exercise5">
                             <h2>{t.exercise5}</h2>
                             <div style={{marginBottom: '1rem'}}>
-                                <span className="badge badge-beginner">{t.beginner}</span>
+                                <span className="badge badge-beginner">{t.levelBeginner}</span>
                                 <span className="badge badge-time">~15 Min</span>
                             </div>
                             <h3>{t.objective}</h3>
@@ -2801,7 +3081,7 @@
                         <section id="exercise6">
                             <h2>{t.exercise6}</h2>
                             <div style={{marginBottom: '1rem'}}>
-                                <span className="badge badge-intermediate">Intermediate</span>
+                                <span className="badge badge-intermediate">{t.levelIntermediate}</span>
                                 <span className="badge badge-time">~15 Min</span>
                             </div>
                             <h3>{t.objective}</h3>
@@ -2848,7 +3128,7 @@
                         <section id="exercise7">
                             <h2>{t.exercise7}</h2>
                             <div style={{marginBottom: '1rem'}}>
-                                <span className="badge badge-intermediate">Intermediate</span>
+                                <span className="badge badge-intermediate">{t.levelIntermediate}</span>
                                 <span className="badge badge-time">~20 Min</span>
                             </div>
                             <h3>{t.objective}</h3>
@@ -2895,7 +3175,7 @@
                         <section id="exercise8">
                             <h2>{t.exercise8}</h2>
                             <div style={{marginBottom: '1rem'}}>
-                                <span className="badge badge-intermediate">Intermediate</span>
+                                <span className="badge badge-intermediate">{t.levelIntermediate}</span>
                                 <span className="badge badge-time">~20 Min</span>
                             </div>
                             <h3>{t.objective}</h3>
@@ -2942,7 +3222,7 @@
                         <section id="exercise9">
                             <h2>{t.exercise9}</h2>
                             <div style={{marginBottom: '1rem'}}>
-                                <span className="badge badge-intermediate">Intermediate</span>
+                                <span className="badge badge-intermediate">{t.levelIntermediate}</span>
                                 <span className="badge badge-time">~15 Min</span>
                             </div>
                             <h3>{t.objective}</h3>
@@ -2989,7 +3269,7 @@
                         <section id="exercise10">
                             <h2>{t.exercise10}</h2>
                             <div style={{marginBottom: '1rem'}}>
-                                <span className="badge badge-intermediate">Intermediate</span>
+                                <span className="badge badge-intermediate">{t.levelIntermediate}</span>
                                 <span className="badge badge-time">~20 Min</span>
                             </div>
                             <h3>{t.objective}</h3>
@@ -3036,7 +3316,7 @@
                         <section id="exercise11">
                             <h2>{t.exercise11}</h2>
                             <div style={{marginBottom: '1rem'}}>
-                                <span className="badge badge-advanced">Advanced</span>
+                                <span className="badge badge-advanced">{t.levelAdvanced}</span>
                                 <span className="badge badge-time">~25 Min</span>
                             </div>
                             <h3>{t.objective}</h3>
@@ -3083,7 +3363,7 @@
                         <section id="exercise12">
                             <h2>{t.exercise12}</h2>
                             <div style={{marginBottom: '1rem'}}>
-                                <span className="badge badge-advanced">Advanced</span>
+                                <span className="badge badge-advanced">{t.levelAdvanced}</span>
                                 <span className="badge badge-time">~25 Min</span>
                             </div>
                             <h3>{t.objective}</h3>

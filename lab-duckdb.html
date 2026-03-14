@@ -148,8 +148,12 @@
         /* Prompt Example */
         .prompt-example { background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 0.5rem; padding: 1rem; margin: 1rem 0; font-family: 'Courier New', monospace; font-size: 0.85rem; color: var(--primary); overflow-x: auto; }
 
+        /* Progress Bar */
+        .progress-bar-container { position: fixed; top: 4rem; left: 260px; right: 0; height: 3px; background: #e2e8f0; z-index: 45; }
+        .progress-bar-fill { height: 100%; background: var(--accent); transition: width 0.3s ease; }
+        .progress-label { position: fixed; top: 4.25rem; right: 1rem; background: white; padding: 0.15rem 0.6rem; border-radius: 0.25rem; font-size: 0.7rem; font-weight: 600; color: var(--accent); z-index: 46; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
         /* Responsive */
-        @media (max-width: 768px) { .sidebar { display: none; } .main-content { margin-left: 0; padding: 5rem 1.5rem 2rem 1.5rem; } html[dir="rtl"] .main-content { margin-right: 0; } }
+        @media (max-width: 768px) { .sidebar { display: none; } .main-content { margin-left: 0; padding: 5rem 1.5rem 2rem 1.5rem; } html[dir="rtl"] .main-content { margin-right: 0; } .progress-bar-container { left: 0; } }
     </style>
 </head>
 <body>
@@ -163,6 +167,7 @@
                 copy: 'Kopieren',
                 copied: 'Kopiert!',
                 overview: 'Überblick',
+                datamodel: 'Datenmodell',
                 setup: 'Installation & Setup',
                 fundamentals: 'Grundlagen',
                 tooling: 'Tooling & Anbindung',
@@ -231,6 +236,22 @@
                 ordersColumns: 'order_id, customer_id, order_date, total_amount, status',
                 orderItems: 'Bestellpositionen',
                 orderItemsColumns: 'order_item_id, order_id, product_id, quantity, unit_price',
+                megastoreDatamodelTitle: 'MegaStore Datenmodell',
+                megastoreDatamodelDesc: 'Dies ist das Datenmodell des MegaStore — eines fiktiven deutschen E-Commerce-Unternehmens. Es besteht aus 4 Kernentitäten und mehreren unterstützenden Tabellen.',
+                megastoreStats: 'Datengröße:',
+                megastoreStat1: '~50.000 Kunden',
+                megastoreStat2: '~500.000 Bestellungen',
+                megastoreStat3: '~1.2M Bestellpositionen',
+                megastoreStat4: '~5.000 Produkte',
+                datamodelTableCustomers: 'CUSTOMERS',
+                datamodelTableOrders: 'ORDERS',
+                datamodelTableOrderItems: 'ORDER_ITEMS',
+                datamodelTableProducts: 'PRODUCTS',
+                datamodelFieldPK: 'Primärschlüssel',
+                datamodelFieldFK: 'Fremdschlüssel',
+                datamodelFieldReg: 'Reguläres Feld',
+                datamodelNote: 'Zusätzliche Tabellen:',
+                datamodelNoteDesc: 'In Neo4j-Labs sind auch verfügbar: suppliers, reviews, clickstream, product_relationships, customer_relationships',
 
                 // Setup
                 setupTitle: 'Installation & Setup',
@@ -527,6 +548,11 @@
                 solution4: 'DuckDB speichert alles im RAM. Verwenden Sie streaming oder verarbeiten Sie Daten in Chunks.',
                 problem5: 'SQL Syntax Error in Abfrage',
                 solution5: 'Überprüfen Sie Ihre SQL-Syntax. Klammern, Kommas und Schlüsselwörter müssen korrekt sein.',
+                labDuration: '~90 Min.',
+                levelBeginner: 'Anfänger',
+                levelIntermediate: 'Fortgeschritten',
+                levelAdvanced: 'Komplex',
+                exerciseProgress: 'Übung'
             },
             en: {
                 backToHome: '← Back to Overview',
@@ -898,6 +924,11 @@
                 solution4: 'DuckDB stores everything in RAM. Use streaming or process data in chunks.',
                 problem5: 'SQL Syntax Error in query',
                 solution5: 'Check your SQL syntax. Parentheses, commas, and keywords must be correct.',
+                labDuration: '~90 Min.',
+                levelBeginner: 'Beginner',
+                levelIntermediate: 'Intermediate',
+                levelAdvanced: 'Advanced',
+                exerciseProgress: 'Exercise'
             },
             ar: {
             backToHome: '← العودة إلى نظرة عامة',
@@ -905,6 +936,7 @@
             copy: 'نسخ',
             copied: 'تم النسخ!',
             overview: 'نظرة عامة',
+            datamodel: 'نموذج البيانات',
             setup: 'الإعداد',
             fundamentals: 'الأساسيات',
             tooling: 'الأدوات والتكامل',
@@ -1245,6 +1277,7 @@
             copy: 'Копіювати',
             copied: 'Скопійовано!',
             overview: 'Огляд',
+            datamodel: 'Модель даних',
             setup: 'Налаштування',
             fundamentals: 'Основи',
             tooling: 'Інструменти та інтеграція',
@@ -1577,7 +1610,12 @@
             exercise12Task: 'Додайте стовпець monatliches_wachstum: відносна різниця порівняно з попереднім місяцем. Використайте LAG(umsatz) OVER (ORDER BY jahr, monat) для отримання доходів попереднього місяця.',
             exercise12Hint: 'Підказка: ROUND((umsatz - LAG(umsatz) OVER (ORDER BY jahr, monat)) / LAG(umsatz) OVER (...) * 100, 1) AS wachstum_pct',
             exercise12Solution: 'result = conn.execute(\"\"\"\nWITH monatlich AS (\n  SELECT\n    EXTRACT(YEAR FROM CAST(order_date AS DATE)) AS jahr,\n    EXTRACT(MONTH FROM CAST(order_date AS DATE)) AS monat,\n    COUNT(*) AS bestellungen,\n    ROUND(SUM(total_amount), 2) AS umsatz\n  FROM orders WHERE status = \'completed\'\n  GROUP BY jahr, monat\n)\nSELECT jahr, monat, bestellungen, umsatz,\n  ROUND(SUM(umsatz) OVER (ORDER BY jahr, monat), 2) AS kumulierter_umsatz,\n  ROUND((umsatz - LAG(umsatz) OVER (ORDER BY jahr, monat)) / LAG(umsatz) OVER (ORDER BY jahr, monat) * 100, 1) AS wachstum_pct\nFROM monatlich ORDER BY jahr, monat\n\"\"\").fetchdf()\nprint(result)',
-            exercise12Verify: 'Місячні доходи з кумулятивною сумою та відносним зростанням порівняно з попереднім місяцем.'
+            exercise12Verify: 'Місячні доходи з кумулятивною сумою та відносним зростанням порівняно з попереднім місяцем.',
+            labDuration: '~90 Хв.',
+            levelBeginner: 'Початківець',
+            levelIntermediate: 'Проміжний',
+            levelAdvanced: 'Розширений',
+            exerciseProgress: 'Вправа'
         },
             es: {
             backToHome: '← Volver a descripción general',
@@ -1585,6 +1623,7 @@
             copy: 'Copiar',
             copied: '¡Copiado!',
             overview: 'Descripción general',
+            datamodel: 'Modelo de Datos',
             setup: 'Configuración',
             fundamentals: 'Fundamentos',
             tooling: 'Herramientas e integración',
@@ -1917,7 +1956,12 @@
             exercise12Task: 'Agregue una columna monatliches_wachstum: la diferencia relativa en comparación con el mes anterior. Utilice LAG(umsatz) OVER (ORDER BY jahr, monat) para obtener los ingresos del mes anterior.',
             exercise12Hint: 'Sugerencia: ROUND((umsatz - LAG(umsatz) OVER (ORDER BY jahr, monat)) / LAG(umsatz) OVER (...) * 100, 1) AS wachstum_pct',
             exercise12Solution: 'result = conn.execute(\"\"\"\nWITH monatlich AS (\n  SELECT\n    EXTRACT(YEAR FROM CAST(order_date AS DATE)) AS jahr,\n    EXTRACT(MONTH FROM CAST(order_date AS DATE)) AS monat,\n    COUNT(*) AS bestellungen,\n    ROUND(SUM(total_amount), 2) AS umsatz\n  FROM orders WHERE status = \'completed\'\n  GROUP BY jahr, monat\n)\nSELECT jahr, monat, bestellungen, umsatz,\n  ROUND(SUM(umsatz) OVER (ORDER BY jahr, monat), 2) AS kumulierter_umsatz,\n  ROUND((umsatz - LAG(umsatz) OVER (ORDER BY jahr, monat)) / LAG(umsatz) OVER (ORDER BY jahr, monat) * 100, 1) AS wachstum_pct\nFROM monatlich ORDER BY jahr, monat\n\"\"\").fetchdf()\nprint(result)',
-            exercise12Verify: 'Ingresos mensuales con suma acumulada y crecimiento relativo en comparación con el mes anterior.'
+            exercise12Verify: 'Ingresos mensuales con suma acumulada y crecimiento relativo en comparación con el mes anterior.',
+            labDuration: '~90 Min.',
+            levelBeginner: 'Principiante',
+            levelIntermediate: 'Intermedio',
+            levelAdvanced: 'Avanzado',
+            exerciseProgress: 'Ejercicio'
         },
             tr: {
             backToHome: '← Genel Bakışa Dön',
@@ -1925,6 +1969,7 @@
             copy: 'Kopyala',
             copied: 'Kopyalandı!',
             overview: 'Genel Bakış',
+            datamodel: 'Veri Modeli',
             setup: 'Kurulum',
             fundamentals: 'Temel Bilgiler',
             tooling: 'Araçlar ve Entegrasyon',
@@ -2257,7 +2302,12 @@
             exercise12Task: 'monatliches_wachstum sütununu ekleyiniz: önceki aya kıyasla yüzde fark. Önceki ayın gelirini almak için LAG(umsatz) OVER (ORDER BY jahr, monat) kullanınız.',
             exercise12Hint: 'İpucu: ROUND((umsatz - LAG(umsatz) OVER (ORDER BY jahr, monat)) / LAG(umsatz) OVER (...) * 100, 1) AS wachstum_pct',
             exercise12Solution: 'result = conn.execute(\"\"\"\nWITH monatlich AS (\n  SELECT\n    EXTRACT(YEAR FROM CAST(order_date AS DATE)) AS jahr,\n    EXTRACT(MONTH FROM CAST(order_date AS DATE)) AS monat,\n    COUNT(*) AS bestellungen,\n    ROUND(SUM(total_amount), 2) AS umsatz\n  FROM orders WHERE status = \'completed\'\n  GROUP BY jahr, monat\n)\nSELECT jahr, monat, bestellungen, umsatz,\n  ROUND(SUM(umsatz) OVER (ORDER BY jahr, monat), 2) AS kumulierter_umsatz,\n  ROUND((umsatz - LAG(umsatz) OVER (ORDER BY jahr, monat)) / LAG(umsatz) OVER (ORDER BY jahr, monat) * 100, 1) AS wachstum_pct\nFROM monatlich ORDER BY jahr, monat\n\"\"\").fetchdf()\nprint(result)',
-            exercise12Verify: 'Aylık gelirler birikimli toplam ve önceki aya kıyasla yüzde büyümeyle gösterilmektedir.'
+            exercise12Verify: 'Aylık gelirler birikimli toplam ve önceki aya kıyasla yüzde büyümeyle gösterilmektedir.',
+            labDuration: '~90 Dak.',
+            levelBeginner: 'Başlangıç',
+            levelIntermediate: 'Orta Seviye',
+            levelAdvanced: 'İleri',
+            exerciseProgress: 'Alıştırma'
         },
         };
 
@@ -2404,6 +2454,9 @@
         function App() {
             const [language, setLanguage] = React.useState('de');
             const [activeSection, setActiveSection] = React.useState('overview');
+            const [progress, setProgress] = React.useState(0);
+            const [currentExercise, setCurrentExercise] = React.useState(0);
+            const totalExercises = 12;
 
                 // IntersectionObserver for sidebar scroll tracking
                 React.useEffect(() => {
@@ -2421,6 +2474,22 @@
                     sections.forEach(s => observer.observe(s));
                     return () => observer.disconnect();
                 }, []);
+
+                // Progress bar tracking
+                React.useEffect(() => {
+                    const handleScroll = () => {
+                        const exercises = document.querySelectorAll('section[id^="exercise"]');
+                        let current = 0;
+                        exercises.forEach((ex, i) => {
+                            if (ex.getBoundingClientRect().top < window.innerHeight / 2) current = i + 1;
+                        });
+                        setCurrentExercise(current);
+                        setProgress(current / totalExercises * 100);
+                    };
+                    window.addEventListener('scroll', handleScroll);
+                    return () => window.removeEventListener('scroll', handleScroll);
+                }, []);
+
             const t = useTranslation(language);
 
             const sidebarItems = [
@@ -2448,6 +2517,15 @@
 
             return (
                 <div>
+                    {currentExercise > 0 && (
+                        <div>
+                            <div className="progress-bar-container">
+                                <div className="progress-bar-fill" style={{width: `${progress}%`}}></div>
+                            </div>
+                            <div className="progress-label">{currentExercise}/{totalExercises}</div>
+                        </div>
+                    )}
+
                     <header>
                         <div className="header-left">
                             <a href="index.html" className="back-link">{t.backToHome}</a>
@@ -2486,6 +2564,9 @@
                     <main className="main-content">
                         <section id="overview">
                             <h2>{t.overview}</h2>
+                            <div style={{marginBottom: '1rem'}}>
+                                <span className="badge badge-time">⏱ {t.labDuration}</span>
+                            </div>
                             {/* Introduction */}
                             <p style={{color: '#374151', lineHeight: '1.7', fontSize: '1.05rem', marginBottom: '1.5rem'}}>
                                 {t.duckdbIntro}
@@ -2608,6 +2689,116 @@
                                         <li>Zero Configuration</li>
                                     </ul>
                                 </div>
+                            </div>                        </section>
+
+                        <section id="datamodel">
+                            <h2>{t.megastoreDatamodelTitle}</h2>
+                            <p style={{lineHeight: 1.6, marginBottom: '1.5rem'}}>{t.megastoreDatamodelDesc}</p>
+
+                            <h3 style={{marginTop: '1.5rem', marginBottom: '0.5rem'}}>{t.megastoreStats}</h3>
+                            <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '0.75rem', marginBottom: '2rem'}}>
+                                <div className="card" style={{textAlign: 'center', padding: '0.75rem'}}>
+                                    <p style={{fontSize: '0.9rem', margin: '0'}}>{t.megastoreStat1}</p>
+                                </div>
+                                <div className="card" style={{textAlign: 'center', padding: '0.75rem'}}>
+                                    <p style={{fontSize: '0.9rem', margin: '0'}}>{t.megastoreStat2}</p>
+                                </div>
+                                <div className="card" style={{textAlign: 'center', padding: '0.75rem'}}>
+                                    <p style={{fontSize: '0.9rem', margin: '0'}}>{t.megastoreStat3}</p>
+                                </div>
+                                <div className="card" style={{textAlign: 'center', padding: '0.75rem'}}>
+                                    <p style={{fontSize: '0.9rem', margin: '0'}}>{t.megastoreStat4}</p>
+                                </div>
+                            </div>
+
+                            <h3 style={{marginTop: '2rem', marginBottom: '1.5rem'}}>Entity-Relationship Diagram (ERD)</h3>
+                            <div style={{
+                                display: 'grid',
+                                gridTemplateColumns: 'repeat(2, 1fr)',
+                                gap: '1.5rem',
+                                marginBottom: '2rem'
+                            }}>
+                                {/* CUSTOMERS Table */}
+                                <div className="card" style={{borderLeft: '4px solid #E8792F', padding: '1rem'}}>
+                                    <h4 style={{color: '#E8792F', margin: '0 0 0.75rem 0', fontSize: '1rem', fontWeight: 'bold'}}>{t.datamodelTableCustomers}</h4>
+                                    <div style={{fontSize: '0.85rem', lineHeight: 1.8}}>
+                                        <div style={{color: '#d97706', fontWeight: 'bold'}}>🔑 customer_id (PK)</div>
+                                        <div>first_name</div>
+                                        <div>last_name</div>
+                                        <div>email</div>
+                                        <div>city</div>
+                                        <div>country</div>
+                                        <div>registration_date</div>
+                                        <div>customer_segment</div>
+                                        <div>lifetime_value</div>
+                                        <div>total_orders</div>
+                                        <div>preferred_payment</div>
+                                    </div>
+                                </div>
+
+                                {/* PRODUCTS Table */}
+                                <div className="card" style={{borderLeft: '4px solid #06B6D4', padding: '1rem'}}>
+                                    <h4 style={{color: '#06B6D4', margin: '0 0 0.75rem 0', fontSize: '1rem', fontWeight: 'bold'}}>{t.datamodelTableProducts}</h4>
+                                    <div style={{fontSize: '0.85rem', lineHeight: 1.8}}>
+                                        <div style={{color: '#d97706', fontWeight: 'bold'}}>🔑 product_id (PK)</div>
+                                        <div>name</div>
+                                        <div>category</div>
+                                        <div>subcategory</div>
+                                        <div>brand</div>
+                                        <div>price</div>
+                                        <div>cost_price</div>
+                                        <div>rating_avg</div>
+                                        <div>in_stock</div>
+                                        <div>stock_quantity</div>
+                                    </div>
+                                </div>
+
+                                {/* ORDERS Table */}
+                                <div className="card" style={{borderLeft: '4px solid #8B5CF6', padding: '1rem'}}>
+                                    <h4 style={{color: '#8B5CF6', margin: '0 0 0.75rem 0', fontSize: '1rem', fontWeight: 'bold'}}>{t.datamodelTableOrders}</h4>
+                                    <div style={{fontSize: '0.85rem', lineHeight: 1.8}}>
+                                        <div style={{color: '#d97706', fontWeight: 'bold'}}>🔑 order_id (PK)</div>
+                                        <div style={{color: '#d97706', fontWeight: 'bold'}}>🔗 customer_id (FK)</div>
+                                        <div>order_date</div>
+                                        <div>status</div>
+                                        <div>total_amount</div>
+                                        <div>discount_amount</div>
+                                        <div>shipping_cost</div>
+                                        <div>payment_method</div>
+                                        <div>delivery_days</div>
+                                    </div>
+                                </div>
+
+                                {/* ORDER_ITEMS Table */}
+                                <div className="card" style={{borderLeft: '4px solid #10B981', padding: '1rem'}}>
+                                    <h4 style={{color: '#10B981', margin: '0 0 0.75rem 0', fontSize: '1rem', fontWeight: 'bold'}}>{t.datamodelTableOrderItems}</h4>
+                                    <div style={{fontSize: '0.85rem', lineHeight: 1.8}}>
+                                        <div style={{color: '#d97706', fontWeight: 'bold'}}>🔑 item_id (PK)</div>
+                                        <div style={{color: '#d97706', fontWeight: 'bold'}}>🔗 order_id (FK)</div>
+                                        <div style={{color: '#d97706', fontWeight: 'bold'}}>🔗 product_id (FK)</div>
+                                        <div>quantity</div>
+                                        <div>unit_price</div>
+                                        <div>total_price</div>
+                                        <div>discount_percent</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <h3 style={{marginTop: '2rem', marginBottom: '1rem'}}>Relationships</h3>
+                            <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1rem', marginBottom: '2rem'}}>
+                                <div className="concept-box" style={{borderTop: '3px solid #E8792F'}}>
+                                    <p style={{margin: '0', fontSize: '0.9rem'}}><strong>CUSTOMERS 1:N ORDERS</strong><br/>via customer_id</p>
+                                </div>
+                                <div className="concept-box" style={{borderTop: '3px solid #8B5CF6'}}>
+                                    <p style={{margin: '0', fontSize: '0.9rem'}}><strong>ORDERS 1:N ORDER_ITEMS</strong><br/>via order_id</p>
+                                </div>
+                                <div className="concept-box" style={{borderTop: '3px solid #06B6D4'}}>
+                                    <p style={{margin: '0', fontSize: '0.9rem'}}><strong>PRODUCTS 1:N ORDER_ITEMS</strong><br/>via product_id</p>
+                                </div>
+                            </div>
+
+                            <div className="lesson-box" style={{marginTop: '2rem'}}>
+                                <p style={{marginTop: '0'}}><strong>{t.datamodelNote}</strong> {t.datamodelNoteDesc}</p>
                             </div>
                         </section>
 

@@ -501,6 +501,63 @@ const LAB_ICONS = [ICON_LAYERS, ICON_FILTER, ICON_NETWORK, ICON_TERMINAL];
                     thws: 'THWS - Technische Hochschule Würzburg-Schweinfurt',
                     github: 'GitHub Repository'
                 },
+                decision: {
+                    title: 'Wann nutze ich was?',
+                    subtitle: 'Entscheidungshilfe für die richtige Technologie',
+                    intro: 'Alle vier Technologien lösen Datenprobleme – aber auf unterschiedliche Weise. Diese Anleitung hilft dir, die richtige Wahl zu treffen.',
+                    criteria: 'Kriterium',
+                    datamodel: 'Datenmodell',
+                    strength: 'Stärke',
+                    datasize: 'Datenmenge',
+                    usecase: 'Typischer Einsatz',
+                    language: 'Abfragesprache',
+                    serverless: 'Serverlos?',
+                    learning: 'Lernkurve',
+                    spark_model: 'DataFrames (tabellarisch)',
+                    spark_strength: 'Verteilte Verarbeitung',
+                    spark_size: 'TB–PB',
+                    spark_use: 'ETL, ML-Pipelines, Batch',
+                    spark_lang: 'PySpark / Spark SQL',
+                    spark_server: 'Nein (Cluster)',
+                    spark_learn: 'Mittel–Hoch',
+                    mongodb_model: 'Dokumente (JSON)',
+                    mongodb_strength: 'Flexible Schemas',
+                    mongodb_size: 'GB–TB',
+                    mongodb_use: 'Web-Apps, IoT, Content',
+                    mongodb_lang: 'MQL (Mongo Query)',
+                    mongodb_server: 'Nein (Server)',
+                    mongodb_learn: 'Niedrig–Mittel',
+                    neo4j_model: 'Graphen (Knoten+Kanten)',
+                    neo4j_strength: 'Beziehungen',
+                    neo4j_size: 'GB–TB',
+                    neo4j_use: 'Empfehlungen, Netzwerke',
+                    neo4j_lang: 'Cypher',
+                    neo4j_server: 'Nein (Server)',
+                    neo4j_learn: 'Mittel',
+                    duckdb_model: 'Tabellen (SQL)',
+                    duckdb_strength: 'Schnelle SQL-Analyse',
+                    duckdb_size: 'MB–GB (lokal)',
+                    duckdb_use: 'Ad-hoc Analyse, BI',
+                    duckdb_lang: 'SQL',
+                    duckdb_server: 'Ja (In-Process)',
+                    duckdb_learn: 'Niedrig',
+                    tree_title: 'Entscheidungsfluss: Was ist dein Problem?',
+                    tree_q1: 'Daten > 100 GB und verteilt?',
+                    tree_q2: 'Flexible, verschachtelte Dokumente?',
+                    tree_q3: 'Komplexe Beziehungen/Netzwerke?',
+                    tree_q4: 'Schnelle lokale SQL-Analyse?',
+                    tree_yes: 'Ja',
+                    tree_no: 'Nein',
+                    comparison_title: 'Spark vs. DuckDB',
+                    comparison_subtitle: 'Die häufigste Frage: Wann brauche ich Spark?',
+                    comparison_intro: 'Beide Tools machen Datenanalyse. Der Unterschied liegt in der Skalierung:',
+                    comparison_spark_title: 'Apache Spark',
+                    comparison_spark_desc: 'Verteilt auf vielen Maschinen. Nötig für: Daten > 100GB, ML-Pipelines, Streaming, Team-Zusammenarbeit mit Cluster.',
+                    comparison_duckdb_title: 'DuckDB',
+                    comparison_duckdb_desc: 'Lokal auf einer Maschine, blitzschnell. Nötig für: Daten auf dem Laptop, schnelle Exploration, kein Setup, perfekt für prototyping.',
+                    comparison_rule: 'Faustregel:',
+                    comparison_rule_text: 'Passt es auf deinen Laptop? → DuckDB. Braucht es ein Cluster? → Spark.',
+                },
                 bonus: {
                     title: 'Bonus: Project Phil in der Praxis',
                     subtitle: 'Ein experimentelles Projekt – realisiert mit den Technologien dieses Kurses',
@@ -699,6 +756,63 @@ const LAB_ICONS = [ICON_LAYERS, ICON_FILTER, ICON_NETWORK, ICON_TERMINAL];
                     professor: 'Prof. Dr. Robert Butscher',
                     thws: 'THWS - Technische Hochschule Würzburg-Schweinfurt',
                     github: 'GitHub Repository'
+                },
+                decision: {
+                    title: 'When to Use What?',
+                    subtitle: 'Decision guide for choosing the right technology',
+                    intro: 'All four technologies solve data problems – but in different ways. This guide helps you make the right choice.',
+                    criteria: 'Criteria',
+                    datamodel: 'Data Model',
+                    strength: 'Strength',
+                    datasize: 'Data Size',
+                    usecase: 'Typical Use Case',
+                    language: 'Query Language',
+                    serverless: 'Serverless?',
+                    learning: 'Learning Curve',
+                    spark_model: 'DataFrames (tabular)',
+                    spark_strength: 'Distributed processing',
+                    spark_size: 'TB–PB',
+                    spark_use: 'ETL, ML pipelines, Batch',
+                    spark_lang: 'PySpark / Spark SQL',
+                    spark_server: 'No (Cluster)',
+                    spark_learn: 'Medium–High',
+                    mongodb_model: 'Documents (JSON)',
+                    mongodb_strength: 'Flexible schemas',
+                    mongodb_size: 'GB–TB',
+                    mongodb_use: 'Web apps, IoT, Content',
+                    mongodb_lang: 'MQL (Mongo Query)',
+                    mongodb_server: 'No (Server)',
+                    mongodb_learn: 'Low–Medium',
+                    neo4j_model: 'Graphs (nodes+edges)',
+                    neo4j_strength: 'Relationships',
+                    neo4j_size: 'GB–TB',
+                    neo4j_use: 'Recommendations, Networks',
+                    neo4j_lang: 'Cypher',
+                    neo4j_server: 'No (Server)',
+                    neo4j_learn: 'Medium',
+                    duckdb_model: 'Tables (SQL)',
+                    duckdb_strength: 'Fast SQL analytics',
+                    duckdb_size: 'MB–GB (local)',
+                    duckdb_use: 'Ad-hoc analysis, BI',
+                    duckdb_lang: 'SQL',
+                    duckdb_server: 'Yes (In-Process)',
+                    duckdb_learn: 'Low',
+                    tree_title: 'Decision Flow: What is your problem?',
+                    tree_q1: 'Data > 100 GB and distributed?',
+                    tree_q2: 'Flexible, nested documents?',
+                    tree_q3: 'Complex relationships/networks?',
+                    tree_q4: 'Fast local SQL analysis?',
+                    tree_yes: 'Yes',
+                    tree_no: 'No',
+                    comparison_title: 'Spark vs. DuckDB',
+                    comparison_subtitle: 'The most common question: When do I need Spark?',
+                    comparison_intro: 'Both tools do data analysis. The difference lies in scalability:',
+                    comparison_spark_title: 'Apache Spark',
+                    comparison_spark_desc: 'Distributed across many machines. Needed for: Data > 100GB, ML pipelines, streaming, team collaboration with a cluster.',
+                    comparison_duckdb_title: 'DuckDB',
+                    comparison_duckdb_desc: 'Local on one machine, lightning fast. Needed for: Data on your laptop, rapid exploration, zero setup, perfect for prototyping.',
+                    comparison_rule: 'Rule of thumb:',
+                    comparison_rule_text: 'Does it fit on your laptop? → DuckDB. Does it need a cluster? → Spark.',
                 },
                 bonus: {
                     title: 'Bonus: Project Phil in Practice',
@@ -899,6 +1013,63 @@ const LAB_ICONS = [ICON_LAYERS, ICON_FILTER, ICON_NETWORK, ICON_TERMINAL];
                     thws: 'THWS - الجامعة التقنية فورتسبورغ-شفاينفورت',
                     github: 'مستودع GitHub'
                 },
+                decision: {
+                    title: 'متى أستخدم ماذا؟',
+                    subtitle: 'دليل القرار لاختيار التقنية المناسبة',
+                    intro: 'جميع التقنيات الأربع تحل مشاكل البيانات - لكن بطرق مختلفة. يساعدك هذا الدليل على اتخاذ الخيار الصحيح.',
+                    criteria: 'المعيار',
+                    datamodel: 'نموذج البيانات',
+                    strength: 'نقطة القوة',
+                    datasize: 'حجم البيانات',
+                    usecase: 'حالة الاستخدام النموذجية',
+                    language: 'لغة الاستعلام',
+                    serverless: 'بدون خادم؟',
+                    learning: 'منحنى التعلم',
+                    spark_model: 'DataFrames (جدولي)',
+                    spark_strength: 'معالجة موزعة',
+                    spark_size: 'TB–PB',
+                    spark_use: 'ETL, ML pipelines, Batch',
+                    spark_lang: 'PySpark / Spark SQL',
+                    spark_server: 'لا (Cluster)',
+                    spark_learn: 'متوسط–عالي',
+                    mongodb_model: 'المستندات (JSON)',
+                    mongodb_strength: 'مخططات مرنة',
+                    mongodb_size: 'GB–TB',
+                    mongodb_use: 'تطبيقات ويب, IoT, محتوى',
+                    mongodb_lang: 'MQL (Mongo Query)',
+                    mongodb_server: 'لا (خادم)',
+                    mongodb_learn: 'منخفض–متوسط',
+                    neo4j_model: 'الرسوم البيانية (عقد+أعمال)',
+                    neo4j_strength: 'العلاقات',
+                    neo4j_size: 'GB–TB',
+                    neo4j_use: 'التوصيات, الشبكات',
+                    neo4j_lang: 'Cypher',
+                    neo4j_server: 'لا (خادم)',
+                    neo4j_learn: 'متوسط',
+                    duckdb_model: 'الجداول (SQL)',
+                    duckdb_strength: 'تحليل SQL سريع',
+                    duckdb_size: 'MB–GB (محلي)',
+                    duckdb_use: 'تحليل مخصص, BI',
+                    duckdb_lang: 'SQL',
+                    duckdb_server: 'نعم (In-Process)',
+                    duckdb_learn: 'منخفض',
+                    tree_title: 'تدفق القرار: ما هي مشكلتك؟',
+                    tree_q1: 'بيانات > 100 GB وموزعة؟',
+                    tree_q2: 'مستندات مرنة وفنية؟',
+                    tree_q3: 'علاقات/شبكات معقدة؟',
+                    tree_q4: 'تحليل SQL محلي سريع؟',
+                    tree_yes: 'نعم',
+                    tree_no: 'لا',
+                    comparison_title: 'Spark مقابل DuckDB',
+                    comparison_subtitle: 'السؤال الأكثر شيوعًا: متى أحتاج إلى Spark؟',
+                    comparison_intro: 'تعمل كلا الأداتين في تحليل البيانات. الفرق يكمن في التوسع:',
+                    comparison_spark_title: 'Apache Spark',
+                    comparison_spark_desc: 'موزع على عدة أجهزة. مطلوب لـ: بيانات > 100GB, ML pipelines, streaming, تعاون فريقي مع cluster.',
+                    comparison_duckdb_title: 'DuckDB',
+                    comparison_duckdb_desc: 'محلي على جهاز واحد, سريع جدًا. مطلوب لـ: بيانات على جهاز الكمبيوتر, استكشاف سريع, بدون إعداد, مثالي للنماذج الأولية.',
+                    comparison_rule: 'قاعدة عملية:',
+                    comparison_rule_text: 'هل يناسب جهاز الكمبيوتر الخاص بك؟ → DuckDB. هل يحتاج إلى cluster؟ → Spark.',
+                },
                 bonus: {
                     title: 'إضافة: Project Phil في التطبيق',
                     subtitle: 'مشروع تجريبي مبني بتقنيات هذا الكورس',
@@ -1097,6 +1268,63 @@ const LAB_ICONS = [ICON_LAYERS, ICON_FILTER, ICON_NETWORK, ICON_TERMINAL];
                     professor: 'проф. др. Роберт Бутшер',
                     thws: 'THWS - Технічний університет Вюрцбурга-Швайнфурта',
                     github: 'Репозиторій GitHub'
+                },
+                decision: {
+                    title: 'Коли використовувати що?',
+                    subtitle: 'Керівництво для вибору правильної технології',
+                    intro: 'Усі чотири технології вирішують проблеми даних – але по-різному. Цей посібник допоможе вам зробити правильний вибір.',
+                    criteria: 'Критерій',
+                    datamodel: 'Модель даних',
+                    strength: 'Сильна сторона',
+                    datasize: 'Розмір даних',
+                    usecase: 'Типовий випадок використання',
+                    language: 'Мова запиту',
+                    serverless: 'Без сервера?',
+                    learning: 'Крива навчання',
+                    spark_model: 'DataFrames (табличні)',
+                    spark_strength: 'Розподілена обробка',
+                    spark_size: 'TB–PB',
+                    spark_use: 'ETL, ML pipelines, Batch',
+                    spark_lang: 'PySpark / Spark SQL',
+                    spark_server: 'Ні (Cluster)',
+                    spark_learn: 'Середня–Висока',
+                    mongodb_model: 'Документи (JSON)',
+                    mongodb_strength: 'Гнучкі схеми',
+                    mongodb_size: 'GB–TB',
+                    mongodb_use: 'Веб-додатки, IoT, Content',
+                    mongodb_lang: 'MQL (Mongo Query)',
+                    mongodb_server: 'Ні (Server)',
+                    mongodb_learn: 'Низька–Середня',
+                    neo4j_model: 'Графи (вузли+ребра)',
+                    neo4j_strength: 'Зв\'язки',
+                    neo4j_size: 'GB–TB',
+                    neo4j_use: 'Рекомендації, Мережі',
+                    neo4j_lang: 'Cypher',
+                    neo4j_server: 'Ні (Server)',
+                    neo4j_learn: 'Середня',
+                    duckdb_model: 'Таблиці (SQL)',
+                    duckdb_strength: 'Швидкий SQL-аналіз',
+                    duckdb_size: 'MB–GB (локально)',
+                    duckdb_use: 'Ad-hoc аналіз, BI',
+                    duckdb_lang: 'SQL',
+                    duckdb_server: 'Так (In-Process)',
+                    duckdb_learn: 'Низька',
+                    tree_title: 'Блок-схема рішення: Яка ваша проблема?',
+                    tree_q1: 'Дані > 100 GB і розподілені?',
+                    tree_q2: 'Гнучкі, вкладені документи?',
+                    tree_q3: 'Складні зв\'язки/мережі?',
+                    tree_q4: 'Швидкий локальний SQL-аналіз?',
+                    tree_yes: 'Так',
+                    tree_no: 'Ні',
+                    comparison_title: 'Spark vs. DuckDB',
+                    comparison_subtitle: 'Найчастіше питання: Коли мне потребен Spark?',
+                    comparison_intro: 'Обидва інструменти роблять аналіз даних. Різниця полягає в масштабованості:',
+                    comparison_spark_title: 'Apache Spark',
+                    comparison_spark_desc: 'Розподілений на багатьох машинах. Потрібно для: Дані > 100GB, ML pipelines, streaming, командна співпраця з cluster.',
+                    comparison_duckdb_title: 'DuckDB',
+                    comparison_duckdb_desc: 'Локально на одній машині, блискавично швидко. Потрібно для: Дані на вашому ноутбуку, швидке дослідження, без настройки, ідеально для прототипування.',
+                    comparison_rule: 'Практичне правило:',
+                    comparison_rule_text: 'Вміститься на вашому ноутбуці? → DuckDB. Потребує cluster? → Spark.',
                 },
                 bonus: {
                     title: 'Бонус: Project Phil на практиці',
@@ -1297,6 +1525,63 @@ const LAB_ICONS = [ICON_LAYERS, ICON_FILTER, ICON_NETWORK, ICON_TERMINAL];
                     thws: 'THWS - Universidad Técnica de Würzburg-Schweinfurt',
                     github: 'Repositorio de GitHub'
                 },
+                decision: {
+                    title: '¿Cuándo uso qué?',
+                    subtitle: 'Guía de decisión para elegir la tecnología correcta',
+                    intro: 'Las cuatro tecnologías resuelven problemas de datos, pero de diferentes maneras. Esta guía te ayuda a tomar la decisión correcta.',
+                    criteria: 'Criterio',
+                    datamodel: 'Modelo de datos',
+                    strength: 'Fortaleza',
+                    datasize: 'Tamaño de datos',
+                    usecase: 'Caso de uso típico',
+                    language: 'Lenguaje de consulta',
+                    serverless: '¿Sin servidor?',
+                    learning: 'Curva de aprendizaje',
+                    spark_model: 'DataFrames (tabular)',
+                    spark_strength: 'Procesamiento distribuido',
+                    spark_size: 'TB–PB',
+                    spark_use: 'ETL, ML pipelines, Batch',
+                    spark_lang: 'PySpark / Spark SQL',
+                    spark_server: 'No (Cluster)',
+                    spark_learn: 'Medio–Alto',
+                    mongodb_model: 'Documentos (JSON)',
+                    mongodb_strength: 'Esquemas flexibles',
+                    mongodb_size: 'GB–TB',
+                    mongodb_use: 'Apps web, IoT, Contenido',
+                    mongodb_lang: 'MQL (Mongo Query)',
+                    mongodb_server: 'No (Servidor)',
+                    mongodb_learn: 'Bajo–Medio',
+                    neo4j_model: 'Grafos (nodos+aristas)',
+                    neo4j_strength: 'Relaciones',
+                    neo4j_size: 'GB–TB',
+                    neo4j_use: 'Recomendaciones, Redes',
+                    neo4j_lang: 'Cypher',
+                    neo4j_server: 'No (Servidor)',
+                    neo4j_learn: 'Medio',
+                    duckdb_model: 'Tablas (SQL)',
+                    duckdb_strength: 'Análisis SQL rápido',
+                    duckdb_size: 'MB–GB (local)',
+                    duckdb_use: 'Análisis ad-hoc, BI',
+                    duckdb_lang: 'SQL',
+                    duckdb_server: 'Sí (In-Process)',
+                    duckdb_learn: 'Bajo',
+                    tree_title: 'Flujo de decisión: ¿Cuál es tu problema?',
+                    tree_q1: '¿Datos > 100 GB y distribuidos?',
+                    tree_q2: '¿Documentos flexibles y anidados?',
+                    tree_q3: '¿Relaciones/redes complejas?',
+                    tree_q4: '¿Análisis SQL local rápido?',
+                    tree_yes: 'Sí',
+                    tree_no: 'No',
+                    comparison_title: 'Spark vs. DuckDB',
+                    comparison_subtitle: 'La pregunta más común: ¿Cuándo necesito Spark?',
+                    comparison_intro: 'Ambas herramientas hacen análisis de datos. La diferencia está en la escalabilidad:',
+                    comparison_spark_title: 'Apache Spark',
+                    comparison_spark_desc: 'Distribuido en múltiples máquinas. Necesario para: Datos > 100GB, ML pipelines, streaming, colaboración de equipo con cluster.',
+                    comparison_duckdb_title: 'DuckDB',
+                    comparison_duckdb_desc: 'Local en una máquina, rápido como el rayo. Necesario para: Datos en tu portátil, exploración rápida, sin configuración, perfecto para prototipado.',
+                    comparison_rule: 'Regla práctica:',
+                    comparison_rule_text: '¿Cabe en tu portátil? → DuckDB. ¿Necesita un cluster? → Spark.',
+                },
                 bonus: {
                     title: 'Bonus: Project Phil en Práctica',
                     subtitle: 'Un proyecto experimental construido con las tecnologías de este curso',
@@ -1495,6 +1780,63 @@ const LAB_ICONS = [ICON_LAYERS, ICON_FILTER, ICON_NETWORK, ICON_TERMINAL];
                     professor: 'Prof. Dr. Robert Butscher',
                     thws: 'THWS - Würzburg-Schweinfurt Teknik Üniversitesi',
                     github: 'GitHub Deposu'
+                },
+                decision: {
+                    title: 'Ne Zaman Neyi Kullanırım?',
+                    subtitle: 'Doğru teknoloji seçimi için karar kılavuzu',
+                    intro: 'Dört teknoloji de veri problemlerini çözer, ancak farklı yollarla. Bu rehber doğru seçimi yapmanıza yardımcı olur.',
+                    criteria: 'Kriter',
+                    datamodel: 'Veri Modeli',
+                    strength: 'Güçlü Yön',
+                    datasize: 'Veri Boyutu',
+                    usecase: 'Tipik Kullanım Durumu',
+                    language: 'Sorgu Dili',
+                    serverless: 'Sunucu Gerektirmiyor mu?',
+                    learning: 'Öğrenme Eğrisi',
+                    spark_model: 'DataFrames (tablo)',
+                    spark_strength: 'Dağıtılmış işleme',
+                    spark_size: 'TB–PB',
+                    spark_use: 'ETL, ML pipelines, Toplu',
+                    spark_lang: 'PySpark / Spark SQL',
+                    spark_server: 'Hayır (Cluster)',
+                    spark_learn: 'Orta–Yüksek',
+                    mongodb_model: 'Belgeler (JSON)',
+                    mongodb_strength: 'Esnek şemalar',
+                    mongodb_size: 'GB–TB',
+                    mongodb_use: 'Web uygulamaları, IoT, İçerik',
+                    mongodb_lang: 'MQL (Mongo Sorgusu)',
+                    mongodb_server: 'Hayır (Sunucu)',
+                    mongodb_learn: 'Düşük–Orta',
+                    neo4j_model: 'Graflar (düğümler+kenarlar)',
+                    neo4j_strength: 'İlişkiler',
+                    neo4j_size: 'GB–TB',
+                    neo4j_use: 'Öneriler, Ağlar',
+                    neo4j_lang: 'Cypher',
+                    neo4j_server: 'Hayır (Sunucu)',
+                    neo4j_learn: 'Orta',
+                    duckdb_model: 'Tablolar (SQL)',
+                    duckdb_strength: 'Hızlı SQL analizi',
+                    duckdb_size: 'MB–GB (yerel)',
+                    duckdb_use: 'Geçici analiz, BI',
+                    duckdb_lang: 'SQL',
+                    duckdb_server: 'Evet (In-Process)',
+                    duckdb_learn: 'Düşük',
+                    tree_title: 'Karar Akışı: Sorununuz nedir?',
+                    tree_q1: 'Veriler > 100 GB ve dağıtılmış mı?',
+                    tree_q2: 'Esnek, iç içe belgeler mi?',
+                    tree_q3: 'Karmaşık ilişkiler/ağlar mı?',
+                    tree_q4: 'Hızlı yerel SQL analizi mi?',
+                    tree_yes: 'Evet',
+                    tree_no: 'Hayır',
+                    comparison_title: 'Spark vs. DuckDB',
+                    comparison_subtitle: 'En sık sorulan soru: Ne zaman Spark\'a ihtiyacım var?',
+                    comparison_intro: 'Her iki araç da veri analizi yapar. Fark ölçeklenebilirlikte yatar:',
+                    comparison_spark_title: 'Apache Spark',
+                    comparison_spark_desc: 'Birçok makineye dağıtılmış. Gerekli: Veriler > 100GB, ML pipelines, akış, kümeyle takım işbirliği.',
+                    comparison_duckdb_title: 'DuckDB',
+                    comparison_duckdb_desc: 'Bir makinede yerel, yıldırım hızında. Gerekli: Laptop\'unuzdaki veriler, hızlı keşif, kurulum yok, prototipler için mükemmel.',
+                    comparison_rule: 'Pratik kural:',
+                    comparison_rule_text: 'Laptop\'unuza sığıyor mu? → DuckDB. Cluster\'a ihtiyacı var mı? → Spark.',
                 },
                 bonus: {
                     title: 'Bonus: Project Phil Pratikte',
@@ -1853,6 +2195,100 @@ const LAB_ICONS = [ICON_LAYERS, ICON_FILTER, ICON_NETWORK, ICON_TERMINAL];
                                         </a>
                                     );
                                 })}
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* ── Decision Guide: "Wann nutze ich was?" ── */}
+                    <section style={{ padding: '5rem 1.5rem', background: 'linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%)' }}>
+                        <div style={{ maxWidth: 1200, margin: '0 auto' }}>
+                            {/* Title & Subtitle */}
+                            <div style={{ textAlign: 'center', marginBottom: '3.5rem' }} ref={ref}>
+                                <h2 style={{ fontSize: 'clamp(1.8rem, 3.5vw, 2.5rem)', fontWeight: 900, color: '#0F2744', marginBottom: '0.6rem', letterSpacing: '-0.02em' }}>{t.decision.title}</h2>
+                                <p style={{ color: '#64748b', fontSize: '1rem', maxWidth: '600px', margin: '0 auto' }}>{t.decision.subtitle}</p>
+                                <p style={{ color: '#4b5563', fontSize: '0.95rem', marginTop: '1rem', lineHeight: 1.6, maxWidth: '700px', margin: '1rem auto 0' }}>{t.decision.intro}</p>
+                            </div>
+
+                            {/* Comparison Table */}
+                            <div style={{ marginBottom: '4rem', background: 'white', borderRadius: 12, padding: '2rem', boxShadow: '0 4px 16px rgba(0,0,0,0.08)', overflow: 'auto' }} ref={ref}>
+                                <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.88rem' }}>
+                                    <thead>
+                                        <tr style={{ borderBottom: '2px solid #1B3A5C' }}>
+                                            <th style={{ textAlign: 'left', padding: '1rem', fontWeight: 900, color: '#0F2744', background: '#f1f5f9' }}>{t.decision.criteria}</th>
+                                            <th style={{ textAlign: 'left', padding: '1rem', fontWeight: 900, color: '#fff', background: '#E8792F' }}>Apache Spark</th>
+                                            <th style={{ textAlign: 'left', padding: '1rem', fontWeight: 900, color: '#fff', background: '#10b981' }}>MongoDB</th>
+                                            <th style={{ textAlign: 'left', padding: '1rem', fontWeight: 900, color: '#fff', background: '#0ea5e9' }}>Neo4j</th>
+                                            <th style={{ textAlign: 'left', padding: '1rem', fontWeight: 900, color: '#fff', background: '#f59e0b' }}>DuckDB</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {[
+                                            { label: t.decision.datamodel, vals: [t.decision.spark_model, t.decision.mongodb_model, t.decision.neo4j_model, t.decision.duckdb_model] },
+                                            { label: t.decision.strength, vals: [t.decision.spark_strength, t.decision.mongodb_strength, t.decision.neo4j_strength, t.decision.duckdb_strength] },
+                                            { label: t.decision.datasize, vals: [t.decision.spark_size, t.decision.mongodb_size, t.decision.neo4j_size, t.decision.duckdb_size] },
+                                            { label: t.decision.usecase, vals: [t.decision.spark_use, t.decision.mongodb_use, t.decision.neo4j_use, t.decision.duckdb_use] },
+                                            { label: t.decision.language, vals: [t.decision.spark_lang, t.decision.mongodb_lang, t.decision.neo4j_lang, t.decision.duckdb_lang] },
+                                            { label: t.decision.serverless, vals: [t.decision.spark_server, t.decision.mongodb_server, t.decision.neo4j_server, t.decision.duckdb_server] },
+                                            { label: t.decision.learning, vals: [t.decision.spark_learn, t.decision.mongodb_learn, t.decision.neo4j_learn, t.decision.duckdb_learn] }
+                                        ].map((row, i) => (
+                                            <tr key={i} style={{ borderBottom: '1px solid #e2e8f0', background: i % 2 === 0 ? '#fafbfc' : 'white' }}>
+                                                <td style={{ padding: '1rem', fontWeight: 700, color: '#1B3A5C' }}>{row.label}</td>
+                                                {row.vals.map((val, j) => (
+                                                    <td key={j} style={{ padding: '1rem', color: '#4b5563', fontSize: '0.85rem' }}>{val}</td>
+                                                ))}
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            {/* Decision Tree */}
+                            <div style={{ marginBottom: '4rem', textAlign: 'center' }} ref={ref}>
+                                <h3 style={{ fontSize: '1.3rem', fontWeight: 900, color: '#0F2744', marginBottom: '2.5rem', letterSpacing: '-0.01em' }}>{t.decision.tree_title}</h3>
+                                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1.5rem' }}>
+                                    {[
+                                        { q: t.decision.tree_q1, tech: 'Spark', color: '#E8792F', yes: true },
+                                        { q: t.decision.tree_q2, tech: 'MongoDB', color: '#10b981', yes: true },
+                                        { q: t.decision.tree_q3, tech: 'Neo4j', color: '#0ea5e9', yes: true },
+                                        { q: t.decision.tree_q4, tech: 'DuckDB', color: '#f59e0b', yes: true }
+                                    ].map((item, i) => (
+                                        <div key={i} style={{ background: 'white', border: `2px solid ${item.color}`, borderRadius: 10, padding: '1.5rem', boxShadow: '0 2px 8px rgba(0,0,0,0.06)' }}>
+                                            <div style={{ color: '#4b5563', fontSize: '0.9rem', fontWeight: 600, marginBottom: '1rem' }}>{item.q}</div>
+                                            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem' }}>
+                                                <span style={{ fontWeight: 700, color: '#1B3A5C', fontSize: '0.85rem' }}>{t.decision.tree_yes}</span>
+                                                <span style={{ color: item.color, fontWeight: 900, fontSize: '1.2rem' }}>→</span>
+                                                <span style={{ background: item.color, color: 'white', fontWeight: 800, padding: '0.4rem 0.8rem', borderRadius: 6, fontSize: '0.85rem' }}>{item.tech}</span>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+
+                            {/* Spark vs DuckDB Comparison Card */}
+                            <div style={{ background: 'white', borderRadius: 14, padding: '2.5rem', boxShadow: '0 8px 32px rgba(27,58,92,0.08)', border: '2px solid rgba(232,121,47,0.15)' }} ref={ref}>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1.5rem', flexWrap: 'wrap' }}>
+                                    <span style={{ background: '#E8792F', color: 'white', fontWeight: 800, fontSize: '0.72rem', padding: '0.3rem 0.75rem', borderRadius: 999 }}>⚡ FAQ</span>
+                                    <h3 style={{ fontSize: '1.25rem', fontWeight: 900, color: '#0F2744', margin: 0, letterSpacing: '-0.01em' }}>{t.decision.comparison_title}</h3>
+                                </div>
+                                <p style={{ color: '#64748b', fontSize: '0.95rem', marginBottom: '1.5rem', fontStyle: 'italic' }}>{t.decision.comparison_subtitle}</p>
+                                <p style={{ color: '#4b5563', fontSize: '0.9rem', lineHeight: 1.65, marginBottom: '2rem' }}>{t.decision.comparison_intro}</p>
+
+                                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '2rem', marginBottom: '2rem' }}>
+                                    {[
+                                        { title: t.decision.comparison_spark_title, desc: t.decision.comparison_spark_desc, color: '#E8792F' },
+                                        { title: t.decision.comparison_duckdb_title, desc: t.decision.comparison_duckdb_desc, color: '#f59e0b' }
+                                    ].map((item, i) => (
+                                        <div key={i} style={{ borderLeft: `4px solid ${item.color}`, paddingLeft: '1.5rem' }}>
+                                            <h4 style={{ fontWeight: 900, color: '#0F2744', marginBottom: '0.75rem', fontSize: '1rem' }}>{item.title}</h4>
+                                            <p style={{ color: '#4b5563', fontSize: '0.88rem', lineHeight: 1.65, margin: 0 }}>{item.desc}</p>
+                                        </div>
+                                    ))}
+                                </div>
+
+                                <div style={{ background: 'rgba(232,121,47,0.08)', borderRadius: 8, padding: '1.25rem', borderLeft: '4px solid #E8792F' }}>
+                                    <div style={{ fontWeight: 900, color: '#1B3A5C', marginBottom: '0.5rem', fontSize: '0.95rem' }}>{t.decision.comparison_rule}</div>
+                                    <p style={{ color: '#4b5563', fontSize: '0.9rem', lineHeight: 1.6, margin: 0, fontWeight: 600 }}>"{t.decision.comparison_rule_text}"</p>
+                                </div>
                             </div>
                         </div>
                     </section>

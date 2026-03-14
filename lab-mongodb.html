@@ -148,8 +148,12 @@
         /* Prompt Example */
         .prompt-example { background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 0.5rem; padding: 1rem; margin: 1rem 0; font-family: 'Courier New', monospace; font-size: 0.85rem; color: var(--primary); overflow-x: auto; }
 
+        /* Progress Bar */
+        .progress-bar-container { position: fixed; top: 4rem; left: 260px; right: 0; height: 3px; background: #e2e8f0; z-index: 45; }
+        .progress-bar-fill { height: 100%; background: var(--accent); transition: width 0.3s ease; }
+        .progress-label { position: fixed; top: 4.25rem; right: 1rem; background: white; padding: 0.15rem 0.6rem; border-radius: 0.25rem; font-size: 0.7rem; font-weight: 600; color: var(--accent); z-index: 46; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
         /* Responsive */
-        @media (max-width: 768px) { .sidebar { display: none; } .main-content { margin-left: 0; padding: 5rem 1.5rem 2rem 1.5rem; } html[dir="rtl"] .main-content { margin-right: 0; } }
+        @media (max-width: 768px) { .sidebar { display: none; } .main-content { margin-left: 0; padding: 5rem 1.5rem 2rem 1.5rem; } html[dir="rtl"] .main-content { margin-right: 0; } .progress-bar-container { left: 0; } }
     </style>
 </head>
 <body>
@@ -164,6 +168,7 @@ const translations = {
         copy: 'Kopieren',
         copied: 'Kopiert!',
         overview: 'Überblick',
+        datamodel: 'Datenmodell',
         setup: 'Setup & Installation',
         fundamentals: 'Grundlagen',
         exercise1: 'Übung 1: Erste Schritte',
@@ -208,6 +213,22 @@ const translations = {
         prerequisites: 'Voraussetzungen: Docker installiert und ein Terminal, um die MongoDB-Container zu starten',
         megastoreScenario: 'MegaStore E-Commerce Szenario',
         megastoreDesc: 'Alle Übungen verwenden einen konsistenten E-Commerce-Datensatz mit 4 Collections: customers (Kunden mit Kontaktdaten wie Email, Stadt und Registrierungsdatum), products (Produkte mit Preisen, Kategorien und Lagerbeständen), orders (Bestellungen mit Kundenbezug, Datum und Status), und order_items (Bestellpositionen mit Mengen, Preisen und Produktbezug). Sie werden realistische Business-Szenarien durchführen: von einfachen Kundenanalysen über Umsatzberichte bis zu fortgeschrittenen RFM-Segmentierungen und Trendanalysen.',
+        megastoreDatamodelTitle: "MegaStore Datenmodell",
+        megastoreDatamodelDesc: "Dies ist das Datenmodell des MegaStore — eines fiktiven deutschen E-Commerce-Unternehmens. Es besteht aus 4 Kernentitäten und mehreren unterstützenden Tabellen.",
+        megastoreStats: "Datengröße:",
+        megastoreStat1: "~50.000 Kunden",
+        megastoreStat2: "~500.000 Bestellungen",
+        megastoreStat3: "~1.2M Bestellpositionen",
+        megastoreStat4: "~5.000 Produkte",
+        datamodelTableCustomers: "CUSTOMERS",
+        datamodelTableOrders: "ORDERS",
+        datamodelTableOrderItems: "ORDER_ITEMS",
+        datamodelTableProducts: "PRODUCTS",
+        datamodelFieldPK: "Primärschlüssel",
+        datamodelFieldFK: "Fremdschlüssel",
+        datamodelFieldReg: "Reguläres Feld",
+        datamodelNote: "Zusätzliche Tabellen:",
+        datamodelNoteDesc: "In Neo4j-Labs sind auch verfügbar: suppliers, reviews, clickstream, product_relationships, customer_relationships",
         dataSchema: 'Datenschema',
         collection: 'Collection',
         fields: 'Felder',
@@ -535,7 +556,17 @@ const translations = {
         toolingNote3: 'Compass: Komplexe Aggregationen visuell erstellen',
         toolingNote4: 'Python: Arbeitsabläufe in Ihrer Anwendung automatisieren',
         toolingNote5: 'R: Statistische Analysen und Berichterstattung',
-        toolingNote6: 'DBeaver / DataGrip: Professionelle IDE-Integration'
+        toolingNote6: 'DBeaver / DataGrip: Professionelle IDE-Integration',
+        labDuration: '~90 Min.',
+        levelBeginner: 'Anfänger',
+        levelIntermediate: 'Fortgeschritten',
+        levelAdvanced: 'Komplex',
+        exerciseProgress: 'Übung',
+        sqlEquivalent: 'In SQL wäre das...',
+        ex3SqlEquiv: 'SELECT * FROM customers WHERE city = \'Berlin\'\nSELECT * FROM products WHERE unit_price > 50',
+        ex5SqlEquiv: 'SELECT status, COUNT(*) as total_orders, SUM(total_amount) as total_revenue FROM orders GROUP BY status',
+        ex6SqlEquiv: 'SELECT p.category, SUM(oi.quantity * oi.unit_price) as total_revenue FROM order_items oi JOIN products p ON oi.product_id = p.product_id GROUP BY p.category ORDER BY total_revenue DESC',
+        ex10SqlEquiv: 'SELECT c.customer_id, c.name, GROUP_CONCAT(DISTINCT t.tags) as tags FROM customers c LEFT JOIN customer_tags t ON c.customer_id = t.customer_id GROUP BY c.customer_id'
     },
     en: {
         backToHome: '← Back to Overview',
@@ -543,6 +574,7 @@ const translations = {
         copy: 'Copy',
         copied: 'Copied!',
         overview: 'Overview',
+        datamodel: 'Data Model',
         setup: 'Setup & Installation',
         fundamentals: 'Fundamentals',
         exercise1: 'Exercise 1: Getting Started',
@@ -587,6 +619,22 @@ const translations = {
         prerequisites: 'Prerequisites: Docker installed and a terminal to start the MongoDB container',
         megastoreScenario: 'MegaStore E-Commerce Scenario',
         megastoreDesc: 'All exercises use a consistent e-commerce dataset with 4 collections: customers (clients with contact data including email, city, and registration date), products (items with prices, categories, and stock levels), orders (orders linked to customers with date and status), and order_items (line items with quantities, prices, and product references). You will perform realistic business scenarios: from simple customer analysis through revenue reports to advanced RFM segmentation and trend analysis.',
+        megastoreDatamodelTitle: "MegaStore Data Model",
+        megastoreDatamodelDesc: "This is the data model of MegaStore — a fictional German e-commerce company. It consists of 4 core entities and several supporting tables.",
+        megastoreStats: "Data Size:",
+        megastoreStat1: "~50,000 customers",
+        megastoreStat2: "~500,000 orders",
+        megastoreStat3: "~1.2M order items",
+        megastoreStat4: "~5,000 products",
+        datamodelTableCustomers: "CUSTOMERS",
+        datamodelTableOrders: "ORDERS",
+        datamodelTableOrderItems: "ORDER_ITEMS",
+        datamodelTableProducts: "PRODUCTS",
+        datamodelFieldPK: "Primary Key",
+        datamodelFieldFK: "Foreign Key",
+        datamodelFieldReg: "Regular Field",
+        datamodelNote: "Additional Tables:",
+        datamodelNoteDesc: "In Neo4j labs, also available: suppliers, reviews, clickstream, product_relationships, customer_relationships",
         dataSchema: 'Data Schema',
         collection: 'Collection',
         fields: 'Fields',
@@ -914,7 +962,17 @@ const translations = {
         toolingNote3: 'Compass: Build complex aggregations visually',
         toolingNote4: 'Python: Automate workflows in your application',
         toolingNote5: 'R: Statistical analysis and reporting',
-        toolingNote6: 'DBeaver / DataGrip: Professional IDE integration'
+        toolingNote6: 'DBeaver / DataGrip: Professional IDE integration',
+        labDuration: '~90 Min.',
+        levelBeginner: 'Beginner',
+        levelIntermediate: 'Intermediate',
+        levelAdvanced: 'Advanced',
+        exerciseProgress: 'Exercise',
+        sqlEquivalent: 'In SQL, this would be...',
+        ex3SqlEquiv: 'SELECT * FROM customers WHERE city = \'Berlin\'\nSELECT * FROM products WHERE unit_price > 50',
+        ex5SqlEquiv: 'SELECT status, COUNT(*) as total_orders, SUM(total_amount) as total_revenue FROM orders GROUP BY status',
+        ex6SqlEquiv: 'SELECT p.category, SUM(oi.quantity * oi.unit_price) as total_revenue FROM order_items oi JOIN products p ON oi.product_id = p.product_id GROUP BY p.category ORDER BY total_revenue DESC',
+        ex10SqlEquiv: 'SELECT c.customer_id, c.name, GROUP_CONCAT(DISTINCT t.tags) as tags FROM customers c LEFT JOIN customer_tags t ON c.customer_id = t.customer_id GROUP BY c.customer_id'
     },
     ar: {
         backToHome: '← إلى النظرة العامة',
@@ -922,6 +980,7 @@ const translations = {
         copy: 'نسخ',
         copied: 'تم النسخ!',
         overview: 'نظرة عامة',
+        datamodel: 'نموذج البيانات',
         setup: 'الإعداد والتثبيت',
         fundamentals: 'أساسيات',
         exercise1: 'التمرين 1: الخطوات الأولى',
@@ -966,6 +1025,22 @@ const translations = {
         prerequisites: 'المتطلبات الأساسية: Docker مثبت وطرفية لبدء حاويات MongoDB',
         megastoreScenario: 'سيناريو التجارة الإلكترونية MegaStore',
         megastoreDesc: 'جميع التمارين تستخدم مجموعة بيانات للتجارة الإلكترونية متسقة مع 4 مجموعات: customers (العملاء مع بيانات الاتصال مثل البريد الإلكتروني والمدينة وتاريخ التسجيل)، products (المنتجات مع الأسعار والفئات والمخزون)، orders (الطلبات مع الارتباط بالعميل والتاريخ والحالة)، و order_items (بنود الطلب مع الكميات والأسعار والارتباط بالمنتج). ستقوم بتنفيذ سيناريوهات عملية واقعية: من تحليلات العملاء البسيطة إلى تقارير المبيعات والتحليلات المتقدمة للتقسيم وتحليل الاتجاهات.',
+        megastoreDatamodelTitle: 'نموذج بيانات MegaStore',
+        megastoreDatamodelDesc: 'هذا هو نموذج البيانات لـ MegaStore — شركة تجارة إلكترونية ألمانية افتراضية. يتكون من 4 كيانات أساسية وعدة جداول داعمة.',
+        megastoreStats: 'حجم البيانات:',
+        megastoreStat1: '~50.000 عميل',
+        megastoreStat2: '~500.000 طلب',
+        megastoreStat3: '~1.2M عناصر الطلب',
+        megastoreStat4: '~5.000 منتج',
+        datamodelTableCustomers: 'CUSTOMERS',
+        datamodelTableOrders: 'ORDERS',
+        datamodelTableOrderItems: 'ORDER_ITEMS',
+        datamodelTableProducts: 'PRODUCTS',
+        datamodelFieldPK: 'المفتاح الأساسي',
+        datamodelFieldFK: 'المفتاح الأجنبي',
+        datamodelFieldReg: 'حقل عادي',
+        datamodelNote: 'جداول إضافية:',
+        datamodelNoteDesc: 'في معامل Neo4j، متاح أيضًا: suppliers, reviews, clickstream, product_relationships, customer_relationships',
         dataSchema: 'مخطط البيانات',
         collection: 'المجموعة',
         fields: 'الحقول',
@@ -1314,7 +1389,17 @@ const translations = {
         toolingNote3: 'Compass: بناء التجميعات المعقدة بصرياً',
         toolingNote4: 'Python: أتمتة سير العمل في التطبيق الخاص بك',
         toolingNote5: 'R: التحليل الإحصائي والتقارير',
-        toolingNote6: 'DBeaver / DataGrip: التكامل الاحترافي مع البيئة'
+        toolingNote6: 'DBeaver / DataGrip: التكامل الاحترافي مع البيئة',
+        labDuration: '~90 دقيقة',
+        levelBeginner: 'مبتدئ',
+        levelIntermediate: 'متوسط',
+        levelAdvanced: 'متقدم',
+        exerciseProgress: 'تمرين',
+        sqlEquivalent: 'في SQL، سيكون هذا...',
+        ex3SqlEquiv: 'SELECT * FROM customers WHERE city = \'Berlin\'\nSELECT * FROM products WHERE unit_price > 50',
+        ex5SqlEquiv: 'SELECT status, COUNT(*) as total_orders, SUM(total_amount) as total_revenue FROM orders GROUP BY status',
+        ex6SqlEquiv: 'SELECT p.category, SUM(oi.quantity * oi.unit_price) as total_revenue FROM order_items oi JOIN products p ON oi.product_id = p.product_id GROUP BY p.category ORDER BY total_revenue DESC',
+        ex10SqlEquiv: 'SELECT c.customer_id, c.name, GROUP_CONCAT(DISTINCT t.tags) as tags FROM customers c LEFT JOIN customer_tags t ON c.customer_id = t.customer_id GROUP BY c.customer_id'
     },
     uk: {
         backToHome: '← До огляду',
@@ -1322,6 +1407,7 @@ const translations = {
         copy: 'Копіювати',
         copied: 'Скопійовано!',
         overview: 'Огляд',
+        datamodel: 'Модель даних',
         setup: 'Налаштування та встановлення',
         fundamentals: 'Основи',
         exercise1: 'Вправа 1: Перші кроки',
@@ -1366,6 +1452,22 @@ const translations = {
         prerequisites: 'Передумови: Docker встановлено та термінал для запуску MongoDB-контейнерів',
         megastoreScenario: 'Сценарій електронної комерції MegaStore',
         megastoreDesc: 'Усі вправи використовують узгоджений набір даних електронної комерції з 4 колекціями: customers (клієнти з контактними даними, такими як електронна пошта, місто та дата реєстрації), products (товари з цінами, категоріями та запасами), orders (замовлення зі зв\'язком з клієнтом, датою та статусом) та order_items (позиції замовлення з кількістю, цінами та зв\'язком з товаром). Ви виконуватимете реалістичні бізнес-сценарії: від простого аналізу клієнтів через звіти про доходи до просунутої сегментації RFM та аналізу тенденцій.',
+        megastoreDatamodelTitle: 'Модель даних MegaStore',
+        megastoreDatamodelDesc: 'Це модель даних MegaStore — вигаданої німецької компанії електронної комерції. Вона складається з 4 основних сутностей та кількох допоміжних таблиць.',
+        megastoreStats: 'Розмір даних:',
+        megastoreStat1: '~50.000 клієнтів',
+        megastoreStat2: '~500.000 замовлень',
+        megastoreStat3: '~1.2M товарів замовлення',
+        megastoreStat4: '~5.000 продуктів',
+        datamodelTableCustomers: 'CUSTOMERS',
+        datamodelTableOrders: 'ORDERS',
+        datamodelTableOrderItems: 'ORDER_ITEMS',
+        datamodelTableProducts: 'PRODUCTS',
+        datamodelFieldPK: 'Первинний ключ',
+        datamodelFieldFK: 'Іноземний ключ',
+        datamodelFieldReg: 'Звичайне поле',
+        datamodelNote: 'Додаткові таблиці:',
+        datamodelNoteDesc: 'У Neo4j-лабах також доступні: suppliers, reviews, clickstream, product_relationships, customer_relationships',
         dataSchema: 'Схема даних',
         collection: 'Колекція',
         fields: 'Поля',
@@ -1714,7 +1816,17 @@ const translations = {
         toolingNote3: 'Compass: Будуйте складні агрегації візуально',
         toolingNote4: 'Python: Автоматизуйте робочі процеси у вашій програмі',
         toolingNote5: 'R: Статистичний аналіз та звітність',
-        toolingNote6: 'DBeaver / DataGrip: Професійна інтеграція з IDE'
+        toolingNote6: 'DBeaver / DataGrip: Професійна інтеграція з IDE',
+        labDuration: '~90 Хв.',
+        levelBeginner: 'Початківець',
+        levelIntermediate: 'Проміжний',
+        levelAdvanced: 'Розширений',
+        exerciseProgress: 'Вправа',
+        sqlEquivalent: 'У SQL це було б...',
+        ex3SqlEquiv: 'SELECT * FROM customers WHERE city = \'Berlin\'\nSELECT * FROM products WHERE unit_price > 50',
+        ex5SqlEquiv: 'SELECT status, COUNT(*) as total_orders, SUM(total_amount) as total_revenue FROM orders GROUP BY status',
+        ex6SqlEquiv: 'SELECT p.category, SUM(oi.quantity * oi.unit_price) as total_revenue FROM order_items oi JOIN products p ON oi.product_id = p.product_id GROUP BY p.category ORDER BY total_revenue DESC',
+        ex10SqlEquiv: 'SELECT c.customer_id, c.name, GROUP_CONCAT(DISTINCT t.tags) as tags FROM customers c LEFT JOIN customer_tags t ON c.customer_id = t.customer_id GROUP BY c.customer_id'
     },
     es: {
         backToHome: '← Volver a la descripción general',
@@ -1722,6 +1834,7 @@ const translations = {
         copy: 'Copiar',
         copied: '¡Copiado!',
         overview: 'Descripción general',
+        datamodel: 'Modelo de Datos',
         setup: 'Configuración e instalación',
         fundamentals: 'Fundamentos',
         exercise1: 'Ejercicio 1: Primeros pasos',
@@ -1766,6 +1879,22 @@ const translations = {
         prerequisites: 'Requisitos previos: Docker instalado y una terminal para iniciar los contenedores de MongoDB',
         megastoreScenario: 'Escenario de comercio electrónico MegaStore',
         megastoreDesc: 'Todos los ejercicios utilizan un conjunto de datos de comercio electrónico consistente con 4 colecciones: customers (clientes con datos de contacto como correo electrónico, ciudad y fecha de registro), products (productos con precios, categorías y existencias), orders (pedidos con referencia de cliente, fecha y estado) y order_items (elementos de pedido con cantidades, precios y referencia de producto). Realizará escenarios comerciales realistas: desde análisis simples de clientes hasta informes de ingresos y segmentaciones RFM avanzadas y análisis de tendencias.',
+        megastoreDatamodelTitle: 'Modelo de Datos de MegaStore',
+        megastoreDatamodelDesc: 'Este es el modelo de datos de MegaStore — una compañía de comercio electrónico alemana ficticia. Consta de 4 entidades principales y varias tablas de apoyo.',
+        megastoreStats: 'Tamaño de Datos:',
+        megastoreStat1: '~50.000 clientes',
+        megastoreStat2: '~500.000 pedidos',
+        megastoreStat3: '~1.2M artículos de pedido',
+        megastoreStat4: '~5.000 productos',
+        datamodelTableCustomers: 'CUSTOMERS',
+        datamodelTableOrders: 'ORDERS',
+        datamodelTableOrderItems: 'ORDER_ITEMS',
+        datamodelTableProducts: 'PRODUCTS',
+        datamodelFieldPK: 'Clave Principal',
+        datamodelFieldFK: 'Clave Foránea',
+        datamodelFieldReg: 'Campo Regular',
+        datamodelNote: 'Tablas Adicionales:',
+        datamodelNoteDesc: 'En los laboratorios de Neo4j, también disponibles: suppliers, reviews, clickstream, product_relationships, customer_relationships',
         dataSchema: 'Esquema de datos',
         collection: 'Colección',
         fields: 'Campos',
@@ -2114,7 +2243,17 @@ const translations = {
         toolingNote3: 'Compass: Cree agregaciones complejas visualmente',
         toolingNote4: 'Python: Automatice flujos de trabajo en su aplicación',
         toolingNote5: 'R: Análisis estadístico e informes',
-        toolingNote6: 'DBeaver / DataGrip: Integración IDE profesional'
+        toolingNote6: 'DBeaver / DataGrip: Integración IDE profesional',
+        labDuration: '~90 Min.',
+        levelBeginner: 'Principiante',
+        levelIntermediate: 'Intermedio',
+        levelAdvanced: 'Avanzado',
+        exerciseProgress: 'Ejercicio',
+        sqlEquivalent: 'En SQL, esto sería...',
+        ex3SqlEquiv: 'SELECT * FROM customers WHERE city = \'Berlin\'\nSELECT * FROM products WHERE unit_price > 50',
+        ex5SqlEquiv: 'SELECT status, COUNT(*) as total_orders, SUM(total_amount) as total_revenue FROM orders GROUP BY status',
+        ex6SqlEquiv: 'SELECT p.category, SUM(oi.quantity * oi.unit_price) as total_revenue FROM order_items oi JOIN products p ON oi.product_id = p.product_id GROUP BY p.category ORDER BY total_revenue DESC',
+        ex10SqlEquiv: 'SELECT c.customer_id, c.name, GROUP_CONCAT(DISTINCT t.tags) as tags FROM customers c LEFT JOIN customer_tags t ON c.customer_id = t.customer_id GROUP BY c.customer_id'
     },
     tr: {
         backToHome: '← Genel Bakışa Dön',
@@ -2122,6 +2261,7 @@ const translations = {
         copy: 'Kopyala',
         copied: 'Kopyalandı!',
         overview: 'Genel Bakış',
+        datamodel: 'Veri Modeli',
         setup: 'Kurulum ve Yükleme',
         fundamentals: 'Temel Kavramlar',
         exercise1: 'Alıştırma 1: İlk Adımlar',
@@ -2166,6 +2306,22 @@ const translations = {
         prerequisites: 'Ön Koşullar: Docker yüklü ve MongoDB konteynerlerini başlatmak için bir Terminal',
         megastoreScenario: 'MegaStore E-Ticaret Senaryosu',
         megastoreDesc: 'Tüm alıştırmalar tutarlı bir E-Ticaret veri seti kullanır ve 4 Koleksiyondan oluşur: customers (E-posta, şehir ve kayıt tarihi gibi iletişim verileriyle müşteriler), products (Fiyatlar, kategoriler ve stok miktarlarıyla ürünler), orders (Müşteri ilişkisi, tarih ve durumla siparişler) ve order_items (Miktarlar, fiyatlar ve ürün ilişkisiyle sipariş satırları). Gerçekçi iş senaryoları gerçekleştireceksiniz: basit müşteri analizlerinden satış raporlarına, ileri düzey RFM segmentasyonlarına ve trend analizlerine kadar.',
+        megastoreDatamodelTitle: 'MegaStore Veri Modeli',
+        megastoreDatamodelDesc: 'Bu, MegaStore\'un veri modelidir — kurgusal bir Alman e-ticaret şirketi. 4 temel varlık ve birkaç destekleyici tablodan oluşur.',
+        megastoreStats: 'Veri Boyutu:',
+        megastoreStat1: '~50.000 müşteri',
+        megastoreStat2: '~500.000 sipariş',
+        megastoreStat3: '~1.2M sipariş öğesi',
+        megastoreStat4: '~5.000 ürün',
+        datamodelTableCustomers: 'CUSTOMERS',
+        datamodelTableOrders: 'ORDERS',
+        datamodelTableOrderItems: 'ORDER_ITEMS',
+        datamodelTableProducts: 'PRODUCTS',
+        datamodelFieldPK: 'Birincil Anahtar',
+        datamodelFieldFK: 'Yabancı Anahtar',
+        datamodelFieldReg: 'Normal Alan',
+        datamodelNote: 'Ek Tablolar:',
+        datamodelNoteDesc: 'Neo4j laboratorilerinde ayrıca şunlar mevcuttur: suppliers, reviews, clickstream, product_relationships, customer_relationships',
         dataSchema: 'Veri Şeması',
         collection: 'Koleksiyon',
         fields: 'Alanlar',
@@ -2514,7 +2670,17 @@ const translations = {
         toolingNote3: 'Compass: Karmaşık toplamaları görsel olarak oluşturun',
         toolingNote4: 'Python: Uygulamanızdaki iş akışlarını otomatikleştirin',
         toolingNote5: 'R: İstatistiksel analiz ve raporlama',
-        toolingNote6: 'DBeaver / DataGrip: Profesyonel IDE entegrasyonu'
+        toolingNote6: 'DBeaver / DataGrip: Profesyonel IDE entegrasyonu',
+        labDuration: '~90 Dak.',
+        levelBeginner: 'Başlangıç',
+        levelIntermediate: 'Orta Seviye',
+        levelAdvanced: 'İleri',
+        exerciseProgress: 'Alıştırma',
+        sqlEquivalent: 'SQL\'de bu şöyle olurdu...',
+        ex3SqlEquiv: 'SELECT * FROM customers WHERE city = \'Berlin\'\nSELECT * FROM products WHERE unit_price > 50',
+        ex5SqlEquiv: 'SELECT status, COUNT(*) as total_orders, SUM(total_amount) as total_revenue FROM orders GROUP BY status',
+        ex6SqlEquiv: 'SELECT p.category, SUM(oi.quantity * oi.unit_price) as total_revenue FROM order_items oi JOIN products p ON oi.product_id = p.product_id GROUP BY p.category ORDER BY total_revenue DESC',
+        ex10SqlEquiv: 'SELECT c.customer_id, c.name, GROUP_CONCAT(DISTINCT t.tags) as tags FROM customers c LEFT JOIN customer_tags t ON c.customer_id = t.customer_id GROUP BY c.customer_id'
     }
 };
 
@@ -2523,6 +2689,9 @@ function App() {
     const [activeSection, setActiveSection] = useState('overview');
     const [expandedItems, setExpandedItems] = useState({});
     const [quizAnswers, setQuizAnswers] = useState({});
+    const [progress, setProgress] = React.useState(0);
+    const [currentExercise, setCurrentExercise] = React.useState(0);
+    const totalExercises = 12;
 
     // IntersectionObserver for sidebar scroll tracking
     React.useEffect(() => {
@@ -2539,6 +2708,21 @@ function App() {
         }, { rootMargin: '-80px 0px -60% 0px', threshold: [0.15, 0.5] });
         sections.forEach(s => observer.observe(s));
         return () => observer.disconnect();
+    }, []);
+
+    // Progress bar tracking
+    React.useEffect(() => {
+        const handleScroll = () => {
+            const exercises = document.querySelectorAll('section[id^="exercise"]');
+            let current = 0;
+            exercises.forEach((ex, i) => {
+                if (ex.getBoundingClientRect().top < window.innerHeight / 2) current = i + 1;
+            });
+            setCurrentExercise(current);
+            setProgress(current / totalExercises * 100);
+        };
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
     const t = new Proxy(translations[language], {
@@ -2600,6 +2784,15 @@ function App() {
 
     return (
         <div>
+            {currentExercise > 0 && (
+                <div>
+                    <div className="progress-bar-container">
+                        <div className="progress-bar-fill" style={{width: `${progress}%`}}></div>
+                    </div>
+                    <div className="progress-label">{currentExercise}/{totalExercises}</div>
+                </div>
+            )}
+
             <header className="header">
                 <div className="header-left">
                     <a href="index.html" className="back-link">{t.backToHome}</a>
@@ -2619,7 +2812,7 @@ function App() {
             </header>
 
             <aside className="sidebar">
-                {['overview', 'setup', 'tooling', 'fundamentals', 'exercise1', 'exercise2', 'exercise3', 'exercise4', 'exercise5', 'exercise6', 'exercise7', 'exercise8', 'exercise9', 'exercise10', 'exercise11', 'exercise12', 'challenge', 'quiz', 'outlook', 'troubleshooting'].map(section => (
+                {['overview', 'datamodel', 'setup', 'tooling', 'fundamentals', 'exercise1', 'exercise2', 'exercise3', 'exercise4', 'exercise5', 'exercise6', 'exercise7', 'exercise8', 'exercise9', 'exercise10', 'exercise11', 'exercise12', 'challenge', 'quiz', 'outlook', 'troubleshooting'].map(section => (
                     <div
                         key={section}
                         className={`sidebar-item ${activeSection === section ? 'active' : ''}`}
@@ -2633,6 +2826,9 @@ function App() {
             <main className="main-content">
                 <section id="overview">
                         <h2>{t.mongodbTitle}</h2>
+                        <div style={{marginBottom: '1rem'}}>
+                            <span className="badge badge-time">⏱ {t.labDuration}</span>
+                        </div>
                         <p>{t.mongodbSubtitle}</p>
 
                         <div className="lesson-box">
@@ -2729,10 +2925,120 @@ function App() {
                                     <td>{t.orderItemsDesc}</td>
                                 </tr>
                             </tbody>
-                        </table>
-                    </section>
+                        </table>                        </section>
 
-                <section id="setup">
+                        <section id="datamodel">
+                            <h2>{t.megastoreDatamodelTitle}</h2>
+                            <p style={{lineHeight: 1.6, marginBottom: '1.5rem'}}>{t.megastoreDatamodelDesc}</p>
+
+                            <h3 style={{marginTop: '1.5rem', marginBottom: '0.5rem'}}>{t.megastoreStats}</h3>
+                            <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '0.75rem', marginBottom: '2rem'}}>
+                                <div className="card" style={{textAlign: 'center', padding: '0.75rem'}}>
+                                    <p style={{fontSize: '0.9rem', margin: '0'}}>{t.megastoreStat1}</p>
+                                </div>
+                                <div className="card" style={{textAlign: 'center', padding: '0.75rem'}}>
+                                    <p style={{fontSize: '0.9rem', margin: '0'}}>{t.megastoreStat2}</p>
+                                </div>
+                                <div className="card" style={{textAlign: 'center', padding: '0.75rem'}}>
+                                    <p style={{fontSize: '0.9rem', margin: '0'}}>{t.megastoreStat3}</p>
+                                </div>
+                                <div className="card" style={{textAlign: 'center', padding: '0.75rem'}}>
+                                    <p style={{fontSize: '0.9rem', margin: '0'}}>{t.megastoreStat4}</p>
+                                </div>
+                            </div>
+
+                            <h3 style={{marginTop: '2rem', marginBottom: '1.5rem'}}>Entity-Relationship Diagram (ERD)</h3>
+                            <div style={{
+                                display: 'grid',
+                                gridTemplateColumns: 'repeat(2, 1fr)',
+                                gap: '1.5rem',
+                                marginBottom: '2rem'
+                            }}>
+                                {/* CUSTOMERS Table */}
+                                <div className="card" style={{borderLeft: '4px solid #E8792F', padding: '1rem'}}>
+                                    <h4 style={{color: '#E8792F', margin: '0 0 0.75rem 0', fontSize: '1rem', fontWeight: 'bold'}}>{t.datamodelTableCustomers}</h4>
+                                    <div style={{fontSize: '0.85rem', lineHeight: 1.8}}>
+                                        <div style={{color: '#d97706', fontWeight: 'bold'}}>🔑 customer_id (PK)</div>
+                                        <div>first_name</div>
+                                        <div>last_name</div>
+                                        <div>email</div>
+                                        <div>city</div>
+                                        <div>country</div>
+                                        <div>registration_date</div>
+                                        <div>customer_segment</div>
+                                        <div>lifetime_value</div>
+                                        <div>total_orders</div>
+                                        <div>preferred_payment</div>
+                                    </div>
+                                </div>
+
+                                {/* PRODUCTS Table */}
+                                <div className="card" style={{borderLeft: '4px solid #06B6D4', padding: '1rem'}}>
+                                    <h4 style={{color: '#06B6D4', margin: '0 0 0.75rem 0', fontSize: '1rem', fontWeight: 'bold'}}>{t.datamodelTableProducts}</h4>
+                                    <div style={{fontSize: '0.85rem', lineHeight: 1.8}}>
+                                        <div style={{color: '#d97706', fontWeight: 'bold'}}>🔑 product_id (PK)</div>
+                                        <div>name</div>
+                                        <div>category</div>
+                                        <div>subcategory</div>
+                                        <div>brand</div>
+                                        <div>price</div>
+                                        <div>cost_price</div>
+                                        <div>rating_avg</div>
+                                        <div>in_stock</div>
+                                        <div>stock_quantity</div>
+                                    </div>
+                                </div>
+
+                                {/* ORDERS Table */}
+                                <div className="card" style={{borderLeft: '4px solid #8B5CF6', padding: '1rem'}}>
+                                    <h4 style={{color: '#8B5CF6', margin: '0 0 0.75rem 0', fontSize: '1rem', fontWeight: 'bold'}}>{t.datamodelTableOrders}</h4>
+                                    <div style={{fontSize: '0.85rem', lineHeight: 1.8}}>
+                                        <div style={{color: '#d97706', fontWeight: 'bold'}}>🔑 order_id (PK)</div>
+                                        <div style={{color: '#d97706', fontWeight: 'bold'}}>🔗 customer_id (FK)</div>
+                                        <div>order_date</div>
+                                        <div>status</div>
+                                        <div>total_amount</div>
+                                        <div>discount_amount</div>
+                                        <div>shipping_cost</div>
+                                        <div>payment_method</div>
+                                        <div>delivery_days</div>
+                                    </div>
+                                </div>
+
+                                {/* ORDER_ITEMS Table */}
+                                <div className="card" style={{borderLeft: '4px solid #10B981', padding: '1rem'}}>
+                                    <h4 style={{color: '#10B981', margin: '0 0 0.75rem 0', fontSize: '1rem', fontWeight: 'bold'}}>{t.datamodelTableOrderItems}</h4>
+                                    <div style={{fontSize: '0.85rem', lineHeight: 1.8}}>
+                                        <div style={{color: '#d97706', fontWeight: 'bold'}}>🔑 item_id (PK)</div>
+                                        <div style={{color: '#d97706', fontWeight: 'bold'}}>🔗 order_id (FK)</div>
+                                        <div style={{color: '#d97706', fontWeight: 'bold'}}>🔗 product_id (FK)</div>
+                                        <div>quantity</div>
+                                        <div>unit_price</div>
+                                        <div>total_price</div>
+                                        <div>discount_percent</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <h3 style={{marginTop: '2rem', marginBottom: '1rem'}}>Relationships</h3>
+                            <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1rem', marginBottom: '2rem'}}>
+                                <div className="concept-box" style={{borderTop: '3px solid #E8792F'}}>
+                                    <p style={{margin: '0', fontSize: '0.9rem'}}><strong>CUSTOMERS 1:N ORDERS</strong><br/>via customer_id</p>
+                                </div>
+                                <div className="concept-box" style={{borderTop: '3px solid #8B5CF6'}}>
+                                    <p style={{margin: '0', fontSize: '0.9rem'}}><strong>ORDERS 1:N ORDER_ITEMS</strong><br/>via order_id</p>
+                                </div>
+                                <div className="concept-box" style={{borderTop: '3px solid #06B6D4'}}>
+                                    <p style={{margin: '0', fontSize: '0.9rem'}}><strong>PRODUCTS 1:N ORDER_ITEMS</strong><br/>via product_id</p>
+                                </div>
+                            </div>
+
+                            <div className="lesson-box" style={{marginTop: '2rem'}}>
+                                <p style={{marginTop: '0'}}><strong>{t.datamodelNote}</strong> {t.datamodelNoteDesc}</p>
+                            </div>
+                        </section>
+
+                        <section id="setup">
                         <h2>{t.setupTitle}</h2>
                         <p>{t.setupDesc}</p>
 
@@ -2910,7 +3216,7 @@ function App() {
 
                 <section id="exercise1">
                         <h2>{t.exercise1Title}</h2>
-                        <span className="badge badge-beginner">{t.beginner}</span>
+                        <span className="badge badge-beginner">{t.levelBeginner}</span>
                         <span className="badge badge-time">~15 {t.time}</span>
                         <p><strong>{t.exercise1Goal}</strong></p>
 
@@ -2944,7 +3250,7 @@ function App() {
 
                 <section id="exercise2">
                         <h2>{t.exercise2Title}</h2>
-                        <span className="badge badge-beginner">{t.beginner}</span>
+                        <span className="badge badge-beginner">{t.levelBeginner}</span>
                         <span className="badge badge-time">~15 {t.time}</span>
                         <p><strong>{t.exercise2Goal}</strong></p>
 
@@ -2977,13 +3283,20 @@ function App() {
 
                 <section id="exercise3">
                         <h2>{t.exercise3Title}</h2>
-                        <span className="badge badge-beginner">{t.beginner}</span>
+                        <span className="badge badge-beginner">{t.levelBeginner}</span>
                         <span className="badge badge-time">~15 {t.time}</span>
                         <p><strong>{t.exercise3Goal}</strong></p>
 
                         <h3>{t.exercise1Show}</h3>
                         <CodeBlock code={t.exercise3Code} />
                         <div className="output-box">{t.exercise3Output}</div>
+
+                        <div className="tip-box" style={{marginTop: '1rem'}}>
+                            <strong>💡 {t.sqlEquivalent}</strong>
+                            <div className="code-block" style={{margin: '0.75rem 0 0 0', fontSize: '0.8rem'}}>
+                                <code>{t.ex3SqlEquiv}</code>
+                            </div>
+                        </div>
 
                         <h3>{t.explanation}</h3>
                         <div style={{ marginTop: "1rem" }}>
@@ -3011,7 +3324,7 @@ function App() {
 
                 <section id="exercise4">
                         <h2>{t.exercise4Title}</h2>
-                        <span className="badge badge-beginner">{t.beginner}</span>
+                        <span className="badge badge-beginner">{t.levelBeginner}</span>
                         <span className="badge badge-time">~15 {t.time}</span>
                         <p><strong>{t.exercise4Goal}</strong></p>
 
@@ -3045,13 +3358,20 @@ function App() {
 
                 <section id="exercise5">
                         <h2>{t.exercise5Title}</h2>
-                        <span className="badge badge-beginner">{t.beginner}</span>
+                        <span className="badge badge-beginner">{t.levelBeginner}</span>
                         <span className="badge badge-time">~15 {t.time}</span>
                         <p><strong>{t.exercise5Goal}</strong></p>
 
                         <h3>{t.exercise1Show}</h3>
                         <CodeBlock code={t.exercise5Code} />
                         <div className="output-box">{t.exercise5Output}</div>
+
+                        <div className="tip-box" style={{marginTop: '1rem'}}>
+                            <strong>💡 {t.sqlEquivalent}</strong>
+                            <div className="code-block" style={{margin: '0.75rem 0 0 0', fontSize: '0.8rem'}}>
+                                <code>{t.ex5SqlEquiv}</code>
+                            </div>
+                        </div>
 
                         <h3>{t.explanation}</h3>
                         <div style={{ marginTop: "1rem" }}>
@@ -3079,13 +3399,20 @@ function App() {
 
                 <section id="exercise6">
                         <h2>{t.exercise6Title}</h2>
-                        <span className="badge badge-beginner">{t.beginner}</span>
+                        <span className="badge badge-beginner">{t.levelBeginner}</span>
                         <span className="badge badge-time">~15 {t.time}</span>
                         <p><strong>{t.exercise6Goal}</strong></p>
 
                         <h3>{t.exercise1Show}</h3>
                         <CodeBlock code={t.exercise6Code} />
                         <div className="output-box">{t.exercise6Output}</div>
+
+                        <div className="tip-box" style={{marginTop: '1rem'}}>
+                            <strong>💡 {t.sqlEquivalent}</strong>
+                            <div className="code-block" style={{margin: '0.75rem 0 0 0', fontSize: '0.8rem'}}>
+                                <code>{t.ex6SqlEquiv}</code>
+                            </div>
+                        </div>
 
                         <h3>{t.explanation}</h3>
                         <div style={{ marginTop: "1rem" }}>
@@ -3114,7 +3441,7 @@ function App() {
                 
                 <section id="exercise7">
                         <h2>{t.exercise7Title}</h2>
-                        <span className="badge badge-beginner">{t.beginner}</span>
+                        <span className="badge badge-beginner">{t.levelBeginner}</span>
                         <span className="badge badge-time">~20 {t.time}</span>
                         <p><strong>{t.exercise7Goal}</strong></p>
                         <h3>{t.exercise1Show}</h3>
@@ -3138,7 +3465,7 @@ function App() {
 
                 <section id="exercise8">
                         <h2>{t.exercise8Title}</h2>
-                        <span className="badge badge-beginner">{t.beginner}</span>
+                        <span className="badge badge-beginner">{t.levelBeginner}</span>
                         <span className="badge badge-time">~15 {t.time}</span>
                         <p><strong>{t.exercise8Goal}</strong></p>
                         <h3>{t.exercise1Show}</h3>
@@ -3162,7 +3489,7 @@ function App() {
 
                 <section id="exercise9">
                         <h2>{t.exercise9Title}</h2>
-                        <span className="badge badge-beginner">{t.beginner}</span>
+                        <span className="badge badge-beginner">{t.levelBeginner}</span>
                         <span className="badge badge-time">~20 {t.time}</span>
                         <p><strong>{t.exercise9Goal}</strong></p>
                         <h3>{t.exercise1Show}</h3>
@@ -3186,12 +3513,20 @@ function App() {
 
                 <section id="exercise10">
                         <h2>{t.exercise10Title}</h2>
-                        <span className="badge badge-beginner">{t.beginner}</span>
+                        <span className="badge badge-beginner">{t.levelBeginner}</span>
                         <span className="badge badge-time">~20 {t.time}</span>
                         <p><strong>{t.exercise10Goal}</strong></p>
                         <h3>{t.exercise1Show}</h3>
                         <CodeBlock code={t.exercise10Code} />
                         <div className="output-box">{t.exercise10Output}</div>
+
+                        <div className="tip-box" style={{marginTop: '1rem'}}>
+                            <strong>💡 {t.sqlEquivalent}</strong>
+                            <div className="code-block" style={{margin: '0.75rem 0 0 0', fontSize: '0.8rem'}}>
+                                <code>{t.ex10SqlEquiv}</code>
+                            </div>
+                        </div>
+
                         <h3>{t.explanation}</h3>
                         <div style={{ marginTop: "1rem" }}>
                             <StepItem number="1">{t.exercise10Line1}</StepItem>
@@ -3210,7 +3545,7 @@ function App() {
 
                 <section id="exercise11">
                         <h2>{t.exercise11Title}</h2>
-                        <span className="badge badge-beginner">{t.beginner}</span>
+                        <span className="badge badge-beginner">{t.levelBeginner}</span>
                         <span className="badge badge-time">~20 {t.time}</span>
                         <p><strong>{t.exercise11Goal}</strong></p>
                         <h3>{t.exercise1Show}</h3>
@@ -3234,7 +3569,7 @@ function App() {
 
                 <section id="exercise12">
                         <h2>{t.exercise12Title}</h2>
-                        <span className="badge badge-beginner">{t.beginner}</span>
+                        <span className="badge badge-beginner">{t.levelBeginner}</span>
                         <span className="badge badge-time">~25 {t.time}</span>
                         <p><strong>{t.exercise12Goal}</strong></p>
                         <h3>{t.exercise1Show}</h3>

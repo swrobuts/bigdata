@@ -148,8 +148,12 @@
         /* Prompt Example */
         .prompt-example { background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 0.5rem; padding: 1rem; margin: 1rem 0; font-family: 'Courier New', monospace; font-size: 0.85rem; color: var(--primary); overflow-x: auto; }
 
+        /* Progress Bar */
+        .progress-bar-container { position: fixed; top: 4rem; left: 260px; right: 0; height: 3px; background: #e2e8f0; z-index: 45; }
+        .progress-bar-fill { height: 100%; background: var(--accent); transition: width 0.3s ease; }
+        .progress-label { position: fixed; top: 4.25rem; right: 1rem; background: white; padding: 0.15rem 0.6rem; border-radius: 0.25rem; font-size: 0.7rem; font-weight: 600; color: var(--accent); z-index: 46; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
         /* Responsive */
-        @media (max-width: 768px) { .sidebar { display: none; } .main-content { margin-left: 0; padding: 5rem 1.5rem 2rem 1.5rem; } html[dir="rtl"] .main-content { margin-right: 0; } }
+        @media (max-width: 768px) { .sidebar { display: none; } .main-content { margin-left: 0; padding: 5rem 1.5rem 2rem 1.5rem; } html[dir="rtl"] .main-content { margin-right: 0; } .progress-bar-container { left: 0; } }
     </style>
 </head>
 <body>
@@ -163,6 +167,7 @@
                 back: "← Zurück zur Startseite",
                 welcome: "Willkommen zum Neo4j Labor",
                 overview: "Überblick",
+                                datamodel: "Datenmodell",
                 setup: "Setup & Installation",
                 fundamentals: "Grundlagen",
                 exercise1: "Übung 1: Erste Knoten",
@@ -470,12 +475,39 @@
                 troubleshoot4: "Verwende den Browser's Code-Editor mit Syntax-Highlighting. Beachte Groß-/Kleinschreibung bei Labels.",
                 troubleshoot5Title: "Zu wenig Docker-Speicher",
                 troubleshoot5: "Erhöhe die Docker-Speicherzuweisung. Starte Docker Desktop und erhöhe Memory in Settings.",
+                labDuration: "~150 Min.",
+                levelBeginner: "Anfänger",
+                levelIntermediate: "Fortgeschritten",
+                levelAdvanced: "Komplex",
+                exerciseProgress: "Übung",
+                sqlEquivalent: "In SQL wäre das...",
+                ex1SqlEquiv: 'SELECT * FROM customers',
+                ex3SqlEquiv: 'SELECT name, age FROM persons WHERE age > 25',
+                ex5SqlEquiv: 'SELECT category, COUNT(*) FROM products GROUP BY category',
+                ex7SqlEquiv: 'SELECT c.*, o.* FROM customers c JOIN orders o ON c.customer_id = o.customer_id JOIN order_items oi ON o.order_id = oi.order_id JOIN products p ON oi.product_id = p.product_id',
+                megastoreDatamodelTitle: "MegaStore Datenmodell",
+                megastoreDatamodelDesc: "Dies ist das Datenmodell des MegaStore — eines fiktiven deutschen E-Commerce-Unternehmens. Es besteht aus 4 Kernentitäten und mehreren unterstützenden Tabellen.",
+                megastoreStats: "Datengröße:",
+                megastoreStat1: "~50.000 Kunden",
+                megastoreStat2: "~500.000 Bestellungen",
+                megastoreStat3: "~1.2M Bestellpositionen",
+                megastoreStat4: "~5.000 Produkte",
+                datamodelTableCustomers: "CUSTOMERS",
+                datamodelTableOrders: "ORDERS",
+                datamodelTableOrderItems: "ORDER_ITEMS",
+                datamodelTableProducts: "PRODUCTS",
+                datamodelFieldPK: "Primärschlüssel",
+                datamodelFieldFK: "Fremdschlüssel",
+                datamodelFieldReg: "Reguläres Feld",
+                datamodelNote: "Zusätzliche Tabellen:",
+                datamodelNoteDesc: "In Neo4j-Labs sind auch verfügbar: suppliers, reviews, clickstream, product_relationships, customer_relationships"
             },
             en: {
                 backToHome: '← Back to Overview',
                 back: "← Back to home",
                 welcome: "Welcome to Neo4j Lab",
                 overview: "Overview",
+                datamodel: "Data Model",
                 setup: "Setup & Installation",
                 fundamentals: "Fundamentals",
                 exercise1: "Exercise 1: Creating Nodes",
@@ -783,6 +815,32 @@
                 troubleshoot4: "Use the browser's code editor with syntax highlighting. Note case sensitivity for labels.",
                 troubleshoot5Title: "Not enough Docker memory",
                 troubleshoot5: "Increase Docker memory allocation. Open Docker Desktop and raise Memory in Settings.",
+                labDuration: "~150 Min.",
+                levelBeginner: "Beginner",
+                levelIntermediate: "Intermediate",
+                levelAdvanced: "Advanced",
+                exerciseProgress: "Exercise",
+                sqlEquivalent: "In SQL, this would be...",
+                ex1SqlEquiv: 'SELECT * FROM customers',
+                ex3SqlEquiv: 'SELECT name, age FROM persons WHERE age > 25',
+                ex5SqlEquiv: 'SELECT category, COUNT(*) FROM products GROUP BY category',
+                ex7SqlEquiv: 'SELECT c.*, o.* FROM customers c JOIN orders o ON c.customer_id = o.customer_id JOIN order_items oi ON o.order_id = oi.order_id JOIN products p ON oi.product_id = p.product_id',
+                megastoreDatamodelTitle: "MegaStore Data Model",
+                megastoreDatamodelDesc: "This is the data model of MegaStore — a fictional German e-commerce company. It consists of 4 core entities and several supporting tables.",
+                megastoreStats: "Data Size:",
+                megastoreStat1: "~50,000 customers",
+                megastoreStat2: "~500,000 orders",
+                megastoreStat3: "~1.2M order items",
+                megastoreStat4: "~5,000 products",
+                datamodelTableCustomers: "CUSTOMERS",
+                datamodelTableOrders: "ORDERS",
+                datamodelTableOrderItems: "ORDER_ITEMS",
+                datamodelTableProducts: "PRODUCTS",
+                datamodelFieldPK: "Primary Key",
+                datamodelFieldFK: "Foreign Key",
+                datamodelFieldReg: "Regular Field",
+                datamodelNote: "Additional Tables:",
+                datamodelNoteDesc: "In Neo4j labs, also available: suppliers, reviews, clickstream, product_relationships, customer_relationships"
             },
             ar: {
             backToHome: '← العودة إلى النظرة العامة',
@@ -858,6 +916,7 @@
             back: '← العودة',
             welcome: 'مرحباً بك في معمل Neo4j',
             overview: 'نظرة عامة',
+            datamodel: 'نموذج البيانات',
             setup: 'الإعداد',
             fundamentals: 'الأساسيات',
             exercise1: 'التمرين 1',
@@ -1101,7 +1160,17 @@
             troubleshoot4Title: 'خطأ في بناء الجملة في Cypher',
             troubleshoot4: 'استخدم محرر الأكواد في المتصفح مع تمييز بناء الجملة. لاحظ حالة الأحرف في التسميات.',
             troubleshoot5Title: 'ذاكرة Docker غير كافية',
-            troubleshoot5: 'زيادة تخصيص ذاكرة Docker. شغّل Docker Desktop وزيادة الذاكرة في الإعدادات.'
+            troubleshoot5: 'زيادة تخصيص ذاكرة Docker. شغّل Docker Desktop وزيادة الذاكرة في الإعدادات.',
+            labDuration: '~150 دقيقة',
+            levelBeginner: 'مبتدئ',
+            levelIntermediate: 'متوسط',
+            levelAdvanced: 'متقدم',
+            exerciseProgress: 'تمرين',
+            sqlEquivalent: 'في SQL، سيكون هذا...',
+            ex1SqlEquiv: 'SELECT * FROM customers',
+            ex3SqlEquiv: 'SELECT name, age FROM persons WHERE age > 25',
+            ex5SqlEquiv: 'SELECT category, COUNT(*) FROM products GROUP BY category',
+            ex7SqlEquiv: 'SELECT c.*, o.* FROM customers c JOIN orders o ON c.customer_id = o.customer_id JOIN order_items oi ON o.order_id = oi.order_id JOIN products p ON oi.product_id = p.product_id'
         },
             uk: {
             backToHome: '← Повернення до огляду',
@@ -1177,6 +1246,7 @@
             back: '← Повернутися',
             welcome: 'Ласкаво просимо до Neo4j лабораторії',
             overview: 'Огляд',
+            datamodel: 'Модель даних',
             setup: 'Налаштування',
             fundamentals: 'Основи',
             exercise1: 'Вправа 1',
@@ -1420,7 +1490,17 @@
             troubleshoot4Title: 'Синтаксична помилка в Cypher',
             troubleshoot4: 'Використовуйте редактор коду у браузері з підсвічуванням синтаксису. Зверніть увагу на регістр символів у позначках.',
             troubleshoot5Title: 'Недостатня пам\'ять Docker',
-            troubleshoot5: 'Збільште розподіл пам\'яті Docker. Запустіть Docker Desktop і збільште пам\'ять у параметрах.'
+            troubleshoot5: 'Збільште розподіл пам\'яті Docker. Запустіть Docker Desktop і збільште пам\'ять у параметрах.',
+            labDuration: '~150 Хв.',
+            levelBeginner: 'Початківець',
+            levelIntermediate: 'Проміжний',
+            levelAdvanced: 'Розширений',
+            exerciseProgress: 'Вправа',
+            sqlEquivalent: 'У SQL це було б...',
+            ex1SqlEquiv: 'SELECT * FROM customers',
+            ex3SqlEquiv: 'SELECT name, age FROM persons WHERE age > 25',
+            ex5SqlEquiv: 'SELECT category, COUNT(*) FROM products GROUP BY category',
+            ex7SqlEquiv: 'SELECT c.*, o.* FROM customers c JOIN orders o ON c.customer_id = o.customer_id JOIN order_items oi ON o.order_id = oi.order_id JOIN products p ON oi.product_id = p.product_id'
         },
             es: {
             backToHome: '← Volver a la descripción general',
@@ -1739,7 +1819,17 @@
             troubleshoot4Title: 'Error de sintaxis en Cypher',
             troubleshoot4: 'Utilice el editor de código en el navegador con resaltado de sintaxis. Observe la distinción entre mayúsculas y minúsculas en las etiquetas.',
             troubleshoot5Title: 'Memoria de Docker insuficiente',
-            troubleshoot5: 'Aumente la asignación de memoria de Docker. Ejecute Docker Desktop y aumente la memoria en la configuración.'
+            troubleshoot5: 'Aumente la asignación de memoria de Docker. Ejecute Docker Desktop y aumente la memoria en la configuración.',
+            labDuration: '~150 Min.',
+            levelBeginner: 'Principiante',
+            levelIntermediate: 'Intermedio',
+            levelAdvanced: 'Avanzado',
+            exerciseProgress: 'Ejercicio',
+            sqlEquivalent: 'En SQL, esto sería...',
+            ex1SqlEquiv: 'SELECT * FROM customers',
+            ex3SqlEquiv: 'SELECT name, age FROM persons WHERE age > 25',
+            ex5SqlEquiv: 'SELECT category, COUNT(*) FROM products GROUP BY category',
+            ex7SqlEquiv: 'SELECT c.*, o.* FROM customers c JOIN orders o ON c.customer_id = o.customer_id JOIN order_items oi ON o.order_id = oi.order_id JOIN products p ON oi.product_id = p.product_id'
         },
             tr: {
             backToHome: '← Genel bakışa dön',
@@ -1815,6 +1905,7 @@
             back: '← Geri',
             welcome: 'Neo4j Laboratuvarına Hoş Geldiniz',
             overview: 'Genel Bakış',
+            datamodel: 'Veri Modeli',
             setup: 'Kurulum',
             fundamentals: 'Temel Bilgiler',
             exercise1: 'Alıştırma 1',
@@ -2058,7 +2149,17 @@
             troubleshoot4Title: 'Cypher söz dizimi hatası',
             troubleshoot4: 'Tarayıcıda söz dizimi vurgulaması ile kod düzenleyicisini kullanın. Etiketlerde harf büyüklüğüne dikkat edin.',
             troubleshoot5Title: 'Docker belleği yetersiz',
-            troubleshoot5: 'Docker bellek ayırmasını artırın. Docker Desktop\'ı çalıştırın ve ayarlardan belleği artırın.'
+            troubleshoot5: 'Docker bellek ayırmasını artırın. Docker Desktop\'ı çalıştırın ve ayarlardan belleği artırın.',
+            labDuration: '~150 Dak.',
+            levelBeginner: 'Başlangıç',
+            levelIntermediate: 'Orta Seviye',
+            levelAdvanced: 'İleri',
+            exerciseProgress: 'Alıştırma',
+            sqlEquivalent: 'SQL\'de bu şöyle olurdu...',
+            ex1SqlEquiv: 'SELECT * FROM customers',
+            ex3SqlEquiv: 'SELECT name, age FROM persons WHERE age > 25',
+            ex5SqlEquiv: 'SELECT category, COUNT(*) FROM products GROUP BY category',
+            ex7SqlEquiv: 'SELECT c.*, o.* FROM customers c JOIN orders o ON c.customer_id = o.customer_id JOIN order_items oi ON o.order_id = oi.order_id JOIN products p ON oi.product_id = p.product_id'
         },
         };
 
@@ -2071,6 +2172,9 @@
         function App() {
             const [language, setLanguage] = useState('de');
             const [activeSection, setActiveSection] = useState('overview');
+            const [progress, setProgress] = React.useState(0);
+            const [currentExercise, setCurrentExercise] = React.useState(0);
+            const totalExercises = 12;
 
                 // IntersectionObserver for sidebar scroll tracking
                 React.useEffect(() => {
@@ -2088,6 +2192,22 @@
                     sections.forEach(s => observer.observe(s));
                     return () => observer.disconnect();
                 }, []);
+
+                // Progress bar tracking
+                React.useEffect(() => {
+                    const handleScroll = () => {
+                        const exercises = document.querySelectorAll('section[id^="exercise"]');
+                        let current = 0;
+                        exercises.forEach((ex, i) => {
+                            if (ex.getBoundingClientRect().top < window.innerHeight / 2) current = i + 1;
+                        });
+                        setCurrentExercise(current);
+                        setProgress(current / totalExercises * 100);
+                    };
+                    window.addEventListener('scroll', handleScroll);
+                    return () => window.removeEventListener('scroll', handleScroll);
+                }, []);
+
             const [expandedItems, setExpandedItems] = useState({});
             const [quizAnswers, setQuizAnswers] = useState({});
 
@@ -2148,7 +2268,7 @@
                 </div>
             );
 
-            const renderExercise = (num, title, time, goal, showCode, output, explain, task, hint, solution, verify) => (
+            const renderExercise = (num, title, time, goal, showCode, output, explain, task, hint, solution, verify, sqlEquiv) => (
                 <section id={`exercise${num}`}>
                     <h2>{title}</h2>
                     <div className="card">
@@ -2161,6 +2281,14 @@
                         <h3>{t.exampleTitle} (Show)</h3>
                         {renderCodeBlock(showCode, `Example ${num}`)}
                         <div className="output-box">{output}</div>
+                        {sqlEquiv && (
+                            <div className="tip-box" style={{marginTop: '1rem'}}>
+                                <strong>💡 {t.sqlEquivalent}</strong>
+                                <div className="code-block" style={{margin: '0.75rem 0 0 0', fontSize: '0.8rem'}}>
+                                    <code>{sqlEquiv}</code>
+                                </div>
+                            </div>
+                        )}
                     </div>
 
                     <div className="card">
@@ -2205,6 +2333,15 @@
 
             return (
                 <div>
+                    {currentExercise > 0 && (
+                        <div>
+                            <div className="progress-bar-container">
+                                <div className="progress-bar-fill" style={{width: `${progress}%`}}></div>
+                            </div>
+                            <div className="progress-label">{currentExercise}/{totalExercises}</div>
+                        </div>
+                    )}
+
                     <header className="header">
                         <div className="header-left">
                             <a href="index.html" className="back-link">{t.backToHome}</a>
@@ -2239,6 +2376,9 @@
                         {/* OVERVIEW */}
                         <section id="overview">
                             <h2>{t.overview}</h2>
+                            <div style={{marginBottom: '1rem'}}>
+                                <span className="badge badge-time">⏱ {t.labDuration}</span>
+                            </div>
 
                             {/* Introduction */}
                             <p style={{color: '#374151', lineHeight: '1.7', fontSize: '1.05rem', marginBottom: '1.5rem'}}>
@@ -2358,6 +2498,117 @@
                                         </tbody>
                                     </table>
                                 </div>
+                            </div>
+                        </section>
+
+                        <section id="datamodel">
+                            <h2>{t.megastoreDatamodelTitle}</h2>
+                            <p style={{lineHeight: 1.6, marginBottom: '1.5rem'}}>{t.megastoreDatamodelDesc}</p>
+
+                            <h3 style={{marginTop: '1.5rem', marginBottom: '0.5rem'}}>{t.megastoreStats}</h3>
+                            <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '0.75rem', marginBottom: '2rem'}}>
+                                <div className="card" style={{textAlign: 'center', padding: '0.75rem'}}>
+                                    <p style={{fontSize: '0.9rem', margin: '0'}}>{t.megastoreStat1}</p>
+                                </div>
+                                <div className="card" style={{textAlign: 'center', padding: '0.75rem'}}>
+                                    <p style={{fontSize: '0.9rem', margin: '0'}}>{t.megastoreStat2}</p>
+                                </div>
+                                <div className="card" style={{textAlign: 'center', padding: '0.75rem'}}>
+                                    <p style={{fontSize: '0.9rem', margin: '0'}}>{t.megastoreStat3}</p>
+                                </div>
+                                <div className="card" style={{textAlign: 'center', padding: '0.75rem'}}>
+                                    <p style={{fontSize: '0.9rem', margin: '0'}}>{t.megastoreStat4}</p>
+                                </div>
+                            </div>
+
+                            <h3 style={{marginTop: '2rem', marginBottom: '1.5rem'}}>Entity-Relationship Diagram (ERD)</h3>
+                            <div style={{
+                                display: 'grid',
+                                gridTemplateColumns: 'repeat(2, 1fr)',
+                                gap: '1.5rem',
+                                marginBottom: '2rem'
+                            }}>
+                                {/* CUSTOMERS Table */}
+                                <div className="card" style={{borderLeft: '4px solid #E8792F', padding: '1rem'}}>
+                                    <h4 style={{color: '#E8792F', margin: '0 0 0.75rem 0', fontSize: '1rem', fontWeight: 'bold'}}>{t.datamodelTableCustomers}</h4>
+                                    <div style={{fontSize: '0.85rem', lineHeight: 1.8}}>
+                                        <div style={{color: '#d97706', fontWeight: 'bold'}}>🔑 customer_id (PK)</div>
+                                        <div>first_name</div>
+                                        <div>last_name</div>
+                                        <div>email</div>
+                                        <div>city</div>
+                                        <div>country</div>
+                                        <div>registration_date</div>
+                                        <div>customer_segment</div>
+                                        <div>lifetime_value</div>
+                                        <div>total_orders</div>
+                                        <div>preferred_payment</div>
+                                    </div>
+                                </div>
+
+                                {/* PRODUCTS Table */}
+                                <div className="card" style={{borderLeft: '4px solid #06B6D4', padding: '1rem'}}>
+                                    <h4 style={{color: '#06B6D4', margin: '0 0 0.75rem 0', fontSize: '1rem', fontWeight: 'bold'}}>{t.datamodelTableProducts}</h4>
+                                    <div style={{fontSize: '0.85rem', lineHeight: 1.8}}>
+                                        <div style={{color: '#d97706', fontWeight: 'bold'}}>🔑 product_id (PK)</div>
+                                        <div>name</div>
+                                        <div>category</div>
+                                        <div>subcategory</div>
+                                        <div>brand</div>
+                                        <div>price</div>
+                                        <div>cost_price</div>
+                                        <div>rating_avg</div>
+                                        <div>in_stock</div>
+                                        <div>stock_quantity</div>
+                                    </div>
+                                </div>
+
+                                {/* ORDERS Table */}
+                                <div className="card" style={{borderLeft: '4px solid #8B5CF6', padding: '1rem'}}>
+                                    <h4 style={{color: '#8B5CF6', margin: '0 0 0.75rem 0', fontSize: '1rem', fontWeight: 'bold'}}>{t.datamodelTableOrders}</h4>
+                                    <div style={{fontSize: '0.85rem', lineHeight: 1.8}}>
+                                        <div style={{color: '#d97706', fontWeight: 'bold'}}>🔑 order_id (PK)</div>
+                                        <div style={{color: '#d97706', fontWeight: 'bold'}}>🔗 customer_id (FK)</div>
+                                        <div>order_date</div>
+                                        <div>status</div>
+                                        <div>total_amount</div>
+                                        <div>discount_amount</div>
+                                        <div>shipping_cost</div>
+                                        <div>payment_method</div>
+                                        <div>delivery_days</div>
+                                    </div>
+                                </div>
+
+                                {/* ORDER_ITEMS Table */}
+                                <div className="card" style={{borderLeft: '4px solid #10B981', padding: '1rem'}}>
+                                    <h4 style={{color: '#10B981', margin: '0 0 0.75rem 0', fontSize: '1rem', fontWeight: 'bold'}}>{t.datamodelTableOrderItems}</h4>
+                                    <div style={{fontSize: '0.85rem', lineHeight: 1.8}}>
+                                        <div style={{color: '#d97706', fontWeight: 'bold'}}>🔑 item_id (PK)</div>
+                                        <div style={{color: '#d97706', fontWeight: 'bold'}}>🔗 order_id (FK)</div>
+                                        <div style={{color: '#d97706', fontWeight: 'bold'}}>🔗 product_id (FK)</div>
+                                        <div>quantity</div>
+                                        <div>unit_price</div>
+                                        <div>total_price</div>
+                                        <div>discount_percent</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <h3 style={{marginTop: '2rem', marginBottom: '1rem'}}>Relationships</h3>
+                            <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1rem', marginBottom: '2rem'}}>
+                                <div className="concept-box" style={{borderTop: '3px solid #E8792F'}}>
+                                    <p style={{margin: '0', fontSize: '0.9rem'}}><strong>CUSTOMERS 1:N ORDERS</strong><br/>via customer_id</p>
+                                </div>
+                                <div className="concept-box" style={{borderTop: '3px solid #8B5CF6'}}>
+                                    <p style={{margin: '0', fontSize: '0.9rem'}}><strong>ORDERS 1:N ORDER_ITEMS</strong><br/>via order_id</p>
+                                </div>
+                                <div className="concept-box" style={{borderTop: '3px solid #06B6D4'}}>
+                                    <p style={{margin: '0', fontSize: '0.9rem'}}><strong>PRODUCTS 1:N ORDER_ITEMS</strong><br/>via product_id</p>
+                                </div>
+                            </div>
+
+                            <div className="lesson-box" style={{marginTop: '2rem'}}>
+                                <p style={{marginTop: '0'}}><strong>{t.datamodelNote}</strong> {t.datamodelNoteDesc}</p>
                             </div>
                         </section>
 
@@ -2529,13 +2780,13 @@
                         </section>
 
                         {/* EXERCISES */}
-                        {renderExercise(1, t.ex1Title, t.ex1Time, t.ex1Goal, t.ex1Show, t.ex1Output, t.ex1Explain, t.ex1Task, t.ex1Hint, t.ex1Solution, t.ex1Verify)}
+                        {renderExercise(1, t.ex1Title, t.ex1Time, t.ex1Goal, t.ex1Show, t.ex1Output, t.ex1Explain, t.ex1Task, t.ex1Hint, t.ex1Solution, t.ex1Verify, t.ex1SqlEquiv)}
                         {renderExercise(2, t.ex2Title, t.ex2Time, t.ex2Goal, t.ex2Show, t.ex2Output, t.ex2Explain, t.ex2Task, t.ex2Hint, t.ex2Solution, t.ex2Verify)}
-                        {renderExercise(3, t.ex3Title, t.ex3Time, t.ex3Goal, t.ex3Show, t.ex3Output, t.ex3Explain, t.ex3Task, t.ex3Hint, t.ex3Solution, t.ex3Verify)}
+                        {renderExercise(3, t.ex3Title, t.ex3Time, t.ex3Goal, t.ex3Show, t.ex3Output, t.ex3Explain, t.ex3Task, t.ex3Hint, t.ex3Solution, t.ex3Verify, t.ex3SqlEquiv)}
                         {renderExercise(4, t.ex4Title, t.ex4Time, t.ex4Goal, t.ex4Show, t.ex4Output, t.ex4Explain, t.ex4Task, t.ex4Hint, t.ex4Solution, t.ex4Verify)}
-                        {renderExercise(5, t.ex5Title, t.ex5Time, t.ex5Goal, t.ex5Show, t.ex5Output, t.ex5Explain, t.ex5Task, t.ex5Hint, t.ex5Solution, t.ex5Verify)}
+                        {renderExercise(5, t.ex5Title, t.ex5Time, t.ex5Goal, t.ex5Show, t.ex5Output, t.ex5Explain, t.ex5Task, t.ex5Hint, t.ex5Solution, t.ex5Verify, t.ex5SqlEquiv)}
                         {renderExercise(6, t.ex6Title, t.ex6Time, t.ex6Goal, t.ex6Show, t.ex6Output, t.ex6Explain, t.ex6Task, t.ex6Hint, t.ex6Solution, t.ex6Verify)}
-                        {renderExercise(7, t.ex7Title, t.ex7Time, t.ex7Goal, t.ex7Show, t.ex7Output, t.ex7Explain, t.ex7Task, t.ex7Hint, t.ex7Solution, t.ex7Verify)}
+                        {renderExercise(7, t.ex7Title, t.ex7Time, t.ex7Goal, t.ex7Show, t.ex7Output, t.ex7Explain, t.ex7Task, t.ex7Hint, t.ex7Solution, t.ex7Verify, t.ex7SqlEquiv)}
                         {renderExercise(8, t.ex8Title, t.ex8Time, t.ex8Goal, t.ex8Show, t.ex8Output, t.ex8Explain, t.ex8Task, t.ex8Hint, t.ex8Solution, t.ex8Verify)}
                         {renderExercise(9, t.ex9Title, t.ex9Time, t.ex9Goal, t.ex9Show, t.ex9Output, t.ex9Explain, t.ex9Task, t.ex9Hint, t.ex9Solution, t.ex9Verify)}
                         {renderExercise(10, t.ex10Title, t.ex10Time, t.ex10Goal, t.ex10Show, t.ex10Output, t.ex10Explain, t.ex10Task, t.ex10Hint, t.ex10Solution, t.ex10Verify)}
