@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+  <path d="M128 0C57.3 0 0 57.3 0 128s57.3 128 128 128 128-57.3 128-128S198.7 0 128 0z" fill="#1B3A5C"/>
+  <g transform="translate(128,108)">
+    <!-- Database cylinder top -->
+    <ellipse cx="0" cy="-40" rx="55" ry="18" fill="none" stroke="#fff" stroke-width="5"/>
+    <!-- Database cylinder body -->
+    <line x1="-55" y1="-40" x2="-55" y2="40" stroke="#fff" stroke-width="5"/>
+    <line x1="55" y1="-40" x2="55" y2="40" stroke="#fff" stroke-width="5"/>
+    <!-- Database cylinder bottom -->
+    <path d="M-55 40 Q-55 58 0 58 Q55 58 55 40" fill="none" stroke="#fff" stroke-width="5"/>
+    <!-- Middle ring -->
+    <path d="M-55 0 Q-55 18 0 18 Q55 18 55 0" fill="none" stroke="#fff" stroke-width="3" opacity="0.5"/>
+  </g>
+</svg>

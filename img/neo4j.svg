@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+  <path d="M128 0C57.3 0 0 57.3 0 128s57.3 128 128 128 128-57.3 128-128S198.7 0 128 0z" fill="#018BFF"/>
+  <g transform="translate(128,128)">
+    <!-- Central node -->
+    <circle cx="0" cy="0" r="18" fill="#fff"/>
+    <!-- Top-right node -->
+    <circle cx="50" cy="-45" r="14" fill="#fff"/>
+    <!-- Bottom-right node -->
+    <circle cx="55" cy="35" r="14" fill="#fff"/>
+    <!-- Left node -->
+    <circle cx="-55" cy="10" r="14" fill="#fff"/>
+    <!-- Top-left node -->
+    <circle cx="-35" cy="-50" r="12" fill="#fff" opacity="0.8"/>
+    <!-- Bottom node -->
+    <circle cx="-10" cy="60" r="12" fill="#fff" opacity="0.8"/>
+    <!-- Edges -->
+    <line x1="0" y1="0" x2="50" y2="-45" stroke="#fff" stroke-width="3" opacity="0.6"/>
+    <line x1="0" y1="0" x2="55" y2="35" stroke="#fff" stroke-width="3" opacity="0.6"/>
+    <line x1="0" y1="0" x2="-55" y2="10" stroke="#fff" stroke-width="3" opacity="0.6"/>
+    <line x1="0" y1="0" x2="-35" y2="-50" stroke="#fff" stroke-width="3" opacity="0.6"/>
+    <line x1="0" y1="0" x2="-10" y2="60" stroke="#fff" stroke-width="3" opacity="0.6"/>
+    <line x1="50" y1="-45" x2="55" y2="35" stroke="#fff" stroke-width="2" opacity="0.4"/>
+    <line x1="-55" y1="10" x2="-35" y2="-50" stroke="#fff" stroke-width="2" opacity="0.4"/>
+    <line x1="-55" y1="10" x2="-10" y2="60" stroke="#fff" stroke-width="2" opacity="0.4"/>
+  </g>
+</svg>

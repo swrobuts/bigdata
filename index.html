@@ -2470,10 +2470,10 @@ const LAB_ICONS = [ICON_LAYERS, ICON_FILTER, ICON_NETWORK, ICON_TERMINAL];
                                 <p style={{ color: '#64748b', fontSize: '0.95rem', lineHeight: 1.6, marginBottom: '2.5rem', maxWidth: 600, margin: '0 auto 2.5rem' }}>{t.decision.tree_subtitle}</p>
                                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '1.25rem' }}>
                                     {[
-                                        { q: t.decision.tree_q1, tech: 'Spark', color: '#E8792F', logo: 'https://upload.wikimedia.org/wikipedia/commons/f/f3/Apache_Spark_logo.svg' },
-                                        { q: t.decision.tree_q2, tech: 'MongoDB', color: '#00684A', logo: 'https://cdn.worldvectorlogo.com/logos/mongodb-icon-1.svg' },
-                                        { q: t.decision.tree_q3, tech: 'Neo4j', color: '#018BFF', logo: 'https://dist.neo4j.com/wp-content/uploads/20210423062553/neo4j-symbol-color.svg' },
-                                        { q: t.decision.tree_q4, tech: 'DuckDB', color: '#FEC107', logo: 'https://duckdb.org/images/logo-dl/DuckDB_Logo-stacked.svg' }
+                                        { q: t.decision.tree_q1, tech: 'Spark', color: '#E8792F', logo: 'img/spark.svg' },
+                                        { q: t.decision.tree_q2, tech: 'MongoDB', color: '#00684A', logo: 'img/mongodb.svg' },
+                                        { q: t.decision.tree_q3, tech: 'Neo4j', color: '#018BFF', logo: 'img/neo4j.svg' },
+                                        { q: t.decision.tree_q4, tech: 'DuckDB', color: '#FEC107', logo: 'img/duckdb.svg' }
                                     ].map((item, i) => (
                                         <div key={i} style={{ background: 'white', border: `2px solid ${item.color}20`, borderRadius: 12, padding: '1.5rem 1.25rem', boxShadow: '0 2px 12px rgba(0,0,0,0.05)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'space-between', minHeight: '180px' }}>
                                             <div style={{ color: '#374151', fontSize: '0.88rem', fontWeight: 600, lineHeight: 1.5, marginBottom: '1.25rem', textAlign: 'center' }}>{item.q}</div>
@@ -2481,7 +2481,7 @@ const LAB_ICONS = [ICON_LAYERS, ICON_FILTER, ICON_NETWORK, ICON_TERMINAL];
                                                 <span style={{ fontWeight: 700, color: '#1B3A5C', fontSize: '0.85rem' }}>{t.decision.tree_yes}</span>
                                                 <span style={{ color: item.color, fontWeight: 900, fontSize: '1.3rem' }}>→</span>
                                                 <span style={{ background: item.color, color: item.color === '#FEC107' ? '#1B3A5C' : 'white', fontWeight: 800, padding: '0.4rem 0.9rem', borderRadius: 8, fontSize: '0.85rem', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-                                                    <img src={item.logo} alt={item.tech} style={{ height: 16, width: 16, filter: item.color === '#FEC107' ? 'none' : 'brightness(0) invert(1)' }} onError={(e) => e.target.style.display='none'} />
+                                                    <img src={item.logo} alt={item.tech} style={{ height: 18, width: 18, borderRadius: 4 }} onError={(e) => e.target.style.display='none'} />
                                                     {item.tech}
                                                 </span>
                                             </div>
@@ -2494,32 +2494,32 @@ const LAB_ICONS = [ICON_LAYERS, ICON_FILTER, ICON_NETWORK, ICON_TERMINAL];
                             {[
                                 {
                                     title: t.decision.comparison_title, subtitle: t.decision.comparison_subtitle, intro: t.decision.comparison_intro,
-                                    left: { title: t.decision.comparison_spark_title, desc: t.decision.comparison_spark_desc, color: '#E8792F', logo: 'https://upload.wikimedia.org/wikipedia/commons/f/f3/Apache_Spark_logo.svg' },
-                                    right: { title: t.decision.comparison_duckdb_title, desc: t.decision.comparison_duckdb_desc, color: '#FEC107', logo: 'https://duckdb.org/images/logo-dl/DuckDB_Logo-stacked.svg' },
+                                    left: { title: t.decision.comparison_spark_title, desc: t.decision.comparison_spark_desc, color: '#E8792F', logo: 'img/spark.svg' },
+                                    right: { title: t.decision.comparison_duckdb_title, desc: t.decision.comparison_duckdb_desc, color: '#FEC107', logo: 'img/duckdb.svg' },
                                     rule: t.decision.comparison_rule, ruleText: t.decision.comparison_rule_text, accent: '#E8792F'
                                 },
                                 {
                                     title: t.decision.faq2_title, subtitle: t.decision.faq2_subtitle, intro: t.decision.faq2_intro,
-                                    left: { title: t.decision.faq2_left_title, desc: t.decision.faq2_left_desc, color: '#00684A', logo: 'https://cdn.worldvectorlogo.com/logos/mongodb-icon-1.svg' },
-                                    right: { title: t.decision.faq2_right_title, desc: t.decision.faq2_right_desc, color: '#018BFF', logo: 'https://dist.neo4j.com/wp-content/uploads/20210423062553/neo4j-symbol-color.svg' },
+                                    left: { title: t.decision.faq2_left_title, desc: t.decision.faq2_left_desc, color: '#00684A', logo: 'img/mongodb.svg' },
+                                    right: { title: t.decision.faq2_right_title, desc: t.decision.faq2_right_desc, color: '#018BFF', logo: 'img/neo4j.svg' },
                                     rule: t.decision.faq2_rule, ruleText: t.decision.faq2_rule_text, accent: '#00684A'
                                 },
                                 {
                                     title: t.decision.faq3_title, subtitle: t.decision.faq3_subtitle, intro: t.decision.faq3_intro,
-                                    left: { title: t.decision.faq3_left_title, desc: t.decision.faq3_left_desc, color: '#00684A', logo: 'https://cdn.worldvectorlogo.com/logos/mongodb-icon-1.svg' },
-                                    right: { title: t.decision.faq3_right_title, desc: t.decision.faq3_right_desc, color: '#FEC107', logo: 'https://duckdb.org/images/logo-dl/DuckDB_Logo-stacked.svg' },
+                                    left: { title: t.decision.faq3_left_title, desc: t.decision.faq3_left_desc, color: '#00684A', logo: 'img/mongodb.svg' },
+                                    right: { title: t.decision.faq3_right_title, desc: t.decision.faq3_right_desc, color: '#FEC107', logo: 'img/duckdb.svg' },
                                     rule: t.decision.faq3_rule, ruleText: t.decision.faq3_rule_text, accent: '#FEC107'
                                 },
                                 {
                                     title: t.decision.faq4_title, subtitle: t.decision.faq4_subtitle, intro: t.decision.faq4_intro,
-                                    left: { title: t.decision.faq4_left_title, desc: t.decision.faq4_left_desc, color: '#018BFF', logo: 'https://dist.neo4j.com/wp-content/uploads/20210423062553/neo4j-symbol-color.svg' },
-                                    right: { title: t.decision.faq4_right_title, desc: t.decision.faq4_right_desc, color: '#1B3A5C', logo: '' },
+                                    left: { title: t.decision.faq4_left_title, desc: t.decision.faq4_left_desc, color: '#018BFF', logo: 'img/neo4j.svg' },
+                                    right: { title: t.decision.faq4_right_title, desc: t.decision.faq4_right_desc, color: '#1B3A5C', logo: 'img/sql.svg' },
                                     rule: t.decision.faq4_rule, ruleText: t.decision.faq4_rule_text, accent: '#018BFF'
                                 },
                                 {
                                     title: t.decision.faq5_title, subtitle: t.decision.faq5_subtitle, intro: t.decision.faq5_intro,
-                                    left: { title: t.decision.faq5_left_title, desc: t.decision.faq5_left_desc, color: '#E8792F', logo: 'https://upload.wikimedia.org/wikipedia/commons/f/f3/Apache_Spark_logo.svg' },
-                                    right: { title: t.decision.faq5_right_title, desc: t.decision.faq5_right_desc, color: '#00684A', logo: 'https://cdn.worldvectorlogo.com/logos/mongodb-icon-1.svg' },
+                                    left: { title: t.decision.faq5_left_title, desc: t.decision.faq5_left_desc, color: '#E8792F', logo: 'img/spark.svg' },
+                                    right: { title: t.decision.faq5_right_title, desc: t.decision.faq5_right_desc, color: '#00684A', logo: 'img/mongodb.svg' },
                                     rule: t.decision.faq5_rule, ruleText: t.decision.faq5_rule_text, accent: '#E8792F'
                                 }
                             ].map((faq, fi) => (
