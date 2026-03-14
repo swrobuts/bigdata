@@ -43,12 +43,16 @@
         /* Main Content */
         .main-content { margin-left: 260px; padding: 5.5rem 3rem 3rem 3rem; max-width: 1000px; }
 
-        /* Typography */
-        h2, .section-header { color: var(--primary); font-size: 1.75rem; font-weight: 800; margin: 3rem 0 0.75rem 0; line-height: 1.3; }
+                /* Typography – headings in accent orange for maximum visibility */
+        h2, .section-header { color: var(--accent); font-size: 1.9rem; font-weight: 800; margin: 3.5rem 0 0.6rem 0; line-height: 1.25; letter-spacing: -0.01em; padding-bottom: 0.5rem; border-bottom: 3px solid var(--accent); }
         h2:first-child, .section-header:first-child { margin-top: 0; }
-        h3, .subsection-header { color: var(--primary); font-size: 1.15rem; font-weight: 700; margin: 2rem 0 0.5rem 0; }
-        h4 { font-size: 1rem; font-weight: 700; color: var(--primary); margin: 1.25rem 0 0.4rem 0; }
-        p { color: #4b5563; line-height: 1.7; margin-bottom: 0.75rem; }
+        h3, .subsection-header { color: var(--accent); font-size: 1.2rem; font-weight: 700; margin: 2.25rem 0 0.5rem 0; line-height: 1.3; }
+        h4 { font-size: 1.05rem; font-weight: 700; color: var(--primary); margin: 1.5rem 0 0.4rem 0; }
+        p { color: #374151; line-height: 1.75; margin-bottom: 0.85rem; text-align: justify; hyphens: auto; }
+
+        /* Section visual separation */
+        section[id] + section[id] { border-top: 1px solid #e5e7eb; padding-top: 2rem; }
+        section[id] { scroll-margin-top: 5rem; margin-bottom: 1.5rem; }
 
         /* Code Blocks */
         .code-wrapper { position: relative; }
@@ -136,9 +140,6 @@
         /* Footer */
         .lab-footer { margin-top: 3rem; padding-top: 2rem; border-top: 1px solid #e5e7eb; text-align: center; color: #9ca3af; font-size: 0.85rem; }
         .lab-footer p { color: #9ca3af; margin: 0.25rem 0; }
-
-        /* Section spacing for scroll-based navigation */
-        section[id] { padding-top: 1rem; margin-bottom: 2rem; scroll-margin-top: 5rem; }
 
         /* Prompt Example */
         .prompt-example { background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 0.5rem; padding: 1rem; margin: 1rem 0; font-family: 'Courier New', monospace; font-size: 0.85rem; color: var(--primary); overflow-x: auto; }
