@@ -293,6 +293,21 @@
                 distributedComputing: "Verteiltes Computing: Spark läuft auf Maschinen-Clustern und skaliert zu massiven Datenmengen",
                 inMemoryProcessing: "Speicherverarbeitung: 100x schneller als Hadoop MapReduce durch In-Memory-Datenstrukturen",
                 unifiedFramework: "Einheitliches Framework: Batch-Verarbeitung, SQL, Streaming und Machine Learning in einer API",
+                sparkIntro: 'Apache Spark ist ein quelloffenes Framework für verteilte Datenverarbeitung, entwickelt an der UC Berkeley und heute ein Top-Level-Projekt der Apache Software Foundation. Spark ermöglicht es, riesige Datenmengen parallel auf mehreren Rechnern (einem Cluster) zu verarbeiten – und das bis zu 100-mal schneller als der Vorgänger Hadoop MapReduce, weil Spark Daten im Arbeitsspeicher (RAM) hält statt ständig auf die Festplatte zu schreiben.',
+                sparkWebsite: 'Offizielle Projektseite',
+                sparkArchTitle: 'Architektur: Wie Spark funktioniert',
+                sparkArchDesc: 'Wenn Sie ein Spark-Programm starten, passiert Folgendes: Ihr Code läuft im Driver-Programm. Der Driver kontaktiert den Cluster Manager (z.B. YARN, Mesos oder Standalone), der die verfügbaren Ressourcen verwaltet. Der Cluster Manager weist Executor-Prozesse auf den Worker-Knoten zu. Die Executors führen die eigentlichen Berechnungen parallel durch und senden Ergebnisse zurück an den Driver.',
+                sparkArchDiagram: '┌─────────────┐\n│   Driver    │  ← Ihr Python/Spark-Code\n│  Programm   │\n└──────┬──────┘\n       │\n┌──────▼──────┐\n│   Cluster   │  ← Verwaltet Ressourcen\n│   Manager   │    (YARN / Mesos / K8s)\n└──┬───┬───┬──┘\n   │   │   │\n┌──▼┐ ┌▼──┐ ┌▼──┐\n│ E1│ │ E2│ │ E3│  ← Executors\n│   │ │   │ │   │    (parallele Worker)\n└───┘ └───┘ └───┘',
+                sparkVsPandasTitle: 'Spark vs. Pandas – Wann brauche ich Spark?',
+                sparkVsPandasDesc: 'Pandas ist perfekt für Datensätze, die in den Arbeitsspeicher eines einzelnen Rechners passen (typisch bis ~10 GB). Der Code läuft auf einem einzigen CPU-Kern. Spark hingegen verteilt die Arbeit automatisch auf viele Rechner und Kerne. Wenn Ihre Daten zu groß für einen Rechner werden oder die Verarbeitung zu lange dauert, ist Spark die richtige Wahl.',
+                sparkVsPandasPandas: 'Pandas: Einzelner Rechner, bis ~10 GB, sofortige Ausführung, perfekt für Exploration und Prototyping',
+                sparkVsPandasSpark: 'Spark: Cluster mit vielen Rechnern, Terabytes bis Petabytes, Lazy Evaluation mit optimiertem Ausführungsplan, ideal für Produktion und große Datenmengen',
+                sparkComponentsTitle: 'Die Spark-Ökosystem-Komponenten',
+                sparkComponentsDesc: 'Spark besteht aus mehreren Bibliotheken, die auf dem gleichen Kern aufbauen:',
+                sparkCompSQL: 'Spark SQL: SQL-Abfragen auf strukturierten Daten – der meistgenutzte Teil von Spark',
+                sparkCompStreaming: 'Spark Streaming: Echtzeit-Datenverarbeitung (z.B. Sensordaten, Log-Streams)',
+                sparkCompMLlib: 'MLlib: Machine-Learning-Bibliothek mit Algorithmen für Klassifikation, Regression, Clustering',
+                sparkCompGraphX: 'GraphX: Graph-Verarbeitung und -Analyse (z.B. soziale Netzwerke, Beziehungsnetzwerke)',
                 estimatedTime: "Geschätzte Zeit:",
                 timeValue: "3–4 Stunden für alle 12 Übungen",
                 prerequisites: "Voraussetzungen:",
@@ -324,6 +339,10 @@
                 lazyEvaluationDesc: "Transformationen (map, filter, select) werden NICHT sofort ausgeführt. Spark erstellt einen Ausführungsplan und führt ihn erst aus, wenn eine Action (show, collect, count) aufgerufen wird.",
                 transformationsVsActions: "4. Transformationen vs. Actions",
                 transformationsVsActionsDesc: "Transformationen erstellen neue DataFrames (filter, select, groupBy). Actions geben Ergebnisse zurück oder speichern (show, collect, write).",
+                sparkSessionDetailDesc: 'Die SparkSession ist Ihr Tor zu allen Spark-Funktionen. Sie erstellt DataFrames, registriert UDFs (User Defined Functions), führt SQL-Abfragen aus und liest Daten aus verschiedenen Quellen (CSV, Parquet, JSON, JDBC). In unserem Docker-Lab ist die SparkSession gleichzeitig der Cluster Manager – im Produktivbetrieb würde sie einen externen Cluster ansprechen.',
+                rddVsDataFrameDetail: 'RDDs (Resilient Distributed Datasets) waren die ursprüngliche Datenstruktur in Spark. Sie bieten maximale Kontrolle, aber wenig Optimierung. DataFrames hingegen haben ein Schema (Spalten mit Typen) und erlauben Spark, den Ausführungsplan zu optimieren (Catalyst Optimizer). In der Praxis verwenden Sie fast immer DataFrames – sie sind schneller, lesbarer und kompatibel mit SQL.',
+                lazyEvaluationDetail: 'Lazy Evaluation ist ein Kernprinzip: Wenn Sie z.B. df.filter(...).select(...).groupBy(...) schreiben, passiert zunächst NICHTS. Spark baut nur einen Ausführungsplan (DAG = Directed Acyclic Graph). Erst wenn eine Action wie .show() oder .count() kommt, optimiert Spark den gesamten Plan und führt ihn in einem Rutsch aus. Das ermöglicht massive Optimierungen, die bei sofortiger Ausführung nicht möglich wären.',
+                transformationsVsActionsDetail: 'Transformationen sind "Rezepte": filter(), select(), groupBy(), join(), withColumn(). Sie erstellen neue DataFrames, lösen aber keine Berechnung aus. Actions sind "Auslöser": show(), count(), collect(), write(). Sie starten die tatsächliche Berechnung im Cluster. Faustregel: Wenn eine Methode einen DataFrame zurückgibt, ist es eine Transformation. Wenn sie einen Wert oder nichts zurückgibt, ist es eine Action.',
                 whenToUseSpark: "Wann Spark verwenden?",
                 useCase: "Anwendungsfall",
                 excellent: "✓ Ideal",
@@ -559,6 +578,21 @@
                 distributedComputing: "Distributed Computing: Spark runs on machine clusters for massive scalability",
                 inMemoryProcessing: "In-Memory Processing: 100x faster than Hadoop MapReduce with in-memory data structures",
                 unifiedFramework: "Unified Framework: Batch processing, SQL, Streaming, and Machine Learning in one API",
+                sparkIntro: 'Apache Spark is an open-source distributed computing framework, originally developed at UC Berkeley and now a top-level project of the Apache Software Foundation. Spark enables processing of massive datasets in parallel across multiple machines (a cluster) – up to 100x faster than its predecessor Hadoop MapReduce, because Spark keeps data in memory (RAM) instead of constantly writing to disk.',
+                sparkWebsite: 'Official Project Website',
+                sparkArchTitle: 'Architecture: How Spark Works',
+                sparkArchDesc: 'When you run a Spark program, here is what happens: Your code runs in the Driver program. The Driver contacts the Cluster Manager (e.g., YARN, Mesos, or Standalone), which manages available resources. The Cluster Manager assigns Executor processes on Worker nodes. The Executors perform the actual computations in parallel and send results back to the Driver.',
+                sparkArchDiagram: '┌─────────────┐\n│   Driver    │  ← Your Python/Spark code\n│  Program    │\n└──────┬──────┘\n       │\n┌──────▼──────┐\n│   Cluster   │  ← Manages resources\n│   Manager   │    (YARN / Mesos / K8s)\n└──┬───┬───┬──┘\n   │   │   │\n┌──▼┐ ┌▼──┐ ┌▼──┐\n│ E1│ │ E2│ │ E3│  ← Executors\n│   │ │   │ │   │    (parallel workers)\n└───┘ └───┘ └───┘',
+                sparkVsPandasTitle: 'Spark vs. Pandas – When Do I Need Spark?',
+                sparkVsPandasDesc: 'Pandas is perfect for datasets that fit into a single machine\'s memory (typically up to ~10 GB). Code runs on a single CPU core. Spark, on the other hand, automatically distributes work across many machines and cores. When your data becomes too large for one machine or processing takes too long, Spark is the right choice.',
+                sparkVsPandasPandas: 'Pandas: Single machine, up to ~10 GB, immediate execution, perfect for exploration and prototyping',
+                sparkVsPandasSpark: 'Spark: Cluster of many machines, terabytes to petabytes, lazy evaluation with optimized execution plan, ideal for production and large datasets',
+                sparkComponentsTitle: 'The Spark Ecosystem Components',
+                sparkComponentsDesc: 'Spark consists of several libraries built on the same core:',
+                sparkCompSQL: 'Spark SQL: SQL queries on structured data – the most widely used part of Spark',
+                sparkCompStreaming: 'Spark Streaming: Real-time data processing (e.g., sensor data, log streams)',
+                sparkCompMLlib: 'MLlib: Machine learning library with algorithms for classification, regression, clustering',
+                sparkCompGraphX: 'GraphX: Graph processing and analysis (e.g., social networks, relationship networks)',
                 estimatedTime: "Estimated Time:",
                 timeValue: "3–4 hours for all 12 exercises",
                 prerequisites: "Prerequisites:",
@@ -590,6 +624,10 @@
                 lazyEvaluationDesc: "Transformations (map, filter, select) are NOT executed immediately. Spark builds an execution plan and only runs it when an action (show, collect, count) is called.",
                 transformationsVsActions: "4. Transformations vs. Actions",
                 transformationsVsActionsDesc: "Transformations create new DataFrames (filter, select, groupBy). Actions return results or store (show, collect, write).",
+                sparkSessionDetailDesc: 'SparkSession is your gateway to all Spark functionality. It creates DataFrames, registers UDFs (User Defined Functions), executes SQL queries, and reads data from various sources (CSV, Parquet, JSON, JDBC). In our Docker lab, the SparkSession also acts as the Cluster Manager – in production, it would connect to an external cluster.',
+                rddVsDataFrameDetail: 'RDDs (Resilient Distributed Datasets) were the original data structure in Spark. They offer maximum control but little optimization. DataFrames, on the other hand, have a schema (columns with types) and allow Spark to optimize the execution plan (Catalyst Optimizer). In practice, you almost always use DataFrames – they are faster, more readable, and SQL-compatible.',
+                lazyEvaluationDetail: 'Lazy Evaluation is a core principle: when you write df.filter(...).select(...).groupBy(...), nothing happens at first. Spark only builds an execution plan (DAG = Directed Acyclic Graph). Only when an action like .show() or .count() comes along does Spark optimize the entire plan and execute it in one go. This enables massive optimizations that would not be possible with immediate execution.',
+                transformationsVsActionsDetail: 'Transformations are "recipes": filter(), select(), groupBy(), join(), withColumn(). They create new DataFrames but do not trigger computation. Actions are "triggers": show(), count(), collect(), write(). They start actual computation in the cluster. Rule of thumb: if a method returns a DataFrame, it is a transformation. If it returns a value or nothing, it is an action.',
                 whenToUseSpark: "When to use Spark?",
                 useCase: "Use Case",
                 excellent: "✓ Ideal",
@@ -841,6 +879,21 @@
             distributedComputing: 'الحوسبة الموزعة: يعمل Spark على مجموعات الآلات ويتسع للتعامل مع كميات بيانات ضخمة',
             inMemoryProcessing: 'معالجة الذاكرة: أسرع بـ 100 مرة من Hadoop MapReduce من خلال هياكل بيانات الذاكرة',
             unifiedFramework: 'إطار عمل موحد: معالجة دفعات وSQL والبث والتعلم الآلي في واجهة برمجية واحدة',
+            sparkIntro: 'Apache Spark هو إطار عمل مفتوح المصدر للحوسبة الموزعة، تم تطويره في جامعة كاليفورنيا بيركلي وهو الآن مشروع رئيسي في مؤسسة Apache Software Foundation. يتيح Spark معالجة كميات ضخمة من البيانات بالتوازي عبر أجهزة متعددة (مجموعة) – أسرع بما يصل إلى 100 مرة من سلفه Hadoop MapReduce، لأن Spark يحتفظ بالبيانات في الذاكرة (RAM) بدلاً من الكتابة المستمرة على القرص.',
+            sparkWebsite: 'الموقع الرسمي للمشروع',
+            sparkArchTitle: 'الهندسة المعمارية: كيف يعمل Spark',
+            sparkArchDesc: 'عند تشغيل برنامج Spark، يحدث ما يلي: يعمل الكود الخاص بك في برنامج Driver. يتصل Driver بـ Cluster Manager (مثل YARN أو Mesos أو Standalone)، الذي يدير الموارد المتاحة. يعيّن Cluster Manager عمليات Executor على عقد Worker. تنفذ الـ Executors الحسابات الفعلية بشكل متوازٍ وترسل النتائج إلى Driver.',
+            sparkArchDiagram: '┌─────────────┐\n│   Driver    │  ← كود Python/Spark\n│  البرنامج   │\n└──────┬──────┘\n       │\n┌──────▼──────┐\n│   Cluster   │  ← إدارة الموارد\n│   Manager   │    (YARN / Mesos / K8s)\n└──┬───┬───┬──┘\n   │   │   │\n┌──▼┐ ┌▼──┐ ┌▼──┐\n│ E1│ │ E2│ │ E3│  ← Executors\n│   │ │   │ │   │    (عمال متوازيون)\n└───┘ └───┘ └───┘',
+            sparkVsPandasTitle: 'Spark مقابل Pandas – متى أحتاج Spark؟',
+            sparkVsPandasDesc: 'Pandas مثالي لمجموعات البيانات التي تناسب ذاكرة جهاز واحد (عادة حتى ~10 جيجابايت). يعمل الكود على نواة وحدة معالجة مركزية واحدة. أما Spark فيوزع العمل تلقائياً عبر العديد من الأجهزة والنوى. عندما تصبح بياناتك كبيرة جداً لجهاز واحد أو تستغرق المعالجة وقتاً طويلاً، فإن Spark هو الخيار الصحيح.',
+            sparkVsPandasPandas: 'Pandas: جهاز واحد، حتى ~10 جيجابايت، تنفيذ فوري، مثالي للاستكشاف والنماذج الأولية',
+            sparkVsPandasSpark: 'Spark: مجموعة من الأجهزة، تيرابايت إلى بيتابايت، تقييم كسول مع خطة تنفيذ محسنة، مثالي للإنتاج والبيانات الكبيرة',
+            sparkComponentsTitle: 'مكونات نظام Spark البيئي',
+            sparkComponentsDesc: 'يتكون Spark من عدة مكتبات مبنية على نفس النواة:',
+            sparkCompSQL: 'Spark SQL: استعلامات SQL على بيانات منظمة – الجزء الأكثر استخداماً في Spark',
+            sparkCompStreaming: 'Spark Streaming: معالجة البيانات في الوقت الفعلي (مثل بيانات الاستشعار، تدفقات السجلات)',
+            sparkCompMLlib: 'MLlib: مكتبة التعلم الآلي مع خوارزميات التصنيف والانحدار والتجميع',
+            sparkCompGraphX: 'GraphX: معالجة وتحليل الرسوم البيانية (مثل الشبكات الاجتماعية)',
             estimatedTime: 'الوقت المتوقع:',
             timeValue: '3–4 ساعات لجميع 12 تمريناً',
             prerequisites: 'المتطلبات الأساسية:',
@@ -872,6 +925,10 @@
             lazyEvaluationDesc: 'التحويلات (map، filter، select) لا يتم تنفيذها على الفور. Spark ينشئ خطة تنفيذ ويقوم بتنفيذها فقط عند استدعاء إجراء (show، collect، count).',
             transformationsVsActions: '4. التحويلات مقابل الإجراءات',
             transformationsVsActionsDesc: 'التحويلات تنشئ DataFrames جديدة (filter، select، groupBy). الإجراءات تعيد النتائج أو تخزنها (show، collect، write).',
+            sparkSessionDetailDesc: 'SparkSession هو بوابتك لجميع وظائف Spark. ينشئ DataFrames ويسجل UDFs (وظائف معرفة من المستخدم) وينفذ استعلامات SQL ويقرأ البيانات من مصادر مختلفة (CSV وParquet وJSON وJDBC). في مختبر Docker الخاص بنا، تعمل SparkSession أيضاً كـ Cluster Manager – في الإنتاج، ستتصل بمجموعة خارجية.',
+            rddVsDataFrameDetail: 'RDDs (مجموعات البيانات الموزعة المرنة) كانت بنية البيانات الأصلية في Spark. توفر أقصى قدر من التحكم ولكن تحسين قليل. DataFrames من ناحية أخرى لديها مخطط (أعمدة مع أنواع) وتسمح لـ Spark بتحسين خطة التنفيذ (Catalyst Optimizer). في الممارسة العملية تستخدم دائماً DataFrames تقريباً – فهي أسرع وأكثر قراءة ومتوافقة مع SQL.',
+            lazyEvaluationDetail: 'التقييم الكسول هو مبدأ أساسي: عندما تكتب df.filter(...).select(...).groupBy(...)، لا يحدث شيء في البداية. Spark يبني فقط خطة تنفيذ (DAG = الرسم البياني الموجه غير الدوري). فقط عندما يأتي إجراء مثل .show() أو .count() يقوم Spark بتحسين الخطة بالكامل وتنفيذها دفعة واحدة.',
+            transformationsVsActionsDetail: 'التحويلات هي "وصفات": filter() وselect() وgroupBy() وjoin() وwithColumn(). تنشئ DataFrames جديدة لكنها لا تطلق الحساب. الإجراءات هي "محفزات": show() وcount() وcollect() وwrite(). تبدأ الحساب الفعلي في المجموعة. القاعدة: إذا أعادت الطريقة DataFrame، فهي تحويل. إذا أعادت قيمة أو لا شيء، فهي إجراء.',
             whenToUseSpark: 'متى يتم استخدام Spark؟',
             useCase: 'حالة الاستخدام',
             excellent: '✓ مثالي',
@@ -1123,6 +1180,21 @@
             distributedComputing: 'Розподілені обчислення: Spark працює на кластерах машин і масштабується для обробки великих обсягів даних',
             inMemoryProcessing: 'Обробка в пам\'яті: у 100 разів швидша за Hadoop MapReduce завдяки структурам даних у пам\'яті',
             unifiedFramework: 'Уніфікована платформа: обробка пакетів, SQL, потокової передачі та машинного навчання в одному API',
+            sparkIntro: 'Apache Spark — це фреймворк з відкритим кодом для розподілених обчислень, розроблений в UC Berkeley і тепер є проєктом верхнього рівня Apache Software Foundation. Spark дозволяє обробляти величезні обсяги даних паралельно на кількох машинах (кластері) – до 100 разів швидше, ніж його попередник Hadoop MapReduce, оскільки Spark зберігає дані в оперативній пам\'яті (RAM) замість постійного запису на диск.',
+            sparkWebsite: 'Офіційний сайт проєкту',
+            sparkArchTitle: 'Архітектура: як працює Spark',
+            sparkArchDesc: 'Коли ви запускаєте програму Spark, відбувається наступне: ваш код виконується в програмі Driver. Driver зв\'язується з Cluster Manager (наприклад, YARN, Mesos або Standalone), який керує доступними ресурсами. Cluster Manager призначає процеси Executor на робочих вузлах. Executor\'и виконують фактичні обчислення паралельно та надсилають результати назад до Driver.',
+            sparkArchDiagram: '┌─────────────┐\n│   Driver    │  ← Ваш Python/Spark код\n│  Програма   │\n└──────┬──────┘\n       │\n┌──────▼──────┐\n│   Cluster   │  ← Керує ресурсами\n│   Manager   │    (YARN / Mesos / K8s)\n└──┬───┬───┬──┘\n   │   │   │\n┌──▼┐ ┌▼──┐ ┌▼──┐\n│ E1│ │ E2│ │ E3│  ← Executors\n│   │ │   │ │   │    (паралельні воркери)\n└───┘ └───┘ └───┘',
+            sparkVsPandasTitle: 'Spark проти Pandas – коли мені потрібен Spark?',
+            sparkVsPandasDesc: 'Pandas ідеально підходить для наборів даних, що поміщаються в пам\'ять одного комп\'ютера (зазвичай до ~10 ГБ). Код виконується на одному ядрі CPU. Spark, натомість, автоматично розподіляє роботу між багатьма машинами та ядрами. Коли ваші дані стають занадто великими для одного комп\'ютера або обробка займає занадто довго, Spark — правильний вибір.',
+            sparkVsPandasPandas: 'Pandas: одна машина, до ~10 ГБ, негайне виконання, ідеально для дослідження та прототипування',
+            sparkVsPandasSpark: 'Spark: кластер з багатьох машин, терабайти до петабайтів, ледаче обчислення з оптимізованим планом виконання, ідеально для виробництва та великих даних',
+            sparkComponentsTitle: 'Компоненти екосистеми Spark',
+            sparkComponentsDesc: 'Spark складається з кількох бібліотек, побудованих на одному ядрі:',
+            sparkCompSQL: 'Spark SQL: SQL-запити до структурованих даних – найбільш використовувана частина Spark',
+            sparkCompStreaming: 'Spark Streaming: обробка даних в реальному часі (наприклад, дані сенсорів, потоки логів)',
+            sparkCompMLlib: 'MLlib: бібліотека машинного навчання з алгоритмами класифікації, регресії, кластеризації',
+            sparkCompGraphX: 'GraphX: обробка та аналіз графів (наприклад, соціальні мережі, мережи зв\'язків)',
             estimatedTime: 'Приблизний час:',
             timeValue: '3–4 години для всіх 12 вправ',
             prerequisites: 'Обов\'язкові вимоги:',
@@ -1154,6 +1226,10 @@
             lazyEvaluationDesc: 'Трансформації (map, filter, select) не виконуються негайно. Spark створює план виконання та виконує його лише при виклику дії (show, collect, count).',
             transformationsVsActions: '4. Трансформації проти дій',
             transformationsVsActionsDesc: 'Трансформації створюють нові DataFrame (filter, select, groupBy). Дії повертають результати або зберігають їх (show, collect, write).',
+            sparkSessionDetailDesc: 'SparkSession — це ваш вхід до всіх функцій Spark. Він створює DataFrames, реєструє UDF (User Defined Functions), виконує SQL-запити та читає дані з різних джерел (CSV, Parquet, JSON, JDBC). У нашій Docker-лабораторії SparkSession також виступає як Cluster Manager – у виробництві він підключався б до зовнішнього кластера.',
+            rddVsDataFrameDetail: 'RDD (Resilient Distributed Datasets) були оригінальною структурою даних у Spark. Вони пропонують максимальний контроль, але мало оптимізації. DataFrames, з іншого боку, мають схему (стовпці з типами) і дозволяють Spark оптимізувати план виконання (Catalyst Optimizer). На практиці ви майже завжди використовуєте DataFrames – вони швидші, зрозуміліші та сумісні з SQL.',
+            lazyEvaluationDetail: 'Ледаче обчислення — це основний принцип: коли ви пишете df.filter(...).select(...).groupBy(...), спочатку нічого не відбувається. Spark лише будує план виконання (DAG = спрямований ациклічний граф). Тільки коли з\'являється дія, як-от .show() або .count(), Spark оптимізує весь план і виконує його за один раз.',
+            transformationsVsActionsDetail: 'Трансформації — це "рецепти": filter(), select(), groupBy(), join(), withColumn(). Вони створюють нові DataFrame, але не запускають обчислення. Дії — це "тригери": show(), count(), collect(), write(). Вони запускають фактичне обчислення в кластері. Правило: якщо метод повертає DataFrame, це трансформація. Якщо він повертає значення або нічого, це дія.',
             whenToUseSpark: 'Коли використовувати Spark?',
             useCase: 'Випадок використання',
             excellent: '✓ Ідеально',
@@ -1405,6 +1481,21 @@
             distributedComputing: 'Computación distribuida: Spark funciona en clústeres de máquinas y se escala para manejar grandes volúmenes de datos',
             inMemoryProcessing: 'Procesamiento en memoria: 100 veces más rápido que Hadoop MapReduce a través de estructuras de datos en memoria',
             unifiedFramework: 'Marco de trabajo unificado: procesamiento por lotes, SQL, transmisión y aprendizaje automático en una única interfaz de programación',
+            sparkIntro: 'Apache Spark es un framework de código abierto para computación distribuida, desarrollado en UC Berkeley y actualmente un proyecto de nivel superior de la Apache Software Foundation. Spark permite procesar cantidades masivas de datos en paralelo en múltiples máquinas (un clúster) – hasta 100 veces más rápido que su predecesor Hadoop MapReduce, porque Spark mantiene los datos en memoria (RAM) en lugar de escribir constantemente en disco.',
+            sparkWebsite: 'Sitio web oficial del proyecto',
+            sparkArchTitle: 'Arquitectura: Cómo funciona Spark',
+            sparkArchDesc: 'Cuando ejecuta un programa Spark, sucede lo siguiente: su código se ejecuta en el programa Driver. El Driver contacta al Cluster Manager (por ejemplo, YARN, Mesos o Standalone), que administra los recursos disponibles. El Cluster Manager asigna procesos Executor en los nodos Worker. Los Executors realizan los cálculos reales en paralelo y envían los resultados de vuelta al Driver.',
+            sparkArchDiagram: '┌─────────────┐\n│   Driver    │  ← Su código Python/Spark\n│  Programa   │\n└──────┬──────┘\n       │\n┌──────▼──────┐\n│   Cluster   │  ← Gestiona recursos\n│   Manager   │    (YARN / Mesos / K8s)\n└──┬───┬───┬──┘\n   │   │   │\n┌──▼┐ ┌▼──┐ ┌▼──┐\n│ E1│ │ E2│ │ E3│  ← Executors\n│   │ │   │ │   │    (workers paralelos)\n└───┘ └───┘ └───┘',
+            sparkVsPandasTitle: 'Spark vs. Pandas – ¿Cuándo necesito Spark?',
+            sparkVsPandasDesc: 'Pandas es perfecto para conjuntos de datos que caben en la memoria de una sola máquina (normalmente hasta ~10 GB). El código se ejecuta en un solo núcleo de CPU. Spark, en cambio, distribuye automáticamente el trabajo entre muchas máquinas y núcleos. Cuando los datos son demasiado grandes para una máquina o el procesamiento tarda demasiado, Spark es la opción correcta.',
+            sparkVsPandasPandas: 'Pandas: una sola máquina, hasta ~10 GB, ejecución inmediata, perfecto para exploración y prototipado',
+            sparkVsPandasSpark: 'Spark: clúster de muchas máquinas, terabytes a petabytes, evaluación perezosa con plan de ejecución optimizado, ideal para producción y grandes conjuntos de datos',
+            sparkComponentsTitle: 'Los componentes del ecosistema Spark',
+            sparkComponentsDesc: 'Spark consiste en varias bibliotecas construidas sobre el mismo núcleo:',
+            sparkCompSQL: 'Spark SQL: consultas SQL sobre datos estructurados – la parte más utilizada de Spark',
+            sparkCompStreaming: 'Spark Streaming: procesamiento de datos en tiempo real (por ejemplo, datos de sensores, flujos de logs)',
+            sparkCompMLlib: 'MLlib: biblioteca de aprendizaje automático con algoritmos de clasificación, regresión, agrupación',
+            sparkCompGraphX: 'GraphX: procesamiento y análisis de grafos (por ejemplo, redes sociales, redes de relaciones)',
             estimatedTime: 'Tiempo estimado:',
             timeValue: '3–4 horas para los 12 ejercicios',
             prerequisites: 'Requisitos previos:',
@@ -1436,6 +1527,10 @@
             lazyEvaluationDesc: 'Las transformaciones (map, filter, select) no se ejecutan inmediatamente. Spark crea un plan de ejecución y lo ejecuta solo cuando se invoca una acción (show, collect, count).',
             transformationsVsActions: '4. Transformaciones frente a acciones',
             transformationsVsActionsDesc: 'Las transformaciones crean nuevos DataFrames (filter, select, groupBy). Las acciones devuelven resultados o los almacenan (show, collect, write).',
+            sparkSessionDetailDesc: 'SparkSession es su puerta de acceso a todas las funciones de Spark. Crea DataFrames, registra UDFs (Funciones Definidas por el Usuario), ejecuta consultas SQL y lee datos de diversas fuentes (CSV, Parquet, JSON, JDBC). En nuestro laboratorio Docker, la SparkSession también actúa como el Cluster Manager – en producción, se conectaría a un clúster externo.',
+            rddVsDataFrameDetail: 'Los RDD (Resilient Distributed Datasets) fueron la estructura de datos original en Spark. Ofrecen máximo control pero poca optimización. Los DataFrames, en cambio, tienen un esquema (columnas con tipos) y permiten que Spark optimice el plan de ejecución (Catalyst Optimizer). En la práctica, casi siempre se usan DataFrames – son más rápidos, legibles y compatibles con SQL.',
+            lazyEvaluationDetail: 'La evaluación perezosa es un principio central: cuando escribe df.filter(...).select(...).groupBy(...), no sucede nada al principio. Spark solo construye un plan de ejecución (DAG = Grafo Acíclico Dirigido). Solo cuando llega una acción como .show() o .count(), Spark optimiza todo el plan y lo ejecuta de una vez. Esto permite optimizaciones masivas que no serían posibles con ejecución inmediata.',
+            transformationsVsActionsDetail: 'Las transformaciones son "recetas": filter(), select(), groupBy(), join(), withColumn(). Crean nuevos DataFrames pero no desencadenan cálculos. Las acciones son "disparadores": show(), count(), collect(), write(). Inician el cálculo real en el clúster. Regla general: si un método devuelve un DataFrame, es una transformación. Si devuelve un valor o nada, es una acción.',
             whenToUseSpark: '¿Cuándo usar Spark?',
             useCase: 'Caso de uso',
             excellent: '✓ Ideal',
@@ -1687,6 +1782,21 @@
             distributedComputing: 'Dağıtılmış Hesaplama: Spark, makine kümelerinde çalışır ve büyük veri miktarlarını işlemek için ölçeklenebilir',
             inMemoryProcessing: 'Bellek İçi İşleme: Bellek veri yapıları aracılığıyla Hadoop MapReduce\'den 100 kat daha hızlı',
             unifiedFramework: 'Birleştirilmiş Çerçeve: Toplu işleme, SQL, akışlama ve makine öğrenmesini tek bir API\'de işleme',
+            sparkIntro: 'Apache Spark, UC Berkeley\'de geliştirilen ve şu anda Apache Software Foundation\'ın üst düzey bir projesi olan açık kaynaklı dağıtılmış hesaplama çerçevesidir. Spark, büyük veri kümelerini birden fazla makinede (küme) paralel olarak işlemeyi sağlar – önceli Hadoop MapReduce\'den 100 kata kadar daha hızlı, çünkü Spark verileri sürekli diske yazmak yerine bellekte (RAM) tutar.',
+            sparkWebsite: 'Resmi Proje Web Sitesi',
+            sparkArchTitle: 'Mimari: Spark Nasıl Çalışır',
+            sparkArchDesc: 'Bir Spark programı çalıştırdığınızda şunlar olur: Kodunuz Driver programında çalışır. Driver, kullanılabilir kaynakları yöneten Cluster Manager\'a (örn. YARN, Mesos veya Standalone) bağlanır. Cluster Manager, Worker düğümlerinde Executor süreçleri atar. Executor\'lar gerçek hesaplamaları paralel olarak gerçekleştirir ve sonuçları Driver\'a geri gönderir.',
+            sparkArchDiagram: '┌─────────────┐\n│   Driver    │  ← Python/Spark kodunuz\n│  Programı   │\n└──────┬──────┘\n       │\n┌──────▼──────┐\n│   Cluster   │  ← Kaynakları yönetir\n│   Manager   │    (YARN / Mesos / K8s)\n└──┬───┬───┬──┘\n   │   │   │\n┌──▼┐ ┌▼──┐ ┌▼──┐\n│ E1│ │ E2│ │ E3│  ← Executors\n│   │ │   │ │   │    (paralel işçiler)\n└───┘ └───┘ └───┘',
+            sparkVsPandasTitle: 'Spark vs. Pandas – Spark\'a Ne Zaman İhtiyacım Var?',
+            sparkVsPandasDesc: 'Pandas, tek bir makinenin belleğine sığan veri setleri için mükemmeldir (genellikle ~10 GB\'a kadar). Kod tek bir CPU çekirdeğinde çalışır. Öte yandan Spark, işi otomatik olarak birçok makine ve çekirdeğe dağıtır. Verileriniz tek bir makine için çok büyük olduğunda veya işlem çok uzun sürdüğünde, Spark doğru tercihtir.',
+            sparkVsPandasPandas: 'Pandas: tek makine, ~10 GB\'a kadar, anında yürütme, keşif ve prototipleme için mükemmel',
+            sparkVsPandasSpark: 'Spark: çok makineli küme, terabaytlardan petabaytlara, optimize edilmiş yürütme planıyla tembel değerlendirme, üretim ve büyük veri setleri için ideal',
+            sparkComponentsTitle: 'Spark Ekosistem Bileşenleri',
+            sparkComponentsDesc: 'Spark, aynı çekirdek üzerine kurulmuş birkaç kütüphaneden oluşur:',
+            sparkCompSQL: 'Spark SQL: yapılandırılmış veriler üzerinde SQL sorguları – Spark\'ın en çok kullanılan bölümü',
+            sparkCompStreaming: 'Spark Streaming: gerçek zamanlı veri işleme (örn. sensör verileri, log akışları)',
+            sparkCompMLlib: 'MLlib: sınıflandırma, regresyon, kümeleme algoritmaları içeren makine öğrenmesi kütüphanesi',
+            sparkCompGraphX: 'GraphX: graf işleme ve analizi (örn. sosyal ağlar, ilişki ağları)',
             estimatedTime: 'Tahmini Zaman:',
             timeValue: 'Tüm 12 alıştırma için 3–4 saat',
             prerequisites: 'Ön Koşullar:',
@@ -1718,6 +1828,10 @@
             lazyEvaluationDesc: 'Dönüşümler (map, filter, select) hemen yürütülmez. Spark bir yürütme planı oluşturur ve bunu yalnızca bir eylem (show, collect, count) çağrıldığında yürütür.',
             transformationsVsActions: '4. Dönüşümler Karşısında Eylemler',
             transformationsVsActionsDesc: 'Dönüşümler yeni DataFrame\'ler oluşturur (filter, select, groupBy). Eylemler sonuçları döndürür veya depolar (show, collect, write).',
+            sparkSessionDetailDesc: 'SparkSession, tüm Spark işlevlerine açılan kapınızdır. DataFrames oluşturur, UDF\'ler (Kullanıcı Tanımlı Fonksiyonlar) kaydeder, SQL sorguları yürütür ve çeşitli kaynaklardan veri okur (CSV, Parquet, JSON, JDBC). Docker laboratuvarımızda SparkSession aynı zamanda Cluster Manager olarak da görev yapar – üretimde harici bir kümeye bağlanır.',
+            rddVsDataFrameDetail: 'RDD\'ler (Dayanıklı Dağıtılmış Veri Kümeleri) Spark\'taki orijinal veri yapısıydı. Maksimum kontrol sunarlar ancak az optimizasyon sağlarlar. DataFrame\'ler ise bir şemaya (türlerle sütunlar) sahiptir ve Spark\'ın yürütme planını optimize etmesine olanak tanır (Catalyst Optimizer). Uygulamada neredeyse her zaman DataFrame\'leri kullanırsınız – daha hızlı, daha okunabilir ve SQL uyumludurlar.',
+            lazyEvaluationDetail: 'Tembel Değerlendirme temel bir ilkedir: df.filter(...).select(...).groupBy(...) yazdığınızda başlangıçta hiçbir şey olmaz. Spark yalnızca bir yürütme planı oluşturur (DAG = Yönlendirilmiş Döngüsüz Grafik). Ancak .show() veya .count() gibi bir eylem geldiğinde, Spark tüm planı optimize eder ve tek seferde yürütür.',
+            transformationsVsActionsDetail: 'Dönüşümler "tariflerdir": filter(), select(), groupBy(), join(), withColumn(). Yeni DataFrame\'ler oluştururlar ancak hesaplamayı tetiklemezler. Eylemler "tetikleyicilerdir": show(), count(), collect(), write(). Kümedeki gerçek hesaplamayı başlatırlar. Kural: bir yöntem DataFrame döndürüyorsa, dönüşümdür. Bir değer veya hiçbir şey döndürüyorsa, eylemdir.',
             whenToUseSpark: 'Spark ne zaman kullanılmalıdır?',
             useCase: 'Kullanım Durumu',
             excellent: '✓ İdeal',
@@ -2009,13 +2123,47 @@
 
                             <h2 className="subsection-header">{t.sparkIs}</h2>
                             <div className="card">
-                                <p><strong>1. {t.distributedComputing}</strong></p>
+                                <p style={{lineHeight: 1.75, marginBottom: '1rem'}}>{t.sparkIntro}</p>
+                                <a href="https://spark.apache.org/" target="_blank" rel="noopener noreferrer" style={{color: '#E8792F', fontWeight: 700, textDecoration: 'none'}}>
+                                    🌐 {t.sparkWebsite} →
+                                </a>
+                            </div>
+                            <div className="card" style={{marginTop: '0.5rem'}}>
+                                <p><strong>1.</strong> {t.distributedComputing}</p>
                             </div>
                             <div className="card">
-                                <p><strong>2. {t.inMemoryProcessing}</strong></p>
+                                <p><strong>2.</strong> {t.inMemoryProcessing}</p>
                             </div>
                             <div className="card">
-                                <p><strong>3. {t.unifiedFramework}</strong></p>
+                                <p><strong>3.</strong> {t.unifiedFramework}</p>
+                            </div>
+
+                            <h2 className="subsection-header">{t.sparkArchTitle}</h2>
+                            <p style={{marginBottom: '1rem'}}>{t.sparkArchDesc}</p>
+                            <div className="code-block" style={{borderLeftColor: '#1B3A5C'}}>
+                                <code style={{color: '#93c5fd', fontSize: '0.8rem', lineHeight: 1.6}}>{t.sparkArchDiagram}</code>
+                            </div>
+
+                            <h2 className="subsection-header">{t.sparkVsPandasTitle}</h2>
+                            <p style={{marginBottom: '1rem'}}>{t.sparkVsPandasDesc}</p>
+                            <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1rem'}}>
+                                <div className="card" style={{borderTop: '3px solid #306998'}}>
+                                    <h4 style={{color: '#306998', marginBottom: '0.5rem'}}>🐼 Pandas</h4>
+                                    <p>{t.sparkVsPandasPandas}</p>
+                                </div>
+                                <div className="card" style={{borderTop: '3px solid #E8792F'}}>
+                                    <h4 style={{color: '#E8792F', marginBottom: '0.5rem'}}>⚡ Apache Spark</h4>
+                                    <p>{t.sparkVsPandasSpark}</p>
+                                </div>
+                            </div>
+
+                            <h2 className="subsection-header">{t.sparkComponentsTitle}</h2>
+                            <p style={{marginBottom: '0.75rem'}}>{t.sparkComponentsDesc}</p>
+                            <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '0.75rem'}}>
+                                <div className="card"><p><strong>📊 {t.sparkCompSQL}</strong></p></div>
+                                <div className="card"><p><strong>📡 {t.sparkCompStreaming}</strong></p></div>
+                                <div className="card"><p><strong>🤖 {t.sparkCompMLlib}</strong></p></div>
+                                <div className="card"><p><strong>🔗 {t.sparkCompGraphX}</strong></p></div>
                             </div>
 
                             <h2 className="subsection-header">{t.estimatedTime}</h2>
@@ -2091,6 +2239,7 @@
 
                             <h2 className="subsection-header">{t.whatIsSparkSession}</h2>
                             <p>{t.sparkSessionDesc}</p>
+                            <p style={{color: '#4b5563', marginTop: '0.5rem', lineHeight: 1.75}}>{t.sparkSessionDetailDesc}</p>
                             <div className="code-block">
                                 <button className="copy-btn" onClick={() => copyToClipboard(t.sparkSessionExample)}>{t.copy}</button>
                                 <code>{t.sparkSessionExample}</code>
@@ -2098,12 +2247,15 @@
 
                             <h2 className="subsection-header">{t.rddVsDataFrame}</h2>
                             <p>{t.rddVsDataFrameDesc}</p>
+                            <p style={{color: '#4b5563', marginTop: '0.5rem', lineHeight: 1.75}}>{t.rddVsDataFrameDetail}</p>
 
                             <h2 className="subsection-header">{t.lazyEvaluation}</h2>
                             <p>{t.lazyEvaluationDesc}</p>
+                            <p style={{color: '#4b5563', marginTop: '0.5rem', lineHeight: 1.75}}>{t.lazyEvaluationDetail}</p>
 
                             <h2 className="subsection-header">{t.transformationsVsActions}</h2>
                             <p>{t.transformationsVsActionsDesc}</p>
+                            <p style={{color: '#4b5563', marginTop: '0.5rem', lineHeight: 1.75}}>{t.transformationsVsActionsDetail}</p>
 
                             <h2 className="subsection-header">{t.whenToUseSpark}</h2>
                             <table style={{width: '100%', borderCollapse: 'collapse', marginTop: '1rem'}}>
