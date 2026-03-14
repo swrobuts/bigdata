@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Docker Anfängerleitfaden - Big Data Lab</title>
+    <title>Docker Guide - Big Data Lab THWS</title>
     <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -451,7 +451,7 @@
                 solutionNotStarting: "Überprüfe, ob Virtualisierung im BIOS aktiviert ist. Unter Windows: WSL2 aktivieren. Neustart versuchen.",
 
                 problemPort: "Port already in use",
-                solutionPort: "Ein anderes Programm verwendet den Port. Beende das Programm oder ändere den Port in docker-compose.yml",
+                solutionPort: "Ein anderes Programm verwendet den Port. Beende das Programm oder ändere den Port in docker-compose.yml. Hinweis: DuckDB und Spark nutzen beide Port 8888 – bitte immer nur eines der beiden Labs gleichzeitig starten.",
 
                 problemDisk: "Out of disk space",
                 solutionDisk: "Stoppe und entferne die Kurs-Container, um Speicher freizugeben:",
@@ -591,7 +591,7 @@
                 solutionNotStarting: "Check if virtualization is enabled in BIOS. On Windows: enable WSL2. Try restarting.",
 
                 problemPort: "Port already in use",
-                solutionPort: "Another program is using the port. Stop that program or change the port in docker-compose.yml",
+                solutionPort: "Another program is using the port. Stop that program or change the port in docker-compose.yml. Note: DuckDB and Spark both use port 8888 – please only run one of these labs at a time.",
 
                 problemDisk: "Out of disk space",
                 solutionDisk: "Stop and remove the course containers to free up space:",
@@ -731,7 +731,7 @@
                 solutionNotStarting: "تحقق من تفعيل المحاكاة الافتراضية في BIOS. على Windows: تفعيل WSL2. جرب إعادة التشغيل.",
 
                 problemPort: "المنفذ قيد الاستخدام بالفعل",
-                solutionPort: "برنامج آخر يستخدم المنفذ. أيقف هذا البرنامج أو غيّر المنفذ في docker-compose.yml",
+                solutionPort: "برنامج آخر يستخدم المنفذ. أيقف هذا البرنامج أو غيّر المنفذ في docker-compose.yml. ملاحظة: DuckDB و Spark يستخدمان المنفذ 8888 – يرجى تشغيل واحد فقط في وقت واحد.",
 
                 problemDisk: "انتهت مساحة القرص",
                 solutionDisk: "أوقف وأزل حاويات الكورس لتحرير المساحة:",
@@ -871,7 +871,7 @@
                 solutionNotStarting: "Перевірте, чи ввімкнена віртуалізація в BIOS. На Windows: ввімкніть WSL2. Спробуйте перезавантажити.",
 
                 problemPort: "Порт уже використовується",
-                solutionPort: "Інша програма використовує порт. Зупиніть цю програму або змініть порт у docker-compose.yml",
+                solutionPort: "Інша програма використовує порт. Зупиніть цю програму або змініть порт у docker-compose.yml. Примітка: DuckDB та Spark використовують порт 8888 – запускайте лише один з них одночасно.",
 
                 problemDisk: "Недостатньо місця на диску",
                 solutionDisk: "Зупиніть та видаліть контейнери курсу, щоб звільнити місце:",
@@ -1011,7 +1011,7 @@
                 solutionNotStarting: "Verifica si la virtualización está habilitada en BIOS. En Windows: habilita WSL2. Intenta reiniciar.",
 
                 problemPort: "El puerto ya está en uso",
-                solutionPort: "Otro programa está usando el puerto. Detén ese programa o cambia el puerto en docker-compose.yml",
+                solutionPort: "Otro programa está usando el puerto. Detén ese programa o cambia el puerto en docker-compose.yml. Nota: DuckDB y Spark comparten el puerto 8888 – ejecute solo uno a la vez.",
 
                 problemDisk: "Espacio en disco agotado",
                 solutionDisk: "Detén y elimina los contenedores del curso para liberar espacio:",
@@ -1151,7 +1151,7 @@
                 solutionNotStarting: "BIOS'ta sanallaştırmanın etkin olup olmadığını kontrol edin. Windows'ta: WSL2'yi etkinleştirin. Yeniden başlatmayı deneyin.",
 
                 problemPort: "Port zaten kullanımda",
-                solutionPort: "Başka bir program portu kullanıyor. Bu programı durdurun veya docker-compose.yml dosyasında portu değiştirin",
+                solutionPort: "Başka bir program portu kullanıyor. Bu programı durdurun veya docker-compose.yml dosyasında portu değiştirin. Not: DuckDB ve Spark aynı 8888 portunu kullanır – lütfen aynı anda yalnızca birini çalıştırın.",
 
                 problemDisk: "Disk alanı tükendi",
                 solutionDisk: "Kurs kapsayıcılarını durdurup kaldırarak alan açın:",
@@ -1466,7 +1466,7 @@
                                     number="3"
                                     title={t.labStep3Title}
                                     description={t.labStep3Desc}
-                                    code="python3 -m venv venv && source venv/bin/activate && pip install faker pandas pyarrow && python data/generate_megastore_data.py"
+                                    code="python3 -m venv venv && source venv/bin/activate && pip install numpy pandas pyarrow && python data/generate_megastore_data.py"
                                     codeId="cmd-data"
                                 />
                                 <StepItem

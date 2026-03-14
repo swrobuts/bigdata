@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Apache Spark Lab - Big Data Course</title>
+    <title>Apache Spark Lab - Big Data Lab THWS</title>
     <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -272,7 +272,7 @@
                 exercise4: "Übung 4: Sortieren & Begrenzen",
                 exercise5: "Übung 5: Aggregationen",
                 exercise6: "Übung 6: MegaStore-Analyse",
-                challenge: "Challenge: Churn-Prediction",
+                challenge: "Challenge: RFM-Analyse",
                 quiz: "Wissenstest",
                 outlook: "Ausblick & KI",
                 troubleshooting: "Fehlerbehebung",
@@ -382,7 +382,7 @@
                 ex5Hint: "Verwenden Sie groupBy(\"country\").count() und orderBy()",
                 ex5Solution: "df.groupBy(\"country\").count().orderBy(\"count\", ascending=False).show()",
                 ex6Objective: "Zwei Tabellen verbinden und Umsatz berechnen",
-                ex6Code: "# Beide CSV-Dateien laden\ncustomers = spark.read.csv(\"/home/jovyan/data/customers.csv\", header=True, inferSchema=True)\norders = spark.read.csv(\"/home/jovyan/data/orders.csv\", header=True, inferSchema=True)\n\n# Kunden mit Bestellungen verbinden (ähnlich SQL JOIN)\ndf_joined = customers.join(orders, \"customer_id\")\n\n# Umsatz pro Kunde\nfrom pyspark.sql.functions import sum\ndf_joined.groupBy(\"name\").agg(\n    sum(\"order_total\").alias(\"gesamtumsatz\")\n).orderBy(\"gesamtumsatz\", ascending=False).show(5)",
+                ex6Code: "# Beide CSV-Dateien laden\ncustomers = spark.read.csv(\"/home/jovyan/data/customers.csv\", header=True, inferSchema=True)\norders = spark.read.csv(\"/home/jovyan/data/orders.csv\", header=True, inferSchema=True)\n\n# Kunden mit Bestellungen verbinden (ähnlich SQL JOIN)\ndf_joined = customers.join(orders, \"customer_id\")\n\n# Umsatz pro Kunde\nfrom pyspark.sql.functions import sum\ndf_joined.groupBy(\"name\").agg(\n    sum(\"total_amount\").alias(\"gesamtumsatz\")\n).orderBy(\"gesamtumsatz\", ascending=False).show(5)",
                 ex6Output: "name | gesamtumsatz\nJohn Doe | 25000\nMaria Garcia | 18500\nAnna Schmidt | 12300\nPeter Mueller | 8900",
                 ex6Explain: "spark.read.csv(): Zweite Datei laden\njoin(other, key): Verbindet zwei DataFrames über gemeinsame Spalte\ngroupBy(): Gruppiert Daten\nagg(sum()): Summiert Wert pro Gruppe\nalias(): Umbenennung der Resultat-Spalte",
                 ex6Practice: "Laden Sie order_items.csv und joinen Sie mit products.csv nach product_id. Berechnen Sie Umsatz pro Kategorie.",
@@ -446,7 +446,7 @@
                 challengeStep5: "Zeigen Sie die Top-10 Kunden nach Umsatz",
                 challengeStep6: "Optional: Erstellen Sie ein Segment 'High-Value' für Kunden mit Umsatz > 10000$",
                 challengeHint: "Hinweis: Verwenden Sie groupBy(), agg() mit count() und sum(), und orderBy() mit limit()",
-                challengeSolution: "from pyspark.sql.functions import count, sum, when\n\n# Beide Dateien laden\ncustomers = spark.read.csv(\"/home/jovyan/data/customers.csv\", header=True, inferSchema=True)\norders = spark.read.csv(\"/home/jovyan/data/orders.csv\", header=True, inferSchema=True)\n\n# RFM Berechnung\ndf_rfm = customers.join(orders, \"customer_id\") \\\n    .groupBy(\"customer_id\", \"name\") \\\n    .agg(\n        count(\"order_id\").alias(\"frequency\"),\n        sum(\"order_total\").alias(\"monetary\")\n    )\n\n# Top-10 Kunden nach Umsatz\ndf_rfm.orderBy(\"monetary\", ascending=False).limit(10).show()\n\n# Optional: High-Value Segmentierung\ndf_rfm_segment = df_rfm.withColumn(\"segment\",\n    when(col(\"monetary\") > 10000, \"High-Value\").otherwise(\"Standard\")\n)\ndf_rfm_segment.filter(col(\"segment\") == \"High-Value\").show()",
+                challengeSolution: "from pyspark.sql.functions import count, sum, when\n\n# Beide Dateien laden\ncustomers = spark.read.csv(\"/home/jovyan/data/customers.csv\", header=True, inferSchema=True)\norders = spark.read.csv(\"/home/jovyan/data/orders.csv\", header=True, inferSchema=True)\n\n# RFM Berechnung\ndf_rfm = customers.join(orders, \"customer_id\") \\\n    .groupBy(\"customer_id\", \"name\") \\\n    .agg(\n        count(\"order_id\").alias(\"frequency\"),\n        sum(\"total_amount\").alias(\"monetary\")\n    )\n\n# Top-10 Kunden nach Umsatz\ndf_rfm.orderBy(\"monetary\", ascending=False).limit(10).show()\n\n# Optional: High-Value Segmentierung\ndf_rfm_segment = df_rfm.withColumn(\"segment\",\n    when(col(\"monetary\") > 10000, \"High-Value\").otherwise(\"Standard\")\n)\ndf_rfm_segment.filter(col(\"segment\") == \"High-Value\").show()",
                 challengeExpected: "Top 10 Customers:\ncustomer_id | name | frequency | monetary\n45 | John Doe | 12 | 45000\n67 | Maria Garcia | 8 | 32000",
                 quizTitle: "Wissenstest: Apache Spark",
                 quizDesc: "Testen Sie Ihr Verständnis von Spark mit diesen 6 Fragen:",
@@ -538,7 +538,7 @@
                 exercise4: "Exercise 4: Sorting & Limiting",
                 exercise5: "Exercise 5: Aggregations",
                 exercise6: "Exercise 6: MegaStore Analysis",
-                challenge: "Challenge: Churn Prediction",
+                challenge: "Challenge: RFM Analysis",
                 quiz: "Knowledge Test",
                 outlook: "Outlook & AI",
                 troubleshooting: "Troubleshooting",
@@ -648,7 +648,7 @@
                 ex5Hint: "Use groupBy(\"country\").count() and orderBy()",
                 ex5Solution: "df.groupBy(\"country\").count().orderBy(\"count\", ascending=False).show()",
                 ex6Objective: "Join two tables and calculate revenue",
-                ex6Code: "# Load both CSV files\ncustomers = spark.read.csv(\"/home/jovyan/data/customers.csv\", header=True, inferSchema=True)\norders = spark.read.csv(\"/home/jovyan/data/orders.csv\", header=True, inferSchema=True)\n\n# Join customers with orders (similar to SQL JOIN)\ndf_joined = customers.join(orders, \"customer_id\")\n\n# Revenue per customer\nfrom pyspark.sql.functions import sum\ndf_joined.groupBy(\"name\").agg(\n    sum(\"order_total\").alias(\"total_revenue\")\n).orderBy(\"total_revenue\", ascending=False).show(5)",
+                ex6Code: "# Load both CSV files\ncustomers = spark.read.csv(\"/home/jovyan/data/customers.csv\", header=True, inferSchema=True)\norders = spark.read.csv(\"/home/jovyan/data/orders.csv\", header=True, inferSchema=True)\n\n# Join customers with orders (similar to SQL JOIN)\ndf_joined = customers.join(orders, \"customer_id\")\n\n# Revenue per customer\nfrom pyspark.sql.functions import sum\ndf_joined.groupBy(\"name\").agg(\n    sum(\"total_amount\").alias(\"total_revenue\")\n).orderBy(\"total_revenue\", ascending=False).show(5)",
                 ex6Output: "name | total_revenue\nJohn Doe | 25000\nMaria Garcia | 18500\nAnna Schmidt | 12300\nPeter Mueller | 8900",
                 ex6Explain: "spark.read.csv(): Load second file\njoin(other, key): Combine two DataFrames on shared column\ngroupBy(): Group data\nagg(sum()): Sum values per group\nalias(): Rename result column",
                 ex6Practice: "Load order_items.csv and join with products.csv on product_id. Calculate revenue per category.",
@@ -712,7 +712,7 @@
                 challengeStep5: "Show the top 10 customers by revenue",
                 challengeStep6: "Optional: Create a 'High-Value' segment for customers with revenue > 10000$",
                 challengeHint: "Hint: Use groupBy(), agg() with count() and sum(), and orderBy() with limit()",
-                challengeSolution: "from pyspark.sql.functions import count, sum, when\n\n# Load both files\ncustomers = spark.read.csv(\"/home/jovyan/data/customers.csv\", header=True, inferSchema=True)\norders = spark.read.csv(\"/home/jovyan/data/orders.csv\", header=True, inferSchema=True)\n\n# RFM calculation\ndf_rfm = customers.join(orders, \"customer_id\") \\\n    .groupBy(\"customer_id\", \"name\") \\\n    .agg(\n        count(\"order_id\").alias(\"frequency\"),\n        sum(\"order_total\").alias(\"monetary\")\n    )\n\n# Top 10 customers by revenue\ndf_rfm.orderBy(\"monetary\", ascending=False).limit(10).show()\n\n# Optional: High-Value segmentation\ndf_rfm_segment = df_rfm.withColumn(\"segment\",\n    when(col(\"monetary\") > 10000, \"High-Value\").otherwise(\"Standard\")\n)\ndf_rfm_segment.filter(col(\"segment\") == \"High-Value\").show()",
+                challengeSolution: "from pyspark.sql.functions import count, sum, when\n\n# Load both files\ncustomers = spark.read.csv(\"/home/jovyan/data/customers.csv\", header=True, inferSchema=True)\norders = spark.read.csv(\"/home/jovyan/data/orders.csv\", header=True, inferSchema=True)\n\n# RFM calculation\ndf_rfm = customers.join(orders, \"customer_id\") \\\n    .groupBy(\"customer_id\", \"name\") \\\n    .agg(\n        count(\"order_id\").alias(\"frequency\"),\n        sum(\"total_amount\").alias(\"monetary\")\n    )\n\n# Top 10 customers by revenue\ndf_rfm.orderBy(\"monetary\", ascending=False).limit(10).show()\n\n# Optional: High-Value segmentation\ndf_rfm_segment = df_rfm.withColumn(\"segment\",\n    when(col(\"monetary\") > 10000, \"High-Value\").otherwise(\"Standard\")\n)\ndf_rfm_segment.filter(col(\"segment\") == \"High-Value\").show()",
                 challengeExpected: "Top 10 Customers:\ncustomer_id | name | frequency | monetary\n45 | John Doe | 12 | 45000",
                 quizTitle: "Knowledge Test: Apache Spark",
                 quizDesc: "Test your understanding of Spark with these 6 questions:",
@@ -820,7 +820,7 @@
             exercise4: 'تمرين 4',
             exercise5: 'تمرين 5',
             exercise6: 'تمرين 6',
-            challenge: 'التحدي',
+            challenge: 'التحدي: تحليل RFM',
             quiz: 'الاختبار',
             outlook: 'الآفاق',
             troubleshooting: 'استكشاف الأخطاء',
@@ -930,7 +930,7 @@
             ex5Hint: 'استخدم groupBy(\"country\").count() و orderBy()',
             ex5Solution: 'df.groupBy(\"country\").count().orderBy(\"count\", ascending=False).show()',
             ex6Objective: 'ربط جدولين معاً وحساب الإيرادات',
-            ex6Code: '# Beide CSV-Dateien laden\ncustomers = spark.read.csv(\"/home/jovyan/data/customers.csv\", header=True, inferSchema=True)\norders = spark.read.csv(\"/home/jovyan/data/orders.csv\", header=True, inferSchema=True)\n\n# Kunden mit Bestellungen verbinden (ähnlich SQL JOIN)\ndf_joined = customers.join(orders, \"customer_id\")\n\n# Umsatz pro Kunde\nfrom pyspark.sql.functions import sum\ndf_joined.groupBy(\"name\").agg(\n    sum(\"order_total\").alias(\"gesamtumsatz\")\n).orderBy(\"gesamtumsatz\", ascending=False).show(5)',
+            ex6Code: '# Beide CSV-Dateien laden\ncustomers = spark.read.csv(\"/home/jovyan/data/customers.csv\", header=True, inferSchema=True)\norders = spark.read.csv(\"/home/jovyan/data/orders.csv\", header=True, inferSchema=True)\n\n# Kunden mit Bestellungen verbinden (ähnlich SQL JOIN)\ndf_joined = customers.join(orders, \"customer_id\")\n\n# Umsatz pro Kunde\nfrom pyspark.sql.functions import sum\ndf_joined.groupBy(\"name\").agg(\n    sum(\"total_amount\").alias(\"gesamtumsatz\")\n).orderBy(\"gesamtumsatz\", ascending=False).show(5)',
             ex6Output: 'name | gesamtumsatz\nJohn Doe | 25000\nMaria Garcia | 18500\nAnna Schmidt | 12300\nPeter Mueller | 8900',
             ex6Explain: 'spark.read.csv(): تحميل الملف الثاني\njoin(other, key): يربط إطاري البيانات عبر العمود المشترك\ngroupBy(): يجمّع البيانات\nagg(sum()): يجمع القيمة لكل مجموعة\nalias(): إعادة تسمية عمود النتيجة',
             ex6Practice: 'حمّل order_items.csv وربطه مع products.csv حسب product_id. احسب الإيرادات لكل فئة.',
@@ -994,7 +994,7 @@
             challengeStep5: 'اعرض أفضل 10 عملاء حسب الإيراد',
             challengeStep6: 'اختياري: قم بإنشاء فئة \'High-Value\' للعملاء الذين يتجاوز إيرادهم 10000$',
             challengeHint: 'تلميح: استخدم groupBy() و agg() مع count() و sum()، و orderBy() مع limit()',
-            challengeSolution: 'from pyspark.sql.functions import count, sum, when\n\n# Beide Dateien laden\ncustomers = spark.read.csv(\"/home/jovyan/data/customers.csv\", header=True, inferSchema=True)\norders = spark.read.csv(\"/home/jovyan/data/orders.csv\", header=True, inferSchema=True)\n\n# RFM Berechnung\ndf_rfm = customers.join(orders, \"customer_id\") \\\n    .groupBy(\"customer_id\", \"name\") \\\n    .agg(\n        count(\"order_id\").alias(\"frequency\"),\n        sum(\"order_total\").alias(\"monetary\")\n    )\n\n# Top-10 Kunden nach Umsatz\ndf_rfm.orderBy(\"monetary\", ascending=False).limit(10).show()\n\n# Optional: High-Value Segmentierung\ndf_rfm_segment = df_rfm.withColumn(\"segment\",\n    when(col(\"monetary\") > 10000, \"High-Value\").otherwise(\"Standard\")\n)\ndf_rfm_segment.filter(col(\"segment\") == \"High-Value\").show()',
+            challengeSolution: 'from pyspark.sql.functions import count, sum, when\n\n# Beide Dateien laden\ncustomers = spark.read.csv(\"/home/jovyan/data/customers.csv\", header=True, inferSchema=True)\norders = spark.read.csv(\"/home/jovyan/data/orders.csv\", header=True, inferSchema=True)\n\n# RFM Berechnung\ndf_rfm = customers.join(orders, \"customer_id\") \\\n    .groupBy(\"customer_id\", \"name\") \\\n    .agg(\n        count(\"order_id\").alias(\"frequency\"),\n        sum(\"total_amount\").alias(\"monetary\")\n    )\n\n# Top-10 Kunden nach Umsatz\ndf_rfm.orderBy(\"monetary\", ascending=False).limit(10).show()\n\n# Optional: High-Value Segmentierung\ndf_rfm_segment = df_rfm.withColumn(\"segment\",\n    when(col(\"monetary\") > 10000, \"High-Value\").otherwise(\"Standard\")\n)\ndf_rfm_segment.filter(col(\"segment\") == \"High-Value\").show()',
             challengeExpected: 'أفضل 10 عملاء:\ncustomer_id | name | frequency | monetary\n45 | John Doe | 12 | 45000\n67 | Maria Garcia | 8 | 32000',
             quizTitle: 'اختبار المعرفة: Apache Spark',
             quizDesc: 'اختبر فهمك لـ Spark من خلال هذه الأسئلة الستة:',
@@ -1102,7 +1102,7 @@
             exercise4: 'Завдання 4',
             exercise5: 'Завдання 5',
             exercise6: 'Завдання 6',
-            challenge: 'Виклик',
+            challenge: 'Виклик: аналіз RFM',
             quiz: 'Тест',
             outlook: 'Перспективи',
             troubleshooting: 'Усунення проблем',
@@ -1212,7 +1212,7 @@
             ex5Hint: 'Використайте groupBy(\"country\").count() та orderBy()',
             ex5Solution: 'df.groupBy(\"country\").count().orderBy(\"count\", ascending=False).show()',
             ex6Objective: 'Пов\'язати два таблиці та розрахувати дохід',
-            ex6Code: '# Завантажити обидва CSV-файли\ncustomers = spark.read.csv(\"/home/jovyan/data/customers.csv\", header=True, inferSchema=True)\norders = spark.read.csv(\"/home/jovyan/data/orders.csv\", header=True, inferSchema=True)\n\n# Пов\'язати клієнтів з замовленнями (аналогічно SQL JOIN)\ndf_joined = customers.join(orders, \"customer_id\")\n\n# Дохід на клієнта\nfrom pyspark.sql.functions import sum\ndf_joined.groupBy(\"name\").agg(\n    sum(\"order_total\").alias(\"gesamtumsatz\")\n).orderBy(\"gesamtumsatz\", ascending=False).show(5)',
+            ex6Code: '# Завантажити обидва CSV-файли\ncustomers = spark.read.csv(\"/home/jovyan/data/customers.csv\", header=True, inferSchema=True)\norders = spark.read.csv(\"/home/jovyan/data/orders.csv\", header=True, inferSchema=True)\n\n# Пов\'язати клієнтів з замовленнями (аналогічно SQL JOIN)\ndf_joined = customers.join(orders, \"customer_id\")\n\n# Дохід на клієнта\nfrom pyspark.sql.functions import sum\ndf_joined.groupBy(\"name\").agg(\n    sum(\"total_amount\").alias(\"gesamtumsatz\")\n).orderBy(\"gesamtumsatz\", ascending=False).show(5)',
             ex6Output: 'name | gesamtumsatz\nJohn Doe | 25000\nMaria Garcia | 18500\nAnna Schmidt | 12300\nPeter Mueller | 8900',
             ex6Explain: 'spark.read.csv(): завантажити другий файл\njoin(other, key): пов\'язує два фрейми даних через спільний стовпець\ngroupBy(): групує дані\nagg(sum()): підсумовує значення для кожної групи\nalias(): перейменовує стовпець результату',
             ex6Practice: 'Завантажте order_items.csv та пов\'яжіть його з products.csv за допомогою product_id. Розрахуйте дохід для кожної категорії.',
@@ -1276,7 +1276,7 @@
             challengeStep5: 'Виведіть 10 найкращих клієнтів за доходом',
             challengeStep6: 'Опціонально: створіть категорію \'High-Value\' для клієнтів з доходом понад 10000$',
             challengeHint: 'Підказка: використовуйте groupBy() та agg() з count() та sum(), а також orderBy() з limit()',
-            challengeSolution: 'from pyspark.sql.functions import count, sum, when\n\n# Beide Dateien laden\ncustomers = spark.read.csv(\"/home/jovyan/data/customers.csv\", header=True, inferSchema=True)\norders = spark.read.csv(\"/home/jovyan/data/orders.csv\", header=True, inferSchema=True)\n\n# RFM Berechnung\ndf_rfm = customers.join(orders, \"customer_id\") \\\n    .groupBy(\"customer_id\", \"name\") \\\n    .agg(\n        count(\"order_id\").alias(\"frequency\"),\n        sum(\"order_total\").alias(\"monetary\")\n    )\n\n# Top-10 Kunden nach Umsatz\ndf_rfm.orderBy(\"monetary\", ascending=False).limit(10).show()\n\n# Optional: High-Value Segmentierung\ndf_rfm_segment = df_rfm.withColumn(\"segment\",\n    when(col(\"monetary\") > 10000, \"High-Value\").otherwise(\"Standard\")\n)\ndf_rfm_segment.filter(col(\"segment\") == \"High-Value\").show()',
+            challengeSolution: 'from pyspark.sql.functions import count, sum, when\n\n# Beide Dateien laden\ncustomers = spark.read.csv(\"/home/jovyan/data/customers.csv\", header=True, inferSchema=True)\norders = spark.read.csv(\"/home/jovyan/data/orders.csv\", header=True, inferSchema=True)\n\n# RFM Berechnung\ndf_rfm = customers.join(orders, \"customer_id\") \\\n    .groupBy(\"customer_id\", \"name\") \\\n    .agg(\n        count(\"order_id\").alias(\"frequency\"),\n        sum(\"total_amount\").alias(\"monetary\")\n    )\n\n# Top-10 Kunden nach Umsatz\ndf_rfm.orderBy(\"monetary\", ascending=False).limit(10).show()\n\n# Optional: High-Value Segmentierung\ndf_rfm_segment = df_rfm.withColumn(\"segment\",\n    when(col(\"monetary\") > 10000, \"High-Value\").otherwise(\"Standard\")\n)\ndf_rfm_segment.filter(col(\"segment\") == \"High-Value\").show()',
             challengeExpected: '10 найкращих клієнтів:\ncustomer_id | name | frequency | monetary\n45 | John Doe | 12 | 45000\n67 | Maria Garcia | 8 | 32000',
             quizTitle: 'Тест знань: Apache Spark',
             quizDesc: 'Перевірте своє розуміння Spark через ці шість запитань:',
@@ -1384,7 +1384,7 @@
             exercise4: 'Ejercicio 4',
             exercise5: 'Ejercicio 5',
             exercise6: 'Ejercicio 6',
-            challenge: 'Desafío',
+            challenge: 'Desafío: Análisis RFM',
             quiz: 'Prueba',
             outlook: 'Perspectivas',
             troubleshooting: 'Solución de problemas',
@@ -1494,7 +1494,7 @@
             ex5Hint: 'Utilice groupBy(\"country\").count() y orderBy()',
             ex5Solution: 'df.groupBy(\"country\").count().orderBy(\"count\", ascending=False).show()',
             ex6Objective: 'Unir dos tablas y calcular los ingresos',
-            ex6Code: '# Cargar ambos archivos CSV\ncustomers = spark.read.csv(\"/home/jovyan/data/customers.csv\", header=True, inferSchema=True)\norders = spark.read.csv(\"/home/jovyan/data/orders.csv\", header=True, inferSchema=True)\n\n# Conectar clientes con pedidos (similar a SQL JOIN)\ndf_joined = customers.join(orders, \"customer_id\")\n\n# Ingresos por cliente\nfrom pyspark.sql.functions import sum\ndf_joined.groupBy(\"name\").agg(\n    sum(\"order_total\").alias(\"ingresos_totales\")\n).orderBy(\"ingresos_totales\", ascending=False).show(5)',
+            ex6Code: '# Cargar ambos archivos CSV\ncustomers = spark.read.csv(\"/home/jovyan/data/customers.csv\", header=True, inferSchema=True)\norders = spark.read.csv(\"/home/jovyan/data/orders.csv\", header=True, inferSchema=True)\n\n# Conectar clientes con pedidos (similar a SQL JOIN)\ndf_joined = customers.join(orders, \"customer_id\")\n\n# Ingresos por cliente\nfrom pyspark.sql.functions import sum\ndf_joined.groupBy(\"name\").agg(\n    sum(\"total_amount\").alias(\"ingresos_totales\")\n).orderBy(\"ingresos_totales\", ascending=False).show(5)',
             ex6Output: 'name | ingresos_totales\nJohn Doe | 25000\nMaria Garcia | 18500\nAnna Schmidt | 12300\nPeter Mueller | 8900',
             ex6Explain: 'spark.read.csv(): cargar el segundo archivo\njoin(other, key): conecta dos marcos de datos a través de la columna común\ngroupBy(): agrupa los datos\nagg(sum()): suma el valor para cada grupo\nalias(): renombra una columna de resultado',
             ex6Practice: 'Cargue order_items.csv y conéctelo con products.csv por product_id. Calcule los ingresos por categoría.',
@@ -1558,7 +1558,7 @@
             challengeStep5: 'Muestre los 10 mejores clientes por ingreso',
             challengeStep6: 'Opcional: cree una categoría \'High-Value\' para clientes cuyo ingreso supere $10000',
             challengeHint: 'Sugerencia: utilice groupBy() y agg() con count() y sum(), y orderBy() con limit()',
-            challengeSolution: 'from pyspark.sql.functions import count, sum, when\n\n# Beide Dateien laden\ncustomers = spark.read.csv(\"/home/jovyan/data/customers.csv\", header=True, inferSchema=True)\norders = spark.read.csv(\"/home/jovyan/data/orders.csv\", header=True, inferSchema=True)\n\n# RFM Berechnung\ndf_rfm = customers.join(orders, \"customer_id\") \\\n    .groupBy(\"customer_id\", \"name\") \\\n    .agg(\n        count(\"order_id\").alias(\"frequency\"),\n        sum(\"order_total\").alias(\"monetary\")\n    )\n\n# Top-10 Kunden nach Umsatz\ndf_rfm.orderBy(\"monetary\", ascending=False).limit(10).show()\n\n# Optional: High-Value Segmentierung\ndf_rfm_segment = df_rfm.withColumn(\"segment\",\n    when(col(\"monetary\") > 10000, \"High-Value\").otherwise(\"Standard\")\n)\ndf_rfm_segment.filter(col(\"segment\") == \"High-Value\").show()',
+            challengeSolution: 'from pyspark.sql.functions import count, sum, when\n\n# Beide Dateien laden\ncustomers = spark.read.csv(\"/home/jovyan/data/customers.csv\", header=True, inferSchema=True)\norders = spark.read.csv(\"/home/jovyan/data/orders.csv\", header=True, inferSchema=True)\n\n# RFM Berechnung\ndf_rfm = customers.join(orders, \"customer_id\") \\\n    .groupBy(\"customer_id\", \"name\") \\\n    .agg(\n        count(\"order_id\").alias(\"frequency\"),\n        sum(\"total_amount\").alias(\"monetary\")\n    )\n\n# Top-10 Kunden nach Umsatz\ndf_rfm.orderBy(\"monetary\", ascending=False).limit(10).show()\n\n# Optional: High-Value Segmentierung\ndf_rfm_segment = df_rfm.withColumn(\"segment\",\n    when(col(\"monetary\") > 10000, \"High-Value\").otherwise(\"Standard\")\n)\ndf_rfm_segment.filter(col(\"segment\") == \"High-Value\").show()',
             challengeExpected: 'Los 10 mejores clientes:\ncustomer_id | name | frequency | monetary\n45 | John Doe | 12 | 45000\n67 | Maria Garcia | 8 | 32000',
             quizTitle: 'Prueba de conocimiento: Apache Spark',
             quizDesc: 'Evalúe su comprensión de Spark a través de estas seis preguntas:',
@@ -1666,7 +1666,7 @@
             exercise4: 'Alıştırma 4',
             exercise5: 'Alıştırma 5',
             exercise6: 'Alıştırma 6',
-            challenge: 'Meydan Okuma',
+            challenge: 'Meydan Okuma: RFM Analizi',
             quiz: 'Test',
             outlook: 'Görünüm',
             troubleshooting: 'Sorun Giderme',
@@ -1776,7 +1776,7 @@
             ex5Hint: 'groupBy(\"country\").count() ve orderBy() işlevlerini kullanın',
             ex5Solution: 'df.groupBy(\"country\").count().orderBy(\"count\", ascending=False).show()',
             ex6Objective: 'İki tabloyu birleştirmek ve geliri hesaplamak',
-            ex6Code: '# Beide CSV-Dateien laden\ncustomers = spark.read.csv(\"/home/jovyan/data/customers.csv\", header=True, inferSchema=True)\norders = spark.read.csv(\"/home/jovyan/data/orders.csv\", header=True, inferSchema=True)\n\n# Kunden mit Bestellungen verbinden (ähnlich SQL JOIN)\ndf_joined = customers.join(orders, \"customer_id\")\n\n# Umsatz pro Kunde\nfrom pyspark.sql.functions import sum\ndf_joined.groupBy(\"name\").agg(\n    sum(\"order_total\").alias(\"gesamtumsatz\")\n).orderBy(\"gesamtumsatz\", ascending=False).show(5)',
+            ex6Code: '# Beide CSV-Dateien laden\ncustomers = spark.read.csv(\"/home/jovyan/data/customers.csv\", header=True, inferSchema=True)\norders = spark.read.csv(\"/home/jovyan/data/orders.csv\", header=True, inferSchema=True)\n\n# Kunden mit Bestellungen verbinden (ähnlich SQL JOIN)\ndf_joined = customers.join(orders, \"customer_id\")\n\n# Umsatz pro Kunde\nfrom pyspark.sql.functions import sum\ndf_joined.groupBy(\"name\").agg(\n    sum(\"total_amount\").alias(\"gesamtumsatz\")\n).orderBy(\"gesamtumsatz\", ascending=False).show(5)',
             ex6Output: 'name | gesamtumsatz\nJohn Doe | 25000\nMaria Garcia | 18500\nAnna Schmidt | 12300\nPeter Mueller | 8900',
             ex6Explain: 'spark.read.csv(): İkinci dosyayı yüklemek\njoin(other, key): veri çerçevelerini ortak sütun üzerinden birleştirmek\ngroupBy(): verileri gruplamak\nagg(sum()): her grup için değeri toplamak\nalias(): sonuç sütununu yeniden adlandırmak',
             ex6Practice: 'order_items.csv dosyasını yükleyin ve products.csv dosyasıyla product_id\'ye göre birleştirin. Her kategori için geliri hesaplayın.',
@@ -1840,7 +1840,7 @@
             challengeStep5: 'Gelire göre en iyi 10 müşteri gösterin',
             challengeStep6: 'İsteğe bağlı: Geliri 10000$ aşan müşteriler için \'High-Value\' kategorisi oluşturun',
             challengeHint: 'İpucu: groupBy() ve agg() işlevlerini count() ve sum() ile, orderBy() işlevini de limit() ile kullanın',
-            challengeSolution: 'from pyspark.sql.functions import count, sum, when\n\n# Beide Dateien laden\ncustomers = spark.read.csv(\"/home/jovyan/data/customers.csv\", header=True, inferSchema=True)\norders = spark.read.csv(\"/home/jovyan/data/orders.csv\", header=True, inferSchema=True)\n\n# RFM Berechnung\ndf_rfm = customers.join(orders, \"customer_id\") \\\n    .groupBy(\"customer_id\", \"name\") \\\n    .agg(\n        count(\"order_id\").alias(\"frequency\"),\n        sum(\"order_total\").alias(\"monetary\")\n    )\n\n# Top-10 Kunden nach Umsatz\ndf_rfm.orderBy(\"monetary\", ascending=False).limit(10).show()\n\n# Optional: High-Value Segmentierung\ndf_rfm_segment = df_rfm.withColumn(\"segment\",\n    when(col(\"monetary\") > 10000, \"High-Value\").otherwise(\"Standard\")\n)\ndf_rfm_segment.filter(col(\"segment\") == \"High-Value\").show()',
+            challengeSolution: 'from pyspark.sql.functions import count, sum, when\n\n# Beide Dateien laden\ncustomers = spark.read.csv(\"/home/jovyan/data/customers.csv\", header=True, inferSchema=True)\norders = spark.read.csv(\"/home/jovyan/data/orders.csv\", header=True, inferSchema=True)\n\n# RFM Berechnung\ndf_rfm = customers.join(orders, \"customer_id\") \\\n    .groupBy(\"customer_id\", \"name\") \\\n    .agg(\n        count(\"order_id\").alias(\"frequency\"),\n        sum(\"total_amount\").alias(\"monetary\")\n    )\n\n# Top-10 Kunden nach Umsatz\ndf_rfm.orderBy(\"monetary\", ascending=False).limit(10).show()\n\n# Optional: High-Value Segmentierung\ndf_rfm_segment = df_rfm.withColumn(\"segment\",\n    when(col(\"monetary\") > 10000, \"High-Value\").otherwise(\"Standard\")\n)\ndf_rfm_segment.filter(col(\"segment\") == \"High-Value\").show()',
             challengeExpected: 'En iyi 10 müşteri:\ncustomer_id | name | frequency | monetary\n45 | John Doe | 12 | 45000\n67 | Maria Garcia | 8 | 32000',
             quizTitle: 'Bilgi Testi: Apache Spark',
             quizDesc: 'Bu altı soru aracılığıyla Spark hakkındaki anlayışınızı sınayın:',
@@ -3230,6 +3230,10 @@
 
                     <div className="main-content">
                         {renderSection()}
+                        <footer style={{ marginTop: '3rem', paddingTop: '2rem', borderTop: '1px solid #ddd', textAlign: 'center', color: '#666', fontSize: '0.9rem' }}>
+                            <p>Prof. Dr. Robert Butscher · THWS - Technische Hochschule Würzburg-Schweinfurt</p>
+                            <p style={{ marginTop: '0.5rem' }}>© 2026 Big Data Lab</p>
+                        </footer>
                     </div>
                 </div>
             );
