@@ -359,6 +359,20 @@ const translations = {
         mongodbDesc1: 'Document Database: MongoDB speichert Daten in flexiblen JSON-ähnlichen Dokumenten statt in starren Tabellen. Jedes Dokument kann eine unterschiedliche Struktur haben. Dies ist besonders nützlich für semi-strukturierte Daten und schnelle Prototypenentwicklung.',
         mongodbDesc2: 'Flexible Schema: Im Gegensatz zu SQL-Datenbanken müssen Sie keine Spalten vordefinieren. Sie können Felder jederzeit hinzufügen oder ändern. Dies ermöglicht agile Entwicklung ohne zeitraubende Datenbankmigrationen, wenn sich die Anforderungen ändern.',
         mongodbDesc3: 'Horizontal Skalierbar: MongoDB ist für die Skalierung auf mehrere Server ausgelegt und unterstützt automatische Datenverteilung (Sharding). Sie können große Datenmengen einfach auf mehrere Knoten verteilen und die Leistung linear verbessern.',
+        mongodbIntro: 'MongoDB ist eine quelloffene, dokumentenbasierte NoSQL-Datenbank, entwickelt von MongoDB Inc. (ehemals 10gen) und seit 2009 verfügbar. Im Gegensatz zu relationalen Datenbanken wie MySQL oder PostgreSQL speichert MongoDB keine Daten in Tabellen mit festen Spalten, sondern in flexiblen JSON-ähnlichen Dokumenten (intern als BSON = Binary JSON). MongoDB ist die weltweit beliebteste NoSQL-Datenbank und wird von Unternehmen wie Google, Facebook, eBay und der Deutschen Telekom eingesetzt.',
+        mongodbWebsite: 'Offizielle Projektseite',
+        mongodbArchTitle: 'Architektur: Wie MongoDB Daten speichert',
+        mongodbArchDesc: 'MongoDB organisiert Daten in drei Ebenen: Eine Datenbank enthält mehrere Collections (vergleichbar mit Tabellen). Jede Collection enthält Dokumente (vergleichbar mit Zeilen). Jedes Dokument ist ein BSON-Objekt mit Schlüssel-Wert-Paaren – und kann verschachtelte Objekte und Arrays enthalten. Im Produktivbetrieb läuft MongoDB typischerweise als Replica Set (3 Server für Ausfallsicherheit) oder als Sharded Cluster (viele Server für horizontale Skalierung).',
+        mongodbArchDiagram: '┌─────────────────────────────────────────┐\n│           MongoDB Server                │\n│                                         │\n│  ┌─── Datenbank: megastore ──────────┐  │\n│  │                                   │  │\n│  │  ┌─ Collection: customers ─────┐  │  │\n│  │  │  { _id, name, email, ... }  │  │  │\n│  │  │  { _id, name, email, ... }  │  │  │\n│  │  └────────────────────────────┘  │  │\n│  │                                   │  │\n│  │  ┌─ Collection: orders ────────┐  │  │\n│  │  │  { _id, customer_id, ... }  │  │  │\n│  │  │  { _id, customer_id, ... }  │  │  │\n│  │  └────────────────────────────┘  │  │\n│  └───────────────────────────────────┘  │\n└─────────────────────────────────────────┘',
+        mongodbVsSQLTitle: 'MongoDB vs. SQL – Das Document Model verstehen',
+        mongodbVsSQLDesc: 'In einer SQL-Datenbank (z.B. PostgreSQL) definieren Sie zuerst ein festes Schema mit CREATE TABLE: Spaltenname, Datentyp, NOT NULL-Constraints. Jede Zeile muss sich an dieses Schema halten. In MongoDB gibt es kein vordefiniertes Schema – Sie fügen einfach Dokumente ein, und jedes Dokument kann andere Felder haben. Das klingt chaotisch, ist aber in der Praxis sehr mächtig: Wenn sich Ihre Anwendung weiterentwickelt, können Sie neue Felder hinzufügen, ohne eine Migration durchzuführen.',
+        mongodbVsSQLTable: 'SQL: CREATE TABLE → feste Spalten → ALTER TABLE für Änderungen → Jede Zeile identisch',
+        mongodbVsSQLDocument: 'MongoDB: insertOne() → beliebige Felder → Neue Felder jederzeit → Jedes Dokument kann anders sein',
+        aggPipelineTitle: 'Die Aggregation Pipeline – MongoDBs Stärke',
+        aggPipelineDesc: 'Die Aggregation Pipeline ist das mächtigste Feature von MongoDB für Datenanalysen. Sie funktioniert wie eine Kette von Verarbeitungsschritten (Stages): Jede Stage transformiert die Daten und gibt das Ergebnis an die nächste Stage weiter. Sie können beliebig viele Stages kombinieren – vergleichbar mit einer Kombination aus WHERE, GROUP BY, JOIN und ORDER BY in SQL, aber flexibler.',
+        aggPipelineStages: '$match: Filtert Dokumente (wie WHERE in SQL)\n$group: Gruppiert und aggregiert (wie GROUP BY)\n$sort: Sortiert Ergebnisse (wie ORDER BY)\n$project: Wählt/transformiert Felder (wie SELECT)\n$lookup: Verbindet Collections (wie JOIN)\n$unwind: Löst Arrays in einzelne Dokumente auf\n$limit / $skip: Begrenzt/überspringt Ergebnisse',
+        aggPipelineExample: 'db.orders.aggregate([\n  { $match: { status: "completed" } },\n  { $group: { _id: "$customer_id",\n              total: { $sum: "$total_amount" } } },\n  { $sort: { total: -1 } },\n  { $limit: 5 }\n])',
+        aggPipelineExampleDesc: 'Diese Pipeline findet die Top-5-Kunden nach Umsatz: Zuerst werden nur abgeschlossene Bestellungen gefiltert ($match), dann nach Kunden-ID gruppiert und der Umsatz summiert ($group), nach Umsatz sortiert ($sort) und auf 5 Ergebnisse begrenzt ($limit).',
         whyMongoDB: 'Warum MongoDB?',
         uberCase: 'Uber: Speichert Fahrten-Daten (Trips) mit variablen Informationen wie Route, Zeitstempel, Fahrerdetails — perfekt für MongoDB\'s flexible Struktur.',
         spotifyCase: 'Spotify: Verwaltet Playlist-Daten mit unterschiedlichen Metadaten pro Song — MongoDB ermöglicht schnelle Abfragen auf große Datenmengen.',
@@ -676,6 +690,20 @@ const translations = {
         mongodbDesc1: 'Document Database: MongoDB stores data in flexible JSON-like documents instead of rigid tables. Each document can have a different structure. This is particularly useful for semi-structured data and rapid prototyping.',
         mongodbDesc2: 'Flexible Schema: Unlike SQL databases, you do not need to pre-define columns. You can add or change fields anytime. This enables agile development without time-consuming database migrations when requirements change.',
         mongodbDesc3: 'Horizontally Scalable: MongoDB is designed to scale across multiple servers and supports automatic data distribution (sharding). You can easily distribute large datasets across multiple nodes and improve performance linearly.',
+        mongodbIntro: 'MongoDB is an open-source, document-based NoSQL database, developed by MongoDB Inc. (formerly 10gen) and available since 2009. Unlike relational databases such as MySQL or PostgreSQL, MongoDB does not store data in tables with fixed columns, but in flexible JSON-like documents (internally stored as BSON = Binary JSON). MongoDB is the world\'s most popular NoSQL database and is used by companies like Google, Facebook, eBay, and Deutsche Telekom.',
+        mongodbWebsite: 'Official Project Website',
+        mongodbArchTitle: 'Architecture: How MongoDB Stores Data',
+        mongodbArchDesc: 'MongoDB organizes data in three levels: A database contains multiple Collections (comparable to tables). Each Collection contains Documents (comparable to rows). Each Document is a BSON object with key-value pairs – and can contain nested objects and arrays. In production, MongoDB typically runs as a Replica Set (3 servers for fault tolerance) or as a Sharded Cluster (many servers for horizontal scaling).',
+        mongodbArchDiagram: '┌─────────────────────────────────────────┐\n│           MongoDB Server                │\n│                                         │\n│  ┌─── Database: megastore ───────────┐  │\n│  │                                   │  │\n│  │  ┌─ Collection: customers ─────┐  │  │\n│  │  │  { _id, name, email, ... }  │  │  │\n│  │  │  { _id, name, email, ... }  │  │  │\n│  │  └────────────────────────────┘  │  │\n│  │                                   │  │\n│  │  ┌─ Collection: orders ────────┐  │  │\n│  │  │  { _id, customer_id, ... }  │  │  │\n│  │  │  { _id, customer_id, ... }  │  │  │\n│  │  └────────────────────────────┘  │  │\n│  └───────────────────────────────────┘  │\n└─────────────────────────────────────────┘',
+        mongodbVsSQLTitle: 'MongoDB vs. SQL – Understanding the Document Model',
+        mongodbVsSQLDesc: 'In a SQL database (e.g., PostgreSQL), you first define a fixed schema with CREATE TABLE: column name, data type, NOT NULL constraints. Every row must adhere to this schema. In MongoDB, there is no predefined schema – you simply insert documents, and each document can have different fields. This sounds chaotic but is very powerful in practice: as your application evolves, you can add new fields without running a migration.',
+        mongodbVsSQLTable: 'SQL: CREATE TABLE → fixed columns → ALTER TABLE for changes → Every row identical',
+        mongodbVsSQLDocument: 'MongoDB: insertOne() → any fields → New fields anytime → Each document can differ',
+        aggPipelineTitle: 'The Aggregation Pipeline – MongoDB\'s Superpower',
+        aggPipelineDesc: 'The Aggregation Pipeline is MongoDB\'s most powerful feature for data analysis. It works like a chain of processing steps (stages): each stage transforms the data and passes the result to the next stage. You can combine any number of stages – comparable to a combination of WHERE, GROUP BY, JOIN, and ORDER BY in SQL, but more flexible.',
+        aggPipelineStages: '$match: Filters documents (like WHERE in SQL)\n$group: Groups and aggregates (like GROUP BY)\n$sort: Sorts results (like ORDER BY)\n$project: Selects/transforms fields (like SELECT)\n$lookup: Joins collections (like JOIN)\n$unwind: Expands arrays into individual documents\n$limit / $skip: Limits/skips results',
+        aggPipelineExample: 'db.orders.aggregate([\n  { $match: { status: "completed" } },\n  { $group: { _id: "$customer_id",\n              total: { $sum: "$total_amount" } } },\n  { $sort: { total: -1 } },\n  { $limit: 5 }\n])',
+        aggPipelineExampleDesc: 'This pipeline finds the top 5 customers by revenue: first only completed orders are filtered ($match), then grouped by customer ID and revenue summed ($group), sorted by revenue ($sort), and limited to 5 results ($limit).',
         whyMongoDB: 'Why MongoDB?',
         uberCase: 'Uber: Stores trip data with variable information like route, timestamp, driver details — perfect for MongoDB\'s flexible structure.',
         spotifyCase: 'Spotify: Manages playlist data with different metadata per song — MongoDB enables fast queries on large datasets.',
@@ -993,6 +1021,20 @@ const translations = {
         mongodbDesc1: 'قاعدة بيانات الوثائق: تخزن MongoDB البيانات في وثائق مرنة تشبه JSON بدلاً من الجداول الصارمة. يمكن لكل وثيقة أن تمتلك هيكلاً مختلفاً. وهذا مفيد بشكل خاص للبيانات شبه المهيكلة والتطوير السريع للنماذج الأولية.',
         mongodbDesc2: 'المخطط المرن: بخلاف قواعد بيانات SQL، لا تحتاج إلى تعريف الأعمدة مسبقاً. يمكنك إضافة الحقول أو تعديلها في أي وقت. يسمح هذا بالتطوير الرشيق دون الحاجة إلى هجرات قواعد بيانات تستغرق وقتاً طويلاً عند تغيير المتطلبات.',
         mongodbDesc3: 'قابل للتوسع أفقياً: تم تصميم MongoDB للتوسع عبر عدة خوادم وتدعم توزيع البيانات التلقائي (التجزئة). يمكنك توزيع كميات كبيرة من البيانات بسهولة على عدة عُقد وتحسين الأداء بشكل خطي.',
+        mongodbIntro: 'MongoDB هي قاعدة بيانات NoSQL مفتوحة المصدر قائمة على الوثائق، طورتها MongoDB Inc. (المعروفة سابقاً بـ 10gen) ومتاحة منذ عام 2009. على عكس قواعد البيانات العلائقية مثل MySQL أو PostgreSQL، لا تخزن MongoDB البيانات في جداول ذات أعمدة ثابتة، بل في وثائق مرنة تشبه JSON (مخزنة داخلياً كـ BSON = Binary JSON). MongoDB هي أشهر قاعدة بيانات NoSQL في العالم وتستخدمها شركات مثل Google وFacebook وeBay وDeutsche Telekom.',
+        mongodbWebsite: 'الموقع الرسمي للمشروع',
+        mongodbArchTitle: 'الهندسة المعمارية: كيف تخزن MongoDB البيانات',
+        mongodbArchDesc: 'تنظم MongoDB البيانات في ثلاث مستويات: قاعدة البيانات تحتوي على عدة Collections (مشابهة للجداول). كل Collection تحتوي على Documents (مشابهة للصفوف). كل Document هو كائن BSON مع أزواج مفتاح-قيمة – ويمكن أن يحتوي على كائنات متداخلة ومصفوفات. في الإنتاج، تعمل MongoDB عادةً كـ Replica Set (3 خوادم للتسامح مع الأخطاء) أو كـ Sharded Cluster (عدة خوادم للتوسع الأفقي).',
+        mongodbArchDiagram: '┌─────────────────────────────────────────┐\n│           MongoDB Server                │\n│                                         │\n│  ┌─── قاعدة بيانات: megastore ───────┐  │\n│  │                                   │  │\n│  │  ┌─ Collection: customers ─────┐  │  │\n│  │  │  { _id, name, email, ... }  │  │  │\n│  │  │  { _id, name, email, ... }  │  │  │\n│  │  └────────────────────────────┘  │  │\n│  │                                   │  │\n│  │  ┌─ Collection: orders ────────┐  │  │\n│  │  │  { _id, customer_id, ... }  │  │  │\n│  │  │  { _id, customer_id, ... }  │  │  │\n│  │  └────────────────────────────┘  │  │\n│  └───────────────────────────────────┘  │\n└─────────────────────────────────────────┘',
+        mongodbVsSQLTitle: 'MongoDB مقابل SQL – فهم نموذج الوثائق',
+        mongodbVsSQLDesc: 'في قاعدة بيانات SQL (مثل PostgreSQL)، تحدد أولاً مخططاً ثابتاً باستخدام CREATE TABLE: اسم العمود، نوع البيانات، قيود NOT NULL. يجب أن يلتزم كل صف بهذا المخطط. في MongoDB، لا يوجد مخطط محدد مسبقاً – تقوم ببساطة بإدراج الوثائق، ويمكن لكل وثيقة أن تحتوي على حقول مختلفة.',
+        mongodbVsSQLTable: 'SQL: CREATE TABLE → أعمدة ثابتة → ALTER TABLE للتغييرات → كل صف متطابق',
+        mongodbVsSQLDocument: 'MongoDB: insertOne() → أي حقول → حقول جديدة في أي وقت → كل وثيقة يمكن أن تختلف',
+        aggPipelineTitle: 'خط أنابيب التجميع – القوة العظمى لـ MongoDB',
+        aggPipelineDesc: 'خط أنابيب التجميع هو أقوى ميزة في MongoDB لتحليل البيانات. يعمل كسلسلة من خطوات المعالجة (المراحل): كل مرحلة تحول البيانات وتمرر النتيجة إلى المرحلة التالية. يمكنك الجمع بين أي عدد من المراحل – مشابه لمزيج من WHERE وGROUP BY وJOIN وORDER BY في SQL، ولكن أكثر مرونة.',
+        aggPipelineStages: '$match: يصفي الوثائق (مثل WHERE في SQL)\n$group: يجمع ويجمّع (مثل GROUP BY)\n$sort: يرتب النتائج (مثل ORDER BY)\n$project: يختار/يحول الحقول (مثل SELECT)\n$lookup: يربط Collections (مثل JOIN)\n$unwind: يفكك المصفوفات إلى وثائق فردية\n$limit / $skip: يحد/يتخطى النتائج',
+        aggPipelineExample: 'db.orders.aggregate([\n  { $match: { status: "completed" } },\n  { $group: { _id: "$customer_id",\n              total: { $sum: "$total_amount" } } },\n  { $sort: { total: -1 } },\n  { $limit: 5 }\n])',
+        aggPipelineExampleDesc: 'يجد هذا الخط أعلى 5 عملاء حسب الإيرادات: أولاً يتم تصفية الطلبات المكتملة فقط ($match)، ثم التجميع حسب معرف العميل وجمع الإيرادات ($group)، والترتيب حسب الإيرادات ($sort)، والحد بـ 5 نتائج ($limit).',
         whyMongoDB: 'لماذا MongoDB؟',
         uberCase: 'Uber: تخزن بيانات الرحلات (Trips) مع معلومات متغيرة مثل المسار والطابع الزمني وتفاصيل السائق — مثالية لهيكل MongoDB المرن.',
         spotifyCase: 'Spotify: تدير بيانات قوائم التشغيل مع بيانات وصفية مختلفة لكل أغنية — تسمح MongoDB بالاستعلامات السريعة على كميات البيانات الكبيرة.',
@@ -1331,6 +1373,20 @@ const translations = {
         mongodbDesc1: 'База даних документів: MongoDB зберігає дані в гнучких документах, подібних до JSON, замість жорстких таблиць. Кожен документ може мати різну структуру. Це особливо корисно для напівструктурованих даних та швидкого прототипування.',
         mongodbDesc2: 'Гнучка схема: На відміну від SQL-баз даних, вам не потрібно попередньо визначати стовпці. Ви можете додавати або змінювати поля будь-коли. Це дозволяє гнучкий розвиток без тривалих міграцій баз даних при зміні вимог.',
         mongodbDesc3: 'Горизонтально масштабована: MongoDB розроблена для масштабування на кілька серверів та підтримує автоматичний розподіл даних (Sharding). Ви можете легко розподілити великі обсяги даних на кілька вузлів та лінійно покращити продуктивність.',
+        mongodbIntro: 'MongoDB — це відкрита, документо-орієнтована NoSQL база даних, розроблена MongoDB Inc. (раніше 10gen) і доступна з 2009 року. На відміну від реляційних баз даних, таких як MySQL або PostgreSQL, MongoDB зберігає дані не в таблицях з фіксованими стовпцями, а в гнучких JSON-подібних документах (внутрішньо зберігаються як BSON = Binary JSON). MongoDB — найпопулярніша NoSQL база даних у світі, яку використовують компанії Google, Facebook, eBay та Deutsche Telekom.',
+        mongodbWebsite: 'Офіційний сайт проєкту',
+        mongodbArchTitle: 'Архітектура: як MongoDB зберігає дані',
+        mongodbArchDesc: 'MongoDB організовує дані на трьох рівнях: база даних містить кілька Collections (порівнянних з таблицями). Кожна Collection містить Documents (порівнянні з рядками). Кожен Document — це BSON-об\'єкт з парами ключ-значення, який може містити вкладені об\'єкти та масиви. У виробництві MongoDB зазвичай працює як Replica Set (3 сервери для відмовостійкості) або як Sharded Cluster (багато серверів для горизонтального масштабування).',
+        mongodbArchDiagram: '┌─────────────────────────────────────────┐\n│           MongoDB Server                │\n│                                         │\n│  ┌─── База даних: megastore ─────────┐  │\n│  │                                   │  │\n│  │  ┌─ Collection: customers ─────┐  │  │\n│  │  │  { _id, name, email, ... }  │  │  │\n│  │  │  { _id, name, email, ... }  │  │  │\n│  │  └────────────────────────────┘  │  │\n│  │                                   │  │\n│  │  ┌─ Collection: orders ────────┐  │  │\n│  │  │  { _id, customer_id, ... }  │  │  │\n│  │  │  { _id, customer_id, ... }  │  │  │\n│  │  └────────────────────────────┘  │  │\n│  └───────────────────────────────────┘  │\n└─────────────────────────────────────────┘',
+        mongodbVsSQLTitle: 'MongoDB проти SQL – розуміння документної моделі',
+        mongodbVsSQLDesc: 'У SQL-базі даних (наприклад, PostgreSQL) ви спочатку визначаєте фіксовану схему з CREATE TABLE: ім\'я стовпця, тип даних, обмеження NOT NULL. Кожен рядок повинен дотримуватися цієї схеми. У MongoDB немає попередньо визначеної схеми – ви просто вставляєте документи, і кожен документ може мати різні поля.',
+        mongodbVsSQLTable: 'SQL: CREATE TABLE → фіксовані стовпці → ALTER TABLE для змін → Кожен рядок однаковий',
+        mongodbVsSQLDocument: 'MongoDB: insertOne() → будь-які поля → Нові поля будь-коли → Кожен документ може відрізнятися',
+        aggPipelineTitle: 'Aggregation Pipeline – суперсила MongoDB',
+        aggPipelineDesc: 'Aggregation Pipeline — найпотужніша функція MongoDB для аналізу даних. Вона працює як ланцюг етапів обробки (stages): кожен етап трансформує дані та передає результат наступному етапу. Ви можете комбінувати будь-яку кількість етапів – порівнянно з комбінацією WHERE, GROUP BY, JOIN та ORDER BY у SQL, але гнучкіше.',
+        aggPipelineStages: '$match: фільтрує документи (як WHERE у SQL)\n$group: групує та агрегує (як GROUP BY)\n$sort: сортує результати (як ORDER BY)\n$project: вибирає/трансформує поля (як SELECT)\n$lookup: з\'єднує Collections (як JOIN)\n$unwind: розгортає масиви в окремі документи\n$limit / $skip: обмежує/пропускає результати',
+        aggPipelineExample: 'db.orders.aggregate([\n  { $match: { status: "completed" } },\n  { $group: { _id: "$customer_id",\n              total: { $sum: "$total_amount" } } },\n  { $sort: { total: -1 } },\n  { $limit: 5 }\n])',
+        aggPipelineExampleDesc: 'Цей пайплайн знаходить топ-5 клієнтів за доходом: спочатку фільтруються лише завершені замовлення ($match), потім групуються за ідентифікатором клієнта та підсумовується дохід ($group), сортуються за доходом ($sort) та обмежуються 5 результатами ($limit).',
         whyMongoDB: 'Чому MongoDB?',
         uberCase: 'Uber: Зберігає дані про поїздки (Trips) зі змінною інформацією, такою як маршрут, часова мітка, деталі водія — ідеально для гнучкої структури MongoDB.',
         spotifyCase: 'Spotify: Керує даними плейлистів із різноманітними метаданими для кожної пісні — MongoDB дозволяє швидкі запити на великі обсяги даних.',
@@ -1669,6 +1725,20 @@ const translations = {
         mongodbDesc1: 'Base de datos de documentos: MongoDB almacena datos en documentos flexibles similares a JSON en lugar de tablas rígidas. Cada documento puede tener una estructura diferente. Esto es especialmente útil para datos semiestructurados y desarrollo rápido de prototipos.',
         mongodbDesc2: 'Esquema flexible: A diferencia de las bases de datos SQL, no es necesario predefinir columnas. Puede agregar o modificar campos en cualquier momento. Esto permite desarrollo ágil sin migraciones de bases de datos que requieran mucho tiempo cuando cambien los requisitos.',
         mongodbDesc3: 'Escalable horizontalmente: MongoDB está diseñado para escalar en múltiples servidores y es compatible con distribución automática de datos (Sharding). Puede distribuir fácilmente grandes volúmenes de datos en múltiples nodos y mejorar el rendimiento linealmente.',
+        mongodbIntro: 'MongoDB es una base de datos NoSQL de código abierto basada en documentos, desarrollada por MongoDB Inc. (anteriormente 10gen) y disponible desde 2009. A diferencia de las bases de datos relacionales como MySQL o PostgreSQL, MongoDB no almacena datos en tablas con columnas fijas, sino en documentos flexibles similares a JSON (almacenados internamente como BSON = Binary JSON). MongoDB es la base de datos NoSQL más popular del mundo y es utilizada por empresas como Google, Facebook, eBay y Deutsche Telekom.',
+        mongodbWebsite: 'Sitio web oficial del proyecto',
+        mongodbArchTitle: 'Arquitectura: Cómo MongoDB almacena datos',
+        mongodbArchDesc: 'MongoDB organiza los datos en tres niveles: una base de datos contiene múltiples Collections (comparables con tablas). Cada Collection contiene Documents (comparables con filas). Cada Document es un objeto BSON con pares clave-valor, y puede contener objetos anidados y arrays. En producción, MongoDB generalmente se ejecuta como Replica Set (3 servidores para tolerancia a fallos) o como Sharded Cluster (muchos servidores para escalado horizontal).',
+        mongodbArchDiagram: '┌─────────────────────────────────────────┐\n│           MongoDB Server                │\n│                                         │\n│  ┌─── Base de datos: megastore ──────┐  │\n│  │                                   │  │\n│  │  ┌─ Collection: customers ─────┐  │  │\n│  │  │  { _id, name, email, ... }  │  │  │\n│  │  │  { _id, name, email, ... }  │  │  │\n│  │  └────────────────────────────┘  │  │\n│  │                                   │  │\n│  │  ┌─ Collection: orders ────────┐  │  │\n│  │  │  { _id, customer_id, ... }  │  │  │\n│  │  │  { _id, customer_id, ... }  │  │  │\n│  │  └────────────────────────────┘  │  │\n│  └───────────────────────────────────┘  │\n└─────────────────────────────────────────┘',
+        mongodbVsSQLTitle: 'MongoDB vs. SQL – Entendiendo el modelo de documentos',
+        mongodbVsSQLDesc: 'En una base de datos SQL (por ejemplo, PostgreSQL), primero se define un esquema fijo con CREATE TABLE: nombre de columna, tipo de datos, restricciones NOT NULL. Cada fila debe adherirse a este esquema. En MongoDB, no hay un esquema predefinido: simplemente se insertan documentos, y cada documento puede tener campos diferentes.',
+        mongodbVsSQLTable: 'SQL: CREATE TABLE → columnas fijas → ALTER TABLE para cambios → Cada fila idéntica',
+        mongodbVsSQLDocument: 'MongoDB: insertOne() → cualquier campo → Nuevos campos en cualquier momento → Cada documento puede diferir',
+        aggPipelineTitle: 'El Aggregation Pipeline – La superpotencia de MongoDB',
+        aggPipelineDesc: 'El Aggregation Pipeline es la función más potente de MongoDB para el análisis de datos. Funciona como una cadena de pasos de procesamiento (stages): cada stage transforma los datos y pasa el resultado al siguiente stage. Puede combinar cualquier número de stages, comparable a una combinación de WHERE, GROUP BY, JOIN y ORDER BY en SQL, pero más flexible.',
+        aggPipelineStages: '$match: filtra documentos (como WHERE en SQL)\n$group: agrupa y agrega (como GROUP BY)\n$sort: ordena resultados (como ORDER BY)\n$project: selecciona/transforma campos (como SELECT)\n$lookup: une collections (como JOIN)\n$unwind: expande arrays en documentos individuales\n$limit / $skip: limita/salta resultados',
+        aggPipelineExample: 'db.orders.aggregate([\n  { $match: { status: "completed" } },\n  { $group: { _id: "$customer_id",\n              total: { $sum: "$total_amount" } } },\n  { $sort: { total: -1 } },\n  { $limit: 5 }\n])',
+        aggPipelineExampleDesc: 'Este pipeline encuentra los 5 mejores clientes por ingresos: primero se filtran solo los pedidos completados ($match), luego se agrupan por ID de cliente y se suman los ingresos ($group), se ordenan por ingresos ($sort) y se limitan a 5 resultados ($limit).',
         whyMongoDB: '¿Por qué MongoDB?',
         uberCase: 'Uber: Almacena datos de viajes (Trips) con información variable como ruta, marca de tiempo, detalles del conductor — perfecto para la estructura flexible de MongoDB.',
         spotifyCase: 'Spotify: Gestiona datos de listas de reproducción con metadatos diferentes por canción — MongoDB permite consultas rápidas en grandes volúmenes de datos.',
@@ -2007,6 +2077,20 @@ const translations = {
         mongodbDesc1: 'Belge Veritabanı: MongoDB, verileri katı tablolar yerine esnek JSON benzeri belgelerde depolar. Her belge farklı bir yapıya sahip olabilir. Bu, yarı yapılandırılmış veriler ve hızlı prototip geliştirme için özellikle yararlıdır.',
         mongodbDesc2: 'Esnek Şema: SQL veritabanlarının aksine, sütunları önceden tanımlamanız gerekmez. Dilediğiniz zaman alanları ekleyebilir veya değiştirebilirsiniz. Bu, gereksinimler değiştiğinde zaman alıcı veri tabanı göçleri olmaksızın çevik geliştirme sağlar.',
         mongodbDesc3: 'Yatay Ölçeklenebilir: MongoDB, birden fazla sunucuya ölçeklendirme için tasarlanmıştır ve otomatik veri dağıtımını (Sharding) destekler. Büyük veri miktarlarını kolayca birden fazla düğüme dağıtabilir ve performansı doğrusal olarak iyileştirebilirsiniz.',
+        mongodbIntro: 'MongoDB, MongoDB Inc. (eski adıyla 10gen) tarafından geliştirilen ve 2009\'dan beri mevcut olan açık kaynaklı, belge tabanlı bir NoSQL veritabanıdır. MySQL veya PostgreSQL gibi ilişkisel veritabanlarının aksine, MongoDB verileri sabit sütunlara sahip tablolarda değil, esnek JSON benzeri belgelerde (dahili olarak BSON = Binary JSON olarak) depolar. MongoDB, dünyanın en popüler NoSQL veritabanıdır ve Google, Facebook, eBay ve Deutsche Telekom gibi şirketler tarafından kullanılmaktadır.',
+        mongodbWebsite: 'Resmi Proje Web Sitesi',
+        mongodbArchTitle: 'Mimari: MongoDB Verileri Nasıl Depolar',
+        mongodbArchDesc: 'MongoDB verileri üç seviyede düzenler: Bir veritabanı birden fazla Collection içerir (tablolara benzer). Her Collection, Documents içerir (satırlara benzer). Her Document, anahtar-değer çiftlerine sahip bir BSON nesnesidir ve iç içe nesneler ile diziler içerebilir. Üretimde MongoDB genellikle Replica Set (hata toleransı için 3 sunucu) veya Sharded Cluster (yatay ölçeklendirme için birçok sunucu) olarak çalışır.',
+        mongodbArchDiagram: '┌─────────────────────────────────────────┐\n│           MongoDB Server                │\n│                                         │\n│  ┌─── Veritabanı: megastore ─────────┐  │\n│  │                                   │  │\n│  │  ┌─ Collection: customers ─────┐  │  │\n│  │  │  { _id, name, email, ... }  │  │  │\n│  │  │  { _id, name, email, ... }  │  │  │\n│  │  └────────────────────────────┘  │  │\n│  │                                   │  │\n│  │  ┌─ Collection: orders ────────┐  │  │\n│  │  │  { _id, customer_id, ... }  │  │  │\n│  │  │  { _id, customer_id, ... }  │  │  │\n│  │  └────────────────────────────┘  │  │\n│  └───────────────────────────────────┘  │\n└─────────────────────────────────────────┘',
+        mongodbVsSQLTitle: 'MongoDB vs. SQL – Belge Modelini Anlamak',
+        mongodbVsSQLDesc: 'Bir SQL veritabanında (örn. PostgreSQL), önce CREATE TABLE ile sabit bir şema tanımlarsınız: sütun adı, veri türü, NOT NULL kısıtlamaları. Her satır bu şemaya uymalıdır. MongoDB\'de önceden tanımlanmış bir şema yoktur – sadece belgeler eklersiniz ve her belge farklı alanlara sahip olabilir.',
+        mongodbVsSQLTable: 'SQL: CREATE TABLE → sabit sütunlar → ALTER TABLE değişiklikler için → Her satır aynı',
+        mongodbVsSQLDocument: 'MongoDB: insertOne() → herhangi bir alan → Yeni alanlar her zaman → Her belge farklı olabilir',
+        aggPipelineTitle: 'Aggregation Pipeline – MongoDB\'nin Süper Gücü',
+        aggPipelineDesc: 'Aggregation Pipeline, MongoDB\'nin veri analizi için en güçlü özelliğidir. İşleme adımlarının (stages) bir zinciri gibi çalışır: her stage verileri dönüştürür ve sonucu bir sonraki stage\'e iletir. İstediğiniz kadar stage birleştirebilirsiniz – SQL\'deki WHERE, GROUP BY, JOIN ve ORDER BY kombinasyonuna benzer, ancak daha esnektir.',
+        aggPipelineStages: '$match: belgeleri filtreler (SQL\'de WHERE gibi)\n$group: gruplar ve toplar (GROUP BY gibi)\n$sort: sonuçları sıralar (ORDER BY gibi)\n$project: alanları seçer/dönüştürür (SELECT gibi)\n$lookup: Collection\'ları birleştirir (JOIN gibi)\n$unwind: dizileri tek tek belgelere açar\n$limit / $skip: sonuçları sınırlar/atlar',
+        aggPipelineExample: 'db.orders.aggregate([\n  { $match: { status: "completed" } },\n  { $group: { _id: "$customer_id",\n              total: { $sum: "$total_amount" } } },\n  { $sort: { total: -1 } },\n  { $limit: 5 }\n])',
+        aggPipelineExampleDesc: 'Bu pipeline gelire göre en iyi 5 müşteriyi bulur: önce yalnızca tamamlanmış siparişler filtrelenir ($match), ardından müşteri kimliğine göre gruplandırılır ve gelir toplanır ($group), gelire göre sıralanır ($sort) ve 5 sonuçla sınırlandırılır ($limit).',
         whyMongoDB: 'Neden MongoDB?',
         uberCase: 'Uber: Rota, zaman damgası, şoför detayları gibi değişken bilgilerle yolculuk verilerini depolar — MongoDB\'nin esnek yapısı için ideal.',
         spotifyCase: 'Spotify: Her şarkı için farklı metaveri içeren çalma listesi verilerini yönetir — MongoDB, büyük veri miktarları üzerinde hızlı sorgulamayı sağlar.',
@@ -2431,6 +2515,12 @@ function App() {
 
                         <h3>{t.whatIsMongoDB}</h3>
                         <div className="card">
+                            <p style={{lineHeight: 1.75, marginBottom: '1rem'}}>{t.mongodbIntro}</p>
+                            <a href="https://www.mongodb.com/" target="_blank" rel="noopener noreferrer" style={{color: '#E8792F', fontWeight: 700, textDecoration: 'none'}}>
+                                🌐 {t.mongodbWebsite} →
+                            </a>
+                        </div>
+                        <div className="card" style={{marginTop: '0.5rem'}}>
                             <h4>1. {t.flexible}</h4>
                             <p>{t.mongodbDesc1}</p>
                         </div>
@@ -2441,6 +2531,25 @@ function App() {
                         <div className="card">
                             <h4>3. {t.scalable}</h4>
                             <p>{t.mongodbDesc3}</p>
+                        </div>
+
+                        <h3>{t.mongodbArchTitle}</h3>
+                        <p style={{marginBottom: '1rem'}}>{t.mongodbArchDesc}</p>
+                        <div className="code-block" style={{borderLeftColor: '#1B3A5C'}}>
+                            <code style={{color: '#93c5fd', fontSize: '0.8rem', lineHeight: 1.6}}>{t.mongodbArchDiagram}</code>
+                        </div>
+
+                        <h3>{t.mongodbVsSQLTitle}</h3>
+                        <p style={{marginBottom: '1rem'}}>{t.mongodbVsSQLDesc}</p>
+                        <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1rem'}}>
+                            <div className="card" style={{borderTop: '3px solid #336791'}}>
+                                <h4 style={{color: '#336791', marginBottom: '0.5rem'}}>🗄️ SQL (PostgreSQL)</h4>
+                                <p>{t.mongodbVsSQLTable}</p>
+                            </div>
+                            <div className="card" style={{borderTop: '3px solid #4DB33D'}}>
+                                <h4 style={{color: '#4DB33D', marginBottom: '0.5rem'}}>🍃 MongoDB</h4>
+                                <p>{t.mongodbVsSQLDocument}</p>
+                            </div>
                         </div>
 
                         <h3>{t.whyMongoDB}</h3>
@@ -2551,6 +2660,16 @@ function App() {
                         <div className="card">
                             <h4>{t.queryOperators}</h4>
                             <p>{t.queryOperatorsDesc}</p>
+                        </div>
+
+                        <div className="card" style={{borderLeft: '4px solid #E8792F', marginTop: '1.5rem'}}>
+                            <h4>{t.aggPipelineTitle}</h4>
+                            <p style={{marginBottom: '1rem'}}>{t.aggPipelineDesc}</p>
+                            <p style={{marginBottom: '1rem'}}>{t.aggPipelineStages.split('\n').map((line, i) => <React.Fragment key={i}>{line}<br/></React.Fragment>)}</p>
+                            <div className="code-block">
+                                <code>{t.aggPipelineExample}</code>
+                            </div>
+                            <p style={{color: '#4b5563', marginTop: '0.75rem', lineHeight: 1.75, fontSize: '0.9rem'}}>{t.aggPipelineExampleDesc}</p>
                         </div>
 
                         <h3>{t.whenToUse}</h3>
