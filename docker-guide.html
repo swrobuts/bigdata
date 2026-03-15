@@ -400,10 +400,20 @@
                 reqDiskMin: "10 GB frei",
                 reqWSL: "WSL2 aktivieren *",
                     reqWSLNote: '* WSL2 (Windows Subsystem for Linux 2) ist eine von Microsoft bereitgestellte Linux-Umgebung, die innerhalb von Windows in einer virtuellen Maschine l\u00e4uft. Docker Desktop ben\u00f6tigt WSL2 unter Windows zwingend. Beachte: WSL2 belegt zus\u00e4tzlich Systemressourcen \u2013 standardm\u00e4\u00dfig reserviert es bis zu 50\u202f% deines RAMs und ben\u00f6tigt mehrere GB Festplattenplatz. Auf Rechnern mit weniger als 16\u202fGB RAM kann dies zu sp\u00fcrbaren Leistungseinbu\u00dfen f\u00fchren.',
-                    reqCloudAlt: 'Alternative: Nutze kostenlose Cloud-Umgebungen wie GitHub Codespaces, Google Cloud Shell oder Gitpod \u2013 diese bieten Docker direkt im Browser, ganz ohne lokale Installation.',
+                    reqCloudAlt: 'Alternative: Viele der im Kurs verwendeten Technologien bieten kostenlose Cloud-Angebote an, die keine lokale Installation erfordern. Zus\u00e4tzlich gibt es Studierendenprogramme der gro\u00dfen Cloud-Anbieter:',
+                    cloudVendorTitle: 'Kostenlose Angebote der Technologie-Anbieter:',
+                    cloudMongo: 'Kostenloser M0-Cluster (512\u202fMB), kein Ablaufdatum, keine Kreditkarte',
+                    cloudNeo4j: 'Kostenlose Graph-Datenbank in der Cloud (bis 50.000 Knoten)',
+                    cloudDatabricks: 'Kostenloses Spark-Notebook in der Cloud (Nachfolger der Community Edition)',
+                    cloudMotherduck: 'DuckDB in der Cloud, kostenloser Free-Tier-Plan',
+                    cloudProviderTitle: 'Studierendenprogramme der Cloud-Anbieter:',
+                    cloudGithub: 'Codespaces, MongoDB-Credits, JetBrains u.\u202fv.\u202fm. \u2013 mit Hochschul-E-Mail',
+                    cloudAzure: '100\u202f$ Cloud-Guthaben/Jahr f\u00fcr Studierende, keine Kreditkarte',
+                    cloudAws: 'Kostenloses Cloud-Training und Credits f\u00fcr Studierende',
+                    cloudGoogle: '300\u202f$ Startguthaben + Education-Credits \u00fcber die Hochschule',
                     windowsLabNote: 'Windows-Nutzer: F\u00fchre alle folgenden Terminal-Befehle im WSL2-Ubuntu-Terminal aus (nicht in der Windows-PowerShell). \u00d6ffne dazu im Startmen\u00fc die App \u201eUbuntu\u201c.',
 
-                section5Title: "Installation Schritt für Schritt",
+                section5Title: "Installation Schritt f\u00fcr Schritt",
                 section5Intro: "Folge diesen Schritten, um Docker Desktop zu installieren:",
 
                 step1Title: "Schritt 1: Docker Desktop herunterladen",
@@ -543,7 +553,17 @@
                 reqDiskMin: "10 GB free",
                 reqWSL: "Enable WSL2 *",
                     reqWSLNote: '* WSL2 (Windows Subsystem for Linux 2) is a Microsoft-provided Linux environment that runs inside Windows in a virtual machine. Docker Desktop requires WSL2 on Windows. Note: WSL2 consumes additional system resources \u2013 by default it reserves up to 50% of your RAM and requires several GB of disk space. On machines with less than 16\u202fGB RAM, this can lead to noticeable performance issues.',
-                    reqCloudAlt: 'Alternative: Use free cloud environments such as GitHub Codespaces, Google Cloud Shell, or Gitpod \u2013 these provide Docker directly in the browser, with no local installation required.',
+                    reqCloudAlt: 'Alternative: Many technologies used in this course offer free cloud tiers that require no local installation. Additionally, major cloud providers offer student programs:',
+                    cloudVendorTitle: 'Free offerings from technology vendors:',
+                    cloudMongo: 'Free M0 cluster (512\u202fMB), no expiration, no credit card required',
+                    cloudNeo4j: 'Free cloud graph database (up to 50,000 nodes)',
+                    cloudDatabricks: 'Free Spark notebook in the cloud (successor to Community Edition)',
+                    cloudMotherduck: 'DuckDB in the cloud, free tier plan',
+                    cloudProviderTitle: 'Student programs from cloud providers:',
+                    cloudGithub: 'Codespaces, MongoDB credits, JetBrains & more \u2013 with university email',
+                    cloudAzure: '$100 cloud credit/year for students, no credit card required',
+                    cloudAws: 'Free cloud training and credits for students',
+                    cloudGoogle: '$300 starting credit + education credits via university',
                     windowsLabNote: 'Windows users: Run all the following terminal commands in the WSL2 Ubuntu terminal (not in Windows PowerShell). Open the \u201cUbuntu\u201d app from the Start menu.',
 
                 section5Title: "Step-by-Step Installation",
@@ -686,7 +706,17 @@
                 reqDiskMin: "10 GB حر",
                 reqWSL: "* WSL2 \u062a\u0641\u0639\u064a\u0644",
                     reqWSLNote: '* WSL2 (Windows Subsystem for Linux 2) \u0647\u0648 \u0628\u064a\u0626\u0629 Linux \u062a\u0648\u0641\u0631\u0647\u0627 Microsoft \u062a\u0639\u0645\u0644 \u062f\u0627\u062e\u0644 Windows \u0641\u064a \u062c\u0647\u0627\u0632 \u0627\u0641\u062a\u0631\u0627\u0636\u064a. \u064a\u062a\u0637\u0644\u0628 Docker Desktop \u062a\u0641\u0639\u064a\u0644 WSL2 \u0639\u0644\u0649 Windows. \u0645\u0644\u0627\u062d\u0638\u0629: \u064a\u0633\u062a\u0647\u0644\u0643 WSL2 \u0645\u0648\u0627\u0631\u062f \u0646\u0638\u0627\u0645 \u0625\u0636\u0627\u0641\u064a\u0629 \u2013 \u0628\u0634\u0643\u0644 \u0627\u0641\u062a\u0631\u0627\u0636\u064a \u064a\u062d\u062c\u0632 \u062d\u062a\u0649 50% \u0645\u0646 \u0630\u0627\u0643\u0631\u0629 \u0627\u0644\u0648\u0635\u0648\u0644 \u0627\u0644\u0639\u0634\u0648\u0627\u0626\u064a \u0648\u064a\u062d\u062a\u0627\u062c \u0639\u062f\u0629 \u063a\u064a\u063a\u0627\u0628\u0627\u064a\u062a \u0645\u0646 \u0645\u0633\u0627\u062d\u0629 \u0627\u0644\u0642\u0631\u0635. \u0639\u0644\u0649 \u0627\u0644\u0623\u062c\u0647\u0632\u0629 \u0627\u0644\u062a\u064a \u062a\u062d\u062a\u0648\u064a \u0639\u0644\u0649 \u0623\u0642\u0644 \u0645\u0646 16 GB \u0645\u0646 RAM\u060c \u0642\u062f \u064a\u0624\u062f\u064a \u0630\u0644\u0643 \u0625\u0644\u0649 \u062a\u0628\u0627\u0637\u0624 \u0645\u0644\u062d\u0648\u0638.',
-                    reqCloudAlt: '\u0628\u062f\u064a\u0644: \u0627\u0633\u062a\u062e\u062f\u0645 \u0628\u064a\u0626\u0627\u062a \u0633\u062d\u0627\u0628\u064a\u0629 \u0645\u062c\u0627\u0646\u064a\u0629 \u0645\u062b\u0644 GitHub Codespaces \u0623\u0648 Google Cloud Shell \u0623\u0648 Gitpod \u2013 \u062a\u0648\u0641\u0631 \u0647\u0630\u0647 Docker \u0645\u0628\u0627\u0634\u0631\u0629 \u0641\u064a \u0627\u0644\u0645\u062a\u0635\u0641\u062d \u062f\u0648\u0646 \u0627\u0644\u062d\u0627\u062c\u0629 \u0625\u0644\u0649 \u062a\u062b\u0628\u064a\u062a \u0645\u062d\u0644\u064a.',
+                    reqCloudAlt: '\u0628\u062f\u064a\u0644: \u0627\u0644\u0639\u062f\u064a\u062f \u0645\u0646 \u0627\u0644\u062a\u0642\u0646\u064a\u0627\u062a \u0627\u0644\u0645\u0633\u062a\u062e\u062f\u0645\u0629 \u0641\u064a \u0647\u0630\u0627 \u0627\u0644\u0643\u0648\u0631\u0633 \u062a\u0648\u0641\u0631 \u0645\u0633\u062a\u0648\u064a\u0627\u062a \u0633\u062d\u0627\u0628\u064a\u0629 \u0645\u062c\u0627\u0646\u064a\u0629 \u0644\u0627 \u062a\u062a\u0637\u0644\u0628 \u062a\u062b\u0628\u064a\u062a\u064b\u0627 \u0645\u062d\u0644\u064a\u064b\u0627. \u0628\u0627\u0644\u0625\u0636\u0627\u0641\u0629 \u0625\u0644\u0649 \u0630\u0644\u0643\u060c \u062a\u0642\u062f\u0645 \u0645\u0632\u0648\u062f\u0648 \u0627\u0644\u0633\u062d\u0627\u0628\u0629 \u0627\u0644\u0643\u0628\u0627\u0631 \u0628\u0631\u0627\u0645\u062c \u0644\u0644\u0637\u0644\u0627\u0628:',
+                    cloudVendorTitle: '\u0639\u0631\u0648\u0636 \u0645\u062c\u0627\u0646\u064a\u0629 \u0645\u0646 \u0645\u0632\u0648\u062f\u064a \u0627\u0644\u062a\u0642\u0646\u064a\u0629:',
+                    cloudMongo: '\u0643\u0644\u0627\u0633\u062a\u0631 M0 \u0645\u062c\u0627\u0646\u064a (512 MB)\u060c \u0628\u062f\u0648\u0646 \u0627\u0646\u062a\u0647\u0627\u0621 \u0635\u0644\u0627\u062d\u064a\u0629\u060c \u0628\u062f\u0648\u0646 \u0628\u0637\u0627\u0642\u0629 \u0627\u0626\u062a\u0645\u0627\u0646',
+                    cloudNeo4j: '\u0642\u0627\u0639\u062f\u0629 \u0628\u064a\u0627\u0646\u0627\u062a \u0631\u0633\u0648\u0645\u064a\u0629 \u0633\u062d\u0627\u0628\u064a\u0629 \u0645\u062c\u0627\u0646\u064a\u0629 (\u062d\u062a\u0649 50,000 \u0639\u0642\u062f\u0629)',
+                    cloudDatabricks: '\u062f\u0641\u062a\u0631 Spark \u0645\u062c\u0627\u0646\u064a \u0641\u064a \u0627\u0644\u0633\u062d\u0627\u0628\u0629 (\u062e\u0644\u0641 Community Edition)',
+                    cloudMotherduck: 'DuckDB \u0641\u064a \u0627\u0644\u0633\u062d\u0627\u0628\u0629\u060c \u062e\u0637\u0629 \u0645\u062c\u0627\u0646\u064a\u0629',
+                    cloudProviderTitle: '\u0628\u0631\u0627\u0645\u062c \u0627\u0644\u0637\u0644\u0627\u0628 \u0645\u0646 \u0645\u0632\u0648\u062f\u064a \u0627\u0644\u0633\u062d\u0627\u0628\u0629:',
+                    cloudGithub: 'Codespaces \u0648\u0631\u0635\u064a\u062f MongoDB \u0648JetBrains \u0648\u063a\u064a\u0631\u0647\u0627 \u2013 \u0628\u0627\u0644\u0628\u0631\u064a\u062f \u0627\u0644\u062c\u0627\u0645\u0639\u064a',
+                    cloudAzure: '\u0631\u0635\u064a\u062f \u0633\u062d\u0627\u0628\u064a 100$ \u0633\u0646\u0648\u064a\u064b\u0627 \u0644\u0644\u0637\u0644\u0627\u0628\u060c \u0628\u062f\u0648\u0646 \u0628\u0637\u0627\u0642\u0629 \u0627\u0626\u062a\u0645\u0627\u0646',
+                    cloudAws: '\u062a\u062f\u0631\u064a\u0628 \u0633\u062d\u0627\u0628\u064a \u0645\u062c\u0627\u0646\u064a \u0648\u0631\u0635\u064a\u062f \u0644\u0644\u0637\u0644\u0627\u0628',
+                    cloudGoogle: '\u0631\u0635\u064a\u062f \u0628\u062f\u0621 300$ + \u0631\u0635\u064a\u062f \u062a\u0639\u0644\u064a\u0645\u064a \u0639\u0628\u0631 \u0627\u0644\u062c\u0627\u0645\u0639\u0629',
                     windowsLabNote: '\u0645\u0633\u062a\u062e\u062f\u0645\u0648 Windows: \u0642\u0645 \u0628\u062a\u0634\u063a\u064a\u0644 \u062c\u0645\u064a\u0639 \u0623\u0648\u0627\u0645\u0631 \u0627\u0644\u0637\u0631\u0641\u064a\u0629 \u0627\u0644\u062a\u0627\u0644\u064a\u0629 \u0641\u064a \u0637\u0631\u0641\u064a\u0629 WSL2 Ubuntu (\u0644\u064a\u0633 \u0641\u064a Windows PowerShell). \u0627\u0641\u062a\u062d \u062a\u0637\u0628\u064a\u0642 \u201cUbuntu\u201d \u0645\u0646 \u0642\u0627\u0626\u0645\u0629 \u0627\u0644\u0628\u062f\u0621.',
 
                 section5Title: "\u0627\u0644\u062a\u062b\u0628\u064a\u062a \u062e\u0637\u0648\u0629 \u0628\u062e\u0637\u0648\u0629",
@@ -829,7 +859,17 @@
                 reqDiskMin: "10 GB вільно",
                 reqWSL: "\u0412\u0432\u0456\u043c\u043a\u043d\u0443\u0442\u0438 WSL2 *",
                     reqWSLNote: '* WSL2 (Windows Subsystem for Linux 2) \u2014 \u0446\u0435 \u0441\u0435\u0440\u0435\u0434\u043e\u0432\u0438\u0449\u0435 Linux \u0432\u0456\u0434 Microsoft, \u044f\u043a\u0435 \u043f\u0440\u0430\u0446\u044e\u0454 \u0432\u0441\u0435\u0440\u0435\u0434\u0438\u043d\u0456 Windows \u0443 \u0432\u0456\u0440\u0442\u0443\u0430\u043b\u044c\u043d\u0456\u0439 \u043c\u0430\u0448\u0438\u043d\u0456. Docker Desktop \u043f\u043e\u0442\u0440\u0435\u0431\u0443\u0454 WSL2 \u043d\u0430 Windows. \u0417\u0432\u0435\u0440\u043d\u0456\u0442\u044c \u0443\u0432\u0430\u0433\u0443: WSL2 \u0441\u043f\u043e\u0436\u0438\u0432\u0430\u0454 \u0434\u043e\u0434\u0430\u0442\u043a\u043e\u0432\u0456 \u0441\u0438\u0441\u0442\u0435\u043c\u043d\u0456 \u0440\u0435\u0441\u0443\u0440\u0441\u0438 \u2013 \u0437\u0430 \u0437\u0430\u043c\u043e\u0432\u0447\u0443\u0432\u0430\u043d\u043d\u044f\u043c \u0440\u0435\u0437\u0435\u0440\u0432\u0443\u0454 \u0434\u043e 50% \u043e\u043f\u0435\u0440\u0430\u0442\u0438\u0432\u043d\u043e\u0457 \u043f\u0430\u043c\'\u044f\u0442\u0456 \u0442\u0430 \u043f\u043e\u0442\u0440\u0435\u0431\u0443\u0454 \u043a\u0456\u043b\u044c\u043a\u0430 \u0413\u0411 \u0434\u0438\u0441\u043a\u043e\u0432\u043e\u0433\u043e \u043f\u0440\u043e\u0441\u0442\u043e\u0440\u0443. \u041d\u0430 \u043a\u043e\u043c\u043f\'\u044e\u0442\u0435\u0440\u0430\u0445 \u0437 \u043c\u0435\u043d\u0448 \u043d\u0456\u0436 16\u202f\u0413\u0411 RAM \u0446\u0435 \u043c\u043e\u0436\u0435 \u043f\u0440\u0438\u0437\u0432\u0435\u0441\u0442\u0438 \u0434\u043e \u043f\u043e\u043c\u0456\u0442\u043d\u043e\u0433\u043e \u0437\u043d\u0438\u0436\u0435\u043d\u043d\u044f \u043f\u0440\u043e\u0434\u0443\u043a\u0442\u0438\u0432\u043d\u043e\u0441\u0442\u0456.',
-                    reqCloudAlt: '\u0410\u043b\u044c\u0442\u0435\u0440\u043d\u0430\u0442\u0438\u0432\u0430: \u0412\u0438\u043a\u043e\u0440\u0438\u0441\u0442\u043e\u0432\u0443\u0439\u0442\u0435 \u0431\u0435\u0437\u043a\u043e\u0448\u0442\u043e\u0432\u043d\u0456 \u0445\u043c\u0430\u0440\u043d\u0456 \u0441\u0435\u0440\u0435\u0434\u043e\u0432\u0438\u0449\u0430, \u0442\u0430\u043a\u0456 \u044f\u043a GitHub Codespaces, Google Cloud Shell \u0430\u0431\u043e Gitpod \u2013 \u0432\u043e\u043d\u0438 \u043d\u0430\u0434\u0430\u044e\u0442\u044c Docker \u043f\u0440\u044f\u043c\u043e \u0443 \u0431\u0440\u0430\u0443\u0437\u0435\u0440\u0456, \u0431\u0435\u0437 \u043b\u043e\u043a\u0430\u043b\u044c\u043d\u043e\u0457 \u0456\u043d\u0441\u0442\u0430\u043b\u044f\u0446\u0456\u0457.',
+                    reqCloudAlt: '\u0410\u043b\u044c\u0442\u0435\u0440\u043d\u0430\u0442\u0438\u0432\u0430: \u0411\u0430\u0433\u0430\u0442\u043e \u0442\u0435\u0445\u043d\u043e\u043b\u043e\u0433\u0456\u0439, \u044f\u043a\u0456 \u0432\u0438\u043a\u043e\u0440\u0438\u0441\u0442\u043e\u0432\u0443\u044e\u0442\u044c\u0441\u044f \u0432 \u0446\u044c\u043e\u043c\u0443 \u043a\u0443\u0440\u0441\u0456, \u043f\u0440\u043e\u043f\u043e\u043d\u0443\u044e\u0442\u044c \u0431\u0435\u0437\u043a\u043e\u0448\u0442\u043e\u0432\u043d\u0456 \u0445\u043c\u0430\u0440\u043d\u0456 \u0440\u0456\u0432\u043d\u0456, \u044f\u043a\u0456 \u043d\u0435 \u043f\u043e\u0442\u0440\u0435\u0431\u0443\u044e\u0442\u044c \u043b\u043e\u043a\u0430\u043b\u044c\u043d\u043e\u0457 \u0456\u043d\u0441\u0442\u0430\u043b\u044f\u0446\u0456\u0457. \u041a\u0440\u0456\u043c \u0442\u043e\u0433\u043e, \u0432\u0435\u043b\u0438\u043a\u0456 \u0445\u043c\u0430\u0440\u043d\u0456 \u043f\u0440\u043e\u0432\u0430\u0439\u0434\u0435\u0440\u0438 \u043f\u0440\u043e\u043f\u043e\u043d\u0443\u044e\u0442\u044c \u043f\u0440\u043e\u0433\u0440\u0430\u043c\u0438 \u0434\u043b\u044f \u0441\u0442\u0443\u0434\u0435\u043d\u0442\u0456\u0432:',
+                    cloudVendorTitle: '\u0411\u0435\u0437\u043a\u043e\u0448\u0442\u043e\u0432\u043d\u0456 \u043f\u0440\u043e\u043f\u043e\u0437\u0438\u0446\u0456\u0457 \u0432\u0456\u0434 \u043f\u043e\u0441\u0442\u0430\u0447\u0430\u043b\u044c\u043d\u0438\u043a\u0456\u0432 \u0442\u0435\u0445\u043d\u043e\u043b\u043e\u0433\u0456\u0439:',
+                    cloudMongo: '\u0411\u0435\u0437\u043a\u043e\u0448\u0442\u043e\u0432\u043d\u0438\u0439 \u043a\u043b\u0430\u0441\u0442\u0435\u0440 M0 (512\u202f\u041c\u0411), \u0431\u0435\u0437 \u0442\u0435\u0440\u043c\u0456\u043d\u0443 \u0434\u0456\u0457, \u0431\u0435\u0437 \u043a\u0440\u0435\u0434\u0438\u0442\u043d\u043e\u0457 \u043a\u0430\u0440\u0442\u043a\u0438',
+                    cloudNeo4j: '\u0411\u0435\u0437\u043a\u043e\u0448\u0442\u043e\u0432\u043d\u0430 \u0445\u043c\u0430\u0440\u043d\u0430 \u0433\u0440\u0430\u0444\u043e\u0432\u0430 \u0411\u0414 (\u0434\u043e 50 000 \u0432\u0443\u0437\u043b\u0456\u0432)',
+                    cloudDatabricks: '\u0411\u0435\u0437\u043a\u043e\u0448\u0442\u043e\u0432\u043d\u0438\u0439 Spark-\u0431\u043b\u043e\u043a\u043d\u043e\u0442 \u0443 \u0445\u043c\u0430\u0440\u0456 (\u043d\u0430\u0441\u0442\u0443\u043f\u043d\u0438\u043a Community Edition)',
+                    cloudMotherduck: 'DuckDB \u0443 \u0445\u043c\u0430\u0440\u0456, \u0431\u0435\u0437\u043a\u043e\u0448\u0442\u043e\u0432\u043d\u0438\u0439 \u043f\u043b\u0430\u043d',
+                    cloudProviderTitle: '\u041f\u0440\u043e\u0433\u0440\u0430\u043c\u0438 \u0434\u043b\u044f \u0441\u0442\u0443\u0434\u0435\u043d\u0442\u0456\u0432 \u0432\u0456\u0434 \u0445\u043c\u0430\u0440\u043d\u0438\u0445 \u043f\u0440\u043e\u0432\u0430\u0439\u0434\u0435\u0440\u0456\u0432:',
+                    cloudGithub: 'Codespaces, \u043a\u0440\u0435\u0434\u0438\u0442\u0438 MongoDB, JetBrains \u0442\u0430 \u0456\u043d\u0448\u0435 \u2013 \u0437 \u0443\u043d\u0456\u0432\u0435\u0440\u0441\u0438\u0442\u0435\u0442\u0441\u044c\u043a\u043e\u044e \u0435\u043b. \u043f\u043e\u0448\u0442\u043e\u044e',
+                    cloudAzure: '\u0425\u043c\u0430\u0440\u043d\u0438\u0439 \u043a\u0440\u0435\u0434\u0438\u0442 100$/\u0440\u0456\u043a \u0434\u043b\u044f \u0441\u0442\u0443\u0434\u0435\u043d\u0442\u0456\u0432, \u0431\u0435\u0437 \u043a\u0440\u0435\u0434\u0438\u0442\u043d\u043e\u0457 \u043a\u0430\u0440\u0442\u043a\u0438',
+                    cloudAws: '\u0411\u0435\u0437\u043a\u043e\u0448\u0442\u043e\u0432\u043d\u0435 \u0445\u043c\u0430\u0440\u043d\u0435 \u043d\u0430\u0432\u0447\u0430\u043d\u043d\u044f \u0442\u0430 \u043a\u0440\u0435\u0434\u0438\u0442\u0438 \u0434\u043b\u044f \u0441\u0442\u0443\u0434\u0435\u043d\u0442\u0456\u0432',
+                    cloudGoogle: '\u0421\u0442\u0430\u0440\u0442\u043e\u0432\u0438\u0439 \u043a\u0440\u0435\u0434\u0438\u0442 300$ + \u043e\u0441\u0432\u0456\u0442\u043d\u0456 \u043a\u0440\u0435\u0434\u0438\u0442\u0438 \u0447\u0435\u0440\u0435\u0437 \u0443\u043d\u0456\u0432\u0435\u0440\u0441\u0438\u0442\u0435\u0442',
                     windowsLabNote: '\u041a\u043e\u0440\u0438\u0441\u0442\u0443\u0432\u0430\u0447\u0456 Windows: \u0412\u0438\u043a\u043e\u043d\u0443\u0439\u0442\u0435 \u0432\u0441\u0456 \u043d\u0430\u0441\u0442\u0443\u043f\u043d\u0456 \u043a\u043e\u043c\u0430\u043d\u0434\u0438 \u0442\u0435\u0440\u043c\u0456\u043d\u0430\u043b\u0443 \u0432 \u0442\u0435\u0440\u043c\u0456\u043d\u0430\u043b\u0456 WSL2 Ubuntu (\u043d\u0435 \u0432 Windows PowerShell). \u0412\u0456\u0434\u043a\u0440\u0438\u0439\u0442\u0435 \u0434\u043e\u0434\u0430\u0442\u043e\u043a \u00abUbuntu\u00bb \u0437 \u043c\u0435\u043d\u044e \u041f\u0443\u0441\u043a.',
 
                 section5Title: "\u0412\u0441\u0442\u0430\u043d\u043e\u0432\u043b\u0435\u043d\u043d\u044f \u043a\u0440\u043e\u043a \u0437\u0430 \u043a\u0440\u043e\u043a\u043e\u043c",
@@ -972,7 +1012,17 @@
                 reqDiskMin: "10 GB libre",
                 reqWSL: "Habilitar WSL2 *",
                     reqWSLNote: '* WSL2 (Windows Subsystem for Linux 2) es un entorno Linux proporcionado por Microsoft que se ejecuta dentro de Windows en una m\u00e1quina virtual. Docker Desktop requiere WSL2 en Windows. Nota: WSL2 consume recursos adicionales del sistema \u2013 por defecto reserva hasta el 50% de tu RAM y necesita varios GB de espacio en disco. En equipos con menos de 16\u202fGB de RAM, esto puede causar una reducci\u00f3n notable del rendimiento.',
-                    reqCloudAlt: 'Alternativa: Utiliza entornos cloud gratuitos como GitHub Codespaces, Google Cloud Shell o Gitpod \u2013 estos ofrecen Docker directamente en el navegador, sin necesidad de instalaci\u00f3n local.',
+                    reqCloudAlt: 'Alternativa: Muchas de las tecnolog\u00edas utilizadas en este curso ofrecen niveles cloud gratuitos que no requieren instalaci\u00f3n local. Adem\u00e1s, los grandes proveedores cloud ofrecen programas para estudiantes:',
+                    cloudVendorTitle: 'Ofertas gratuitas de los proveedores de tecnolog\u00eda:',
+                    cloudMongo: 'Cl\u00faster M0 gratuito (512\u202fMB), sin caducidad, sin tarjeta de cr\u00e9dito',
+                    cloudNeo4j: 'Base de datos de grafos gratuita en la nube (hasta 50.000 nodos)',
+                    cloudDatabricks: 'Notebook Spark gratuito en la nube (sucesor de Community Edition)',
+                    cloudMotherduck: 'DuckDB en la nube, plan gratuito',
+                    cloudProviderTitle: 'Programas para estudiantes de proveedores cloud:',
+                    cloudGithub: 'Codespaces, cr\u00e9ditos MongoDB, JetBrains y m\u00e1s \u2013 con email universitario',
+                    cloudAzure: '100\u202f$ de cr\u00e9dito cloud/a\u00f1o para estudiantes, sin tarjeta de cr\u00e9dito',
+                    cloudAws: 'Formaci\u00f3n cloud gratuita y cr\u00e9ditos para estudiantes',
+                    cloudGoogle: '300\u202f$ de cr\u00e9dito inicial + cr\u00e9ditos educativos v\u00eda universidad',
                     windowsLabNote: 'Usuarios de Windows: Ejecuta todos los siguientes comandos de terminal en el terminal WSL2 Ubuntu (no en Windows PowerShell). Abre la app \u201cUbuntu\u201d desde el men\u00fa Inicio.',
 
                 section5Title: "Instalaci\u00f3n Paso a Paso",
@@ -1115,7 +1165,17 @@
                 reqDiskMin: "10 GB boş",
                 reqWSL: "WSL2'yi etkinle\u015ftir *",
                     reqWSLNote: '* WSL2 (Windows Subsystem for Linux 2), Microsoft taraf\u0131ndan sa\u011flanan ve Windows i\u00e7inde sanal bir makinede \u00e7al\u0131\u015fan bir Linux ortam\u0131d\u0131r. Docker Desktop, Windows\u2019ta WSL2 gerektirir. Dikkat: WSL2 ek sistem kaynaklar\u0131 t\u00fcketir \u2013 varsay\u0131lan olarak RAM\u2019inizin %50\u2019sine kadar ay\u0131r\u0131r ve birka\u00e7 GB disk alan\u0131na ihtiya\u00e7 duyar. 16\u202fGB\u2019den az RAM\u2019e sahip bilgisayarlarda bu, belirgin performans d\u00fc\u015f\u00fc\u015flerine neden olabilir.',
-                    reqCloudAlt: 'Alternatif: GitHub Codespaces, Google Cloud Shell veya Gitpod gibi \u00fccretsiz bulut ortamlar\u0131n\u0131 kullan\u0131n \u2013 bunlar Docker\u2019\u0131 do\u011frudan taray\u0131c\u0131da sunar, yerel kurulum gerekmez.',
+                    reqCloudAlt: 'Alternatif: Bu kursta kullan\u0131lan teknolojilerin \u00e7o\u011fu, yerel kurulum gerektirmeyen \u00fccretsiz bulut katmanlar\u0131 sunar. Ayr\u0131ca b\u00fcy\u00fck bulut sa\u011flay\u0131c\u0131lar\u0131 \u00f6\u011frenci programlar\u0131 sunar:',
+                    cloudVendorTitle: 'Teknoloji sa\u011flay\u0131c\u0131lar\u0131ndan \u00fccretsiz teklifler:',
+                    cloudMongo: '\u00dccretsiz M0 k\u00fcmesi (512\u202fMB), s\u00fcresi dolmaz, kredi kart\u0131 gerekmez',
+                    cloudNeo4j: '\u00dccretsiz bulut graf veritaban\u0131 (50.000 d\u00fc\u011f\u00fcme kadar)',
+                    cloudDatabricks: 'Bulutta \u00fccretsiz Spark not defteri (Community Edition\u2019\u0131n halefi)',
+                    cloudMotherduck: 'Bulutta DuckDB, \u00fccretsiz plan',
+                    cloudProviderTitle: 'Bulut sa\u011flay\u0131c\u0131lar\u0131ndan \u00f6\u011frenci programlar\u0131:',
+                    cloudGithub: 'Codespaces, MongoDB kredisi, JetBrains ve daha fazlas\u0131 \u2013 \u00fcniversite e-postas\u0131yla',
+                    cloudAzure: '\u00d6\u011frenciler i\u00e7in y\u0131ll\u0131k 100$ bulut kredisi, kredi kart\u0131 gerekmez',
+                    cloudAws: '\u00d6\u011frenciler i\u00e7in \u00fccretsiz bulut e\u011fitimi ve kredi',
+                    cloudGoogle: '300$ ba\u015flang\u0131\u00e7 kredisi + \u00fcniversite \u00fczerinden e\u011fitim kredisi',
                     windowsLabNote: 'Windows kullan\u0131c\u0131lar\u0131: T\u00fcm a\u015fa\u011f\u0131daki terminal komutlar\u0131n\u0131 WSL2 Ubuntu terminalinde \u00e7al\u0131\u015ft\u0131r\u0131n (Windows PowerShell\u2019de de\u011fil). Ba\u015flat men\u00fcs\u00fcnden \u201cUbuntu\u201d uygulamas\u0131n\u0131 a\u00e7\u0131n.',
 
                 section5Title: "Ad\u0131m Ad\u0131m Kurulum",
@@ -1422,7 +1482,35 @@
                                 </div>
                                 <div className="warning-box" style={{marginTop: '1.5rem'}}>
                                     <p className="text-gray-700" style={{marginBottom: '0.75rem'}}>{t.reqWSLNote}</p>
-                                    <p className="text-gray-700 font-semibold">{t.reqCloudAlt}</p>
+                                    <p className="text-gray-700 font-semibold" style={{marginBottom: '0.75rem'}}>{t.reqCloudAlt}</p>
+                                    <p className="font-semibold text-dark-blue" style={{marginBottom: '0.5rem'}}>{t.cloudVendorTitle}</p>
+                                    <ul style={{listStyle: 'none', padding: 0, margin: '0 0 1rem 0'}}>
+                                        {[
+                                            {name: 'MongoDB Atlas Free Tier', desc: t.cloudMongo, url: 'https://www.mongodb.com/atlas'},
+                                            {name: 'Neo4j AuraDB Free', desc: t.cloudNeo4j, url: 'https://neo4j.com/cloud/aura-free/'},
+                                            {name: 'Databricks Free Edition', desc: t.cloudDatabricks, url: 'https://www.databricks.com/learn/free-edition'},
+                                            {name: 'MotherDuck Free Tier', desc: t.cloudMotherduck, url: 'https://motherduck.com/'},
+                                        ].map((item, idx) => (
+                                            <li key={idx} style={{marginBottom: '0.4rem', paddingLeft: '1rem', borderLeft: '2px solid #E8792F'}}>
+                                                <a href={item.url} target="_blank" rel="noopener noreferrer" style={{color: '#E8792F', fontWeight: 600, textDecoration: 'underline'}}>{item.name}</a>
+                                                <span className="text-gray-600" style={{fontSize: '0.9rem'}}> – {item.desc}</span>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                    <p className="font-semibold text-dark-blue" style={{marginBottom: '0.5rem'}}>{t.cloudProviderTitle}</p>
+                                    <ul style={{listStyle: 'none', padding: 0, margin: '0 0 1rem 0'}}>
+                                        {[
+                                            {name: 'GitHub Student Developer Pack', desc: t.cloudGithub, url: 'https://education.github.com/pack'},
+                                            {name: 'Azure for Students', desc: t.cloudAzure, url: 'https://azure.microsoft.com/en-us/free/students'},
+                                            {name: 'AWS Educate', desc: t.cloudAws, url: 'https://aws.amazon.com/education/awseducate/'},
+                                            {name: 'Google Cloud for Students', desc: t.cloudGoogle, url: 'https://cloud.google.com/edu/students'},
+                                        ].map((item, idx) => (
+                                            <li key={idx} style={{marginBottom: '0.4rem', paddingLeft: '1rem', borderLeft: '2px solid #3b82f6'}}>
+                                                <a href={item.url} target="_blank" rel="noopener noreferrer" style={{color: '#E8792F', fontWeight: 600, textDecoration: 'underline'}}>{item.name}</a>
+                                                <span className="text-gray-600" style={{fontSize: '0.9rem'}}> – {item.desc}</span>
+                                            </li>
+                                        ))}
+                                    </ul>
                                 </div>
                             </section>
 
