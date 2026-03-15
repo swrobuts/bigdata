@@ -1446,6 +1446,39 @@
                             <section id="system-requirements" className="mb-12">
                                 <h2 className="section-header">{t.section4Title}</h2>
                                 <p className="text-gray-700 mb-4">{t.section4Intro}</p>
+
+                                <div className="info-box" style={{marginBottom: '1.5rem'}}>
+                                    <p className="text-gray-700 font-semibold" style={{marginBottom: '0.75rem'}}>{t.reqCloudAlt}</p>
+                                    <p className="font-semibold text-dark-blue" style={{marginBottom: '0.5rem'}}>{t.cloudVendorTitle}</p>
+                                    <ul style={{listStyle: 'none', padding: 0, margin: '0 0 1rem 0'}}>
+                                        {[
+                                            {name: 'MongoDB Atlas Free Tier', desc: t.cloudMongo, url: 'https://www.mongodb.com/atlas'},
+                                            {name: 'Neo4j AuraDB Free', desc: t.cloudNeo4j, url: 'https://neo4j.com/cloud/aura-free/'},
+                                            {name: 'Databricks Free Edition', desc: t.cloudDatabricks, url: 'https://www.databricks.com/learn/free-edition'},
+                                            {name: 'MotherDuck Free Tier', desc: t.cloudMotherduck, url: 'https://motherduck.com/'},
+                                        ].map((item, idx) => (
+                                            <li key={idx} style={{marginBottom: '0.4rem', paddingLeft: '1rem', borderLeft: '2px solid #E8792F'}}>
+                                                <a href={item.url} target="_blank" rel="noopener noreferrer" style={{color: '#E8792F', fontWeight: 600, textDecoration: 'underline'}}>{item.name}</a>
+                                                <span className="text-gray-600" style={{fontSize: '0.9rem'}}> – {item.desc}</span>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                    <p className="font-semibold text-dark-blue" style={{marginBottom: '0.5rem'}}>{t.cloudProviderTitle}</p>
+                                    <ul style={{listStyle: 'none', padding: 0, margin: 0}}>
+                                        {[
+                                            {name: 'GitHub Student Developer Pack', desc: t.cloudGithub, url: 'https://education.github.com/pack'},
+                                            {name: 'Azure for Students', desc: t.cloudAzure, url: 'https://azure.microsoft.com/en-us/free/students'},
+                                            {name: 'AWS Educate', desc: t.cloudAws, url: 'https://aws.amazon.com/education/awseducate/'},
+                                            {name: 'Google Cloud for Students', desc: t.cloudGoogle, url: 'https://cloud.google.com/edu/students'},
+                                        ].map((item, idx) => (
+                                            <li key={idx} style={{marginBottom: '0.4rem', paddingLeft: '1rem', borderLeft: '2px solid #3b82f6'}}>
+                                                <a href={item.url} target="_blank" rel="noopener noreferrer" style={{color: '#E8792F', fontWeight: 600, textDecoration: 'underline'}}>{item.name}</a>
+                                                <span className="text-gray-600" style={{fontSize: '0.9rem'}}> – {item.desc}</span>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+
                                 <div className="table-responsive">
                                     <table>
                                         <thead>
@@ -1481,36 +1514,7 @@
                                     </table>
                                 </div>
                                 <div className="warning-box" style={{marginTop: '1.5rem'}}>
-                                    <p className="text-gray-700" style={{marginBottom: '0.75rem'}}>{t.reqWSLNote}</p>
-                                    <p className="text-gray-700 font-semibold" style={{marginBottom: '0.75rem'}}>{t.reqCloudAlt}</p>
-                                    <p className="font-semibold text-dark-blue" style={{marginBottom: '0.5rem'}}>{t.cloudVendorTitle}</p>
-                                    <ul style={{listStyle: 'none', padding: 0, margin: '0 0 1rem 0'}}>
-                                        {[
-                                            {name: 'MongoDB Atlas Free Tier', desc: t.cloudMongo, url: 'https://www.mongodb.com/atlas'},
-                                            {name: 'Neo4j AuraDB Free', desc: t.cloudNeo4j, url: 'https://neo4j.com/cloud/aura-free/'},
-                                            {name: 'Databricks Free Edition', desc: t.cloudDatabricks, url: 'https://www.databricks.com/learn/free-edition'},
-                                            {name: 'MotherDuck Free Tier', desc: t.cloudMotherduck, url: 'https://motherduck.com/'},
-                                        ].map((item, idx) => (
-                                            <li key={idx} style={{marginBottom: '0.4rem', paddingLeft: '1rem', borderLeft: '2px solid #E8792F'}}>
-                                                <a href={item.url} target="_blank" rel="noopener noreferrer" style={{color: '#E8792F', fontWeight: 600, textDecoration: 'underline'}}>{item.name}</a>
-                                                <span className="text-gray-600" style={{fontSize: '0.9rem'}}> – {item.desc}</span>
-                                            </li>
-                                        ))}
-                                    </ul>
-                                    <p className="font-semibold text-dark-blue" style={{marginBottom: '0.5rem'}}>{t.cloudProviderTitle}</p>
-                                    <ul style={{listStyle: 'none', padding: 0, margin: '0 0 1rem 0'}}>
-                                        {[
-                                            {name: 'GitHub Student Developer Pack', desc: t.cloudGithub, url: 'https://education.github.com/pack'},
-                                            {name: 'Azure for Students', desc: t.cloudAzure, url: 'https://azure.microsoft.com/en-us/free/students'},
-                                            {name: 'AWS Educate', desc: t.cloudAws, url: 'https://aws.amazon.com/education/awseducate/'},
-                                            {name: 'Google Cloud for Students', desc: t.cloudGoogle, url: 'https://cloud.google.com/edu/students'},
-                                        ].map((item, idx) => (
-                                            <li key={idx} style={{marginBottom: '0.4rem', paddingLeft: '1rem', borderLeft: '2px solid #3b82f6'}}>
-                                                <a href={item.url} target="_blank" rel="noopener noreferrer" style={{color: '#E8792F', fontWeight: 600, textDecoration: 'underline'}}>{item.name}</a>
-                                                <span className="text-gray-600" style={{fontSize: '0.9rem'}}> – {item.desc}</span>
-                                            </li>
-                                        ))}
-                                    </ul>
+                                    <p className="text-gray-700">{t.reqWSLNote}</p>
                                 </div>
                             </section>
 
