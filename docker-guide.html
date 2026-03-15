@@ -9,339 +9,98 @@
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        :root {
-            --color-dark-blue: #1B3A5C;
-            --color-orange: #E8792F;
-            --color-light-blue: #EBF5FF;
-            --color-light-yellow: #FFFBEB;
-        }
+        :root { --primary: #1B3A5C; --accent: #E8792F; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif; background: #fafbfc; color: #374151; line-height: 1.7; }
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
-        }
+        /* Utility classes */
+        .text-dark-blue { color: var(--primary); }
+        .bg-dark-blue { background-color: var(--primary); }
+        .text-orange { color: var(--accent); }
+        .border-orange { border-color: var(--accent); }
 
-        .text-dark-blue { color: var(--color-dark-blue); }
-        .bg-dark-blue { background-color: var(--color-dark-blue); }
-        .text-orange { color: var(--color-orange); }
-        .border-orange { border-color: var(--color-orange); }
-        .bg-light-blue { background-color: var(--color-light-blue); }
-        .bg-light-yellow { background-color: var(--color-light-yellow); }
-        .hero-section { background-color: var(--color-dark-blue); }
+        /* RTL */
+        html[dir="rtl"] .sidebar { left: auto; right: 0; border-right: none; border-left: 1px solid #ddd; }
+        html[dir="rtl"] .sidebar-item { border-left: none; border-right: 3px solid transparent; }
+        html[dir="rtl"] .sidebar-item.active { border-right-color: var(--accent); }
+        html[dir="rtl"] .main-content { margin-left: 0; margin-right: 260px; }
+        html[dir="rtl"] .code-block { border-left: none; border-right: 4px solid var(--accent); }
+        html[dir="rtl"] .info-box { border-left: none; border-right: 4px solid #3b82f6; }
+        html[dir="rtl"] .warning-box { border-left: none; border-right: 4px solid #fbbf24; }
+        html[dir="rtl"] .problem-item { border-left: none; border-right: 4px solid var(--accent); }
 
-        .code-block {
-            background-color: #1e293b;
-            border-left: 4px solid var(--color-orange);
-            padding: 1rem;
-            border-radius: 0.5rem;
-            position: relative;
-        }
+        /* Header – fixed dark blue bar */
+        .header { position: fixed; top: 0; left: 0; right: 0; background: var(--primary); height: 4rem; padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; z-index: 50; box-shadow: 0 2px 12px rgba(0,0,0,0.15); }
+        .header-left { display: flex; align-items: center; gap: 1rem; }
+        .back-link { color: rgba(255,255,255,0.7); text-decoration: none; font-size: 0.85rem; font-weight: 600; transition: color 0.2s; white-space: nowrap; }
+        .back-link:hover { color: white; }
+        .header-title { color: white; font-size: 1.35rem; font-weight: 700; margin: 0; }
+        .lang-switcher { display: flex; gap: 0.4rem; align-items: center; }
+        .lang-btn { padding: 0.35rem 0.65rem; border-radius: 0.375rem; border: 2px solid rgba(255,255,255,0.25); background: transparent; cursor: pointer; font-weight: 700; font-size: 0.75rem; color: rgba(255,255,255,0.6); transition: all 0.2s; }
+        .lang-btn:hover:not(.active) { border-color: rgba(255,255,255,0.5); color: white; }
+        .lang-btn.active { background: var(--accent); color: white; border-color: var(--accent); }
 
-        .code-text {
-            color: #e2e8f0;
-            font-family: 'Courier New', monospace;
-            font-size: 0.875rem;
-            margin: 0;
-            word-break: break-all;
-            white-space: pre-wrap;
-        }
+        /* Sidebar */
+        .sidebar { position: fixed; left: 0; top: 4rem; width: 260px; height: calc(100vh - 4rem); background: #f0f4f8; border-right: 1px solid #ddd; overflow-y: auto; padding: 1.5rem 0; z-index: 40; }
+        .sidebar-item { display: block; width: 100%; text-align: left; padding: 0.65rem 1.5rem; cursor: pointer; border: none; background: none; border-left: 3px solid transparent; font-weight: 500; font-size: 0.85rem; color: #4b5563; transition: all 0.2s; font-family: inherit; text-decoration: none; line-height: 1.4; }
+        .sidebar-item:hover { background: #e1eaf5; color: var(--primary); }
+        .sidebar-item.active { background: rgba(232,121,47,0.08); color: var(--accent); border-left-color: var(--accent); font-weight: 700; }
 
-        .copy-button {
-            position: absolute;
-            top: 0.5rem;
-            right: 0.5rem;
-            background-color: var(--color-orange);
-            color: white;
-            padding: 0.25rem 0.75rem;
-            border: none;
-            border-radius: 0.25rem;
-            cursor: pointer;
-            font-size: 0.75rem;
-            transition: opacity 0.2s;
-        }
+        /* Main Content */
+        .main-content { margin-left: 260px; padding: 5.5rem 3rem 3rem 3rem; max-width: 1000px; }
 
-        .copy-button:hover {
-            opacity: 0.8;
-        }
+        /* Typography – section headings in accent orange */
+        .section-header { color: var(--accent); font-size: 2.2rem; font-weight: 800; margin: 0 0 1rem 0; line-height: 1.2; letter-spacing: -0.02em; padding-bottom: 0.5rem; border-bottom: 3px solid var(--accent); }
+        p { color: #374151; font-size: 1rem; line-height: 1.75; margin-bottom: 0.85rem; }
 
-        .step-number {
-            background-color: var(--color-orange);
-            color: white;
-            width: 2rem;
-            height: 2rem;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            flex-shrink: 0;
-        }
+        /* Section visual separation */
+        section[id] { scroll-margin-top: 5rem; margin-bottom: 2.5rem; padding-bottom: 1rem; }
+        section[id] + section[id] { border-top: 1px solid #e2e8f0; padding-top: 2rem; }
 
-        .section-header {
-            color: var(--color-dark-blue);
-            font-size: 1.875rem;
-            font-weight: bold;
-            border-left: 4px solid var(--color-orange);
-            padding-left: 1rem;
-            margin: 2rem 0 1.5rem 0;
-        }
+        /* Hero */
+        .hero-section { background: var(--primary); color: white; border-radius: 0.75rem; padding: 2rem; margin-bottom: 2rem; }
 
-        .nav-sidebar {
-            position: fixed;
-            left: 0;
-            top: 4rem;
-            width: 240px;
-            height: calc(100vh - 4rem);
-            background-color: #f8f9fa;
-            border-right: 1px solid #e0e0e0;
-            overflow-y: auto;
-            z-index: 40;
-        }
+        /* Code Blocks */
+        .code-block { background: #1e293b; border-left: 4px solid var(--accent); color: #e2e8f0; font-family: 'Courier New', monospace; padding: 1.25rem; border-radius: 0.5rem; font-size: 0.85rem; margin: 1.25rem 0; white-space: pre-wrap; overflow-x: auto; line-height: 1.55; position: relative; }
+        .code-text { color: #e2e8f0; font-family: 'Courier New', monospace; font-size: 0.875rem; margin: 0; word-break: break-all; white-space: pre-wrap; }
+        .copy-button { position: absolute; top: 0.6rem; right: 0.5rem; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.18); color: #94a3b8; border-radius: 0.375rem; padding: 0.2rem 0.6rem; font-size: 0.72rem; cursor: pointer; transition: all 0.2s; font-family: -apple-system, BlinkMacSystemFont, sans-serif; line-height: 1.5; }
+        .copy-button:hover { background: rgba(255,255,255,0.18); color: #e2e8f0; }
 
-        .nav-item {
-            padding: 0.75rem 1.5rem;
-            cursor: pointer;
-            border-left: 3px solid transparent;
-            color: var(--color-dark-blue);
-            transition: all 0.2s;
-        }
+        /* Step Numbers */
+        .step-number { background: var(--accent); color: white; width: 1.75rem; height: 1.75rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; flex-shrink: 0; font-size: 0.8rem; }
 
-        .nav-item:hover {
-            background-color: #e8f4f8;
-            border-left-color: var(--color-orange);
-        }
+        /* Info & Warning Boxes */
+        .info-box { background: #eff6ff; border-left: 4px solid #3b82f6; padding: 1rem 1.25rem; border-radius: 0.5rem; margin: 1.25rem 0; font-size: 0.95rem; color: #1e40af; }
+        .warning-box { background: #fffbeb; border-left: 4px solid #fbbf24; padding: 1rem 1.25rem; border-radius: 0.5rem; margin: 1.25rem 0; font-size: 0.95rem; color: #92400e; }
 
-        .nav-item.active {
-            background-color: var(--color-light-blue);
-            border-left-color: var(--color-orange);
-            font-weight: 600;
-        }
+        /* Tables */
+        .table-responsive { overflow-x: auto; margin: 1.5rem 0; }
+        table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: 0.9rem; border-radius: 0.5rem; overflow: hidden; }
+        th { background: var(--primary); color: white; padding: 0.65rem 1rem; text-align: left; font-weight: 600; font-size: 0.85rem; }
+        td { padding: 0.65rem 1rem; border-bottom: 1px solid #e5e7eb; color: #4b5563; font-size: 0.9rem; }
+        tr:hover td { background: #f8fafc; }
 
-        .main-content {
-            margin-left: 240px;
-            padding: 2rem;
-        }
+        /* Links */
+        .link-button { color: var(--accent); text-decoration: none; font-weight: 500; transition: all 0.2s; }
+        .link-button:hover { text-decoration: underline; }
 
-        .sticky-navbar {
-            position: sticky;
-            top: 0;
-            height: 4rem;
-            background-color: white;
-            border-bottom: 1px solid #e0e0e0;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 2rem;
-            z-index: 50;
-        }
+        /* Problem Items */
+        .problem-item { margin-bottom: 1.5rem; padding: 1rem; border-left: 4px solid var(--accent); background-color: #fafafa; border-radius: 0.5rem; }
 
-        .navbar-brand {
-            font-size: 1.25rem;
-            font-weight: bold;
-            color: var(--color-dark-blue);
-        }
+        /* Progress Bar */
+        .progress-bar-container { position: fixed; top: 4rem; left: 260px; right: 0; height: 3px; background: #e2e8f0; z-index: 45; }
+        .progress-bar-fill { height: 100%; background: var(--accent); transition: width 0.3s ease; }
 
-        .language-buttons {
-            display: flex;
-            gap: 0.5rem;
-        }
+        /* Footer */
+        .lab-footer { margin-top: 3rem; padding-top: 2rem; border-top: 1px solid #e5e7eb; text-align: center; color: #9ca3af; font-size: 0.85rem; }
+        .lab-footer p { color: #9ca3af; margin: 0.25rem 0; }
 
-        .lang-btn {
-            padding: 0.5rem 1rem;
-            border: 1px solid #d0d0d0;
-            background-color: white;
-            border-radius: 0.375rem;
-            cursor: pointer;
-            font-size: 0.875rem;
-            transition: all 0.2s;
-            color: var(--color-dark-blue);
-        }
-
-        .lang-btn.active {
-            background-color: var(--color-orange);
-            color: white;
-            border-color: var(--color-orange);
-        }
-
-        .lang-btn:hover {
-            border-color: var(--color-orange);
-        }
-
-        .info-box {
-            background-color: var(--color-light-blue);
-            border-left: 4px solid #3b82f6;
-            padding: 1rem;
-            border-radius: 0.5rem;
-            margin: 1.5rem 0;
-        }
-
-        .warning-box {
-            background-color: var(--color-light-yellow);
-            border-left: 4px solid #fbbf24;
-            padding: 1rem;
-            border-radius: 0.5rem;
-            margin: 1.5rem 0;
-        }
-
-        .table-responsive {
-            overflow-x: auto;
-            margin: 1.5rem 0;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            background-color: white;
-        }
-
-        th {
-            background-color: var(--color-dark-blue);
-            color: white;
-            padding: 1rem;
-            text-align: left;
-            font-weight: 600;
-        }
-
-        td {
-            border: 1px solid #e0e0e0;
-            padding: 1rem;
-        }
-
-        tr:hover {
-            background-color: #f8f9fa;
-        }
-
-        .hero-text {
-            color: white;
-        }
-
-        .back-link {
-            color: var(--color-orange);
-            text-decoration: none;
-            font-weight: 500;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .back-link:hover {
-            text-decoration: underline;
-        }
-
-        .link-button {
-            color: var(--color-orange);
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.2s;
-        }
-
-        .link-button:hover {
-            text-decoration: underline;
-        }
-
-        .problem-item {
-            margin-bottom: 1.5rem;
-            padding: 1rem;
-            border-left: 4px solid var(--color-orange);
-            background-color: #fafafa;
-        }
-
+        /* Responsive */
         @media (max-width: 768px) {
-            .nav-sidebar {
-                transform: translateX(-100%);
-                transition: transform 0.3s;
-                width: 200px;
-                z-index: 45;
-            }
-
-            .nav-sidebar.open {
-                transform: translateX(0);
-            }
-
-            .main-content {
-                margin-left: 0;
-                padding: 1rem;
-            }
-
-            .sticky-navbar {
-                padding: 0 1rem;
-            }
-
-            .language-buttons {
-                gap: 0.25rem;
-            }
-
-            .lang-btn {
-                padding: 0.375rem 0.75rem;
-                font-size: 0.75rem;
-            }
-        }
-
-        [dir="rtl"] .nav-sidebar {
-            left: auto;
-            right: 0;
-            border-right: none;
-            border-left: 1px solid #e0e0e0;
-        }
-
-        [dir="rtl"] .nav-item {
-            border-left: none;
-            border-right: 3px solid transparent;
-            padding: 0.75rem 1.5rem;
-        }
-
-        [dir="rtl"] .nav-item:hover {
-            border-right-color: var(--color-orange);
-        }
-
-        [dir="rtl"] .nav-item.active {
-            border-right-color: var(--color-orange);
-        }
-
-        [dir="rtl"] .main-content {
-            margin-left: 0;
-            margin-right: 240px;
-        }
-
-        [dir="rtl"] .section-header {
-            border-left: none;
-            border-right: 4px solid var(--color-orange);
-            padding-left: 0;
-            padding-right: 1rem;
-        }
-
-        [dir="rtl"] .code-block {
-            border-left: none;
-            border-right: 4px solid var(--color-orange);
-        }
-
-        [dir="rtl"] .copy-button {
-            left: 0.5rem;
-            right: auto;
-        }
-
-        [dir="rtl"] .back-link {
-            flex-direction: row-reverse;
-        }
-
-        [dir="rtl"] .problem-item {
-            border-left: none;
-            border-right: 4px solid var(--color-orange);
-        }
-
-        [dir="rtl"] .info-box {
-            border-left: none;
-            border-right: 4px solid #3b82f6;
-        }
-
-        [dir="rtl"] .warning-box {
-            border-left: none;
-            border-right: 4px solid #fbbf24;
-        }
-
-        [dir="rtl"] .step-number {
-            margin-left: auto;
-            margin-right: 0;
+            .sidebar { display: none; }
+            .main-content { margin-left: 0; padding: 5rem 1.5rem 2rem 1.5rem; }
+            html[dir="rtl"] .main-content { margin-right: 0; }
+            .progress-bar-container { left: 0; }
         }
     </style>
 </head>
@@ -1286,12 +1045,39 @@
 
         function DockerGuide() {
             const [language, setLanguage] = useState('de');
-            const [sidebarOpen, setSidebarOpen] = useState(false);
             const [activeSection, setActiveSection] = useState('what-is-docker');
             const [copiedCode, setCopiedCode] = useState(null);
+            const [progress, setProgress] = useState(0);
 
             const t = translations[language];
             const isRTL = language === 'ar';
+
+            // IntersectionObserver for sidebar scroll tracking
+            React.useEffect(() => {
+                const sections = document.querySelectorAll('section[id]');
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting && entry.intersectionRatio > 0.15) {
+                            setActiveSection(entry.target.id);
+                            const sidebarItem = document.querySelector('.sidebar-item.active');
+                            if (sidebarItem) sidebarItem.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+                        }
+                    });
+                }, { rootMargin: '-80px 0px -60% 0px', threshold: [0.15, 0.5] });
+                sections.forEach(s => observer.observe(s));
+                return () => observer.disconnect();
+            }, []);
+
+            // Progress bar tracking
+            React.useEffect(() => {
+                const handleScroll = () => {
+                    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+                    const scrolled = window.scrollY;
+                    setProgress(docHeight > 0 ? (scrolled / docHeight) * 100 : 0);
+                };
+                window.addEventListener('scroll', handleScroll);
+                return () => window.removeEventListener('scroll', handleScroll);
+            }, []);
 
             const copyToClipboard = (code, id) => {
                 navigator.clipboard.writeText(code);
@@ -1324,10 +1110,18 @@
 
             return (
                 <div dir={isRTL ? 'rtl' : 'ltr'}>
-                    {/* Sticky Navbar */}
-                    <div className="sticky-navbar">
-                        <div className="navbar-brand">{t.bigDataLab}</div>
-                        <div className="language-buttons">
+                    {/* Progress Bar */}
+                    <div className="progress-bar-container">
+                        <div className="progress-bar-fill" style={{width: `${progress}%`}}></div>
+                    </div>
+
+                    {/* Fixed Header */}
+                    <header className="header">
+                        <div className="header-left">
+                            <a href="index.html" className="back-link">{'\u2190'} {t.backToOverview}</a>
+                            <span className="header-title">{t.bigDataLab} \u2013 Docker Guide</span>
+                        </div>
+                        <div className="lang-switcher">
                             {Object.keys(translations).map((lang) => (
                                 <button
                                     key={lang}
@@ -1341,44 +1135,39 @@
                                 </button>
                             ))}
                         </div>
-                    </div>
+                    </header>
 
-                    {/* Main Layout */}
-                    <div className="flex">
-                        {/* Sidebar Navigation */}
-                        <nav className={`nav-sidebar ${sidebarOpen ? 'open' : ''}`}>
-                            <a href="index.html" className="nav-item hover:bg-blue-50">
-                                ← {t.backToOverview}
-                            </a>
-                            {sectionIds.map((id) => {
-                                let label = '';
-                                if (id === 'what-is-docker') label = t.section1Title;
-                                else if (id === 'why-docker-bigdata') label = t.section2Title;
-                                else if (id === 'core-concepts') label = t.section3Title;
-                                else if (id === 'system-requirements') label = t.section4Title;
-                                else if (id === 'installation') label = t.section5Title;
-                                else if (id === 'first-lab') label = t.section6Title;
-                                else if (id === 'troubleshooting') label = t.section7Title;
-                                else if (id === 'cleanup') label = t.section9Title;
-                                else if (id === 'next-steps') label = t.section8Title;
+                    {/* Sidebar Navigation */}
+                    <aside className="sidebar">
+                        {sectionIds.map((id) => {
+                            let label = '';
+                            if (id === 'what-is-docker') label = t.section1Title;
+                            else if (id === 'why-docker-bigdata') label = t.section2Title;
+                            else if (id === 'core-concepts') label = t.section3Title;
+                            else if (id === 'system-requirements') label = t.section4Title;
+                            else if (id === 'installation') label = t.section5Title;
+                            else if (id === 'first-lab') label = t.section6Title;
+                            else if (id === 'troubleshooting') label = t.section7Title;
+                            else if (id === 'cleanup') label = t.section9Title;
+                            else if (id === 'next-steps') label = t.section8Title;
 
-                                return (
-                                    <button
-                                        key={id}
-                                        className={`nav-item w-full text-left ${activeSection === id ? 'active' : ''}`}
-                                        onClick={() => {
-                                            setActiveSection(id);
-                                            document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
-                                        }}
-                                    >
-                                        {label}
-                                    </button>
-                                );
-                            })}
-                        </nav>
+                            return (
+                                <div
+                                    key={id}
+                                    className={`sidebar-item ${activeSection === id ? 'active' : ''}`}
+                                    onClick={() => {
+                                        setActiveSection(id);
+                                        document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+                                    }}
+                                >
+                                    {label}
+                                </div>
+                            );
+                        })}
+                    </aside>
 
-                        {/* Main Content */}
-                        <main className="main-content">
+                    {/* Main Content */}
+                    <main className="main-content">
                             {/* Hero Section */}
                             <div className="hero-section text-white rounded-lg p-8 mb-8" style={{display: 'flex', alignItems: 'center', gap: '2rem'}}>
                                 <div style={{flex: 1}}>
@@ -1727,13 +1516,11 @@
                             </section>
 
                             {/* Footer */}
-                            <footer className="border-t border-gray-200 pt-8 mt-12 pb-8">
-                                <a href="index.html" className="back-link">
-                                    ← {t.backToOverview}
-                                </a>
+                            <footer className="lab-footer">
+                                <p><a href="index.html" style={{color: 'var(--accent)', textDecoration: 'none', fontWeight: 600}}>{'\u2190'} {t.backToOverview}</a></p>
+                                <p>Big Data Lab \u2013 THWS</p>
                             </footer>
                         </main>
-                    </div>
                 </div>
             );
         }
